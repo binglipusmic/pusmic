@@ -27,6 +27,9 @@ class User implements Serializable {
 	String province
 	String unionid
 	//1 -man ,2- women
+
+
+
 	int sex
 
 
