@@ -17,20 +17,43 @@ class User implements Serializable {
 	boolean accountExpired
 	boolean accountLocked
 	boolean passwordExpired
+	//https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID
 
 	//---------------web chat user inof field-------
+	/**
+	 * {
+	 "openid":"OPENID",
+	 "nickname":"NICKNAME",
+	 "sex":1,
+	 "province":"PROVINCE",
+	 "city":"CITY",
+	 "country":"COUNTRY",
+	 "headimgurl": "http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/0",
+	 "privilege":[
+	 "PRIVILEGE1",
+	 "PRIVILEGE2"
+	 ],
+	 "unionid": " o6_bmasdasdsad6_2sgVt7hMZOPfL"
+
+	 }
+     */
 	String city
 	String country
 	String language
 	String nickname
 	String openid
 	String province
+	String headimgurl
 	String unionid
 	//1 -man ,2- women
-
-
-
 	int sex
+
+	String access_token
+	String refresh_token
+
+
+
+
 
 
 
