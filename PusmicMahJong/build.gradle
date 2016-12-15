@@ -49,7 +49,7 @@ dependencies {
     profile "org.grails.profiles:web"
     runtime "com.bertramlabs.plugins:asset-pipeline-grails:2.11.6"
     compile 'org.grails.plugins:spring-security-core:3.1.1'
-    compile 'org.springframework.security.oauth:spring-security-oauth2:2.0.12.RELEASE'
+    //compile 'org.springframework.security.oauth:spring-security-oauth2:2.0.12.RELEASE'
     //runtime "com.h2database:h2"
     //runtime 'org.postgresql:postgresql:9.4-1212-jdbc41'
     runtime "org.postgresql:postgresql:9.4.1208.jre7"
