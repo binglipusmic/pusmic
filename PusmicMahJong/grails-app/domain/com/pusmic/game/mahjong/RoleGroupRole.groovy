@@ -1,4 +1,4 @@
-package com.pusmic.mahjong
+package com.pusmic.game.mahjong
 
 import grails.gorm.DetachedCriteria
 import groovy.transform.ToString

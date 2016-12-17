@@ -1,4 +1,4 @@
-package com.pusmic.mahjong
+package com.pusmic.game.mahjong
 
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString

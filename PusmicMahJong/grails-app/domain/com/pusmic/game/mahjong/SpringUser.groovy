@@ -1,11 +1,12 @@
-package com.pusmic.mahjong
+package com.pusmic.game.mahjong
 
+import com.pusmicgame.game.GameRound
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
 @EqualsAndHashCode(includes='username')
 @ToString(includes='username', includeNames=true, includePackage=false)
-class User implements Serializable {
+class SpringUser implements Serializable {
 
 	private static final long serialVersionUID = 1
 
@@ -17,48 +18,9 @@ class User implements Serializable {
 	boolean accountExpired
 	boolean accountLocked
 	boolean passwordExpired
-	//https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID
 
-	//---------------web chat user inof field-------
-	/**
-	 * {
-	 "openid":"OPENID",
-	 "nickname":"NICKNAME",
-	 "sex":1,
-	 "province":"PROVINCE",
-	 "city":"CITY",
-	 "country":"COUNTRY",
-	 "headimgurl": "http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/0",
-	 "privilege":[
-	 "PRIVILEGE1",
-	 "PRIVILEGE2"
-	 ],
-	 "unionid": " o6_bmasdasdsad6_2sgVt7hMZOPfL"
-
-	 }
-     */
-	String city
-	String country
-	String language
-	String nickname
-	String openid
-	String province
-	String headimgurl
-	String unionid
-	//1 -man ,2- women
-	int sex
-
-	String access_token
-	String refresh_token
-
-
-
-
-
-
-
-	Set<Role> getAuthorities() {
-		UserRole.findAllByUser(this)*.role
+	Set<RoleGroup> getAuthorities() {
+		SpringUserRoleGroup.findAllBySpringUser(this)*.roleGroup
 	}
 
 	def beforeInsert() {
@@ -75,6 +37,7 @@ class User implements Serializable {
 		password = springSecurityService?.passwordEncoder ? springSecurityService.encodePassword(password) : password
 	}
 
+	static hasMany = [gameRound:GameRound]
 	static transients = ['springSecurityService']
 
 	static constraints = {
