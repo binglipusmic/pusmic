@@ -35,6 +35,10 @@ class SpringUser implements Serializable {
    //--------WebChat Oauth field-------------------
 	String access_token
 	String refresh_token
+	String expires_in
+	//this field send from Mobile client
+	String mobileUserCode
+	String mobileUserState
 
 
 
