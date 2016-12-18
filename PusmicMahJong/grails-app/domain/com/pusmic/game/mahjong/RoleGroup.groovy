@@ -12,7 +12,8 @@ class RoleGroup implements Serializable {
 	String name
 
 	Set<Role> getAuthorities() {
-		RoleGroupRole.findAllByRoleGroup(this)*.role
+		//RoleGroupRole.findAllByRoleGroup(this)*.role
+		RoleGroupRole.findAllByRoleGroup(this).collect { it.role } as Set
 	}
 
 	static constraints = {

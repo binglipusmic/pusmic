@@ -68,6 +68,7 @@ class SpringUserRole implements Serializable {
 			if (ur.springUser?.id) {
 				SpringUserRole.withNewSession {
 					if (SpringUserRole.exists(ur.springUser.id, r.id)) {
+
 						return ['userRole.exists']
 					}
 				}

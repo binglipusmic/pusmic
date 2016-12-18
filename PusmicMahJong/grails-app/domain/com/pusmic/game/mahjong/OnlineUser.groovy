@@ -3,8 +3,10 @@ package com.pusmic.game.mahjong
  * online user
  */
 class OnlineUser {
-    String openid
-    String nickName
+    Date loginTime
+    String  gameRoomNumber
+    SpringUser springUser
     static constraints = {
+        gameRoomNumber nullable: true
     }
 }

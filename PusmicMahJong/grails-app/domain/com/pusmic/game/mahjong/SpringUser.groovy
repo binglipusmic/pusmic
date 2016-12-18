@@ -18,9 +18,29 @@ class SpringUser implements Serializable {
 	boolean accountExpired
 	boolean accountLocked
 	boolean passwordExpired
+    //user online status 0, offline 1,online
+    String status="0"
+	//--------WebChat User info  field-----------
 
-	Set<RoleGroup> getAuthorities() {
-		SpringUserRoleGroup.findAllBySpringUser(this)*.roleGroup
+	String city
+	String country
+	String language
+	String nickname
+	String openid
+	String province
+	String headimgurl
+	String unionid
+	//1 -man ,2- women
+	int sex
+   //--------WebChat Oauth field-------------------
+	String access_token
+	String refresh_token
+
+
+
+	Set<Role> getAuthorities() {
+		//SpringUserRole.findAllBySpringUser(this)*.role
+		return SpringUserRole.findAllBySpringUser(this).collect { it.role } as Set
 	}
 
 	def beforeInsert() {
@@ -37,12 +57,14 @@ class SpringUser implements Serializable {
 		password = springSecurityService?.passwordEncoder ? springSecurityService.encodePassword(password) : password
 	}
 
-	static hasMany = [gameRound:GameRound]
+	static hasMany = [gameRound:GameRound,loginUserInfo:LoingUserInfo]
 	static transients = ['springSecurityService']
 
 	static constraints = {
 		password blank: false, password: true
 		username blank: false, unique: true
+        gameRound nullable: true
+        loginUserInfo nullable: true
 	}
 
 	static mapping = {
