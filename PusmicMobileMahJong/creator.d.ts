@@ -50,39 +50,6 @@ declare module cc {
 	@param subst JavaScript objects with which to replace substitution strings within msg. This gives you additional control over the format of the output. 
 	*/
 	export function info(obj : any, subst : any) : void;	
-	export var dragonBonesJson : string;	
-	export var atlasJson : string;	
-	export var texture : Texture2D;	
-	/** !#en
-	Creates the speed action which changes the speed of an action, making it take longer (speed > 1)
-	or less (speed < 1) time. <br/>
-	Useful to simulate 'slow motion' or 'fast forward' effect.
-	!#zh 修改目标动作的速率。
-	
-	@example 
-	```js
-	// change the target action speed;
-	var action = cc.scaleTo(0.2, 1, 0.6);
-	var newAction = cc.speed(action, 0.5);
-	``` 
-	*/
-	export function speed(action : ActionInterval, speed : number) : Action;	
-	/** !#en Create a follow action which makes its target follows another node.
-	!#zh 追踪目标节点的位置。
-	
-	@example 
-	```js
-	// example
-	// creates the action with a set boundary
-	var followAction = cc.follow(targetNode, cc.rect(0, 0, screenWidth * 2 - 100, screenHeight));
-	node.runAction(followAction);
-	
-	// creates the action with no boundary set
-	var followAction = cc.follow(targetNode);
-	node.runAction(followAction);
-	``` 
-	*/
-	export function follow(followedNode : Node, rect : Rect) : Action;	
 	/** Points setter 
 	*/
 	export function setPoints(points : any[]) : void;	
@@ -122,6 +89,36 @@ declare module cc {
 	``` 
 	*/
 	export function catmullRomBy(dt : number, points : any[]) : ActionInterval;	
+	/** !#en
+	Creates the speed action which changes the speed of an action, making it take longer (speed > 1)
+	or less (speed < 1) time. <br/>
+	Useful to simulate 'slow motion' or 'fast forward' effect.
+	!#zh 修改目标动作的速率。
+	
+	@example 
+	```js
+	// change the target action speed;
+	var action = cc.scaleTo(0.2, 1, 0.6);
+	var newAction = cc.speed(action, 0.5);
+	``` 
+	*/
+	export function speed(action : ActionInterval, speed : number) : Action;	
+	/** !#en Create a follow action which makes its target follows another node.
+	!#zh 追踪目标节点的位置。
+	
+	@example 
+	```js
+	// example
+	// creates the action with a set boundary
+	var followAction = cc.follow(targetNode, cc.rect(0, 0, screenWidth * 2 - 100, screenHeight));
+	node.runAction(followAction);
+	
+	// creates the action with no boundary set
+	var followAction = cc.follow(targetNode);
+	node.runAction(followAction);
+	``` 
+	*/
+	export function follow(followedNode : Node, rect : Rect) : Action;	
 	/** !#en
 	Creates the action easing object with the rate parameter. <br />
 	From slow to fast.
@@ -1043,15 +1040,15 @@ declare module cc {
 	!#zh cc.winSize 为当前的游戏窗口的大小。 */
 	export var winSize : Size;	
 	export var game : Game;	
-	/** Finds a node by hierarchy path, the path is case-sensitive.
-	It will traverse the hierarchy by splitting the path using '/' character.
-	This function will still returns the node even if it is inactive.
-	It is recommended to not use this function every frame instead cache the result at startup. 
+	export var dragonBonesJson : string;	
+	export var atlasJson : string;	
+	export var texture : Texture2D;	
+	/** whether enable accelerometer event 
 	*/
-	export function find(path : string, referenceNode? : Node) : Node;	
-	/** Checks whether subclass is child of superclass or equals to superclass 
+	export function setAccelerometerEnabled(isEnable : boolean) : void;	
+	/** set accelerometer interval value 
 	*/
-	export function isChildClassOf(subclass : Function, superclass : Function) : boolean;	
+	export function setAccelerometerInterval(interval : number) : void;	
 	/** !#en Defines a CCClass using the given specification, please see [Class](/en/scripting/class/) for details.
 	!#zh 定义一个 CCClass，传入参数必须是一个包含类型参数的字面量对象，具体用法请查阅[类型定义](/zh/scripting/class/)。
 	
@@ -1103,15 +1100,12 @@ declare module cc {
 	``` 
 	*/
 	export function Class(options : { name?; extends?; ctor?; properties?; statics?; mixins?; editor? : { requireComponent? : Component; disallowMultiple? : Component; menu? : string; executeInEditMode? : boolean; playOnFocus? : boolean; inspector? : string; icon? : string; help? : string; } ; update?; lateUpdate?; onLoad?; start?; onEnable?; onDisable?; onDestroy?; onFocusInEditor?; onLostFocusInEditor?; resetInEditor?; onRestore?; _getLocalBounds?; }) : Function;	
+	/** Checks whether subclass is child of superclass or equals to superclass 
+	*/
+	export function isChildClassOf(subclass : Function, superclass : Function) : boolean;	
 	/** Return all super classes 
 	*/
 	export function getInheritanceChain(constructor : Function) : Function[];	
-	/** whether enable accelerometer event 
-	*/
-	export function setAccelerometerEnabled(isEnable : boolean) : void;	
-	/** set accelerometer interval value 
-	*/
-	export function setAccelerometerInterval(interval : number) : void;	
 	/** !#en Checks whether the object is non-nil and not yet destroyed.
 	!#zh 检查该对象是否不为 null 并且尚未销毁。
 	
@@ -1152,6 +1146,12 @@ declare module cc {
 	@param original An existing object that you want to make a copy of. 
 	*/
 	export function instantiate(original : any) : any;	
+	/** Finds a node by hierarchy path, the path is case-sensitive.
+	It will traverse the hierarchy by splitting the path using '/' character.
+	This function will still returns the node even if it is inactive.
+	It is recommended to not use this function every frame instead cache the result at startup. 
+	*/
+	export function find(path : string, referenceNode? : Node) : Node;	
 	/** !#en
 	The convenience method to create a new {{#crossLink "Color/Color:method"}}cc.Color{{/crossLink}}
 	Alpha channel is optional. Default value is 255.
@@ -1881,234 +1881,255 @@ declare module cc {
 		WARN_FOR_WEB_PAGE = 0,
 		ERROR_FOR_WEB_PAGE = 0,	
 	}		
-		/** !#en
-		 cc.NodePool is the cache pool designed for node type.<br/>
-		 It can helps you to improve your game performance for objects which need frequent release and recreate operations<br/>
-		
-		It's recommended to create cc.NodePool instances by node type, the type corresponds to node type in game design, not the class,
-		for example, a prefab is a specific node type. <br/>
-		When you create a node pool, you can pass a Component which contains `unuse`, `reuse` functions to control the content of node.<br/>
-		
-		Some common use case is :<br/>
-		     1. Bullets in game (die very soon, massive creation and recreation, no side effect on other objects)<br/>
-		     2. Blocks in candy crash (massive creation and recreation)<br/>
-		     etc...
+		/** !#en cc.audioEngine is the singleton object, it provide simple audio APIs.
 		!#zh
-		cc.NodePool 是用于管理节点对象的对象缓存池。<br/>
-		它可以帮助您提高游戏性能，适用于优化对象的反复创建和销毁<br/>
-		以前 cocos2d-x 中的 cc.pool 和新的节点事件注册系统不兼容，因此请使用 cc.NodePool 来代替。
-		
-		新的 NodePool 需要实例化之后才能使用，每种不同的节点对象池需要一个不同的对象池实例，这里的种类对应于游戏中的节点设计，一个 prefab 相当于一个种类的节点。<br/>
-		在创建缓冲池时，可以传入一个包含 unuse, reuse 函数的组件类型用于节点的回收和复用逻辑。<br/>
-		
-		一些常见的用例是：<br/>
-		     1.在游戏中的子弹（死亡很快，频繁创建，对其他对象无副作用）<br/>
-		     2.糖果粉碎传奇中的木块（频繁创建）。
-		     等等.... */
-		export class NodePool {		
-		/** !#en
-		Constructor for creating a pool for a specific node template (usually a prefab). You can pass a component (type or name) argument for handling event for reusing and recycling node.
-		!#zh
-		使用构造函数来创建一个节点专用的对象池，您可以传递一个组件类型或名称，用于处理节点回收和复用时的事件逻辑。
-		@param poolHandlerComp !#en The constructor or the class name of the component to control the unuse/reuse logic. !#zh 处理节点回收和复用事件逻辑的组件类型或名称。
+		cc.audioengine是单例对象。<br/>
+		主要用来播放音频，播放的时候会返回一个 audioID，之后都可以通过这个 audioID 来操作这个音频对象。<br/>
+		不使用的时候，请使用 cc.audioEngine.uncache(filePath); 进行资源释放 <br/>
+		注意：<br/>
+		在 Android 系统浏览器上，不同浏览器，不同版本的效果不尽相同。<br/>
+		比如说：大多数浏览器都需要用户物理交互才可以开始播放音效，有一些不支持 WebAudio，<br/>
+		有一些不支持多音轨播放。总之如果对音乐依赖比较强，请做尽可能多的测试。 */
+		export class audioEngine {		
+		/** !#en Play audio.
+		!#zh 播放音频
+		@param filePath The path of the audio file without filename extension.
+		@param loop Whether the music loop or not.
+		@param volume Volume size.
 		
 		@example 
 		```js
-		properties: {
-		   template: cc.Prefab
-		 },
-		 onLoad () {
-		// MyTemplateHandler is a component with 'unuse' and 'reuse' to handle events when node is reused or recycled.
-		   this.myPool = new cc.NodePool('MyTemplateHandler');
-		 }
+		//example
+		var audioID = cc.audioEngine.play(path, false, 0.5);
 		``` 
 		*/
-		NodePool(poolHandlerComp : [Function|String]) : void;		
-		/** !#en The pool handler component, it could be the class name or the constructor.
-		!#zh 缓冲池处理组件，用于节点的回收和复用逻辑，这个属性可以是组件类名或组件的构造函数。 */
-		poolHandlerComp : Function|string;		
-		/** !#en The current available size in the pool
-		!#zh 获取当前缓冲池的可用对象数量 
-		*/
-		size() : void;		
-		/** !#en Destroy all cached nodes in the pool
-		!#zh 销毁对象池中缓存的所有节点 
-		*/
-		clear() : void;		
-		/** !#en Put a new Node into the pool.
-		It will automatically remove the node from its parent without cleanup.
-		It will also invoke unuse method of the poolHandlerComp if exist.
-		!#zh 向缓冲池中存入一个不再需要的节点对象。
-		这个函数会自动将目标节点从父节点上移除，但是不会进行 cleanup 操作。
-		这个函数会调用 poolHandlerComp 的 unuse 函数，如果组件和函数都存在的话。
+		play(filePath : string, loop : boolean, volume : number) : number;		
+		/** !#en Set audio loop.
+		!#zh 设置音频是否循环。
+		@param audioID audio id.
+		@param loop Whether cycle.
 		
 		@example 
 		```js
-		let myNode = cc.instantiate(this.template);
-		  this.myPool.put(myNode);
+		//example
+		cc.audioEngine.setLoop(id, true);
 		``` 
 		*/
-		put() : void;		
-		/** !#en Get a obj from pool, if no available object in pool, null will be returned.
-		This function will invoke the reuse function of poolHandlerComp if exist.
-		!#zh 获取对象池中的对象，如果对象池没有可用对象，则返回空。
-		这个函数会调用 poolHandlerComp 的 reuse 函数，如果组件和函数都存在的话。
-		@param params !#en Params to pass to 'reuse' method in poolHandlerComp !#zh 向 poolHandlerComp 中的 'reuse' 函数传递的参数
+		setLoop(audioID : number, loop : boolean) : void;		
+		/** !#en Get audio cycle state.
+		!#zh 获取音频的循环状态。
+		@param audioID audio id.
 		
 		@example 
 		```js
-		let newNode = this.myPool.get();
+		//example
+		cc.audioEngine.isLoop(id);
 		``` 
 		*/
-		get(params : any) : any;	
-	}		
-		/** !#en
-		 Attention: In creator, it's strongly not recommended to use cc.pool to manager cc.Node.
-		 We provided {{#crossLink "NodePool"}}cc.NodePool{{/crossLink}} instead.
-		
-		 cc.pool is a singleton object serves as an object cache pool.<br/>
-		 It can helps you to improve your game performance for objects which need frequent release and recreate operations<br/>
-		!#zh
-		首先请注意，在 Creator 中我们强烈不建议使用 cc.pool 来管理 cc.Node 节点对象，请使用 {{#crossLink "NodePool"}}cc.NodePool{{/crossLink}} 代替
-		因为 cc.pool 是面向类来设计的，而 cc.Node 中使用 Component 来进行组合，它的类永远都一样，实际却千差万别。
-		
-		cc.pool 是一个单例对象，用作为对象缓存池。<br/>
-		它可以帮助您提高游戏性能，适用于优化对象的反复创建和销毁<br/> */
-		export class pool {		
-		/** !#en Put the obj in pool.
-		!#zh 加入对象到对象池中。
-		@param obj The need put in pool object.
+		isLoop(audioID : number) : boolean;		
+		/** !#en Set the volume of audio.
+		!#zh 设置音量（0.0 ~ 1.0）。
+		@param audioID audio id.
+		@param volume Volume must be in 0.0~1.0 .
 		
 		@example 
 		```js
-		---------------------------------
-		var sp = new _ccsg.Sprite("a.png");
-		this.addChild(sp);
-		cc.pool.putInPool(sp);
-		cc.pool.getFromPool(_ccsg.Sprite, "a.png");
-		
+		//example
+		cc.audioEngine.setVolume(id, 0.5);
 		``` 
 		*/
-		putInPool(obj : any) : void;		
-		/** !#en Check if this kind of obj has already in pool.
-		!#zh 检查对象池中是否有指定对象的存在。
-		@param objClass The check object class. 
+		setVolume(audioID : number, volume : number) : void;		
+		/** !#en The volume of the music max value is 1.0,the min value is 0.0 .
+		!#zh 获取音量（0.0 ~ 1.0）。
+		@param audioID audio id.
+		
+		@example 
+		```js
+		//example
+		var volume = cc.audioEngine.getVolume(id);
+		``` 
 		*/
-		hasObject(objClass : any) : boolean;		
-		/** !#en Remove the obj if you want to delete it.
-		!#zh 移除在对象池中指定的对象。 
+		getVolume(audioID : number) : boolean;		
+		/** !#en Set current time
+		!#zh 设置当前的音频时间。
+		@param audioID audio id.
+		@param sec current time.
+		
+		@example 
+		```js
+		//example
+		cc.audioEngine.setCurrentTime(id, 2);
+		``` 
 		*/
-		removeObject() : void;		
-		/** !#en Get the obj from pool.
-		!#zh 获取对象池中的指定对象。 
+		setCurrentTime(audioID : number, sec : number) : boolean;		
+		/** !#en Get current time
+		!#zh 获取当前的音频播放时间。
+		@param audioID audio id.
+		
+		@example 
+		```js
+		//example
+		var time = cc.audioEngine.getCurrentTime(id);
+		``` 
 		*/
-		getFromPool() : any;		
-		/** !#en Remove all objs in pool and reset the pool.
-		!#zh 移除对象池中的所有对象，并且重置对象池。 
+		getCurrentTime(audioID : number) : number;		
+		/** !#en Get audio duration
+		!#zh 获取音频总时长。
+		@param audioID audio id.
+		
+		@example 
+		```js
+		//example
+		var time = cc.audioEngine.getDuration(id);
+		``` 
 		*/
-		drainAllPools() : void;	
-	}		
-		/** !#en
-		The Armature Display of DragonBones <br/>
-		<br/>
-		(Armature Display has a reference to a DragonBonesAsset and stores the state for ArmatureDisplay instance,
-		which consists of the current pose's bone SRT, slot colors, and which slot attachments are visible. <br/>
-		Multiple Armature Display can use the same DragonBonesAsset which includes all animations, skins, and attachments.) <br/>
-		!#zh
-		DragonBones 骨骼动画 <br/>
-		<br/>
-		(Armature Display 具有对骨骼数据的引用并且存储了骨骼实例的状态，
-		它由当前的骨骼动作，slot 颜色，和可见的 slot attachments 组成。<br/>
-		多个 Armature Display 可以使用相同的骨骼数据，其中包括所有的动画，皮肤和 attachments。)<br/> */
-		export class ArmatureDisplay extends _RendererUnderSG {		
-		/** !#en
-		The DragonBones data contains the armatures information (bind pose bones, slots, draw order,
-		attachments, skins, etc) and animations but does not hold any state.<br/>
-		Multiple ArmatureDisplay can share the same DragonBones data.
-		!#zh
-		骨骼数据包含了骨骼信息（绑定骨骼动作，slots，渲染顺序，
-		attachments，皮肤等等）和动画但不持有任何状态。<br/>
-		多个 ArmatureDisplay 可以共用相同的骨骼数据。 */
-		dragonAsset : DragonBonesAsset;		
-		/** !#en
-		The atlas asset for the DragonBones.
-		!#zh
-		骨骼数据所需的 Atlas Texture 数据。 */
-		dragonAtlasAsset : DragonBonesAtlasAsset;		
-		/** !#en The name of current armature.
-		!#zh 当前的 Armature 名称。 */
-		armatureName : string;		
-		/** !#en The name of current playing animation.
-		!#zh 当前播放的动画名称。 */
-		animationName : string;		
-		_defaultArmatureIndex : number;		
-		/** !#en The time scale of this armature.
-		!#zh 当前骨骼中所有动画的时间缩放率。 */
-		timeScale : number;		
-		/** !#en The play times of the default animation.
-		     -1 means using the value of config file;
-		     0 means repeat for ever
-		     >0 means repeat times
-		!#zh 播放默认动画的循环次数
-		     -1 表示使用配置文件中的默认值;
-		     0 表示无限循环
-		     >0 表示循环次数 */
-		playTimes : number;		
-		/** !#en Indicates whether open debug bones.
-		!#zh 是否显示 bone 的 debug 信息。 */
-		debugBones : boolean;		
-		/** !#en
-		Play the specified animation.
-		Parameter animName specify the animation name.
-		Parameter playTimes specify the repeat times of the animation.
-		-1 means use the value of the config file.
-		0 means play the animation for ever.
-		>0 means repeat times.
-		!#zh
-		播放指定的动画.
-		animName 指定播放动画的名称。
-		playTimes 指定播放动画的次数。
-		-1 为使用配置文件中的次数。
-		0 为无限循环播放。
-		>0 为动画的重复次数。 
+		getDuration(audioID : number) : number;		
+		/** !#en Get audio state
+		!#zh 获取音频状态。
+		@param audioID audio id.
+		
+		@example 
+		```js
+		//example
+		var state = cc.audioEngine.getState(id);
+		``` 
 		*/
-		playAnimation(animName : string, playTimes : number) : dragonBones.AnimationState;		
-		/** !#en
-		Get the all armature names in the DragonBones Data.
-		!#zh
-		获取 DragonBones 数据中所有的 armature 名称 
+		getState(audioID : number) : audioEngine.AudioState;		
+		/** !#en Get audio state
+		!#zh 获取音频状态。
+		@param audioID audio id.
+		@param callback loaded callback.
+		
+		@example 
+		```js
+		//example
+		cc.audioEngine.setFinishCallback(id, function () {});
+		``` 
 		*/
-		getArmatureNames() : any[];		
-		/** !#en
-		Get the all animation names of specified armature.
-		!#zh
-		获取指定的 armature 的所有动画名称。 
+		getState(audioID : number, callback : Function) : void;		
+		/** !#en Pause playing audio.
+		!#zh 暂停正在播放音频。
+		@param audioID The return value of function play.
+		
+		@example 
+		```js
+		//example
+		cc.audioEngine.pause(audioID);
+		``` 
 		*/
-		getAnimationNames(armatureName : string) : any[];		
-		/** !#en
-		Add event listener for the DragonBones Event.
-		!#zh
-		添加 DragonBones 事件监听器。 
+		pause(audioID : number) : void;		
+		/** !#en Pause all playing audio
+		!#zh 暂停现在正在播放的所有音频。
+		
+		@example 
+		```js
+		//example
+		cc.audioEngine.pauseAll();
+		``` 
 		*/
-		addEventListener(eventType : dragonBones.EventObject, listener : Function, target : any) : void;		
-		/** !#en
-		Remove the event listener for the DragonBones Event.
-		!#zh
-		移除 DragonBones 事件监听器。 
+		pauseAll() : void;		
+		/** !#en Resume playing audio.
+		!#zh 恢复播放指定的音频。
+		@param audioID The return value of function play.
+		//example
+		cc.audioEngine.resume(audioID); 
 		*/
-		removeEventListener(eventType : dragonBones.EventObject, listener : Function, target : any) : void;		
-		/** !#en
-		Build the armature for specified name.
-		!#zh
-		构建指定名称的 armature 对象 
+		resume(audioID : number) : void;		
+		/** !#en Resume all playing audio.
+		!#zh 恢复播放所有之前暂停的所有音频。
+		
+		@example 
+		```js
+		//example
+		cc.audioEngine.resumeAll();
+		``` 
 		*/
-		buildArmature(armatureName : string) : dragonBones.Armature;		
-		/** !#en
-		Get the current armature object of the ArmatureDisplay.
-		!#zh
-		获取 ArmatureDisplay 当前使用的 Armature 对象 
+		resumeAll() : void;		
+		/** !#en Stop playing audio.
+		!#zh 停止播放指定音频。
+		@param audioID The return value of function play.
+		
+		@example 
+		```js
+		//example
+		cc.audioEngine.stop(audioID);
+		``` 
 		*/
-		armature() : any;	
+		stop(audioID : number) : void;		
+		/** !#en Stop all playing audio.
+		!#zh 停止正在播放的所有音频。
+		
+		@example 
+		```js
+		//example
+		cc.audioEngine.stopAll();
+		``` 
+		*/
+		stopAll() : void;		
+		/** !#en Set up an audio can generate a few examples.
+		!#zh 设置一个音频可以设置几个实例
+		@param num a number of instances to be created from within an audio
+		
+		@example 
+		```js
+		//example
+		cc.audioEngine.setMaxAudioInstance(20);
+		``` 
+		*/
+		setMaxAudioInstance(num : number) : void;		
+		/** !#en Getting audio can produce several examples.
+		!#zh 获取一个音频可以设置几个实例
+		
+		@example 
+		```js
+		//example
+		cc.audioEngine.getMaxAudioInstance();
+		``` 
+		*/
+		getMaxAudioInstance() : number;		
+		/** !#en Unload the preloaded audio from internal buffer.
+		!#zh 卸载预加载的音频。
+		
+		@example 
+		```js
+		//example
+		cc.audioEngine.uncache(filePath);
+		``` 
+		*/
+		uncache(filePath : string) : void;		
+		/** !#en Unload all audio from internal buffer.
+		!#zh 卸载所有音频。
+		
+		@example 
+		```js
+		//example
+		cc.audioEngine.uncacheAll();
+		``` 
+		*/
+		uncacheAll() : void;		
+		/** !#en Preload audio file.
+		!#zh 预加载一个音频
+		@param filePath The file path of an audio.
+		@param callback The callback of an audio.
+		
+		@example 
+		```js
+		//example
+		cc.audioEngine.preload(path);
+		``` 
+		*/
+		preload(filePath : void, callback : void) : void;		
+		/** !#en Set a size, the unit is KB，Over this size is directly resolved into DOM nodes
+		!#zh 设置一个以kb为单位的尺寸，大于这个尺寸的音频在加载的时候会强制使用 dom 方式加载
+		@param kb The file path of an audio.
+		
+		@example 
+		```js
+		//example
+		cc.audioEngine.setMaxWebAudioSize(300);
+		``` 
+		*/
+		setMaxWebAudioSize(kb : void) : void;	
 	}		
 		/** !#en Base class cc.Action for action classes.
 		!#zh Action 类是所有动作类型的基类。 */
@@ -2220,8 +2241,8 @@ declare module cc {
 		
 		@example 
 		
-		action.easeing(cc.easeIn(3.0));,```js
-		action.easeing(cc.easeIn(3.0));
+		action.easing(cc.easeIn(3.0));,```js
+		action.easing(cc.easeIn(3.0));
 		``` 
 		*/
 		easing(easeObj : any) : ActionInterval;		
@@ -2237,6 +2258,135 @@ declare module cc {
 		!#zh 永远地重复一个动作，有限次数内重复一个动作请使用 Repeat 动作。 
 		*/
 		repeatForever() : ActionInterval;	
+	}		
+		/** !#en Class for animation data handling.
+		!#zh 动画剪辑，用于存储动画数据。 */
+		export class AnimationClip extends Asset {		
+		/** !#en Duration of this animation.
+		!#zh 动画的持续时间。 */
+		duration : number;		
+		/** !#en FrameRate of this animation.
+		!#zh 动画的帧速率。 */
+		sample : number;		
+		/** !#en Speed of this animation.
+		!#zh 动画的播放速度。 */
+		speed : number;		
+		/** !#en WrapMode of this animation.
+		!#zh 动画的循环模式。 */
+		wrapMode : WrapMode;		
+		/** !#en Curve data.
+		!#zh 曲线数据。 */
+		curveData : any;		
+		/** !#en Event data.
+		!#zh 事件数据。 */
+		events : any[];		
+		/** !#en Crate clip with a set of sprite frames
+		!#zh 使用一组序列帧图片来创建动画剪辑
+		
+		@example 
+		```js
+		var clip = cc.AnimationClip.createWithSpriteFrames(spriteFrames, 10);
+		``` 
+		*/
+		createWithSpriteFrames(spriteFrames : [SpriteFrame], sample : number) : AnimationClip;	
+	}		
+		/** !#en
+		The AnimationState gives full control over animation playback process.
+		In most cases the Animation Component is sufficient and easier to use. Use the AnimationState if you need full control.
+		!#zh
+		AnimationState 完全控制动画播放过程。<br/>
+		大多数情况下 动画组件 是足够和易于使用的。如果您需要更多的动画控制接口，请使用 AnimationState。 */
+		export class AnimationState extends AnimationNode {		
+		/**  
+		*/
+		AnimationState(clip : AnimationClip, name? : string) : AnimationState;		
+		/** !#en The clip that is being played by this animation state.
+		!#zh 此动画状态正在播放的剪辑。 */
+		clip : AnimationClip;		
+		/** !#en The name of the playing animation.
+		!#zh 动画的名字 */
+		name : string;	
+	}		
+		/** undefined */
+		export class Playable {		
+		/** !#en Is playing or paused in play mode?
+		!#zh 当前是否正在播放。 */
+		isPlaying : boolean;		
+		/** !#en Is currently paused? This can be true even if in edit mode(isPlaying == false).
+		!#zh 当前是否正在暂停 */
+		isPaused : boolean;		
+		/** !#en Play this animation.
+		!#zh 播放动画。 
+		*/
+		play() : void;		
+		/** !#en Stop this animation.
+		!#zh 停止动画播放。 
+		*/
+		stop() : void;		
+		/** !#en Pause this animation.
+		!#zh 暂停动画。 
+		*/
+		pause() : void;		
+		/** !#en Resume this animation.
+		!#zh 重新播放动画。 
+		*/
+		resume() : void;		
+		/** !#en Perform a single frame step.
+		!#zh 执行一帧动画。 
+		*/
+		step() : void;	
+	}	
+	/** !#en Specifies how time is treated when it is outside of the keyframe range of an Animation.
+	!#zh 动画使用的循环模式。 */
+	export enum WrapMode {		
+		Default = 0,
+		Normal = 0,
+		Reverse = 0,
+		Loop = 0,
+		LoopReverse = 0,
+		PingPong = 0,
+		PingPongReverse = 0,	
+	}		
+		/** !#en The abstract interface for all playing animation.
+		!#zh 所有播放动画的抽象接口。 */
+		export class AnimationNodeBase extends Playable {	
+	}		
+		/** !#en The collection and instance of playing animations.
+		!#zh 动画曲线的集合，根据当前时间计算出每条曲线的状态。 */
+		export class AnimationNode extends AnimationNodeBase {		
+		/** !#en The curves list.
+		!#zh 曲线列表。 */
+		curves : AnimCurve[];		
+		/** !#en The start delay which represents the number of seconds from an animation's start time to the start of
+		the active interval.
+		!#zh 延迟多少秒播放。 */
+		delay : number;		
+		/** !#en The animation's iteration count property.
+		
+		A real number greater than or equal to zero (including positive infinity) representing the number of times
+		to repeat the animation node.
+		
+		Values less than zero and NaN values are treated as the value 1.0 for the purpose of timing model
+		calculations.
+		
+		!#zh 迭代次数，指动画播放多少次后结束, normalize time。 如 2.5（2次半） */
+		repeatCount : number;		
+		/** !#en The iteration duration of this animation in seconds. (length)
+		!#zh 单次动画的持续时间，秒。 */
+		duration : number;		
+		/** !#en The animation's playback speed. 1 is normal playback speed.
+		!#zh 播放速率。 */
+		speed : number;		
+		/** !#en
+		Wrapping mode of the playing animation.
+		Notice : dynamic change wrapMode will reset time and repeatCount property
+		!#zh
+		动画循环方式。
+		需要注意的是，动态修改 wrapMode 时，会重置 time 以及 repeatCount */
+		wrapMode : WrapMode;		
+		/** !#en The current time of this animation in seconds.
+		!#zh 动画当前的时间，秒。 */
+		time : number;	
 	}		
 		/** !#en
 		cc.ActionManager is a class that can manage actions.<br/>
@@ -2337,6 +2487,152 @@ declare module cc {
 		@param dt delta time in seconds 
 		*/
 		update(dt : number) : void;	
+	}		
+		/** !#en cc.game is the singleton object for game related functions.
+		!#zh cc.game 是 Game 的实例，用来驱动整个游戏。 */
+		export class Game {		
+		/** Event triggered when game hide to background.
+		Please note that this event is not 100% guaranteed to be fired. */
+		EVENT_HIDE : string;		
+		/** Event triggered when game back to foreground
+		Please note that this event is not 100% guaranteed to be fired. */
+		EVENT_SHOW : string;		
+		/** Event triggered after game inited, at this point all engine objects and game scripts are loaded */
+		EVENT_GAME_INITED : string;		
+		/** Event triggered after renderer inited, at this point you will be able to use the render context */
+		EVENT_RENDERER_INITED : string;		
+		/** Key of config */
+		CONFIG_KEY : any;		
+		/** !#en The outer frame of the game canvas, parent of cc.container.
+		!#zh 游戏画布的外框，cc.container 的父类。 */
+		frame : any;		
+		/** !#en The container of game canvas, equals to cc.container.
+		!#zh 游戏画布的容器。 */
+		container : any;		
+		/** !#en The canvas of the game, equals to cc._canvas.
+		!#zh 游戏的画布。 */
+		canvas : any;		
+		/** !#en
+		The current game configuration, including:<br/>
+		1. debugMode<br/>
+		     "debugMode" possible values :<br/>
+		     0 - No message will be printed.                                                      <br/>
+		     1 - cc.error, cc.assert, cc.warn, cc.log will print in console.                      <br/>
+		     2 - cc.error, cc.assert, cc.warn will print in console.                              <br/>
+		     3 - cc.error, cc.assert will print in console.                                       <br/>
+		     4 - cc.error, cc.assert, cc.warn, cc.log will print on canvas, available only on web.<br/>
+		     5 - cc.error, cc.assert, cc.warn will print on canvas, available only on web.        <br/>
+		     6 - cc.error, cc.assert will print on canvas, available only on web.                 <br/>
+		2. showFPS<br/>
+		     Left bottom corner fps information will show when "showFPS" equals true, otherwise it will be hide.<br/>
+		3. frameRate<br/>
+		     "frameRate" set the wanted frame rate for your game, but the real fps depends on your game implementation and the running environment.<br/>
+		4. id<br/>
+		     "gameCanvas" sets the id of your canvas element on the web page, it's useful only on web.<br/>
+		5. renderMode<br/>
+		     "renderMode" sets the renderer type, only useful on web :<br/>
+		     0 - Automatically chosen by engine<br/>
+		     1 - Forced to use canvas renderer<br/>
+		     2 - Forced to use WebGL renderer, but this will be ignored on mobile browsers<br/>
+		6. scenes<br/>
+		     "scenes" include available scenes in the current bundle.<br/>
+		<br/>
+		Please DO NOT modify this object directly, it won't have any effect.<br/>
+		!#zh
+		当前的游戏配置，包括：                                                                  <br/>
+		1. debugMode（debug 模式，但是在浏览器中这个选项会被忽略）                                <br/>
+		     "debugMode" 各种设置选项的意义。                                                   <br/>
+		         0 - 没有消息被打印出来。                                                       <br/>
+		         1 - cc.error，cc.assert，cc.warn，cc.log 将打印在 console 中。                  <br/>
+		         2 - cc.error，cc.assert，cc.warn 将打印在 console 中。                          <br/>
+		         3 - cc.error，cc.assert 将打印在 console 中。                                   <br/>
+		         4 - cc.error，cc.assert，cc.warn，cc.log 将打印在 canvas 中（仅适用于 web 端）。 <br/>
+		         5 - cc.error，cc.assert，cc.warn 将打印在 canvas 中（仅适用于 web 端）。         <br/>
+		         6 - cc.error，cc.assert 将打印在 canvas 中（仅适用于 web 端）。                  <br/>
+		2. showFPS（显示 FPS）                                                            <br/>
+		     当 showFPS 为 true 的时候界面的左下角将显示 fps 的信息，否则被隐藏。              <br/>
+		3. frameRate (帧率)                                                              <br/>
+		     “frameRate” 设置想要的帧率你的游戏，但真正的FPS取决于你的游戏实现和运行环境。      <br/>
+		4. id                                                                            <br/>
+		     "gameCanvas" Web 页面上的 Canvas Element ID，仅适用于 web 端。                         <br/>
+		5. renderMode（渲染模式）                                                         <br/>
+		     “renderMode” 设置渲染器类型，仅适用于 web 端：                              <br/>
+		         0 - 通过引擎自动选择。                                                     <br/>
+		         1 - 强制使用 canvas 渲染。
+		         2 - 强制使用 WebGL 渲染，但是在部分 Android 浏览器中这个选项会被忽略。     <br/>
+		6. scenes                                                                         <br/>
+		     “scenes” 当前包中可用场景。                                                   <br/>
+		<br/>
+		注意：请不要直接修改这个对象，它不会有任何效果。 */
+		config : any;		
+		/** !#en Callback when the scripts of engine have been load.
+		!#zh 当引擎完成启动后的回调函数。 
+		*/
+		onStart() : void;		
+		/** !#en Callback when game exits.
+		!#zh 当游戏结束后的回调函数。 
+		*/
+		onStop() : void;		
+		/** !#en Set frameRate of game.
+		!#zh 设置游戏帧率。 
+		*/
+		setFrameRate(frameRate : number) : void;		
+		/** !#en Run the game frame by frame.
+		!#zh 执行一帧游戏循环。 
+		*/
+		step() : void;		
+		/** !#en Pause the game main loop. This will pause:
+		game logic execution, rendering process, event manager, background music and all audio effects.
+		This is different with cc.director.pause which only pause the game logic execution.
+		!#zh 暂停游戏主循环。包含：游戏逻辑，渲染，事件处理，背景音乐和所有音效。这点和只暂停游戏逻辑的 cc.director.pause 不同。 
+		*/
+		pause() : void;		
+		/** !#en Resume the game from pause. This will resume:
+		game logic execution, rendering process, event manager, background music and all audio effects.
+		!#zh 恢复游戏主循环。包含：游戏逻辑，渲染，事件处理，背景音乐和所有音效。 
+		*/
+		resume() : void;		
+		/** !#en Check whether the game is paused.
+		!#zh 判断游戏是否暂停。 
+		*/
+		isPaused() : boolean;		
+		/** !#en Restart game.
+		!#zh 重新开始游戏 
+		*/
+		restart() : void;		
+		/** !#en End game, it will close the game window
+		!#zh 退出游戏 
+		*/
+		end() : void;		
+		/** !#en Prepare game.
+		!#zh 准备引擎，请不要直接调用这个函数。 
+		*/
+		prepare(cb : Function) : void;		
+		/** !#en Run game with configuration object and onStart function.
+		!#zh 运行游戏，并且指定引擎配置和 onStart 的回调。
+		@param config Pass configuration object or onStart function
+		@param onStart function to be executed after game initialized 
+		*/
+		run(config? : any|Function, onStart? : Function) : void;		
+		/** !#en
+		Add a persistent root node to the game, the persistent node won't be destroyed during scene transition.<br/>
+		The target node must be placed in the root level of hierarchy, otherwise this API won't have any effect.
+		!#zh
+		声明常驻根节点，该节点不会被在场景切换中被销毁。<br/>
+		目标节点必须位于为层级的根节点，否则无效。
+		@param node The node to be made persistent 
+		*/
+		addPersistRootNode(node : Node) : void;		
+		/** !#en Remove a persistent root node.
+		!#zh 取消常驻根节点。
+		@param node The node to be removed from persistent node list 
+		*/
+		removePersistRootNode(node : Node) : void;		
+		/** !#en Check whether the node is a persistent root node.
+		!#zh 检查节点是否是常驻根节点。
+		@param node The node to be checked 
+		*/
+		isPersistRootNode(node : Node) : boolean;	
 	}		
 		/** !#en
 		<p>
@@ -2585,152 +2881,6 @@ declare module cc {
 		!#zh 获取上一帧的 “delta time”。 
 		*/
 		getDeltaTime() : number;	
-	}		
-		/** !#en cc.game is the singleton object for game related functions.
-		!#zh cc.game 是 Game 的实例，用来驱动整个游戏。 */
-		export class Game {		
-		/** Event triggered when game hide to background.
-		Please note that this event is not 100% guaranteed to be fired. */
-		EVENT_HIDE : string;		
-		/** Event triggered when game back to foreground
-		Please note that this event is not 100% guaranteed to be fired. */
-		EVENT_SHOW : string;		
-		/** Event triggered after game inited, at this point all engine objects and game scripts are loaded */
-		EVENT_GAME_INITED : string;		
-		/** Event triggered after renderer inited, at this point you will be able to use the render context */
-		EVENT_RENDERER_INITED : string;		
-		/** Key of config */
-		CONFIG_KEY : any;		
-		/** !#en The outer frame of the game canvas, parent of cc.container.
-		!#zh 游戏画布的外框，cc.container 的父类。 */
-		frame : any;		
-		/** !#en The container of game canvas, equals to cc.container.
-		!#zh 游戏画布的容器。 */
-		container : any;		
-		/** !#en The canvas of the game, equals to cc._canvas.
-		!#zh 游戏的画布。 */
-		canvas : any;		
-		/** !#en
-		The current game configuration, including:<br/>
-		1. debugMode<br/>
-		     "debugMode" possible values :<br/>
-		     0 - No message will be printed.                                                      <br/>
-		     1 - cc.error, cc.assert, cc.warn, cc.log will print in console.                      <br/>
-		     2 - cc.error, cc.assert, cc.warn will print in console.                              <br/>
-		     3 - cc.error, cc.assert will print in console.                                       <br/>
-		     4 - cc.error, cc.assert, cc.warn, cc.log will print on canvas, available only on web.<br/>
-		     5 - cc.error, cc.assert, cc.warn will print on canvas, available only on web.        <br/>
-		     6 - cc.error, cc.assert will print on canvas, available only on web.                 <br/>
-		2. showFPS<br/>
-		     Left bottom corner fps information will show when "showFPS" equals true, otherwise it will be hide.<br/>
-		3. frameRate<br/>
-		     "frameRate" set the wanted frame rate for your game, but the real fps depends on your game implementation and the running environment.<br/>
-		4. id<br/>
-		     "gameCanvas" sets the id of your canvas element on the web page, it's useful only on web.<br/>
-		5. renderMode<br/>
-		     "renderMode" sets the renderer type, only useful on web :<br/>
-		     0 - Automatically chosen by engine<br/>
-		     1 - Forced to use canvas renderer<br/>
-		     2 - Forced to use WebGL renderer, but this will be ignored on mobile browsers<br/>
-		6. scenes<br/>
-		     "scenes" include available scenes in the current bundle.<br/>
-		<br/>
-		Please DO NOT modify this object directly, it won't have any effect.<br/>
-		!#zh
-		当前的游戏配置，包括：                                                                  <br/>
-		1. debugMode（debug 模式，但是在浏览器中这个选项会被忽略）                                <br/>
-		     "debugMode" 各种设置选项的意义。                                                   <br/>
-		         0 - 没有消息被打印出来。                                                       <br/>
-		         1 - cc.error，cc.assert，cc.warn，cc.log 将打印在 console 中。                  <br/>
-		         2 - cc.error，cc.assert，cc.warn 将打印在 console 中。                          <br/>
-		         3 - cc.error，cc.assert 将打印在 console 中。                                   <br/>
-		         4 - cc.error，cc.assert，cc.warn，cc.log 将打印在 canvas 中（仅适用于 web 端）。 <br/>
-		         5 - cc.error，cc.assert，cc.warn 将打印在 canvas 中（仅适用于 web 端）。         <br/>
-		         6 - cc.error，cc.assert 将打印在 canvas 中（仅适用于 web 端）。                  <br/>
-		2. showFPS（显示 FPS）                                                            <br/>
-		     当 showFPS 为 true 的时候界面的左下角将显示 fps 的信息，否则被隐藏。              <br/>
-		3. frameRate (帧率)                                                              <br/>
-		     “frameRate” 设置想要的帧率你的游戏，但真正的FPS取决于你的游戏实现和运行环境。      <br/>
-		4. id                                                                            <br/>
-		     "gameCanvas" Web 页面上的 Canvas Element ID，仅适用于 web 端。                         <br/>
-		5. renderMode（渲染模式）                                                         <br/>
-		     “renderMode” 设置渲染器类型，仅适用于 web 端：                              <br/>
-		         0 - 通过引擎自动选择。                                                     <br/>
-		         1 - 强制使用 canvas 渲染。
-		         2 - 强制使用 WebGL 渲染，但是在部分 Android 浏览器中这个选项会被忽略。     <br/>
-		6. scenes                                                                         <br/>
-		     “scenes” 当前包中可用场景。                                                   <br/>
-		<br/>
-		注意：请不要直接修改这个对象，它不会有任何效果。 */
-		config : any;		
-		/** !#en Callback when the scripts of engine have been load.
-		!#zh 当引擎完成启动后的回调函数。 
-		*/
-		onStart() : void;		
-		/** !#en Callback when game exits.
-		!#zh 当游戏结束后的回调函数。 
-		*/
-		onStop() : void;		
-		/** !#en Set frameRate of game.
-		!#zh 设置游戏帧率。 
-		*/
-		setFrameRate(frameRate : number) : void;		
-		/** !#en Run the game frame by frame.
-		!#zh 执行一帧游戏循环。 
-		*/
-		step() : void;		
-		/** !#en Pause the game main loop. This will pause:
-		game logic execution, rendering process, event manager, background music and all audio effects.
-		This is different with cc.director.pause which only pause the game logic execution.
-		!#zh 暂停游戏主循环。包含：游戏逻辑，渲染，事件处理，背景音乐和所有音效。这点和只暂停游戏逻辑的 cc.director.pause 不同。 
-		*/
-		pause() : void;		
-		/** !#en Resume the game from pause. This will resume:
-		game logic execution, rendering process, event manager, background music and all audio effects.
-		!#zh 恢复游戏主循环。包含：游戏逻辑，渲染，事件处理，背景音乐和所有音效。 
-		*/
-		resume() : void;		
-		/** !#en Check whether the game is paused.
-		!#zh 判断游戏是否暂停。 
-		*/
-		isPaused() : boolean;		
-		/** !#en Restart game.
-		!#zh 重新开始游戏 
-		*/
-		restart() : void;		
-		/** !#en End game, it will close the game window
-		!#zh 退出游戏 
-		*/
-		end() : void;		
-		/** !#en Prepare game.
-		!#zh 准备引擎，请不要直接调用这个函数。 
-		*/
-		prepare(cb : Function) : void;		
-		/** !#en Run game with configuration object and onStart function.
-		!#zh 运行游戏，并且指定引擎配置和 onStart 的回调。
-		@param config Pass configuration object or onStart function
-		@param onStart function to be executed after game initialized 
-		*/
-		run(config? : any|Function, onStart? : Function) : void;		
-		/** !#en
-		Add a persistent root node to the game, the persistent node won't be destroyed during scene transition.<br/>
-		The target node must be placed in the root level of hierarchy, otherwise this API won't have any effect.
-		!#zh
-		声明常驻根节点，该节点不会被在场景切换中被销毁。<br/>
-		目标节点必须位于为层级的根节点，否则无效。
-		@param node The node to be made persistent 
-		*/
-		addPersistRootNode(node : Node) : void;		
-		/** !#en Remove a persistent root node.
-		!#zh 取消常驻根节点。
-		@param node The node to be removed from persistent node list 
-		*/
-		removePersistRootNode(node : Node) : void;		
-		/** !#en Check whether the node is a persistent root node.
-		!#zh 检查节点是否是常驻根节点。
-		@param node The node to be checked 
-		*/
-		isPersistRootNode(node : Node) : boolean;	
 	}		
 		/** !#en
 		Class of all entities in Cocos Creator scenes.<br/>
@@ -3248,385 +3398,6 @@ declare module cc {
 		!#zh 用户调度最低优先级。 */
 		PRIORITY_NON_SYSTEM : number;	
 	}		
-		/** !#en cc.audioEngine is the singleton object, it provide simple audio APIs.
-		!#zh
-		cc.audioengine是单例对象。<br/>
-		主要用来播放音频，播放的时候会返回一个 audioID，之后都可以通过这个 audioID 来操作这个音频对象。<br/>
-		不使用的时候，请使用 cc.audioEngine.uncache(filePath); 进行资源释放 <br/>
-		注意：<br/>
-		在 Android 系统浏览器上，不同浏览器，不同版本的效果不尽相同。<br/>
-		比如说：大多数浏览器都需要用户物理交互才可以开始播放音效，有一些不支持 WebAudio，<br/>
-		有一些不支持多音轨播放。总之如果对音乐依赖比较强，请做尽可能多的测试。 */
-		export class audioEngine {		
-		/** !#en Play audio.
-		!#zh 播放音频
-		@param filePath The path of the audio file without filename extension.
-		@param loop Whether the music loop or not.
-		@param volume Volume size.
-		
-		@example 
-		```js
-		//example
-		var audioID = cc.audioEngine.play(path, false, 0.5);
-		``` 
-		*/
-		play(filePath : string, loop : boolean, volume : number) : number;		
-		/** !#en Set audio loop.
-		!#zh 设置音频是否循环。
-		@param audioID audio id.
-		@param loop Whether cycle.
-		
-		@example 
-		```js
-		//example
-		cc.audioEngine.setLoop(id, true);
-		``` 
-		*/
-		setLoop(audioID : number, loop : boolean) : void;		
-		/** !#en Get audio cycle state.
-		!#zh 获取音频的循环状态。
-		@param audioID audio id.
-		
-		@example 
-		```js
-		//example
-		cc.audioEngine.isLoop(id);
-		``` 
-		*/
-		isLoop(audioID : number) : boolean;		
-		/** !#en Set the volume of audio.
-		!#zh 设置音量（0.0 ~ 1.0）。
-		@param audioID audio id.
-		@param volume Volume must be in 0.0~1.0 .
-		
-		@example 
-		```js
-		//example
-		cc.audioEngine.setVolume(id, 0.5);
-		``` 
-		*/
-		setVolume(audioID : number, volume : number) : void;		
-		/** !#en The volume of the music max value is 1.0,the min value is 0.0 .
-		!#zh 获取音量（0.0 ~ 1.0）。
-		@param audioID audio id.
-		
-		@example 
-		```js
-		//example
-		var volume = cc.audioEngine.getVolume(id);
-		``` 
-		*/
-		getVolume(audioID : number) : boolean;		
-		/** !#en Set current time
-		!#zh 设置当前的音频时间。
-		@param audioID audio id.
-		@param sec current time.
-		
-		@example 
-		```js
-		//example
-		cc.audioEngine.setCurrentTime(id, 2);
-		``` 
-		*/
-		setCurrentTime(audioID : number, sec : number) : boolean;		
-		/** !#en Get current time
-		!#zh 获取当前的音频播放时间。
-		@param audioID audio id.
-		
-		@example 
-		```js
-		//example
-		var time = cc.audioEngine.getCurrentTime(id);
-		``` 
-		*/
-		getCurrentTime(audioID : number) : number;		
-		/** !#en Get audio duration
-		!#zh 获取音频总时长。
-		@param audioID audio id.
-		
-		@example 
-		```js
-		//example
-		var time = cc.audioEngine.getDuration(id);
-		``` 
-		*/
-		getDuration(audioID : number) : number;		
-		/** !#en Get audio state
-		!#zh 获取音频状态。
-		@param audioID audio id.
-		
-		@example 
-		```js
-		//example
-		var state = cc.audioEngine.getState(id);
-		``` 
-		*/
-		getState(audioID : number) : audioEngine.AudioState;		
-		/** !#en Get audio state
-		!#zh 获取音频状态。
-		@param audioID audio id.
-		@param callback loaded callback.
-		
-		@example 
-		```js
-		//example
-		cc.audioEngine.setFinishCallback(id, function () {});
-		``` 
-		*/
-		getState(audioID : number, callback : Function) : void;		
-		/** !#en Pause playing audio.
-		!#zh 暂停正在播放音频。
-		@param audioID The return value of function play.
-		
-		@example 
-		```js
-		//example
-		cc.audioEngine.pause(audioID);
-		``` 
-		*/
-		pause(audioID : number) : void;		
-		/** !#en Pause all playing audio
-		!#zh 暂停现在正在播放的所有音频。
-		
-		@example 
-		```js
-		//example
-		cc.audioEngine.pauseAll();
-		``` 
-		*/
-		pauseAll() : void;		
-		/** !#en Resume playing audio.
-		!#zh 恢复播放指定的音频。
-		@param audioID The return value of function play.
-		//example
-		cc.audioEngine.resume(audioID); 
-		*/
-		resume(audioID : number) : void;		
-		/** !#en Resume all playing audio.
-		!#zh 恢复播放所有之前暂停的所有音频。
-		
-		@example 
-		```js
-		//example
-		cc.audioEngine.resumeAll();
-		``` 
-		*/
-		resumeAll() : void;		
-		/** !#en Stop playing audio.
-		!#zh 停止播放指定音频。
-		@param audioID The return value of function play.
-		
-		@example 
-		```js
-		//example
-		cc.audioEngine.stop(audioID);
-		``` 
-		*/
-		stop(audioID : number) : void;		
-		/** !#en Stop all playing audio.
-		!#zh 停止正在播放的所有音频。
-		
-		@example 
-		```js
-		//example
-		cc.audioEngine.stopAll();
-		``` 
-		*/
-		stopAll() : void;		
-		/** !#en Set up an audio can generate a few examples.
-		!#zh 设置一个音频可以设置几个实例
-		@param num a number of instances to be created from within an audio
-		
-		@example 
-		```js
-		//example
-		cc.audioEngine.setMaxAudioInstance(20);
-		``` 
-		*/
-		setMaxAudioInstance(num : number) : void;		
-		/** !#en Getting audio can produce several examples.
-		!#zh 获取一个音频可以设置几个实例
-		
-		@example 
-		```js
-		//example
-		cc.audioEngine.getMaxAudioInstance();
-		``` 
-		*/
-		getMaxAudioInstance() : number;		
-		/** !#en Unload the preloaded audio from internal buffer.
-		!#zh 卸载预加载的音频。
-		
-		@example 
-		```js
-		//example
-		cc.audioEngine.uncache(filePath);
-		``` 
-		*/
-		uncache(filePath : string) : void;		
-		/** !#en Unload all audio from internal buffer.
-		!#zh 卸载所有音频。
-		
-		@example 
-		```js
-		//example
-		cc.audioEngine.uncacheAll();
-		``` 
-		*/
-		uncacheAll() : void;		
-		/** !#en Preload audio file.
-		!#zh 预加载一个音频
-		@param filePath The file path of an audio.
-		@param callback The callback of an audio.
-		
-		@example 
-		```js
-		//example
-		cc.audioEngine.preload(path);
-		``` 
-		*/
-		preload(filePath : void, callback : void) : void;		
-		/** !#en Set a size, the unit is KB，Over this size is directly resolved into DOM nodes
-		!#zh 设置一个以kb为单位的尺寸，大于这个尺寸的音频在加载的时候会强制使用 dom 方式加载
-		@param kb The file path of an audio.
-		
-		@example 
-		```js
-		//example
-		cc.audioEngine.setMaxWebAudioSize(300);
-		``` 
-		*/
-		setMaxWebAudioSize(kb : void) : void;	
-	}		
-		/** !#en Class for animation data handling.
-		!#zh 动画剪辑，用于存储动画数据。 */
-		export class AnimationClip extends Asset {		
-		/** !#en Duration of this animation.
-		!#zh 动画的持续时间。 */
-		duration : number;		
-		/** !#en FrameRate of this animation.
-		!#zh 动画的帧速率。 */
-		sample : number;		
-		/** !#en Speed of this animation.
-		!#zh 动画的播放速度。 */
-		speed : number;		
-		/** !#en WrapMode of this animation.
-		!#zh 动画的循环模式。 */
-		wrapMode : WrapMode;		
-		/** !#en Curve data.
-		!#zh 曲线数据。 */
-		curveData : any;		
-		/** !#en Event data.
-		!#zh 事件数据。 */
-		events : any[];		
-		/** !#en Crate clip with a set of sprite frames
-		!#zh 使用一组序列帧图片来创建动画剪辑
-		
-		@example 
-		```js
-		var clip = cc.AnimationClip.createWithSpriteFrames(spriteFrames, 10);
-		``` 
-		*/
-		createWithSpriteFrames(spriteFrames : [SpriteFrame], sample : number) : AnimationClip;	
-	}		
-		/** !#en
-		The AnimationState gives full control over animation playback process.
-		In most cases the Animation Component is sufficient and easier to use. Use the AnimationState if you need full control.
-		!#zh
-		AnimationState 完全控制动画播放过程。<br/>
-		大多数情况下 动画组件 是足够和易于使用的。如果您需要更多的动画控制接口，请使用 AnimationState。 */
-		export class AnimationState extends AnimationNode {		
-		/**  
-		*/
-		AnimationState(clip : AnimationClip, name? : string) : AnimationState;		
-		/** !#en The clip that is being played by this animation state.
-		!#zh 此动画状态正在播放的剪辑。 */
-		clip : AnimationClip;		
-		/** !#en The name of the playing animation.
-		!#zh 动画的名字 */
-		name : string;	
-	}		
-		/** undefined */
-		export class Playable {		
-		/** !#en Is playing or paused in play mode?
-		!#zh 当前是否正在播放。 */
-		isPlaying : boolean;		
-		/** !#en Is currently paused? This can be true even if in edit mode(isPlaying == false).
-		!#zh 当前是否正在暂停 */
-		isPaused : boolean;		
-		/** !#en Play this animation.
-		!#zh 播放动画。 
-		*/
-		play() : void;		
-		/** !#en Stop this animation.
-		!#zh 停止动画播放。 
-		*/
-		stop() : void;		
-		/** !#en Pause this animation.
-		!#zh 暂停动画。 
-		*/
-		pause() : void;		
-		/** !#en Resume this animation.
-		!#zh 重新播放动画。 
-		*/
-		resume() : void;		
-		/** !#en Perform a single frame step.
-		!#zh 执行一帧动画。 
-		*/
-		step() : void;	
-	}	
-	/** !#en Specifies how time is treated when it is outside of the keyframe range of an Animation.
-	!#zh 动画使用的循环模式。 */
-	export enum WrapMode {		
-		Default = 0,
-		Normal = 0,
-		Reverse = 0,
-		Loop = 0,
-		LoopReverse = 0,
-		PingPong = 0,
-		PingPongReverse = 0,	
-	}		
-		/** !#en The abstract interface for all playing animation.
-		!#zh 所有播放动画的抽象接口。 */
-		export class AnimationNodeBase extends Playable {	
-	}		
-		/** !#en The collection and instance of playing animations.
-		!#zh 动画曲线的集合，根据当前时间计算出每条曲线的状态。 */
-		export class AnimationNode extends AnimationNodeBase {		
-		/** !#en The curves list.
-		!#zh 曲线列表。 */
-		curves : AnimCurve[];		
-		/** !#en The start delay which represents the number of seconds from an animation's start time to the start of
-		the active interval.
-		!#zh 延迟多少秒播放。 */
-		delay : number;		
-		/** !#en The animation's iteration count property.
-		
-		A real number greater than or equal to zero (including positive infinity) representing the number of times
-		to repeat the animation node.
-		
-		Values less than zero and NaN values are treated as the value 1.0 for the purpose of timing model
-		calculations.
-		
-		!#zh 迭代次数，指动画播放多少次后结束, normalize time。 如 2.5（2次半） */
-		repeatCount : number;		
-		/** !#en The iteration duration of this animation in seconds. (length)
-		!#zh 单次动画的持续时间，秒。 */
-		duration : number;		
-		/** !#en The animation's playback speed. 1 is normal playback speed.
-		!#zh 播放速率。 */
-		speed : number;		
-		/** !#en
-		Wrapping mode of the playing animation.
-		Notice : dynamic change wrapMode will reset time and repeatCount property
-		!#zh
-		动画循环方式。
-		需要注意的是，动态修改 wrapMode 时，会重置 time 以及 repeatCount */
-		wrapMode : WrapMode;		
-		/** !#en The current time of this animation in seconds.
-		!#zh 动画当前的时间，秒。 */
-		time : number;	
-	}		
 		/** !#en
 		cc.MotionStreak manages a Ribbon based on it's motion in absolute space.                 <br/>
 		You construct it with a fadeTime, minimum segment size, texture path, texture            <br/>
@@ -3668,234 +3439,6 @@ declare module cc {
 		``` 
 		*/
 		reset() : void;	
-	}		
-		/** Particle System base class. <br/>
-		Attributes of a Particle System:<br/>
-		 - emmision rate of the particles<br/>
-		 - Gravity Mode (Mode A): <br/>
-		 - gravity <br/>
-		 - direction <br/>
-		 - speed +-  variance <br/>
-		 - tangential acceleration +- variance<br/>
-		 - radial acceleration +- variance<br/>
-		 - Radius Mode (Mode B):      <br/>
-		 - startRadius +- variance    <br/>
-		 - endRadius +- variance      <br/>
-		 - rotate +- variance         <br/>
-		 - Properties common to all modes: <br/>
-		 - life +- life variance      <br/>
-		 - start spin +- variance     <br/>
-		 - end spin +- variance       <br/>
-		 - start size +- variance     <br/>
-		 - end size +- variance       <br/>
-		 - start color +- variance    <br/>
-		 - end color +- variance      <br/>
-		 - life +- variance           <br/>
-		 - blending function          <br/>
-		 - texture                    <br/>
-		<br/>
-		cocos2d also supports particles generated by Particle Designer (http://particledesigner.71squared.com/).<br/>
-		'Radius Mode' in Particle Designer uses a fixed emit rate of 30 hz. Since that can't be guarateed in cocos2d,  <br/>
-		cocos2d uses a another approach, but the results are almost identical.<br/>
-		cocos2d supports all the variables used by Particle Designer plus a bit more:  <br/>
-		 - spinning particles (supported when using ParticleSystem)       <br/>
-		 - tangential acceleration (Gravity mode)                               <br/>
-		 - radial acceleration (Gravity mode)                                   <br/>
-		 - radius direction (Radius mode) (Particle Designer supports outwards to inwards direction only) <br/>
-		It is possible to customize any of the above mentioned properties in runtime. Example:   <br/> */
-		export class ParticleSystem extends _RendererUnderSG {		
-		/** !#en Play particle in edit mode.
-		!#zh 在编辑器模式下预览粒子，启用后选中粒子时，粒子将自动播放。 */
-		preview : boolean;		
-		/** !#en
-		If set custom to true, then use custom properties insteadof read particle file.
-		!#zh 是否自定义粒子属性。 */
-		custom : boolean;		
-		/** !#en The plist file.
-		!#zh plist 格式的粒子配置文件。 */
-		file : string;		
-		/** . */
-		texture : Texture2D;		
-		/** !#en Current quantity of particles that are being simulated.
-		!#zh 当前播放的粒子数量。 */
-		particleCount : number;		
-		/** !#en Specify the source Blend Factor.
-		!#zh 指定原图混合模式。 */
-		srcBlendFactor : BlendFactor;		
-		/** !#en Specify the destination Blend Factor.
-		!#zh 指定目标的混合模式。 */
-		dstBlendFactor : BlendFactor;		
-		/** !#en If set to true, the particle system will automatically start playing on onLoad.
-		!#zh 如果设置为 true 运行时会自动发射粒子。 */
-		playOnLoad : boolean;		
-		/** !#en Indicate whether the owner node will be auto-removed when it has no particles left.
-		!#zh 粒子播放完毕后自动销毁所在的节点。 */
-		autoRemoveOnFinish : boolean;		
-		/** !#en Indicate whether the particle system is activated.
-		!#zh 是否激活粒子。 */
-		active : boolean;		
-		/** !#en Maximum particles of the system.
-		!#zh 粒子最大数量。 */
-		totalParticles : number;		
-		/** !#en How many seconds the emitter wil run. -1 means 'forever'.
-		!#zh 发射器生存时间，单位秒，-1表示持续发射。 */
-		duration : number;		
-		/** !#en Emission rate of the particles.
-		!#zh 每秒发射的粒子数目。 */
-		emissionRate : number;		
-		/** !#en Life of each particle setter.
-		!#zh 粒子的运行时间。 */
-		life : number;		
-		/** !#en Variation of life.
-		!#zh 粒子的运行时间变化范围。 */
-		lifeVar : number;		
-		/** !#en Start color of each particle.
-		!#zh 粒子初始颜色。 */
-		startColor : Color;		
-		/** !#en Variation of the start color.
-		!#zh 粒子初始颜色变化范围。 */
-		startColorVar : Color;		
-		/** !#en Ending color of each particle.
-		!#zh 粒子结束颜色。 */
-		endColor : Color;		
-		/** !#en Variation of the end color.
-		!#zh 粒子结束颜色变化范围。 */
-		endColorVar : Color;		
-		/** !#en Angle of each particle setter.
-		!#zh 粒子角度。 */
-		angle : number;		
-		/** !#en Variation of angle of each particle setter.
-		!#zh 粒子角度变化范围。 */
-		angleVar : number;		
-		/** !#en Start size in pixels of each particle.
-		!#zh 粒子的初始大小。 */
-		startSize : number;		
-		/** !#en Variation of start size in pixels.
-		!#zh 粒子初始大小的变化范围。 */
-		startSizeVar : number;		
-		/** !#en End size in pixels of each particle.
-		!#zh 粒子结束时的大小。 */
-		endSize : number;		
-		/** !#en Variation of end size in pixels.
-		!#zh 粒子结束大小的变化范围。 */
-		endSizeVar : number;		
-		/** !#en Start angle of each particle.
-		!#zh 粒子开始自旋角度。 */
-		startSpin : number;		
-		/** !#en Variation of start angle.
-		!#zh 粒子开始自旋角度变化范围。 */
-		startSpinVar : number;		
-		/** !#en End angle of each particle.
-		!#zh 粒子结束自旋角度。 */
-		endSpin : number;		
-		/** !#en Variation of end angle.
-		!#zh 粒子结束自旋角度变化范围。 */
-		endSpinVar : number;		
-		/** !#en Source position of the emitter.
-		!#zh 发射器位置。 */
-		sourcePos : Vec2;		
-		/** !#en Variation of source position.
-		!#zh 发射器位置的变化范围。（横向和纵向） */
-		posVar : Vec2;		
-		/** !#en Particles movement type.
-		!#zh 粒子位置类型。 */
-		positionType : ParticleSystem.PositionType;		
-		/** !#en Particles emitter modes.
-		!#zh 发射器类型。 */
-		emitterMode : ParticleSystem.EmitterMode;		
-		/** !#en Gravity of the emitter.
-		!#zh 重力。 */
-		gravity : Vec2;		
-		/** !#en Speed of the emitter.
-		!#zh 速度。 */
-		speed : number;		
-		/** !#en Variation of the speed.
-		!#zh 速度变化范围。 */
-		speedVar : number;		
-		/** !#en Tangential acceleration of each particle. Only available in 'Gravity' mode.
-		!#zh 每个粒子的切向加速度，即垂直于重力方向的加速度，只有在重力模式下可用。 */
-		tangentialAccel : number;		
-		/** !#en Variation of the tangential acceleration.
-		!#zh 每个粒子的切向加速度变化范围。 */
-		tangentialAccelVar : number;		
-		/** !#en Acceleration of each particle. Only available in 'Gravity' mode.
-		!#zh 粒子径向加速度，即平行于重力方向的加速度，只有在重力模式下可用。 */
-		radialAccel : number;		
-		/** !#en Variation of the radial acceleration.
-		!#zh 粒子径向加速度变化范围。 */
-		radialAccelVar : number;		
-		/** !#en Indicate whether the rotation of each particle equals to its direction. Only available in 'Gravity' mode.
-		!#zh 每个粒子的旋转是否等于其方向，只有在重力模式下可用。 */
-		rotationIsDir : boolean;		
-		/** !#en Starting radius of the particles. Only available in 'Radius' mode.
-		!#zh 初始半径，表示粒子出生时相对发射器的距离，只有在半径模式下可用。 */
-		startRadius : number;		
-		/** !#en Variation of the starting radius.
-		!#zh 初始半径变化范围。 */
-		startRadiusVar : number;		
-		/** !#en Ending radius of the particles. Only available in 'Radius' mode.
-		!#zh 结束半径，只有在半径模式下可用。 */
-		endRadius : number;		
-		/** !#en Variation of the ending radius.
-		!#zh 结束半径变化范围。 */
-		endRadiusVar : number;		
-		/** !#en Number of degress to rotate a particle around the source pos per second. Only available in 'Radius' mode.
-		!#zh 粒子每秒围绕起始点的旋转角度，只有在半径模式下可用。 */
-		rotatePerS : number;		
-		/** !#en Variation of the degress to rotate a particle around the source pos per second.
-		!#zh 粒子每秒围绕起始点的旋转角度变化范围。 */
-		rotatePerSVar : number;		
-		/** !#en The Particle emitter lives forever.
-		!#zh 表示发射器永久存在 */
-		DURATION_INFINITY : number;		
-		/** !#en The starting size of the particle is equal to the ending size.
-		!#zh 表示粒子的起始大小等于结束大小。 */
-		START_SIZE_EQUAL_TO_END_SIZE : number;		
-		/** !#en The starting radius of the particle is equal to the ending radius.
-		!#zh 表示粒子的起始半径等于结束半径。 */
-		START_RADIUS_EQUAL_TO_END_RADIUS : number;		
-		/** !#en Add a particle to the emitter.
-		!#zh 添加一个粒子到发射器中。 
-		*/
-		addParticle() : boolean;		
-		/** !#en Stop emitting particles. Running particles will continue to run until they die.
-		!#zh 停止发射器发射粒子，发射出去的粒子将继续运行，直至粒子生命结束。
-		
-		@example 
-		```js
-		// stop particle system.
-		myParticleSystem.stopSystem();
-		``` 
-		*/
-		stopSystem() : void;		
-		/** !#en Kill all living particles.
-		!#zh 杀死所有存在的粒子，然后重新启动粒子发射器。
-		
-		@example 
-		```js
-		// play particle system.
-		myParticleSystem.resetSystem();
-		``` 
-		*/
-		resetSystem() : void;		
-		/** !#en Whether or not the system is full.
-		!#zh 发射器中粒子是否大于等于设置的总粒子数量。 
-		*/
-		isFull() : boolean;		
-		/** !#en
-		<p> Sets a new CCSpriteFrame as particle.</br>
-		WARNING: this method is experimental. Use setTextureWithRect instead.
-		</p>
-		!#zh
-		<p> 设置一个新的精灵帧为粒子。</br>
-		警告：这个函数只是试验，请使用 setTextureWithRect 实现。
-		</p> 
-		*/
-		setDisplayFrame(spriteFrame : SpriteFrame) : void;		
-		/** !#en Sets a new texture with a rect. The rect is in texture position and size.
-		!#zh 设置一张新贴图和关联的矩形。 
-		*/
-		setTextureWithRect(texture : Texture2D, rect : Rect) : void;	
 	}		
 		/** !#en Renders the TMX object.
 		!#zh 渲染 tmx object。 */
@@ -4429,6 +3972,463 @@ declare module cc {
 		*/
 		getObjects() : any[];	
 	}		
+		/** Particle System base class. <br/>
+		Attributes of a Particle System:<br/>
+		 - emmision rate of the particles<br/>
+		 - Gravity Mode (Mode A): <br/>
+		 - gravity <br/>
+		 - direction <br/>
+		 - speed +-  variance <br/>
+		 - tangential acceleration +- variance<br/>
+		 - radial acceleration +- variance<br/>
+		 - Radius Mode (Mode B):      <br/>
+		 - startRadius +- variance    <br/>
+		 - endRadius +- variance      <br/>
+		 - rotate +- variance         <br/>
+		 - Properties common to all modes: <br/>
+		 - life +- life variance      <br/>
+		 - start spin +- variance     <br/>
+		 - end spin +- variance       <br/>
+		 - start size +- variance     <br/>
+		 - end size +- variance       <br/>
+		 - start color +- variance    <br/>
+		 - end color +- variance      <br/>
+		 - life +- variance           <br/>
+		 - blending function          <br/>
+		 - texture                    <br/>
+		<br/>
+		cocos2d also supports particles generated by Particle Designer (http://particledesigner.71squared.com/).<br/>
+		'Radius Mode' in Particle Designer uses a fixed emit rate of 30 hz. Since that can't be guarateed in cocos2d,  <br/>
+		cocos2d uses a another approach, but the results are almost identical.<br/>
+		cocos2d supports all the variables used by Particle Designer plus a bit more:  <br/>
+		 - spinning particles (supported when using ParticleSystem)       <br/>
+		 - tangential acceleration (Gravity mode)                               <br/>
+		 - radial acceleration (Gravity mode)                                   <br/>
+		 - radius direction (Radius mode) (Particle Designer supports outwards to inwards direction only) <br/>
+		It is possible to customize any of the above mentioned properties in runtime. Example:   <br/> */
+		export class ParticleSystem extends _RendererUnderSG {		
+		/** !#en Play particle in edit mode.
+		!#zh 在编辑器模式下预览粒子，启用后选中粒子时，粒子将自动播放。 */
+		preview : boolean;		
+		/** !#en
+		If set custom to true, then use custom properties insteadof read particle file.
+		!#zh 是否自定义粒子属性。 */
+		custom : boolean;		
+		/** !#en The plist file.
+		!#zh plist 格式的粒子配置文件。 */
+		file : string;		
+		/** . */
+		texture : Texture2D;		
+		/** !#en Current quantity of particles that are being simulated.
+		!#zh 当前播放的粒子数量。 */
+		particleCount : number;		
+		/** !#en Specify the source Blend Factor.
+		!#zh 指定原图混合模式。 */
+		srcBlendFactor : BlendFactor;		
+		/** !#en Specify the destination Blend Factor.
+		!#zh 指定目标的混合模式。 */
+		dstBlendFactor : BlendFactor;		
+		/** !#en If set to true, the particle system will automatically start playing on onLoad.
+		!#zh 如果设置为 true 运行时会自动发射粒子。 */
+		playOnLoad : boolean;		
+		/** !#en Indicate whether the owner node will be auto-removed when it has no particles left.
+		!#zh 粒子播放完毕后自动销毁所在的节点。 */
+		autoRemoveOnFinish : boolean;		
+		/** !#en Indicate whether the particle system is activated.
+		!#zh 是否激活粒子。 */
+		active : boolean;		
+		/** !#en Maximum particles of the system.
+		!#zh 粒子最大数量。 */
+		totalParticles : number;		
+		/** !#en How many seconds the emitter wil run. -1 means 'forever'.
+		!#zh 发射器生存时间，单位秒，-1表示持续发射。 */
+		duration : number;		
+		/** !#en Emission rate of the particles.
+		!#zh 每秒发射的粒子数目。 */
+		emissionRate : number;		
+		/** !#en Life of each particle setter.
+		!#zh 粒子的运行时间。 */
+		life : number;		
+		/** !#en Variation of life.
+		!#zh 粒子的运行时间变化范围。 */
+		lifeVar : number;		
+		/** !#en Start color of each particle.
+		!#zh 粒子初始颜色。 */
+		startColor : Color;		
+		/** !#en Variation of the start color.
+		!#zh 粒子初始颜色变化范围。 */
+		startColorVar : Color;		
+		/** !#en Ending color of each particle.
+		!#zh 粒子结束颜色。 */
+		endColor : Color;		
+		/** !#en Variation of the end color.
+		!#zh 粒子结束颜色变化范围。 */
+		endColorVar : Color;		
+		/** !#en Angle of each particle setter.
+		!#zh 粒子角度。 */
+		angle : number;		
+		/** !#en Variation of angle of each particle setter.
+		!#zh 粒子角度变化范围。 */
+		angleVar : number;		
+		/** !#en Start size in pixels of each particle.
+		!#zh 粒子的初始大小。 */
+		startSize : number;		
+		/** !#en Variation of start size in pixels.
+		!#zh 粒子初始大小的变化范围。 */
+		startSizeVar : number;		
+		/** !#en End size in pixels of each particle.
+		!#zh 粒子结束时的大小。 */
+		endSize : number;		
+		/** !#en Variation of end size in pixels.
+		!#zh 粒子结束大小的变化范围。 */
+		endSizeVar : number;		
+		/** !#en Start angle of each particle.
+		!#zh 粒子开始自旋角度。 */
+		startSpin : number;		
+		/** !#en Variation of start angle.
+		!#zh 粒子开始自旋角度变化范围。 */
+		startSpinVar : number;		
+		/** !#en End angle of each particle.
+		!#zh 粒子结束自旋角度。 */
+		endSpin : number;		
+		/** !#en Variation of end angle.
+		!#zh 粒子结束自旋角度变化范围。 */
+		endSpinVar : number;		
+		/** !#en Source position of the emitter.
+		!#zh 发射器位置。 */
+		sourcePos : Vec2;		
+		/** !#en Variation of source position.
+		!#zh 发射器位置的变化范围。（横向和纵向） */
+		posVar : Vec2;		
+		/** !#en Particles movement type.
+		!#zh 粒子位置类型。 */
+		positionType : ParticleSystem.PositionType;		
+		/** !#en Particles emitter modes.
+		!#zh 发射器类型。 */
+		emitterMode : ParticleSystem.EmitterMode;		
+		/** !#en Gravity of the emitter.
+		!#zh 重力。 */
+		gravity : Vec2;		
+		/** !#en Speed of the emitter.
+		!#zh 速度。 */
+		speed : number;		
+		/** !#en Variation of the speed.
+		!#zh 速度变化范围。 */
+		speedVar : number;		
+		/** !#en Tangential acceleration of each particle. Only available in 'Gravity' mode.
+		!#zh 每个粒子的切向加速度，即垂直于重力方向的加速度，只有在重力模式下可用。 */
+		tangentialAccel : number;		
+		/** !#en Variation of the tangential acceleration.
+		!#zh 每个粒子的切向加速度变化范围。 */
+		tangentialAccelVar : number;		
+		/** !#en Acceleration of each particle. Only available in 'Gravity' mode.
+		!#zh 粒子径向加速度，即平行于重力方向的加速度，只有在重力模式下可用。 */
+		radialAccel : number;		
+		/** !#en Variation of the radial acceleration.
+		!#zh 粒子径向加速度变化范围。 */
+		radialAccelVar : number;		
+		/** !#en Indicate whether the rotation of each particle equals to its direction. Only available in 'Gravity' mode.
+		!#zh 每个粒子的旋转是否等于其方向，只有在重力模式下可用。 */
+		rotationIsDir : boolean;		
+		/** !#en Starting radius of the particles. Only available in 'Radius' mode.
+		!#zh 初始半径，表示粒子出生时相对发射器的距离，只有在半径模式下可用。 */
+		startRadius : number;		
+		/** !#en Variation of the starting radius.
+		!#zh 初始半径变化范围。 */
+		startRadiusVar : number;		
+		/** !#en Ending radius of the particles. Only available in 'Radius' mode.
+		!#zh 结束半径，只有在半径模式下可用。 */
+		endRadius : number;		
+		/** !#en Variation of the ending radius.
+		!#zh 结束半径变化范围。 */
+		endRadiusVar : number;		
+		/** !#en Number of degress to rotate a particle around the source pos per second. Only available in 'Radius' mode.
+		!#zh 粒子每秒围绕起始点的旋转角度，只有在半径模式下可用。 */
+		rotatePerS : number;		
+		/** !#en Variation of the degress to rotate a particle around the source pos per second.
+		!#zh 粒子每秒围绕起始点的旋转角度变化范围。 */
+		rotatePerSVar : number;		
+		/** !#en The Particle emitter lives forever.
+		!#zh 表示发射器永久存在 */
+		DURATION_INFINITY : number;		
+		/** !#en The starting size of the particle is equal to the ending size.
+		!#zh 表示粒子的起始大小等于结束大小。 */
+		START_SIZE_EQUAL_TO_END_SIZE : number;		
+		/** !#en The starting radius of the particle is equal to the ending radius.
+		!#zh 表示粒子的起始半径等于结束半径。 */
+		START_RADIUS_EQUAL_TO_END_RADIUS : number;		
+		/** !#en Add a particle to the emitter.
+		!#zh 添加一个粒子到发射器中。 
+		*/
+		addParticle() : boolean;		
+		/** !#en Stop emitting particles. Running particles will continue to run until they die.
+		!#zh 停止发射器发射粒子，发射出去的粒子将继续运行，直至粒子生命结束。
+		
+		@example 
+		```js
+		// stop particle system.
+		myParticleSystem.stopSystem();
+		``` 
+		*/
+		stopSystem() : void;		
+		/** !#en Kill all living particles.
+		!#zh 杀死所有存在的粒子，然后重新启动粒子发射器。
+		
+		@example 
+		```js
+		// play particle system.
+		myParticleSystem.resetSystem();
+		``` 
+		*/
+		resetSystem() : void;		
+		/** !#en Whether or not the system is full.
+		!#zh 发射器中粒子是否大于等于设置的总粒子数量。 
+		*/
+		isFull() : boolean;		
+		/** !#en
+		<p> Sets a new CCSpriteFrame as particle.</br>
+		WARNING: this method is experimental. Use setTextureWithRect instead.
+		</p>
+		!#zh
+		<p> 设置一个新的精灵帧为粒子。</br>
+		警告：这个函数只是试验，请使用 setTextureWithRect 实现。
+		</p> 
+		*/
+		setDisplayFrame(spriteFrame : SpriteFrame) : void;		
+		/** !#en Sets a new texture with a rect. The rect is in texture position and size.
+		!#zh 设置一张新贴图和关联的矩形。 
+		*/
+		setTextureWithRect(texture : Texture2D, rect : Rect) : void;	
+	}		
+		/** !#en
+		 cc.NodePool is the cache pool designed for node type.<br/>
+		 It can helps you to improve your game performance for objects which need frequent release and recreate operations<br/>
+		
+		It's recommended to create cc.NodePool instances by node type, the type corresponds to node type in game design, not the class,
+		for example, a prefab is a specific node type. <br/>
+		When you create a node pool, you can pass a Component which contains `unuse`, `reuse` functions to control the content of node.<br/>
+		
+		Some common use case is :<br/>
+		     1. Bullets in game (die very soon, massive creation and recreation, no side effect on other objects)<br/>
+		     2. Blocks in candy crash (massive creation and recreation)<br/>
+		     etc...
+		!#zh
+		cc.NodePool 是用于管理节点对象的对象缓存池。<br/>
+		它可以帮助您提高游戏性能，适用于优化对象的反复创建和销毁<br/>
+		以前 cocos2d-x 中的 cc.pool 和新的节点事件注册系统不兼容，因此请使用 cc.NodePool 来代替。
+		
+		新的 NodePool 需要实例化之后才能使用，每种不同的节点对象池需要一个不同的对象池实例，这里的种类对应于游戏中的节点设计，一个 prefab 相当于一个种类的节点。<br/>
+		在创建缓冲池时，可以传入一个包含 unuse, reuse 函数的组件类型用于节点的回收和复用逻辑。<br/>
+		
+		一些常见的用例是：<br/>
+		     1.在游戏中的子弹（死亡很快，频繁创建，对其他对象无副作用）<br/>
+		     2.糖果粉碎传奇中的木块（频繁创建）。
+		     等等.... */
+		export class NodePool {		
+		/** !#en
+		Constructor for creating a pool for a specific node template (usually a prefab). You can pass a component (type or name) argument for handling event for reusing and recycling node.
+		!#zh
+		使用构造函数来创建一个节点专用的对象池，您可以传递一个组件类型或名称，用于处理节点回收和复用时的事件逻辑。
+		@param poolHandlerComp !#en The constructor or the class name of the component to control the unuse/reuse logic. !#zh 处理节点回收和复用事件逻辑的组件类型或名称。
+		
+		@example 
+		```js
+		properties: {
+		   template: cc.Prefab
+		 },
+		 onLoad () {
+		// MyTemplateHandler is a component with 'unuse' and 'reuse' to handle events when node is reused or recycled.
+		   this.myPool = new cc.NodePool('MyTemplateHandler');
+		 }
+		``` 
+		*/
+		NodePool(poolHandlerComp : [Function|String]) : void;		
+		/** !#en The pool handler component, it could be the class name or the constructor.
+		!#zh 缓冲池处理组件，用于节点的回收和复用逻辑，这个属性可以是组件类名或组件的构造函数。 */
+		poolHandlerComp : Function|string;		
+		/** !#en The current available size in the pool
+		!#zh 获取当前缓冲池的可用对象数量 
+		*/
+		size() : void;		
+		/** !#en Destroy all cached nodes in the pool
+		!#zh 销毁对象池中缓存的所有节点 
+		*/
+		clear() : void;		
+		/** !#en Put a new Node into the pool.
+		It will automatically remove the node from its parent without cleanup.
+		It will also invoke unuse method of the poolHandlerComp if exist.
+		!#zh 向缓冲池中存入一个不再需要的节点对象。
+		这个函数会自动将目标节点从父节点上移除，但是不会进行 cleanup 操作。
+		这个函数会调用 poolHandlerComp 的 unuse 函数，如果组件和函数都存在的话。
+		
+		@example 
+		```js
+		let myNode = cc.instantiate(this.template);
+		  this.myPool.put(myNode);
+		``` 
+		*/
+		put() : void;		
+		/** !#en Get a obj from pool, if no available object in pool, null will be returned.
+		This function will invoke the reuse function of poolHandlerComp if exist.
+		!#zh 获取对象池中的对象，如果对象池没有可用对象，则返回空。
+		这个函数会调用 poolHandlerComp 的 reuse 函数，如果组件和函数都存在的话。
+		@param params !#en Params to pass to 'reuse' method in poolHandlerComp !#zh 向 poolHandlerComp 中的 'reuse' 函数传递的参数
+		
+		@example 
+		```js
+		let newNode = this.myPool.get();
+		``` 
+		*/
+		get(params : any) : any;	
+	}		
+		/** !#en
+		 Attention: In creator, it's strongly not recommended to use cc.pool to manager cc.Node.
+		 We provided {{#crossLink "NodePool"}}cc.NodePool{{/crossLink}} instead.
+		
+		 cc.pool is a singleton object serves as an object cache pool.<br/>
+		 It can helps you to improve your game performance for objects which need frequent release and recreate operations<br/>
+		!#zh
+		首先请注意，在 Creator 中我们强烈不建议使用 cc.pool 来管理 cc.Node 节点对象，请使用 {{#crossLink "NodePool"}}cc.NodePool{{/crossLink}} 代替
+		因为 cc.pool 是面向类来设计的，而 cc.Node 中使用 Component 来进行组合，它的类永远都一样，实际却千差万别。
+		
+		cc.pool 是一个单例对象，用作为对象缓存池。<br/>
+		它可以帮助您提高游戏性能，适用于优化对象的反复创建和销毁<br/> */
+		export class pool {		
+		/** !#en Put the obj in pool.
+		!#zh 加入对象到对象池中。
+		@param obj The need put in pool object.
+		
+		@example 
+		```js
+		---------------------------------
+		var sp = new _ccsg.Sprite("a.png");
+		this.addChild(sp);
+		cc.pool.putInPool(sp);
+		cc.pool.getFromPool(_ccsg.Sprite, "a.png");
+		
+		``` 
+		*/
+		putInPool(obj : any) : void;		
+		/** !#en Check if this kind of obj has already in pool.
+		!#zh 检查对象池中是否有指定对象的存在。
+		@param objClass The check object class. 
+		*/
+		hasObject(objClass : any) : boolean;		
+		/** !#en Remove the obj if you want to delete it.
+		!#zh 移除在对象池中指定的对象。 
+		*/
+		removeObject() : void;		
+		/** !#en Get the obj from pool.
+		!#zh 获取对象池中的指定对象。 
+		*/
+		getFromPool() : any;		
+		/** !#en Remove all objs in pool and reset the pool.
+		!#zh 移除对象池中的所有对象，并且重置对象池。 
+		*/
+		drainAllPools() : void;	
+	}		
+		/** !#en
+		The Armature Display of DragonBones <br/>
+		<br/>
+		(Armature Display has a reference to a DragonBonesAsset and stores the state for ArmatureDisplay instance,
+		which consists of the current pose's bone SRT, slot colors, and which slot attachments are visible. <br/>
+		Multiple Armature Display can use the same DragonBonesAsset which includes all animations, skins, and attachments.) <br/>
+		!#zh
+		DragonBones 骨骼动画 <br/>
+		<br/>
+		(Armature Display 具有对骨骼数据的引用并且存储了骨骼实例的状态，
+		它由当前的骨骼动作，slot 颜色，和可见的 slot attachments 组成。<br/>
+		多个 Armature Display 可以使用相同的骨骼数据，其中包括所有的动画，皮肤和 attachments。)<br/> */
+		export class ArmatureDisplay extends _RendererUnderSG {		
+		/** !#en
+		The DragonBones data contains the armatures information (bind pose bones, slots, draw order,
+		attachments, skins, etc) and animations but does not hold any state.<br/>
+		Multiple ArmatureDisplay can share the same DragonBones data.
+		!#zh
+		骨骼数据包含了骨骼信息（绑定骨骼动作，slots，渲染顺序，
+		attachments，皮肤等等）和动画但不持有任何状态。<br/>
+		多个 ArmatureDisplay 可以共用相同的骨骼数据。 */
+		dragonAsset : DragonBonesAsset;		
+		/** !#en
+		The atlas asset for the DragonBones.
+		!#zh
+		骨骼数据所需的 Atlas Texture 数据。 */
+		dragonAtlasAsset : DragonBonesAtlasAsset;		
+		/** !#en The name of current armature.
+		!#zh 当前的 Armature 名称。 */
+		armatureName : string;		
+		/** !#en The name of current playing animation.
+		!#zh 当前播放的动画名称。 */
+		animationName : string;		
+		_defaultArmatureIndex : number;		
+		/** !#en The time scale of this armature.
+		!#zh 当前骨骼中所有动画的时间缩放率。 */
+		timeScale : number;		
+		/** !#en The play times of the default animation.
+		     -1 means using the value of config file;
+		     0 means repeat for ever
+		     >0 means repeat times
+		!#zh 播放默认动画的循环次数
+		     -1 表示使用配置文件中的默认值;
+		     0 表示无限循环
+		     >0 表示循环次数 */
+		playTimes : number;		
+		/** !#en Indicates whether open debug bones.
+		!#zh 是否显示 bone 的 debug 信息。 */
+		debugBones : boolean;		
+		/** !#en
+		Play the specified animation.
+		Parameter animName specify the animation name.
+		Parameter playTimes specify the repeat times of the animation.
+		-1 means use the value of the config file.
+		0 means play the animation for ever.
+		>0 means repeat times.
+		!#zh
+		播放指定的动画.
+		animName 指定播放动画的名称。
+		playTimes 指定播放动画的次数。
+		-1 为使用配置文件中的次数。
+		0 为无限循环播放。
+		>0 为动画的重复次数。 
+		*/
+		playAnimation(animName : string, playTimes : number) : dragonBones.AnimationState;		
+		/** !#en
+		Get the all armature names in the DragonBones Data.
+		!#zh
+		获取 DragonBones 数据中所有的 armature 名称 
+		*/
+		getArmatureNames() : any[];		
+		/** !#en
+		Get the all animation names of specified armature.
+		!#zh
+		获取指定的 armature 的所有动画名称。 
+		*/
+		getAnimationNames(armatureName : string) : any[];		
+		/** !#en
+		Add event listener for the DragonBones Event.
+		!#zh
+		添加 DragonBones 事件监听器。 
+		*/
+		addEventListener(eventType : dragonBones.EventObject, listener : Function, target : any) : void;		
+		/** !#en
+		Remove the event listener for the DragonBones Event.
+		!#zh
+		移除 DragonBones 事件监听器。 
+		*/
+		removeEventListener(eventType : dragonBones.EventObject, listener : Function, target : any) : void;		
+		/** !#en
+		Build the armature for specified name.
+		!#zh
+		构建指定名称的 armature 对象 
+		*/
+		buildArmature(armatureName : string) : dragonBones.Armature;		
+		/** !#en
+		Get the current armature object of the ArmatureDisplay.
+		!#zh
+		获取 ArmatureDisplay 当前使用的 Armature 对象 
+		*/
+		armature() : any;	
+	}		
 		/** !#en
 		Base class for handling assets used in Fireball. This class can be instantiate.
 		
@@ -4461,8 +4461,8 @@ declare module cc {
 		Create a new node using this asset in the scene.<br/>
 		If this type of asset dont have its corresponding node type, this method should be null.
 		!#zh
-		使用该资产在场景中创建一个新节点。<br/>
-		如果这类资产没有相应的节点类型，该方法应该是空的。 
+		使用该资源在场景中创建一个新节点。<br/>
+		如果这类资源没有相应的节点类型，该方法应该是空的。 
 		*/
 		createNode(callback: (error: string, node: any) => void) : void;	
 	}		
@@ -4480,7 +4480,14 @@ declare module cc {
 	}		
 		/** !#en Class for prefab handling.
 		!#zh 预制资源类。 */
-		export class Prefab extends Asset {	
+		export class Prefab extends Asset {		
+		/** the main cc.Node in the prefab */
+		data : Node;		
+		/** Dynamically translation prefab data into minimized code.<br/>
+		This method will be called automatically before the first time the prefab being instantiated,
+		but you can re-call to refresh the create function once you modified the original prefab data in script. 
+		*/
+		compileCreateFunction() : void;	
 	}		
 		/** !#en
 		The base class for registering asset types.
@@ -4867,6 +4874,236 @@ declare module cc {
 		see http://www.w3.org/TR/DOM-Level-3-Events/#event-flow
 		!#zh 冒泡阶段， 包括回程遇到到层次根节点的任何后续节点。 */
 		BUBBLING_PHASE : number;	
+	}		
+		/** !#en
+		<p>
+		    The base class of event listener.                                                                        <br/>
+		    If you need custom listener which with different callback, you need to inherit this class.               <br/>
+		    For instance, you could refer to EventListenerAcceleration, EventListenerKeyboard,                       <br/>
+		     EventListenerTouchOneByOne, EventListenerCustom.
+		</p>
+		
+		!#zh
+		封装用户的事件处理逻辑。
+		注意：这是一个抽象类，开发者不应该直接实例化这个类，请参考 {{#crossLink "EventListener/create:method"}}cc.EventListener.create{{/crossLink}}。 */
+		export class EventListener {		
+		/** Constructor 
+		*/
+		EventListener(type : number, listenerID : number, callback : number) : EventListener;		
+		/** !#en Checks whether the listener is available.
+		!#zh 检测监听器是否有效 
+		*/
+		checkAvailable() : boolean;		
+		/** !#en Clones the listener, its subclasses have to override this method.
+		!#zh 克隆监听器,它的子类必须重写此方法。 
+		*/
+		clone() : EventListener;		
+		/** !#en Enables or disables the listener
+		!#zh 启用或禁用监听器。 
+		*/
+		setEnabled(enabled : boolean) : void;		
+		/** !#en Checks whether the listener is enabled
+		!#zh 检查监听器是否可用。 
+		*/
+		isEnabled() : boolean;		
+		/** !#en The type code of unknown event listener.
+		!#zh 未知的事件监听器类型 */
+		UNKNOWN : number;		
+		/** !#en The type code of keyboard event listener.
+		!#zh 键盘事件监听器类型 */
+		KEYBOARD : number;		
+		/** !#en The type code of focus event listener.
+		!#zh 加速器事件监听器类型 */
+		ACCELERATION : number;		
+		/** !#en
+		Create a EventListener object with configuration including the event type, handlers and other parameters.
+		In handlers, this refer to the event listener object itself.
+		You can also pass custom parameters in the configuration object,
+		all custom parameters will be polyfilled into the event listener object and can be accessed in handlers.
+		!#zh 通过指定不同的 Event 对象来设置想要创建的事件监听器。
+		@param argObj a json object
+		
+		@example 
+		```js
+		// Create KEYBOARD EventListener.
+		cc.EventListener.create({
+		    event: cc.EventListener.KEYBOARD,
+		    onKeyPressed: function (keyCode, event) {
+		        cc.log('pressed key: ' + keyCode);
+		    },
+		    onKeyReleased: function (keyCode, event) {
+		        cc.log('released key: ' + keyCode);
+		    }
+		});
+		
+		// Create ACCELERATION EventListener.
+		cc.EventListener.create({
+		    event: cc.EventListener.ACCELERATION,
+		    callback: function (acc, event) {
+		        cc.log('acc: ' + keyCode);
+		    }
+		});
+		``` 
+		*/
+		create(argObj : any) : EventListener;	
+	}		
+		/** !#en
+		<p>
+		 cc.eventManager is a singleton object which manages event listener subscriptions and event dispatching. <br/>
+		                                                                                                             <br/>
+		 The EventListener list is managed in such way so that event listeners can be added and removed          <br/>
+		 while events are being dispatched.
+		</p>
+		!#zh
+		事件管理器，它主要管理事件监听器注册和派发系统事件。
+		原始设计中，它支持鼠标，触摸，键盘，陀螺仪和自定义事件。
+		在 Creator 的设计中，鼠标，触摸和自定义事件的监听和派发请参考 http://cocos.com/docs/creator/scripting/events.html。 */
+		export class eventManager {		
+		/** !#en Pauses all listeners which are associated the specified target.
+		!#zh 暂停传入的 node 相关的所有监听器的事件响应。 
+		*/
+		pauseTarget(node : Node, recursive : boolean) : void;		
+		/** !#en Resumes all listeners which are associated the specified target.
+		!#zh 恢复传入的 node 相关的所有监听器的事件响应。 
+		*/
+		resumeTarget(node : Node, recursive : boolean) : void;		
+		/** !#en Query whether the specified event listener id has been added.
+		!#zh 查询指定的事件 ID 是否存在
+		@param listenerID The listener id. 
+		*/
+		hasEventListener(listenerID : string|number) : boolean;		
+		/** !#en
+		<p>
+		Adds a event listener for a specified event.<br/>
+		if the parameter "nodeOrPriority" is a node,
+		it means to add a event listener for a specified event with the priority of scene graph.<br/>
+		if the parameter "nodeOrPriority" is a Number,
+		it means to add a event listener for a specified event with the fixed priority.<br/>
+		</p>
+		!#zh
+		将事件监听器添加到事件管理器中。<br/>
+		如果参数 “nodeOrPriority” 是节点，优先级由 node 的渲染顺序决定，显示在上层的节点将优先收到事件。<br/>
+		如果参数 “nodeOrPriority” 是数字，优先级则固定为该参数的数值，数字越小，优先级越高。<br/>
+		@param listener The listener of a specified event or a object of some event parameters.
+		@param nodeOrPriority The priority of the listener is based on the draw order of this node or fixedPriority The fixed priority of the listener. 
+		*/
+		addListener(listener : EventListener|any, nodeOrPriority : Node|number) : EventListener;		
+		/** !#en Remove a listener.
+		!#zh 移除一个已添加的监听器。
+		@param listener an event listener or a registered node target
+		
+		@example 
+		```js
+		
+		// 1. remove eventManager add Listener;
+		var mouseListener1 = cc.eventManager.addListener({
+		    event: cc.EventListener.MOUSE,
+		    onMouseDown:  function(keyCode, event){ },
+		    onMouseUp: function(keyCode, event){ },
+		    onMouseMove: function () { },
+		    onMouseScroll: function () { }
+		}, node);
+		
+		cc.eventManager.removeListener(mouseListener1);
+		
+		// 2. remove eventListener create Listener;
+		var mouseListener2 = cc.EventListener.create({
+		    event: cc.EventListener.MOUSE,
+		    onMouseDown:  function(keyCode, event){ },
+		    onMouseUp: function(keyCode, event){ },
+		    onMouseMove: function () { },
+		    onMouseScroll: function () { }
+		});
+		
+		cc.eventManager.removeListener(mouseListener2);
+		
+		``` 
+		*/
+		removeListener(listener: (type: number, listenerID: number, callback: number) => void) : void;		
+		/** !#en Removes all listeners with the same event listener type or removes all listeners of a node.
+		!#zh
+		移除注册到 eventManager 中指定类型的所有事件监听器。<br/>
+		1. 如果传入的第一个参数类型是 Node，那么事件管理器将移除与该对象相关的所有事件监听器。
+		（如果第二参数 recursive 是 true 的话，就会连同该对象的子控件上所有的事件监听器也一并移除）<br/>
+		2. 如果传入的第一个参数类型是 Number（该类型 EventListener 中定义的事件类型），
+		那么事件管理器将移除该类型的所有事件监听器。<br/>
+		
+		下列是目前存在监听器类型：       <br/>
+		cc.EventListener.UNKNOWN       <br/>
+		cc.EventListener.KEYBOARD      <br/>
+		cc.EventListener.ACCELERATION，<br/>
+		@param listenerType listenerType or a node 
+		*/
+		removeListeners(listenerType : number|Node, recursive : boolean) : void;		
+		/** !#en Removes all listeners
+		!#zh 移除所有事件监听器。 
+		*/
+		removeAllListeners() : void;		
+		/** !#en Sets listener's priority with fixed value.
+		!#zh 设置 FixedPriority 类型监听器的优先级。
+		@param listener Constructor 
+		*/
+		setPriority(listener: (type: number, listenerID: number, callback: number) => void, fixedPriority : number) : void;		
+		/** !#en Whether to enable dispatching events
+		!#zh 启用或禁用事件管理器，禁用后不会分发任何事件。 
+		*/
+		setEnabled(enabled : boolean) : void;		
+		/** !#en Checks whether dispatching events is enabled
+		!#zh 检测事件管理器是否启用。 
+		*/
+		isEnabled() : boolean;	
+	}		
+		/** !#en The System event, it currently supports the key events and accelerometer events
+		!#zh 系统事件，它目前支持按键事件和重力感应事件 */
+		export class SystemEvent extends EventTarget {	
+	}		
+		/** !#en The touch event class
+		!#zh 封装了触摸相关的信息。 */
+		export class Touch {		
+		/** !#en Returns the current touch location in OpenGL coordinates.、
+		!#zh 获取当前触点位置。 
+		*/
+		getLocation() : Vec2;		
+		/** !#en Returns X axis location value.
+		!#zh 获取当前触点 X 轴位置。 
+		*/
+		getLocationX() : number;		
+		/** !#en Returns Y axis location value.
+		!#zh 获取当前触点 Y 轴位置。 
+		*/
+		getLocationY() : number;		
+		/** !#en Returns the previous touch location in OpenGL coordinates.
+		!#zh 获取触点在上一次事件时的位置对象，对象包含 x 和 y 属性。 
+		*/
+		getPreviousLocation() : Vec2;		
+		/** !#en Returns the start touch location in OpenGL coordinates.
+		!#zh 获获取触点落下时的位置对象，对象包含 x 和 y 属性。 
+		*/
+		getStartLocation() : Vec2;		
+		/** !#en Returns the delta distance from the previous touche to the current one in screen coordinates.
+		!#zh 获取触点距离上一次事件移动的距离对象，对象包含 x 和 y 属性。 
+		*/
+		getDelta() : Vec2;		
+		/** !#en Returns the current touch location in screen coordinates.
+		!#zh 获取当前事件在游戏窗口内的坐标位置对象，对象包含 x 和 y 属性。 
+		*/
+		getLocationInView() : Vec2;		
+		/** !#en Returns the previous touch location in screen coordinates.
+		!#zh 获取触点在上一次事件时在游戏窗口中的位置对象，对象包含 x 和 y 属性。 
+		*/
+		getPreviousLocationInView() : Vec2;		
+		/** !#en Returns the start touch location in screen coordinates.
+		!#zh 获取触点落下时在游戏窗口中的位置对象，对象包含 x 和 y 属性。 
+		*/
+		getStartLocationInView() : Vec2;		
+		/** !#en Returns the id of cc.Touch.
+		!#zh 触点的标识 ID，可以用来在多点触摸中跟踪触点。 
+		*/
+		getID() : number;		
+		/** !#en Sets information to touch.
+		!#zh 设置触摸相关的信息。用于监控触摸事件。 
+		*/
+		setTouchInfo(id : number, x : number, y : number) : void;	
 	}		
 		/** !#en The animation component is used to play back animations.
 		
@@ -5594,8 +5831,31 @@ declare module cc {
 		!#zh 容器内边距，该属性会在四个布局方向上生效。 */
 		padding : number;	
 	}		
-		/** undefined */
-		export class Mask extends _RendererInSG {	
+		/** !#en The Mask Component
+		!#zh 遮罩组件 */
+		export class Mask extends _RendererInSG {		
+		/** !#en The mask type.
+		!#zh 遮罩类型 */
+		type : Mask.Type;		
+		/** !#en The mask image
+		!#zh 遮罩所需要的贴图 */
+		spriteFrame : SpriteFrame;		
+		/** !#en
+		The alpha threshold.  <br/>
+		The content is drawn only where the stencil have pixel with alpha greater than the alphaThreshold. <br/>
+		Should be a float between 0 and 1. <br/>
+		This default to 1 (so alpha test is disabled).
+		!#zh
+		Alpha 阈值 <br/>
+		只有当模板的像素的 alpha 大于 alphaThreshold 时，才会绘制内容。<br/>
+		该数值 0 ~ 1 之间的浮点数，默认值为 1（因此禁用 alpha） */
+		alphaThreshold : number;		
+		/** !#en Reverse mask
+		!#zh 反向遮罩 */
+		inverted : boolean;		
+		/** !#en The segements for ellipse mask.
+		!#zh 椭圆遮罩的曲线细分数 */
+		segements : number;	
 	}		
 		/** !#en The PageView control
 		!#zh 页面视图组件 */
@@ -5710,12 +5970,12 @@ declare module cc {
 		!#zh 进度条是否进行反方向变化。 */
 		reverse : boolean;	
 	}		
-		/** The base rendering component which will attach a leaf node to the cocos2d scene graph. */
-		export class _RendererUnderSG extends _SGComponent {	
-	}		
 		/** Rendering component in scene graph.
 		Maintains a node which will be the scene graph of component's Node. */
 		export class _RendererInSG extends _SGComponent {	
+	}		
+		/** The base rendering component which will attach a leaf node to the cocos2d scene graph. */
+		export class _RendererUnderSG extends _SGComponent {	
 	}		
 		/** !#en The RichText Component.
 		!#zh 富文本组件 */
@@ -6174,17 +6434,6 @@ declare module cc {
 		*/
 		uncheck() : void;	
 	}		
-		/** !#en ToggleGroup is not a visiable UI component but a way to modify the behavior of a set of Toggles.
-		Toggles that belong to the same group could only have one of them to be switched on at a time.
-		!#zh ToggleGroup 不是一个可见的 UI 组件，它可以用来修改一组 Toggle  组件的行为。当一组 Toggle 属于同一个 ToggleGroup 的时候，
-		任何时候只能有一个 Toggle 处于选中状态。 */
-		export class ToggleGroup extends Component {		
-		/** !#en If this setting is true, a toggle could be switched off and on when pressed.
-		If it is false, it will make sure there is always only one toggle could be switched on
-		and the already switched on toggle can't be switched off.
-		!#zh 如果这个设置为 true， 那么 toggle 按钮在被点击的时候可以反复地被选中和未选中。 */
-		allowSwitchOff : boolean;	
-	}		
 		/** !#en cc.VideoPlayer is a component for playing videos, you can use it for showing videos in your game.
 		!#zh Video 组件，用于在游戏中播放视频 */
 		export class VideoPlayer extends _RendererUnderSG {		
@@ -6226,6 +6475,17 @@ declare module cc {
 		*/
 		stop() : void;	
 	}		
+		/** !#en ToggleGroup is not a visiable UI component but a way to modify the behavior of a set of Toggles.
+		Toggles that belong to the same group could only have one of them to be switched on at a time.
+		!#zh ToggleGroup 不是一个可见的 UI 组件，它可以用来修改一组 Toggle  组件的行为。当一组 Toggle 属于同一个 ToggleGroup 的时候，
+		任何时候只能有一个 Toggle 处于选中状态。 */
+		export class ToggleGroup extends Component {		
+		/** !#en If this setting is true, a toggle could be switched off and on when pressed.
+		If it is false, it will make sure there is always only one toggle could be switched on
+		and the already switched on toggle can't be switched off.
+		!#zh 如果这个设置为 true， 那么 toggle 按钮在被点击的时候可以反复地被选中和未选中。 */
+		allowSwitchOff : boolean;	
+	}		
 		/** !#en
 		Handling touch events in a ViewGroup takes special care,
 		because it's common for a ViewGroup to have children that are targets for different touch events than the ViewGroup itself.
@@ -6252,11 +6512,15 @@ declare module cc {
 		/** !#en
 		Stores and manipulate the anchoring based on its parent.
 		Widget are used for GUI but can also be used for other things.
-		Widget will adjust current node's position and size automatically, but the results after adjustment can not be obtained until the next frame.
+		Widget will adjust current node's position and size automatically, but the results after adjustment can not be obtained until the next frame unless you call {{#crossLink "Widget/updateAlignment:method"}}{{/crossLink}} manually.
 		!#zh
 		Widget 组件，用于设置和适配其相对于父节点的边距，Widget 通常被用于 UI 界面，也可以用于其他地方。
-		Widget 会自动调整当前节点的坐标和宽高，不过目前调整后的结果要到下一帧才能在脚本里获取到。 */
+		Widget 会自动调整当前节点的坐标和宽高，不过目前调整后的结果要到下一帧才能在脚本里获取到，除非你先手动调用 {{#crossLink "Widget/updateAlignment:method"}}{{/crossLink}}。 */
 		export class Widget extends Component {		
+		/** !#en Specifies an alignment target that can only be one of the parent nodes of the current node.
+		The default value is null, and when null, indicates the current parent.
+		!#zh 指定一个对齐目标，只能是当前节点的其中一个父节点，默认为空，为空时表示当前父节点。 */
+		target : Node;		
 		/** !#en Whether to align the top.
 		!#zh 是否对齐上边。 */
 		isAlignTop : boolean;		
@@ -6356,232 +6620,23 @@ declare module cc {
 		开启后仅会在 onEnable 的当帧结束时对齐一次，然后立刻禁用当前组件。
 		这样便于脚本或动画继续控制当前节点。
 		注意：onEnable 时所在的那一帧仍然会进行对齐。 */
-		isAlignOnce : boolean;	
-	}		
+		isAlignOnce : boolean;		
 		/** !#en
-		<p>
-		    The base class of event listener.                                                                        <br/>
-		    If you need custom listener which with different callback, you need to inherit this class.               <br/>
-		    For instance, you could refer to EventListenerAcceleration, EventListenerKeyboard,                       <br/>
-		     EventListenerTouchOneByOne, EventListenerCustom.
-		</p>
-		
+		Immediately perform the widget alignment. You need to manually call this method only if
+		you need to get the latest results after the alignment before the end of current frame.
 		!#zh
-		封装用户的事件处理逻辑。
-		注意：这是一个抽象类，开发者不应该直接实例化这个类，请参考 {{#crossLink "EventListener/create:method"}}cc.EventListener.create{{/crossLink}}。 */
-		export class EventListener {		
-		/** Constructor 
-		*/
-		EventListener(type : number, listenerID : number, callback : number) : EventListener;		
-		/** !#en Checks whether the listener is available.
-		!#zh 检测监听器是否有效 
-		*/
-		checkAvailable() : boolean;		
-		/** !#en Clones the listener, its subclasses have to override this method.
-		!#zh 克隆监听器,它的子类必须重写此方法。 
-		*/
-		clone() : EventListener;		
-		/** !#en Enables or disables the listener
-		!#zh 启用或禁用监听器。 
-		*/
-		setEnabled(enabled : boolean) : void;		
-		/** !#en Checks whether the listener is enabled
-		!#zh 检查监听器是否可用。 
-		*/
-		isEnabled() : boolean;		
-		/** !#en The type code of unknown event listener.
-		!#zh 未知的事件监听器类型 */
-		UNKNOWN : number;		
-		/** !#en The type code of keyboard event listener.
-		!#zh 键盘事件监听器类型 */
-		KEYBOARD : number;		
-		/** !#en The type code of focus event listener.
-		!#zh 加速器事件监听器类型 */
-		ACCELERATION : number;		
-		/** !#en
-		Create a EventListener object with configuration including the event type, handlers and other parameters.
-		In handlers, this refer to the event listener object itself.
-		You can also pass custom parameters in the configuration object,
-		all custom parameters will be polyfilled into the event listener object and can be accessed in handlers.
-		!#zh 通过指定不同的 Event 对象来设置想要创建的事件监听器。
-		@param argObj a json object
+		立刻执行 widget 对齐操作。这个接口一般不需要手工调用。
+		只有当你需要在当前帧结束前获得 widget 对齐后的最新结果时才需要手动调用这个方法。
 		
 		@example 
 		```js
-		// Create KEYBOARD EventListener.
-		cc.EventListener.create({
-		    event: cc.EventListener.KEYBOARD,
-		    onKeyPressed: function (keyCode, event) {
-		        cc.log('pressed key: ' + keyCode);
-		    },
-		    onKeyReleased: function (keyCode, event) {
-		        cc.log('released key: ' + keyCode);
-		    }
-		});
-		
-		// Create ACCELERATION EventListener.
-		cc.EventListener.create({
-		    event: cc.EventListener.ACCELERATION,
-		    callback: function (acc, event) {
-		        cc.log('acc: ' + keyCode);
-		    }
-		});
+		widget.top = 10;       // change top margin
+		cc.log(widget.node.y); // not yet changed
+		widget.updateAlignment();
+		cc.log(widget.node.y); // changed
 		``` 
 		*/
-		create(argObj : any) : EventListener;	
-	}		
-		/** !#en
-		<p>
-		 cc.eventManager is a singleton object which manages event listener subscriptions and event dispatching. <br/>
-		                                                                                                             <br/>
-		 The EventListener list is managed in such way so that event listeners can be added and removed          <br/>
-		 while events are being dispatched.
-		</p>
-		!#zh
-		事件管理器，它主要管理事件监听器注册和派发系统事件。
-		原始设计中，它支持鼠标，触摸，键盘，陀螺仪和自定义事件。
-		在 Creator 的设计中，鼠标，触摸和自定义事件的监听和派发请参考 http://cocos.com/docs/creator/scripting/events.html。 */
-		export class eventManager {		
-		/** !#en Pauses all listeners which are associated the specified target.
-		!#zh 暂停传入的 node 相关的所有监听器的事件响应。 
-		*/
-		pauseTarget(node : Node, recursive : boolean) : void;		
-		/** !#en Resumes all listeners which are associated the specified target.
-		!#zh 恢复传入的 node 相关的所有监听器的事件响应。 
-		*/
-		resumeTarget(node : Node, recursive : boolean) : void;		
-		/** !#en
-		<p>
-		Adds a event listener for a specified event.<br/>
-		if the parameter "nodeOrPriority" is a node,
-		it means to add a event listener for a specified event with the priority of scene graph.<br/>
-		if the parameter "nodeOrPriority" is a Number,
-		it means to add a event listener for a specified event with the fixed priority.<br/>
-		</p>
-		!#zh
-		将事件监听器添加到事件管理器中。<br/>
-		如果参数 “nodeOrPriority” 是节点，优先级由 node 的渲染顺序决定，显示在上层的节点将优先收到事件。<br/>
-		如果参数 “nodeOrPriority” 是数字，优先级则固定为该参数的数值，数字越小，优先级越高。<br/>
-		@param listener The listener of a specified event or a object of some event parameters.
-		@param nodeOrPriority The priority of the listener is based on the draw order of this node or fixedPriority The fixed priority of the listener. 
-		*/
-		addListener(listener : EventListener|any, nodeOrPriority : Node|number) : EventListener;		
-		/** !#en Remove a listener.
-		!#zh 移除一个已添加的监听器。
-		@param listener an event listener or a registered node target
-		
-		@example 
-		```js
-		
-		// 1. remove eventManager add Listener;
-		var mouseListener1 = cc.eventManager.addListener({
-		    event: cc.EventListener.MOUSE,
-		    onMouseDown:  function(keyCode, event){ },
-		    onMouseUp: function(keyCode, event){ },
-		    onMouseMove: function () { },
-		    onMouseScroll: function () { }
-		}, node);
-		
-		cc.eventManager.removeListener(mouseListener1);
-		
-		// 2. remove eventListener create Listener;
-		var mouseListener2 = cc.EventListener.create({
-		    event: cc.EventListener.MOUSE,
-		    onMouseDown:  function(keyCode, event){ },
-		    onMouseUp: function(keyCode, event){ },
-		    onMouseMove: function () { },
-		    onMouseScroll: function () { }
-		});
-		
-		cc.eventManager.removeListener(mouseListener2);
-		
-		``` 
-		*/
-		removeListener(listener: (type: number, listenerID: number, callback: number) => void) : void;		
-		/** !#en Removes all listeners with the same event listener type or removes all listeners of a node.
-		!#zh
-		移除注册到 eventManager 中指定类型的所有事件监听器。<br/>
-		1. 如果传入的第一个参数类型是 Node，那么事件管理器将移除与该对象相关的所有事件监听器。
-		（如果第二参数 recursive 是 true 的话，就会连同该对象的子控件上所有的事件监听器也一并移除）<br/>
-		2. 如果传入的第一个参数类型是 Number（该类型 EventListener 中定义的事件类型），
-		那么事件管理器将移除该类型的所有事件监听器。<br/>
-		
-		下列是目前存在监听器类型：       <br/>
-		cc.EventListener.UNKNOWN       <br/>
-		cc.EventListener.KEYBOARD      <br/>
-		cc.EventListener.ACCELERATION，<br/>
-		@param listenerType listenerType or a node 
-		*/
-		removeListeners(listenerType : number|Node, recursive : boolean) : void;		
-		/** !#en Removes all listeners
-		!#zh 移除所有事件监听器。 
-		*/
-		removeAllListeners() : void;		
-		/** !#en Sets listener's priority with fixed value.
-		!#zh 设置 FixedPriority 类型监听器的优先级。
-		@param listener Constructor 
-		*/
-		setPriority(listener: (type: number, listenerID: number, callback: number) => void, fixedPriority : number) : void;		
-		/** !#en Whether to enable dispatching events
-		!#zh 启用或禁用事件管理器，禁用后不会分发任何事件。 
-		*/
-		setEnabled(enabled : boolean) : void;		
-		/** !#en Checks whether dispatching events is enabled
-		!#zh 检测事件管理器是否启用。 
-		*/
-		isEnabled() : boolean;	
-	}		
-		/** !#en The System event, it currently supports the key events and accelerometer events
-		!#zh 系统事件，它目前支持按键事件和重力感应事件 */
-		export class SystemEvent extends EventTarget {	
-	}		
-		/** !#en The touch event class
-		!#zh 封装了触摸相关的信息。 */
-		export class Touch {		
-		/** !#en Returns the current touch location in OpenGL coordinates.、
-		!#zh 获取当前触点位置。 
-		*/
-		getLocation() : Vec2;		
-		/** !#en Returns X axis location value.
-		!#zh 获取当前触点 X 轴位置。 
-		*/
-		getLocationX() : number;		
-		/** !#en Returns Y axis location value.
-		!#zh 获取当前触点 Y 轴位置。 
-		*/
-		getLocationY() : number;		
-		/** !#en Returns the previous touch location in OpenGL coordinates.
-		!#zh 获取触点在上一次事件时的位置对象，对象包含 x 和 y 属性。 
-		*/
-		getPreviousLocation() : Vec2;		
-		/** !#en Returns the start touch location in OpenGL coordinates.
-		!#zh 获获取触点落下时的位置对象，对象包含 x 和 y 属性。 
-		*/
-		getStartLocation() : Vec2;		
-		/** !#en Returns the delta distance from the previous touche to the current one in screen coordinates.
-		!#zh 获取触点距离上一次事件移动的距离对象，对象包含 x 和 y 属性。 
-		*/
-		getDelta() : Vec2;		
-		/** !#en Returns the current touch location in screen coordinates.
-		!#zh 获取当前事件在游戏窗口内的坐标位置对象，对象包含 x 和 y 属性。 
-		*/
-		getLocationInView() : Vec2;		
-		/** !#en Returns the previous touch location in screen coordinates.
-		!#zh 获取触点在上一次事件时在游戏窗口中的位置对象，对象包含 x 和 y 属性。 
-		*/
-		getPreviousLocationInView() : Vec2;		
-		/** !#en Returns the start touch location in screen coordinates.
-		!#zh 获取触点落下时在游戏窗口中的位置对象，对象包含 x 和 y 属性。 
-		*/
-		getStartLocationInView() : Vec2;		
-		/** !#en Returns the id of cc.Touch.
-		!#zh 触点的标识 ID，可以用来在多点触摸中跟踪触点。 
-		*/
-		getID() : number;		
-		/** !#en Sets information to touch.
-		!#zh 设置触摸相关的信息。用于监控触摸事件。 
-		*/
-		setTouchInfo(id : number, x : number, y : number) : void;	
+		updateAlignment() : void;	
 	}		
 		/** undefined */
 		export class Graphics extends _RendererUnderSG {		
@@ -6821,7 +6876,7 @@ declare module cc {
 		@example 
 		```js
 		// load the texture (resources/imgs/cocos.png) and the corresponding sprite frame
-		cc.loader.loadResAll('imgs/cocos', function (err, assets) {
+		cc.loader.loadResDir('imgs/cocos', function (err, assets) {
 		    if (err) {
 		        cc.error(err);
 		        return;
@@ -6831,7 +6886,7 @@ declare module cc {
 		});
 		
 		// load all textures in "resources/imgs/"
-		cc.loader.loadResAll('imgs', cc.Texture2D, function (err, textures) {
+		cc.loader.loadResDir('imgs', cc.Texture2D, function (err, textures) {
 		    if (err) {
 		        cc.error(err);
 		        return;
@@ -6841,13 +6896,14 @@ declare module cc {
 		});
 		``` 
 		*/
-		loadResAll(url : string, type? : Function, completeCallback: (error: Error, assets: any[]) => void) : void;		
+		loadResDir(url : string, type? : Function, completeCallback: (error: Error, assets: any[]) => void) : void;		
 		/** Get resource data by id. <br>
 		When you load resources with {{#crossLink "loader/load:method"}}{{/crossLink}} or {{#crossLink "loader/loadRes:method"}}{{/crossLink}},
 		the url will be the unique identity of the resource.
-		After loaded, you can acquire them by passing the url to this API. 
+		After loaded, you can acquire them by passing the url to this API.
+		@param type Only asset of type will be returned if this argument is supplied. 
 		*/
-		getRes(url : string) : any;		
+		getRes(url : string, type? : Function) : any;		
 		/** !#en
 		Release the content of an asset or an array of assets by uuid.
 		Start from v1.3, this method will not only remove the cache of the asset in loader, but also clean up its content.
@@ -6859,7 +6915,7 @@ declare module cc {
 		通过 id（通常是资源 url）来释放一个资源或者一个资源数组。
 		从 v1.3 开始，这个方法不仅会从 loader 中删除资源的缓存引用，还会清理它的资源内容。
 		比如说，当你释放一个 texture 资源，这个 texture 和它的 gl 贴图数据都会被释放。
-		在复杂项目中，我们建议你结合 {{#crossLink "loader/getDependsRecursively:method"}}{{/crossLink}} 来使用，便于在设备内存告急的情况下更快得释放不再需要的资源的内存。
+		在复杂项目中，我们建议你结合 {{#crossLink "loader/getDependsRecursively:method"}}{{/crossLink}} 来使用，便于在设备内存告急的情况下更快地释放不再需要的资源的内存。
 		注意，这个函数可能会导致资源贴图或资源所依赖的贴图不可用，如果场景中存在节点仍然依赖同样的贴图，它们可能会变黑并报 GL 错误。
 		如果你只想删除一个资源的缓存引用，请使用 {{#crossLink "pipeline/removeItem:method"}}{{/crossLink}}
 		
@@ -6888,9 +6944,15 @@ declare module cc {
 		*/
 		releaseAsset(asset : Asset) : void;		
 		/** !#en Release the asset loaded by {{#crossLink "loader/loadRes:method"}}{{/crossLink}}. Refer to {{#crossLink "loader/release:method"}}{{/crossLink}} for detailed informations.
-		!#zh 释放通过 {{#crossLink "loader/loadRes:method"}}{{/crossLink}} 加载的资源。详细信息请参考 {{#crossLink "loader/release:method"}}{{/crossLink}} 
+		!#zh 释放通过 {{#crossLink "loader/loadRes:method"}}{{/crossLink}} 加载的资源。详细信息请参考 {{#crossLink "loader/release:method"}}{{/crossLink}}
+		@param type Only asset of type will be released if this argument is supplied. 
 		*/
-		releaseRes(url : string) : void;		
+		releaseRes(url : string, type? : Function) : void;		
+		/** !#en Release the all assets loaded by {{#crossLink "loader/loadResDir:method"}}{{/crossLink}}. Refer to {{#crossLink "loader/release:method"}}{{/crossLink}} for detailed informations.
+		!#zh 释放通过 {{#crossLink "loader/loadResDir:method"}}{{/crossLink}} 加载的资源。详细信息请参考 {{#crossLink "loader/release:method"}}{{/crossLink}}
+		@param type Only asset of type will be released if this argument is supplied. 
+		*/
+		releaseResDir(url : string, type? : Function) : void;		
 		/** !#en Resource all assets. Refer to {{#crossLink "loader/release:method"}}{{/crossLink}} for detailed informations.
 		!#zh 释放所有资源。详细信息请参考 {{#crossLink "loader/release:method"}}{{/crossLink}} 
 		*/
@@ -6899,7 +6961,7 @@ declare module cc {
 		Indicates whether to release the asset when loading a new scene.<br>
 		By default, when loading a new scene, all assets in the previous scene will be released or preserved
 		according to whether the previous scene checked the "Auto Release Assets" option.
-		On the other hand, assets dynamically loaded by using `cc.loader.loadRes` or `cc.loader.loadResAll`
+		On the other hand, assets dynamically loaded by using `cc.loader.loadRes` or `cc.loader.loadResDir`
 		will not be affected by that option, remain not released by default.<br>
 		Use this API to change the default behavior on a single asset, to force preserve or release specified asset when scene switching.<br>
 		<br>
@@ -6907,7 +6969,7 @@ declare module cc {
 		!#zh
 		设置当场景切换时是否自动释放资源。<br>
 		默认情况下，当加载新场景时，旧场景的资源根据旧场景是否勾选“Auto Release Assets”，将会被释放或者保留。
-		而使用 `cc.loader.loadRes` 或 `cc.loader.loadResAll` 动态加载的资源，则不受场景设置的影响，默认不自动释放。<br>
+		而使用 `cc.loader.loadRes` 或 `cc.loader.loadResDir` 动态加载的资源，则不受场景设置的影响，默认不自动释放。<br>
 		使用这个 API 可以在单个资源上改变这个默认行为，强制在切换场景时保留或者释放指定资源。<br>
 		<br>
 		参考：{{#crossLink "loader/setAutoReleaseRecursively:method"}}cc.loader.setAutoReleaseRecursively{{/crossLink}}，{{#crossLink "loader/isAutoRelease:method"}}cc.loader.isAutoRelease{{/crossLink}}
@@ -6929,7 +6991,7 @@ declare module cc {
 		Indicates whether to release the asset and its referenced other assets when loading a new scene.<br>
 		By default, when loading a new scene, all assets in the previous scene will be released or preserved
 		according to whether the previous scene checked the "Auto Release Assets" option.
-		On the other hand, assets dynamically loaded by using `cc.loader.loadRes` or `cc.loader.loadResAll`
+		On the other hand, assets dynamically loaded by using `cc.loader.loadRes` or `cc.loader.loadResDir`
 		will not be affected by that option, remain not released by default.<br>
 		Use this API to change the default behavior on the specified asset and its recursively referenced assets, to force preserve or release specified asset when scene switching.<br>
 		<br>
@@ -6937,7 +6999,7 @@ declare module cc {
 		!#zh
 		设置当场景切换时是否自动释放资源及资源引用的其它资源。<br>
 		默认情况下，当加载新场景时，旧场景的资源根据旧场景是否勾选“Auto Release Assets”，将会被释放或者保留。
-		而使用 `cc.loader.loadRes` 或 `cc.loader.loadResAll` 动态加载的资源，则不受场景设置的影响，默认不自动释放。<br>
+		而使用 `cc.loader.loadRes` 或 `cc.loader.loadResDir` 动态加载的资源，则不受场景设置的影响，默认不自动释放。<br>
 		使用这个 API 可以在指定资源及资源递归引用到的所有资源上改变这个默认行为，强制在切换场景时保留或者释放指定资源。<br>
 		<br>
 		参考：{{#crossLink "loader/setAutoRelease:method"}}cc.loader.setAutoRelease{{/crossLink}}，{{#crossLink "loader/isAutoRelease:method"}}cc.loader.isAutoRelease{{/crossLink}}
@@ -7303,6 +7365,877 @@ declare module cc {
 		*/
 		clear() : void;	
 	}		
+		/** <p>
+		 This class manages all events of input. include: touch, mouse, accelerometer, keyboard                                       <br/>
+		</p> */
+		export class inputManager {		
+		/**  
+		*/
+		handleTouchesBegin(touches : any[]) : void;		
+		/**  
+		*/
+		handleTouchesMove(touches : any[]) : void;		
+		/**  
+		*/
+		handleTouchesEnd(touches : any[]) : void;		
+		/**  
+		*/
+		handleTouchesCancel(touches : any[]) : void;		
+		/**  
+		*/
+		getSetOfTouchesEndOrCancel(touches : any[]) : any[];		
+		/**  
+		*/
+		getHTMLElementPosition(element : HTMLElement) : any;		
+		/**  
+		*/
+		getPreTouch(touch : Touch) : Touch;		
+		/**  
+		*/
+		setPreTouch(touch : Touch) : void;		
+		/**  
+		*/
+		getTouchByXY(tx : number, ty : number, pos : Vec2) : Touch;		
+		/**  
+		*/
+		getTouchByXY(location : Vec2, pos : Vec2, eventType : number) : Event.EventMouse;		
+		/**  
+		*/
+		getPointByEvent(event : Touch, pos : Vec2) : Vec2;		
+		/**  
+		*/
+		getTouchesByEvent(event : Touch, pos : Vec2) : any[];		
+		/**  
+		*/
+		registerSystemEvent(element : HTMLElement) : void;		
+		/**  
+		*/
+		update(dt : number) : void;	
+	}	
+	/** !#en Key map for keyboard event
+	!#zh 键盘事件的按键值 */
+	export enum KEY {		
+		none = 0,
+		back = 0,
+		menu = 0,
+		backspace = 0,
+		tab = 0,
+		enter = 0,
+		shift = 0,
+		ctrl = 0,
+		alt = 0,
+		pause = 0,
+		capslock = 0,
+		escape = 0,
+		space = 0,
+		pageup = 0,
+		pagedown = 0,
+		end = 0,
+		home = 0,
+		left = 0,
+		up = 0,
+		right = 0,
+		down = 0,
+		select = 0,
+		insert = 0,
+		Delete = 0,
+		a = 0,
+		b = 0,
+		c = 0,
+		d = 0,
+		e = 0,
+		f = 0,
+		g = 0,
+		h = 0,
+		i = 0,
+		j = 0,
+		k = 0,
+		l = 0,
+		m = 0,
+		n = 0,
+		o = 0,
+		p = 0,
+		q = 0,
+		r = 0,
+		s = 0,
+		t = 0,
+		u = 0,
+		v = 0,
+		w = 0,
+		x = 0,
+		y = 0,
+		z = 0,
+		num0 = 0,
+		num1 = 0,
+		num2 = 0,
+		num3 = 0,
+		num4 = 0,
+		num5 = 0,
+		num6 = 0,
+		num7 = 0,
+		num8 = 0,
+		num9 = 0,
+		'*' = 0,
+		'+' = 0,
+		'-' = 0,
+		numdel = 0,
+		'/' = 0,
+		f1 = 0,
+		f2 = 0,
+		f3 = 0,
+		f4 = 0,
+		f5 = 0,
+		f6 = 0,
+		f7 = 0,
+		f8 = 0,
+		f9 = 0,
+		f10 = 0,
+		f11 = 0,
+		f12 = 0,
+		numlock = 0,
+		scrolllock = 0,
+		';' = 0,
+		semicolon = 0,
+		equal = 0,
+		'=' = 0,
+		',' = 0,
+		comma = 0,
+		dash = 0,
+		'.' = 0,
+		period = 0,
+		forwardslash = 0,
+		grave = 0,
+		'[' = 0,
+		openbracket = 0,
+		backslash = 0,
+		']' = 0,
+		closebracket = 0,
+		quote = 0,
+		dpadLeft = 0,
+		dpadRight = 0,
+		dpadUp = 0,
+		dpadDown = 0,
+		dpadCenter = 0,	
+	}	
+	/** Image formats */
+	export enum ImageFormat {		
+		JPG = 0,
+		PNG = 0,
+		TIFF = 0,
+		WEBP = 0,
+		PVR = 0,
+		ETC = 0,
+		S3TC = 0,
+		ATITC = 0,
+		TGA = 0,
+		RAWDATA = 0,
+		UNKNOWN = 0,
+		getImageFormatByData = 0,	
+	}	
+	/** Predefined constants */
+	export enum Macro {		
+		INVALID_INDEX = 0,
+		NODE_TAG_INVALID = 0,
+		PI = 0,
+		PI2 = 0,
+		FLT_MAX = 0,
+		FLT_MIN = 0,
+		RAD = 0,
+		DEG = 0,
+		UINT_MAX = 0,
+		REPEAT_FOREVER = 0,
+		FLT_EPSILON = 0,
+		ONE = 0,
+		ZERO = 0,
+		SRC_ALPHA = 0,
+		SRC_ALPHA_SATURATE = 0,
+		SRC_COLOR = 0,
+		DST_ALPHA = 0,
+		DST_COLOR = 0,
+		ONE_MINUS_SRC_ALPHA = 0,
+		ONE_MINUS_SRC_COLOR = 0,
+		ONE_MINUS_DST_ALPHA = 0,
+		ONE_MINUS_DST_COLOR = 0,
+		ONE_MINUS_CONSTANT_ALPHA = 0,
+		ONE_MINUS_CONSTANT_COLOR = 0,
+		LINEAR = 0,
+		BLEND_DST = 0,
+		WEB_ORIENTATION_PORTRAIT = 0,
+		WEB_ORIENTATION_LANDSCAPE_LEFT = 0,
+		WEB_ORIENTATION_PORTRAIT_UPSIDE_DOWN = 0,
+		WEB_ORIENTATION_LANDSCAPE_RIGHT = 0,
+		ORIENTATION_PORTRAIT = 0,
+		ORIENTATION_LANDSCAPE = 0,
+		ORIENTATION_AUTO = 0,
+		VERTEX_ATTRIB_FLAG_NONE = 0,
+		VERTEX_ATTRIB_FLAG_POSITION = 0,
+		VERTEX_ATTRIB_FLAG_COLOR = 0,
+		VERTEX_ATTRIB_FLAG_TEX_COORDS = 0,
+		VERTEX_ATTRIB_FLAG_POS_COLOR_TEX = 0,
+		GL_ALL = 0,
+		VERTEX_ATTRIB_POSITION = 0,
+		VERTEX_ATTRIB_COLOR = 0,
+		VERTEX_ATTRIB_TEX_COORDS = 0,
+		VERTEX_ATTRIB_MAX = 0,
+		UNIFORM_PMATRIX = 0,
+		UNIFORM_MVMATRIX = 0,
+		UNIFORM_MVPMATRIX = 0,
+		UNIFORM_TIME = 0,
+		UNIFORM_SINTIME = 0,
+		UNIFORM_COSTIME = 0,
+		UNIFORM_RANDOM01 = 0,
+		UNIFORM_SAMPLER = 0,
+		UNIFORM_MAX = 0,
+		SHADER_POSITION_TEXTURECOLOR = 0,
+		SHADER_SPRITE_POSITION_TEXTURECOLOR = 0,
+		SHADER_POSITION_TEXTURECOLORALPHATEST = 0,
+		SHADER_SPRITE_POSITION_TEXTURECOLORALPHATEST = 0,
+		SHADER_POSITION_COLOR = 0,
+		SHADER_SPRITE_POSITION_COLOR = 0,
+		SHADER_POSITION_TEXTURE = 0,
+		SHADER_POSITION_TEXTURE_UCOLOR = 0,
+		SHADER_POSITION_TEXTUREA8COLOR = 0,
+		SHADER_POSITION_UCOLOR = 0,
+		SHADER_POSITION_LENGTHTEXTURECOLOR = 0,
+		UNIFORM_PMATRIX_S = 0,
+		UNIFORM_MVMATRIX_S = 0,
+		UNIFORM_MVPMATRIX_S = 0,
+		UNIFORM_TIME_S = 0,
+		UNIFORM_SINTIME_S = 0,
+		UNIFORM_COSTIME_S = 0,
+		UNIFORM_RANDOM01_S = 0,
+		UNIFORM_SAMPLER_S = 0,
+		UNIFORM_ALPHA_TEST_VALUE_S = 0,
+		ATTRIBUTE_NAME_COLOR = 0,
+		ATTRIBUTE_NAME_POSITION = 0,
+		ATTRIBUTE_NAME_TEX_COORD = 0,
+		ITEM_SIZE = 0,
+		CURRENT_ITEM = 0,
+		ZOOM_ACTION_TAG = 0,
+		NORMAL_TAG = 0,
+		SELECTED_TAG = 0,
+		DISABLE_TAG = 0,
+		FIX_ARTIFACTS_BY_STRECHING_TEXEL = 0,
+		DIRECTOR_STATS_POSITION = 0,
+		DIRECTOR_FPS_INTERVAL = 0,
+		COCOSNODE_RENDER_SUBPIXEL = 0,
+		SPRITEBATCHNODE_RENDER_SUBPIXEL = 0,
+		AUTO_PREMULTIPLIED_ALPHA_FOR_PNG = 0,
+		OPTIMIZE_BLEND_FUNC_FOR_PREMULTIPLIED_ALPHA = 0,
+		TEXTURE_ATLAS_USE_TRIANGLE_STRIP = 0,
+		TEXTURE_ATLAS_USE_VAO = 0,
+		USE_LA88_LABELS = 0,
+		SPRITE_DEBUG_DRAW = 0,
+		LABELBMFONT_DEBUG_DRAW = 0,
+		LABELATLAS_DEBUG_DRAW = 0,
+		ENABLE_STACKABLE_ACTIONS = 0,
+		ENABLE_GL_STATE_CACHE = 0,
+		TOUCH_TIMEOUT = 0,
+		BLEND_SRC = 0,
+		lerp = 0,
+		rand = 0,
+		randomMinus1To1 = 0,
+		random0To1 = 0,
+		degreesToRadians = 0,
+		radiansToDegrees = 0,
+		nodeDrawSetup = 0,
+		incrementGLDraws = 0,
+		checkGLErrorDebug = 0,	
+	}		
+		/** The base class of most of all the objects in Fireball. */
+		export class Object {		
+		/** !#en The name of the object.
+		!#zh 该对象的名称。 */
+		name : string;		
+		/** !#en Indicates whether the object is not yet destroyed.
+		!#zh 表示该对象是否可用（被销毁后将不可用）。 */
+		isValid : boolean;		
+		/** !#en
+		Destroy this Object, and release all its own references to other objects.<br/>
+		Actual object destruction will delayed until before rendering.
+		<br/>
+		After destroy, this CCObject is not usable any more.
+		You can use cc.isValid(obj) to check whether the object is destroyed before accessing it.
+		!#zh
+		销毁该对象，并释放所有它对其它对象的引用。<br/>
+		销毁后，CCObject 不再可用。您可以在访问对象之前使用 cc.isValid(obj) 来检查对象是否已被销毁。
+		实际销毁操作会延迟到当前帧渲染前执行。
+		
+		@example 
+		```js
+		obj.destroy();
+		``` 
+		*/
+		destroy() : boolean;	
+	}		
+		/** Bit mask that controls object states. */
+		export class Flags {		
+		/** !#en The object will not be saved.
+		!#zh 该对象将不会被保存。 */
+		DontSave : number;		
+		/** !#en The object will not be saved when building a player.
+		!#zh 构建项目时，该对象将不会被保存。 */
+		EditorOnly : number;	
+	}		
+		/** The fullscreen API provides an easy way for web content to be presented using the user's entire screen.
+		It's invalid on safari, QQbrowser and android browser */
+		export class screen {		
+		/** initialize 
+		*/
+		init() : void;		
+		/** return true if it's full now. 
+		*/
+		fullScreen() : boolean;		
+		/** change the screen to full mode. 
+		*/
+		requestFullScreen(element : Element, onFullScreenChange : Function) : void;		
+		/** exit the full mode. 
+		*/
+		exitFullScreen() : boolean;		
+		/** Automatically request full screen with a touch/click event 
+		*/
+		autoFullScreen(element : Element, onFullScreenChange : Function) : void;	
+	}		
+		/** System variables */
+		export class sys {		
+		/** English language code */
+		LANGUAGE_ENGLISH : string;		
+		/** Chinese language code */
+		LANGUAGE_CHINESE : string;		
+		/** French language code */
+		LANGUAGE_FRENCH : string;		
+		/** Italian language code */
+		LANGUAGE_ITALIAN : string;		
+		/** German language code */
+		LANGUAGE_GERMAN : string;		
+		/** Spanish language code */
+		LANGUAGE_SPANISH : string;		
+		/** Spanish language code */
+		LANGUAGE_DUTCH : string;		
+		/** Russian language code */
+		LANGUAGE_RUSSIAN : string;		
+		/** Korean language code */
+		LANGUAGE_KOREAN : string;		
+		/** Japanese language code */
+		LANGUAGE_JAPANESE : string;		
+		/** Hungarian language code */
+		LANGUAGE_HUNGARIAN : string;		
+		/** Portuguese language code */
+		LANGUAGE_PORTUGUESE : string;		
+		/** Arabic language code */
+		LANGUAGE_ARABIC : string;		
+		/** Norwegian language code */
+		LANGUAGE_NORWEGIAN : string;		
+		/** Polish language code */
+		LANGUAGE_POLISH : string;		
+		/** Turkish language code */
+		LANGUAGE_TURKISH : string;		
+		/** Ukrainian language code */
+		LANGUAGE_UKRAINIAN : string;		
+		/** Romanian language code */
+		LANGUAGE_ROMANIAN : string;		
+		/** Bulgarian language code */
+		LANGUAGE_BULGARIAN : string;		
+		/** Unknown language code */
+		LANGUAGE_UNKNOWN : string;		
+		OS_IOS : string;		
+		OS_ANDROID : string;		
+		OS_WINDOWS : string;		
+		OS_MARMALADE : string;		
+		OS_LINUX : string;		
+		OS_BADA : string;		
+		OS_BLACKBERRY : string;		
+		OS_OSX : string;		
+		OS_WP8 : string;		
+		OS_WINRT : string;		
+		OS_UNKNOWN : string;		
+		UNKNOWN : number;		
+		WIN32 : number;		
+		LINUX : number;		
+		MACOS : number;		
+		ANDROID : number;		
+		IPHONE : number;		
+		IPAD : number;		
+		BLACKBERRY : number;		
+		NACL : number;		
+		EMSCRIPTEN : number;		
+		TIZEN : number;		
+		WINRT : number;		
+		WP8 : number;		
+		MOBILE_BROWSER : number;		
+		DESKTOP_BROWSER : number;		
+		/** Indicates whether executes in editor's window process (Electron's renderer context) */
+		EDITOR_PAGE : number;		
+		/** Indicates whether executes in editor's main process (Electron's browser context) */
+		EDITOR_CORE : number;		
+		/** BROWSER_TYPE_WECHAT */
+		BROWSER_TYPE_WECHAT : string;		
+		BROWSER_TYPE_ANDROID : string;		
+		BROWSER_TYPE_IE : string;		
+		BROWSER_TYPE_QQ : string;		
+		BROWSER_TYPE_MOBILE_QQ : string;		
+		BROWSER_TYPE_UC : string;		
+		BROWSER_TYPE_360 : string;		
+		BROWSER_TYPE_BAIDU_APP : string;		
+		BROWSER_TYPE_BAIDU : string;		
+		BROWSER_TYPE_MAXTHON : string;		
+		BROWSER_TYPE_OPERA : string;		
+		BROWSER_TYPE_OUPENG : string;		
+		BROWSER_TYPE_MIUI : string;		
+		BROWSER_TYPE_FIREFOX : string;		
+		BROWSER_TYPE_SAFARI : string;		
+		BROWSER_TYPE_CHROME : string;		
+		BROWSER_TYPE_LIEBAO : string;		
+		BROWSER_TYPE_QZONE : string;		
+		BROWSER_TYPE_SOUGOU : string;		
+		BROWSER_TYPE_UNKNOWN : string;		
+		/** Is native ? This is set to be true in jsb auto. */
+		isNative : boolean;		
+		/** Is web browser ? */
+		isBrowser : boolean;		
+		/** Indicate whether system is mobile system */
+		isMobile : boolean;		
+		/** Indicate the running platform */
+		platform : number;		
+		/** Indicate the current language of the running system */
+		language : string;		
+		/** Indicate the running os name */
+		os : string;		
+		/** Indicate the running os version */
+		osVersion : string;		
+		/** Indicate the running os main version */
+		osMainVersion : number;		
+		/** Indicate the running browser type */
+		browserType : string;		
+		/** Indicate the running browser version */
+		browserVersion : string;		
+		/** Indicate the real pixel resolution of the whole game window */
+		windowPixelResolution : Size;		
+		/** cc.sys.localStorage is a local storage component. */
+		localStorage : any;		
+		/** The capabilities of the current platform */
+		capabilities : any;		
+		/** Forces the garbage collection, only available in JSB 
+		*/
+		garbageCollect() : void;		
+		/** Dumps rooted objects, only available in JSB 
+		*/
+		dumpRoot() : void;		
+		/** Restart the JS VM, only available in JSB 
+		*/
+		restartVM() : void;		
+		/** Clean a script in the JS VM, only available in JSB 
+		*/
+		cleanScript(jsfile : string) : void;		
+		/** Check whether an object is valid,
+		In web engine, it will return true if the object exist
+		In native engine, it will return true if the JS object and the correspond native object are both valid 
+		*/
+		isObjectValid(obj : any) : boolean;		
+		/** Dump system informations 
+		*/
+		dump() : void;		
+		/** Open a url in browser 
+		*/
+		openURL(url : string) : void;		
+		/** Get the number of milliseconds elapsed since 1 January 1970 00:00:00 UTC. 
+		*/
+		now() : number;	
+	}		
+		/** cc.view is the singleton object which represents the game window.<br/>
+		It's main task include: <br/>
+		 - Apply the design resolution policy<br/>
+		 - Provide interaction with the window, like resize event on web, retina display support, etc...<br/>
+		 - Manage the game view port which can be different with the window<br/>
+		 - Manage the content scale and translation<br/>
+		<br/>
+		Since the cc.view is a singleton, you don't need to call any constructor or create functions,<br/>
+		the standard way to use it is by calling:<br/>
+		 - cc.view.methodName(); <br/> */
+		export class View {		
+		/** <p>
+		Sets view's target-densitydpi for android mobile browser. it can be set to:           <br/>
+		  1. cc.macro.DENSITYDPI_DEVICE, value is "device-dpi"                                      <br/>
+		  2. cc.macro.DENSITYDPI_HIGH, value is "high-dpi"  (default value)                         <br/>
+		  3. cc.macro.DENSITYDPI_MEDIUM, value is "medium-dpi" (browser's default value)            <br/>
+		  4. cc.macro.DENSITYDPI_LOW, value is "low-dpi"                                            <br/>
+		  5. Custom value, e.g: "480"                                                         <br/>
+		</p> 
+		*/
+		setTargetDensityDPI(densityDPI : string) : void;		
+		/** Returns the current target-densitydpi value of cc.view. 
+		*/
+		getTargetDensityDPI() : string;		
+		/** Sets whether resize canvas automatically when browser's size changed.<br/>
+		Useful only on web.
+		@param enabled Whether enable automatic resize with browser's resize event 
+		*/
+		resizeWithBrowserSize(enabled : boolean) : void;		
+		/** Sets the callback function for cc.view's resize action,<br/>
+		this callback will be invoked before applying resolution policy, <br/>
+		so you can do any additional modifications within the callback.<br/>
+		Useful only on web.
+		@param callback The callback function 
+		*/
+		setResizeCallback(callback : Function|void) : void;		
+		/** Sets the orientation of the game, it can be landscape, portrait or auto.
+		When set it to landscape or portrait, and screen w/h ratio doesn't fit,
+		cc.view will automatically rotate the game canvas using CSS.
+		Note that this function doesn't have any effect in native,
+		in native, you need to set the application orientation in native project settings
+		@param orientation Possible values: cc.macro.ORIENTATION_LANDSCAPE | cc.macro.ORIENTATION_PORTRAIT | cc.macro.ORIENTATION_AUTO 
+		*/
+		setOrientation(orientation : number) : void;		
+		/** Sets whether the engine modify the "viewport" meta in your web page.<br/>
+		It's enabled by default, we strongly suggest you not to disable it.<br/>
+		And even when it's enabled, you can still set your own "viewport" meta, it won't be overridden<br/>
+		Only useful on web
+		@param enabled Enable automatic modification to "viewport" meta 
+		*/
+		adjustViewPort(enabled : boolean) : void;		
+		/** Retina support is enabled by default for Apple device but disabled for other devices,<br/>
+		it takes effect only when you called setDesignResolutionPolicy<br/>
+		Only useful on web
+		@param enabled Enable or disable retina display 
+		*/
+		enableRetina(enabled : boolean) : void;		
+		/** Check whether retina display is enabled.<br/>
+		Only useful on web 
+		*/
+		isRetinaEnabled() : boolean;		
+		/** !#en Whether to Enable on anti-alias
+		!#zh 控制抗锯齿是否开启
+		@param enabled Enable or not anti-alias 
+		*/
+		enableAntiAlias(enabled : boolean) : void;		
+		/** !#en Returns whether the current enable on anti-alias
+		!#zh 返回当前是否抗锯齿 
+		*/
+		isAntiAliasEnabled() : boolean;		
+		/** If enabled, the application will try automatically to enter full screen mode on mobile devices<br/>
+		You can pass true as parameter to enable it and disable it by passing false.<br/>
+		Only useful on web
+		@param enabled Enable or disable auto full screen on mobile devices 
+		*/
+		enableAutoFullScreen(enabled : boolean) : void;		
+		/** Check whether auto full screen is enabled.<br/>
+		Only useful on web 
+		*/
+		isAutoFullScreenEnabled() : boolean;		
+		/** Get whether render system is ready(no matter opengl or canvas),<br/>
+		this name is for the compatibility with cocos2d-x, subclass must implement this method. 
+		*/
+		isViewReady() : boolean;		
+		/** Sets the resolution translate on View. 
+		*/
+		setContentTranslateLeftTop(offsetLeft : number, offsetTop : number) : void;		
+		/** Returns the resolution translate on View 
+		*/
+		getContentTranslateLeftTop() : Size;		
+		/** Returns the frame size of the view.<br/>
+		On native platforms, it returns the screen size since the view is a fullscreen view.<br/>
+		On web, it returns the size of the canvas's outer DOM element. 
+		*/
+		getFrameSize() : Size;		
+		/** On native, it sets the frame size of view.<br/>
+		On web, it sets the size of the canvas's outer DOM element. 
+		*/
+		setFrameSize(width : number, height : number) : void;		
+		/** Returns the visible area size of the view port. 
+		*/
+		getVisibleSize() : Size;		
+		/** Returns the visible area size of the view port. 
+		*/
+		getVisibleSizeInPixel() : Size;		
+		/** Returns the visible origin of the view port. 
+		*/
+		getVisibleOrigin() : Vec2;		
+		/** Returns the visible origin of the view port. 
+		*/
+		getVisibleOriginInPixel() : Vec2;		
+		/** Returns whether developer can set content's scale factor. 
+		*/
+		canSetContentScaleFactor() : boolean;		
+		/** Returns the current resolution policy 
+		*/
+		getResolutionPolicy() : ResolutionPolicy;		
+		/** Sets the current resolution policy 
+		*/
+		setResolutionPolicy(resolutionPolicy : ResolutionPolicy|number) : void;		
+		/** Sets the resolution policy with designed view size in points.<br/>
+		The resolution policy include: <br/>
+		[1] ResolutionExactFit       Fill screen by stretch-to-fit: if the design resolution ratio of width to height is different from the screen resolution ratio, your game view will be stretched.<br/>
+		[2] ResolutionNoBorder       Full screen without black border: if the design resolution ratio of width to height is different from the screen resolution ratio, two areas of your game view will be cut.<br/>
+		[3] ResolutionShowAll        Full screen with black border: if the design resolution ratio of width to height is different from the screen resolution ratio, two black borders will be shown.<br/>
+		[4] ResolutionFixedHeight    Scale the content's height to screen's height and proportionally scale its width<br/>
+		[5] ResolutionFixedWidth     Scale the content's width to screen's width and proportionally scale its height<br/>
+		[cc.ResolutionPolicy]        [Web only feature] Custom resolution policy, constructed by cc.ResolutionPolicy<br/>
+		@param width Design resolution width.
+		@param height Design resolution height.
+		@param resolutionPolicy The resolution policy desired 
+		*/
+		setDesignResolutionSize(width : number, height : number, resolutionPolicy : ResolutionPolicy|number) : void;		
+		/** Returns the designed size for the view.
+		Default resolution size is the same as 'getFrameSize'. 
+		*/
+		getDesignResolutionSize() : Size;		
+		/** Sets the container to desired pixel resolution and fit the game content to it.
+		This function is very useful for adaptation in mobile browsers.
+		In some HD android devices, the resolution is very high, but its browser performance may not be very good.
+		In this case, enabling retina display is very costy and not suggested, and if retina is disabled, the image may be blurry.
+		But this API can be helpful to set a desired pixel resolution which is in between.
+		This API will do the following:
+		    1. Set viewport's width to the desired width in pixel
+		    2. Set body width to the exact pixel resolution
+		    3. The resolution policy will be reset with designed view size in points.
+		@param width Design resolution width.
+		@param height Design resolution height.
+		@param resolutionPolicy The resolution policy desired 
+		*/
+		setRealPixelResolution(width : number, height : number, resolutionPolicy : ResolutionPolicy|number) : void;		
+		/** Sets view port rectangle with points.
+		@param w width
+		@param h height 
+		*/
+		setViewPortInPoints(x : number, y : number, w : number, h : number) : void;		
+		/** Sets Scissor rectangle with points. 
+		*/
+		setScissorInPoints(x : number, y : number, w : number, h : number) : void;		
+		/** Returns whether GL_SCISSOR_TEST is enable 
+		*/
+		isScissorEnabled() : boolean;		
+		/** Returns the current scissor rectangle 
+		*/
+		getScissorRect() : Rect;		
+		/** Sets the name of the view 
+		*/
+		setViewName(viewName : string) : void;		
+		/** Returns the name of the view 
+		*/
+		getViewName() : string;		
+		/** Returns the view port rectangle. 
+		*/
+		getViewPortRect() : Rect;		
+		/** Returns scale factor of the horizontal direction (X axis). 
+		*/
+		getScaleX() : number;		
+		/** Returns scale factor of the vertical direction (Y axis). 
+		*/
+		getScaleY() : number;		
+		/** Returns device pixel ratio for retina display. 
+		*/
+		getDevicePixelRatio() : number;		
+		/** Returns the real location in view for a translation based on a related position
+		@param tx The X axis translation
+		@param ty The Y axis translation
+		@param relatedPos The related position object including "left", "top", "width", "height" informations 
+		*/
+		convertToLocationInView(tx : number, ty : number, relatedPos : any) : Vec2;	
+	}		
+		/** <p>cc.ContainerStrategy class is the root strategy class of container's scale strategy,
+		it controls the behavior of how to scale the cc.container and cc.game.canvas object</p> */
+		export class ContainerStrategy {		
+		/** Manipulation before appling the strategy
+		@param view The target view 
+		*/
+		preApply(view : View) : void;		
+		/** Function to apply this strategy 
+		*/
+		apply(view : View, designedResolution : Size) : void;		
+		/** Manipulation after applying the strategy
+		@param view The target view 
+		*/
+		postApply(view : View) : void;	
+	}		
+		/** <p>cc.ContentStrategy class is the root strategy class of content's scale strategy,
+		it controls the behavior of how to scale the scene and setup the viewport for the game</p> */
+		export class ContentStrategy {		
+		/** Manipulation before applying the strategy
+		@param view The target view 
+		*/
+		preApply(view : View) : void;		
+		/** Function to apply this strategy
+		The return value is {scale: [scaleX, scaleY], viewport: {cc.Rect}},
+		The target view can then apply these value to itself, it's preferred not to modify directly its private variables 
+		*/
+		apply(view : View, designedResolution : Size) : any;		
+		/** Manipulation after applying the strategy
+		@param view The target view 
+		*/
+		postApply(view : View) : void;	
+	}		
+		/** undefined */
+		export class EqualToFrame extends ContainerStrategy {	
+	}		
+		/** undefined */
+		export class ProportionalToFrame extends ContainerStrategy {	
+	}		
+		/** undefined */
+		export class EqualToWindow extends EqualToFrame {	
+	}		
+		/** undefined */
+		export class ProportionalToWindow extends ProportionalToFrame {	
+	}		
+		/** undefined */
+		export class OriginalContainer extends ContainerStrategy {	
+	}		
+		/** <p>cc.ResolutionPolicy class is the root strategy class of scale strategy,
+		its main task is to maintain the compatibility with Cocos2d-x</p> */
+		export class ResolutionPolicy {		
+		/** 
+		@param containerStg The container strategy
+		@param contentStg The content strategy 
+		*/
+		ResolutionPolicy(containerStg : ContainerStrategy, contentStg : ContentStrategy) : void;		
+		/** Manipulation before applying the resolution policy
+		@param view The target view 
+		*/
+		preApply(view : View) : void;		
+		/** Function to apply this resolution policy
+		The return value is {scale: [scaleX, scaleY], viewport: {cc.Rect}},
+		The target view can then apply these value to itself, it's preferred not to modify directly its private variables
+		@param view The target view
+		@param designedResolution The user defined design resolution 
+		*/
+		apply(view : View, designedResolution : Size) : any;		
+		/** Manipulation after appyling the strategy
+		@param view The target view 
+		*/
+		postApply(view : View) : void;		
+		/** Setup the container's scale strategy 
+		*/
+		setContainerStrategy(containerStg : ContainerStrategy) : void;		
+		/** Setup the content's scale strategy 
+		*/
+		setContentStrategy(contentStg : ContentStrategy) : void;		
+		/** The entire application is visible in the specified area without trying to preserve the original aspect ratio.<br/>
+		Distortion can occur, and the application may appear stretched or compressed. */
+		EXACT_FIT : number;		
+		/** The entire application fills the specified area, without distortion but possibly with some cropping,<br/>
+		while maintaining the original aspect ratio of the application. */
+		NO_BORDER : number;		
+		/** The entire application is visible in the specified area without distortion while maintaining the original<br/>
+		aspect ratio of the application. Borders can appear on two sides of the application. */
+		SHOW_ALL : number;		
+		/** The application takes the height of the design resolution size and modifies the width of the internal<br/>
+		canvas so that it fits the aspect ratio of the device<br/>
+		no distortion will occur however you must make sure your application works on different<br/>
+		aspect ratios */
+		FIXED_HEIGHT : number;		
+		/** The application takes the width of the design resolution size and modifies the height of the internal<br/>
+		canvas so that it fits the aspect ratio of the device<br/>
+		no distortion will occur however you must make sure your application works on different<br/>
+		aspect ratios */
+		FIXED_WIDTH : number;		
+		/** Unknow policy */
+		UNKNOWN : number;	
+	}		
+		/** cc.visibleRect is a singleton object which defines the actual visible rect of the current view,
+		it should represent the same rect as cc.view.getViewportRect() */
+		export class visibleRect {		
+		/** initialize 
+		*/
+		init(visibleRect : Rect) : void;		
+		/** Top left coordinate of the screen related to the game scene. */
+		topLeft : Vec2;		
+		/** Top right coordinate of the screen related to the game scene. */
+		topRight : Vec2;		
+		/** Top center coordinate of the screen related to the game scene. */
+		top : Vec2;		
+		/** Bottom left coordinate of the screen related to the game scene. */
+		bottomLeft : Vec2;		
+		/** Bottom right coordinate of the screen related to the game scene. */
+		bottomRight : Vec2;		
+		/** Bottom center coordinate of the screen related to the game scene. */
+		bottom : Vec2;		
+		/** Center coordinate of the screen related to the game scene. */
+		center : Vec2;		
+		/** Left center coordinate of the screen related to the game scene. */
+		left : Vec2;		
+		/** Right center coordinate of the screen related to the game scene. */
+		right : Vec2;		
+		/** Width of the screen. */
+		width : number;		
+		/** Height of the screen. */
+		height : number;	
+	}		
+		/** The CallbacksHandler is an abstract class that can register and unregister callbacks by key.
+		Subclasses should implement their own methods about how to invoke the callbacks. */
+		export class _CallbacksHandler {		
+		/** 
+		@param target can be null 
+		*/
+		add(key : string, callback : Function, target? : any) : boolean;		
+		/** Check if the specified key has any registered callback. If a callback is also specified,
+		it will only return true if the callback is registered. 
+		*/
+		has(key : string, callback? : Function, target? : any) : boolean;		
+		/** Removes all callbacks registered in a certain event type or all callbacks registered with a certain target
+		@param key The event key to be removed or the target to be removed 
+		*/
+		removeAll(key : string|any) : void;		
+		/**  
+		*/
+		remove(key : string, callback : Function, target : any) : boolean;	
+	}		
+		/** !#en The callbacks invoker to handle and invoke callbacks by key.
+		!#zh CallbacksInvoker 用来根据 Key 管理并调用回调方法。 */
+		export class CallbacksInvoker extends _CallbacksHandler {		
+		/**  
+		*/
+		invoke(key : string, p1? : any, p2? : any, p3? : any, p4? : any, p5? : any) : void;		
+		/**  
+		*/
+		invokeAndRemove(key : string, p1? : any, p2? : any, p3? : any, p4? : any, p5? : any) : void;		
+		/** 
+		@param remove remove callbacks after invoked 
+		*/
+		bindKey(key : string, remove? : boolean) : Function;	
+	}		
+		/** !#en Contains information collected during deserialization
+		!#zh 包含反序列化时的一些信息 */
+		export class Details {		
+		/** list of the depends assets' uuid */
+		uuidList : String[];		
+		/** the obj list whose field needs to load asset by uuid */
+		uuidObjList : any[];		
+		/** the corresponding field name which referenced to the asset */
+		uuidPropList : String[];		
+		/** the corresponding field name which referenced to the raw object */
+		rawProp : string;		
+		reset() : void;		
+		/**  
+		*/
+		getUuidOf(obj : any, propName : string) : string;		
+		/**  
+		*/
+		push(obj : any, propName : string, uuid : string) : void;	
+	}		
+		/** undefined */
+		export class url {		
+		/** Returns the url of raw assets, you will only need this if the raw asset is inside the "resources" folder.
+		
+		@example 
+		```js
+		---
+		var url = cc.url.raw("textures/myTexture.png");
+		console.log(url);   // "resources/raw/textures/myTexture.png"
+		
+		``` 
+		*/
+		raw(url : string) : string;		
+		/** Returns the url of builtin raw assets. This method can only used in editor.
+		
+		@example 
+		```js
+		---
+		var url = cc.url.builtinRaw("textures/myTexture.png");
+		console.log(url);   // "resources/default-raw/textures/myTexture.png"
+		
+		``` 
+		*/
+		builtinRaw(url : string) : string;	
+	}		
 		/** !#en
 		A cc.SpriteFrame has:<br/>
 		 - texture: A cc.Texture2D that will be used by the _ccsg.Sprite<br/>
@@ -7404,6 +8337,327 @@ declare module cc {
 		``` 
 		*/
 		ensureLoadTexture() : void;	
+	}		
+		/** <p>
+		This class allows to easily create OpenGL or Canvas 2D textures from images, text or raw data.                                    <br/>
+		The created cc.Texture2D object will always have power-of-two dimensions.                                                <br/>
+		Depending on how you create the cc.Texture2D object, the actual image area of the texture might be smaller than the texture dimensions <br/>
+		 i.e. "contentSize" != (pixelsWide, pixelsHigh) and (maxS, maxT) != (1.0, 1.0).                                           <br/>
+		Be aware that the content of the generated textures will be upside-down! </p> */
+		export class Texture2D extends RawAsset {		
+		/** Get width in pixels. 
+		*/
+		getPixelWidth() : number;		
+		/** Get height of in pixels. 
+		*/
+		getPixelHeight() : number;		
+		/** Get content size. 
+		*/
+		getContentSize() : Size;		
+		/** Get content size in pixels. 
+		*/
+		getContentSizeInPixels() : Size;		
+		/** Init with HTML element.
+		
+		@example 
+		```js
+		var img = new Image();
+		img.src = dataURL;
+		texture.initWithElement(img);
+		texture.handleLoadedTexture();
+		``` 
+		*/
+		initWithElement(element : HTMLImageElement|HTMLCanvasElement) : void;		
+		/** Intializes with a texture2d with data. 
+		*/
+		initWithData(data : any[], pixelFormat : number, pixelsWide : number, pixelsHigh : number, contentSize : Size) : boolean;		
+		/** Initializes a texture from a UIImage object.
+		Extensions to make it easy to create a CCTexture2D object from an image file.
+		Note that RGBA type textures will have their alpha premultiplied - use the blending mode (gl.ONE, gl.ONE_MINUS_SRC_ALPHA). 
+		*/
+		initWithImage(uiImage : HTMLImageElement) : boolean;		
+		/** HTMLElement Object getter. 
+		*/
+		getHtmlElementObj() : HTMLImageElement;		
+		/** Check whether texture is loaded. 
+		*/
+		isLoaded() : boolean;		
+		/** Handler of texture loaded event. 
+		*/
+		handleLoadedTexture(premultiplied? : boolean) : void;		
+		/** Description of cc.Texture2D. 
+		*/
+		description() : string;		
+		/** Release texture. 
+		*/
+		releaseTexture() : void;		
+		/** Pixel format of the texture. 
+		*/
+		getPixelFormat() : number;		
+		/** Whether or not the texture has their Alpha premultiplied,
+		support only in WebGl rendering mode. 
+		*/
+		hasPremultipliedAlpha() : boolean;		
+		/** Whether or not use mipmap, support only in WebGl rendering mode. 
+		*/
+		hasMipmaps() : boolean;		
+		/** Sets the min filter, mag filter, wrap s and wrap t texture parameters. <br/>
+		If the texture size is NPOT (non power of 2), then in can only use gl.CLAMP_TO_EDGE in gl.TEXTURE_WRAP_{S,T}.
+		@param texParams texParams object or minFilter 
+		*/
+		setTexParameters(texParams : any|number, magFilter? : number, wrapS? : Texture2D.WrapMode, wrapT? : Texture2D.WrapMode) : void;		
+		/** WebGLTexture Object. */
+		name : WebGLTexture;		
+		/** Pixel format of the texture. */
+		pixelFormat : number;		
+		/** Width in pixels. */
+		pixelWidth : number;		
+		/** Height in pixels. */
+		pixelHeight : number;		
+		/** Content width in points. */
+		width : number;		
+		/** Content height in points. */
+		height : number;	
+	}		
+		/** <p>A class that implements a Texture Atlas. <br />
+		Supported features: <br />
+		The atlas file can be a PNG, JPG. <br />
+		Quads can be updated in runtime <br />
+		Quads can be added in runtime <br />
+		Quads can be removed in runtime <br />
+		Quads can be re-ordered in runtime <br />
+		The TextureAtlas capacity can be increased or decreased in runtime.</p> */
+		export class TextureAtlas {		
+		/** <p>Creates a TextureAtlas with an filename and with an initial capacity for Quads. <br />
+		The TextureAtlas capacity can be increased in runtime. </p>
+		Constructor of cc.TextureAtlas
+		
+		@example 
+		```js
+		--------------------------
+		1. //creates a TextureAtlas with  filename
+		var textureAtlas = new cc.TextureAtlas("res/hello.png", 3);
+		
+		2. //creates a TextureAtlas with texture
+		var texture = cc.textureCache.addImage("hello.png");
+		var textureAtlas = new cc.TextureAtlas(texture, 3);
+		
+		``` 
+		*/
+		TextureAtlas(fileName : string|Texture2D, capacity : number) : void;		
+		/** Quantity of quads that are going to be drawn. 
+		*/
+		getTotalQuads() : number;		
+		/** Quantity of quads that can be stored with the current texture atlas size. 
+		*/
+		getCapacity() : number;		
+		/** Texture of the texture atlas. 
+		*/
+		getTexture() : Image;		
+		/** Set texture for texture atlas. 
+		*/
+		setTexture(texture : Image) : void;		
+		/** specify if the array buffer of the VBO needs to be updated. 
+		*/
+		setDirty(dirty : boolean) : void;		
+		/** whether or not the array buffer of the VBO needs to be updated. 
+		*/
+		isDirty() : boolean;		
+		/** Quads that are going to be rendered. 
+		*/
+		getQuads() : any[];		
+		/**  
+		*/
+		setQuads(quads : any[]) : void;		
+		/** <p>Initializes a TextureAtlas with a filename and with a certain capacity for Quads.<br />
+		The TextureAtlas capacity can be increased in runtime.<br />
+		WARNING: Do not reinitialize the TextureAtlas because it will leak memory. </p>
+		
+		@example 
+		```js
+		--------------------------------------------------
+		var textureAtlas = new cc.TextureAtlas();
+		textureAtlas.initWithTexture("hello.png", 3);
+		
+		``` 
+		*/
+		initWithFile(file : string, capacity : number) : boolean;		
+		/** <p>Initializes a TextureAtlas with a previously initialized Texture2D object, and<br />
+		with an initial capacity for Quads.<br />
+		The TextureAtlas capacity can be increased in runtime.<br />
+		WARNING: Do not reinitialize the TextureAtlas because it will leak memory</p>
+		
+		@example 
+		```js
+		---------------------------
+		var texture = cc.textureCache.addImage("hello.png");
+		var textureAtlas = new cc.TextureAtlas();
+		textureAtlas.initWithTexture(texture, 3);
+		
+		``` 
+		*/
+		initWithTexture(texture : Image, capacity : number) : boolean;		
+		/** <p>Updates a Quad (texture, vertex and color) at a certain index <br />
+		index must be between 0 and the atlas capacity - 1 </p> 
+		*/
+		updateQuad(quad : V3F_C4B_T2F_Quad, index : number) : void;		
+		/** <p>Inserts a Quad (texture, vertex and color) at a certain index<br />
+		index must be between 0 and the atlas capacity - 1 </p> 
+		*/
+		insertQuad(quad : V3F_C4B_T2F_Quad, index : number) : void;		
+		/** <p>
+		     Inserts a c array of quads at a given index                                           <br />
+		     index must be between 0 and the atlas capacity - 1                                    <br />
+		     this method doesn't enlarge the array when amount + index > totalQuads                <br />
+		</p> 
+		*/
+		insertQuads(quads : any[], index : number, amount : number) : void;		
+		/** <p>Removes the quad that is located at a certain index and inserts it at a new index <br />
+		This operation is faster than removing and inserting in a quad in 2 different steps</p> 
+		*/
+		insertQuadFromIndex(fromIndex : number, newIndex : number) : void;		
+		/** <p>Removes a quad at a given index number.<br />
+		The capacity remains the same, but the total number of quads to be drawn is reduced in 1 </p> 
+		*/
+		removeQuadAtIndex(index : number) : void;		
+		/** Removes a given number of quads at a given index. 
+		*/
+		removeQuadsAtIndex(index : number, amount : number) : void;		
+		/** <p>Removes all Quads. <br />
+		The TextureAtlas capacity remains untouched. No memory is freed.<br />
+		The total number of quads to be drawn will be 0</p> 
+		*/
+		removeAllQuads() : void;		
+		/** <p>Resize the capacity of the CCTextureAtlas.<br />
+		The new capacity can be lower or higher than the current one<br />
+		It returns YES if the resize was successful. <br />
+		If it fails to resize the capacity it will return NO with a new capacity of 0. <br />
+		no used for js</p> 
+		*/
+		resizeCapacity(newCapacity : number) : boolean;		
+		/** Used internally by CCParticleBatchNode                                    <br/>
+		don't use this unless you know what you're doing. 
+		*/
+		increaseTotalQuadsWith(amount : number) : void;		
+		/** Moves an amount of quads from oldIndex at newIndex. 
+		*/
+		moveQuadsFromIndex(oldIndex : number, amount : number, newIndex : number) : void;		
+		/** Ensures that after a realloc quads are still empty                                <br/>
+		Used internally by CCParticleBatchNode. 
+		*/
+		fillWithEmptyQuadsFromIndex(index : number, amount : number) : void;		
+		/** <p>Draws n quads from an index (offset). <br />
+		n + start can't be greater than the capacity of the atlas</p> 
+		*/
+		drawNumberOfQuads(n : number, start : number) : void;		
+		/** Indicates whether or not the array buffer of the VBO needs to be updated. */
+		dirty : boolean;		
+		/** Image texture for cc.TextureAtlas. */
+		texture : Image;		
+		/** Quantity of quads that can be stored with the current texture atlas size. */
+		capacity : number;		
+		/** Quantity of quads that are going to be drawn. */
+		totalQuads : number;		
+		/** Quads that are going to be rendered. */
+		quads : any[];	
+	}		
+		/** cc.textureCache is a singleton object, it's the global cache for cc.Texture2D */
+		export class textureCache {		
+		/** Description 
+		*/
+		description() : string;		
+		/** Returns an already created texture. Returns null if the texture doesn't exist.
+		
+		@example 
+		```js
+		------------------
+		var key = cc.textureCache.textureForKey("hello.png");
+		
+		``` 
+		*/
+		textureForKey(textureKeyName : string) : Texture2D;		
+		/** Returns an already created texture. Returns null if the texture doesn't exist.
+		
+		@example 
+		```js
+		------------------
+		var key = cc.textureCache.getTextureForKey("hello.png");
+		
+		``` 
+		*/
+		getTextureForKey(textureKeyName : string) : Texture2D;		
+		/** 
+		
+		@example 
+		```js
+		---------------
+		var cacheTextureForColor = cc.textureCache.getTextureColors(texture);
+		
+		``` 
+		*/
+		getTextureColors(texture : Image) : any[];		
+		/** #en get all textures
+		#zh 获取所有贴图 
+		*/
+		getAllTextures() : Texture2D[];		
+		/** <p>Purges the dictionary of loaded textures. <br />
+		Call this method if you receive the "Memory Warning"  <br />
+		In the short term: it will free some resources preventing your app from being killed  <br />
+		In the medium term: it will allocate more resources <br />
+		In the long term: it will be the same</p>
+		
+		@example 
+		```js
+		--------
+		cc.textureCache.removeAllTextures();
+		
+		``` 
+		*/
+		removeAllTextures() : void;		
+		/** Deletes a texture from the cache given a texture.
+		
+		@example 
+		```js
+		-----
+		cc.textureCache.removeTexture(texture);
+		
+		``` 
+		*/
+		removeTexture(texture : Image) : void;		
+		/** Deletes a texture from the cache given a its key name.
+		
+		@example 
+		```js
+		------
+		cc.textureCache.removeTexture("hello.png");
+		
+		``` 
+		*/
+		removeTextureForKey(textureKeyName : string) : void;		
+		/** <p>Returns a Texture2D object given an file image <br />
+		If the file image was not previously loaded, it will create a new Texture2D <br />
+		 object and it will return it. It will use the filename as a key.<br />
+		Otherwise it will return a reference of a previously loaded image. <br />
+		Supported image extensions: .png, .jpg, .gif</p>
+		
+		@example 
+		```js
+		----
+		cc.textureCache.addImage("hello.png");
+		
+		``` 
+		*/
+		addImage(url : string, cb : Function, target : any) : Texture2D;		
+		/** Cache the image data. 
+		*/
+		cacheImage(path : string, texture : Image|HTMLImageElement|HTMLCanvasElement) : void;		
+		/** <p>Returns a Texture2D object given an UIImage image<br />
+		If the image was not previously loaded, it will create a new Texture2D object and it will return it.<br />
+		Otherwise it will return a reference of a previously loaded image<br />
+		The "key" parameter will be used as the "key" for the cache.<br />
+		If "key" is null, then a new texture will be created each time.</p> 
+		*/
+		addUIImage(image : HTMLImageElement|HTMLCanvasElement, key : string) : Texture2D;	
 	}		
 		/** A base node for CCNode and CCEScene, it will:
 		- provide the same api with origin cocos2d rendering node (SGNode)
@@ -8091,1190 +9345,6 @@ declare module cc {
 		``` 
 		*/
 		setCascadeColorEnabled(cascadeColorEnabled : boolean) : void;	
-	}	
-	/** !#en Key map for keyboard event
-	!#zh 键盘事件的按键值 */
-	export enum KEY {		
-		none = 0,
-		back = 0,
-		menu = 0,
-		backspace = 0,
-		tab = 0,
-		enter = 0,
-		shift = 0,
-		ctrl = 0,
-		alt = 0,
-		pause = 0,
-		capslock = 0,
-		escape = 0,
-		space = 0,
-		pageup = 0,
-		pagedown = 0,
-		end = 0,
-		home = 0,
-		left = 0,
-		up = 0,
-		right = 0,
-		down = 0,
-		select = 0,
-		insert = 0,
-		Delete = 0,
-		a = 0,
-		b = 0,
-		c = 0,
-		d = 0,
-		e = 0,
-		f = 0,
-		g = 0,
-		h = 0,
-		i = 0,
-		j = 0,
-		k = 0,
-		l = 0,
-		m = 0,
-		n = 0,
-		o = 0,
-		p = 0,
-		q = 0,
-		r = 0,
-		s = 0,
-		t = 0,
-		u = 0,
-		v = 0,
-		w = 0,
-		x = 0,
-		y = 0,
-		z = 0,
-		num0 = 0,
-		num1 = 0,
-		num2 = 0,
-		num3 = 0,
-		num4 = 0,
-		num5 = 0,
-		num6 = 0,
-		num7 = 0,
-		num8 = 0,
-		num9 = 0,
-		'*' = 0,
-		'+' = 0,
-		'-' = 0,
-		numdel = 0,
-		'/' = 0,
-		f1 = 0,
-		f2 = 0,
-		f3 = 0,
-		f4 = 0,
-		f5 = 0,
-		f6 = 0,
-		f7 = 0,
-		f8 = 0,
-		f9 = 0,
-		f10 = 0,
-		f11 = 0,
-		f12 = 0,
-		numlock = 0,
-		scrolllock = 0,
-		';' = 0,
-		semicolon = 0,
-		equal = 0,
-		'=' = 0,
-		',' = 0,
-		comma = 0,
-		dash = 0,
-		'.' = 0,
-		period = 0,
-		forwardslash = 0,
-		grave = 0,
-		'[' = 0,
-		openbracket = 0,
-		backslash = 0,
-		']' = 0,
-		closebracket = 0,
-		quote = 0,
-		dpadLeft = 0,
-		dpadRight = 0,
-		dpadUp = 0,
-		dpadDown = 0,
-		dpadCenter = 0,	
-	}	
-	/** Image formats */
-	export enum ImageFormat {		
-		JPG = 0,
-		PNG = 0,
-		TIFF = 0,
-		WEBP = 0,
-		PVR = 0,
-		ETC = 0,
-		S3TC = 0,
-		ATITC = 0,
-		TGA = 0,
-		RAWDATA = 0,
-		UNKNOWN = 0,
-		getImageFormatByData = 0,	
-	}	
-	/** Predefined constants */
-	export enum Macro {		
-		INVALID_INDEX = 0,
-		NODE_TAG_INVALID = 0,
-		PI = 0,
-		PI2 = 0,
-		FLT_MAX = 0,
-		FLT_MIN = 0,
-		RAD = 0,
-		DEG = 0,
-		UINT_MAX = 0,
-		REPEAT_FOREVER = 0,
-		FLT_EPSILON = 0,
-		ONE = 0,
-		ZERO = 0,
-		SRC_ALPHA = 0,
-		SRC_ALPHA_SATURATE = 0,
-		SRC_COLOR = 0,
-		DST_ALPHA = 0,
-		DST_COLOR = 0,
-		ONE_MINUS_SRC_ALPHA = 0,
-		ONE_MINUS_SRC_COLOR = 0,
-		ONE_MINUS_DST_ALPHA = 0,
-		ONE_MINUS_DST_COLOR = 0,
-		ONE_MINUS_CONSTANT_ALPHA = 0,
-		ONE_MINUS_CONSTANT_COLOR = 0,
-		LINEAR = 0,
-		BLEND_DST = 0,
-		WEB_ORIENTATION_PORTRAIT = 0,
-		WEB_ORIENTATION_LANDSCAPE_LEFT = 0,
-		WEB_ORIENTATION_PORTRAIT_UPSIDE_DOWN = 0,
-		WEB_ORIENTATION_LANDSCAPE_RIGHT = 0,
-		ORIENTATION_PORTRAIT = 0,
-		ORIENTATION_LANDSCAPE = 0,
-		ORIENTATION_AUTO = 0,
-		VERTEX_ATTRIB_FLAG_NONE = 0,
-		VERTEX_ATTRIB_FLAG_POSITION = 0,
-		VERTEX_ATTRIB_FLAG_COLOR = 0,
-		VERTEX_ATTRIB_FLAG_TEX_COORDS = 0,
-		VERTEX_ATTRIB_FLAG_POS_COLOR_TEX = 0,
-		GL_ALL = 0,
-		VERTEX_ATTRIB_POSITION = 0,
-		VERTEX_ATTRIB_COLOR = 0,
-		VERTEX_ATTRIB_TEX_COORDS = 0,
-		VERTEX_ATTRIB_MAX = 0,
-		UNIFORM_PMATRIX = 0,
-		UNIFORM_MVMATRIX = 0,
-		UNIFORM_MVPMATRIX = 0,
-		UNIFORM_TIME = 0,
-		UNIFORM_SINTIME = 0,
-		UNIFORM_COSTIME = 0,
-		UNIFORM_RANDOM01 = 0,
-		UNIFORM_SAMPLER = 0,
-		UNIFORM_MAX = 0,
-		SHADER_POSITION_TEXTURECOLOR = 0,
-		SHADER_SPRITE_POSITION_TEXTURECOLOR = 0,
-		SHADER_POSITION_TEXTURECOLORALPHATEST = 0,
-		SHADER_SPRITE_POSITION_TEXTURECOLORALPHATEST = 0,
-		SHADER_POSITION_COLOR = 0,
-		SHADER_SPRITE_POSITION_COLOR = 0,
-		SHADER_POSITION_TEXTURE = 0,
-		SHADER_POSITION_TEXTURE_UCOLOR = 0,
-		SHADER_POSITION_TEXTUREA8COLOR = 0,
-		SHADER_POSITION_UCOLOR = 0,
-		SHADER_POSITION_LENGTHTEXTURECOLOR = 0,
-		UNIFORM_PMATRIX_S = 0,
-		UNIFORM_MVMATRIX_S = 0,
-		UNIFORM_MVPMATRIX_S = 0,
-		UNIFORM_TIME_S = 0,
-		UNIFORM_SINTIME_S = 0,
-		UNIFORM_COSTIME_S = 0,
-		UNIFORM_RANDOM01_S = 0,
-		UNIFORM_SAMPLER_S = 0,
-		UNIFORM_ALPHA_TEST_VALUE_S = 0,
-		ATTRIBUTE_NAME_COLOR = 0,
-		ATTRIBUTE_NAME_POSITION = 0,
-		ATTRIBUTE_NAME_TEX_COORD = 0,
-		ITEM_SIZE = 0,
-		CURRENT_ITEM = 0,
-		ZOOM_ACTION_TAG = 0,
-		NORMAL_TAG = 0,
-		SELECTED_TAG = 0,
-		DISABLE_TAG = 0,
-		FIX_ARTIFACTS_BY_STRECHING_TEXEL = 0,
-		DIRECTOR_STATS_POSITION = 0,
-		DIRECTOR_FPS_INTERVAL = 0,
-		COCOSNODE_RENDER_SUBPIXEL = 0,
-		SPRITEBATCHNODE_RENDER_SUBPIXEL = 0,
-		AUTO_PREMULTIPLIED_ALPHA_FOR_PNG = 0,
-		OPTIMIZE_BLEND_FUNC_FOR_PREMULTIPLIED_ALPHA = 0,
-		TEXTURE_ATLAS_USE_TRIANGLE_STRIP = 0,
-		TEXTURE_ATLAS_USE_VAO = 0,
-		USE_LA88_LABELS = 0,
-		SPRITE_DEBUG_DRAW = 0,
-		LABELBMFONT_DEBUG_DRAW = 0,
-		LABELATLAS_DEBUG_DRAW = 0,
-		ENABLE_STACKABLE_ACTIONS = 0,
-		ENABLE_GL_STATE_CACHE = 0,
-		TOUCH_TIMEOUT = 0,
-		BLEND_SRC = 0,
-		lerp = 0,
-		rand = 0,
-		randomMinus1To1 = 0,
-		random0To1 = 0,
-		degreesToRadians = 0,
-		radiansToDegrees = 0,
-		nodeDrawSetup = 0,
-		incrementGLDraws = 0,
-		checkGLErrorDebug = 0,	
-	}		
-		/** <p>
-		 This class manages all events of input. include: touch, mouse, accelerometer, keyboard                                       <br/>
-		</p> */
-		export class inputManager {		
-		/**  
-		*/
-		handleTouchesBegin(touches : any[]) : void;		
-		/**  
-		*/
-		handleTouchesMove(touches : any[]) : void;		
-		/**  
-		*/
-		handleTouchesEnd(touches : any[]) : void;		
-		/**  
-		*/
-		handleTouchesCancel(touches : any[]) : void;		
-		/**  
-		*/
-		getSetOfTouchesEndOrCancel(touches : any[]) : any[];		
-		/**  
-		*/
-		getHTMLElementPosition(element : HTMLElement) : any;		
-		/**  
-		*/
-		getPreTouch(touch : Touch) : Touch;		
-		/**  
-		*/
-		setPreTouch(touch : Touch) : void;		
-		/**  
-		*/
-		getTouchByXY(tx : number, ty : number, pos : Vec2) : Touch;		
-		/**  
-		*/
-		getTouchByXY(location : Vec2, pos : Vec2, eventType : number) : Event.EventMouse;		
-		/**  
-		*/
-		getPointByEvent(event : Touch, pos : Vec2) : Vec2;		
-		/**  
-		*/
-		getTouchesByEvent(event : Touch, pos : Vec2) : any[];		
-		/**  
-		*/
-		registerSystemEvent(element : HTMLElement) : void;		
-		/**  
-		*/
-		update(dt : number) : void;	
-	}		
-		/** The base class of most of all the objects in Fireball. */
-		export class Object {		
-		/** !#en The name of the object.
-		!#zh 该对象的名称。 */
-		name : string;		
-		/** !#en Indicates whether the object is not yet destroyed.
-		!#zh 表示该对象是否可用（被销毁后将不可用）。 */
-		isValid : boolean;		
-		/** !#en
-		Destroy this Object, and release all its own references to other objects.<br/>
-		Actual object destruction will delayed until before rendering.
-		<br/>
-		After destroy, this CCObject is not usable any more.
-		You can use cc.isValid(obj) to check whether the object is destroyed before accessing it.
-		!#zh
-		销毁该对象，并释放所有它对其它对象的引用。<br/>
-		销毁后，CCObject 不再可用。您可以在访问对象之前使用 cc.isValid(obj) 来检查对象是否已被销毁。
-		实际销毁操作会延迟到当前帧渲染前执行。
-		
-		@example 
-		```js
-		obj.destroy();
-		``` 
-		*/
-		destroy() : boolean;	
-	}		
-		/** Bit mask that controls object states. */
-		export class Flags {		
-		/** !#en The object will not be saved.
-		!#zh 该对象将不会被保存。 */
-		DontSave : number;		
-		/** !#en The object will not be saved when building a player.
-		!#zh 构建项目时，该对象将不会被保存。 */
-		EditorOnly : number;	
-	}		
-		/** The fullscreen API provides an easy way for web content to be presented using the user's entire screen.
-		It's invalid on safari, QQbrowser and android browser */
-		export class screen {		
-		/** initialize 
-		*/
-		init() : void;		
-		/** return true if it's full now. 
-		*/
-		fullScreen() : boolean;		
-		/** change the screen to full mode. 
-		*/
-		requestFullScreen(element : Element, onFullScreenChange : Function) : void;		
-		/** exit the full mode. 
-		*/
-		exitFullScreen() : boolean;		
-		/** Automatically request full screen with a touch/click event 
-		*/
-		autoFullScreen(element : Element, onFullScreenChange : Function) : void;	
-	}		
-		/** System variables */
-		export class sys {		
-		/** English language code */
-		LANGUAGE_ENGLISH : string;		
-		/** Chinese language code */
-		LANGUAGE_CHINESE : string;		
-		/** French language code */
-		LANGUAGE_FRENCH : string;		
-		/** Italian language code */
-		LANGUAGE_ITALIAN : string;		
-		/** German language code */
-		LANGUAGE_GERMAN : string;		
-		/** Spanish language code */
-		LANGUAGE_SPANISH : string;		
-		/** Spanish language code */
-		LANGUAGE_DUTCH : string;		
-		/** Russian language code */
-		LANGUAGE_RUSSIAN : string;		
-		/** Korean language code */
-		LANGUAGE_KOREAN : string;		
-		/** Japanese language code */
-		LANGUAGE_JAPANESE : string;		
-		/** Hungarian language code */
-		LANGUAGE_HUNGARIAN : string;		
-		/** Portuguese language code */
-		LANGUAGE_PORTUGUESE : string;		
-		/** Arabic language code */
-		LANGUAGE_ARABIC : string;		
-		/** Norwegian language code */
-		LANGUAGE_NORWEGIAN : string;		
-		/** Polish language code */
-		LANGUAGE_POLISH : string;		
-		/** Unknown language code */
-		LANGUAGE_UNKNOWN : string;		
-		OS_IOS : string;		
-		OS_ANDROID : string;		
-		OS_WINDOWS : string;		
-		OS_MARMALADE : string;		
-		OS_LINUX : string;		
-		OS_BADA : string;		
-		OS_BLACKBERRY : string;		
-		OS_OSX : string;		
-		OS_WP8 : string;		
-		OS_WINRT : string;		
-		OS_UNKNOWN : string;		
-		UNKNOWN : number;		
-		WIN32 : number;		
-		LINUX : number;		
-		MACOS : number;		
-		ANDROID : number;		
-		IPHONE : number;		
-		IPAD : number;		
-		BLACKBERRY : number;		
-		NACL : number;		
-		EMSCRIPTEN : number;		
-		TIZEN : number;		
-		WINRT : number;		
-		WP8 : number;		
-		MOBILE_BROWSER : number;		
-		DESKTOP_BROWSER : number;		
-		/** Indicates whether executes in editor's window process (Electron's renderer context) */
-		EDITOR_PAGE : number;		
-		/** Indicates whether executes in editor's main process (Electron's browser context) */
-		EDITOR_CORE : number;		
-		/** BROWSER_TYPE_WECHAT */
-		BROWSER_TYPE_WECHAT : string;		
-		BROWSER_TYPE_ANDROID : string;		
-		BROWSER_TYPE_IE : string;		
-		BROWSER_TYPE_QQ : string;		
-		BROWSER_TYPE_MOBILE_QQ : string;		
-		BROWSER_TYPE_UC : string;		
-		BROWSER_TYPE_360 : string;		
-		BROWSER_TYPE_BAIDU_APP : string;		
-		BROWSER_TYPE_BAIDU : string;		
-		BROWSER_TYPE_MAXTHON : string;		
-		BROWSER_TYPE_OPERA : string;		
-		BROWSER_TYPE_OUPENG : string;		
-		BROWSER_TYPE_MIUI : string;		
-		BROWSER_TYPE_FIREFOX : string;		
-		BROWSER_TYPE_SAFARI : string;		
-		BROWSER_TYPE_CHROME : string;		
-		BROWSER_TYPE_LIEBAO : string;		
-		BROWSER_TYPE_QZONE : string;		
-		BROWSER_TYPE_SOUGOU : string;		
-		BROWSER_TYPE_UNKNOWN : string;		
-		/** Is native ? This is set to be true in jsb auto. */
-		isNative : boolean;		
-		/** Is web browser ? */
-		isBrowser : boolean;		
-		/** Indicate whether system is mobile system */
-		isMobile : boolean;		
-		/** Indicate the running platform */
-		platform : number;		
-		/** Indicate the current language of the running system */
-		language : string;		
-		/** Indicate the running os name */
-		os : string;		
-		/** Indicate the running os version */
-		osVersion : string;		
-		/** Indicate the running os main version */
-		osMainVersion : number;		
-		/** Indicate the running browser type */
-		browserType : string;		
-		/** Indicate the running browser version */
-		browserVersion : number;		
-		/** Indicate the real pixel resolution of the whole game window */
-		windowPixelResolution : number;		
-		/** cc.sys.localStorage is a local storage component. */
-		localStorage : any;		
-		/** The capabilities of the current platform */
-		capabilities : any;		
-		/** Forces the garbage collection, only available in JSB 
-		*/
-		garbageCollect() : void;		
-		/** Dumps rooted objects, only available in JSB 
-		*/
-		dumpRoot() : void;		
-		/** Restart the JS VM, only available in JSB 
-		*/
-		restartVM() : void;		
-		/** Clean a script in the JS VM, only available in JSB 
-		*/
-		cleanScript(jsfile : string) : void;		
-		/** Check whether an object is valid,
-		In web engine, it will return true if the object exist
-		In native engine, it will return true if the JS object and the correspond native object are both valid 
-		*/
-		isObjectValid(obj : any) : boolean;		
-		/** Dump system informations 
-		*/
-		dump() : void;		
-		/** Open a url in browser 
-		*/
-		openURL(url : string) : void;		
-		/** Get the number of milliseconds elapsed since 1 January 1970 00:00:00 UTC. 
-		*/
-		now() : number;	
-	}		
-		/** cc.view is the singleton object which represents the game window.<br/>
-		It's main task include: <br/>
-		 - Apply the design resolution policy<br/>
-		 - Provide interaction with the window, like resize event on web, retina display support, etc...<br/>
-		 - Manage the game view port which can be different with the window<br/>
-		 - Manage the content scale and translation<br/>
-		<br/>
-		Since the cc.view is a singleton, you don't need to call any constructor or create functions,<br/>
-		the standard way to use it is by calling:<br/>
-		 - cc.view.methodName(); <br/> */
-		export class View {		
-		/** <p>
-		Sets view's target-densitydpi for android mobile browser. it can be set to:           <br/>
-		  1. cc.macro.DENSITYDPI_DEVICE, value is "device-dpi"                                      <br/>
-		  2. cc.macro.DENSITYDPI_HIGH, value is "high-dpi"  (default value)                         <br/>
-		  3. cc.macro.DENSITYDPI_MEDIUM, value is "medium-dpi" (browser's default value)            <br/>
-		  4. cc.macro.DENSITYDPI_LOW, value is "low-dpi"                                            <br/>
-		  5. Custom value, e.g: "480"                                                         <br/>
-		</p> 
-		*/
-		setTargetDensityDPI(densityDPI : string) : void;		
-		/** Returns the current target-densitydpi value of cc.view. 
-		*/
-		getTargetDensityDPI() : string;		
-		/** Sets whether resize canvas automatically when browser's size changed.<br/>
-		Useful only on web.
-		@param enabled Whether enable automatic resize with browser's resize event 
-		*/
-		resizeWithBrowserSize(enabled : boolean) : void;		
-		/** Sets the callback function for cc.view's resize action,<br/>
-		this callback will be invoked before applying resolution policy, <br/>
-		so you can do any additional modifications within the callback.<br/>
-		Useful only on web.
-		@param callback The callback function 
-		*/
-		setResizeCallback(callback : Function|void) : void;		
-		/** Sets the orientation of the game, it can be landscape, portrait or auto.
-		When set it to landscape or portrait, and screen w/h ratio doesn't fit,
-		cc.view will automatically rotate the game canvas using CSS.
-		Note that this function doesn't have any effect in native,
-		in native, you need to set the application orientation in native project settings
-		@param orientation Possible values: cc.macro.ORIENTATION_LANDSCAPE | cc.macro.ORIENTATION_PORTRAIT | cc.macro.ORIENTATION_AUTO 
-		*/
-		setOrientation(orientation : number) : void;		
-		/** Sets whether the engine modify the "viewport" meta in your web page.<br/>
-		It's enabled by default, we strongly suggest you not to disable it.<br/>
-		And even when it's enabled, you can still set your own "viewport" meta, it won't be overridden<br/>
-		Only useful on web
-		@param enabled Enable automatic modification to "viewport" meta 
-		*/
-		adjustViewPort(enabled : boolean) : void;		
-		/** Retina support is enabled by default for Apple device but disabled for other devices,<br/>
-		it takes effect only when you called setDesignResolutionPolicy<br/>
-		Only useful on web
-		@param enabled Enable or disable retina display 
-		*/
-		enableRetina(enabled : boolean) : void;		
-		/** Check whether retina display is enabled.<br/>
-		Only useful on web 
-		*/
-		isRetinaEnabled() : boolean;		
-		/** !#en Whether to Enable on anti-alias
-		!#zh 控制抗锯齿是否开启
-		@param enabled Enable or not anti-alias 
-		*/
-		enableAntiAlias(enabled : boolean) : void;		
-		/** !#en Returns whether the current enable on anti-alias
-		!#zh 返回当前是否抗锯齿 
-		*/
-		isAntiAliasEnabled() : boolean;		
-		/** If enabled, the application will try automatically to enter full screen mode on mobile devices<br/>
-		You can pass true as parameter to enable it and disable it by passing false.<br/>
-		Only useful on web
-		@param enabled Enable or disable auto full screen on mobile devices 
-		*/
-		enableAutoFullScreen(enabled : boolean) : void;		
-		/** Check whether auto full screen is enabled.<br/>
-		Only useful on web 
-		*/
-		isAutoFullScreenEnabled() : boolean;		
-		/** Get whether render system is ready(no matter opengl or canvas),<br/>
-		this name is for the compatibility with cocos2d-x, subclass must implement this method. 
-		*/
-		isViewReady() : boolean;		
-		/** Sets the resolution translate on View. 
-		*/
-		setContentTranslateLeftTop(offsetLeft : number, offsetTop : number) : void;		
-		/** Returns the resolution translate on View 
-		*/
-		getContentTranslateLeftTop() : Size;		
-		/** Returns the frame size of the view.<br/>
-		On native platforms, it returns the screen size since the view is a fullscreen view.<br/>
-		On web, it returns the size of the canvas's outer DOM element. 
-		*/
-		getFrameSize() : Size;		
-		/** On native, it sets the frame size of view.<br/>
-		On web, it sets the size of the canvas's outer DOM element. 
-		*/
-		setFrameSize(width : number, height : number) : void;		
-		/** Returns the visible area size of the view port. 
-		*/
-		getVisibleSize() : Size;		
-		/** Returns the visible area size of the view port. 
-		*/
-		getVisibleSizeInPixel() : Size;		
-		/** Returns the visible origin of the view port. 
-		*/
-		getVisibleOrigin() : Vec2;		
-		/** Returns the visible origin of the view port. 
-		*/
-		getVisibleOriginInPixel() : Vec2;		
-		/** Returns whether developer can set content's scale factor. 
-		*/
-		canSetContentScaleFactor() : boolean;		
-		/** Returns the current resolution policy 
-		*/
-		getResolutionPolicy() : ResolutionPolicy;		
-		/** Sets the current resolution policy 
-		*/
-		setResolutionPolicy(resolutionPolicy : ResolutionPolicy|number) : void;		
-		/** Sets the resolution policy with designed view size in points.<br/>
-		The resolution policy include: <br/>
-		[1] ResolutionExactFit       Fill screen by stretch-to-fit: if the design resolution ratio of width to height is different from the screen resolution ratio, your game view will be stretched.<br/>
-		[2] ResolutionNoBorder       Full screen without black border: if the design resolution ratio of width to height is different from the screen resolution ratio, two areas of your game view will be cut.<br/>
-		[3] ResolutionShowAll        Full screen with black border: if the design resolution ratio of width to height is different from the screen resolution ratio, two black borders will be shown.<br/>
-		[4] ResolutionFixedHeight    Scale the content's height to screen's height and proportionally scale its width<br/>
-		[5] ResolutionFixedWidth     Scale the content's width to screen's width and proportionally scale its height<br/>
-		[cc.ResolutionPolicy]        [Web only feature] Custom resolution policy, constructed by cc.ResolutionPolicy<br/>
-		@param width Design resolution width.
-		@param height Design resolution height.
-		@param resolutionPolicy The resolution policy desired 
-		*/
-		setDesignResolutionSize(width : number, height : number, resolutionPolicy : ResolutionPolicy|number) : void;		
-		/** Returns the designed size for the view.
-		Default resolution size is the same as 'getFrameSize'. 
-		*/
-		getDesignResolutionSize() : Size;		
-		/** Sets the container to desired pixel resolution and fit the game content to it.
-		This function is very useful for adaptation in mobile browsers.
-		In some HD android devices, the resolution is very high, but its browser performance may not be very good.
-		In this case, enabling retina display is very costy and not suggested, and if retina is disabled, the image may be blurry.
-		But this API can be helpful to set a desired pixel resolution which is in between.
-		This API will do the following:
-		    1. Set viewport's width to the desired width in pixel
-		    2. Set body width to the exact pixel resolution
-		    3. The resolution policy will be reset with designed view size in points.
-		@param width Design resolution width.
-		@param height Design resolution height.
-		@param resolutionPolicy The resolution policy desired 
-		*/
-		setRealPixelResolution(width : number, height : number, resolutionPolicy : ResolutionPolicy|number) : void;		
-		/** Sets view port rectangle with points.
-		@param w width
-		@param h height 
-		*/
-		setViewPortInPoints(x : number, y : number, w : number, h : number) : void;		
-		/** Sets Scissor rectangle with points. 
-		*/
-		setScissorInPoints(x : number, y : number, w : number, h : number) : void;		
-		/** Returns whether GL_SCISSOR_TEST is enable 
-		*/
-		isScissorEnabled() : boolean;		
-		/** Returns the current scissor rectangle 
-		*/
-		getScissorRect() : Rect;		
-		/** Sets the name of the view 
-		*/
-		setViewName(viewName : string) : void;		
-		/** Returns the name of the view 
-		*/
-		getViewName() : string;		
-		/** Returns the view port rectangle. 
-		*/
-		getViewPortRect() : Rect;		
-		/** Returns scale factor of the horizontal direction (X axis). 
-		*/
-		getScaleX() : number;		
-		/** Returns scale factor of the vertical direction (Y axis). 
-		*/
-		getScaleY() : number;		
-		/** Returns device pixel ratio for retina display. 
-		*/
-		getDevicePixelRatio() : number;		
-		/** Returns the real location in view for a translation based on a related position
-		@param tx The X axis translation
-		@param ty The Y axis translation
-		@param relatedPos The related position object including "left", "top", "width", "height" informations 
-		*/
-		convertToLocationInView(tx : number, ty : number, relatedPos : any) : Vec2;	
-	}		
-		/** <p>cc.ContainerStrategy class is the root strategy class of container's scale strategy,
-		it controls the behavior of how to scale the cc.container and cc.game.canvas object</p> */
-		export class ContainerStrategy {		
-		/** Manipulation before appling the strategy
-		@param view The target view 
-		*/
-		preApply(view : View) : void;		
-		/** Function to apply this strategy 
-		*/
-		apply(view : View, designedResolution : Size) : void;		
-		/** Manipulation after applying the strategy
-		@param view The target view 
-		*/
-		postApply(view : View) : void;	
-	}		
-		/** <p>cc.ContentStrategy class is the root strategy class of content's scale strategy,
-		it controls the behavior of how to scale the scene and setup the viewport for the game</p> */
-		export class ContentStrategy {		
-		/** Manipulation before applying the strategy
-		@param view The target view 
-		*/
-		preApply(view : View) : void;		
-		/** Function to apply this strategy
-		The return value is {scale: [scaleX, scaleY], viewport: {cc.Rect}},
-		The target view can then apply these value to itself, it's preferred not to modify directly its private variables 
-		*/
-		apply(view : View, designedResolution : Size) : any;		
-		/** Manipulation after applying the strategy
-		@param view The target view 
-		*/
-		postApply(view : View) : void;	
-	}		
-		/** undefined */
-		export class EqualToFrame extends ContainerStrategy {	
-	}		
-		/** undefined */
-		export class ProportionalToFrame extends ContainerStrategy {	
-	}		
-		/** undefined */
-		export class EqualToWindow extends EqualToFrame {	
-	}		
-		/** undefined */
-		export class ProportionalToWindow extends ProportionalToFrame {	
-	}		
-		/** undefined */
-		export class OriginalContainer extends ContainerStrategy {	
-	}		
-		/** <p>cc.ResolutionPolicy class is the root strategy class of scale strategy,
-		its main task is to maintain the compatibility with Cocos2d-x</p> */
-		export class ResolutionPolicy {		
-		/** 
-		@param containerStg The container strategy
-		@param contentStg The content strategy 
-		*/
-		ResolutionPolicy(containerStg : ContainerStrategy, contentStg : ContentStrategy) : void;		
-		/** Manipulation before applying the resolution policy
-		@param view The target view 
-		*/
-		preApply(view : View) : void;		
-		/** Function to apply this resolution policy
-		The return value is {scale: [scaleX, scaleY], viewport: {cc.Rect}},
-		The target view can then apply these value to itself, it's preferred not to modify directly its private variables
-		@param view The target view
-		@param designedResolution The user defined design resolution 
-		*/
-		apply(view : View, designedResolution : Size) : any;		
-		/** Manipulation after appyling the strategy
-		@param view The target view 
-		*/
-		postApply(view : View) : void;		
-		/** Setup the container's scale strategy 
-		*/
-		setContainerStrategy(containerStg : ContainerStrategy) : void;		
-		/** Setup the content's scale strategy 
-		*/
-		setContentStrategy(contentStg : ContentStrategy) : void;		
-		/** The entire application is visible in the specified area without trying to preserve the original aspect ratio.<br/>
-		Distortion can occur, and the application may appear stretched or compressed. */
-		EXACT_FIT : number;		
-		/** The entire application fills the specified area, without distortion but possibly with some cropping,<br/>
-		while maintaining the original aspect ratio of the application. */
-		NO_BORDER : number;		
-		/** The entire application is visible in the specified area without distortion while maintaining the original<br/>
-		aspect ratio of the application. Borders can appear on two sides of the application. */
-		SHOW_ALL : number;		
-		/** The application takes the height of the design resolution size and modifies the width of the internal<br/>
-		canvas so that it fits the aspect ratio of the device<br/>
-		no distortion will occur however you must make sure your application works on different<br/>
-		aspect ratios */
-		FIXED_HEIGHT : number;		
-		/** The application takes the width of the design resolution size and modifies the height of the internal<br/>
-		canvas so that it fits the aspect ratio of the device<br/>
-		no distortion will occur however you must make sure your application works on different<br/>
-		aspect ratios */
-		FIXED_WIDTH : number;		
-		/** Unknow policy */
-		UNKNOWN : number;	
-	}		
-		/** cc.visibleRect is a singleton object which defines the actual visible rect of the current view,
-		it should represent the same rect as cc.view.getViewportRect() */
-		export class visibleRect {		
-		/** initialize 
-		*/
-		init(visibleRect : Rect) : void;		
-		/** Top left coordinate of the screen related to the game scene. */
-		topLeft : Vec2;		
-		/** Top right coordinate of the screen related to the game scene. */
-		topRight : Vec2;		
-		/** Top center coordinate of the screen related to the game scene. */
-		top : Vec2;		
-		/** Bottom left coordinate of the screen related to the game scene. */
-		bottomLeft : Vec2;		
-		/** Bottom right coordinate of the screen related to the game scene. */
-		bottomRight : Vec2;		
-		/** Bottom center coordinate of the screen related to the game scene. */
-		bottom : Vec2;		
-		/** Center coordinate of the screen related to the game scene. */
-		center : Vec2;		
-		/** Left center coordinate of the screen related to the game scene. */
-		left : Vec2;		
-		/** Right center coordinate of the screen related to the game scene. */
-		right : Vec2;		
-		/** Width of the screen. */
-		width : number;		
-		/** Height of the screen. */
-		height : number;	
-	}		
-		/** The CallbacksHandler is an abstract class that can register and unregister callbacks by key.
-		Subclasses should implement their own methods about how to invoke the callbacks. */
-		export class _CallbacksHandler {		
-		/** 
-		@param target can be null 
-		*/
-		add(key : string, callback : Function, target? : any) : boolean;		
-		/** Check if the specified key has any registered callback. If a callback is also specified,
-		it will only return true if the callback is registered. 
-		*/
-		has(key : string, callback? : Function, target? : any) : boolean;		
-		/** Removes all callbacks registered in a certain event type or all callbacks registered with a certain target
-		@param key The event key to be removed or the target to be removed 
-		*/
-		removeAll(key : string|any) : void;		
-		/**  
-		*/
-		remove(key : string, callback : Function, target : any) : boolean;	
-	}		
-		/** !#en The callbacks invoker to handle and invoke callbacks by key.
-		!#zh CallbacksInvoker 用来根据 Key 管理并调用回调方法。 */
-		export class CallbacksInvoker extends _CallbacksHandler {		
-		/**  
-		*/
-		invoke(key : string, p1? : any, p2? : any, p3? : any, p4? : any, p5? : any) : void;		
-		/**  
-		*/
-		invokeAndRemove(key : string, p1? : any, p2? : any, p3? : any, p4? : any, p5? : any) : void;		
-		/** 
-		@param remove remove callbacks after invoked 
-		*/
-		bindKey(key : string, remove? : boolean) : Function;	
-	}		
-		/** !#en Contains information collected during deserialization
-		!#zh 包含反序列化时的一些信息 */
-		export class Details {		
-		/** list of the depends assets' uuid */
-		uuidList : String[];		
-		/** the obj list whose field needs to load asset by uuid */
-		uuidObjList : any[];		
-		/** the corresponding field name which referenced to the asset */
-		uuidPropList : String[];		
-		/** the corresponding field name which referenced to the raw object */
-		rawProp : string;		
-		reset() : void;		
-		/**  
-		*/
-		getUuidOf(obj : any, propName : string) : string;		
-		/**  
-		*/
-		push(obj : any, propName : string, uuid : string) : void;	
-	}		
-		/** undefined */
-		export class url {		
-		/** Returns the url of raw assets, you will only need this if the raw asset is inside the "resources" folder.
-		
-		@example 
-		```js
-		---
-		var url = cc.url.raw("textures/myTexture.png");
-		console.log(url);   // "resources/raw/textures/myTexture.png"
-		
-		``` 
-		*/
-		raw(url : string) : string;		
-		/** Returns the url of builtin raw assets. This method can only used in editor.
-		
-		@example 
-		```js
-		---
-		var url = cc.url.builtinRaw("textures/myTexture.png");
-		console.log(url);   // "resources/default-raw/textures/myTexture.png"
-		
-		``` 
-		*/
-		builtinRaw(url : string) : string;	
-	}		
-		/** <p>
-		This class allows to easily create OpenGL or Canvas 2D textures from images, text or raw data.                                    <br/>
-		The created cc.Texture2D object will always have power-of-two dimensions.                                                <br/>
-		Depending on how you create the cc.Texture2D object, the actual image area of the texture might be smaller than the texture dimensions <br/>
-		 i.e. "contentSize" != (pixelsWide, pixelsHigh) and (maxS, maxT) != (1.0, 1.0).                                           <br/>
-		Be aware that the content of the generated textures will be upside-down! </p> */
-		export class Texture2D extends RawAsset {		
-		/** Get width in pixels. 
-		*/
-		getPixelWidth() : number;		
-		/** Get height of in pixels. 
-		*/
-		getPixelHeight() : number;		
-		/** Get content size. 
-		*/
-		getContentSize() : Size;		
-		/** Get content size in pixels. 
-		*/
-		getContentSizeInPixels() : Size;		
-		/** Init with HTML element.
-		
-		@example 
-		```js
-		var img = new Image();
-		img.src = dataURL;
-		texture.initWithElement(img);
-		texture.handleLoadedTexture();
-		``` 
-		*/
-		initWithElement(element : HTMLImageElement|HTMLCanvasElement) : void;		
-		/** Intializes with a texture2d with data. 
-		*/
-		initWithData(data : any[], pixelFormat : number, pixelsWide : number, pixelsHigh : number, contentSize : Size) : boolean;		
-		/** Initializes a texture from a UIImage object.
-		Extensions to make it easy to create a CCTexture2D object from an image file.
-		Note that RGBA type textures will have their alpha premultiplied - use the blending mode (gl.ONE, gl.ONE_MINUS_SRC_ALPHA). 
-		*/
-		initWithImage(uiImage : HTMLImageElement) : boolean;		
-		/** HTMLElement Object getter. 
-		*/
-		getHtmlElementObj() : HTMLImageElement;		
-		/** Check whether texture is loaded. 
-		*/
-		isLoaded() : boolean;		
-		/** Handler of texture loaded event. 
-		*/
-		handleLoadedTexture(premultiplied? : boolean) : void;		
-		/** Description of cc.Texture2D. 
-		*/
-		description() : string;		
-		/** Release texture. 
-		*/
-		releaseTexture() : void;		
-		/** Pixel format of the texture. 
-		*/
-		getPixelFormat() : number;		
-		/** Whether or not the texture has their Alpha premultiplied,
-		support only in WebGl rendering mode. 
-		*/
-		hasPremultipliedAlpha() : boolean;		
-		/** Whether or not use mipmap, support only in WebGl rendering mode. 
-		*/
-		hasMipmaps() : boolean;		
-		/** Sets the min filter, mag filter, wrap s and wrap t texture parameters. <br/>
-		If the texture size is NPOT (non power of 2), then in can only use gl.CLAMP_TO_EDGE in gl.TEXTURE_WRAP_{S,T}.
-		@param texParams texParams object or minFilter 
-		*/
-		setTexParameters(texParams : any|number, magFilter? : number, wrapS? : Texture2D.WrapMode, wrapT? : Texture2D.WrapMode) : void;		
-		/** WebGLTexture Object. */
-		name : WebGLTexture;		
-		/** Pixel format of the texture. */
-		pixelFormat : number;		
-		/** Width in pixels. */
-		pixelWidth : number;		
-		/** Height in pixels. */
-		pixelHeight : number;		
-		/** Content width in points. */
-		width : number;		
-		/** Content height in points. */
-		height : number;	
-	}		
-		/** <p>A class that implements a Texture Atlas. <br />
-		Supported features: <br />
-		The atlas file can be a PNG, JPG. <br />
-		Quads can be updated in runtime <br />
-		Quads can be added in runtime <br />
-		Quads can be removed in runtime <br />
-		Quads can be re-ordered in runtime <br />
-		The TextureAtlas capacity can be increased or decreased in runtime.</p> */
-		export class TextureAtlas {		
-		/** <p>Creates a TextureAtlas with an filename and with an initial capacity for Quads. <br />
-		The TextureAtlas capacity can be increased in runtime. </p>
-		Constructor of cc.TextureAtlas
-		
-		@example 
-		```js
-		--------------------------
-		1. //creates a TextureAtlas with  filename
-		var textureAtlas = new cc.TextureAtlas("res/hello.png", 3);
-		
-		2. //creates a TextureAtlas with texture
-		var texture = cc.textureCache.addImage("hello.png");
-		var textureAtlas = new cc.TextureAtlas(texture, 3);
-		
-		``` 
-		*/
-		TextureAtlas(fileName : string|Texture2D, capacity : number) : void;		
-		/** Quantity of quads that are going to be drawn. 
-		*/
-		getTotalQuads() : number;		
-		/** Quantity of quads that can be stored with the current texture atlas size. 
-		*/
-		getCapacity() : number;		
-		/** Texture of the texture atlas. 
-		*/
-		getTexture() : Image;		
-		/** Set texture for texture atlas. 
-		*/
-		setTexture(texture : Image) : void;		
-		/** specify if the array buffer of the VBO needs to be updated. 
-		*/
-		setDirty(dirty : boolean) : void;		
-		/** whether or not the array buffer of the VBO needs to be updated. 
-		*/
-		isDirty() : boolean;		
-		/** Quads that are going to be rendered. 
-		*/
-		getQuads() : any[];		
-		/**  
-		*/
-		setQuads(quads : any[]) : void;		
-		/** <p>Initializes a TextureAtlas with a filename and with a certain capacity for Quads.<br />
-		The TextureAtlas capacity can be increased in runtime.<br />
-		WARNING: Do not reinitialize the TextureAtlas because it will leak memory. </p>
-		
-		@example 
-		```js
-		--------------------------------------------------
-		var textureAtlas = new cc.TextureAtlas();
-		textureAtlas.initWithTexture("hello.png", 3);
-		
-		``` 
-		*/
-		initWithFile(file : string, capacity : number) : boolean;		
-		/** <p>Initializes a TextureAtlas with a previously initialized Texture2D object, and<br />
-		with an initial capacity for Quads.<br />
-		The TextureAtlas capacity can be increased in runtime.<br />
-		WARNING: Do not reinitialize the TextureAtlas because it will leak memory</p>
-		
-		@example 
-		```js
-		---------------------------
-		var texture = cc.textureCache.addImage("hello.png");
-		var textureAtlas = new cc.TextureAtlas();
-		textureAtlas.initWithTexture(texture, 3);
-		
-		``` 
-		*/
-		initWithTexture(texture : Image, capacity : number) : boolean;		
-		/** <p>Updates a Quad (texture, vertex and color) at a certain index <br />
-		index must be between 0 and the atlas capacity - 1 </p> 
-		*/
-		updateQuad(quad : V3F_C4B_T2F_Quad, index : number) : void;		
-		/** <p>Inserts a Quad (texture, vertex and color) at a certain index<br />
-		index must be between 0 and the atlas capacity - 1 </p> 
-		*/
-		insertQuad(quad : V3F_C4B_T2F_Quad, index : number) : void;		
-		/** <p>
-		     Inserts a c array of quads at a given index                                           <br />
-		     index must be between 0 and the atlas capacity - 1                                    <br />
-		     this method doesn't enlarge the array when amount + index > totalQuads                <br />
-		</p> 
-		*/
-		insertQuads(quads : any[], index : number, amount : number) : void;		
-		/** <p>Removes the quad that is located at a certain index and inserts it at a new index <br />
-		This operation is faster than removing and inserting in a quad in 2 different steps</p> 
-		*/
-		insertQuadFromIndex(fromIndex : number, newIndex : number) : void;		
-		/** <p>Removes a quad at a given index number.<br />
-		The capacity remains the same, but the total number of quads to be drawn is reduced in 1 </p> 
-		*/
-		removeQuadAtIndex(index : number) : void;		
-		/** Removes a given number of quads at a given index. 
-		*/
-		removeQuadsAtIndex(index : number, amount : number) : void;		
-		/** <p>Removes all Quads. <br />
-		The TextureAtlas capacity remains untouched. No memory is freed.<br />
-		The total number of quads to be drawn will be 0</p> 
-		*/
-		removeAllQuads() : void;		
-		/** <p>Resize the capacity of the CCTextureAtlas.<br />
-		The new capacity can be lower or higher than the current one<br />
-		It returns YES if the resize was successful. <br />
-		If it fails to resize the capacity it will return NO with a new capacity of 0. <br />
-		no used for js</p> 
-		*/
-		resizeCapacity(newCapacity : number) : boolean;		
-		/** Used internally by CCParticleBatchNode                                    <br/>
-		don't use this unless you know what you're doing. 
-		*/
-		increaseTotalQuadsWith(amount : number) : void;		
-		/** Moves an amount of quads from oldIndex at newIndex. 
-		*/
-		moveQuadsFromIndex(oldIndex : number, amount : number, newIndex : number) : void;		
-		/** Ensures that after a realloc quads are still empty                                <br/>
-		Used internally by CCParticleBatchNode. 
-		*/
-		fillWithEmptyQuadsFromIndex(index : number, amount : number) : void;		
-		/** <p>Draws n quads from an index (offset). <br />
-		n + start can't be greater than the capacity of the atlas</p> 
-		*/
-		drawNumberOfQuads(n : number, start : number) : void;		
-		/** Indicates whether or not the array buffer of the VBO needs to be updated. */
-		dirty : boolean;		
-		/** Image texture for cc.TextureAtlas. */
-		texture : Image;		
-		/** Quantity of quads that can be stored with the current texture atlas size. */
-		capacity : number;		
-		/** Quantity of quads that are going to be drawn. */
-		totalQuads : number;		
-		/** Quads that are going to be rendered. */
-		quads : any[];	
-	}		
-		/** cc.textureCache is a singleton object, it's the global cache for cc.Texture2D */
-		export class textureCache {		
-		/** Description 
-		*/
-		description() : string;		
-		/** Returns an already created texture. Returns null if the texture doesn't exist.
-		
-		@example 
-		```js
-		------------------
-		var key = cc.textureCache.textureForKey("hello.png");
-		
-		``` 
-		*/
-		textureForKey(textureKeyName : string) : Texture2D;		
-		/** Returns an already created texture. Returns null if the texture doesn't exist.
-		
-		@example 
-		```js
-		------------------
-		var key = cc.textureCache.getTextureForKey("hello.png");
-		
-		``` 
-		*/
-		getTextureForKey(textureKeyName : string) : Texture2D;		
-		/** 
-		
-		@example 
-		```js
-		---------------
-		var cacheTextureForColor = cc.textureCache.getTextureColors(texture);
-		
-		``` 
-		*/
-		getTextureColors(texture : Image) : any[];		
-		/** #en get all textures
-		#zh 获取所有贴图 
-		*/
-		getAllTextures() : Texture2D[];		
-		/** <p>Purges the dictionary of loaded textures. <br />
-		Call this method if you receive the "Memory Warning"  <br />
-		In the short term: it will free some resources preventing your app from being killed  <br />
-		In the medium term: it will allocate more resources <br />
-		In the long term: it will be the same</p>
-		
-		@example 
-		```js
-		--------
-		cc.textureCache.removeAllTextures();
-		
-		``` 
-		*/
-		removeAllTextures() : void;		
-		/** Deletes a texture from the cache given a texture.
-		
-		@example 
-		```js
-		-----
-		cc.textureCache.removeTexture(texture);
-		
-		``` 
-		*/
-		removeTexture(texture : Image) : void;		
-		/** Deletes a texture from the cache given a its key name.
-		
-		@example 
-		```js
-		------
-		cc.textureCache.removeTexture("hello.png");
-		
-		``` 
-		*/
-		removeTextureForKey(textureKeyName : string) : void;		
-		/** <p>Returns a Texture2D object given an file image <br />
-		If the file image was not previously loaded, it will create a new Texture2D <br />
-		 object and it will return it. It will use the filename as a key.<br />
-		Otherwise it will return a reference of a previously loaded image. <br />
-		Supported image extensions: .png, .jpg, .gif</p>
-		
-		@example 
-		```js
-		----
-		cc.textureCache.addImage("hello.png");
-		
-		``` 
-		*/
-		addImage(url : string, cb : Function, target : any) : Texture2D;		
-		/** Cache the image data. 
-		*/
-		cacheImage(path : string, texture : Image|HTMLImageElement|HTMLCanvasElement) : void;		
-		/** <p>Returns a Texture2D object given an UIImage image<br />
-		If the image was not previously loaded, it will create a new Texture2D object and it will return it.<br />
-		Otherwise it will return a reference of a previously loaded image<br />
-		The "key" parameter will be used as the "key" for the cache.<br />
-		If "key" is null, then a new texture will be created each time.</p> 
-		*/
-		addUIImage(image : HTMLImageElement|HTMLCanvasElement, key : string) : Texture2D;	
 	}		
 		/** !#en
 		cc.AffineTransform class represent an affine transform matrix. It's composed basically by translation, rotation, scale transformations.<br/>
@@ -10353,6 +10423,21 @@ declare module cc {
 	}	
 	
 	/****************************************************
+	* audioEngine
+	*****************************************************/
+	
+	export module audioEngine {		
+		/** !#en Audio state.
+		!#zh 声音播放状态 */
+		export enum AudioState {			
+			ERROR = 0,
+			INITIALZING = 0,
+			PLAYING = 0,
+			PAUSED = 0,		
+		}	
+	}	
+	
+	/****************************************************
 	* Node
 	*****************************************************/
 	
@@ -10370,48 +10455,6 @@ declare module cc {
 			MOUSE_LEAVE = 0,
 			MOUSE_UP = 0,
 			MOUSE_WHEEL = 0,		
-		}	
-	}	
-	
-	/****************************************************
-	* audioEngine
-	*****************************************************/
-	
-	export module audioEngine {		
-		/** !#en Audio state.
-		!#zh 声音播放状态 */
-		export enum AudioState {			
-			ERROR = 0,
-			INITIALZING = 0,
-			PLAYING = 0,
-			PAUSED = 0,		
-		}	
-	}	
-	
-	/****************************************************
-	* ParticleSystem
-	*****************************************************/
-	
-	export module ParticleSystem {		
-		/** !#en Enum for emitter modes
-		!#zh 发射模式 */
-		export enum EmitterMode {			
-			GRAVITY = 0,
-			RADIUS = 0,		
-		}	
-	}	
-	
-	/****************************************************
-	* ParticleSystem
-	*****************************************************/
-	
-	export module ParticleSystem {		
-		/** !#en Enum for particles movement type.
-		!#zh 粒子位置类型 */
-		export enum PositionType {			
-			FREE = 0,
-			RELATIVE = 0,
-			GROUPED = 0,		
 		}	
 	}	
 	
@@ -10445,6 +10488,33 @@ declare module cc {
 	}	
 	
 	/****************************************************
+	* ParticleSystem
+	*****************************************************/
+	
+	export module ParticleSystem {		
+		/** !#en Enum for emitter modes
+		!#zh 发射模式 */
+		export enum EmitterMode {			
+			GRAVITY = 0,
+			RADIUS = 0,		
+		}	
+	}	
+	
+	/****************************************************
+	* ParticleSystem
+	*****************************************************/
+	
+	export module ParticleSystem {		
+		/** !#en Enum for particles movement type.
+		!#zh 粒子位置类型 */
+		export enum PositionType {			
+			FREE = 0,
+			RELATIVE = 0,
+			GROUPED = 0,		
+		}	
+	}	
+	
+	/****************************************************
 	* Event
 	*****************************************************/
 	
@@ -10472,6 +10542,172 @@ declare module cc {
 			!#zh 获取事件名称 
 			*/
 			getEventName() : string;		
+		}	
+	}	
+	
+	/****************************************************
+	* Event
+	*****************************************************/
+	
+	export module Event {			
+			/** !#en The mouse event
+			!#zh 鼠标事件类型 */
+			export class EventMouse extends Event {			
+			/** !#en Sets scroll data.
+			!#zh 设置鼠标的滚动数据。 
+			*/
+			setScrollData(scrollX : number, scrollY : number) : void;			
+			/** !#en Returns the x axis scroll value.
+			!#zh 获取鼠标滚动的X轴距离，只有滚动时才有效。 
+			*/
+			getScrollX() : number;			
+			/** !#en Returns the y axis scroll value.
+			!#zh 获取滚轮滚动的 Y 轴距离，只有滚动时才有效。 
+			*/
+			getScrollY() : number;			
+			/** !#en Sets cursor location.
+			!#zh 设置当前鼠标位置。 
+			*/
+			setLocation(x : number, y : number) : void;			
+			/** !#en Returns cursor location.
+			!#zh 获取鼠标位置对象，对象包含 x 和 y 属性。 
+			*/
+			getLocation() : Vec2;			
+			/** !#en Returns the current cursor location in screen coordinates.
+			!#zh 获取当前事件在游戏窗口内的坐标位置对象，对象包含 x 和 y 属性。 
+			*/
+			getLocationInView() : Vec2;			
+			/** !#en Returns the previous touch location.
+			!#zh 获取鼠标点击在上一次事件时的位置对象，对象包含 x 和 y 属性。 
+			*/
+			getPreviousLocation() : Vec2;			
+			/** !#en Returns the delta distance from the previous location to current location.
+			!#zh 获取鼠标距离上一次事件移动的距离对象，对象包含 x 和 y 属性。 
+			*/
+			getDelta() : Vec2;			
+			/** !#en Returns the X axis delta distance from the previous location to current location.
+			!#zh 获取鼠标距离上一次事件移动的 X 轴距离。 
+			*/
+			getDeltaX() : number;			
+			/** !#en Returns the Y axis delta distance from the previous location to current location.
+			!#zh 获取鼠标距离上一次事件移动的 Y 轴距离。 
+			*/
+			getDeltaY() : number;			
+			/** !#en Sets mouse button.
+			!#zh 设置鼠标按键。 
+			*/
+			setButton(button : number) : void;			
+			/** !#en Returns mouse button.
+			!#zh 获取鼠标按键。 
+			*/
+			getButton() : number;			
+			/** !#en Returns location X axis data.
+			!#zh 获取鼠标当前位置 X 轴。 
+			*/
+			getLocationX() : number;			
+			/** !#en Returns location Y axis data.
+			!#zh 获取鼠标当前位置 Y 轴。 
+			*/
+			getLocationY() : number;		
+		}	
+	}	
+	
+	/****************************************************
+	* Event
+	*****************************************************/
+	
+	export module Event {			
+			/** !#en The touch event
+			!#zh 触摸事件 */
+			export class EventTouch extends Event {			
+			/** !#en Returns event code.
+			!#zh 获取事件类型。 
+			*/
+			getEventCode() : number;			
+			/** !#en Returns touches of event.
+			!#zh 获取触摸点的列表。 
+			*/
+			getTouches() : any[];			
+			/** !#en Sets touch location.
+			!#zh 设置当前触点位置 
+			*/
+			setLocation(x : number, y : number) : void;			
+			/** !#en Returns touch location.
+			!#zh 获取触点位置。 
+			*/
+			getLocation() : Vec2;			
+			/** !#en Returns the current touch location in screen coordinates.
+			!#zh 获取当前触点在游戏窗口中的位置。 
+			*/
+			getLocationInView() : Vec2;			
+			/** !#en Returns the previous touch location.
+			!#zh 获取触点在上一次事件时的位置对象，对象包含 x 和 y 属性。 
+			*/
+			getPreviousLocation() : Vec2;			
+			/** !#en Returns the start touch location.
+			!#zh 获获取触点落下时的位置对象，对象包含 x 和 y 属性。 
+			*/
+			getStartLocation() : Vec2;			
+			/** !#en Returns the id of cc.Touch.
+			!#zh 触点的标识 ID，可以用来在多点触摸中跟踪触点。 
+			*/
+			getID() : number;			
+			/** !#en Returns the delta distance from the previous location to current location.
+			!#zh 获取触点距离上一次事件移动的距离对象，对象包含 x 和 y 属性。 
+			*/
+			getDelta() : Vec2;			
+			/** !#en Returns the X axis delta distance from the previous location to current location.
+			!#zh 获取触点距离上一次事件移动的 x 轴距离。 
+			*/
+			getDeltaX() : number;			
+			/** !#en Returns the Y axis delta distance from the previous location to current location.
+			!#zh 获取触点距离上一次事件移动的 y 轴距离。 
+			*/
+			getDeltaY() : number;			
+			/** !#en Returns location X axis data.
+			!#zh 获取当前触点 X 轴位置。 
+			*/
+			getLocationX() : number;			
+			/** !#en Returns location Y axis data.
+			!#zh 获取当前触点 Y 轴位置。 
+			*/
+			getLocationY() : number;		
+		}	
+	}	
+	
+	/****************************************************
+	* Event
+	*****************************************************/
+	
+	export module Event {			
+			/** !#en The acceleration event
+			!#zh 加速度事件 */
+			export class EventAcceleration extends Event {		
+		}	
+	}	
+	
+	/****************************************************
+	* Event
+	*****************************************************/
+	
+	export module Event {			
+			/** !#en The keyboard event
+			!#zh 键盘事件 */
+			export class EventKeyboard extends Event {		
+		}	
+	}	
+	
+	/****************************************************
+	* SystemEvent
+	*****************************************************/
+	
+	export module SystemEvent {		
+		/** !#en The event type supported by SystemEvent
+		!#zh SystemEvent 支持的事件类型 */
+		export enum EventType {			
+			KEY_DOWN = 0,
+			KEY_UP = 0,
+			DEVICEMOTION = 0,		
 		}	
 	}	
 	
@@ -10720,12 +10956,11 @@ declare module cc {
 	
 	export module Mask {		
 		/** !#en the type for mask.
-		!#zh 遮罩组件的类型 */
+		!#zh 遮罩组件类型 */
 		export enum Type {			
 			RECT = 0,
 			ELLIPSE = 0,
-			type = 0,
-			segements = 0,		
+			IMAGE_STENCIL = 0,		
 		}	
 	}	
 	
@@ -10923,172 +11158,6 @@ declare module cc {
 			LOADED = 0,
 			LOADING = 0,
 			ERROR = 0,		
-		}	
-	}	
-	
-	/****************************************************
-	* Event
-	*****************************************************/
-	
-	export module Event {			
-			/** !#en The mouse event
-			!#zh 鼠标事件类型 */
-			export class EventMouse extends Event {			
-			/** !#en Sets scroll data.
-			!#zh 设置鼠标的滚动数据。 
-			*/
-			setScrollData(scrollX : number, scrollY : number) : void;			
-			/** !#en Returns the x axis scroll value.
-			!#zh 获取鼠标滚动的X轴距离，只有滚动时才有效。 
-			*/
-			getScrollX() : number;			
-			/** !#en Returns the y axis scroll value.
-			!#zh 获取滚轮滚动的 Y 轴距离，只有滚动时才有效。 
-			*/
-			getScrollY() : number;			
-			/** !#en Sets cursor location.
-			!#zh 设置当前鼠标位置。 
-			*/
-			setLocation(x : number, y : number) : void;			
-			/** !#en Returns cursor location.
-			!#zh 获取鼠标位置对象，对象包含 x 和 y 属性。 
-			*/
-			getLocation() : Vec2;			
-			/** !#en Returns the current cursor location in screen coordinates.
-			!#zh 获取当前事件在游戏窗口内的坐标位置对象，对象包含 x 和 y 属性。 
-			*/
-			getLocationInView() : Vec2;			
-			/** !#en Returns the previous touch location.
-			!#zh 获取鼠标点击在上一次事件时的位置对象，对象包含 x 和 y 属性。 
-			*/
-			getPreviousLocation() : Vec2;			
-			/** !#en Returns the delta distance from the previous location to current location.
-			!#zh 获取鼠标距离上一次事件移动的距离对象，对象包含 x 和 y 属性。 
-			*/
-			getDelta() : Vec2;			
-			/** !#en Returns the X axis delta distance from the previous location to current location.
-			!#zh 获取鼠标距离上一次事件移动的 X 轴距离。 
-			*/
-			getDeltaX() : number;			
-			/** !#en Returns the Y axis delta distance from the previous location to current location.
-			!#zh 获取鼠标距离上一次事件移动的 Y 轴距离。 
-			*/
-			getDeltaY() : number;			
-			/** !#en Sets mouse button.
-			!#zh 设置鼠标按键。 
-			*/
-			setButton(button : number) : void;			
-			/** !#en Returns mouse button.
-			!#zh 获取鼠标按键。 
-			*/
-			getButton() : number;			
-			/** !#en Returns location X axis data.
-			!#zh 获取鼠标当前位置 X 轴。 
-			*/
-			getLocationX() : number;			
-			/** !#en Returns location Y axis data.
-			!#zh 获取鼠标当前位置 Y 轴。 
-			*/
-			getLocationY() : number;		
-		}	
-	}	
-	
-	/****************************************************
-	* Event
-	*****************************************************/
-	
-	export module Event {			
-			/** !#en The touch event
-			!#zh 触摸事件 */
-			export class EventTouch extends Event {			
-			/** !#en Returns event code.
-			!#zh 获取事件类型。 
-			*/
-			getEventCode() : number;			
-			/** !#en Returns touches of event.
-			!#zh 获取触摸点的列表。 
-			*/
-			getTouches() : any[];			
-			/** !#en Sets touch location.
-			!#zh 设置当前触点位置 
-			*/
-			setLocation(x : number, y : number) : void;			
-			/** !#en Returns touch location.
-			!#zh 获取触点位置。 
-			*/
-			getLocation() : Vec2;			
-			/** !#en Returns the current touch location in screen coordinates.
-			!#zh 获取当前触点在游戏窗口中的位置。 
-			*/
-			getLocationInView() : Vec2;			
-			/** !#en Returns the previous touch location.
-			!#zh 获取触点在上一次事件时的位置对象，对象包含 x 和 y 属性。 
-			*/
-			getPreviousLocation() : Vec2;			
-			/** !#en Returns the start touch location.
-			!#zh 获获取触点落下时的位置对象，对象包含 x 和 y 属性。 
-			*/
-			getStartLocation() : Vec2;			
-			/** !#en Returns the id of cc.Touch.
-			!#zh 触点的标识 ID，可以用来在多点触摸中跟踪触点。 
-			*/
-			getID() : number;			
-			/** !#en Returns the delta distance from the previous location to current location.
-			!#zh 获取触点距离上一次事件移动的距离对象，对象包含 x 和 y 属性。 
-			*/
-			getDelta() : Vec2;			
-			/** !#en Returns the X axis delta distance from the previous location to current location.
-			!#zh 获取触点距离上一次事件移动的 x 轴距离。 
-			*/
-			getDeltaX() : number;			
-			/** !#en Returns the Y axis delta distance from the previous location to current location.
-			!#zh 获取触点距离上一次事件移动的 y 轴距离。 
-			*/
-			getDeltaY() : number;			
-			/** !#en Returns location X axis data.
-			!#zh 获取当前触点 X 轴位置。 
-			*/
-			getLocationX() : number;			
-			/** !#en Returns location Y axis data.
-			!#zh 获取当前触点 Y 轴位置。 
-			*/
-			getLocationY() : number;		
-		}	
-	}	
-	
-	/****************************************************
-	* Event
-	*****************************************************/
-	
-	export module Event {			
-			/** !#en The acceleration event
-			!#zh 加速度事件 */
-			export class EventAcceleration extends Event {		
-		}	
-	}	
-	
-	/****************************************************
-	* Event
-	*****************************************************/
-	
-	export module Event {			
-			/** !#en The keyboard event
-			!#zh 键盘事件 */
-			export class EventKeyboard extends Event {		
-		}	
-	}	
-	
-	/****************************************************
-	* SystemEvent
-	*****************************************************/
-	
-	export module SystemEvent {		
-		/** !#en The event type supported by SystemEvent
-		!#zh SystemEvent 支持的事件类型 */
-		export enum EventType {			
-			KEY_DOWN = 0,
-			KEY_UP = 0,
-			DEVICEMOTION = 0,		
 		}	
 	}	
 	
@@ -12333,7 +12402,7 @@ declare module anysdk {
 		AD_TYPE_FULLSCREEN = 0,
 		AD_TYPE_MOREAPP = 0,
 		AD_TYPE_OFFERWALL = 0,
-		AD_TYPE_REWARDEDVIDEOc = 0,
+		AD_TYPE_REWARDEDVIDEO = 0,
 		AD_TYPE_NATIVEEXPRESS = 0,
 		AD_TYPE_NATIVEADVANCED = 0,	
 	}	
