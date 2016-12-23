@@ -7,7 +7,11 @@ import org.springframework.messaging.simp.SimpMessagingTemplate
 @Transactional
 class WebsokectService {
 
-    def serviceMethod() {
 
+    SimpMessagingTemplate brokerMessagingTemplate
+
+    void pusmicGameUserLogin(def message) {
+        brokerMessagingTemplate.convertAndSend "/queue/pusmicGamePushLoginUserInfoChanle", message
     }
+
 }

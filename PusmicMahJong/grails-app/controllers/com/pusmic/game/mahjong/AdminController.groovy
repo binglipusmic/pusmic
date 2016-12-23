@@ -4,6 +4,7 @@ import grails.plugin.springsecurity.annotation.Secured
 class AdminController {
 
     def index() {
-        render "admin"
+        def g=request._csrf.token
+        render "admin:"+g
     }
 }
