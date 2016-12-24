@@ -4,11 +4,16 @@ import com.pusmic.game.mahjong.SpringUser
 import com.pusmic.game.mahjong.SpringUserRole
 import com.pusmic.game.mahjong.Role
 import com.pusmic.game.mahjong.OnlineUser
+import grails.plugin.springsecurity.SecurityFilterPosition
+import grails.plugin.springsecurity.SpringSecurityUtils
+
+import static grails.plugin.springsecurity.SpringSecurityUtils.clientRegisterFilter
+
 class BootStrap {
 
     def init = { servletContext ->
         println "BootStrap init:"
-        def userCount=SpringUser.count()
+         def userCount=SpringUser.count()
         try {
             if(userCount==0){
                 //new 4 user for test
@@ -22,7 +27,7 @@ class BootStrap {
                     def u= new SpringUser(username:userName,password:'password',city:"Mianyang",country:"CN",language:"chinese",
                             nickname:userName,openid:userName,province:"SC",headimgurl:"testurl",unionid:"test",access_token:"test",
                             refresh_token:"refreshToken")
-                    u.save()
+                    u.save(flush: true, failOnError: true)
 
 
 
@@ -37,7 +42,8 @@ class BootStrap {
                     println "username:"+userName
                 }
             }
-
+            userCount=SpringUser.count()
+            println "userCount:"+userCount
             def onlineCount=OnlineUser.count()
             if(onlineCount==0){
                 def uList=SpringUser.list()
@@ -49,21 +55,22 @@ class BootStrap {
 
             def adminRole = Role.findOrSaveByAuthority('ROLE_ADMIN')
             def adminUser=SpringUser.findByUsername("testUser2")
-            println "authorities:"+adminUser.authorities
-            if (!adminUser.authorities.contains(adminRole)) {
+            if(adminUser) {
+                println "authorities:" + adminUser.authorities
+                if (!adminUser.authorities.contains(adminRole)) {
 
-                SpringUserRole.create adminUser, adminRole
-                SpringUserRole.withSession {
-                    it.flush()
-                    it.clear()
+                    SpringUserRole.create adminUser, adminRole
+                    SpringUserRole.withSession {
+                        it.flush()
+                        it.clear()
+                    }
+                    println "NOT Found admin on bootstrap on user:testUser2"
+                } else {
+
+                    println "Found admin on bootstrap on user:testUser2"
+
                 }
-                println "NOT Found admin on bootstrap on user:testUser2"
-            }else{
-
-                println "Found admin on bootstrap on user:testUser2"
-
             }
-
 
 
 

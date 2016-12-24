@@ -32,10 +32,14 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	[pattern: '/**/css/**',      access: ['permitAll']],
 	[pattern: '/**/images/**',   access: ['permitAll']],
 	[pattern: '/**/favicon.ico', access: ['permitAll']],
+	[pattern: '/**/autoconfig', access: ['permitAll']],
+		//autoconfig
+    [pattern: '/csrf/**', access: ['permitAll']],
     [pattern: '/login/**', access: ['permitAll']],
     [pattern: '/logout/**', access: ['permitAll']],
 	[pattern: '/faPai/**', access: ['IS_AUTHENTICATED_REMEMBERED']],
-    [pattern: '/admin/**', access: ['ROLE_ADMIN']]
+    [pattern: '/admin/**', access: ['ROLE_ADMIN']],
+	[pattern: '/stomp/**', access: ['ROLE_ADMIN']]
 	//[pattern: '/faPai/**', access: 'ROLE_ADMIN']
 		//ROLE_USER
 ]

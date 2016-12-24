@@ -69,6 +69,9 @@ class SpringUser implements Serializable {
 		username blank: false, unique: true
         gameRound nullable: true
         loginUserInfo nullable: true
+		mobileUserCode nullable: true
+		mobileUserState nullable: true
+        expires_in nullable: true
 	}
 
 	static mapping = {
