@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.security.SecurityFilterAutoConfigu
 beans = {
     webSocketConfig(com.pusmicgame.mahjong.WebSokecConfig)
    //webSecurityConfiguration(com.pusmicgame.mahjong.WebSocketSecurityConfig)
-    securityFilterAutoConfiguration org.springframework.boot.autoconfigure.security.SecurityFilterAutoConfiguration
+    //securityFilterAutoConfiguration org.springframework.boot.autoconfigure.security.SecurityFilterAutoConfiguration
 
     //securityChannelInterceptor SecurityChannelInterceptor
     //webSecurityConfig com.pusmicgame.mahjong.WebSecurityConfig

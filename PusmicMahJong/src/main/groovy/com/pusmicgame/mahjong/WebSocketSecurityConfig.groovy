@@ -39,15 +39,15 @@ class WebSocketSecurityConfig extends WebSecurityConfigurerAdapter {
         //http.csrf().;
         //http.csrf().disable();
         http.httpBasic()
-        http.addFilterBefore(new SessionRepositoryFilter(sessionRepository), ChannelProcessingFilter.class)
+        //http.addFilterBefore(new SessionRepositoryFilter(sessionRepository), ChannelProcessingFilter.class)
         //http.authorizeRequests().anyRequest().authenticated()
-        /*http.csrf().disable().addFilterBefore(new CsrfTokenGeneratorFilter(), CsrfFilter.class)
+        http.csrf().disable().addFilterBefore(new CsrfTokenGeneratorFilter(), CsrfFilter.class)
                 .authorizeRequests()
-                .antMatchers("/scripts*//**", "/styles*//**", "/font*//**", "/fonts*//**").permitAll()
-                .antMatchers("*//**").authenticated()
+                .antMatchers("/scripts*", "/styles*", "/font*", "/fonts*").permitAll()
+                .antMatchers("*").authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login").permitAll();*/
+                .loginPage("/login").permitAll();
     }
 
     @Autowired
