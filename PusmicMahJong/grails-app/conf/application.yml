@@ -17,6 +17,8 @@ spring:
     groovy:
         template:
             check-template-location: false
+    session:
+      store-type: none
 
 # Spring Actuator Endpoints are Disabled by Default
 endpoints:

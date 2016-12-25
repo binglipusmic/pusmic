@@ -16,7 +16,7 @@ class AdminController {
 
         request.headerNames.each{k->
 
-            println "${k}"
+            println "${k}--->"+request.getHeader("${k}")
 
         }
         CsrfToken token2 = new HttpSessionCsrfTokenRepository().loadToken(request);

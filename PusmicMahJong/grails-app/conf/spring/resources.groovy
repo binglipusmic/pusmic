@@ -6,8 +6,9 @@ import org.springframework.boot.autoconfigure.security.SecurityFilterAutoConfigu
 // Place your Spring DSL code here
 beans = {
     webSocketConfig(com.pusmicgame.mahjong.WebSokecConfig)
-   webSecurityConfiguration(com.pusmicgame.mahjong.WebSocketSecurityConfig)
+   //webSecurityConfiguration(com.pusmicgame.mahjong.WebSocketSecurityConfig)
     securityFilterAutoConfiguration org.springframework.boot.autoconfigure.security.SecurityFilterAutoConfiguration
+
     //securityChannelInterceptor SecurityChannelInterceptor
     //webSecurityConfig com.pusmicgame.mahjong.WebSecurityConfig
     //RequireCsrfProtectionMatcher
