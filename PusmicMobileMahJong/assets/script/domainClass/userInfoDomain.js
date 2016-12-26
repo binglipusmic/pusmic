@@ -14,10 +14,10 @@ const userInfoDomain =
       userCode:"",
       userType:"",
       winCount:0,
-      userGameingStatu:"",
+      //userGameingStatu:"",
       publicIPAddress:"",
       roomNumber:"",
-      gameingStatu:"",
+      //gameingStatu:"",
     }
 module.exports = {
 	userInfoDomain: userInfoDomain

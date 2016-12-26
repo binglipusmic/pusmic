@@ -25,10 +25,10 @@ import org.springframework.session.web.http.SessionRepositoryFilter
 /**
  * Created by prominic2 on 16/12/24.
  */
-@Configuration
+/*@Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableWebSecurity
-@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
+@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)*/
 class WebSocketSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
@@ -39,15 +39,15 @@ class WebSocketSecurityConfig extends WebSecurityConfigurerAdapter {
         //http.csrf().;
         //http.csrf().disable();
         http.httpBasic()
-        //http.addFilterBefore(new SessionRepositoryFilter(sessionRepository), ChannelProcessingFilter.class)
+        http.addFilterBefore(new SessionRepositoryFilter(sessionRepository), ChannelProcessingFilter.class)
         //http.authorizeRequests().anyRequest().authenticated()
-        http.csrf().disable().addFilterBefore(new CsrfTokenGeneratorFilter(), CsrfFilter.class)
+        /*http.csrf().disable().addFilterBefore(new CsrfTokenGeneratorFilter(), CsrfFilter.class)
                 .authorizeRequests()
                 .antMatchers("/scripts*", "/styles*", "/font*", "/fonts*").permitAll()
                 .antMatchers("*").authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login").permitAll();
+                .loginPage("/login").permitAll();*/
     }
 
     @Autowired

@@ -40,6 +40,18 @@ class SpringUser implements Serializable {
 	String mobileUserCode
 	String mobileUserState
 
+	//---------agent-----------
+	String agentLevel
+
+
+	//-----user game info--------
+	int  diamondsNumber
+	int  gameCount
+	int winCount
+	String userCode
+	String userType
+    //String publicIPAddress
+    //String roomNumber
 
 
 	Set<Role> getAuthorities() {
@@ -72,6 +84,15 @@ class SpringUser implements Serializable {
 		mobileUserCode nullable: true
 		mobileUserState nullable: true
         expires_in nullable: true
+        agentLevel nullable: true
+        diamondsNumber nullable: true
+        gameCount nullable: true
+        winCount nullable: true
+        userCode nullable: true
+        userType nullable: true
+        //publicIPAddress nullable: true
+        //roomNumber nullable: true
+
 	}
 
 	static mapping = {

@@ -22,49 +22,51 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
-
-           serverUrl = Global.hostHttpProtocol + "://" + Global.hostServerIp + ":" + Global.hostServerPort;
-           socket = new SockJS(serverUrl + "/stomp");
-            console.log("conect to server");
-            client = Stomp.over(socket);
-           var csrfHeaderName = "JSESSIONID";
-           var csrfToken = "C5FA6497FF3C9509025BBC42C0288261";
-             var headers = {};
-             headers[csrfHeaderName]=csrfToken;
-                   client.connect(headers, function () {
-                client.subscribe("/queue/pusmicGamePushLoginUserInfoChanle", function (message) {
-                    var bodyStr = message.body;
-                    var obj = JSON.parse(bodyStr);
-                    if (obj != undefined && obj != null) {
-                        for (var p in obj) {
-                            userInfo[p] = obj[p]
-                        }
-                        console.log("userInfo.nickname:" + userInfo.nickName);
-                        Global.userInfo = userInfo;
-                        //update the user public ip from url call
-                        self.updateUserIP(userInfo.id);
-                        //
-                        //self.initalPrivateChanleForUser(userInfo.roomNumber);
-
-                        //user login success ,go to game main sence
-                        cc.director.loadScene('table');
-                    } else {
-
-                        console.log("No found correct user info return from server ,please check .");
+        userInfo = require("userInfoDomain").userInfoDomain;
+        serverUrl = Global.hostHttpProtocol + "://" + Global.hostServerIp + ":" + Global.hostServerPort;
+        socket = new SockJS(serverUrl + "/stomp");
+        console.log("conect to server");
+        client = Stomp.over(socket);
+        var csrfHeaderName = "Set-Cookie";
+        var csrfToken = "session=B227654DB13B28329F96DB2959FAE26B";
+        var headers = {};
+        headers[csrfHeaderName] = csrfToken;
+        client.connect(headers, function () {
+            client.subscribe("/queue/pusmicGamePushLoginUserInfoChanle", function (message) {
+                var bodyStr = message.body;
+                cc.log("######################");
+                cc.log(bodyStr);
+                var obj = JSON.parse(bodyStr);
+                if (obj != undefined && obj != null) {
+                    for (var p in obj) {
+                        userInfo[p] = obj[p]
                     }
+                    console.log("userInfo.nickname:" + userInfo.nickName);
+                    Global.userInfo = userInfo;
+                    //update the user public ip from url call
+                    //self.updateUserIP(userInfo.id);
+                    //
+                    //self.initalPrivateChanleForUser(userInfo.roomNumber);
 
-                    //self.testLabel.string = message.body;
-                    //$("#helloDiv").append(message.body);
+                    //user login success ,go to game main sence
+                    //cc.director.loadScene('table');
+                } else {
 
-                    //cc.director.loadScene('gameMain2');
-                }, function () {
-                    cc.log("websocket connect subscribe Error:233");
-                    //client.disconnect();
-                });
+                    console.log("No found correct user info return from server ,please check .");
+                }
+
+                //self.testLabel.string = message.body;
+                //$("#helloDiv").append(message.body);
+
+                //cc.director.loadScene('gameMain2');
             }, function () {
-                cc.log("websocket connect  Error:234");
+                cc.log("websocket connect subscribe Error:233");
                 //client.disconnect();
             });
+        }, function () {
+            cc.log("websocket connect  Error:234");
+            //client.disconnect();
+        });
 
 
     },
@@ -73,4 +75,9 @@ cc.Class({
     // update: function (dt) {
 
     // },
+
+    sendUserCode: function () {
+        //client.send("/app/usercode_resive_message", {}, JSON.stringify("test"));
+        client.send("/app/usercode_resive_message", {}, "test");
+    }
 });

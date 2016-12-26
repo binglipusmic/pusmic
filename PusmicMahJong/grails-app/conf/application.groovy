@@ -39,7 +39,7 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     [pattern: '/logout/**', access: ['permitAll']],
 	[pattern: '/faPai/**', access: ['IS_AUTHENTICATED_REMEMBERED']],
     [pattern: '/admin/**', access: ['IS_AUTHENTICATED_REMEMBERED']],
-	[pattern: '/stomp/**', access: ['IS_AUTHENTICATED_REMEMBERED']]
+	[pattern: '/stomp/**', access: ['permitAll']]
 	//[pattern: '/faPai/**', access: 'ROLE_ADMIN']
 		//ROLE_USER
 ]

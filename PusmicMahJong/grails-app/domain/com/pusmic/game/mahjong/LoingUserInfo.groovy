@@ -7,5 +7,7 @@ class LoingUserInfo {
 
 
     static constraints = {
+        offlineTiem nullable: true
+        //offlineTiem nullable: true
     }
 }

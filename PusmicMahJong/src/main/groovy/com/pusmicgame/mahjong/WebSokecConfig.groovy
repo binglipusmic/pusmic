@@ -15,10 +15,18 @@ import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBr
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry
 import org.springframework.messaging.support.ChannelInterceptorAdapter
 
+import javax.websocket.OnOpen
+
 @Configuration
 @EnableWebSocketMessageBroker
 class WebSokecConfig extends AbstractWebSocketMessageBrokerConfigurer {
-
+   def SESSION_ATTR="session"
+	def PUBLICIP_ATTR="remoteIpAddress"
+	@OnOpen
+	public void onWebSocketConnect(Session session) {
+		if(session)
+		System.Out.println("onWebSocketConnect:"+session.getUserProperties().get("javax.websocket.endpoint.remoteAddress"))
+	}
 	@Override
 	void configureMessageBroker(MessageBrokerRegistry messageBrokerRegistry) {
 		messageBrokerRegistry.enableSimpleBroker "/queue", "/topic"
@@ -49,13 +57,17 @@ class WebSokecConfig extends AbstractWebSocketMessageBrokerConfigurer {
 			@Override
 			public Message<?> preSend(Message<?> message, MessageChannel channel) {
 				Map<String, Object> sessionHeaders = SimpMessageHeaderAccessor.getSessionAttributes(message.getHeaders());
+
 				String sessionId = (String) sessionHeaders.get(SESSION_ATTR);
+                String publicIp = (String) sessionHeaders.get(PUBLICIP_ATTR);
+                //message.headers.put(PUBLICIP_ATTR,publicIp);
+                println "ChannelInterceptorAdapter message getHeaders:"+message.getHeaders()
 				if (sessionId != null) {
-					Session session = sessionRepository.getSession(sessionId);
+					/*Session session = sessionRepository.getSession(sessionId);
 					if (session != null) {
 
 						sessionRepository.save(session);
-					}
+					}*/
 				}
 				return super.preSend(message, channel);
 			}
