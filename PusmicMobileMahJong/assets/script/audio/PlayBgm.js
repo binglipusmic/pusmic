@@ -2,7 +2,8 @@ cc.Class({
     extends: cc.Component,
 
    properties: {
-        audioMng: cc.Node
+        audioMng: cc.Node,
+        alertMessage:cc.Node
     },
 
     // use this for initialization
