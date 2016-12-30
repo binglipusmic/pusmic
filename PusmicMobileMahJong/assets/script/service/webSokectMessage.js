@@ -19,7 +19,10 @@ cc.Class({
         // },
         // ...http://cn.bing.com/
         testLabel: cc.Label,
-        scriptNode: cc.Node
+        scriptNode: cc.Node,
+        mainMenu:cc.Node ,
+        index:cc.Node
+
     },
 
     // use this for initialization
@@ -68,7 +71,9 @@ cc.Class({
                         //self.initalPrivateChanleForUser(userInfo.roomNumber);
 
                         //user login success ,go to game main sence
-                        cc.director.loadScene('table');
+                        //cc.director.loadScene('table');
+                        this.index.active=false;
+                        this.mainMenu.active=true;
                     } else {
 
                         console.log("No found correct user info return from server ,please check .");
@@ -76,7 +81,7 @@ cc.Class({
 
                     //self.testLabel.string = message.body;
                     //$("#helloDiv").append(message.body);
-
+                       
                     //cc.director.loadScene('gameMain2');
                 }, function () {
                     cc.log("websocket connect subscribe Error:233");
