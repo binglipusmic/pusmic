@@ -22,8 +22,8 @@ cc.Class({
         var dateTimeUpte = function () {
             var currentdate = new Date();
             var hour = currentdate.getHours() + ":";
-            var min = currentdate.getMinutes() + ":";
-            var second = currentdate.getSeconds();
+            var min = currentdate.getMinutes() + "";
+            var second = currentdate.getSeconds()+"";
 
             if (min.length == 1) {
                 min = "0" + min
@@ -31,7 +31,7 @@ cc.Class({
             if (second.length == 1) {
                 second = "0" + second
             }
-            var currentTiem = hour + min + second;
+            var currentTiem = hour + min ;
 
             var lable = this.timeLable.getComponent(cc.Label);
             lable.string = currentTiem;

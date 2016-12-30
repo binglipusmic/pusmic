@@ -1,6 +1,7 @@
 package com.pusmic.game.mahjong
 
 import com.pusmicgame.game.GameRound
+import com.pusmicgame.game.GameRoundLun
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
@@ -73,7 +74,7 @@ class SpringUser implements Serializable {
 		password = springSecurityService?.passwordEncoder ? springSecurityService.encodePassword(password) : password
 	}
 
-	static hasMany = [gameRound:GameRound,loginUserInfo:LoingUserInfo]
+	static hasMany = [gameRoundLun:GameRoundLun, loginUserInfo:LoingUserInfo]
 	static transients = ['springSecurityService']
 
 	static constraints = {
