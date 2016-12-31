@@ -1,23 +1,23 @@
 package com.pusmicgame.game
 
 class GameMode {
-    ziMoJiaDi: 1,
-    ziMoJiaFan: 0,
-    ziMoHu:1,
-    dianPaoHu:0,
-    huanSanZhang :0,
-    dianGangHua_dianPao: 1,
-    dianGangHua_ziMo:0,
-    dai19JiangDui:1,
-    mengQingZhongZhang:0,
-    tianDiHu:0,
-    fan2:0,
-    fan3:1,
-    fan4:0,
-    fan6:0,
-    roundCount4:1,
-    roundCount8:0,
-    gamePeopleNumber:0,
+    String  ziMoJiaDi
+    String ziMoJiaFan
+    String ziMoHu
+    String  dianPaoHu
+    String  huanSanZhang
+    String dianGangHua_dianPao
+    String dianGangHua_ziMo
+    String dai19JiangDui
+    String mengQingZhongZhang
+    String  tianDiHu
+    String  fan2
+    String  fan3
+    String  fan4
+    String fan6
+    String roundCount4
+    String  roundCount8
+    String  gamePeopleNumber
 
     static belongsTo = [gameRoundLun:GameRoundLun]
     static constraints = {
