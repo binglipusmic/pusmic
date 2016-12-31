@@ -13,6 +13,7 @@ const gameMode =
         fan2:0,
         fan3:1,
         fan4:0,
+        fan6:0,
         roundCount4:1,
         roundCount8:0,
         gamePeopleNumber:0,

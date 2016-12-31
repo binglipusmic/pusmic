@@ -80,7 +80,7 @@ class SpringUser implements Serializable {
 	static constraints = {
 		password blank: false, password: true
 		username blank: false, unique: true
-        gameRound nullable: true
+		gameRoundLun nullable: true
         loginUserInfo nullable: true
 		mobileUserCode nullable: true
 		mobileUserState nullable: true

@@ -19,14 +19,14 @@ class BootStrap {
                 //new 4 user for test
                 for(int i=1;i<5;i++){
                     def userName="testUser"+i
-
+                    def userCode="userCode"+i
 
                     def adminRole = new Role(authority: 'ROLE_ADMIN').save()
                     def userRole = new Role(authority: 'ROLE_USER').save()
 
                     def u= new SpringUser(username:userName,password:'password',city:"Mianyang",country:"CN",language:"chinese",
                             nickname:userName,openid:userName,province:"SC",headimgurl:"testurl",unionid:"test",access_token:"test",
-                            refresh_token:"refreshToken")
+                            refresh_token:"refreshToken",userCode:userCode)
                     u.save(flush: true, failOnError: true)
 
 

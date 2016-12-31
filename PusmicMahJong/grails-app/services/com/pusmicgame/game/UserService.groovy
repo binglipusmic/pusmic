@@ -10,6 +10,8 @@ import groovy.json.JsonBuilder
 import org.grails.web.util.WebUtils
 import org.springframework.web.context.request.RequestContextHolder
 
+import javax.swing.Spring
+
 @Transactional
 class UserService {
 
@@ -82,6 +84,28 @@ class UserService {
 
         return s
 
+    }
+
+
+    def getUserCode(){
+      /*  def userCode=100000
+        def userCount=SpringUser.count()
+        if(userCount==0){
+            userCode=100000
+        }else{
+            userCode=userCode+userCount
+        }*/
+
+        int max = 999999
+        int min = 100000
+        Random rand = new Random()
+        int randomNumber = rand.nextInt(max - min) + min;
+        def r=SpringUser.findByUserCode(randomNumber+"")
+        while(r){
+            randomNumber = rand.nextInt(max - min) + min;
+            r=GameRoomNumber.findByRoomNumber(randomNumber+"")
+        }
+        return randomNumber;
     }
 
 }

@@ -3,7 +3,7 @@ var privateClient;
 var userInfo;
 var serverUrl;
 var socket;
-
+var gameActionListGet;
 cc.Class({
     extends: cc.Component,
 
@@ -18,10 +18,12 @@ cc.Class({
         //    readonly: false,    // optional, default is false
         // },
         // ...
+        gameActionList: cc.Node
     },
 
     // use this for initialization
     onLoad: function () {
+        gameActionListGet = this.gameActionList.getComponent("gameConfigButtonListAction");
         userInfo = require("userInfoDomain").userInfoDomain;
         serverUrl = Global.hostHttpProtocol + "://" + Global.hostServerIp + ":" + Global.hostServerPort;
         socket = new SockJS(serverUrl + "/stomp");
@@ -50,6 +52,7 @@ cc.Class({
 
                     //user login success ,go to game main sence
                     //cc.director.loadScene('table');
+                    gameActionListGet.enterMainEntry();
                 } else {
 
                     console.log("No found correct user info return from server ,please check .");
@@ -75,7 +78,34 @@ cc.Class({
     // update: function (dt) {
 
     // },
+    onDestroy: function () {
+        //colse the websokect
+        client.disconnect();
+        cc.log("onDestroy");
+    },
+    //----------------------inital private chanle----------------------------------
+    // initalPrivateChanleForUser: function (roomNumber) {
+    //     cc.log("roomNumber:"+roomNumber);
+    //     privateClient = Stomp.over(socket);
 
+    //         privateClient.connect({}, function () {
+    //             privateClient.subscribe("/queue/privateRoomChanle" + roomNumber, function (message) {
+    //                 var bodyStr = message.body;
+    //                 cc.log("get meesge from private chanle:privateRoomChanle"+roomNumber);
+    //             });
+    //         },function(){
+    //              cc.log("connect private chanle error !");
+    //         });
+
+    // privateClientChanle
+    // },
+    //----------------------game stop-----------------------------------------------
+    gameStop: function () {
+        cc.game.onStop = function () {
+            client.disconnect();
+            cc.log("stopApp");
+        }
+    },
     sendUserCode: function () {
         //client.send("/app/usercode_resive_message", {}, JSON.stringify("test"));
         client.send("/app/usercode_resive_message", {}, "test");

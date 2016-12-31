@@ -42,7 +42,7 @@ cc.Class({
     },
     showGameConfig: function () {
         this.gameConfigNode.active = true;
-        
+
         boyBtn.enabled = false;
         grilBtn.enabled = false;
     },
@@ -52,6 +52,18 @@ cc.Class({
         grilBtn.enabled = true;
 
     },
+    showGameModePanel: function () {
+        this.gameModeNode.active = true;
+        boyBtn.enabled = false;
+        grilBtn.enabled = false;
+
+    },
+    closeGameModePanel: function () {
+        this.gameModeNode.active = false;
+        boyBtn.enabled = true;
+        grilBtn.enabled = true;
+    },
+
     existGame: function () {
         cc.game.end()
     }

@@ -21,7 +21,8 @@ cc.Class({
         testLabel: cc.Label,
         scriptNode: cc.Node,
         mainMenu:cc.Node ,
-        index:cc.Node
+        index:cc.Node,
+        gameActionList:cc.Node
 
     },
 
