@@ -12,7 +12,7 @@ cc.Class({
         //    readonly: false,    // optional, default is false
         // },
         // ...
-        client: null
+       // client: null
     },
 
     // use this for initialization
@@ -26,18 +26,20 @@ cc.Class({
 
     // },
 
-    checkonlineUser: function () {
+    checkonlineUser: function (client) {
 
         this.callback = function () {
             var userInfo = Global.userInfo;
+
             if (userInfo != null && userInfo != undefined) {
                 var openid = userInfo.openid
+                var roomNumber = userInfo.roomNumber
                 var messageObj = this.buildSendMessage(openid, roomNumber, "updateOnlinUserDateTime");
-                this.sendMessageToServer(messageObj);
+                this.sendMessageToServer(messageObj,client);
             }
         }
 
-        this.schedule(this.callback, 10);
+        this.schedule(this.callback, 1800);
     },
 
     removeOnlineUser: function (client, roomNumber) {
@@ -50,7 +52,7 @@ cc.Class({
 
 
     },
-    sendMessageToServer: function (messageObj) {
+    sendMessageToServer: function (messageObj,client) {
 
         client.send("/app/userResiveMessage", {}, JSON.stringify(messageObj));
 

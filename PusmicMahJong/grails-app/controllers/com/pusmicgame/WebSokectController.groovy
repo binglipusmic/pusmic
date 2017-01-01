@@ -33,7 +33,8 @@ class WebSokectController {
 
         if(messageJsonObj.messageAction.equals("updateOnlinUserDateTime")){
             //GameMode gameMode=(GameMode)JSON.parse(messageJsonObj.me);
-            def openId=messageJsonObj.messageBody
+            println "updateOnlinUserDateTime"
+           def openId=messageJsonObj.messageBody
             if(openId){
                 userService.updateOnlineTime(openId)
             }

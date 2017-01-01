@@ -74,8 +74,8 @@ cc.Class({
             //client.disconnect();
         });
 
-        onlineCheckUser.client = client;
-        onlineCheckUser.checkonlineUser();
+        //onlineCheckUser.client = client;
+        onlineCheckUser.checkonlineUser(client);
 
         cc.game.onStop = function () {
             cc.log("stopApp$$$$$$$$$$$$$$$$$");

@@ -54,42 +54,48 @@ class UserService {
                         //add  a new logininfor
                         loopFlag = false
                         println "getUserInfoFromSpringUserByCode"
-                        def userLoginInfo = new LoingUserInfo()
-                        userLoginInfo.ipAddress = publicIp
-                        userLoginInfo.loginTime = new Date()
-                        //userLoginInfo.save(flush: true, failOnError: true)
 
-                        u.addToLoginUserInfo(userLoginInfo)
-                        u.save(flush: true, failOnError: true)
                         onlineUser = new OnlineUser()
                         onlineUser.springUser = u
                         onlineUser.roomNumber = gameRoomNumberService.getRandomRoomNumber()
                         onlineUser.publicIPAddress = publicIp
                         onlineUser.save(flush: true, failOnError: true)
 
-                        UserInfo userInfo = new UserInfo()
-                        userInfo.publicIPAddress = onlineUser.publicIPAddress
-                        userInfo.id = onlineUser.springUser.id
-                        userInfo.city = onlineUser.springUser.city
-                        userInfo.country = onlineUser.springUser.country
-                        userInfo.language = onlineUser.springUser.language
-                        userInfo.nickName = onlineUser.springUser.nickname
-                        userInfo.openid = onlineUser.springUser.openid
-                        userInfo.province = onlineUser.springUser.province
-                        userInfo.headimgurl = onlineUser.springUser.headimgurl
-                        userInfo.unionid = onlineUser.springUser.unionid
-                        userInfo.sex = onlineUser.springUser.sex
-                        userInfo.diamondsNumber = onlineUser.springUser.diamondsNumber
-                        userInfo.gameCount = onlineUser.springUser.gameCount
-                        userInfo.winCount = onlineUser.springUser.winCount
-                        userInfo.agentLevel = onlineUser.springUser.agentLevel
-                        userInfo.userCode = onlineUser.springUser.userCode
-                        userInfo.userType = onlineUser.springUser.userType
-                        userInfo.roomNumber = onlineUser.roomNumber
-                        s = new JsonBuilder(userInfo).toPrettyString()
-                        return false
+
+
+                    }else{
 
                     }
+
+                    def userLoginInfo = new LoingUserInfo()
+                    userLoginInfo.ipAddress = publicIp
+                    userLoginInfo.loginTime = new Date()
+                    //userLoginInfo.save(flush: true, failOnError: true)
+
+                    u.addToLoginUserInfo(userLoginInfo)
+                    u.save(flush: true, failOnError: true)
+
+                    UserInfo userInfo = new UserInfo()
+                    userInfo.publicIPAddress = onlineUser.publicIPAddress
+                    userInfo.id = onlineUser.springUser.id
+                    userInfo.city = onlineUser.springUser.city
+                    userInfo.country = onlineUser.springUser.country
+                    userInfo.language = onlineUser.springUser.language
+                    userInfo.nickName = onlineUser.springUser.nickname
+                    userInfo.openid = onlineUser.springUser.openid
+                    userInfo.province = onlineUser.springUser.province
+                    userInfo.headimgurl = onlineUser.springUser.headimgurl
+                    userInfo.unionid = onlineUser.springUser.unionid
+                    userInfo.sex = onlineUser.springUser.sex
+                    userInfo.diamondsNumber = onlineUser.springUser.diamondsNumber
+                    userInfo.gameCount = onlineUser.springUser.gameCount
+                    userInfo.winCount = onlineUser.springUser.winCount
+                    userInfo.agentLevel = onlineUser.springUser.agentLevel
+                    userInfo.userCode = onlineUser.springUser.userCode
+                    userInfo.userType = onlineUser.springUser.userType
+                    userInfo.roomNumber = onlineUser.roomNumber
+                    s = new JsonBuilder(userInfo).toPrettyString()
+                    return false
                 }
             }
 

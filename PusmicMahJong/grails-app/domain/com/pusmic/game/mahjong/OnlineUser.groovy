@@ -10,6 +10,7 @@ class OnlineUser {
     //LoingUserInfo logUserInfo
     static constraints = {
         roomNumber nullable: true
+        onlineTime  nullable: true
         //loginTime nullable: true
     }
 }
