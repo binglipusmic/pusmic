@@ -113,7 +113,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "bg",
+    "_name": "tableNode",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {

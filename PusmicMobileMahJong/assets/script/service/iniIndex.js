@@ -4,6 +4,7 @@ var userInfo;
 var serverUrl;
 var socket;
 var gameActionListGet;
+var onlineCheckUser;
 cc.Class({
     extends: cc.Component,
 
@@ -18,12 +19,14 @@ cc.Class({
         //    readonly: false,    // optional, default is false
         // },
         // ...
-        gameActionList: cc.Node
+        gameActionList: cc.Node,
+        checkOnlineUser: cc.Node,
     },
 
     // use this for initialization
     onLoad: function () {
         gameActionListGet = this.gameActionList.getComponent("gameConfigButtonListAction");
+        onlineCheckUser = this.checkOnlineUser.getComponent("onlineUserCheck");
         userInfo = require("userInfoDomain").userInfoDomain;
         serverUrl = Global.hostHttpProtocol + "://" + Global.hostServerIp + ":" + Global.hostServerPort;
         socket = new SockJS(serverUrl + "/stomp");
@@ -71,6 +74,15 @@ cc.Class({
             //client.disconnect();
         });
 
+        onlineCheckUser.client = client;
+        onlineCheckUser.checkonlineUser();
+
+        cc.game.onStop = function () {
+            cc.log("stopApp$$$$$$$$$$$$$$$$$");
+            // client.disconnect();
+
+        }
+
 
     },
 
@@ -101,10 +113,7 @@ cc.Class({
     // },
     //----------------------game stop-----------------------------------------------
     gameStop: function () {
-        cc.game.onStop = function () {
-            client.disconnect();
-            cc.log("stopApp");
-        }
+
     },
     sendUserCode: function () {
         //client.send("/app/usercode_resive_message", {}, JSON.stringify("test"));

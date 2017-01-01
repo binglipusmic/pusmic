@@ -4,6 +4,7 @@ class GameRoomNumber {
 
     String roomNumber
 
+    static belongsTo = [gameRoundLun:GameRoundLun]
     static constraints = {
     }
 }

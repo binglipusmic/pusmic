@@ -3,7 +3,7 @@ package com.pusmic.game.mahjong
  * online user
  */
 class OnlineUser {
-    //Date loginTime
+    Date onlineTime
     String  roomNumber
     SpringUser springUser
     String publicIPAddress

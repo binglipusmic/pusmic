@@ -56,10 +56,11 @@ cc.Class({
         });
 
     },
+    //--------------------------------------------------------------------------------------------------------
     buildNewGameRound: function () {
         var gameMode = Global.gameMode;
         if (gameMode != null) {
-            var messageObj = this.buildSendMessage(JSON.stringify(gameMode), roomNumber, "buildNewRound");
+            var messageObj = this.buildSendMessage(JSON.stringify(gameMode), roomNumber, "buildNewRoundLun");
             this.sendMessageToServer(messageObj);
         }
 
@@ -68,6 +69,8 @@ cc.Class({
         var messageObj = this.buildSendMessage("", roomNumber, "faPai");
         this.sendMessageToServer(messageObj);
     },
+
+    //--------------------------------------------------------------------------------------------------------
 
     sendMessageToServer: function (messageObj) {
 

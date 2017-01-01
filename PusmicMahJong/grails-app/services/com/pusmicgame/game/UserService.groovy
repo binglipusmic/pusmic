@@ -12,6 +12,7 @@ import org.springframework.web.context.request.RequestContextHolder
 
 import javax.swing.Spring
 
+
 @Transactional
 class UserService {
 
@@ -20,6 +21,20 @@ class UserService {
         grailsApplication.mainContext.gameRoomNumberService
     }
     def serviceMethod() {
+
+    }
+
+    def updateOnlineTime(def userOpenId){
+        def springUser=SpringUser.findByOpenid( userOpenId)
+        if(springUser){
+            def onlineUser=OnlineUser.findBySpringUser(springUser)
+            if(onlineUser){
+                onlineUser.onlineTime=new Date()
+                onlineUser.save(flush: true, failOnError: true)
+            }
+        }
+    }
+    def removeOnlineUser(def userOpenId){
 
     }
 
