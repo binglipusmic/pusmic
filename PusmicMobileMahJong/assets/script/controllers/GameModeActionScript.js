@@ -121,6 +121,8 @@ cc.Class({
             //}
         }
 
+        Global.gameMode=gameMode;
+
     },
     optionSelectFunction: function (event) {
         var node = event.target;
@@ -273,7 +275,7 @@ cc.Class({
     },
     // setting all values into  gobal mode object and swtich to table sence.
     buildNewRoom: function () {
-        Global.gameMode = gameMode;
-          cc.director.loadScene('table');
+        //Global.gameMode = gameMode;
+        //cc.director.loadScene('table');
     },
 });

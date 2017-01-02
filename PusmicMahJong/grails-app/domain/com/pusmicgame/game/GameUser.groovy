@@ -8,6 +8,9 @@ class GameUser {
     Integer[] paiList
     int  gameScore
 
+   // static belongsTo = [gameRound:GameRound]
     static constraints = {
+        gameScore nullable: true
+        paiList nullable: true
     }
 }

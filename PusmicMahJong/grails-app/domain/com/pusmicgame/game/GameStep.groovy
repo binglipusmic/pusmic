@@ -1,6 +1,6 @@
 package com.pusmicgame.game
 
-class GameSetp {
+class GameStep {
 
     static constraints = {
     }

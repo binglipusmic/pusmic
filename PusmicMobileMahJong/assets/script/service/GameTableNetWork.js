@@ -1,5 +1,9 @@
 var client;
 var roomNumber;
+var userInfo;
+var actionUIScriptNode;
+var serverUrl;
+var socket;
 cc.Class({
     extends: cc.Component,
 
@@ -15,19 +19,25 @@ cc.Class({
         // },
         // ...
 
+        actionNodeScript: cc.Node,
+
     },
 
     // use this for initialization
     onLoad: function () {
 
-        var userInfo = require("userInfoDomain").userInfoDomain;
-
-        roomNumber = userInfo.roomNumber;
-        serverUrl = Global.hostHttpProtocol + "://" + Global.hostServerIp + ":" + Global.hostServerPort;
-        socket = new SockJS(serverUrl + "/stomp");
-        console.log("conect to server");
-        client = Stomp.over(socket);
-
+        actionUIScriptNode = this.actionNodeScript.getComponent("gameConfigButtonListAction");
+    },
+    connectByPrivateChanel: function () {
+        if (client == null || client == undefined) {
+            userInfo = require("userInfoDomain").userInfoDomain;
+            userInfo = Global.userInfo;
+            roomNumber = userInfo.roomNumber;
+            serverUrl = Global.hostHttpProtocol + "://" + Global.hostServerIp + ":" + Global.hostServerPort;
+            socket = new SockJS(serverUrl + "/stomp");
+            console.log("conect to server");
+            client = Stomp.over(socket);
+        }
     },
     subscribeToPrivateChanel: function () {
         client.connect({}, function () {
@@ -50,17 +60,48 @@ cc.Class({
                 cc.log("websocket connect subscribe Error:233");
                 //client.disconnect();
             });
-        }, function () {
+        }.bind(this), function () {
             cc.log("websocket connect  Error:234");
             //client.disconnect();
         });
 
     },
+    initalClient: function () {
+        if (client == null || client == undefined) {
+            this.connectByPrivateChanel();
+            this.subscribeToPrivateChanel();
+        }
+
+    },
     //--------------------------------------------------------------------------------------------------------
     buildNewGameRound: function () {
+        // this.initalClient();
+        cc.log("buildNewGameRound-----------------------");
         var gameMode = Global.gameMode;
+        if (gameMode == null) {
+            gameMode = require("gameMode").gameMode;
+        }
+        userInfo = Global.userInfo
         if (gameMode != null) {
-            var messageObj = this.buildSendMessage(JSON.stringify(gameMode), roomNumber, "buildNewRoundLun");
+            roomNumber = userInfo.roomNumber;
+            var o = new Object();
+            o.userOpenId = userInfo.openid;
+            o.gameMode = gameMode;
+            cc.log("buildNewGameRound2-----------------------");
+            var messageObj = this.buildSendMessage(JSON.stringify(o), roomNumber, "buildNewRoundLun");
+
+            this.sendMessageToServer(messageObj);
+            cc.log("buildNewGameRound3-----------------------");
+        }
+
+        actionUIScriptNode.showGameTalbe();
+
+    },
+    closeGameRoundLun: function () {
+        userInfo = Global.userInfo
+        if (userInfo != null) {
+            roomNumber = userInfo.roomNumber;
+            var messageObj = this.buildSendMessage(roomNumber, roomNumber, "closeGameRoundLun");
             this.sendMessageToServer(messageObj);
         }
 
@@ -74,7 +115,7 @@ cc.Class({
 
     sendMessageToServer: function (messageObj) {
 
-        client.send("/app/userResiveMessage", {}, JSON.stringify(messageObj));
+        client.send("/app/user_private_message", {}, JSON.stringify(messageObj));
 
     },
 

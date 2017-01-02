@@ -1,6 +1,7 @@
 
 var boyBtn = null;
 var grilBtn = null;
+var tableNetWork = null;
 cc.Class({
     extends: cc.Component,
 
@@ -23,7 +24,17 @@ cc.Class({
         gameModeNode: cc.Node,
         joinRoomNumberUINode: cc.Node,
         gameConfigNode: cc.Node,
-        alertMessageNode: cc.Node
+        alertMessageNode: cc.Node,
+
+        gameTable: cc.Node,
+        gameTableHead: cc.Node,
+        gameTableModeBarNode: cc.Node,
+
+        userNickNameNode: cc.Node,
+        userCodeNode: cc.Node,
+
+        tableNetWorkNode: cc.Node,
+
     },
 
     // use this for initialization
@@ -31,10 +42,24 @@ cc.Class({
 
         grilBtn = this.mainMenuGrailBtn.getComponent(cc.Button);
         boyBtn = this.mainMenuBoyBtn.getComponent(cc.Button);
+        tableNetWork = this.tableNetWorkNode.getComponent("GameTableNetWork");
 
+
+    },
+    showUserNickNameAndCode: function () {
+        var userInfo = Global.userInfo;
+        if (userInfo != null && userInfo != undefined) {
+            var userNickname = this.userNickNameNode.getComponent(cc.Label);
+            var userCode = this.userCodeNode.getComponent(cc.Label);
+
+            userNickname.string = userInfo.nickName;
+            userCode.string = userInfo.userCode;
+
+        }
     },
 
     enterMainEntry: function () {
+        tableNetWork.initalClient();
         this.indexNode.active = false;
         this.mainMenuNode.active = true;
         grilBtn.enabled = true;
@@ -66,7 +91,25 @@ cc.Class({
 
     existGame: function () {
         cc.game.end()
-    }
+    },
+
+    showGameTalbe: function () {
+        this.gameTable.active = true;
+        this.joinRoomNumberUINode.active = false;
+        this.gameModeNode.active = false;
+        this.indexNode.active = false;
+        this.mainMenuNode.active = false;
+
+        this.gameTableHead.active = false;
+        this.gameTableModeBarNode.active = true;
+    },
+    closeGameTable: function () {
+        this.gameTable.active = false;
+        //this.mainMenuNode.active = true;
+        tableNetWork.closeGameRoundLun();
+        this.enterMainEntry();
+
+    },
 
     // called every frame, uncomment this function to activate update callback
     // update: function (dt) {

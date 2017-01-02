@@ -15,6 +15,11 @@ class GameRoomNumberService {
             randomNumber = rand.nextInt(max - min) + min;
             r=GameRoomNumber.findByRoomNumber(randomNumber+"")
         }
+
+
+        GameRoomNumber num=new GameRoomNumber()
+        num.roomNumber=randomNumber
+        num.save(flush: true, failOnError: true)
         return randomNumber;
 
     }

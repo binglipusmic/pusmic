@@ -18,8 +18,9 @@ class GameMode {
     String roundCount4
     String  roundCount8
     String  gamePeopleNumber
-
-    static belongsTo = [gameRoundLun:GameRoundLun]
+    GameRoundLun gameRoundLun
+    //static belongsTo = [gameRoundLun:GameRoundLun]
     static constraints = {
+        gameRoundLun nullable: true
     }
 }

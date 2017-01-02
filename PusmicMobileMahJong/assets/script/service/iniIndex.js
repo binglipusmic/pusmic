@@ -55,7 +55,10 @@ cc.Class({
 
                     //user login success ,go to game main sence
                     //cc.director.loadScene('table');
+                    client.disconnect();
+                    client = null;
                     gameActionListGet.enterMainEntry();
+                    gameActionListGet.showUserNickNameAndCode();
                 } else {
 
                     console.log("No found correct user info return from server ,please check .");
