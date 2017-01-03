@@ -2,6 +2,7 @@ package com.pusmicgame
 
 import com.pusmicgame.domain.MessageDomain
 import grails.converters.JSON
+import groovy.json.JsonBuilder
 import org.springframework.messaging.handler.annotation.Headers
 import org.springframework.messaging.handler.annotation.MessageMapping
 
@@ -10,6 +11,7 @@ class WebSokectController {
     def userService
     def gameRoundLunService
     def index() { }
+    def websokectService
 
     @MessageMapping("/user_private_message")
     protected String user_private_message(String message,@Headers Map<String, Object> headers){
@@ -23,7 +25,9 @@ class WebSokectController {
         }
         if(messageJsonObj.messageAction.equals("buildNewRoundLun")){
 
-            gameRoundLunService.createNewGameRoundLun(messageJsonObj)
+            messageJsonObj=gameRoundLunService.createNewGameRoundLun(messageJsonObj)
+            def s = new JsonBuilder(messageJsonObj).toPrettyString()
+            websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s)
         }
 
         if(messageJsonObj.messageAction.equals("buildNewRound")){

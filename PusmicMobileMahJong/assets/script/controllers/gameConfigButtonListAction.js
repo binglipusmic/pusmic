@@ -2,6 +2,7 @@
 var boyBtn = null;
 var grilBtn = null;
 var tableNetWork = null;
+var showGameMode=null;
 cc.Class({
     extends: cc.Component,
 
@@ -35,6 +36,10 @@ cc.Class({
 
         tableNetWorkNode: cc.Node,
 
+        loadingNode: cc.Node,
+        loadIconNode: cc.Node,
+        showGameModeScript:cc.Node,
+
     },
 
     // use this for initialization
@@ -43,6 +48,9 @@ cc.Class({
         grilBtn = this.mainMenuGrailBtn.getComponent(cc.Button);
         boyBtn = this.mainMenuBoyBtn.getComponent(cc.Button);
         tableNetWork = this.tableNetWorkNode.getComponent("GameTableNetWork");
+        this.loadingNode.active=false;
+
+        showGameMode=this.showGameModeScript.getComponent("showGameMode");
 
 
     },
@@ -102,12 +110,29 @@ cc.Class({
 
         this.gameTableHead.active = false;
         this.gameTableModeBarNode.active = true;
+
+        showGameMode.showGameMode();
     },
     closeGameTable: function () {
         this.gameTable.active = false;
         //this.mainMenuNode.active = true;
         tableNetWork.closeGameRoundLun();
         this.enterMainEntry();
+
+    },
+
+    showLoadingIcon: function () {
+        this.loadingNode.active = true;
+        var seq = cc.repeatForever(
+            cc.rotateBy(3, 360)
+        );
+        this.loadIconNode.runAction(seq);
+        cc.log("showLoadingIcon");
+
+    },
+    closeLoadingIcon: function () {
+        this.loadIconNode.stopAllActions();
+        this.loadingNode.active = false;
 
     },
 

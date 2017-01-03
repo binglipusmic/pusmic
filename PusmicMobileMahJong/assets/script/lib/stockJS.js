@@ -788,6 +788,7 @@ SockJS = (function () {
             if (that.xhr) {
                 var x = that.xhr;
                 console.log("x.readyState:" + x.readyState);
+                console.log("x.status:" + x.status);
                 switch (x.readyState) {
                     case 3:
                         // IE doesn't like peeking into responseText or status

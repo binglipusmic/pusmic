@@ -12,12 +12,23 @@ cc.Class({
         //    readonly: false,    // optional, default is false
         // },
         // ...
-        gameModeLable:cc.Node
+        gameModeLable:cc.Node,
+        gameRoomNUmber:cc.Node
     },
 
     // use this for initialization
     onLoad: function () {
-         var gameMode = require("gameMode").gameMode;
+        
+
+    },
+
+    showGameMode:function(){
+       var gameMode = Global.gameMode;
+       var userInfo =Global.userInfo;
+       if(gameMode==null || gameMode ==undefined){
+         gameMode= require("gameMode").gameMode;
+       }
+      
          var modeStr="";
          if(gameMode.ziMoJiaDi+""=="1"){
              modeStr=modeStr+"自摸加底"+" "
@@ -69,7 +80,9 @@ cc.Class({
 
 
          var modeLable=this.gameModeLable.getComponent(cc.Label);
+         var roomLable=this.gameRoomNUmber.getComponent(cc.Label);
          modeLable.string=modeStr;
+         roomLable.string="房间号:"+userInfo.roomNumber;
 
     },
 

@@ -2,8 +2,10 @@ var client;
 var roomNumber;
 var userInfo;
 var actionUIScriptNode;
+var alertMessageUI;
 var serverUrl;
 var socket;
+var messageDomain;
 cc.Class({
     extends: cc.Component,
 
@@ -20,6 +22,7 @@ cc.Class({
         // ...
 
         actionNodeScript: cc.Node,
+        alertMessageNodeScirpt: cc.Node,
 
     },
 
@@ -27,6 +30,8 @@ cc.Class({
     onLoad: function () {
 
         actionUIScriptNode = this.actionNodeScript.getComponent("gameConfigButtonListAction");
+        alertMessageUI = this.actionNodeScript.getComponent("alertMessagePanle");
+        messageDomain=require("messageDomain").messageDomain;
     },
     connectByPrivateChanel: function () {
         if (client == null || client == undefined) {
@@ -50,6 +55,20 @@ cc.Class({
                     for (var p in obj) {
                         messageDomain[p] = obj[p]
                     }
+                     actionUIScriptNode.closeLoadingIcon();
+                    // actionUIScriptNode.showGameTalbe();
+                    if (messageDomain.messageAction == "buildNewRoundLun") {
+                       
+                        if (messageDomain.messageBody == "success") {
+                            actionUIScriptNode.showGameTalbe();
+                        } else {
+                            alertMessageUI.text = messageDomain.messageBody;
+                            alertMessageUI.setTextOfPanel();
+                        }
+                    }
+
+                     if (messageDomain.messageAction == "joinRoom") {
+                     }
 
                 } else {
 
@@ -94,7 +113,8 @@ cc.Class({
             cc.log("buildNewGameRound3-----------------------");
         }
 
-        actionUIScriptNode.showGameTalbe();
+
+        actionUIScriptNode.showLoadingIcon();
 
     },
     closeGameRoundLun: function () {

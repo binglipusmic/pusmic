@@ -35,7 +35,7 @@ class WebSokecConfig extends AbstractWebSocketMessageBrokerConfigurer {
 
 	@Override
 	void registerStompEndpoints(StompEndpointRegistry stompEndpointRegistry) {
-		stompEndpointRegistry.addEndpoint("/stomp").withSockJS()
+		stompEndpointRegistry.addEndpoint("/stomp").setAllowedOrigins("*").withSockJS()
 				.setInterceptors(new HttpSessionIdHandshakeInterceptor());
 	}
 

@@ -59,6 +59,7 @@ cc.Class({
                     client = null;
                     gameActionListGet.enterMainEntry();
                     gameActionListGet.showUserNickNameAndCode();
+                    gameActionListGet.closeLoadingIcon();
                 } else {
 
                     console.log("No found correct user info return from server ,please check .");
@@ -120,6 +121,7 @@ cc.Class({
     },
     sendUserCode: function () {
         //client.send("/app/usercode_resive_message", {}, JSON.stringify("test"));
+        gameActionListGet.showLoadingIcon();
         client.send("/app/usercode_resive_message", {}, "test");
     }
 });
