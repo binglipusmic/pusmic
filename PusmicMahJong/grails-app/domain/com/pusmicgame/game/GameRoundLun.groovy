@@ -6,13 +6,15 @@ class GameRoundLun {
     Date  startTime
     Date  endTime
     GameMode gameMode
+    SpringUser user
   //  String roomNumber
-    //static belongsTo = SpringUser
-    static hasMany = [gameRound:GameRound]
+    static belongsTo = SpringUser
+    static hasMany = [gameRound:GameRound,users:SpringUser]
     //static hasOne=[gameMode:GameMode]
     static constraints = {
         endTime nullable: true
         gameRound nullable: true
-
+        user nullable: true
+        users nullable: true
     }
 }

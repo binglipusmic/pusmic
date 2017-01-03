@@ -13,9 +13,9 @@ class WebSokectController {
 
     @MessageMapping("/user_private_message")
     protected String user_private_message(String message,@Headers Map<String, Object> headers){
-        println "userResiveMessage:@@@@@@@@@@@@@@@@@@@@@@@@:${message}"
+        //println "userResiveMessage:@@@@@@@@@@@@@@@@@@@@@@@@:${message}"
         MessageDomain messageJsonObj=JSON.parse(message);
-        println "userResiveMessage:"+messageJsonObj.messageAction
+       // println "userResiveMessage:"+messageJsonObj.messageAction
         //closeGameRoundLun
         if(messageJsonObj.messageAction.equals("closeGameRoundLun")){
             gameRoundLunService.closeGameRoundLun(messageJsonObj)

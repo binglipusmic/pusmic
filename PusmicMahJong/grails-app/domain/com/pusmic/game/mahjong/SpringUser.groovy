@@ -76,7 +76,7 @@ class SpringUser implements Serializable {
 
 	static hasMany = [gameRoundLun:GameRoundLun, loginUserInfo:LoingUserInfo]
 	static transients = ['springSecurityService']
-
+    static mappedBy = [gameRoundLun:"user"]
 	static constraints = {
 		password blank: false, password: true
 		username blank: false, unique: true
@@ -98,5 +98,8 @@ class SpringUser implements Serializable {
 
 	static mapping = {
 		password column: '`password`'
+		gameRoundLun cascade: 'none'
 	}
+
+
 }
