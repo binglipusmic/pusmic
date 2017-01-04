@@ -6,6 +6,7 @@ var alertMessageUI;
 var serverUrl;
 var socket;
 var messageDomain;
+
 cc.Class({
     extends: cc.Component,
 
@@ -59,7 +60,11 @@ cc.Class({
                     // actionUIScriptNode.showGameTalbe();
                     if (messageDomain.messageAction == "buildNewRoundLun") {
                         cc.log(messageDomain.messageBody);
-                        if (messageDomain.messageBody == "success") {
+                        var userObj=JSON.parse(messageDomain.messageBody);
+                        var userList=[];
+                        userList.push(userObj);
+                        Global.userList=userList;
+                        if (userInfo.openid==userObj.openid) {
                             //inital the gobal user list by self user
 
                             actionUIScriptNode.showGameTalbe("1");

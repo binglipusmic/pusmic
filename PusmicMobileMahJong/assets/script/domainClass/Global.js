@@ -7,4 +7,5 @@ window.Global = {
     hostHttpProtocol:"http",
     privateClientChanle:null,
     joinRoomNumber:null,
+    userList:[],
 };
