@@ -64,6 +64,10 @@ class UserService {
 
 
                     }else{
+                        //update the public
+                        onlineUser.roomNumber = gameRoomNumberService.getRandomRoomNumber()
+                        onlineUser.publicIPAddress = publicIp
+                        onlineUser.save(flush: true, failOnError: true)
 
                     }
 

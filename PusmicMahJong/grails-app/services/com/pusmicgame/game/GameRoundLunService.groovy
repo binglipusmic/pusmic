@@ -1,10 +1,13 @@
 package com.pusmicgame.game
 
+import com.pusmic.game.mahjong.OnlineUser
 import com.pusmic.game.mahjong.SpringUser
+import com.pusmicgame.domain.GameUserPlatObj
 import grails.converters.JSON
 import grails.transaction.Transactional
 import com.pusmicgame.domain.MessageDomain
 import com.pusmicgame.mahjong.Utils
+import groovy.json.JsonBuilder
 import org.grails.web.json.JSONObject
 
 @Transactional
@@ -109,6 +112,8 @@ class GameRoundLunService {
         //2. create a new game round lun
 
         SpringUser user = SpringUser.findByOpenid(userOpenid)
+        OnlineUser onlineUser=OnlineUser.findBySpringUser(user)
+        GameUserPlatObj outputUser =new GameUserPlatObj()
         if (user) {
 
             //create a new GameMode
@@ -144,6 +149,10 @@ class GameRoundLunService {
 
             GameUser gu = new GameUser()
             gu.springUser = user
+            gu.gameReadyStatu="0"
+            gu.gameRoundScore=0
+            gu.gameScoreCount=1000
+            gu.publicIp=onlineUser.publicIPAddress
             gu.save(flush: true, failOnError: true)
             //println "line 133:"
             gameRound.addToGameUser(gu)
@@ -159,9 +168,20 @@ class GameRoundLunService {
             gRoomNumber.gameRound = gameRound
             gRoomNumber.save(flush: true, failOnError: true)
 
+            outputUser.id=user.id
+            outputUser.nickName=user.nickname
+            outputUser.openid=user.openid
+            outputUser.headimgurl=user.headimgurl
+            outputUser.unionid=user.unionid
+            outputUser.userCode=user.userCode
+            outputUser.publicIp=onlineUser.publicIPAddress
+            outputUser.paiList=gu.paiList.toString()
+            outputUser.gameRoundScore=gu.gameRoundScore
+            outputUser.gameScoreCount=gu.gameScoreCount
+            outputUser.gameReadyStatu=gu.gameReadyStatu
         }
 
-        messageDomain.messageBody="success"
+        messageDomain.messageBody= new JsonBuilder(outputUser).toPrettyString()
         return messageDomain
 
     }

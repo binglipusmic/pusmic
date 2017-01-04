@@ -17,6 +17,8 @@ const gameMode =
         roundCount4:1,
         roundCount8:0,
         gamePeopleNumber:0,
+        publicIpLimit:0,
+        gpsLimit:0
 	}
 module.exports = {
 	gameMode: gameMode

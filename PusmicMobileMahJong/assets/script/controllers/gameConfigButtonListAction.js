@@ -2,7 +2,7 @@
 var boyBtn = null;
 var grilBtn = null;
 var tableNetWork = null;
-var showGameMode=null;
+var showGameMode = null;
 cc.Class({
     extends: cc.Component,
 
@@ -38,7 +38,13 @@ cc.Class({
 
         loadingNode: cc.Node,
         loadIconNode: cc.Node,
-        showGameModeScript:cc.Node,
+        showGameModeScript: cc.Node,
+
+        //table room
+        closeRoomBtn: cc.Node,
+        //mainMenu 
+        backRoomBtn: cc.Node,
+        newRoomBtn: cc.Node,
 
     },
 
@@ -48,9 +54,11 @@ cc.Class({
         grilBtn = this.mainMenuGrailBtn.getComponent(cc.Button);
         boyBtn = this.mainMenuBoyBtn.getComponent(cc.Button);
         tableNetWork = this.tableNetWorkNode.getComponent("GameTableNetWork");
-        this.loadingNode.active=false;
+        this.loadingNode.active = false;
+        this.backRoomBtn.active = false;
+        this.newRoomBtn.active = true;
 
-        showGameMode=this.showGameModeScript.getComponent("showGameMode");
+        showGameMode = this.showGameModeScript.getComponent("showGameMode");
 
 
     },
@@ -66,12 +74,20 @@ cc.Class({
         }
     },
 
-    enterMainEntry: function () {
+    // action 1,build a  new room ,0, back to room
+    enterMainEntry: function (action) {
         tableNetWork.initalClient();
         this.indexNode.active = false;
         this.mainMenuNode.active = true;
         grilBtn.enabled = true;
         boyBtn.enabled = true;
+        if (action == "1") {
+            this.backRoomBtn.active = false;
+            this.newRoomBtn.active = true;
+        } else {
+            this.backRoomBtn.active = true;
+            this.newRoomBtn.active = false;
+        }
     },
     showGameConfig: function () {
         this.gameConfigNode.active = true;
@@ -86,9 +102,14 @@ cc.Class({
 
     },
     showGameModePanel: function () {
-        this.gameModeNode.active = true;
-        boyBtn.enabled = false;
-        grilBtn.enabled = false;
+        if (this.backRoomBtn.active == true) {
+            this.backTableAction();
+        } else {
+            this.gameModeNode.active = true;
+            boyBtn.enabled = false;
+            grilBtn.enabled = false;
+
+        }
 
     },
     closeGameModePanel: function () {
@@ -101,7 +122,9 @@ cc.Class({
         cc.game.end()
     },
 
-    showGameTalbe: function () {
+    //read the game user from Gobal user list and inital the user 
+
+    showGameTalbe: function (roomOwner) {
         this.gameTable.active = true;
         this.joinRoomNumberUINode.active = false;
         this.gameModeNode.active = false;
@@ -111,13 +134,20 @@ cc.Class({
         this.gameTableHead.active = false;
         this.gameTableModeBarNode.active = true;
 
+        if (roomOwner == "1") {
+            this.closeRoomBtn.active = true;
+        } else {
+            this.closeRoomBtn.active = false;
+        }
+
         showGameMode.showGameMode();
     },
     closeGameTable: function () {
         this.gameTable.active = false;
         //this.mainMenuNode.active = true;
         tableNetWork.closeGameRoundLun();
-        this.enterMainEntry();
+        Global.joinRoomNumber = "";
+        this.enterMainEntry("1");
 
     },
 
@@ -133,6 +163,22 @@ cc.Class({
     closeLoadingIcon: function () {
         this.loadIconNode.stopAllActions();
         this.loadingNode.active = false;
+
+    },
+
+    backRoomAction: function () {
+        this.gameTable.active = false;
+        this.enterMainEntry("0");
+    },
+
+    backTableAction: function () {
+        var userInfo = Global.userInfo;
+        var roomNumber = userInfo.roomNumber;
+        if (Global.joinRoomNumber == roomNumber) {
+            this.showGameTalbe("1");
+        } else {
+            this.showGameTalbe("0");
+        }
 
     },
 

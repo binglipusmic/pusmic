@@ -17,6 +17,10 @@ const userInfoDomain =
       //userGameingStatu:"",
       publicIPAddress:"",
       roomNumber:"",
+      paiList:"",
+      gameReadyStatu:"",
+      gameRoundScore:"",
+      gameScoreCount:"",
       //gameingStatu:"",
     }
 module.exports = {

@@ -30,7 +30,7 @@ cc.Class({
     onLoad: function () {
 
         actionUIScriptNode = this.actionNodeScript.getComponent("gameConfigButtonListAction");
-        alertMessageUI = this.actionNodeScript.getComponent("alertMessagePanle");
+        alertMessageUI = this.alertMessageNodeScirpt.getComponent("alertMessagePanle");
         messageDomain=require("messageDomain").messageDomain;
     },
     connectByPrivateChanel: function () {
@@ -58,9 +58,11 @@ cc.Class({
                      actionUIScriptNode.closeLoadingIcon();
                     // actionUIScriptNode.showGameTalbe();
                     if (messageDomain.messageAction == "buildNewRoundLun") {
-                       
+                        cc.log(messageDomain.messageBody);
                         if (messageDomain.messageBody == "success") {
-                            actionUIScriptNode.showGameTalbe();
+                            //inital the gobal user list by self user
+
+                            actionUIScriptNode.showGameTalbe("1");
                         } else {
                             alertMessageUI.text = messageDomain.messageBody;
                             alertMessageUI.setTextOfPanel();
@@ -100,7 +102,8 @@ cc.Class({
         if (gameMode == null) {
             gameMode = require("gameMode").gameMode;
         }
-        userInfo = Global.userInfo
+        userInfo = Global.userInfo;
+        Global.joinRoomNumber=userInfo.roomNumber;
         if (gameMode != null) {
             roomNumber = userInfo.roomNumber;
             var o = new Object();

@@ -57,7 +57,7 @@ cc.Class({
                     //cc.director.loadScene('table');
                     client.disconnect();
                     client = null;
-                    gameActionListGet.enterMainEntry();
+                    gameActionListGet.enterMainEntry("1");
                     gameActionListGet.showUserNickNameAndCode();
                     gameActionListGet.closeLoadingIcon();
                 } else {

@@ -19,6 +19,10 @@ class GameMode {
     String  roundCount8
     String  gamePeopleNumber
     GameRoundLun gameRoundLun
+    //1 open ,0 close
+    String  publicIpLimit
+    //1 open ,0 close
+    String  gpsLimit
     //static belongsTo = [gameRoundLun:GameRoundLun]
     static constraints = {
         gameRoundLun nullable: true

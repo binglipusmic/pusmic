@@ -6,11 +6,15 @@ class GameUser {
 
     SpringUser springUser
     Integer[] paiList
-    int  gameScore
-
+    int  gameRoundScore
+    int gameScoreCount
+    String gameReadyStatu
+    String publicIp
    // static belongsTo = [gameRound:GameRound]
     static constraints = {
-        gameScore nullable: true
+        gameRoundScore nullable: true
+        gameScoreCount nullable: true
         paiList nullable: true
+        gameReadyStatu nullable: true
     }
 }
