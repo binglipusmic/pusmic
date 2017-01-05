@@ -32,7 +32,7 @@ cc.Class({
 
         actionUIScriptNode = this.actionNodeScript.getComponent("gameConfigButtonListAction");
         alertMessageUI = this.alertMessageNodeScirpt.getComponent("alertMessagePanle");
-        messageDomain=require("messageDomain").messageDomain;
+        messageDomain = require("messageDomain").messageDomain;
     },
     connectByPrivateChanel: function () {
         if (client == null || client == undefined) {
@@ -56,27 +56,36 @@ cc.Class({
                     for (var p in obj) {
                         messageDomain[p] = obj[p]
                     }
-                     actionUIScriptNode.closeLoadingIcon();
+                    actionUIScriptNode.closeLoadingIcon();
                     // actionUIScriptNode.showGameTalbe();
                     if (messageDomain.messageAction == "buildNewRoundLun") {
                         cc.log(messageDomain.messageBody);
-                        var userObj=JSON.parse(messageDomain.messageBody);
-                        var userList=[];
+                        var userObj = JSON.parse(messageDomain.messageBody);
+                        var userList = [];
                         userList.push(userObj);
-                        Global.userList=userList;
-                        if (userInfo.openid==userObj.openid) {
-                            //inital the gobal user list by self user
-
-                            actionUIScriptNode.showGameTalbe("1");
+                        Global.userList = userList;
+                        actionUIScriptNode.showGameTalbe("1");
+                        /*
+                       if (userInfo.openid==userObj.openid) {
+                           //inital the gobal user list by self user             
+                       } else {
+                           alertMessageUI.text = messageDomain.messageBody;
+                           alertMessageUI.setTextOfPanel();
+                       }*/
+                    }
+                    //--------------------------------------------------
+                    if (messageDomain.messageAction == "joinRoom") {
+                    }
+                    //--------------------------------------------------
+                    if (messageDomain.messageAction == "userReadyStatuChange") {
+                        if (messageDomain.messageBody.indexOf("success")>=0) {
+                            var temp=messageDomain.messageBody.split(":");
+                            var openid=temp[1];
                         } else {
                             alertMessageUI.text = messageDomain.messageBody;
                             alertMessageUI.setTextOfPanel();
                         }
                     }
-
-                     if (messageDomain.messageAction == "joinRoom") {
-                     }
-
                 } else {
 
                     console.log("No found correct user info return from server ,please check .");
@@ -108,7 +117,7 @@ cc.Class({
             gameMode = require("gameMode").gameMode;
         }
         userInfo = Global.userInfo;
-        Global.joinRoomNumber=userInfo.roomNumber;
+        Global.joinRoomNumber = userInfo.roomNumber;
         if (gameMode != null) {
             roomNumber = userInfo.roomNumber;
             var o = new Object();
@@ -126,7 +135,7 @@ cc.Class({
 
     },
     closeGameRoundLun: function () {
-        userInfo = Global.userInfo
+        userInfo = Global.userInfo;
         if (userInfo != null) {
             roomNumber = userInfo.roomNumber;
             var messageObj = this.buildSendMessage(roomNumber, roomNumber, "closeGameRoundLun");
@@ -137,6 +146,19 @@ cc.Class({
     getFaPai: function () {
         var messageObj = this.buildSendMessage("", roomNumber, "faPai");
         this.sendMessageToServer(messageObj);
+    },
+
+    //-------------------User ready action-------------------------------------------------
+    sendUserReadyToServer: function (readyStatu) {
+        userInfo = Global.userInfo;
+        var userOpenId = userInfo.openid;
+        var joinRoomNumber = Global.joinRoomNumber;
+        var o = new Object();
+        o.userReadyStatu = readyStatu;
+        o.openid = userOpenId;
+        var messageObj = this.buildSendMessage(reaJSON.stringify(o), joinRoomNumber, "userReadyStatuChange");
+        this.sendMessageToServer(messageObj);
+
     },
 
     //--------------------------------------------------------------------------------------------------------

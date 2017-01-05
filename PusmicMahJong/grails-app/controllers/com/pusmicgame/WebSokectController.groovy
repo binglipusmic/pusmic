@@ -19,6 +19,12 @@ class WebSokectController {
         MessageDomain messageJsonObj=JSON.parse(message);
        // println "userResiveMessage:"+messageJsonObj.messageAction
         //closeGameRoundLun
+        if(messageJsonObj.messageAction.equals("userReadyStatuChange")){
+
+            messageJsonObj=userService.changeUserStatus(messageJsonObj)
+            def s = new JsonBuilder(messageJsonObj).toPrettyString()
+            websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s)
+        }
         if(messageJsonObj.messageAction.equals("closeGameRoundLun")){
             gameRoundLunService.closeGameRoundLun(messageJsonObj)
 

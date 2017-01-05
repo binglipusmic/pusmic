@@ -3,6 +3,7 @@ package com.pusmicgame.game
 import com.pusmic.game.mahjong.LoingUserInfo
 import com.pusmic.game.mahjong.OnlineUser
 import com.pusmic.game.mahjong.SpringUser
+import com.pusmicgame.domain.MessageDomain
 import com.pusmicgame.domain.UserInfo
 import grails.transaction.Transactional
 import grails.converters.JSON
@@ -20,6 +21,36 @@ class UserService {
     private getGameRoomNumberService() {
         grailsApplication.mainContext.gameRoomNumberService
     }
+
+    //----change user status--------------------------------
+
+    def changeUserStatus(MessageDomain messageDomain){
+        def obj = JSON.parse(messageDomain.messageBody)
+
+        def userReadyStatu=obj.userReadyStatu
+        def openid=obj.openid
+        if(openid){
+
+            SpringUser user=SpringUser.findByOpenid(openid)
+            if(user){
+                GameUser gu=GameUser.findBySpringUser(user)
+                if(gu){
+                    gu.gameReadyStatu=userReadyStatu
+                    gu.save(flush: true, failOnError: true)
+                    messageDomain.messageBody="success:"+openid
+                }else{
+                    messageDomain.messageBody="no found game user"
+                }
+            }else{
+                messageDomain.messageBody="no found spring user"
+            }
+        }else{
+            messageDomain.messageBody="openid is invaid"
+        }
+
+        return messageDomain
+    }
+
     def serviceMethod() {
 
     }
