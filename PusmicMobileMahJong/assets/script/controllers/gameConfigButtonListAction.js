@@ -62,6 +62,18 @@ cc.Class({
 
 
     },
+    //----------Join room--------------------------------------------------------------------
+    showJoinRoomNode:function(){
+        this.joinRoomNumberUINode.active=true;
+        boyBtn.enabled = false;
+        grilBtn.enabled = false;
+
+    },
+    closeJoenRoomNode:function(){
+       this.joinRoomNumberUINode.active=false;
+        boyBtn.enabled = true;
+        grilBtn.enabled = true;
+    },
     showUserNickNameAndCode: function () {
         var userInfo = Global.userInfo;
         if (userInfo != null && userInfo != undefined) {

@@ -38,6 +38,13 @@ class Utils {
         }
     }
 
+    def fixJsonStr(s){
+        s=s.replaceAll("\"","!")
+        s=s.replaceAll("\\{","(")
+        s=s.replaceAll("\\}",")")
+        return s
+    }
+
 
 
 }

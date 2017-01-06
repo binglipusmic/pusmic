@@ -13,6 +13,7 @@ const gameUser =
       gameReadyStatu:"",
       gameRoundScore:"",
       gameScoreCount:"",
+      pointIndex:"",
       //gameingStatu:"",
     }
 module.exports = {

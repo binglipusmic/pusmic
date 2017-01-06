@@ -8,4 +8,5 @@ window.Global = {
     privateClientChanle:null,
     joinRoomNumber:null,
     userList:[],
+    subid:0,
 };
