@@ -1,3 +1,4 @@
+var gameConfigSetting
 cc.Class({
     extends: cc.Component,
 
@@ -40,6 +41,18 @@ cc.Class({
     // use this for initialization
     onLoad: function () {
 
+        var o = cc.sys.localStorage.getItem("gameConfig");
+
+        if (o != null && o != undefined && o != "" && o != "\"\"") {
+            Global.gameConfigSetting = JSON.parse(o);
+        }
+
+
+
+        if (Global.gameConfigSetting == null || Global.gameConfigSetting == undefined || Global.gameConfigSetting == "") {
+            Global.gameConfigSetting = require("gameConfigSetting").gameConfigSetting;
+        }
+        gameConfigSetting = Global.gameConfigSetting;
     },
 
     // called every frame, uncomment this function to activate update callback
@@ -47,39 +60,46 @@ cc.Class({
 
     // },
 
-     playMusic: function() {
-        cc.audioEngine.playMusic( this.bgm, true );
+    playMusic: function () {
+         gameConfigSetting= Global.gameConfigSetting;
+        if (gameConfigSetting.music == "1") {
+            cc.audioEngine.playMusic(this.bgm, true);
+        }
+
+    },
+    stopMusic: function () {
+        cc.audioEngine.stopMusic();
     },
 
-    pauseMusic: function() {
+    pauseMusic: function () {
         cc.audioEngine.pauseMusic();
     },
 
-    resumeMusic: function() {
+    resumeMusic: function () {
         cc.audioEngine.resumeMusic();
     },
 
-    _playSFX: function(clip) {
-        cc.audioEngine.playEffect( clip, false );
+    _playSFX: function (clip) {
+        cc.audioEngine.playEffect(clip, false);
     },
 
-    playWin: function() {
+    playWin: function () {
         this._playSFX(this.winAudio);
     },
 
-    playLose: function() {
+    playLose: function () {
         this._playSFX(this.loseAudio);
     },
 
-    playCard: function() {
+    playCard: function () {
         this._playSFX(this.cardAudio);
     },
 
-    playChips: function() {
+    playChips: function () {
         this._playSFX(this.chipsAudio);
     },
 
-    playButton: function() {
+    playButton: function () {
         this._playSFX(this.buttonAudio);
     }
 });

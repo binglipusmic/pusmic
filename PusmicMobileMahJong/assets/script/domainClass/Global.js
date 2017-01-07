@@ -1,6 +1,7 @@
 window.Global = {
     userInfo: null,
     gameConfig: null,
+    gameConfigSetting:null,
     gameMode:null,
     hostServerIp:"127.0.0.1",
     hostServerPort:"8080",

@@ -3,6 +3,7 @@ var boyBtn = null;
 var grilBtn = null;
 var tableNetWork = null;
 var showGameMode = null;
+var gameConfigScript = null;
 cc.Class({
     extends: cc.Component,
 
@@ -46,6 +47,8 @@ cc.Class({
         backRoomBtn: cc.Node,
         newRoomBtn: cc.Node,
 
+        gameConfigSettingScript: cc.Node,
+
     },
 
     // use this for initialization
@@ -59,18 +62,19 @@ cc.Class({
         this.newRoomBtn.active = true;
 
         showGameMode = this.showGameModeScript.getComponent("showGameMode");
+        gameConfigScript = this.gameConfigSettingScript.getComponent("gameConfigController");
 
 
     },
     //----------Join room--------------------------------------------------------------------
-    showJoinRoomNode:function(){
-        this.joinRoomNumberUINode.active=true;
+    showJoinRoomNode: function () {
+        this.joinRoomNumberUINode.active = true;
         boyBtn.enabled = false;
         grilBtn.enabled = false;
 
     },
-    closeJoenRoomNode:function(){
-       this.joinRoomNumberUINode.active=false;
+    closeJoenRoomNode: function () {
+        this.joinRoomNumberUINode.active = false;
         boyBtn.enabled = true;
         grilBtn.enabled = true;
     },
@@ -103,14 +107,21 @@ cc.Class({
     },
     showGameConfig: function () {
         this.gameConfigNode.active = true;
-
+        gameConfigScript.initalGameConfig();
         boyBtn.enabled = false;
         grilBtn.enabled = false;
     },
     closeGameConfig: function () {
+        if (Global.gameConfigSetting != null && Global.gameConfigSetting != undefined&& Global.gameConfigSetting!="") {
+            cc.sys.localStorage.setItem('gameConfig', JSON.stringify(Global.gameConfigSetting));
+        }
+
+
         this.gameConfigNode.active = false;
         boyBtn.enabled = true;
         grilBtn.enabled = true;
+
+        cc.log("closeGameConfig:" + (Global.gameConfigSetting));
 
     },
     showGameModePanel: function () {
