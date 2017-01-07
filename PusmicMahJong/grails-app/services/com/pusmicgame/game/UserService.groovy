@@ -24,12 +24,11 @@ class UserService {
 
     def grailsApplication
 
-    def myUtil=new Utils()
+    def myUtil = new Utils()
+
     private getGameRoomNumberService() {
         grailsApplication.mainContext.gameRoomNumberService
     }
-
-
 
     //----change user status--------------------------------
     def joinRoom(MessageDomain messageDomain) {
@@ -50,12 +49,11 @@ class UserService {
                         if (gameUserList) {
 
 
-
                             gameUserList.each { gameU ->
 
                                 if (gameU.springUser.openid.equals(openid)) {
                                     exist = true
-                                    gu=gameU
+                                    gu = gameU
                                 }
 
                             }
@@ -75,7 +73,7 @@ class UserService {
 
                         gameUserList = gameRound.gameUser
 
-                        def gameUserListArray=[]
+                        def gameUserListArray = []
                         gameUserList.each { gameU ->
                             GameUserPlatObj outputUser = new GameUserPlatObj()
                             outputUser.id = gameU.id
@@ -85,10 +83,10 @@ class UserService {
                             outputUser.unionid = gameU.springUser.unionid
                             outputUser.userCode = gameU.springUser.userCode
                             def onlineUser2 = OnlineUser.findBySpringUser(gameU.springUser)
-                            if(onlineUser2){
+                            if (onlineUser2) {
                                 outputUser.publicIp = onlineUser.publicIPAddress
-                            }else{
-                                outputUser.publicIp ="no found"
+                            } else {
+                                outputUser.publicIp = "no found"
                             }
 
                             outputUser.paiList = ""
@@ -101,9 +99,9 @@ class UserService {
 
 
                         actionMessageDomain.messageExecuteFlag = "success"
-                        def s=JsonOutput.toJson(gameUserListArray);
+                        def s = JsonOutput.toJson(gameUserListArray);
                         //s=myUtil.fixJsonStr(s)
-                        actionMessageDomain.messageExecuteResult =  s
+                        actionMessageDomain.messageExecuteResult = s
                         //actionMessageDomain
                         //messageDomain.messageBody="success:"+openid
 
@@ -114,27 +112,27 @@ class UserService {
                     //messageDomain.messageBody=""
                 }
 
-            }else{
+            } else {
                 actionMessageDomain.messageExecuteFlag = "fail"
-                actionMessageDomain.messageExecuteResult = "不能查找到该用户:"+openid
+                actionMessageDomain.messageExecuteResult = "不能查找到该用户:" + openid
             }
-        }else{
+        } else {
             actionMessageDomain.messageExecuteFlag = "fail"
             actionMessageDomain.messageExecuteResult = "不能发现openid"
         }
-        def s2=JsonOutput.toJson(actionMessageDomain)
-       // s2=myUtil.fixJsonStr(s2)
-        messageDomain.messageBody= s2
+        def s2 = JsonOutput.toJson(actionMessageDomain)
+        // s2=myUtil.fixJsonStr(s2)
+        messageDomain.messageBody = s2
 
         return messageDomain
     }
 
-    def joinFullRoom(MessageDomain messageDomain){
+    def joinFullRoom(MessageDomain messageDomain) {
         ActionMessageDomain actionMessageDomain = new ActionMessageDomain()
         actionMessageDomain.messageExecuteFlag = "fail"
         actionMessageDomain.messageExecuteResult = "此房间人数已满,请加入别的房间!"
-        def s2=JsonOutput.toJson(actionMessageDomain)
-        messageDomain.messageBody= s2
+        def s2 = JsonOutput.toJson(actionMessageDomain)
+        messageDomain.messageBody = s2
 
         return messageDomain
     }
@@ -187,67 +185,71 @@ class UserService {
 
     def getUserInfoFromSpringUserByCode(String userCode, def publicIp) {
         def s
-        def loopFlag = true;
+        def findFlag = false;
         // def session = RequestContextHolder.currentRequestAttributes().getSession()
         if (userCode.equalsIgnoreCase("test")) {
 
             def sprinUserlist = SpringUser.list()
+            def userIndex = 1
             println "getUserInfoFromSpringUserByCode1 sprinUserlist:" + sprinUserlist.size()
-            sprinUserlist.each { u ->
-                if (loopFlag) {
-                    println "getUserInfoFromSpringUserByCode1:" + u.id
-                    def onlineUser = OnlineUser.findBySpringUser(u)
-                    if (!onlineUser) {
-                        //add  a new logininfor
-                        loopFlag = false
-                        println "getUserInfoFromSpringUserByCode"
-
-                        onlineUser = new OnlineUser()
-                        onlineUser.springUser = u
-                        onlineUser.roomNumber = gameRoomNumberService.getRandomRoomNumber()
-                        onlineUser.publicIPAddress = publicIp
-                        onlineUser.save(flush: true, failOnError: true)
-
-
-                    } else {
-                        //update the public
-                        onlineUser.roomNumber = gameRoomNumberService.getRandomRoomNumber()
-                        onlineUser.publicIPAddress = publicIp
-                        onlineUser.save(flush: true, failOnError: true)
-
-                    }
-
-                    def userLoginInfo = new LoingUserInfo()
-                    userLoginInfo.ipAddress = publicIp
-                    userLoginInfo.loginTime = new Date()
-                    //userLoginInfo.save(flush: true, failOnError: true)
-
-                    u.addToLoginUserInfo(userLoginInfo)
-                    u.save(flush: true, failOnError: true)
-
-                    UserInfo userInfo = new UserInfo()
-                    userInfo.publicIPAddress = onlineUser.publicIPAddress
-                    userInfo.id = onlineUser.springUser.id
-                    userInfo.city = onlineUser.springUser.city
-                    userInfo.country = onlineUser.springUser.country
-                    userInfo.language = onlineUser.springUser.language
-                    userInfo.nickName = onlineUser.springUser.nickname
-                    userInfo.openid = onlineUser.springUser.openid
-                    userInfo.province = onlineUser.springUser.province
-                    userInfo.headimgurl = onlineUser.springUser.headimgurl
-                    userInfo.unionid = onlineUser.springUser.unionid
-                    userInfo.sex = onlineUser.springUser.sex
-                    userInfo.diamondsNumber = onlineUser.springUser.diamondsNumber
-                    userInfo.gameCount = onlineUser.springUser.gameCount
-                    userInfo.winCount = onlineUser.springUser.winCount
-                    userInfo.agentLevel = onlineUser.springUser.agentLevel
-                    userInfo.userCode = onlineUser.springUser.userCode
-                    userInfo.userType = onlineUser.springUser.userType
-                    userInfo.roomNumber = onlineUser.roomNumber
-                    s = new JsonBuilder(userInfo).toPrettyString()
-                    return false
+            def noOnlineUser
+            def onlineUser
+            for (int i = 1; i < 5; i++) {
+                def name = "userCode" + i
+                def user = SpringUser.findByUserCode(name)
+                onlineUser = OnlineUser.findBySpringUser(user)
+                if (!onlineUser) {
+                    noOnlineUser = user;
+                    break;
                 }
             }
+
+            if (!noOnlineUser) {
+                noOnlineUser = SpringUser.findByUserCode("userCode4")
+
+            }
+
+
+            if (!onlineUser) {
+                onlineUser = new OnlineUser()
+            }
+
+            onlineUser.springUser = noOnlineUser
+
+            onlineUser.onlineTime = new Date()
+            onlineUser.roomNumber = gameRoomNumberService.getRandomRoomNumber()
+            onlineUser.publicIPAddress = publicIp
+            onlineUser.save(flush: true, failOnError: true)
+            //update login info record
+            def userLoginInfo = new LoingUserInfo()
+            userLoginInfo.ipAddress = publicIp
+            userLoginInfo.loginTime = new Date()
+            //userLoginInfo.save(flush: true, failOnError: true)
+
+            noOnlineUser.addToLoginUserInfo(userLoginInfo)
+            noOnlineUser.save(flush: true, failOnError: true)
+
+            UserInfo userInfo = new UserInfo()
+            userInfo.publicIPAddress = onlineUser.publicIPAddress
+            userInfo.id = onlineUser.springUser.id
+            userInfo.city = onlineUser.springUser.city
+            userInfo.country = onlineUser.springUser.country
+            userInfo.language = onlineUser.springUser.language
+            userInfo.nickName = onlineUser.springUser.nickname
+            userInfo.openid = onlineUser.springUser.openid
+            userInfo.province = onlineUser.springUser.province
+            userInfo.headimgurl = onlineUser.springUser.headimgurl
+            userInfo.unionid = onlineUser.springUser.unionid
+            userInfo.sex = onlineUser.springUser.sex
+            userInfo.diamondsNumber = onlineUser.springUser.diamondsNumber
+            userInfo.gameCount = onlineUser.springUser.gameCount
+            userInfo.winCount = onlineUser.springUser.winCount
+            userInfo.agentLevel = onlineUser.springUser.agentLevel
+            userInfo.userCode = onlineUser.springUser.userCode
+            userInfo.userType = onlineUser.springUser.userType
+            userInfo.roomNumber = onlineUser.roomNumber
+            s = new JsonBuilder(userInfo).toPrettyString()
+            //return false
 
         } else {
 

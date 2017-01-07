@@ -174,6 +174,11 @@ cc.Class({
             roomNumber = userInfo.roomNumber;
             var o = new Object();
             o.userOpenId = userInfo.openid;
+            //add limit for mode
+            if( Global.gameConfigSetting!=null &&  Global.gameConfigSetting!=undefined){
+                gameMode.publicIpLimit=Global.gameConfigSetting.publicIpLimit;
+                gameMode.gpsLimit=Global.gameConfigSetting.gpsLimit;
+            }
             o.gameMode = gameMode;
             cc.log("buildNewGameRound2-----------------------");
             var messageObj = this.buildSendMessage(JSON.stringify(o), roomNumber, "buildNewRoundLun");

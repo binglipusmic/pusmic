@@ -25,6 +25,23 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
+
+        //webchat head img test-------------------------------
+        var url = "http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/46";
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+              console.log("xhr readyState:" + xhr.readyState);
+            if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+                var response = xhr.responseText;
+            
+                console.log("xhr:" + response);
+                console.log("xhr responseType:" + xhr.responseType);
+                
+            }
+        };
+        xhr.open("GET", url, true);
+        xhr.send();
+        //----------------------------------------------------
         gameActionListGet = this.gameActionList.getComponent("gameConfigButtonListAction");
         onlineCheckUser = this.checkOnlineUser.getComponent("onlineUserCheck");
         userInfo = require("userInfoDomain").userInfoDomain;

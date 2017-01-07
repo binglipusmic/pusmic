@@ -17,6 +17,7 @@ class GameRoomNumberService {
         }
 
 
+        println "getRandomRoomNumber:"+randomNumber
         GameRoomNumber num=new GameRoomNumber()
         num.roomNumber=randomNumber
         num.save(flush: true, failOnError: true)

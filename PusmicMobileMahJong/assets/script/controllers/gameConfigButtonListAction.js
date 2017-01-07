@@ -4,6 +4,7 @@ var grilBtn = null;
 var tableNetWork = null;
 var showGameMode = null;
 var gameConfigScript = null;
+var tableUserInfo = null;
 cc.Class({
     extends: cc.Component,
 
@@ -48,6 +49,7 @@ cc.Class({
         newRoomBtn: cc.Node,
 
         gameConfigSettingScript: cc.Node,
+        tableUserInfoScript: cc.Node,
 
     },
 
@@ -63,7 +65,7 @@ cc.Class({
 
         showGameMode = this.showGameModeScript.getComponent("showGameMode");
         gameConfigScript = this.gameConfigSettingScript.getComponent("gameConfigController");
-
+        tableUserInfo = this.tableUserInfoScript.getComponent("tableUserInfo");
 
     },
     //----------Join room--------------------------------------------------------------------
@@ -112,7 +114,7 @@ cc.Class({
         grilBtn.enabled = false;
     },
     closeGameConfig: function () {
-        if (Global.gameConfigSetting != null && Global.gameConfigSetting != undefined&& Global.gameConfigSetting!="") {
+        if (Global.gameConfigSetting != null && Global.gameConfigSetting != undefined && Global.gameConfigSetting != "") {
             cc.sys.localStorage.setItem('gameConfig', JSON.stringify(Global.gameConfigSetting));
         }
 
@@ -164,6 +166,8 @@ cc.Class({
         }
 
         showGameMode.showGameMode();
+        //now we need instal the user info for each user
+        tableUserInfo.initalUserInfoFromGobalList();
     },
     closeGameTable: function () {
         this.gameTable.active = false;
