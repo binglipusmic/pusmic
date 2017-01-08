@@ -4,6 +4,7 @@ import com.pusmic.game.mahjong.LoingUserInfo
 import com.pusmic.game.mahjong.OnlineUser
 import com.pusmic.game.mahjong.SpringUser
 import com.pusmicgame.domain.ActionMessageDomain
+import com.pusmicgame.domain.GameModeJson
 import com.pusmicgame.domain.GameUserPlatObj
 import com.pusmicgame.domain.JoinRoom
 import com.pusmicgame.domain.MessageDomain
@@ -112,9 +113,13 @@ class UserService {
                         //gameUserListArray.s
                         actionMessageDomain.messageExecuteFlag = "success"
                          Collections.sort(gameUserListArray, new CustomComparatorForGameUserPlatObj());
-
+                        print "115"
                         def s = JsonOutput.toJson(gameUserListArray);
-                        def gmStr = JsonOutput.toJson(gameMode);
+                        print "117"
+                        GameModeJson gmjson=new GameModeJson()
+                        gmjson=myUtil.copyObjectProperties(gameMode,gmjson)
+                        def gmStr = JsonOutput.toJson(gmjson);
+                        print "119"
                         JoinRoom jr=new JoinRoom()
                         jr.gameMode=gmStr
                         jr.userList=s

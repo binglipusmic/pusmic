@@ -38,6 +38,20 @@ class Utils {
         }
     }
 
+    def copyObjectProperties(source, target) {
+        target.properties.each { key, value ->
+            if (source.metaClass.hasProperty(source, key) ) {
+                if(!key.toString().toLowerCase().equals("class")){
+                    if(!key.toString().toLowerCase().equals("metaclass")){
+                        target.setProperty(key, source.metaClass.getProperty(source, key))
+                    }
+
+                }
+
+            }
+        }
+    }
+
     def fixJsonStr(s){
         s=s.replaceAll("\"","!")
         s=s.replaceAll("\\{","(")

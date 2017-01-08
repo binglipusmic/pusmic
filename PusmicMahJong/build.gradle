@@ -77,7 +77,10 @@ dependencies {
 
 bootRun {
     jvmArgs = ['-XX:MaxPermSize=1024m']
+
 }
+
+
 
 
 assets {
