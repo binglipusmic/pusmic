@@ -35,6 +35,7 @@ cc.Class({
 
         userNickNameNode: cc.Node,
         userCodeNode: cc.Node,
+        userImageNode:cc.Node,
 
         tableNetWorkNode: cc.Node,
 
@@ -90,6 +91,15 @@ cc.Class({
             userCode.string = userInfo.userCode;
 
         }
+        var  serverUrl = Global.hostHttpProtocol + "://" + Global.hostServerIp + ":" + Global.hostServerPort;
+       
+        var testHeaImageurl=serverUrl+"/webchatImage/"+userInfo.headImageFileName;
+        cc.log("testHeaImageurl:"+testHeaImageurl);
+        var userImage=this.userImageNode.getComponent(cc.Sprite);
+         cc.loader.load( testHeaImageurl,function (err, texture) {
+                    var frame = new cc.SpriteFrame(texture);
+                    userImage.spriteFrame = frame;
+                });
     },
 
     // action 1,build a  new room ,0, back to room

@@ -10,11 +10,16 @@ class GameUser {
     int gameScoreCount
     String gameReadyStatu
     String publicIp
-   // static belongsTo = [gameRound:GameRound]
+    String headImageFileName
+    Date  joinRoundTime
+    static belongsTo = [gameRound:GameRound]
     static constraints = {
         gameRoundScore nullable: true
         gameScoreCount nullable: true
         paiList nullable: true
         gameReadyStatu nullable: true
+        headImageFileName nullable: true
+        joinRoundTime   nullable: true
+        gameRound  nullable: true
     }
 }

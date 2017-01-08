@@ -24,4 +24,5 @@ class UserInfo {
     String userType
     String publicIPAddress
     String roomNumber
+    String headImageFileName
 }

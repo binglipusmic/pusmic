@@ -28,6 +28,8 @@ endpoints:
 
 ---
 grails:
+    resources:
+        pattern: '/**'
     mime:
         disable:
             accept:

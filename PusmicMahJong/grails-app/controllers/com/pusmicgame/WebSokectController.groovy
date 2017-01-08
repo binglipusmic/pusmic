@@ -23,22 +23,31 @@ class WebSokectController {
        // println "userResiveMessage:"+messageJsonObj.messageAction
         //closeGameRoundLun
         if(messageJsonObj.messageAction.equals("joinRoom")){
-            if(gameRoundService.getPopeleCountForJoinRoom(messageJsonObj).equals("<")){
-                messageJsonObj=userService.joinRoom(messageJsonObj)
-                def s = JsonOutput.toJson(messageJsonObj)
-                println "s:"+s
-                websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s)
-            }else  if(gameRoundService.getPopeleCountForJoinRoom(messageJsonObj).equals("=")){
-                //start fapai
-            } else{
-                //>
+           // println gameRoundService.getPopeleCountForJoinRoom(messageJsonObj)
+            if(gameRoundService.getPopeleCountForJoinRoom(messageJsonObj).equals("!")){
 
-                messageJsonObj= userService.joinFullRoom(messageJsonObj)
-                def s2 = JsonOutput.toJson(messageJsonObj)
-                websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s2)
+                messageJsonObj = userService.joinNoExistRoom(messageJsonObj)
+            /*    def s2 = JsonOutput.toJson(messageJsonObj)
+                websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)*/
+            }else {
+
+
+                if (gameRoundService.getPopeleCountForJoinRoom(messageJsonObj).equals("<")) {
+                    messageJsonObj = userService.joinRoom(messageJsonObj)
+                   /* def s = JsonOutput.toJson(messageJsonObj)
+                    websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)*/
+                } else if (gameRoundService.getPopeleCountForJoinRoom(messageJsonObj).equals("=")) {
+                    //start fapai
+                } else {
+                    //>
+
+                    messageJsonObj = userService.joinFullRoom(messageJsonObj)
+
+                }
             }
 
-
+            def s2 = JsonOutput.toJson(messageJsonObj)
+            websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)
         }
         if(messageJsonObj.messageAction.equals("userReadyStatuChange")){
 

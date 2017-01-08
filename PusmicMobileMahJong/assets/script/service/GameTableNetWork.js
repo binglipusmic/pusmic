@@ -82,24 +82,26 @@ cc.Class({
                     var Obj = JSON.parse(messageDomain.messageBody);
                     cc.log("%%%%%%Obj.messageExecuteFlag:" + Obj.messageExecuteFlag);
                     if (Obj.messageExecuteFlag == "success") {
-                        var gameUser = Obj.messageExecuteResult;
+                        var joinRoomJson = JSON.parse(Obj.messageExecuteResult);
+                        var gameUserList=JSON.parse(joinRoomJson.userList);
+                        var joinMode=JSON.parse(joinRoomJson.gameMode);
+                        if(joinMode!=null && joinMode !=undefined){
+                            Global.gameMode=joinMode;
+                              cc.log("joinMode:" + Global.gameMode.toString());
+                        }
                         var existFlag = false;
 
                         cc.log("%%%%%%Obj:" + Obj.messageExecuteResult);
+                        cc.log("%%%%%%gameUserList:" + gameUserList.length);
                         // cc.log("%%%%%%gameUser:"+gameUser.toString());
-                        var userList = Global.userList;
-                        for (var i = 0; i < userList.length; i++) {
-                            var u = userList[i];
-                            if (u.openid == gameUser.openid) {
-                                //u.gameReadyStatu=gameUser.gameReadyStatu
-                                existFlag = true;
-                            }
+                        var userList = [];
+                        for (var j = 0; j < gameUserList.length; j++) {
+                            var getUser = gameUserList[j]
+                            cc.log("%%%%%%gamegetUser:" + getUser.openid);
+                            userList.push(getUser);
                         }
 
-                        //update the gobal user list
-                        if (existFlag == false) {
-                            userList.push(gameUser);
-                        }
+                        cc.log("userList 1:" + userList.toString());
                         Global.userList = userList;
                         //show game table
                         actionUIScriptNode.showGameTalbe("0");
@@ -160,6 +162,9 @@ cc.Class({
         var messageObj = this.buildSendMessage(openId, joinRoomNumber, "joinRoom");
         this.sendMessageToServer(messageObj);
     },
+    checkRoomNumber: function () {
+
+    },
     //--------------------------------------------------------------------------------------------------------
     buildNewGameRound: function () {
         // this.initalClient();
@@ -175,9 +180,12 @@ cc.Class({
             var o = new Object();
             o.userOpenId = userInfo.openid;
             //add limit for mode
-            if( Global.gameConfigSetting!=null &&  Global.gameConfigSetting!=undefined){
-                gameMode.publicIpLimit=Global.gameConfigSetting.publicIpLimit;
-                gameMode.gpsLimit=Global.gameConfigSetting.gpsLimit;
+            if (Global.gameConfigSetting != null && Global.gameConfigSetting != undefined) {
+                gameMode.publicIpLimit = Global.gameConfigSetting.publicIpLimit;
+                gameMode.gpsLimit = Global.gameConfigSetting.gpsLimit;
+            } else {
+                gameMode.publicIpLimit = "0"
+                gameMode.gpsLimit = "0"
             }
             o.gameMode = gameMode;
             cc.log("buildNewGameRound2-----------------------");
@@ -186,7 +194,7 @@ cc.Class({
             this.sendMessageToServer(messageObj);
             cc.log("buildNewGameRound3-----------------------");
         }
-
+        Global.gameMode = gameMode;
 
         actionUIScriptNode.showLoadingIcon();
 

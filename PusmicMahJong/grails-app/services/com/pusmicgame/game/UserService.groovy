@@ -5,20 +5,27 @@ import com.pusmic.game.mahjong.OnlineUser
 import com.pusmic.game.mahjong.SpringUser
 import com.pusmicgame.domain.ActionMessageDomain
 import com.pusmicgame.domain.GameUserPlatObj
+import com.pusmicgame.domain.JoinRoom
 import com.pusmicgame.domain.MessageDomain
 import com.pusmicgame.domain.UserInfo
 import com.pusmicgame.mahjong.Utils
+import grails.http.client.AsyncHttpBuilder
+import grails.http.client.HttpClientResponse
 import grails.transaction.Transactional
 import grails.converters.JSON
 import groovy.json.JsonBuilder
 import groovy.json.JsonOutput
+import io.netty.handler.codec.http.HttpResponse
 import org.apache.commons.lang.StringEscapeUtils
 import org.grails.web.util.WebUtils
 import org.springframework.web.context.request.RequestContextHolder
+import sun.net.www.http.HttpClient
 
 import javax.swing.Spring
 
+import grails.async.*
 
+import com.pusmicgame.utils.CustomComparatorForGameUserPlatObj
 @Transactional
 class UserService {
 
@@ -43,6 +50,7 @@ class UserService {
                 if (onlineRoomNumber) {
                     GameRound gameRound = onlineRoomNumber.gameRound
                     if (gameRound) {
+                        def gameMode=gameRound.gameMode
                         def gameUserList = gameRound.gameUser
                         def exist = false
                         GameUser gu = null
@@ -66,6 +74,9 @@ class UserService {
                             gu.gameRoundScore = 0
                             gu.gameScoreCount = 1000
                             gu.publicIp = onlineUser.publicIPAddress
+                            gu.headImageFileName=user.headImageFileName
+                            gu.joinRoundTime=new Date()
+                            gu.gameRound=gameRound
                             gu.save(flush: true, failOnError: true)
                             gameRound.addToGameUser(gu)
                             gameRound.save(flush: true, failOnError: true)
@@ -93,15 +104,24 @@ class UserService {
                             outputUser.gameRoundScore = gameU.gameRoundScore
                             outputUser.gameScoreCount = gameU.gameScoreCount
                             outputUser.gameReadyStatu = gameU.gameReadyStatu
+                            outputUser.headImageFileName=gameU.headImageFileName
                             gameUserListArray.add(outputUser)
 
                         }
 
-
+                        //gameUserListArray.s
                         actionMessageDomain.messageExecuteFlag = "success"
+                         Collections.sort(gameUserListArray, new CustomComparatorForGameUserPlatObj());
+
                         def s = JsonOutput.toJson(gameUserListArray);
+                        def gmStr = JsonOutput.toJson(gameMode);
+                        JoinRoom jr=new JoinRoom()
+                        jr.gameMode=gmStr
+                        jr.userList=s
+                        s = JsonOutput.toJson(jr);
                         //s=myUtil.fixJsonStr(s)
                         actionMessageDomain.messageExecuteResult = s
+                        print "join s:"+s
                         //actionMessageDomain
                         //messageDomain.messageBody="success:"+openid
 
@@ -122,6 +142,16 @@ class UserService {
         }
         def s2 = JsonOutput.toJson(actionMessageDomain)
         // s2=myUtil.fixJsonStr(s2)
+        messageDomain.messageBody = s2
+
+        return messageDomain
+    }
+
+    def joinNoExistRoom(MessageDomain messageDomain) {
+        ActionMessageDomain actionMessageDomain = new ActionMessageDomain()
+        actionMessageDomain.messageExecuteFlag = "fail"
+        actionMessageDomain.messageExecuteResult = "此房间号码不正确,请检查后重新输入!"
+        def s2 = JsonOutput.toJson(actionMessageDomain)
         messageDomain.messageBody = s2
 
         return messageDomain
@@ -186,6 +216,7 @@ class UserService {
     def getUserInfoFromSpringUserByCode(String userCode, def publicIp) {
         def s
         def findFlag = false;
+        def userOpenid=""
         // def session = RequestContextHolder.currentRequestAttributes().getSession()
         if (userCode.equalsIgnoreCase("test")) {
 
@@ -226,6 +257,15 @@ class UserService {
             userLoginInfo.loginTime = new Date()
             //userLoginInfo.save(flush: true, failOnError: true)
 
+            def url="http://wx.qlogo.cn/mmopen/Po9mkm3Z42tolYpxUVpY6mvCmqalibOpcJ2jG3Qza5qgtibO1NLFNUF7icwCibxPicbGmkoiciaqKEIdvvveIBfEQqal8vkiavHIeqFT/96"
+            userOpenid=noOnlineUser.openid
+            if(!noOnlineUser.headImageFileName) {
+                def headImageName = getHeadImage(url, userOpenid)
+                if (headImageName) {
+                    noOnlineUser.headImageFileName = headImageName
+                }
+            }
+
             noOnlineUser.addToLoginUserInfo(userLoginInfo)
             noOnlineUser.save(flush: true, failOnError: true)
 
@@ -248,12 +288,21 @@ class UserService {
             userInfo.userCode = onlineUser.springUser.userCode
             userInfo.userType = onlineUser.springUser.userType
             userInfo.roomNumber = onlineUser.roomNumber
+            if(noOnlineUser.headImageFileName){
+                userInfo.headImageFileName=noOnlineUser.headImageFileName
+            }else{
+                userInfo.headImageFileName=""
+            }
+
+
+
             s = new JsonBuilder(userInfo).toPrettyString()
             //return false
 
         } else {
 
         }
+
 
         return s
 
@@ -279,6 +328,67 @@ class UserService {
             r = GameRoomNumber.findByRoomNumber(randomNumber + "")
         }
         return randomNumber;
+    }
+
+    def getHeadImage(def url,def userOpenId){
+        //1.first check the img if exist or not exist
+        def fileImageName="";
+        def fileExistFlag=false;
+        def testfileName="src/main/webapp/webchatImage/"+userOpenId+".jpg"
+        File testf=new File(testfileName)
+        if(testf.exists()){
+            fileExistFlag=true;
+            fileImageName=userOpenId+".jpg"
+        }
+
+        testfileName="src/main/webapp/webchatImage/"+userOpenId+".png"
+        testf=new File(testfileName)
+        if(testf.exists()){
+            fileExistFlag=true;
+            fileImageName=userOpenId+".png";
+        }
+        if(!fileExistFlag) {
+            URL url2 = new URL(url);
+            URLConnection conn = url2.openConnection();
+            //def imageType=resp.getHeader("Content-Type")
+            def imageType = conn.getHeaderField("Content-Type");
+            imageType = imageType.replaceAll("image", "")
+            imageType = imageType.substring(1)
+            if (imageType.equals("jpeg")) {
+                imageType = "jpg"
+            }
+            fileImageName= userOpenId + "." + imageType
+            def fileName = "src/main/webapp/webchatImage/" +fileImageName
+            File f = new File(fileName)
+            if (f.exists()) {
+                f.delete()
+            }
+
+            //InputStream is = url2.openStream();
+            InputStream is = conn.inputStream
+            FileOutputStream fos = new FileOutputStream(new File(fileName))
+
+            byte[] b = new byte[2048];
+            int length;
+
+            while ((length = is.read(b)) != -1) {
+                fos.write(b, 0, length);
+            }
+
+            // fos.write(buffer)
+            //resp.inputStream.close()
+            fos.close();
+        }else{
+
+        }
+
+        return fileImageName
+        //def http = new HTTPBuilder( urlAuthPage )
+       /* AsyncHttpBuilder client = new AsyncHttpBuilder()
+        Promise<HttpClientResponse> p = client.get(url)
+        p.onComplete { HttpClientResponse resp ->
+
+        }*/
     }
 
 }

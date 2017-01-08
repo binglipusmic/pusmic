@@ -23,6 +23,8 @@ apply plugin:"asset-pipeline"
 repositories {
     mavenLocal()
     maven { url "https://repo.grails.org/grails/core" }
+    maven { url "http://repository.codehaus.org/" }
+
 }
 
 dependencyManagement {
@@ -58,6 +60,11 @@ dependencies {
 
     //compile 'org.springframework.boot:spring-boot-starter-redis'
     compile "org.springframework.session:spring-session:1.3.0.RELEASE"
+    compile "org.grails:http-client:1.0.0-SNAPSHOT"
+    compile "org.grails.plugins:async-http-builder:1.0.0-SNAPSHOT"
+    //compile group: 'org.codehaus.groovy.modules.http-builder', name: 'http-builder', version: '0.7.1'
+    //compile "org.grails.plugins:rest:0.8"
+    //compile 'org.grails.plugins:http-builder-helper:1.0.2'
     //compile 'org.springframework.security.oauth:spring-security-oauth2:2.0.12.RELEASE'
     //runtime "com.h2database:h2"
     //runtime 'org.postgresql:postgresql:9.4-1212-jdbc41'

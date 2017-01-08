@@ -51,6 +51,7 @@ class SpringUser implements Serializable {
 	int winCount
 	String userCode
 	String userType
+	String headImageFileName
     //String publicIPAddress
     //String roomNumber
 
@@ -91,6 +92,7 @@ class SpringUser implements Serializable {
         winCount nullable: true
         userCode nullable: true
         userType nullable: true
+		headImageFileName nullable: true
         //publicIPAddress nullable: true
         //roomNumber nullable: true
 

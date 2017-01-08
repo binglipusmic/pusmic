@@ -34,6 +34,8 @@ cc.Class({
         var numberOrder = [3, 4, 1, 2]
         var userList = Global.userList;
         var userInfo = Global.userInfo;
+        var gameMode = Global.gameMode;
+        var gamePeople = gameMode.gamePeopleNumber;
         var index = -1;
         if (userList != null && userList != undefined) {
             var tempList = [];
@@ -50,30 +52,74 @@ cc.Class({
                 }
 
             }
+             cc.log("index:"+index);
+            if (index == 0) {
+                if (gamePeople == "3") {
+                    numberOrder = [3, 4, 2]
+                }
 
-            if (index > 0) {
-                for (var i = 0; i < index; i++) {
-                    tempList.push(userList[i]);
+                if (gamePeople == "2") {
+                    numberOrder = [3, 1]
+                }
+            }
+            if (index == 1) {
+                if (gamePeople == "4") {
+                    numberOrder = [2, 3, 4, 1]
+                }
+                if (gamePeople == "3") {
+                    numberOrder = [2, 3, 4]
+                }
+                if (gamePeople == "4") {
+                    numberOrder = [1, 3]
+                }
+
+            }
+            if (index == 2) {
+                if (gamePeople == "4") {
+                    numberOrder = [1, 2, 3, 4]
+                }
+                if (gamePeople == "3") {
+                    numberOrder = [4, 2, 3]
+                }
+
+            }
+            if (index == 3) {
+                if (gamePeople == "4") {
+                    numberOrder = [4, 1, 2, 3]
+                }
+                if (gamePeople == "3") {
+                    numberOrder = [4, 2, 3]
                 }
             }
 
+            // if (index > 0) {
+            //     for (var i = 0; i < index; i++) {
+            //         tempList.push(userList[i]);
+            //     }
+            // }
+
             //start fill the user info from index 
-            for (var i = 0; i < tempList.length; i++) {
-                var user=tempList[i];
+            cc.log("numberOrder:"+numberOrder.toString());
+            for (var i = 0; i < userList.length; i++) {
+                var user = userList[i];
                 var userNodeName = "user" + numberOrder[i] + "Node";
-                var testHeaImageurl = "http://wx.qlogo.cn/mmopen/Po9mkm3Z42tolYpxUVpY6mvCmqalibOpcJ2jG3Qza5qgtibO1NLFNUF7icwCibxPicbGmkoiciaqKEIdvvveIBfEQqal8vkiavHIeqFT/0";
+                //var testHeaImageurl = "http://wx.qlogo.cn/mmopen/Po9mkm3Z42tolYpxUVpY6mvCmqalibOpcJ2jG3Qza5qgtibO1NLFNUF7icwCibxPicbGmkoiciaqKEIdvvveIBfEQqal8vkiavHIeqFT/0";
+                var serverUrl = Global.hostHttpProtocol + "://" + Global.hostServerIp + ":" + Global.hostServerPort;
+                cc.log("headImageFileName:" + user.headImageFileName);
+                var testHeaImageurl = serverUrl + "/webchatImage/" + userInfo.headImageFileName;
+                cc.log("testHeaImageurl:" + testHeaImageurl);
                 var userNode = cc.find(userNodeName, this.tableNode);
                 var userInfoNode = cc.find("userInfoNode", userNode);
                 var userNickNameNode = cc.find("userNickNameBg", userInfoNode);
-                var userNickNameLableNode=cc.find("userNickName", userNickNameNode);
-                cc.loader.load({url: testHeaImageurl, type: 'png'},function (err, texture) {
+                var userNickNameLableNode = cc.find("userNickName", userNickNameNode);
+                cc.loader.load(testHeaImageurl, function (err, texture) {
                     var frame = new cc.SpriteFrame(texture);
                     userInfoNode.getComponent(cc.Sprite).spriteFrame = frame;
                 });
 
-                var userNickNameLable=userNickNameLableNode.getComponent(cc.Label);
-                userNickNameLable.string=user.nickName;
-                userNode.active=true;
+                var userNickNameLable = userNickNameLableNode.getComponent(cc.Label);
+                userNickNameLable.string = user.nickName;
+                userNode.active = true;
             }
 
         }

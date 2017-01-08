@@ -64,6 +64,7 @@ cc.Class({
                         userInfo[p] = obj[p]
                     }
                     console.log("userInfo.nickname:" + userInfo.nickName);
+                    console.log("userInfo.headImageFileName:" + userInfo.headImageFileName);
                     Global.userInfo = userInfo;
                     //update the user public ip from url call
                     //self.updateUserIP(userInfo.id);

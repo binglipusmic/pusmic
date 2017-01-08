@@ -44,7 +44,7 @@ cc.Class({
             gameMode = Global.gameMode
 
         }
-
+        gameMode.gamePeopleNumber = 4;
         this.initalGameModeUIByModeData();
 
 
@@ -121,7 +121,7 @@ cc.Class({
             //}
         }
 
-        Global.gameMode=gameMode;
+        Global.gameMode = gameMode;
 
     },
     optionSelectFunction: function (event) {

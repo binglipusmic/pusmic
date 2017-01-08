@@ -21,6 +21,7 @@ const userInfoDomain =
       gameReadyStatu:"",
       gameRoundScore:"",
       gameScoreCount:"",
+      headImageFileName:"",
       //gameingStatu:"",
     }
 module.exports = {

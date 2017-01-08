@@ -17,9 +17,12 @@ class GameRoundService {
                 //check the user count if already full
 
                 GameMode gameMode=gameRound.gameMode
+                println "getJoinPopeleCount gameMode:"+gameMode.id
                 peopeleCount=gameMode.gamePeopleNumber.toInteger()
             }
         }
+        //println "getJoinPopeleCount gameRound:"+gameRound.id
+        //println "getJoinPopeleCount:"+peopeleCount
        return peopeleCount
     }
 
@@ -39,6 +42,7 @@ class GameRoundService {
                 }
             }
         }
+        println "currentGameRoundPeopeCount:"+peopeleCount
         return peopeleCount
     }
 
@@ -46,16 +50,21 @@ class GameRoundService {
 
         def p1=getJoinPopeleCount(messageDomain)
         def p2=currentGameRoundPeopeCount(messageDomain)
-        if(p2<p1){
-            return "<"
+        if(p1==0 && p2==0){
+            return "!"
         }else{
-            if(p2==p1){
-                return "="
+            if(p2<p1){
+                return "<"
             }else{
-                return ">"
-            }
+                if(p2==p1){
+                    return "="
+                }else{
+                    return ">"
+                }
 
+            }
         }
+
 
     }
 

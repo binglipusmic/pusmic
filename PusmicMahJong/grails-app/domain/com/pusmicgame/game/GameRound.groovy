@@ -21,5 +21,10 @@ class GameRound {
 
     static mapping = {
         //gameRoundLun lazy: false
+        //gameUser sort: 'joinRoundTime', order: 'asc'
+
+        gameUser sort: 'id', order: 'desc'
     }
+
+
 }
