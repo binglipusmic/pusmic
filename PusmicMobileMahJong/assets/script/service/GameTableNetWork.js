@@ -7,6 +7,7 @@ var serverUrl;
 var socket;
 var messageDomain;
 var connect_callback;
+var userInfoScript;
 cc.Class({
     extends: cc.Component,
 
@@ -24,14 +25,16 @@ cc.Class({
 
         actionNodeScript: cc.Node,
         alertMessageNodeScirpt: cc.Node,
+        userInfoScriptNode: cc.Node,
 
     },
 
     // use this for initialization
     onLoad: function () {
-
-        actionUIScriptNode = this.actionNodeScript.getComponent("gameConfigButtonListAction");
-        alertMessageUI = this.alertMessageNodeScirpt.getComponent("alertMessagePanle");
+        let self = this;
+        actionUIScriptNode = self.actionNodeScript.getComponent("gameConfigButtonListAction");
+        alertMessageUI = self.alertMessageNodeScirpt.getComponent("alertMessagePanle");
+        userInfoScript = self.userInfoScriptNode.getComponent("tableUserInfo");
         messageDomain = require("messageDomain").messageDomain;
         Global.subid = 0;
         connect_callback = function (error) {
@@ -66,6 +69,7 @@ cc.Class({
                     cc.log(messageDomain.messageBody);
                     var userObj = JSON.parse(messageDomain.messageBody);
                     var userList = [];
+                    userObj.pointIndex = "3";
                     userList.push(userObj);
                     Global.userList = userList;
                     actionUIScriptNode.showGameTalbe("1");
@@ -77,17 +81,44 @@ cc.Class({
                        alertMessageUI.setTextOfPanel();
                    }*/
                 }
+
+                //intalUserInfoReadyIcon
+                if (messageDomain.messageAction == "userReadyStatuChange") {
+                    var Obj = JSON.parse(messageDomain.messageBody);
+                    if (Obj.messageExecuteFlag == "success") {
+                        var userList = Global.userList;
+                        var gameUserList = JSON.parse(Obj.messageExecuteResult);
+                        cc.log("%%%%%%Obj:" + Obj.messageExecuteResult);
+                        for (var j = 0; j < gameUserList.length; j++) {
+                            var gameUser = gameUserList[j];
+                            for (var i = 0; i < userList.length; i++) {
+                                var user = userList[i];
+                                if (user.openid == gameUser.openid) {
+                                    user.gameReadyStatu = gameUser.gameReadyStatu;
+                                }
+                            }
+                        }
+                        Global.userList = userList;
+                        cc.log("Global.userList:"+Global.userList.toString())
+                        userInfoScript.intalUserInfoReadyIcon();
+                    } else {
+                        alertMessageUI.text = Obj.messageExecuteResult;
+                        alertMessageUI.setTextOfPanel();
+                    }
+
+                };
                 //--------------------------------------------------
                 if (messageDomain.messageAction == "joinRoom") {
                     var Obj = JSON.parse(messageDomain.messageBody);
                     cc.log("%%%%%%Obj.messageExecuteFlag:" + Obj.messageExecuteFlag);
                     if (Obj.messageExecuteFlag == "success") {
+                        Global.joinRoomNumber = messageDomain.messageBelongsToPrivateChanleNumber;
                         var joinRoomJson = JSON.parse(Obj.messageExecuteResult);
-                        var gameUserList=JSON.parse(joinRoomJson.userList);
-                        var joinMode=JSON.parse(joinRoomJson.gameMode);
-                        if(joinMode!=null && joinMode !=undefined){
-                            Global.gameMode=joinMode;
-                              cc.log("joinMode:" + Global.gameMode.toString());
+                        var gameUserList = JSON.parse(joinRoomJson.userList);
+                        var joinMode = JSON.parse(joinRoomJson.gameMode);
+                        if (joinMode != null && joinMode != undefined) {
+                            Global.gameMode = joinMode;
+                            cc.log("joinMode:" + Global.gameMode.toString());
                         }
                         var existFlag = false;
 
@@ -104,22 +135,27 @@ cc.Class({
                         cc.log("userList 1:" + userList.toString());
                         Global.userList = userList;
                         //show game table
-                        actionUIScriptNode.showGameTalbe("0");
+                        if (Global.joinRoomNumber == Global.userInfo.roomNumber) {
+                            actionUIScriptNode.showGameTalbe("1");
+                        } else {
+                            actionUIScriptNode.showGameTalbe("0");
+                        }
+
                     } else {
                         alertMessageUI.text = Obj.messageExecuteResult;
                         alertMessageUI.setTextOfPanel();
                     }
                 }
                 //--------------------------------------------------
-                if (messageDomain.messageAction == "userReadyStatuChange") {
-                    if (messageDomain.messageBody.indexOf("success") >= 0) {
-                        var temp = messageDomain.messageBody.split(":");
-                        var openid = temp[1];
-                    } else {
-                        alertMessageUI.text = messageDomain.messageBody;
-                        alertMessageUI.setTextOfPanel();
-                    }
-                }
+                // if (messageDomain.messageAction == "userReadyStatuChange") {
+                //     if (messageDomain.messageBody.indexOf("success") >= 0) {
+                //         var temp = messageDomain.messageBody.split(":");
+                //         var openid = temp[1];
+                //     } else {
+                //         alertMessageUI.text = messageDomain.messageBody;
+                //         alertMessageUI.setTextOfPanel();
+                //     }
+                // }
             } else {
 
                 console.log("No found correct user info return from server ,please check .");
@@ -214,14 +250,24 @@ cc.Class({
     },
 
     //-------------------User ready action-------------------------------------------------
-    sendUserReadyToServer: function (readyStatu) {
+    sendUserReadyToServer: function (event) {
+        var node = event.target;
+        var readyStatu = "0";
+        cc.log("node:" + node.name);
+        var s = node.getComponent(cc.Sprite);
+        cc.log("s:" + s.spriteFrame.name);
+        if (s.spriteFrame.name == "26") {
+            readyStatu = "1";
+        } else {
+            readyStatu = "0";
+        }
         userInfo = Global.userInfo;
         var userOpenId = userInfo.openid;
         var joinRoomNumber = Global.joinRoomNumber;
         var o = new Object();
         o.userReadyStatu = readyStatu;
         o.openid = userOpenId;
-        var messageObj = this.buildSendMessage(reaJSON.stringify(o), joinRoomNumber, "userReadyStatuChange");
+        var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "userReadyStatuChange");
         this.sendMessageToServer(messageObj);
 
     },

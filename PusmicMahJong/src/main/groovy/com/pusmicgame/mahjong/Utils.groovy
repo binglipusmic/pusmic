@@ -1,5 +1,8 @@
 package com.pusmicgame.mahjong
 
+import com.pusmicgame.domain.GameModeJson
+import com.pusmicgame.game.GameMode
+
 /**
  * Created by prominic2 on 16/12/26.
  */
@@ -36,6 +39,33 @@ class Utils {
             target[key] = v
 
         }
+    }
+    def gameModeToJsonObject(GameMode gameMode, GameModeJson gameModeJson){
+
+        gameModeJson.ziMoJiaDi=gameMode.ziMoJiaDi
+        gameModeJson.ziMoJiaFan=gameMode.ziMoJiaFan
+        gameModeJson.ziMoHu=gameMode.ziMoHu
+        gameModeJson.dianPaoHu=gameMode.dianPaoHu
+        gameModeJson.huanSanZhang=gameMode.huanSanZhang
+        gameModeJson.dianGangHua_dianPao=gameMode.dianGangHua_dianPao
+        gameModeJson.dianGangHua_ziMo=gameMode.dianGangHua_ziMo
+        gameModeJson.dai19JiangDui=gameMode.dai19JiangDui
+        gameModeJson.mengQingZhongZhang=gameMode.mengQingZhongZhang
+        gameModeJson.tianDiHu=gameMode.tianDiHu
+        gameModeJson.fan2=gameMode.fan2
+        gameModeJson.fan3=gameMode.fan3
+        gameModeJson.fan4=gameMode.fan4
+        gameModeJson.fan6=gameMode.fan6
+        gameModeJson.roundCount4=gameMode.roundCount4
+        gameModeJson.roundCount8=gameMode.roundCount8
+        gameModeJson.gamePeopleNumber=gameMode.gamePeopleNumber
+
+        gameModeJson.publicIpLimit=gameMode.publicIpLimit
+
+        gameModeJson.gpsLimit=gameMode.gpsLimit
+
+        return gameModeJson
+
     }
 
     def copyObjectProperties(source, target) {

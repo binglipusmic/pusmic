@@ -82,7 +82,7 @@ cc.Class({
          var modeLable=this.gameModeLable.getComponent(cc.Label);
          var roomLable=this.gameRoomNUmber.getComponent(cc.Label);
          modeLable.string=modeStr;
-         roomLable.string="房间号:"+userInfo.roomNumber;
+         roomLable.string="房间号:"+Global.joinRoomNumber;
 
     },
 

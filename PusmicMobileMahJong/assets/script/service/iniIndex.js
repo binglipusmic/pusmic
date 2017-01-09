@@ -30,13 +30,13 @@ cc.Class({
         var url = "http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/46";
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
-              console.log("xhr readyState:" + xhr.readyState);
+            console.log("xhr readyState:" + xhr.readyState);
             if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
                 var response = xhr.responseText;
-            
+
                 console.log("xhr:" + response);
                 console.log("xhr responseType:" + xhr.responseType);
-                
+
             }
         };
         xhr.open("GET", url, true);
@@ -63,21 +63,28 @@ cc.Class({
                     for (var p in obj) {
                         userInfo[p] = obj[p]
                     }
-                    console.log("userInfo.nickname:" + userInfo.nickName);
-                    console.log("userInfo.headImageFileName:" + userInfo.headImageFileName);
-                    Global.userInfo = userInfo;
-                    //update the user public ip from url call
-                    //self.updateUserIP(userInfo.id);
-                    //
-                    //self.initalPrivateChanleForUser(userInfo.roomNumber);
+                    //************we must check user in here*******************************
+                    //NEED TO DO ********************
+                    
+                    if (Global.userInfo == null || Global.userInfo == undefined) {
 
-                    //user login success ,go to game main sence
-                    //cc.director.loadScene('table');
-                    client.disconnect();
-                    client = null;
-                    gameActionListGet.enterMainEntry("1");
-                    gameActionListGet.showUserNickNameAndCode();
-                    gameActionListGet.closeLoadingIcon();
+
+                        console.log("userInfo.nickname:" + userInfo.nickName);
+                        console.log("userInfo.headImageFileName:" + userInfo.headImageFileName);
+                        Global.userInfo = userInfo;
+                        //update the user public ip from url call
+                        //self.updateUserIP(userInfo.id);
+                        //
+                        //self.initalPrivateChanleForUser(userInfo.roomNumber);
+
+                        //user login success ,go to game main sence
+                        //cc.director.loadScene('table');
+                        client.disconnect();
+                        client = null;
+                        gameActionListGet.enterMainEntry("1");
+                        gameActionListGet.showUserNickNameAndCode();
+                        gameActionListGet.closeLoadingIcon();
+                    }
                 } else {
 
                     console.log("No found correct user info return from server ,please check .");

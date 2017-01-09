@@ -19,6 +19,8 @@ cc.Class({
         userInfo4: cc.Node,
         tableActionNode: cc.Node,
         tableNode: cc.Node,
+        userReadyIconOk: cc.SpriteFrame,
+        userReadyIconNotOk: cc.SpriteFrame,
     },
 
     // use this for initialization
@@ -27,6 +29,28 @@ cc.Class({
         this.userInfo2.active = false;
         this.userInfo3.active = false;
         this.userInfo4.active = false;
+
+    },
+    intalUserInfoReadyIcon: function () {
+
+        var userList = Global.userList;
+        for (var i = 0; i < userList.length; i++) {
+            var user = userList[i];
+            var userNodeName = "user" + user.pointIndex + "Node";
+            cc.log("userNodeName:"+userNodeName);
+            var userNode = cc.find(userNodeName, this.tableNode);
+            var userInfoNode = cc.find("userInfoNode", userNode);
+            //var userNickNameNode = cc.find("userNickNameBg", userInfoNode);
+            var userReadyiconNode = cc.find("userReadyNode", userInfoNode);
+            var userReadyBtnNode = cc.find("readyButton", userReadyiconNode);
+            var s = userReadyBtnNode.getComponent(cc.Sprite);
+             cc.log("user.gameReadyStatu:"+user.gameReadyStatu);
+            if (user.gameReadyStatu == "1") {
+                s.spriteFrame = this.userReadyIconOk;
+            } else {
+                s.spriteFrame = this.userReadyIconNotOk;
+            }
+        }
 
     },
 
@@ -52,7 +76,7 @@ cc.Class({
                 }
 
             }
-             cc.log("index:"+index);
+            cc.log("index:" + index);
             if (index == 0) {
                 if (gamePeople == "3") {
                     numberOrder = [3, 4, 2]
@@ -69,7 +93,7 @@ cc.Class({
                 if (gamePeople == "3") {
                     numberOrder = [2, 3, 4]
                 }
-                if (gamePeople == "4") {
+                if (gamePeople == "2") {
                     numberOrder = [1, 3]
                 }
 
@@ -99,9 +123,11 @@ cc.Class({
             // }
 
             //start fill the user info from index 
-            cc.log("numberOrder:"+numberOrder.toString());
+            cc.log("numberOrder:" + numberOrder.toString());
             for (var i = 0; i < userList.length; i++) {
                 var user = userList[i];
+                user.pointIndex = numberOrder[i];
+                userList[i] = user;
                 var userNodeName = "user" + numberOrder[i] + "Node";
                 //var testHeaImageurl = "http://wx.qlogo.cn/mmopen/Po9mkm3Z42tolYpxUVpY6mvCmqalibOpcJ2jG3Qza5qgtibO1NLFNUF7icwCibxPicbGmkoiciaqKEIdvvveIBfEQqal8vkiavHIeqFT/0";
                 var serverUrl = Global.hostHttpProtocol + "://" + Global.hostServerIp + ":" + Global.hostServerPort;
@@ -121,6 +147,8 @@ cc.Class({
                 userNickNameLable.string = user.nickName;
                 userNode.active = true;
             }
+            Global.userList = userList;
+            this.intalUserInfoReadyIcon();
 
         }
     }

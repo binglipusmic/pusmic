@@ -5,6 +5,7 @@ class GameRound {
     Date  endTime
     //GameMode gameMode
     Integer[] restPaiList
+    Integer[] gameingRestPaiList
     GameMode gameMode
     GameRoomNumber roomNumber
 
@@ -17,6 +18,7 @@ class GameRound {
         gameUser nullable: true
         restPaiList nullable: true
         endTime nullable: true
+        gameingRestPaiList  nullable: true
     }
 
     static mapping = {

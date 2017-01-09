@@ -27,6 +27,7 @@ import javax.swing.Spring
 import grails.async.*
 
 import com.pusmicgame.utils.CustomComparatorForGameUserPlatObj
+
 @Transactional
 class UserService {
 
@@ -51,7 +52,7 @@ class UserService {
                 if (onlineRoomNumber) {
                     GameRound gameRound = onlineRoomNumber.gameRound
                     if (gameRound) {
-                        def gameMode=gameRound.gameMode
+                        def gameMode = gameRound.gameMode
                         def gameUserList = gameRound.gameUser
                         def exist = false
                         GameUser gu = null
@@ -75,9 +76,9 @@ class UserService {
                             gu.gameRoundScore = 0
                             gu.gameScoreCount = 1000
                             gu.publicIp = onlineUser.publicIPAddress
-                            gu.headImageFileName=user.headImageFileName
-                            gu.joinRoundTime=new Date()
-                            gu.gameRound=gameRound
+                            gu.headImageFileName = user.headImageFileName
+                            gu.joinRoundTime = new Date()
+                            gu.gameRound = gameRound
                             gu.save(flush: true, failOnError: true)
                             gameRound.addToGameUser(gu)
                             gameRound.save(flush: true, failOnError: true)
@@ -105,28 +106,28 @@ class UserService {
                             outputUser.gameRoundScore = gameU.gameRoundScore
                             outputUser.gameScoreCount = gameU.gameScoreCount
                             outputUser.gameReadyStatu = gameU.gameReadyStatu
-                            outputUser.headImageFileName=gameU.headImageFileName
+                            outputUser.headImageFileName = gameU.headImageFileName
                             gameUserListArray.add(outputUser)
 
                         }
 
                         //gameUserListArray.s
                         actionMessageDomain.messageExecuteFlag = "success"
-                         Collections.sort(gameUserListArray, new CustomComparatorForGameUserPlatObj());
+                        Collections.sort(gameUserListArray, new CustomComparatorForGameUserPlatObj());
                         print "115"
                         def s = JsonOutput.toJson(gameUserListArray);
                         print "117"
-                        GameModeJson gmjson=new GameModeJson()
-                        gmjson=myUtil.copyObjectProperties(gameMode,gmjson)
+                        GameModeJson gmjson = new GameModeJson()
+                        gmjson = myUtil.gameModeToJsonObject(gameMode, gmjson)
                         def gmStr = JsonOutput.toJson(gmjson);
                         print "119"
-                        JoinRoom jr=new JoinRoom()
-                        jr.gameMode=gmStr
-                        jr.userList=s
+                        JoinRoom jr = new JoinRoom()
+                        jr.gameMode = gmStr
+                        jr.userList = s
                         s = JsonOutput.toJson(jr);
                         //s=myUtil.fixJsonStr(s)
                         actionMessageDomain.messageExecuteResult = s
-                        print "join s:"+s
+                        print "join s:" + s
                         //actionMessageDomain
                         //messageDomain.messageBody="success:"+openid
 
@@ -171,30 +172,133 @@ class UserService {
 
         return messageDomain
     }
+    /**
+     * Check the all user if already start
+     * @param messageDomain
+     */
+    def checkAllUserStatus(MessageDomain messageDomain){
+        def flag=false;
+        def readFlag=true;
+        def peopleGameModeNumber=0;
+        def roomNumber = messageDomain.messageBelongsToPrivateChanleNumber;
+        GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
+        GameRound gameRound = onlineRoomNumber.gameRound
+        if(gameRound){
+            def gameRoundLun=gameRound.gameRoundLun
+            if(gameRoundLun){
+                def gameMode=gameRoundLun.gameMode
+                if(gameMode){
+                    peopleGameModeNumber=gameMode.gamePeopleNumber
+                }
+            }
 
+            def gameUsersCount=gameRound.gameUser.size()+""
+            def gameUsers=gameRound.gameUser
+            if(peopleGameModeNumber+""==gameUsersCount){
+                flag=true;
+
+                gameUsers.each {gu->
+
+                    if(gu.gameReadyStatu!="1"){
+                        readFlag=false
+                    }
+
+                }
+            }
+        }
+
+        if(flag==true &&readFlag ==true ){
+            return true
+        }else{
+            return false
+        }
+    }
+
+    /**
+     * Change the user status
+     * @param messageDomain
+     * @return
+     */
     def changeUserStatus(MessageDomain messageDomain) {
+        //if all user already be ready ,it should be fapai
+        //otherwise ,it should be change the statu of user
         def obj = JSON.parse(messageDomain.messageBody)
-
+        ActionMessageDomain actionMessageDomain = new ActionMessageDomain()
+        def roomNumber = messageDomain.messageBelongsToPrivateChanleNumber;
+        println "changeUserStatus roomNumber:"+roomNumber
+        GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
+        GameRound gameRound = onlineRoomNumber.gameRound
         def userReadyStatu = obj.userReadyStatu
+        println "changeUserStatus userReadyStatu:"+userReadyStatu
         def openid = obj.openid
         if (openid) {
 
             SpringUser user = SpringUser.findByOpenid(openid)
             if (user) {
-                GameUser gu = GameUser.findBySpringUser(user)
+                GameUser gu =null
+                def gameUserList = gameRound.gameUser
+                gameUserList.each { gameU ->
+                    if( openid == gameU.springUser.openid){
+                        gu=gameU
+                    }
+                }
+
                 if (gu) {
                     gu.gameReadyStatu = userReadyStatu
+
                     gu.save(flush: true, failOnError: true)
-                    messageDomain.messageBody = "success:" + openid
+                    println ("changeUserStatus gu:"+gu.id)
+                    println ("changeUserStatus gu openid :"+gu.springUser.openid)
+                    println ("changeUserStatus gu gameReadyStatu:"+gu.gameReadyStatu)
+                    //messageDomain.messageBody = "success:" + openid
+
+
+
+
+
+                    def gameUserListArray = []
+                    gameUserList.each { gameU ->
+                        println ("changeUserStatus gameU id :"+gameU.id)
+                        println ("changeUserStatus gameU openid :"+gameU.springUser.openid)
+                        println ("changeUserStatus gameU gameReadyStatu:"+gameU.gameReadyStatu)
+                        GameUserPlatObj outputUser = new GameUserPlatObj()
+
+                        outputUser.openid = gameU.springUser.openid
+
+                        outputUser.gameReadyStatu = gameU.gameReadyStatu
+
+                        gameUserListArray.add(outputUser)
+
+                    }
+
+
+
+                    Collections.sort(gameUserListArray, new CustomComparatorForGameUserPlatObj());
+                    def s = JsonOutput.toJson(gameUserListArray);
+
+                    actionMessageDomain.messageExecuteFlag = "success"
+                    actionMessageDomain.messageExecuteResult = s
+
                 } else {
-                    messageDomain.messageBody = "no found game user"
+
+                    actionMessageDomain.messageExecuteFlag = "fail"
+                    actionMessageDomain.messageExecuteResult = "no found game user"
+
                 }
             } else {
-                messageDomain.messageBody = "no found spring user"
+                actionMessageDomain.messageExecuteFlag = "fail"
+                actionMessageDomain.messageExecuteResult = "no found spring user"
             }
         } else {
-            messageDomain.messageBody = "openid is invaid"
+            actionMessageDomain.messageExecuteFlag = "fail"
+            actionMessageDomain.messageExecuteResult = "openid is invaid"
+
         }
+
+
+        def s2 = JsonOutput.toJson(actionMessageDomain)
+        println "changeUserStatus:"+s2
+        messageDomain.messageBody = s2
 
         return messageDomain
     }
@@ -221,7 +325,7 @@ class UserService {
     def getUserInfoFromSpringUserByCode(String userCode, def publicIp) {
         def s
         def findFlag = false;
-        def userOpenid=""
+        def userOpenid = ""
         // def session = RequestContextHolder.currentRequestAttributes().getSession()
         if (userCode.equalsIgnoreCase("test")) {
 
@@ -262,9 +366,9 @@ class UserService {
             userLoginInfo.loginTime = new Date()
             //userLoginInfo.save(flush: true, failOnError: true)
 
-            def url="http://wx.qlogo.cn/mmopen/Po9mkm3Z42tolYpxUVpY6mvCmqalibOpcJ2jG3Qza5qgtibO1NLFNUF7icwCibxPicbGmkoiciaqKEIdvvveIBfEQqal8vkiavHIeqFT/96"
-            userOpenid=noOnlineUser.openid
-            if(!noOnlineUser.headImageFileName) {
+            def url = "http://wx.qlogo.cn/mmopen/Po9mkm3Z42tolYpxUVpY6mvCmqalibOpcJ2jG3Qza5qgtibO1NLFNUF7icwCibxPicbGmkoiciaqKEIdvvveIBfEQqal8vkiavHIeqFT/96"
+            userOpenid = noOnlineUser.openid
+            if (!noOnlineUser.headImageFileName) {
                 def headImageName = getHeadImage(url, userOpenid)
                 if (headImageName) {
                     noOnlineUser.headImageFileName = headImageName
@@ -293,10 +397,10 @@ class UserService {
             userInfo.userCode = onlineUser.springUser.userCode
             userInfo.userType = onlineUser.springUser.userType
             userInfo.roomNumber = onlineUser.roomNumber
-            if(noOnlineUser.headImageFileName){
-                userInfo.headImageFileName=noOnlineUser.headImageFileName
-            }else{
-                userInfo.headImageFileName=""
+            if (noOnlineUser.headImageFileName) {
+                userInfo.headImageFileName = noOnlineUser.headImageFileName
+            } else {
+                userInfo.headImageFileName = ""
             }
 
 
@@ -335,24 +439,24 @@ class UserService {
         return randomNumber;
     }
 
-    def getHeadImage(def url,def userOpenId){
+    def getHeadImage(def url, def userOpenId) {
         //1.first check the img if exist or not exist
-        def fileImageName="";
-        def fileExistFlag=false;
-        def testfileName="src/main/webapp/webchatImage/"+userOpenId+".jpg"
-        File testf=new File(testfileName)
-        if(testf.exists()){
-            fileExistFlag=true;
-            fileImageName=userOpenId+".jpg"
+        def fileImageName = "";
+        def fileExistFlag = false;
+        def testfileName = "src/main/webapp/webchatImage/" + userOpenId + ".jpg"
+        File testf = new File(testfileName)
+        if (testf.exists()) {
+            fileExistFlag = true;
+            fileImageName = userOpenId + ".jpg"
         }
 
-        testfileName="src/main/webapp/webchatImage/"+userOpenId+".png"
-        testf=new File(testfileName)
-        if(testf.exists()){
-            fileExistFlag=true;
-            fileImageName=userOpenId+".png";
+        testfileName = "src/main/webapp/webchatImage/" + userOpenId + ".png"
+        testf = new File(testfileName)
+        if (testf.exists()) {
+            fileExistFlag = true;
+            fileImageName = userOpenId + ".png";
         }
-        if(!fileExistFlag) {
+        if (!fileExistFlag) {
             URL url2 = new URL(url);
             URLConnection conn = url2.openConnection();
             //def imageType=resp.getHeader("Content-Type")
@@ -362,8 +466,8 @@ class UserService {
             if (imageType.equals("jpeg")) {
                 imageType = "jpg"
             }
-            fileImageName= userOpenId + "." + imageType
-            def fileName = "src/main/webapp/webchatImage/" +fileImageName
+            fileImageName = userOpenId + "." + imageType
+            def fileName = "src/main/webapp/webchatImage/" + fileImageName
             File f = new File(fileName)
             if (f.exists()) {
                 f.delete()
@@ -383,17 +487,17 @@ class UserService {
             // fos.write(buffer)
             //resp.inputStream.close()
             fos.close();
-        }else{
+        } else {
 
         }
 
         return fileImageName
         //def http = new HTTPBuilder( urlAuthPage )
-       /* AsyncHttpBuilder client = new AsyncHttpBuilder()
-        Promise<HttpClientResponse> p = client.get(url)
-        p.onComplete { HttpClientResponse resp ->
+        /* AsyncHttpBuilder client = new AsyncHttpBuilder()
+         Promise<HttpClientResponse> p = client.get(url)
+         p.onComplete { HttpClientResponse resp ->
 
-        }*/
+         }*/
     }
 
 }

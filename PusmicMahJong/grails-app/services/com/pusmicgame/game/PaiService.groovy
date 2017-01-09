@@ -1,6 +1,10 @@
 package com.pusmicgame.game
 
+import com.pusmicgame.domain.GameUserPlatObj
+import com.pusmicgame.domain.MessageDomain
+import com.pusmicgame.utils.CustomComparatorForGameUserPlatObj
 import grails.transaction.Transactional
+import groovy.json.JsonOutput
 
 @Transactional
 class PaiService {
@@ -46,7 +50,66 @@ class PaiService {
 
     }
 
-    def faPai(def userList,def paiList){
+    def faPai(MessageDomain messageDomain){
+
+        def roomNumber = messageDomain.messageBelongsToPrivateChanleNumber;
+        GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
+        GameRound gameRound = onlineRoomNumber.gameRound
+        if(gameRound) {
+            def gameUserList=gameRound.gameUser
+            if(gameUserList){
+                def gameUserListArray = []
+                //xipai
+                Integer[] paiList=xiPai()
+                def index=1
+                gameUserList.each { gameU ->
+
+                    GameUserPlatObj outputUser = new GameUserPlatObj()
+
+                    outputUser.openid = gameU.springUser.openid
+
+                    def list=getUserPaiList(paiList,index)
+                    def userPaiList=list[1]
+                    paiList=list[0]
+
+                    outputUser.paiList =userPaiList.toString()
+                    gameU.paiList=userPaiList.toString()
+                    gameU.save(flush: true, failOnError: true)
+                    gameUserListArray.add(outputUser)
+                    index++
+
+                }
+                //save the rest pai to game round
+                gameRound.restPaiList=paiList
+                gameRound.save(flush: true, failOnError: true)
+                Collections.sort(gameUserListArray, new CustomComparatorForGameUserPlatObj());
+                def s = JsonOutput.toJson(gameUserListArray);
+            }
+        }
+    }
+
+
+    def getUserPaiList( Integer[] paiList,def index){
+        def returnList=[]
+        def userPaiList=[]
+        def count=0
+        if(index==1){
+            count=14
+        }else{
+            count=13
+        }
+
+        for(int i=0;i<count;i++){
+
+            userPaiList.push(paiList.last())
+            paiList.remove(paiList.size())
+
+        }
+
+        returnList.add(paiList)
+        returnList.add(userPaiList)
+
+        return returnList
 
     }
 }

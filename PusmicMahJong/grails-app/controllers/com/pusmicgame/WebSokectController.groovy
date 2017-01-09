@@ -38,6 +38,7 @@ class WebSokectController {
                     websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)*/
                 } else if (gameRoundService.getPopeleCountForJoinRoom(messageJsonObj).equals("=")) {
                     //start fapai
+                    messageJsonObj = userService.joinRoom(messageJsonObj)
                 } else {
                     //>
 
@@ -54,6 +55,11 @@ class WebSokectController {
             messageJsonObj=userService.changeUserStatus(messageJsonObj)
             def s = new JsonBuilder(messageJsonObj).toPrettyString()
             websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s)
+            //check the all user if all already done
+            def faPaiFlag= userService.checkAllUserStatus(messageJsonObj)
+            if(faPaiFlag){
+
+            }
         }
         if(messageJsonObj.messageAction.equals("closeGameRoundLun")){
             gameRoundLunService.closeGameRoundLun(messageJsonObj)
