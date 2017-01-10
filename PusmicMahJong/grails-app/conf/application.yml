@@ -18,7 +18,13 @@ spring:
         template:
             check-template-location: false
     session:
-      store-type: none
+      store-type: jdbc
+      jdbc:
+        table-name: SESSIONS
+    redis:
+       host: localhost
+       password: secret
+       port: 6397
 
 # Spring Actuator Endpoints are Disabled by Default
 endpoints:

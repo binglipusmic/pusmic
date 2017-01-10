@@ -9,17 +9,23 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor
 import org.springframework.messaging.simp.SimpMessagingTemplate
 import org.springframework.messaging.simp.config.ChannelRegistration
 import org.springframework.messaging.simp.config.MessageBrokerRegistry
+import org.springframework.messaging.simp.stomp.StompCommand
+import org.springframework.messaging.simp.stomp.StompHeaderAccessor
+import org.springframework.messaging.support.MessageHeaderAccessor
+import org.springframework.session.ExpiringSession
 import org.springframework.session.Session
+import org.springframework.session.web.socket.config.annotation.AbstractSessionWebSocketMessageBrokerConfigurer
 import org.springframework.web.socket.config.annotation.AbstractWebSocketMessageBrokerConfigurer
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry
 import org.springframework.messaging.support.ChannelInterceptorAdapter
+import org.springframework.web.socket.server.standard.ServletServerContainerFactoryBean
 
 import javax.websocket.OnOpen
 
 @Configuration
 @EnableWebSocketMessageBroker
-class WebSokecConfig extends AbstractWebSocketMessageBrokerConfigurer {
+class WebSokecConfig extends AbstractSessionWebSocketMessageBrokerConfigurer<ExpiringSession> {
    def SESSION_ATTR="session"
 	def PUBLICIP_ATTR="remoteIpAddress"
 	@OnOpen
@@ -34,7 +40,7 @@ class WebSokecConfig extends AbstractWebSocketMessageBrokerConfigurer {
 	}
 
 	@Override
-	void registerStompEndpoints(StompEndpointRegistry stompEndpointRegistry) {
+	void configureStompEndpoints(StompEndpointRegistry stompEndpointRegistry) {
 		stompEndpointRegistry.addEndpoint("/stomp").setAllowedOrigins("*").withSockJS()
 				.setInterceptors(new HttpSessionIdHandshakeInterceptor());
 	}
@@ -56,9 +62,23 @@ class WebSokecConfig extends AbstractWebSocketMessageBrokerConfigurer {
 		return new ChannelInterceptorAdapter() {
 			@Override
 			public Message<?> preSend(Message<?> message, MessageChannel channel) {
-				Map<String, Object> sessionHeaders = SimpMessageHeaderAccessor.getSessionAttributes(message.getHeaders());
 
-				String sessionId = (String) sessionHeaders.get(SESSION_ATTR);
+				StompHeaderAccessor accessor =
+						MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
+				if (StompCommand.CONNECT.equals(accessor.getCommand())) {
+					//accessor.setHeader()
+
+				}
+				Map<String, Object> sessionHeaders = SimpMessageHeaderAccessor.getSessionAttributes(message.getHeaders());
+                String sessionId = (String) sessionHeaders.get(SESSION_ATTR);
+                if (sessionId != null) {
+                    Session session = sessionRepository.getSession(sessionId);
+                    if (session != null) {
+
+                        sessionRepository.save(session);
+                    }
+                }
+
                 String publicIp = (String) sessionHeaders.get(PUBLICIP_ATTR);
                 //message.headers.put(PUBLICIP_ATTR,publicIp);
                 println "ChannelInterceptorAdapter message getHeaders:"+message.getHeaders()
@@ -72,6 +92,17 @@ class WebSokecConfig extends AbstractWebSocketMessageBrokerConfigurer {
 				return super.preSend(message, channel);
 			}
 		};
+	}
+
+
+
+
+	@Bean
+	public ServletServerContainerFactoryBean createWebSocketContainer() {
+		ServletServerContainerFactoryBean container = new ServletServerContainerFactoryBean();
+		container.setMaxTextMessageBufferSize(8192);
+		container.setMaxBinaryMessageBufferSize(8192);
+		return container;
 	}
 
 

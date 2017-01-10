@@ -27,6 +27,7 @@ cc.Class({
     onLoad: function () {
 
         //webchat head img test-------------------------------
+        /*
         var url = "http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/46";
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
@@ -40,7 +41,7 @@ cc.Class({
             }
         };
         xhr.open("GET", url, true);
-        xhr.send();
+        xhr.send();*/
         //----------------------------------------------------
         gameActionListGet = this.gameActionList.getComponent("gameConfigButtonListAction");
         onlineCheckUser = this.checkOnlineUser.getComponent("onlineUserCheck");
