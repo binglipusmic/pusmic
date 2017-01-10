@@ -3,6 +3,8 @@ package com.pusmicgame.mahjong
 import grails.plugin.springwebsocket.GrailsSimpAnnotationMethodMessageHandler
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.core.Ordered
+import org.springframework.core.annotation.Order
 import org.springframework.messaging.Message
 import org.springframework.messaging.MessageChannel
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor
@@ -70,14 +72,13 @@ class WebSokecConfig extends AbstractSessionWebSocketMessageBrokerConfigurer<Exp
 
 				}
 				Map<String, Object> sessionHeaders = SimpMessageHeaderAccessor.getSessionAttributes(message.getHeaders());
-                String sessionId = (String) sessionHeaders.get(SESSION_ATTR);
-                if (sessionId != null) {
-                    Session session = sessionRepository.getSession(sessionId);
-                    if (session != null) {
+                sessionHeaders.each {k,v->
 
-                        sessionRepository.save(session);
-                    }
+                    println("sessionHeaders:"+k+"------"+v);
+
                 }
+                String sessionId = (String) sessionHeaders.get(SESSION_ATTR);
+
 
                 String publicIp = (String) sessionHeaders.get(PUBLICIP_ATTR);
                 //message.headers.put(PUBLICIP_ATTR,publicIp);

@@ -18,7 +18,7 @@ spring:
         template:
             check-template-location: false
     session:
-      store-type: jdbc
+      store-type: hash_map
       jdbc:
         table-name: SESSIONS
     redis:

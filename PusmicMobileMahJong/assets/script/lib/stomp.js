@@ -283,6 +283,10 @@
               case "CONNECTED":
                 if (typeof _this.debug === "function") {
                   _this.debug("connected to server " + frame.headers.server);
+                   _this.debug("headers:" + frame.headers.toString());
+                    for ( var p in frame.headers ){ 
+                      _this.debug(p+"---"+ frame.headers[p]);
+                    }
                 }
                 _this.connected = true;
                 _this._setupHeartbeat(frame.headers);

@@ -26,9 +26,10 @@ class HttpSessionIdHandshakeInterceptor implements HandshakeInterceptor{
         if (request instanceof ServletServerHttpRequest) {
 
             def session=getSession()
+            //println "HttpSessionIdHandshakeInterceptor:::"+request.getServletRequest().getUserPrincipal().name
             request.getHeaders().each{k,v->
 
-                println "${k}-----${v}"
+                println "31:${k}-----${v}"
 
             }
             def ip=myUtils.fixTheWebsokectRemoteIp(request.getRemoteAddress().toString())
