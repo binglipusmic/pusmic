@@ -155,6 +155,7 @@ class GameRoundLunService {
             gu.gameScoreCount=1000
             gu.publicIp=onlineUser.publicIPAddress
             gu.joinRoundTime=new Date()
+            gu.zhuang="1"
             gu.save(flush: true, failOnError: true)
             //println "line 133:"
             gameRound.addToGameUser(gu)

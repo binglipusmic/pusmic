@@ -70,6 +70,7 @@ cc.Class({
                     var userObj = JSON.parse(messageDomain.messageBody);
                     var userList = [];
                     userObj.pointIndex = "3";
+                    userObj.zhuang="1";
                     userList.push(userObj);
                     Global.userList = userList;
                     actionUIScriptNode.showGameTalbe("1");

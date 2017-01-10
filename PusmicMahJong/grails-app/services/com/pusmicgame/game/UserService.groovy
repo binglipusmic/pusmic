@@ -10,21 +10,12 @@ import com.pusmicgame.domain.JoinRoom
 import com.pusmicgame.domain.MessageDomain
 import com.pusmicgame.domain.UserInfo
 import com.pusmicgame.mahjong.Utils
-import grails.http.client.AsyncHttpBuilder
-import grails.http.client.HttpClientResponse
+
 import grails.transaction.Transactional
 import grails.converters.JSON
 import groovy.json.JsonBuilder
 import groovy.json.JsonOutput
-import io.netty.handler.codec.http.HttpResponse
-import org.apache.commons.lang.StringEscapeUtils
-import org.grails.web.util.WebUtils
-import org.springframework.web.context.request.RequestContextHolder
-import sun.net.www.http.HttpClient
 
-import javax.swing.Spring
-
-import grails.async.*
 
 import com.pusmicgame.utils.CustomComparatorForGameUserPlatObj
 
@@ -368,12 +359,12 @@ class UserService {
 
             def url = "http://wx.qlogo.cn/mmopen/Po9mkm3Z42tolYpxUVpY6mvCmqalibOpcJ2jG3Qza5qgtibO1NLFNUF7icwCibxPicbGmkoiciaqKEIdvvveIBfEQqal8vkiavHIeqFT/96"
             userOpenid = noOnlineUser.openid
-            if (!noOnlineUser.headImageFileName) {
+            //if (!noOnlineUser.headImageFileName) {
                 def headImageName = getHeadImage(url, userOpenid)
                 if (headImageName) {
                     noOnlineUser.headImageFileName = headImageName
                 }
-            }
+            //}
 
             noOnlineUser.addToLoginUserInfo(userLoginInfo)
             noOnlineUser.save(flush: true, failOnError: true)
@@ -473,8 +464,10 @@ class UserService {
                 f.delete()
             }
 
-            //InputStream is = url2.openStream();
-            InputStream is = conn.inputStream
+            InputStream is = url2.openStream();
+            println "conn.inputStream:"+conn.inputStream.bytes.length
+            println  "fileName:"+fileName
+            //InputStream is = conn.inputStream
             FileOutputStream fos = new FileOutputStream(new File(fileName))
 
             byte[] b = new byte[2048];

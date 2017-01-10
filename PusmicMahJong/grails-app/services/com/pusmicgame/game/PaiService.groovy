@@ -49,6 +49,11 @@ class PaiService {
         return paiList
 
     }
+    def faPai(){
+        MessageDomain m=new MessageDomain()
+        m.messageBelongsToPrivateChanleNumber="481403"
+        faPai(m)
+    }
 
     def faPai(MessageDomain messageDomain){
 
@@ -73,7 +78,8 @@ class PaiService {
                     paiList=list[0]
 
                     outputUser.paiList =userPaiList.toString()
-                    gameU.paiList=userPaiList.toString()
+                    gameU.paiList=userPaiList
+
                     gameU.save(flush: true, failOnError: true)
                     gameUserListArray.add(outputUser)
                     index++
@@ -81,6 +87,7 @@ class PaiService {
                 }
                 //save the rest pai to game round
                 gameRound.restPaiList=paiList
+                gameRound.gameingRestPaiList=paiList
                 gameRound.save(flush: true, failOnError: true)
                 Collections.sort(gameUserListArray, new CustomComparatorForGameUserPlatObj());
                 def s = JsonOutput.toJson(gameUserListArray);
@@ -102,7 +109,7 @@ class PaiService {
         for(int i=0;i<count;i++){
 
             userPaiList.push(paiList.last())
-            paiList.remove(paiList.size())
+            paiList=removeLastElement(paiList)
 
         }
 
@@ -110,6 +117,18 @@ class PaiService {
         returnList.add(userPaiList)
 
         return returnList
+
+    }
+
+
+    private removeLastElement(Integer[] paiList){
+        def rList=[]
+
+        for(int i=0;i<paiList.length-1;i++){
+            rList.add(paiList[i])
+        }
+
+        return rList
 
     }
 }

@@ -12,6 +12,7 @@ class UserController {
     def PUBLICIP_ATTR="remoteIpAddress"
     //def session
     def userService
+    def paiService
     def index() {
         session.getAttribute()
     }
@@ -26,5 +27,34 @@ class UserController {
         def s=userService.getUserInfoFromSpringUserByCode(code,publicIp)
         println "user info::"+s
         return s
+    }
+
+
+    def testFaPai(){
+        def paiList=paiService.xiPai()
+
+        def rList=paiService.getUserPaiList(paiList,1)
+        println "user1:"
+        println "paiRest:"+rList[0].toString()
+        println "userPai:"+rList[1].toString()
+        paiList=rList[0]
+
+       rList=paiService.getUserPaiList(paiList,2)
+        println "user2:"
+        println "paiRest:"+rList[0].toString()
+        println "userPai:"+rList[1].toString()
+        paiList=rList[0]
+
+        rList=paiService.getUserPaiList(paiList,2)
+        println "user3:"
+        println "paiRest:"+rList[0].toString()
+        println "userPai:"+rList[1].toString()
+        paiList=rList[0]
+
+        rList=paiService.getUserPaiList(paiList,2)
+        println "user4:"
+        println "paiRest:"+rList[0].toString()
+        println "userPai:"+rList[1].toString()
+        paiList=rList[0]
     }
 }

@@ -11,6 +11,7 @@ class GameUser {
     String gameReadyStatu
     String publicIp
     String headImageFileName
+    String zhuang
     Date  joinRoundTime
     static belongsTo = [gameRound:GameRound]
     static constraints = {
@@ -21,5 +22,6 @@ class GameUser {
         headImageFileName nullable: true
         joinRoundTime   nullable: true
         gameRound  nullable: true
+        zhuang nullable: true
     }
 }

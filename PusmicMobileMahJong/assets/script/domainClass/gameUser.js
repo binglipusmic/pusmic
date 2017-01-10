@@ -15,6 +15,7 @@ const gameUser =
       gameScoreCount:"",
       pointIndex:"",
       headImageFileName:"",
+      zhuang:"",
       //gameingStatu:"",
     }
 module.exports = {

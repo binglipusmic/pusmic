@@ -21,6 +21,13 @@ cc.Class({
         tableNode: cc.Node,
         userReadyIconOk: cc.SpriteFrame,
         userReadyIconNotOk: cc.SpriteFrame,
+        tableGameMode: cc.Node,
+        tableHead: cc.Node,
+
+        user1ReadNode: cc.Node,
+        user2ReadNode: cc.Node,
+        user3ReadNode: cc.Node,
+        user4ReadNode: cc.Node,
     },
 
     // use this for initialization
@@ -30,6 +37,28 @@ cc.Class({
         this.userInfo3.active = false;
         this.userInfo4.active = false;
 
+        this.initalUserPai();
+
+    },
+    testInitalUserList:function(){
+
+    },
+    initalUserPai: function () {
+        //hide game mode
+        this.tableGameMode.active = false;
+        this.tableHead.active = true;
+        //hide user ready icon
+        this.user1ReadNode.active=false;
+        this.user2ReadNode.active=false;
+        this.user3ReadNode.active=false;
+        this.user4ReadNode.active=false;
+        //fix user point
+          var userList = Global.userList;
+        for (var i = 0; i < userList.length; i++) {
+            var user = userList[i];
+        }
+
+
     },
     intalUserInfoReadyIcon: function () {
 
@@ -37,14 +66,14 @@ cc.Class({
         for (var i = 0; i < userList.length; i++) {
             var user = userList[i];
             var userNodeName = "user" + user.pointIndex + "Node";
-            cc.log("userNodeName:"+userNodeName);
+            cc.log("userNodeName:" + userNodeName);
             var userNode = cc.find(userNodeName, this.tableNode);
             var userInfoNode = cc.find("userInfoNode", userNode);
             //var userNickNameNode = cc.find("userNickNameBg", userInfoNode);
             var userReadyiconNode = cc.find("userReadyNode", userInfoNode);
             var userReadyBtnNode = cc.find("readyButton", userReadyiconNode);
             var s = userReadyBtnNode.getComponent(cc.Sprite);
-             cc.log("user.gameReadyStatu:"+user.gameReadyStatu);
+            cc.log("user.gameReadyStatu:" + user.gameReadyStatu);
             if (user.gameReadyStatu == "1") {
                 s.spriteFrame = this.userReadyIconOk;
             } else {
