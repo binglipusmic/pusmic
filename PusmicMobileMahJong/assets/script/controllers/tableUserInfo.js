@@ -28,6 +28,7 @@ cc.Class({
         user2ReadNode: cc.Node,
         user3ReadNode: cc.Node,
         user4ReadNode: cc.Node,
+        tableTitleNode: cc.Node,
     },
 
     // use this for initialization
@@ -40,25 +41,91 @@ cc.Class({
         this.initalUserPai();
 
     },
-    testInitalUserList:function(){
+    //this function only inital a gaobal user list for test 
+    testInitalUserList: function () {
+        var paiList = ["36, 39, 27, 18, 31, 11, 17, 24, 22, 29, 37, 14, 32, 23",
+            "18, 29, 26, 28, 22, 19, 21, 18, 22, 34, 18, 17, 37",
+            "38, 24, 14, 11, 12, 15, 14, 39, 26, 21, 29, 38, 23",
+            "35, 36, 19, 25, 34, 37, 16, 19, 11, 16, 35, 15, 12",
+        ];
+        var userList = [];
+        for (var i = 0; i < 5; i++) {
+            var o = new Object();
+            o.id = i;
+            o.nickName = "testUser" + i;
+            o.headImageFileName = "testUser" + i + ".jpg";
+            o.diamondsNumber = "30";
+            o.country = "CN";
+            o.openid = "testUser" + i;
+            o.unionid = "testUser" + i;
+            o.userCode = "testUser" + i;
+            o.publicIp = "127.0.0.1";
+            o.paiList = paiList[i];
+            o.gameReadyStatu = "1";
+            o.gameScoreCount = "1";
+            o.pointIndex = i + 1;
+            o.headImageFileName = "1";
+            if (i == 0) {
+                o.zhuang = "1";
+            } else {
+                o.zhuang = "0";
+            }
+
+            userList.push(o);
+
+        }
+
+        Global.userList = userList;
 
     },
     initalUserPai: function () {
+        //inital the test data
+        this.testInitalUserList();
         //hide game mode
         this.tableGameMode.active = false;
         this.tableHead.active = true;
+
         //hide user ready icon
-        this.user1ReadNode.active=false;
-        this.user2ReadNode.active=false;
-        this.user3ReadNode.active=false;
-        this.user4ReadNode.active=false;
+        this.user1ReadNode.active = false;
+        this.user2ReadNode.active = false;
+        this.user3ReadNode.active = false;
+        this.user4ReadNode.active = false;
+        //hide title
+        this.tableTitleNode.active = false;
         //fix user point
-          var userList = Global.userList;
-        for (var i = 0; i < userList.length; i++) {
+        var userList = Global.userList;
+        for (var i = 0; i < userList.length - 1; i++) {
             var user = userList[i];
+            //show current user node
+            if (user.pointIndex != null && user.pointIndex != undefined) {
+                cc.log(user.pointIndex);
+                if (user.pointIndex != "3") {
+                    eval("this.userInfo" + user.pointIndex + ".active = true");
+                    this.fixUserPointByIndex(user.pointIndex);
+                }
+
+                //fix user point
+
+            }
         }
 
 
+    },
+    fixUserPointByIndex: function (index) {
+        if (index == "1") {
+            var widget = this.userInfo1.getComponent(cc.Widget);
+            widget.top = 10;
+
+        }
+        if (index == "2") {
+            var widget = this.userInfo2.getComponent(cc.Widget);
+            widget.left = 60;
+        }
+
+        if (index == "4") {
+            var widget = this.userInfo4.getComponent(cc.Widget);
+            widget.right = 60;
+        }
     },
     intalUserInfoReadyIcon: function () {
 
