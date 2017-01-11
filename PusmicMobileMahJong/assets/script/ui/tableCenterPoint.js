@@ -19,6 +19,10 @@ cc.Class({
         user2Point: cc.Node,
         user3Point: cc.Node,
         user4Point: cc.Node,
+        user1Quepai: cc.Node,
+        user2Quepai: cc.Node,
+        user3Quepai: cc.Node,
+        user4Quepai: cc.Node,
         index: String,
         tenPoint: cc.Node,
         numPoint: cc.Node,
@@ -31,6 +35,7 @@ cc.Class({
         self.hideAllPoint();
         timeCount = 30;
         this.initalCenterNum();
+        this.hideAllQuePai();
         timerUpate = function () {
 
 
@@ -73,7 +78,7 @@ cc.Class({
 
     },
     initalCenterNum: function () {
-        let self=this;
+        let self = this;
         var ten = -1;
         var num = -1;
         if ((timeCount + "").length < 2) {
@@ -96,6 +101,13 @@ cc.Class({
 
         tenScript.spriteFrame = self.numberSprite[ten];
         numScript.spriteFrame = self.numberSprite[num];
+    },
+
+    hideAllQuePai: function () {
+        this.user1Quepai.active=false;
+        this.user2Quepai.active=false;
+        this.user3Quepai.active=false;
+        this.user4Quepai.active=false;
     },
 
     hideAllPoint: function () {

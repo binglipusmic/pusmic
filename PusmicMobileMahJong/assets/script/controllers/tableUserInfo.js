@@ -29,6 +29,11 @@ cc.Class({
         user3ReadNode: cc.Node,
         user4ReadNode: cc.Node,
         tableTitleNode: cc.Node,
+
+        user3PaiListNode: cc.Node,
+        liPaiPrefab: cc.Prefab,
+
+        liPaiZiMian: [cc.SpriteFrame],
     },
 
     // use this for initialization
@@ -99,18 +104,53 @@ cc.Class({
             //show current user node
             if (user.pointIndex != null && user.pointIndex != undefined) {
                 cc.log(user.pointIndex);
+                //fix user point
                 if (user.pointIndex != "3") {
                     eval("this.userInfo" + user.pointIndex + ".active = true");
                     this.fixUserPointByIndex(user.pointIndex);
+
                 }
 
-                //fix user point
+                var paiList = user.paiList;
+                if (paiList != null && paiList != undefined) {
+                    if (user.pointIndex != "3") {
+                        //inital self pai
+                        this.intalSelfPaiList(paiList);
+                    } else {
+                        //intal other user pai
+                    }
+
+                }
+
+
 
             }
         }
 
 
     },
+
+
+    intalSelfPaiList: function (paiList) {
+
+        var paiArray = paiList.split(",");
+        for (var i = 0; i < paiArray.length; i++) {
+            if (paiArray[i] != null && paiArray[i] != undefined) {
+                var paiNode = cc.instantiate(this.liPaiPrefab);
+                var sprite = paiNode.getComponent(cc.Sprite);
+                cc.loader.load('/image/table/pai/lipai/tiao/1t', function (err, texture) {
+                    var frame = new cc.SpriteFrame(texture);
+                    sprite.spriteFrame = frame;
+                });
+
+                
+                this.user3PaiListNode.addChild(paiNode);
+                paiNode.position = cc.p(i*100, 0);
+            }
+        }
+
+    },
+
     fixUserPointByIndex: function (index) {
         if (index == "1") {
             var widget = this.userInfo1.getComponent(cc.Widget);
