@@ -133,21 +133,57 @@ cc.Class({
 
     intalSelfPaiList: function (paiList) {
 
+        var startPoint = -600;
         var paiArray = paiList.split(",");
         for (var i = 0; i < paiArray.length; i++) {
             if (paiArray[i] != null && paiArray[i] != undefined) {
                 var paiNode = cc.instantiate(this.liPaiPrefab);
                 var sprite = paiNode.getComponent(cc.Sprite);
-                cc.loader.load('/image/table/pai/lipai/tiao/1t', function (err, texture) {
+                //var imageUrl = "/img/9t";
+                var imageUrl = this.getCorrectNameOnSelfPai(paiArray[i]);
+                cc.log("img3:" + imageUrl);
+
+                cc.loader.load(imageUrl, function (err, texture) {
+                    if (err) {
+                        cc.error(err.message || err);
+                        return;
+                    }
                     var frame = new cc.SpriteFrame(texture);
                     sprite.spriteFrame = frame;
                 });
 
-                
+
                 this.user3PaiListNode.addChild(paiNode);
-                paiNode.position = cc.p(i*100, 0);
+                paiNode.position = cc.p(startPoint + i * 80, 0);
             }
         }
+
+    },
+
+    getCorrectNameOnSelfPai: function (pai) {
+        pai = (pai + "").trim()
+        cc.log("img1:" + pai + "--" + pai.length);
+        var type = (pai + "").substring(0, 1);
+        var paiNum = (pai + "").substring(1);
+        var prefix = ""
+        var path = ""
+
+        if (type == "1") {
+            path = "image/table/pai/lipai/tong/";
+            prefix = "b";
+        }
+        if (type == "2") {
+            path = "image/table/pai/lipai/tiao/";
+            prefix = "t";
+        }
+        if (type == "3") {
+            path = "image/table/pai/lipai/wan/";
+            prefix = "w";
+        }
+
+        var img = path + paiNum + prefix;
+        cc.log("img2:" + img);
+        return img;
 
     },
 
