@@ -27,6 +27,15 @@ cc.Class({
 
 
 /**
+ * 动态加载图片后释放
+ * 
+ * var spriteFrame = node.getComponent(cc.Sprite).spriteFrame;
+var deps = cc.loader.getDependsRecursively(spriteFrame);
+cc.loader.release(deps);
+ * 
+ */
+
+/**
  * 
  * loadNative = function(url, callback){
     var dirpath =  jsb.fileUtils.getWritablePath() + 'img/';

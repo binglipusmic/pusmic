@@ -16,6 +16,11 @@ const gameUser =
       pointIndex:"",
       headImageFileName:"",
       zhuang:"",
+      //follow propertity only work on client
+      paiListArray:[],
+      huanSanZhangPaiList:[],
+      pengPaiList:[],
+      gangPaiList:{},
       //gameingStatu:"",
     }
 module.exports = {

@@ -113,6 +113,8 @@ class PaiService {
 
         }
 
+        userPaiList=userPaiList.sort()
+
         returnList.add(paiList)
         returnList.add(userPaiList)
 

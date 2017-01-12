@@ -30,10 +30,17 @@ cc.Class({
         user4ReadNode: cc.Node,
         tableTitleNode: cc.Node,
 
+        user1PaiListNode: cc.Node,
+        user2PaiListNode: cc.Node,
+        user4PaiListNode: cc.Node,
         user3PaiListNode: cc.Node,
         liPaiPrefab: cc.Prefab,
+        backNode: cc.Prefab,
 
         liPaiZiMian: [cc.SpriteFrame],
+        cePai: cc.SpriteFrame,
+        cePaiLeft: cc.SpriteFrame,
+        backPai: cc.SpriteFrame,
     },
 
     // use this for initialization
@@ -48,10 +55,10 @@ cc.Class({
     },
     //this function only inital a gaobal user list for test 
     testInitalUserList: function () {
-        var paiList = ["36, 39, 27, 18, 31, 11, 17, 24, 22, 29, 37, 14, 32, 23",
-            "18, 29, 26, 28, 22, 19, 21, 18, 22, 34, 18, 17, 37",
-            "38, 24, 14, 11, 12, 15, 14, 39, 26, 21, 29, 38, 23",
-            "35, 36, 19, 25, 34, 37, 16, 19, 11, 16, 35, 15, 12",
+        var paiList = ["11, 11, 13, 14, 18, 21, 24, 32, 33, 34, 34, 35, 36, 39",
+            "15, 17, 18, 22, 25, 26, 29, 31, 32, 33, 36, 37, 39",
+            "16, 17, 19, 23, 23, 24, 27, 31, 32, 33, 33, 34, 36,37",
+            "15, 17, 18, 18, 22, 22, 25, 26, 28, 28, 29, 34, 38",
         ];
         var userList = [];
         for (var i = 0; i < 5; i++) {
@@ -113,10 +120,11 @@ cc.Class({
 
                 var paiList = user.paiList;
                 if (paiList != null && paiList != undefined) {
-                    if (user.pointIndex != "3") {
+                    if ((user.pointIndex + "") == "3") {
                         //inital self pai
-                        this.intalSelfPaiList(paiList);
+                        user.paiListArray = this.intalSelfPaiList(paiList);
                     } else {
+                        user.paiListArray = this.initalOtherPaiList(paiList, user.pointIndex)
                         //intal other user pai
                     }
 
@@ -127,22 +135,85 @@ cc.Class({
             }
         }
 
+        //put back the user list to gobal
+
+         Global.userList=userList;
+
 
     },
 
+    initalOtherPaiList: function (paiList, point) {
+        var paiArray = paiList.split(",");
+        var startX = 0;
+        var startY = 0;
+        //cc.log("********initalOtherPaiList:" + paiList + "----" + point);
+        for (var i = 0; i < paiArray.length; i++) {
+            if (paiArray[i] != null && paiArray[i] != undefined) {
 
+                var paiNode;
+                var sprite;
+                paiNode = cc.instantiate(this.backNode);
+                sprite = paiNode.getComponent(cc.Sprite);
+                if (point == "1") {
+
+                    sprite.spriteFrame = this.backPai;
+
+                } else {
+
+                    if (point == "2") {
+                        sprite.spriteFrame = this.cePaiLeft;
+                    } else {
+                        sprite.spriteFrame = this.cePai;
+                    }
+
+                }
+
+
+                eval("this.user" + point + "PaiListNode.addChild(paiNode)");
+                //fix the user 1
+                if (point == "1") {
+                    startX = -380;
+                    paiNode.rotation = 180;
+                    paiNode.position = cc.p(startX + i * 55, 0);
+                }
+
+                if (point == "2") {
+                    startX = 0;
+                    startY = 180;
+                    paiNode.position = cc.p(startX, startY - i * 30);
+                    paiNode.zIndex = i;
+                    paiNode.width = 40;
+                    paiNode.height = 85;
+
+                }
+
+                if (point == "4") {
+                    startX = 0;
+                    startY = 180;
+                    paiNode.position = cc.p(startX, startY - i * 30);
+                    paiNode.zIndex = i;
+                    paiNode.width = 40;
+                    paiNode.height = 85;
+                }
+
+            }
+        }
+
+        return paiArray
+    },
     intalSelfPaiList: function (paiList) {
 
-        var startPoint = -600;
+        var startPoint = -520;
         var paiArray = paiList.split(",");
         for (var i = 0; i < paiArray.length; i++) {
             if (paiArray[i] != null && paiArray[i] != undefined) {
                 var paiNode = cc.instantiate(this.liPaiPrefab);
                 var sprite = paiNode.getComponent(cc.Sprite);
+                paiNode.name = "slefPai" + i;
                 //var imageUrl = "/img/9t";
-                var imageUrl = this.getCorrectNameOnSelfPai(paiArray[i]);
-                cc.log("img3:" + imageUrl);
-
+                //var imageUrl = this.getCorrectNameOnSelfPai(paiArray[i]);
+                //cc.log("img3:" + imageUrl);
+                /*
                 cc.loader.load(imageUrl, function (err, texture) {
                     if (err) {
                         cc.error(err.message || err);
@@ -150,13 +221,40 @@ cc.Class({
                     }
                     var frame = new cc.SpriteFrame(texture);
                     sprite.spriteFrame = frame;
-                });
-
-
+                });*/
+                var index = this.getCurrectIndeOnSeflPai(paiArray[i]);
+                sprite.spriteFrame = this.liPaiZiMian[index]
                 this.user3PaiListNode.addChild(paiNode);
-                paiNode.position = cc.p(startPoint + i * 80, 0);
+                paiNode.position = cc.p(startPoint + i * 79, 0);
             }
         }
+
+        return paiArray;
+
+    },
+
+    getCurrectIndeOnSeflPai: function (pai) {
+        pai = (pai + "").trim()
+        var type = (pai + "").substring(0, 1);
+        var paiNum = (pai + "").substring(1);
+        //tong 11-19
+        //tiao 21-29
+        //wan  31-39
+        var index = -1;
+
+        if (type == "1") {
+            index = parseInt(paiNum) - 1
+        }
+
+        if (type == "2") {
+            index = parseInt(paiNum) + 8
+        }
+
+        if (type == "3") {
+            index = parseInt(paiNum) + 17
+        }
+
+        return index
 
     },
 
@@ -190,7 +288,9 @@ cc.Class({
     fixUserPointByIndex: function (index) {
         if (index == "1") {
             var widget = this.userInfo1.getComponent(cc.Widget);
-            widget.top = 10;
+            widget.top = 0;
+            widget.isAlignRight = true;
+            widget.right = 210;
 
         }
         if (index == "2") {
