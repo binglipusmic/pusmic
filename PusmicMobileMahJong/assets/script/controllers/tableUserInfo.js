@@ -185,12 +185,19 @@ cc.Class({
         }
         return v;
     },
+    disableAllPai: function () {
+        var children = this.user3PaiListNode.children;
+        for (var i = 0; i < children.length; ++i) {
+            var btn = children[i].getComponent(cc.Button);
+            btn.interactable = false;
+        }
+    },
     //when huan san zhang work, this will disabled less 3 number pai
     disabledHuanSanZhangPai: function () {
 
         var children = this.user3PaiListNode.children;
         var v = this.getLess3NumberType(this.user3PaiListNode);
-         var vstr = v.toString();
+        var vstr = v.toString();
         for (var i = 0; i < children.length; ++i) {
             var childredName = children[i].name;
             var temp = childredName.split("_")

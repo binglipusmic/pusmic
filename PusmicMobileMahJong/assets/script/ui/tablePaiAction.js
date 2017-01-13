@@ -60,18 +60,20 @@ cc.Class({
 
                 //cc.log("parentNode:" + parentNode.name);
 
-                huanSanZhangPaiList.push(paiNumTxt);
-                //if (huanSanZhangPaiList.length == 3) {
+
+                if (huanSanZhangPaiList.length < 3) {
+                    huanSanZhangPaiList.push(paiNumTxt);
+                }
                 //disable all other pai 
                 this.disableAllSlefPaiExceptSelected(parentNode, node, huanSanZhangPaiList);
                 //} 
 
             }
         } else {
-          
+
 
             if (Global.chuPaiActionType == "huanSanZhang") {
-                  //huan sanzhang move back 
+                //huan sanzhang move back 
                 if (gameMode.huanSanZhang == "1") {
                     var action = cc.moveTo(0.1, node.x, 0);
                     node.runAction(action)
@@ -81,14 +83,21 @@ cc.Class({
                         huanSanZhangPaiList.splice(huanSanZhangPaiList.length - 1, 1)
                         if (huanSanZhangPaiList.length == 0) {
                             this.enabledAllSelfPai(parentNode);
-                        } 
+                        } else {
+                            if (huanSanZhangPaiList.length < 3) {
+                                this.enabledSlefSelfPai(parentNode,huanSanZhangPaiList);
+                            }
+                        }
                     }
                 }
             } else {
-                    //normal chupai 
+                //normal chupai 
 
             }
         }
+
+
+        cc.log("huanSanZhangPaiList:" + huanSanZhangPaiList.toString());
 
     },
 
@@ -98,7 +107,21 @@ cc.Class({
         sType = sType.substring(0, 1);
         return sType;
     },
+    enabledSlefSelfPai: function (parentNode, huanSanZhangPaiList) {
+        var firstElement1 = (huanSanZhangPaiList[0] + "").trim();
+        //cc.log("firstElement:" + firstElement1);
+        var type = firstElement1[0];
+          var children = parentNode.children;
+        for (var i = 0; i < children.length; ++i) {
+            var childredName = children[i].name;
+            var sType = this.getTypeByName(childredName);
+            if (sType == type) {
+                var btn = children[i].getComponent(cc.Button);
+                btn.interactable = true;
+            }
+        }
 
+    },
     enabledAllSelfPai: function (parentNode) {
         cc.log("enabledAllSelfPai");
         var v = this.getLess3NumberType(parentNode);
@@ -166,7 +189,16 @@ cc.Class({
                     if (sType != type) {
                         var btn = children[i].getComponent(cc.Button);
                         btn.interactable = false;
+                    } else {
+                        if (huanSanZhangPaiList.length == 3) {
+                            if (node.y == 0) {
+                                var btn = children[i].getComponent(cc.Button);
+                                btn.interactable = false;
+                            }
+                        }
+
                     }
+
 
                 }
 
