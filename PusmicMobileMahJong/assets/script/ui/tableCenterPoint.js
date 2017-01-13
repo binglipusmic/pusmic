@@ -39,7 +39,7 @@ cc.Class({
         timerUpate = function () {
 
 
-            cc.log("timeCount:" + timeCount + "----" + timeCount.length);
+           // cc.log("timeCount:" + timeCount + "----" + timeCount.length);
 
             this.initalCenterNum();
             timeCount--;

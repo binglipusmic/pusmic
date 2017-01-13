@@ -10,4 +10,6 @@ window.Global = {
     joinRoomNumber:null,
     userList:[],
     subid:0,
+    chuPaiActionType:"",
+    huanSanZhangPaiList:[],
 };

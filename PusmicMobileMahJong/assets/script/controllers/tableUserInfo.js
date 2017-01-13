@@ -51,6 +51,7 @@ cc.Class({
         this.userInfo4.active = false;
 
         this.initalUserPai();
+        this.disabledHuanSanZhangPai();
 
     },
     //this function only inital a gaobal user list for test 
@@ -86,8 +87,13 @@ cc.Class({
             userList.push(o);
 
         }
-
+        var gameMode = require("gameMode").gameMode;
+        var userInfo = require("userInfoDomain").userInfoDomain;
+        userInfo.openid = "testUser2";
+        gameMode.huanSanZhang = "1";
+        Global.gameMode = gameMode;
         Global.userList = userList;
+        Global.userInfo = userInfo;
 
     },
     initalUserPai: function () {
@@ -122,6 +128,8 @@ cc.Class({
                 if (paiList != null && paiList != undefined) {
                     if ((user.pointIndex + "") == "3") {
                         //inital self pai
+                        Global.chuPaiActionType = "huanSanZhang";
+                        Global.huanSanZhangPaiList = [];
                         user.paiListArray = this.intalSelfPaiList(paiList);
                     } else {
                         user.paiListArray = this.initalOtherPaiList(paiList, user.pointIndex)
@@ -137,8 +145,62 @@ cc.Class({
 
         //put back the user list to gobal
 
-         Global.userList=userList;
+        Global.userList = userList;
 
+
+    },
+
+
+    getLess3NumberType: function (parentNode) {
+        var v1 = 0;
+        var v2 = 0;
+        var v3 = 0;
+        var children = parentNode.children;
+        for (var i = 0; i < children.length; ++i) {
+            var childredName = children[i].name;
+            var temp = childredName.split("_")
+            var sType = temp[1];
+            var sType = sType.substring(0, 1);
+            if (sType == "1") {
+                v1++
+            }
+            if (sType == "2") {
+                v2++
+            }
+            if (sType == "3") {
+                v3++
+            }
+
+        }
+
+        var v = [];
+        if (v1 < 3) {
+            v.push("1")
+        }
+        if (v2 < 3) {
+            v.push("2")
+        }
+        if (v3 < 3) {
+            v.push("3")
+        }
+        return v;
+    },
+    //when huan san zhang work, this will disabled less 3 number pai
+    disabledHuanSanZhangPai: function () {
+
+        var children = this.user3PaiListNode.children;
+        var v = this.getLess3NumberType(this.user3PaiListNode);
+         var vstr = v.toString();
+        for (var i = 0; i < children.length; ++i) {
+            var childredName = children[i].name;
+            var temp = childredName.split("_")
+            var sType = temp[1];
+            sType = sType.substring(0, 1);
+            if (vstr.indexOf(sType) >= 0) {
+                var btn = children[i].getComponent(cc.Button);
+                btn.interactable = false;
+            }
+        }
 
     },
 
@@ -153,6 +215,7 @@ cc.Class({
                 var paiNode;
                 var sprite;
                 paiNode = cc.instantiate(this.backNode);
+                paiNode.name = "pai" + (i) + "_" + paiArray[i].trim();
                 sprite = paiNode.getComponent(cc.Sprite);
                 if (point == "1") {
 
@@ -209,7 +272,7 @@ cc.Class({
             if (paiArray[i] != null && paiArray[i] != undefined) {
                 var paiNode = cc.instantiate(this.liPaiPrefab);
                 var sprite = paiNode.getComponent(cc.Sprite);
-                paiNode.name = "slefPai" + i;
+                paiNode.name = "pai" + (i) + "_" + paiArray[i].trim();
                 //var imageUrl = "/img/9t";
                 //var imageUrl = this.getCorrectNameOnSelfPai(paiArray[i]);
                 //cc.log("img3:" + imageUrl);
@@ -225,7 +288,12 @@ cc.Class({
                 var index = this.getCurrectIndeOnSeflPai(paiArray[i]);
                 sprite.spriteFrame = this.liPaiZiMian[index]
                 this.user3PaiListNode.addChild(paiNode);
-                paiNode.position = cc.p(startPoint + i * 79, 0);
+                if (i == 13) {
+                    paiNode.position = cc.p(startPoint + i * 80, 0);
+                } else {
+                    paiNode.position = cc.p(startPoint + i * 79, 0);
+                }
+
             }
         }
 
