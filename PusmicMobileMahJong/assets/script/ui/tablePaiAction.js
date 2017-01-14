@@ -37,6 +37,20 @@ cc.Class({
 
     },
 
+    getQuePai: function () {
+        var quePai;
+        var userList = Global.userList;
+        var userInfo = Global.userInfo;
+        for (var i = 0; i < userList.length; i++) {
+            if (userList[i].openid == userInfo.openid) {
+                quePai = userList[i].quePai;
+            }
+        }
+
+        return quePai;
+
+    },
+
 
     chuPaiAction: function (event) {
 
@@ -85,13 +99,14 @@ cc.Class({
                             this.enabledAllSelfPai(parentNode);
                         } else {
                             if (huanSanZhangPaiList.length < 3) {
-                                this.enabledSlefSelfPai(parentNode,huanSanZhangPaiList);
+                                this.enabledSlefSelfPai(parentNode, huanSanZhangPaiList);
                             }
                         }
                     }
                 }
             } else {
                 //normal chupai 
+                //enable all pai after quepai clean 
 
             }
         }
@@ -107,11 +122,37 @@ cc.Class({
         sType = sType.substring(0, 1);
         return sType;
     },
+
+    // after all que pai clean ,the all other pai should be enable
+    enabledAllPaiAfterQuePai: function (parentNode) {
+        var que = this.getQuePai();
+        var children = parentNode.children;
+        var existFlag = false;
+        for (var i = 0; i < children.length; ++i) {
+            var childredName = children[i].name;
+            var sType = this.getTypeByName(childredName);
+            if (sType == que) {
+                existFlag == true
+            }
+        }
+
+        if (existFlag == true) {
+            this.enabledAllPai(parentNode);
+        }
+
+    },
+    enabledAllPai: function (parentNode) {
+        var children = parentNode.children;
+        for (var i = 0; i < children.length; ++i) {
+            var btn = children[i].getComponent(cc.Button);
+            btn.interactable = true;
+        }
+    },
     enabledSlefSelfPai: function (parentNode, huanSanZhangPaiList) {
         var firstElement1 = (huanSanZhangPaiList[0] + "").trim();
         //cc.log("firstElement:" + firstElement1);
         var type = firstElement1[0];
-          var children = parentNode.children;
+        var children = parentNode.children;
         for (var i = 0; i < children.length; ++i) {
             var childredName = children[i].name;
             var sType = this.getTypeByName(childredName);

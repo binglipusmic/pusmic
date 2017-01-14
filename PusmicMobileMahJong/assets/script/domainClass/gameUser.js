@@ -21,6 +21,7 @@ const gameUser =
       huanSanZhangPaiList:[],
       pengPaiList:[],
       gangPaiList:{},
+      quePai:"",
       //gameingStatu:"",
     }
 module.exports = {

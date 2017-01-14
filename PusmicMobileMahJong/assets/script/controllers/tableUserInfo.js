@@ -192,6 +192,48 @@ cc.Class({
             btn.interactable = false;
         }
     },
+    disabledQuePai: function () {
+        var userList = Global.userList;
+        var userInfo = Global.userInfo;
+        var quePai = "";
+        var paiList;
+        var existFlag = false;
+        for (var i = 0; i < userList.length; i++) {
+            if (userList[i].openid == userInfo.openid) {
+                quePai = userList[i].quePai;
+                paiList = userList[i].paiListArray;
+            }
+        }
+
+        if (paiList != null) {
+            if (quePai != null && quePai.length > 0) {
+                for (var i = 0; i < paiList.length; ++i) {
+                    var sType = paiList[i].trim() + "";
+                    sType = sType.substring(0, 1)
+                    if (sType == quePai) {
+                        existFlag = true;
+                    }
+
+                }
+            }
+
+        }
+
+        if (existFlag) {
+            var children = this.user3PaiListNode.children;
+            for (var i = 0; i < children.length; ++i) {
+                var childredName = children[i].name;
+                var temp = childredName.split("_")
+                var sType = temp[1];
+                sType = sType.substring(0, 1);
+                if (sType != quePai) {
+                    var btn = children[i].getComponent(cc.Button);
+                    btn.interactable = false;
+                }
+            }
+        }
+
+    },
     //when huan san zhang work, this will disabled less 3 number pai
     disabledHuanSanZhangPai: function () {
 
