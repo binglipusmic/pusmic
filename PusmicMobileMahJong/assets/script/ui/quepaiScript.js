@@ -15,10 +15,14 @@ cc.Class({
         tongNode: cc.Node,
         tiaoNode: cc.Node,
         wanNode: cc.Node,
+        thisSelectNode: cc.Node,
+        waitOtherUserNode: cc.Node,
     },
 
     // use this for initialization
     onLoad: function () {
+        this.waitOtherUserNode.active = false;
+        this.thisSelectNode.active = true;
 
     },
 
@@ -36,14 +40,19 @@ cc.Class({
             que = "3";
         }
 
-         var userList = Global.userList;
+        var userList = Global.userList;
         var userInfo = Global.userInfo;
-       
+
         for (var i = 0; i < userList.length; i++) {
             if (userList[i].openid == userInfo.openid) {
-               userList[i].quePai=que;
+                userList[i].quePai = que;
             }
         }
+        //show other wait other user select pai  
+        this.thisSelectNode.active = false;
+        this.waitOtherUserNode.active = true;
+        //set action typeof
+         Global.chuPaiActionType = "normalChuPai";
 
 
     },

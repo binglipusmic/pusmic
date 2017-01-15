@@ -14,6 +14,8 @@ cc.Class({
         // ...
         paiActionType: String,
         alertMessageNode: cc.Node,
+        tableNode: cc.Node,
+        selfChuPaiListNode: cc.Node,
     },
 
     // use this for initialization
@@ -22,6 +24,58 @@ cc.Class({
 
     },
 
+    //-------------------game action-------------------------------
+    slefChuPaiAction: function (paiNumber) {
+        var paiNode = cc.find("user3Node", this.tableNode);
+        var children = paiNode.children;
+        var selfPaiList = this.getSelfPaiList();
+         var userInfo = Global.userInfo;
+         var openid=userInfo.openid;
+         //---data layer start--------
+        for (var i = 0; i < children.length; ++i) {
+            var childredName = children[i].name;
+            var temp = childredName.split("_")
+            var sType = temp[1].trim();
+            var index = parseInt(temp[0].trim().replace("pai", ""));
+            if (paiNumber == sType) {
+                selfPaiList.splice(index, 1);
+                this.setUserPaiList(openid,selfPaiList);
+
+                
+                break;
+            }
+        }
+        //****fix the node name for the new pai list. */
+
+        //----data layer end-----------
+        //insert pai action comic action .
+        // remove the pai from self list
+        //move rest pai to correct point ,and keep the blank for 14 pai
+        //insert the 14 pai into correct point .
+           
+
+
+    },
+    playSlefChuPaiAction: function (paiNumber) {
+
+    },
+    //-------------------game action end -------------------------------
+    setUserPaiList: function (openid, paiList) {
+        var userList = Global.userList;
+        var paiListStr=paiList.toString();
+        paiListStr=paiListStr.replace("[","");
+        paiListStr=paiListStr.replace("]","");
+     //   var userInfo = Global.userInfo;
+        for (var i = 0; i < userList.length; i++) {
+            if (userList[i].openid == openid) {
+                userList[i].paiListArray=paiList;
+                userList[i].paiList=paiListStr;
+            }
+        }
+
+        Global.userList= userList;
+
+    },
     getSelfPaiList: function () {
 
         var userList = Global.userList;
@@ -69,19 +123,17 @@ cc.Class({
             //move out
             var action = cc.moveTo(0.1, node.x, node.y + 20);
             node.runAction(action);
+            if (Global.chuPaiActionType == "huanSanZhang") {
+                if (gameMode.huanSanZhang == "1") {
+                    //cc.log("parentNode:" + parentNode.name);
+                    if (huanSanZhangPaiList.length < 3) {
+                        huanSanZhangPaiList.push(paiNumTxt);
+                    }
+                    //disable all other pai 
+                    this.disableAllSlefPaiExceptSelected(parentNode, node, huanSanZhangPaiList);
+                    //} 
 
-            if (gameMode.huanSanZhang == "1") {
-
-                //cc.log("parentNode:" + parentNode.name);
-
-
-                if (huanSanZhangPaiList.length < 3) {
-                    huanSanZhangPaiList.push(paiNumTxt);
                 }
-                //disable all other pai 
-                this.disableAllSlefPaiExceptSelected(parentNode, node, huanSanZhangPaiList);
-                //} 
-
             }
         } else {
 

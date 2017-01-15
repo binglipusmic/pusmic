@@ -15,6 +15,7 @@ class WebSokectController {
     def index() { }
     def websokectService
     def gameRoundService
+    def gameStepService
 
     @MessageMapping("/user_private_message")
     protected String user_private_message(String message,@Headers Map<String, Object> headers){
@@ -92,6 +93,16 @@ class WebSokectController {
             }
 
         }
+
+        //--------------------Game Action-----------------------
+        if(messageJsonObj.messageAction.equals("gameAction")){
+
+            gameStepService.gameStep(messageJsonObj)
+            def s = new JsonBuilder(messageJsonObj).toPrettyString()
+            websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s)
+
+        }
+
 
     }
 

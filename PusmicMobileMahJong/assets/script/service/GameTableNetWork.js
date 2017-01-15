@@ -70,7 +70,7 @@ cc.Class({
                     var userObj = JSON.parse(messageDomain.messageBody);
                     var userList = [];
                     userObj.pointIndex = "3";
-                    userObj.zhuang="1";
+                    userObj.zhuang = "1";
                     userList.push(userObj);
                     Global.userList = userList;
                     actionUIScriptNode.showGameTalbe("1");
@@ -100,7 +100,7 @@ cc.Class({
                             }
                         }
                         Global.userList = userList;
-                        cc.log("Global.userList:"+Global.userList.toString())
+                        cc.log("Global.userList:" + Global.userList.toString())
                         userInfoScript.intalUserInfoReadyIcon();
                     } else {
                         alertMessageUI.text = Obj.messageExecuteResult;
@@ -147,7 +147,27 @@ cc.Class({
                         alertMessageUI.setTextOfPanel();
                     }
                 }
-                //--------------------------------------------------
+                //--------------------------------------Game Action  -----------------------------------------------
+                if (messageDomain.messageAction == "gameAction") {
+                    var userList = Global.userList;
+                    var userInfo = Global.userInfo;
+                    var obj = JSON.parse(messageDomain.messageBody);
+                    var fromUserOpenid = obj.fromUserOpenid;
+                    if (obj.actionName == "chuPai") {
+                        for (var i = 0; i < userList.length; i++) {
+                            if (userList[i].openid == userInfo.openid) {
+                                //play chupai action on self
+                            } else {
+                                //play chupai action on other side
+                            }
+                        }
+
+
+                    }
+
+                }
+
+
                 // if (messageDomain.messageAction == "userReadyStatuChange") {
                 //     if (messageDomain.messageBody.indexOf("success") >= 0) {
                 //         var temp = messageDomain.messageBody.split(":");
@@ -183,6 +203,20 @@ cc.Class({
 
         }
 
+    },
+    //-------------------------------chu pai action---------------------------------------------
+    chuPaiAction: function (userOpenId, paiNumber) {
+        var joinRoomNumber = Global.joinRoomNumber;
+        var o = new Object();
+        //var gameStep = require("gameStep").gameStep;
+
+        o.fromUserOpenid = userOpenId;
+        o.actionName = "chuPai";
+        o.paiNumber = paiNumber;
+        o.toUserOpenid = userOpenId;
+
+        var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
+        this.sendMessageToServer(messageObj);
     },
     //--------------------------------------------------------------------------------------------------------
     joinRoom: function (joinRoomNumber) {

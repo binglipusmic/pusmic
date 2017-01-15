@@ -22,6 +22,8 @@ const gameUser =
       pengPaiList:[],
       gangPaiList:{},
       quePai:"",
+      chupaiListX:0,
+      chupaiListY:0,
       //gameingStatu:"",
     }
 module.exports = {
