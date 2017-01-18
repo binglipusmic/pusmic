@@ -55,6 +55,12 @@ cc.Class({
 
     },
     //this function only inital a gaobal user list for test 
+    /**
+     * chuPaiCount
+     * user 1 chupai list point :x -210,y -45 
+     * user 2 chupai list point :x -210,y -45
+     * 
+     */
     testInitalUserList: function () {
         var paiList = ["11, 11, 13, 14, 18, 21, 24, 32, 33, 34, 34, 35, 36, 39",
             "15, 17, 18, 22, 25, 26, 29, 31, 32, 33, 36, 37, 39",
@@ -269,13 +275,16 @@ cc.Class({
                 if (point == "1") {
 
                     sprite.spriteFrame = this.backPai;
+                     //this.user1PaiListNode.addChild(paiNode);
 
                 } else {
 
                     if (point == "2") {
                         sprite.spriteFrame = this.cePaiLeft;
+                        //this.user2PaiListNode.addChild(paiNode);
                     } else {
                         sprite.spriteFrame = this.cePai;
+                       // this.user4PaiListNode.addChild(paiNode);
                     }
 
                 }
@@ -287,6 +296,7 @@ cc.Class({
                     startX = -380;
                     paiNode.rotation = 180;
                     paiNode.position = cc.p(startX + i * 55, 0);
+                    //this.user1PaiListNode.addChild(paiNode);
                 }
 
                 if (point == "2") {
