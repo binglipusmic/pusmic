@@ -100,11 +100,13 @@ cc.Class({
         Global.gameMode = gameMode;
         Global.userList = userList;
         Global.userInfo = userInfo;
+         Global.chuPaiActionType = "normalChuPai";
 
     },
     initalUserPai: function () {
         //inital the test data
         this.testInitalUserList();
+        // cc.log("Global.chuPaiActionType initalUserPai:"+Global.chuPaiActionType);
         //hide game mode
         this.tableGameMode.active = false;
         this.tableHead.active = true;
@@ -137,8 +139,12 @@ cc.Class({
                         Global.chuPaiActionType = "huanSanZhang";
                         Global.huanSanZhangPaiList = [];
                         user.paiListArray = this.intalSelfPaiList(paiList);
+                        user.chupaiListX = -210;
+                        user.chupaiListY = -45;
+                        user.chuPaiCount = 0;
                     } else {
-                        user.paiListArray = this.initalOtherPaiList(paiList, user.pointIndex)
+                        user.paiListArray = this.initalOtherPaiList(paiList, user.pointIndex);
+                        user = this.initalOtherUserChuPaiPoint(user, user.pointIndex + "");
                         //intal other user pai
                     }
 
@@ -156,6 +162,26 @@ cc.Class({
 
     },
 
+    //inital other user chupai start point
+    initalOtherUserChuPaiPoint: function (user, point) {
+
+        if (point == "1") {
+            user.chupaiListX = 210;
+            user.chupaiListY = -45;
+
+        } else if (point == "2") {
+            user.chupaiListX = 170;
+            user.chupaiListY = 120;
+
+        } else if (point == "4") {
+            user.chupaiListX = -170;
+            user.chupaiListY = -120;
+
+        }
+        user.chuPaiCount = 0;
+        return user
+
+    },
 
     getLess3NumberType: function (parentNode) {
         var v1 = 0;
@@ -275,7 +301,7 @@ cc.Class({
                 if (point == "1") {
 
                     sprite.spriteFrame = this.backPai;
-                     //this.user1PaiListNode.addChild(paiNode);
+                    //this.user1PaiListNode.addChild(paiNode);
 
                 } else {
 
@@ -284,7 +310,7 @@ cc.Class({
                         //this.user2PaiListNode.addChild(paiNode);
                     } else {
                         sprite.spriteFrame = this.cePai;
-                       // this.user4PaiListNode.addChild(paiNode);
+                        // this.user4PaiListNode.addChild(paiNode);
                     }
 
                 }

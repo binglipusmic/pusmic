@@ -16,6 +16,7 @@ cc.Class({
         alertMessageNode: cc.Node,
         tableNode: cc.Node,
         selfChuPaiListNode: cc.Node,
+        paiChuPaiNode: cc.Prefab,
     },
 
     // use this for initialization
@@ -29,9 +30,9 @@ cc.Class({
         var paiNode = cc.find("user3Node", this.tableNode);
         var children = paiNode.children;
         var selfPaiList = this.getSelfPaiList();
-         var userInfo = Global.userInfo;
-         var openid=userInfo.openid;
-         //---data layer start--------
+        var userInfo = Global.userInfo;
+        var openid = userInfo.openid;
+        //---data layer start--------
         for (var i = 0; i < children.length; ++i) {
             var childredName = children[i].name;
             var temp = childredName.split("_")
@@ -39,9 +40,9 @@ cc.Class({
             var index = parseInt(temp[0].trim().replace("pai", ""));
             if (paiNumber == sType) {
                 selfPaiList.splice(index, 1);
-                this.setUserPaiList(openid,selfPaiList);
+                this.setUserPaiList(openid, selfPaiList);
 
-                
+
                 break;
             }
         }
@@ -52,28 +53,193 @@ cc.Class({
         // remove the pai from self list
         //move rest pai to correct point ,and keep the blank for 14 pai
         //insert the 14 pai into correct point .
-           
+
 
 
     },
-    playSlefChuPaiAction: function (paiNumber) {
+    playSlefChuPaiAction: function (paiNode, userPoint) {
+        var user = this.getCorrectUserByPoint(userPoint);
+        var name = paiNode.name;
+
+        var tempArray = name.split("_");
+        name = tempArray[1];
+        var x = user.chupaiListX;
+        var y = user.chupaiListY + 200;
+        cc.log("x:" + x + "----" + "y:" + y);
+        //, cc.removeSelf()
+
+
+
+        //add the target pai into pai list.
+        var parentNode = paiNode.parent.parent;
+        cc.log("parentNode:" + parentNode.name);
+        var userChuPaiListNode = cc.find("user" + userPoint + "ChuaPaiListNode", parentNode);
+        cc.log("userChuPaiListNode:" + userChuPaiListNode);
+        var paiPath = this.getChuPaiNameByNodeName(name, userPoint);
+        cc.log("paiPath:" + paiPath);
+        var pNode = cc.instantiate(this.paiChuPaiNode);
+
+        var finished = cc.callFunc(this.playSlefChuPaiAction_addChild, this, pNode);
+
+        let sprite = pNode.addComponent(cc.Sprite)
+        pNode.name = "pai" + userPoint + "_" + name;
+        pNode.active = false;
+        pNode.position = cc.p(x, y - 200);
+        //pNode.width = 42;
+        //pNode.height = 61;
+        sprite = pNode.getComponent(cc.Sprite);
+        cc.loader.loadRes(paiPath, function (err, sp) {
+            if (err) {
+                cc.log("----" + err.message || err);
+                return;
+            }
+            cc.log("85");
+
+
+            sprite.spriteFrame = new cc.SpriteFrame(sp);
+
+            cc.log("99");
+            // cc.log('Result should be a sprite frame: ' + (sp instanceof cc.SpriteFrame));
+            // pNode.active = true;
+
+        });
+        userChuPaiListNode.addChild(pNode);
+
+        user = this.fixCurrentChuPaiPoint(user);
+        this.updateUserListInGobal(user);
+
+
+        var action = cc.sequence(cc.moveTo(0.2, x, y), cc.scaleTo(0.2, 0.5), cc.removeSelf(), finished);
+
+        paiNode.runAction(action);
+        var spriteFrame = paiNode.getComponent(cc.Sprite).spriteFrame;
+        var deps = cc.loader.getDependsRecursively(spriteFrame);
+        cc.loader.release(deps);
+        //add pai to correct point  
+
+        // pNode.active = true;
+        //add it to curernt 
+        //  eval("this.user" + point + "PaiListNode.addChild(paiNode)");
+
+    },
+
+    playSlefChuPaiAction_addChild: function (target, pNode) {
+        cc.log("playSlefChuPaiAction_addChild");
+        pNode.active = true;
+
+
+    },
+
+    /**
+     * 
+     */
+
+    updateUserListInGobal: function (user) {
+        var userList = Global.userList;
+
+        for (var i = 0; i < userList.length; i++) {
+            if (userList[i].openid == user.openid) {
+                userList[i] = user;
+            }
+        }
+        Global.userList = userList;
+
+    },
+    /**
+     * This method will  fix the pai in the chupai list point
+     */
+
+    fixCurrentChuPaiPoint: function (user) {
+        // var user = this.getCorrectUserByPoint(userPoint);
+        var userIndex = user.pointIndex;
+        if (userIndex == "1") {
+
+            user.chupaiListX = user.chupaiListX - 42;
+
+        }
+        if (userIndex == "2") {
+            user.chupaiListY = user.chupaiListY - 49;
+        }
+        if (userIndex == "3") {
+            user.chupaiListX = user.chupaiListX + 42;
+
+        }
+        if (userIndex == "1") {
+            user.chupaiListY = user.chupaiListY + 49;
+        }
+
+        return user;
+
+    },
+    /**
+     * This method will get the correct image path from image folder of resourecs
+     */
+    getChuPaiNameByNodeName: function (paiName, userIndex) {
+        var returnName = "";
+        var backPrefix = "";
+        var folderName = "user" + userIndex;
+        var type = paiName[0];
+        var number = paiName[1];
+        var firstPrefix = "";
+        var backPrefix2 = "";
+        if (userIndex == "1") {
+            backPrefix = "-u";
+        }
+        if (userIndex == "2") {
+            backPrefix = "-l";
+        }
+        if (userIndex == "3") {
+            backPrefix = "-d";
+        }
+        if (userIndex == "4") {
+            backPrefix = "-r";
+        }
+
+        if (type == "1") {
+            firstPrefix = "tong";
+            backPrefix2 = "b";
+        }
+        if (type == "2") {
+            firstPrefix = "tiao"
+            backPrefix2 = "t";
+        }
+        if (type == "3") {
+            firstPrefix = "wan"
+            backPrefix2 = "w";
+        }
+
+        returnName = folderName + "/" + firstPrefix + backPrefix + "/" + number + backPrefix2
+        return returnName;
 
     },
     //-------------------game action end -------------------------------
     setUserPaiList: function (openid, paiList) {
         var userList = Global.userList;
-        var paiListStr=paiList.toString();
-        paiListStr=paiListStr.replace("[","");
-        paiListStr=paiListStr.replace("]","");
-     //   var userInfo = Global.userInfo;
+        var paiListStr = paiList.toString();
+        paiListStr = paiListStr.replace("[", "");
+        paiListStr = paiListStr.replace("]", "");
+        //   var userInfo = Global.userInfo;
         for (var i = 0; i < userList.length; i++) {
             if (userList[i].openid == openid) {
-                userList[i].paiListArray=paiList;
-                userList[i].paiList=paiListStr;
+                userList[i].paiListArray = paiList;
+                userList[i].paiList = paiListStr;
             }
         }
 
-        Global.userList= userList;
+        Global.userList = userList;
+
+    },
+    getCorrectUserByPoint: function (pointIndex) {
+
+        var userList = Global.userList;
+        var user;
+        for (var i = 0; i < userList.length; i++) {
+            if (userList[i].pointIndex == pointIndex) {
+                user = userList[i];
+            }
+        }
+
+        return user;
 
     },
     getSelfPaiList: function () {
@@ -118,6 +284,7 @@ cc.Class({
         // var index = parseInt(name.substring(7));
         // cc.log("index:" + index);
         //var paiList = this.getSelfPaiList();
+        cc.log("Global.chuPaiActionType:" + Global.chuPaiActionType);
         var parentNode = node.parent;
         if (node.y == 0) {
             //move out
@@ -134,6 +301,10 @@ cc.Class({
                     //} 
 
                 }
+            } else {
+
+                this.putBackAllPaiExceptClickPai(parentNode, name);
+
             }
         } else {
 
@@ -159,6 +330,7 @@ cc.Class({
             } else {
                 //normal chupai 
                 //enable all pai after quepai clean 
+                this.playSlefChuPaiAction(node, "3");
 
             }
         }
@@ -175,6 +347,22 @@ cc.Class({
         return sType;
     },
 
+    putBackAllPaiExceptClickPai: function (parentNode, clickPaiName) {
+        var children = parentNode.children;
+
+
+        for (var i = 0; i < children.length; ++i) {
+            var childredName = children[i].name;
+            if (childredName != clickPaiName) {
+                if (children[i].y > 0) {
+                    var action = cc.moveTo(0.1, children[i].x, 0);
+                    children[i].runAction(action);
+                }
+
+            }
+        }
+
+    },
     // after all que pai clean ,the all other pai should be enable
     enabledAllPaiAfterQuePai: function (parentNode) {
         var que = this.getQuePai();

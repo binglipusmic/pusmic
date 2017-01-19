@@ -90,7 +90,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "f5e4c9ab-550f-4ff5-bf21-e461dbb7b410"
     },
     "fileId": "29f37OggQVBP7yMo8pzVMyS",
     "sync": false
