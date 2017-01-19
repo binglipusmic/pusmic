@@ -25,6 +25,21 @@ cc.Class({
 
     },
 
+    //----------Data layer utils function---------------------------------
+    getCorrectIndexByNumber: function (paiNumber, user) {
+
+        var paiListArray = user.paiListArray;
+        var index = -1;
+        for (var i = 0; i < paiListArray.length; i++) {
+            if (paiListArray[i] == paiNumber) {
+                index = i;
+            }
+        }
+        return index;
+    },
+
+
+    //----------Data layer utils function end---------------------------------
     //-------------------game action-------------------------------
     slefChuPaiAction: function (paiNumber) {
         var paiNode = cc.find("user3Node", this.tableNode);
@@ -63,8 +78,9 @@ cc.Class({
 
         var tempArray = name.split("_");
         name = tempArray[1];
+         cc.log("user.chupaiListX:"+user.chupaiListX );
         var x = user.chupaiListX;
-        var y = user.chupaiListY + 200;
+        var y = user.chupaiListY;
         cc.log("x:" + x + "----" + "y:" + y);
         //, cc.removeSelf()
 
@@ -79,12 +95,18 @@ cc.Class({
         cc.log("paiPath:" + paiPath);
         var pNode = cc.instantiate(this.paiChuPaiNode);
 
-        var finished = cc.callFunc(this.playSlefChuPaiAction_addChild, this, pNode);
+
+        if (user.chuPaiCount >= 10) {
+            pNode.zIndex = 198;
+        } else {
+            pNode.zIndex = 199;
+        }
+
 
         let sprite = pNode.addComponent(cc.Sprite)
         pNode.name = "pai" + userPoint + "_" + name;
         pNode.active = false;
-        pNode.position = cc.p(x, y - 200);
+        pNode.position = cc.p(x, y);
         //pNode.width = 42;
         //pNode.height = 61;
         sprite = pNode.getComponent(cc.Sprite);
@@ -108,8 +130,8 @@ cc.Class({
         user = this.fixCurrentChuPaiPoint(user);
         this.updateUserListInGobal(user);
 
-
-        var action = cc.sequence(cc.moveTo(0.2, x, y), cc.scaleTo(0.2, 0.5), cc.removeSelf(), finished);
+        var finished = cc.callFunc(this.playSlefChuPaiAction_addChild, this, pNode);
+        var action = cc.sequence(cc.moveTo(0.15, x, y + 220), cc.scaleTo(0.15, 0.5), cc.removeSelf(), finished);
 
         paiNode.runAction(action);
         var spriteFrame = paiNode.getComponent(cc.Sprite).spriteFrame;
@@ -156,18 +178,26 @@ cc.Class({
 
             user.chupaiListX = user.chupaiListX - 42;
 
+
         }
         if (userIndex == "2") {
             user.chupaiListY = user.chupaiListY - 49;
         }
         if (userIndex == "3") {
-            user.chupaiListX = user.chupaiListX + 42;
 
+            if (user.chuPaiCount == 10) {
+                user.chupaiListY = 15;
+                user.chupaiListx = -210;
+            } else {
+                user.chupaiListX = user.chupaiListX + 42;
+            }
         }
         if (userIndex == "1") {
             user.chupaiListY = user.chupaiListY + 49;
         }
 
+        user.chuPaiCount = user.chuPaiCount + 1;
+        cc.log("user.chupaiListX 200:"+user.chupaiListX);
         return user;
 
     },
