@@ -330,7 +330,7 @@ cc.Class({
                     startY = 180;
                     paiNode.position = cc.p(startX, startY - i * 30);
                     paiNode.zIndex = i;
-                   parentNode
+                   //parentNode
 
                 }
 

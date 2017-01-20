@@ -78,7 +78,7 @@ cc.Class({
 
         var tempArray = name.split("_");
         name = tempArray[1];
-         cc.log("user.chupaiListX:"+user.chupaiListX );
+        cc.log("user.chupaiListX:" + user.chupaiListX);
         var x = user.chupaiListX;
         var y = user.chupaiListY;
         cc.log("x:" + x + "----" + "y:" + y);
@@ -96,13 +96,16 @@ cc.Class({
         var pNode = cc.instantiate(this.paiChuPaiNode);
 
 
-        if (user.chuPaiCount >= 10) {
-            pNode.zIndex = 198;
+        if (user.chuPaiCount >= 11) {
+            pNode.setLocalZOrder(10);
+            pNode.zIndex = 10;
         } else {
-            pNode.zIndex = 199;
+            pNode.setLocalZOrder(20);
+            pNode.zIndex = 20;
         }
 
-
+        var nIndex = pNode.getSiblingIndex();
+        cc.log("nIndex:"+nIndex);
         let sprite = pNode.addComponent(cc.Sprite)
         pNode.name = "pai" + userPoint + "_" + name;
         pNode.active = false;
@@ -186,8 +189,9 @@ cc.Class({
         if (userIndex == "3") {
 
             if (user.chuPaiCount == 10) {
-                user.chupaiListY = 15;
-                user.chupaiListx = -210;
+                user.chupaiListY = 3;
+                user.chupaiListX = -210;
+
             } else {
                 user.chupaiListX = user.chupaiListX + 42;
             }
@@ -197,7 +201,7 @@ cc.Class({
         }
 
         user.chuPaiCount = user.chuPaiCount + 1;
-        cc.log("user.chupaiListX 200:"+user.chupaiListX);
+        // cc.log("user.chupaiListX 200:"+user.chupaiListX);
         return user;
 
     },
