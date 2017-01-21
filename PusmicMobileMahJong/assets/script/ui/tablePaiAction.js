@@ -40,6 +40,65 @@ cc.Class({
 
 
     //----------Data layer utils function end---------------------------------
+
+
+
+    //--------------------action layer utils function---------------------------
+
+    addPaiIntoPaiListNode: function (userChuPaiListNode, name, userPoint,paiNode) {
+        var user = this.getCorrectUserByPoint(userPoint);
+        var x = user.chupaiListX;
+        var y = user.chupaiListY;
+        var paiPath = this.getChuPaiNameByNodeName(name, userPoint);
+        cc.log("paiPath:" + paiPath);
+        var pNode = cc.instantiate(this.paiChuPaiNode);
+
+
+        if (user.chuPaiCount >= 11) {
+            pNode.setLocalZOrder(10);
+            pNode.zIndex = 10;
+        } else {
+            pNode.setLocalZOrder(20);
+            pNode.zIndex = 20;
+        }
+
+
+        //let sprite = pNode.addComponent(cc.Sprite)
+        pNode.name = "pai" + userPoint + "_" + name;
+        pNode.active = false;
+        pNode.position = cc.p(x, y);
+        //pNode.width = 42;
+        //pNode.height = 61;
+        var sprite = pNode.getComponent(cc.Sprite);
+        cc.loader.loadRes(paiPath, function (err, sp) {
+            if (err) {
+                cc.log("----" + err.message || err);
+                return;
+            }
+            cc.log("85");
+
+
+            sprite.spriteFrame = new cc.SpriteFrame(sp);
+
+            cc.log("99");
+            // cc.log('Result should be a sprite frame: ' + (sp instanceof cc.SpriteFrame));
+            // pNode.active = true;
+
+        });
+        userChuPaiListNode.addChild(pNode);
+
+        var finished = cc.callFunc(this.playSlefChuPaiAction_addChild, this, pNode);
+        var action = cc.sequence(cc.moveTo(0.15, x, y + 220), cc.scaleTo(0.15, 0.5), cc.removeSelf(), finished);
+        //it is other user chupai ,get the first child element 
+       
+        paiNode.runAction(action);
+        var spriteFrame = paiNode.getComponent(cc.Sprite).spriteFrame;
+        var deps = cc.loader.getDependsRecursively(spriteFrame);
+        cc.loader.release(deps);
+
+        return user
+
+    },
     //-------------------game action-------------------------------
     slefChuPaiAction: function (paiNumber) {
         var paiNode = cc.find("user3Node", this.tableNode);
@@ -72,16 +131,42 @@ cc.Class({
 
 
     },
+    testOtherChuPai:function(){
+        this.playOtherChuPaiAction("12","1");
+    },
+    /**
+     * This method will execute the other chupai action 
+     */
+    playOtherChuPaiAction: function (paiNumber, userPoint) {
+        //var user = this.getCorrectUserByPoint(userPoint);
+        var paiPath = this.getChuPaiNameByNodeName(paiNumber, userPoint);
+       // var x = user.chupaiListX;
+      //  var y = user.chupaiListY;
+        var tableNode = cc.find("Canvas/tableNode");
+        var userChuPaiListNode = cc.find("user" + userPoint + "ChuaPaiListNode", tableNode);
+        var userPaiList = cc.find("user"+userPoint+"PaiList",tableNode);
+        cc.log("userPaiList:"+userPaiList.name);
+          cc.log("userPaiList children:"+userPaiList.children.length);
+        var paiNode=userPaiList.children[0]
+           cc.log("paiNode:"+paiNode.name);
+        var user = this.addPaiIntoPaiListNode(userChuPaiListNode, paiNumber, userPoint,paiNode);
+
+        user = this.fixCurrentChuPaiPoint(user);
+        this.updateUserListInGobal(user);
+
+    },
+    /**
+     * This method will execute the anication of chupai in self pai list
+     */
     playSlefChuPaiAction: function (paiNode, userPoint) {
-        var user = this.getCorrectUserByPoint(userPoint);
+        // var user = this.getCorrectUserByPoint(userPoint);
         var name = paiNode.name;
 
         var tempArray = name.split("_");
         name = tempArray[1];
-        cc.log("user.chupaiListX:" + user.chupaiListX);
-        var x = user.chupaiListX;
-        var y = user.chupaiListY;
-        cc.log("x:" + x + "----" + "y:" + y);
+        // cc.log("user.chupaiListX:" + user.chupaiListX);
+
+        // cc.log("x:" + x + "----" + "y:" + y);
         //, cc.removeSelf()
 
 
@@ -91,55 +176,13 @@ cc.Class({
         cc.log("parentNode:" + parentNode.name);
         var userChuPaiListNode = cc.find("user" + userPoint + "ChuaPaiListNode", parentNode);
         cc.log("userChuPaiListNode:" + userChuPaiListNode);
-        var paiPath = this.getChuPaiNameByNodeName(name, userPoint);
-        cc.log("paiPath:" + paiPath);
-        var pNode = cc.instantiate(this.paiChuPaiNode);
 
-
-        if (user.chuPaiCount >= 11) {
-            pNode.setLocalZOrder(10);
-            pNode.zIndex = 10;
-        } else {
-            pNode.setLocalZOrder(20);
-            pNode.zIndex = 20;
-        }
-
-        var nIndex = pNode.getSiblingIndex();
-        cc.log("nIndex:"+nIndex);
-        let sprite = pNode.addComponent(cc.Sprite)
-        pNode.name = "pai" + userPoint + "_" + name;
-        pNode.active = false;
-        pNode.position = cc.p(x, y);
-        //pNode.width = 42;
-        //pNode.height = 61;
-        sprite = pNode.getComponent(cc.Sprite);
-        cc.loader.loadRes(paiPath, function (err, sp) {
-            if (err) {
-                cc.log("----" + err.message || err);
-                return;
-            }
-            cc.log("85");
-
-
-            sprite.spriteFrame = new cc.SpriteFrame(sp);
-
-            cc.log("99");
-            // cc.log('Result should be a sprite frame: ' + (sp instanceof cc.SpriteFrame));
-            // pNode.active = true;
-
-        });
-        userChuPaiListNode.addChild(pNode);
+        var user = this.addPaiIntoPaiListNode(userChuPaiListNode, name, userPoint,paiNode);
 
         user = this.fixCurrentChuPaiPoint(user);
         this.updateUserListInGobal(user);
 
-        var finished = cc.callFunc(this.playSlefChuPaiAction_addChild, this, pNode);
-        var action = cc.sequence(cc.moveTo(0.15, x, y + 220), cc.scaleTo(0.15, 0.5), cc.removeSelf(), finished);
 
-        paiNode.runAction(action);
-        var spriteFrame = paiNode.getComponent(cc.Sprite).spriteFrame;
-        var deps = cc.loader.getDependsRecursively(spriteFrame);
-        cc.loader.release(deps);
         //add pai to correct point  
 
         // pNode.active = true;
