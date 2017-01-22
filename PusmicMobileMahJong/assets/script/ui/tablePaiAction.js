@@ -1,3 +1,7 @@
+
+var paiListReOrderCount = "3"
+var nodeMoveX = -1;
+var nodeMoveY = -1;
 cc.Class({
     extends: cc.Component,
 
@@ -17,14 +21,21 @@ cc.Class({
         tableNode: cc.Node,
         selfChuPaiListNode: cc.Node,
         paiChuPaiNode: cc.Prefab,
+        theMoveNode: cc.Node,
+        //paiListReOrderCount:cc.Integer,
     },
 
     // use this for initialization
     //chuPaiActionType
     onLoad: function () {
 
+
     },
 
+
+    setPaiListReOrderCount: function (number) {
+        paiListReOrderCount = number;
+    },
     //----------Data layer utils function---------------------------------
     getCorrectIndexByNumber: function (paiNumber, user) {
 
@@ -45,7 +56,7 @@ cc.Class({
 
     //--------------------action layer utils function---------------------------
 
-    addPaiIntoPaiListNode: function (userChuPaiListNode, name, userPoint,paiNode) {
+    addPaiIntoPaiListNode: function (userChuPaiListNode, name, userPoint, paiNode) {
         var user = this.getCorrectUserByPoint(userPoint);
         var x = user.chupaiListX;
         var y = user.chupaiListY;
@@ -54,14 +65,21 @@ cc.Class({
         var pNode = cc.instantiate(this.paiChuPaiNode);
 
 
-        if (user.chuPaiCount >= 11) {
-            pNode.setLocalZOrder(10);
-            pNode.zIndex = 10;
-        } else {
-            pNode.setLocalZOrder(20);
-            pNode.zIndex = 20;
+        if (userPoint == "3") {
+            if (user.chuPaiCount >= paiListReOrderCount) {
+                pNode.setLocalZOrder(10);
+                pNode.zIndex = 10;
+            } else {
+                pNode.setLocalZOrder(20);
+                pNode.zIndex = 20;
+            }
         }
 
+
+        if (userPoint == "4") {
+            pNode.setLocalZOrder(100 - parseInt(user.chuPaiCount));
+            pNode.zIndex = 100 - parseInt(user.chuPaiCount);
+        }
 
         //let sprite = pNode.addComponent(cc.Sprite)
         pNode.name = "pai" + userPoint + "_" + name;
@@ -72,15 +90,15 @@ cc.Class({
         var sprite = pNode.getComponent(cc.Sprite);
         cc.loader.loadRes(paiPath, function (err, sp) {
             if (err) {
-                cc.log("----" + err.message || err);
+                //  cc.log("----" + err.message || err);
                 return;
             }
-            cc.log("85");
+            // cc.log("85");
 
 
             sprite.spriteFrame = new cc.SpriteFrame(sp);
 
-            cc.log("99");
+            //  cc.log("99");
             // cc.log('Result should be a sprite frame: ' + (sp instanceof cc.SpriteFrame));
             // pNode.active = true;
 
@@ -88,14 +106,24 @@ cc.Class({
         userChuPaiListNode.addChild(pNode);
 
         var finished = cc.callFunc(this.playSlefChuPaiAction_addChild, this, pNode);
-        var action = cc.sequence(cc.moveTo(0.15, x, y + 220), cc.scaleTo(0.15, 0.5), cc.removeSelf(), finished);
+        var moveToY = 0;
+
+        if (userPoint == "3") {
+            moveToY = y + 220;
+        }
+        if (userPoint == "1") {
+            moveToY = y - 110;
+        }
+        cc.log("y:" + y);
+        cc.log("moveToY:" + moveToY);
+        var action = cc.sequence(cc.moveTo(0.15, x, moveToY), cc.scaleTo(0.15, 0.5), cc.removeSelf(), finished);
         //it is other user chupai ,get the first child element 
-       
+
         paiNode.runAction(action);
         var spriteFrame = paiNode.getComponent(cc.Sprite).spriteFrame;
         var deps = cc.loader.getDependsRecursively(spriteFrame);
         cc.loader.release(deps);
-
+        //user.chuPaiCount = user.chuPaiCount + 1;
         return user
 
     },
@@ -131,8 +159,11 @@ cc.Class({
 
 
     },
-    testOtherChuPai:function(){
-        this.playOtherChuPaiAction("12","1");
+    testOtherChuPai: function () {
+        this.playOtherChuPaiAction("22", "1");
+        this.playOtherChuPaiAction("27", "2");
+        this.playOtherChuPaiAction("27", "4");
+        this.disableAllSlefPaiAfterQuePai();
     },
     /**
      * This method will execute the other chupai action 
@@ -140,16 +171,16 @@ cc.Class({
     playOtherChuPaiAction: function (paiNumber, userPoint) {
         //var user = this.getCorrectUserByPoint(userPoint);
         var paiPath = this.getChuPaiNameByNodeName(paiNumber, userPoint);
-       // var x = user.chupaiListX;
-      //  var y = user.chupaiListY;
+        // var x = user.chupaiListX;
+        //  var y = user.chupaiListY;
         var tableNode = cc.find("Canvas/tableNode");
         var userChuPaiListNode = cc.find("user" + userPoint + "ChuaPaiListNode", tableNode);
-        var userPaiList = cc.find("user"+userPoint+"PaiList",tableNode);
-        cc.log("userPaiList:"+userPaiList.name);
-          cc.log("userPaiList children:"+userPaiList.children.length);
-        var paiNode=userPaiList.children[0]
-           cc.log("paiNode:"+paiNode.name);
-        var user = this.addPaiIntoPaiListNode(userChuPaiListNode, paiNumber, userPoint,paiNode);
+        var userPaiList = cc.find("user" + userPoint + "PaiList", tableNode);
+        // cc.log("userPaiList:" + userPaiList.name);
+        //    cc.log("userPaiList children:" + userPaiList.children.length);
+        var paiNode = userPaiList.children[0]
+        //   cc.log("paiNode:" + paiNode.name);
+        var user = this.addPaiIntoPaiListNode(userChuPaiListNode, paiNumber, userPoint, paiNode);
 
         user = this.fixCurrentChuPaiPoint(user);
         this.updateUserListInGobal(user);
@@ -173,11 +204,11 @@ cc.Class({
 
         //add the target pai into pai list.
         var parentNode = paiNode.parent.parent;
-        cc.log("parentNode:" + parentNode.name);
+        //  cc.log("parentNode:" + parentNode.name);
         var userChuPaiListNode = cc.find("user" + userPoint + "ChuaPaiListNode", parentNode);
-        cc.log("userChuPaiListNode:" + userChuPaiListNode);
+        //   cc.log("userChuPaiListNode:" + userChuPaiListNode);
 
-        var user = this.addPaiIntoPaiListNode(userChuPaiListNode, name, userPoint,paiNode);
+        var user = this.addPaiIntoPaiListNode(userChuPaiListNode, name, userPoint, paiNode);
 
         user = this.fixCurrentChuPaiPoint(user);
         this.updateUserListInGobal(user);
@@ -191,8 +222,12 @@ cc.Class({
 
     },
 
+    playSlefChuPaiThrowAction: function (paiNode, userPoint) {
+    },
+    //------------------------------------------------------------------------
+
     playSlefChuPaiAction_addChild: function (target, pNode) {
-        cc.log("playSlefChuPaiAction_addChild");
+        //    cc.log("playSlefChuPaiAction_addChild");
         pNode.active = true;
 
 
@@ -222,16 +257,33 @@ cc.Class({
         var userIndex = user.pointIndex;
         if (userIndex == "1") {
 
-            user.chupaiListX = user.chupaiListX - 42;
+
+            if (user.chuPaiCount == paiListReOrderCount) {
+                user.chupaiListY = -95;
+                user.chupaiListX = 210;
+
+            } else {
+                user.chupaiListX = user.chupaiListX - 42;
+            }
+
+
 
 
         }
+        cc.log("this.paiListReOrderCount:" + paiListReOrderCount);
         if (userIndex == "2") {
-            user.chupaiListY = user.chupaiListY - 49;
+            if (user.chuPaiCount == paiListReOrderCount) {
+                user.chupaiListY = 120;
+                user.chupaiListX = 226;
+
+            } else {
+                user.chupaiListY = user.chupaiListY - 35;
+            }
+
         }
         if (userIndex == "3") {
 
-            if (user.chuPaiCount == 10) {
+            if (user.chuPaiCount == paiListReOrderCount) {
                 user.chupaiListY = 3;
                 user.chupaiListX = -210;
 
@@ -239,8 +291,16 @@ cc.Class({
                 user.chupaiListX = user.chupaiListX + 42;
             }
         }
-        if (userIndex == "1") {
-            user.chupaiListY = user.chupaiListY + 49;
+        if (userIndex == "4") {
+            if (user.chuPaiCount == paiListReOrderCount) {
+                user.chupaiListX = -225;
+                user.chupaiListY = -120;
+
+
+            } else {
+                user.chupaiListY = user.chupaiListY + 35;
+            }
+
         }
 
         user.chuPaiCount = user.chuPaiCount + 1;
@@ -440,21 +500,81 @@ cc.Class({
         }
 
     },
-    // after all que pai clean ,the all other pai should be enable
-    enabledAllPaiAfterQuePai: function (parentNode) {
-        var que = this.getQuePai();
+    onEnable: function () {
+        cc.log("this node :" + this.node.name + "  enabled");
+    },
+    onDisable: function () {
+        cc.log("this node :" + this.node.name + "  disabled");
+    },
+    throwActionForNode: function (theNode) {
+        cc.log(" throwActionForNode:");
+        theNode.on(cc.Node.EventType.TOUCH_START, function (event) {
+
+            cc.log("touch start:" + theNode.name);
+        }, this);
+        theNode.on(cc.Node.EventType.TOUCH_MOVE, function (event) {
+            cc.log("touch move :" + this.name);
+            //var touches = event..getDeltaX();
+           //var touchesLoc = touches[0].getLocation();
+          //  cc.log(" touchesLoc:" + touchesLoc.toString());
+            var x =event.getDeltaX();
+            var y = event.getDeltaY();
+            this.x+=x;
+            this.y+=y;
+           // this.theMoveNode = theNode;
+           // cc.log(" nodeMoveX:" + nodeMoveX);
+         //   cc.log(" nodeMoveY:" + nodeMoveY);
+            //var x = touches[0].getLocationX();
+        }, theNode);
+        theNode.on(cc.Node.EventType.TOUCH_END, function (event) {
+            this.theMoveNode = null;
+            //var x = touches[0].getLocationX();
+        }, this);
+
+    },
+    /**
+     * this.node.on('touchstart', function(event) {
+var touches = event.getTouches();
+var x = touches[0].getLocationX();
+}, this);
+     */
+    //touchmove,'touchstart',touchend
+    // when the mo pai action execute,it will disabled all other pai type ,if the que pai type in the pai list
+    disableAllSlefPaiAfterQuePai: function () {
+        cc.log("throwActionForNode disableAllSlefPaiAfterQuePai:");
+        var tableNode = cc.find("Canvas/tableNode");
+        var parentNode = cc.find("user3PaiList", tableNode);
+
+        var existFlag = this.checkQuePaiInSelf();
+        //if (existFlag) {
         var children = parentNode.children;
-        var existFlag = false;
+        cc.log("throwActionForNode children length:" + children.length);
         for (var i = 0; i < children.length; ++i) {
             var childredName = children[i].name;
+            cc.log("throwActionForNode childredName:" + childredName);
+            var btn = children[i].getComponent(cc.Button);
             var sType = this.getTypeByName(childredName);
-            if (sType == que) {
-                existFlag == true
-            }
-        }
+            //if (sType == que) {
 
-        if (existFlag == true) {
+            btn.interactable = true;
+
+            this.throwActionForNode(children[i]);
+            //} else {
+            //   btn.interactable = false;
+            //  }
+        }
+        //}
+
+    },
+    // after all que pai clean ,the all other pai should be enable
+    enabledAllPaiAfterQuePai: function (parentNode) {
+        var existFlag = this.checkQuePaiInSelf();
+
+        if (existFlag == false) {
             this.enabledAllPai(parentNode);
+        } else {
+            //disable other pai ,only enable the que pai
+
         }
 
     },
@@ -481,7 +601,7 @@ cc.Class({
 
     },
     enabledAllSelfPai: function (parentNode) {
-        cc.log("enabledAllSelfPai");
+        //  cc.log("enabledAllSelfPai");
         var v = this.getLess3NumberType(parentNode);
         var vstr = v.toString();
         //cc.log("vstr:" + vstr);
@@ -564,9 +684,43 @@ cc.Class({
         }
 
     },
+    //------------------------utils ------------------------------------------
+    /**
+     * Check it que pai in the self pai list
+     */
 
+    checkQuePaiInSelf: function () {
+        var tableNode = cc.find("Canvas/tableNode");
+        var parentNode = cc.find("user3ChuaPaiListNode", tableNode);
+        var que = this.getQuePai();
+        var children = parentNode.children;
+        var existFlag = false;
+        for (var i = 0; i < children.length; ++i) {
+            var childredName = children[i].name;
+            var sType = this.getTypeByName(childredName);
+            if (sType == que) {
+                existFlag == true
+            }
+        }
+
+        return existFlag
+
+    },
     // called every frame, uncomment this function to activate update callback
-    // update: function (dt) {
+    update: function (dt) {
+        // if (this.theMoveNode != null && this.theMoveNode != undefined) {
+        //     cc.log("update this.theMoveNode.interactable:" + this.theMoveNode.interactable);
+        //     if (this.theMoveNode.interactable == true || this.theMoveNode.interactable ==undefined) {
+        //         cc.log("update:" + this.theMoveNode.name);
+        //         if (nodeMoveX !=0 && nodeMoveY !=0) {
+                  
+                     
+        //                   this.theMoveNode.setPosition(this.theMoveNode.x+nodeMoveX,this.theMoveNode.y+nodeMoveY);
 
-    // },
+                   
+        //         }
+
+        //     }
+        // }
+    },
 });
