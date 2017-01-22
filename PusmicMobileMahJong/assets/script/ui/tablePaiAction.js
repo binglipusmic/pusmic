@@ -508,28 +508,53 @@ cc.Class({
     },
     throwActionForNode: function (theNode) {
         cc.log(" throwActionForNode:");
+        //  var sourceY;
+        // var sourceX;
         theNode.on(cc.Node.EventType.TOUCH_START, function (event) {
 
             cc.log("touch start:" + theNode.name);
-        }, this);
+            this.sourceY = this.y;
+            this.sourceX = this.x;
+            cc.log("cc.Node.EventType.TOUCH_START:" + this.sourceY);
+        }, theNode);
         theNode.on(cc.Node.EventType.TOUCH_MOVE, function (event) {
             cc.log("touch move :" + this.name);
             //var touches = event..getDeltaX();
-           //var touchesLoc = touches[0].getLocation();
-          //  cc.log(" touchesLoc:" + touchesLoc.toString());
-            var x =event.getDeltaX();
+            //var touchesLoc = touches[0].getLocation();
+            //  cc.log(" touchesLoc:" + touchesLoc.toString());
+
+            var x = event.getDeltaX();
             var y = event.getDeltaY();
-            this.x+=x;
-            this.y+=y;
-           // this.theMoveNode = theNode;
-           // cc.log(" nodeMoveX:" + nodeMoveX);
-         //   cc.log(" nodeMoveY:" + nodeMoveY);
+            this.x += x;
+            this.y += y;
+
+            var btn = this.getComponent(cc.Button);
+            if (btn != null && btn != undefined) {
+                btn.interactable = false;
+                btn.enableAutoGrayEffect = false;
+            }
+
+
+            // this.theMoveNode = theNode;
+            // cc.log(" nodeMoveX:" + nodeMoveX);
+            //   cc.log(" nodeMoveY:" + nodeMoveY);
             //var x = touches[0].getLocationX();
         }, theNode);
         theNode.on(cc.Node.EventType.TOUCH_END, function (event) {
-            this.theMoveNode = null;
+            cc.log("cc.Node.EventType.TOUCH_END:" + this.sourceY);
+            var endY = Math.floor(Math.abs(this.y - this.sourceY));
+            cc.log("endY:" + endY);
+            if (endY > 200) {
+
+            } else {
+                var btn = this.getComponent(cc.Button);
+                btn.interactable = true;
+                this.x = this.sourceX;
+                this.y = this.sourceY;
+            }
+
             //var x = touches[0].getLocationX();
-        }, this);
+        }, theNode);
 
     },
     /**
@@ -713,11 +738,11 @@ var x = touches[0].getLocationX();
         //     if (this.theMoveNode.interactable == true || this.theMoveNode.interactable ==undefined) {
         //         cc.log("update:" + this.theMoveNode.name);
         //         if (nodeMoveX !=0 && nodeMoveY !=0) {
-                  
-                     
+
+
         //                   this.theMoveNode.setPosition(this.theMoveNode.x+nodeMoveX,this.theMoveNode.y+nodeMoveY);
 
-                   
+
         //         }
 
         //     }
