@@ -25,6 +25,7 @@ const gameUser =
       chupaiListX:0,
       chupaiListY:0,
       chuPaiCount:0,
+      userMoPai:"",
       //gameingStatu:"",
     }
 module.exports = {

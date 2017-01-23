@@ -195,6 +195,7 @@ cc.Class({
 
         var tempArray = name.split("_");
         name = tempArray[1];
+
         // cc.log("user.chupaiListX:" + user.chupaiListX);
 
         // cc.log("x:" + x + "----" + "y:" + y);
@@ -209,8 +210,14 @@ cc.Class({
         //   cc.log("userChuPaiListNode:" + userChuPaiListNode);
 
         var user = this.addPaiIntoPaiListNode(userChuPaiListNode, name, userPoint, paiNode);
-
         user = this.fixCurrentChuPaiPoint(user);
+
+        //Now, we need insert the 14 into correct point
+        var chupaiIndex = parseInt(tempArray[0].replace("pai", ""));
+        var mopaiIndex = this.getPaiInsertIndexBy14();
+
+        this.moveLastestPaiToPoint(chupaiIndex);
+
         this.updateUserListInGobal(user);
 
 
@@ -222,7 +229,33 @@ cc.Class({
 
     },
 
-    playSlefChuPaiThrowAction: function (paiNode, userPoint) {
+    playSlefInserterPaiAction: function (chupaiIndex, mopaiIndex) {
+        //first we should decide if move the pai or not move 
+        if (chupaiIndex == mopaiIndex) {
+
+        } else if (chupaiIndex > mopaiIndex) {
+
+        } else {
+            //chupaiIndex<mopaiIndex
+
+        }
+    },
+    moveLastestPaiToPoint: function (index) {
+        index = parseInt(index);
+        var latestPaiPoint = this.getPoinstByIndexFromSelfPaiList(13);
+        var latestPaiX=latestPaiPoint.x;
+        var chuPaiPoint = this.getPoinstByIndexFromSelfPaiList(index);
+        var chuPaiX = chuPaiPoint.x;
+        var painode = this.getPaiNodeByIndex(13);
+
+         var contronalX=chuPaiX+ Math.abs(latestPaiX-chuPaiX)/2;
+         chuPaiPoint.y=0;
+
+        var bezier = [latestPaiPoint, cc.p(contronalX, 30), chuPaiPoint];
+        var bezierTo = cc.bezierTo(0.6, bezier);
+
+
+        painode.runAction(bezierTo);
     },
     //------------------------------------------------------------------------
 
@@ -418,6 +451,8 @@ cc.Class({
         var name = node.name;
         var temp = name.split("_");
         var paiNumTxt = temp[1];
+        var chuPaiIndex = -1;
+        chuPaiIndex = temp[0].replace("pai");
         // var index = parseInt(name.substring(7));
         // cc.log("index:" + index);
         //var paiList = this.getSelfPaiList();
@@ -541,20 +576,37 @@ cc.Class({
             //var x = touches[0].getLocationX();
         }, theNode);
         theNode.on(cc.Node.EventType.TOUCH_END, function (event) {
-            cc.log("cc.Node.EventType.TOUCH_END:" + this.sourceY);
-            var endY = Math.floor(Math.abs(this.y - this.sourceY));
+            cc.log("cc.Node.EventType.TOUCH_END:" + theNode.sourceY);
+            var endY = Math.floor(Math.abs(theNode.y - theNode.sourceY));
             cc.log("endY:" + endY);
-            if (endY > 200) {
+
+            if (endY > 100) {
+                var name = theNode.name;
+                if (name.indexOf("_") > 0) {
+                    var tempArray = name.split("_");
+                    name = tempArray[1];
+                };
+                var partenName = theNode.parent.name;
+                partenName = partenName.replace("PaiList", "");
+                var userPoint = partenName.replace("user", "");
+                var tableNode = cc.find("Canvas/tableNode");
+                var userChuPaiListNode = cc.find(partenName + "ChuaPaiListNode", tableNode);
+                cc.log("userChuPaiListNode:" + userChuPaiListNode.name);
+
+                var user = this.addPaiIntoPaiListNode(userChuPaiListNode, name, userPoint, theNode);
+
+                user = this.fixCurrentChuPaiPoint(user);
+                this.updateUserListInGobal(user);
 
             } else {
-                var btn = this.getComponent(cc.Button);
+                var btn = theNode.getComponent(cc.Button);
                 btn.interactable = true;
-                this.x = this.sourceX;
-                this.y = this.sourceY;
+                theNode.x = theNode.sourceX;
+                theNode.y = theNode.sourceY;
             }
 
             //var x = touches[0].getLocationX();
-        }, theNode);
+        }, this);
 
     },
     /**
@@ -711,6 +763,42 @@ var x = touches[0].getLocationX();
     },
     //------------------------utils ------------------------------------------
     /**
+     * Get self pai node by index
+     */
+    getPaiNodeByIndex: function (index) {
+        var tableNode = cc.find("Canvas/tableNode");
+        var parentNode = cc.find("user3PaiList", tableNode);
+        var children = parentNode.children;
+        if(index>=children.length){
+            index=children.length-1;
+        }
+          cc.log("getPaiNodeByIndex:"+index);
+        var childredNode = children[index];
+        return childredNode
+
+    },
+    /**
+     * Get the point from self pai list by index 
+     *
+     */
+
+    getPoinstByIndexFromSelfPaiList: function (index) {
+        cc.log("getPoinstByIndexFromSelfPaiList1:"+index);
+        var tableNode = cc.find("Canvas/tableNode");
+        var parentNode = cc.find("user3PaiList", tableNode);
+        var children = parentNode.children;
+        cc.log("children.length:"+children.length);
+         if(index>=children.length){
+            index=children.length-1;
+        }
+          cc.log("getPoinstByIndexFromSelfPaiList2:"+index);
+        var childredNode = children[index];
+
+        var point = cc.p(childredNode.x, childredNode.y);
+        return point;
+
+    },
+    /**
      * Check it que pai in the self pai list
      */
 
@@ -731,6 +819,54 @@ var x = touches[0].getLocationX();
         return existFlag
 
     },
+    getPaiInsertIndexBy14: function () {
+        var index = -1;
+        var tableNode = cc.find("Canvas/tableNode");
+        var parentNode = cc.find("user3PaiList", tableNode);
+        var user = this.getCorrectUserByPoint("3");
+        var moPai = parseInt(user.userMoPai);
+        var paiList = this.getSelfPaiList();
+        if (paiList.length == 1) {
+
+            index = 1;
+
+        } else {
+            var minPai = parseInt(paiList[0].trim());
+            var maxPai = parseInt(paiList[paiList.length - 1].trim());
+            if (pai < moPai) {
+                index = 0;
+            } else if (pai > maxPai) {
+                index = paiList.length;
+            } else {
+
+
+                for (var i = 0; i < paiList.length; i++) {
+                    var pai = parseInt(paiList[i].trim());
+                    var nextI = i + 1;
+                    if (nextI == paiList.length) {
+                        nextI = i
+                    }
+
+                    if (nextI == i) {
+                        index = paiList.length;
+                    } else {
+                        var nextPai = parseInt(paiList[nextI].trim());
+                        if (pai < moPai < nextPai) {
+                            index = nextI;
+                        }
+
+                    }
+
+                }
+
+            }
+        }
+
+
+        return index;
+
+    },
+    //---------------utils end----------------------------------------------------
     // called every frame, uncomment this function to activate update callback
     update: function (dt) {
         // if (this.theMoveNode != null && this.theMoveNode != undefined) {
