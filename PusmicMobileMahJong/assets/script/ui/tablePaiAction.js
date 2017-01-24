@@ -210,14 +210,27 @@ cc.Class({
         //   cc.log("userChuPaiListNode:" + userChuPaiListNode);
 
         var user = this.addPaiIntoPaiListNode(userChuPaiListNode, name, userPoint, paiNode);
+        user.chuPaiPointX = paiNode.x;
         user = this.fixCurrentChuPaiPoint(user);
 
         //Now, we need insert the 14 into correct point
         var chupaiIndex = parseInt(tempArray[0].replace("pai", ""));
-        var mopaiIndex = this.getPaiInsertIndexBy14();
+        var mopaiInsertIndex = this.getPaiInsertIndexBy14();
+        cc.log("mopaiInsertIndex:" + mopaiInsertIndex);
+        cc.log("chupaiIndex:" + chupaiIndex);
+        //move the other pai into correct point
 
-        this.moveLastestPaiToPoint(chupaiIndex);
 
+        if (chupaiIndex != mopaiInsertIndex) {
+            mopaiInsertIndex = this.moveOtherPaiIntoCorrectPoint(mopaiInsertIndex, chupaiIndex);
+        }
+        //move the 14 pai into correct point
+        this.moveLastestPaiToPoint(mopaiInsertIndex);
+        //datalayer -------------------------------------------
+
+        var paiList = this.removeElementByNumberFromUser(paiNode, 1)
+        user.paiListArray = paiList;
+        user=this.synchronizationPaiList(user);  
         this.updateUserListInGobal(user);
 
 
@@ -240,16 +253,52 @@ cc.Class({
 
         }
     },
+    moveOtherPaiIntoCorrectPoint: function (mopaiInsertIndex, chuPaiIndex) {
+
+        var tableNode = cc.find("Canvas/tableNode");
+        var parentNode = cc.find("user3PaiList", tableNode);
+        var children = parentNode.children;
+        var user = this.getCorrectUserByPoint("3");
+        var chuPaiPointX = user.chuPaiPointX;
+        var moveDistance = 0
+
+        if (mopaiInsertIndex > chuPaiIndex) {
+            cc.log(">>>>>:");
+
+            for (var i = chuPaiIndex + 1; i < mopaiInsertIndex; i++) {
+                var node = children[i]
+                var action = cc.moveTo(0.1, node.x - 84, node.y);
+                node.runAction(action);
+
+            }
+            mopaiInsertIndex--
+        } else {
+            cc.log("<<<<<<:");
+            for (var i = chuPaiIndex - 1; i > mopaiInsertIndex - 1; i--) {
+                var node = children[i]
+                var action = cc.moveTo(0.1, node.x + 84, node.y);
+                node.runAction(action);
+
+            }
+
+        }
+
+        return mopaiInsertIndex
+
+    },
+    /**
+     * Move the latest pai in to correct position 
+     */
     moveLastestPaiToPoint: function (index) {
         index = parseInt(index);
         var latestPaiPoint = this.getPoinstByIndexFromSelfPaiList(13);
-        var latestPaiX=latestPaiPoint.x;
+        var latestPaiX = latestPaiPoint.x;
         var chuPaiPoint = this.getPoinstByIndexFromSelfPaiList(index);
         var chuPaiX = chuPaiPoint.x;
         var painode = this.getPaiNodeByIndex(13);
 
-         var contronalX=chuPaiX+ Math.abs(latestPaiX-chuPaiX)/2;
-         chuPaiPoint.y=0;
+        var contronalX = chuPaiX + Math.abs(latestPaiX - chuPaiX) / 2;
+        chuPaiPoint.y = 0;
 
         var bezier = [latestPaiPoint, cc.p(contronalX, 30), chuPaiPoint];
         var bezierTo = cc.bezierTo(0.6, bezier);
@@ -276,6 +325,7 @@ cc.Class({
         for (var i = 0; i < userList.length; i++) {
             if (userList[i].openid == user.openid) {
                 userList[i] = user;
+                
             }
         }
         Global.userList = userList;
@@ -762,6 +812,44 @@ var x = touches[0].getLocationX();
 
     },
     //------------------------utils ------------------------------------------
+
+    synchronizationPaiList: function (user) {
+
+        var paiList = user.paiListArray;
+        var temp="";
+        for (var i = 0; i < paiList.length; ++i) {
+            temp=temp+paiList[i].trim()+","
+        }
+        if(temp.length>0){
+            temp=temp.substring(0,temp.length-1)
+        }
+        user.paiList=temp;
+    },
+    /**
+     * remove a element from paiList of user self
+     * b---remove element number.
+     */
+    removeElementByNumberFromUser: function (node, b) {
+        var number = node.name;
+        var c = 0;
+        var temp = number.split("_");
+        number = temp[1];
+        var paiList = this.getSelfPaiList();
+        for (var i = 0; i < paiList.length; ++i) {
+            if (paiList[i] == number) {
+                paiList.splice(i, 1);
+                c++;
+                if (c == b) {
+                    break;
+                }
+
+            }
+
+        }
+
+        return paiList
+
+    },
     /**
      * Get self pai node by index
      */
@@ -769,10 +857,10 @@ var x = touches[0].getLocationX();
         var tableNode = cc.find("Canvas/tableNode");
         var parentNode = cc.find("user3PaiList", tableNode);
         var children = parentNode.children;
-        if(index>=children.length){
-            index=children.length-1;
+        if (index >= children.length) {
+            index = children.length - 1;
         }
-          cc.log("getPaiNodeByIndex:"+index);
+        cc.log("getPaiNodeByIndex:" + index);
         var childredNode = children[index];
         return childredNode
 
@@ -783,15 +871,15 @@ var x = touches[0].getLocationX();
      */
 
     getPoinstByIndexFromSelfPaiList: function (index) {
-        cc.log("getPoinstByIndexFromSelfPaiList1:"+index);
+        cc.log("getPoinstByIndexFromSelfPaiList1:" + index);
         var tableNode = cc.find("Canvas/tableNode");
         var parentNode = cc.find("user3PaiList", tableNode);
         var children = parentNode.children;
-        cc.log("children.length:"+children.length);
-         if(index>=children.length){
-            index=children.length-1;
+        cc.log("children.length:" + children.length);
+        if (index >= children.length) {
+            index = children.length - 1;
         }
-          cc.log("getPoinstByIndexFromSelfPaiList2:"+index);
+        cc.log("getPoinstByIndexFromSelfPaiList2:" + index);
         var childredNode = children[index];
 
         var point = cc.p(childredNode.x, childredNode.y);
@@ -819,6 +907,9 @@ var x = touches[0].getLocationX();
         return existFlag
 
     },
+    /**
+     * Get the correct index by the 14 pai 
+     */
     getPaiInsertIndexBy14: function () {
         var index = -1;
         var tableNode = cc.find("Canvas/tableNode");
@@ -832,15 +923,22 @@ var x = touches[0].getLocationX();
 
         } else {
             var minPai = parseInt(paiList[0].trim());
-            var maxPai = parseInt(paiList[paiList.length - 1].trim());
-            if (pai < moPai) {
+            var maxIndex = paiList.length - 1;
+            if (maxIndex == 13) {
+                maxIndex = 12;
+            }
+            var maxPai = parseInt(paiList[maxIndex].trim());
+            cc.log("moPai:" + moPai);
+            cc.log("minPai:" + minPai);
+            cc.log("maxPai:" + maxPai);
+            if (moPai < minPai) {
                 index = 0;
-            } else if (pai > maxPai) {
+            } else if (moPai > maxPai) {
                 index = paiList.length;
             } else {
 
 
-                for (var i = 0; i < paiList.length; i++) {
+                for (var i = 0; i < maxIndex; i++) {
                     var pai = parseInt(paiList[i].trim());
                     var nextI = i + 1;
                     if (nextI == paiList.length) {
@@ -850,9 +948,13 @@ var x = touches[0].getLocationX();
                     if (nextI == i) {
                         index = paiList.length;
                     } else {
+
                         var nextPai = parseInt(paiList[nextI].trim());
-                        if (pai < moPai < nextPai) {
+                        cc.log("pai:" + pai);
+                        cc.log("nextPai:" + nextPai);
+                        if (pai < moPai && moPai < nextPai) {
                             index = nextI;
+                            break;
                         }
 
                     }

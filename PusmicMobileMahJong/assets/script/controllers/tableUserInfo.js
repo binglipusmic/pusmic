@@ -89,7 +89,7 @@ cc.Class({
                 o.zhuang = "1";
             } else {
                 o.zhuang = "0";
-                if(i==3){
+                if(i==2){
                     o.userMoPai="22";
                 }
             }
