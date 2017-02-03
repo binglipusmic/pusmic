@@ -135,7 +135,9 @@
     "selfChuPaiListNode": null,
     "paiChuPaiNode": {
       "__uuid__": "f5e4c9ab-550f-4ff5-bf21-e461dbb7b410"
-    }
+    },
+    "theMoveNode": null,
+    "tableUserInfo": null
   },
   {
     "__type__": "cc.PrefabInfo",

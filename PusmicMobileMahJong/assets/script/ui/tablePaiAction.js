@@ -2,6 +2,7 @@
 var paiListReOrderCount = "3"
 var nodeMoveX = -1;
 var nodeMoveY = -1;
+var tableUserInfoScript;
 cc.Class({
     extends: cc.Component,
 
@@ -22,13 +23,15 @@ cc.Class({
         selfChuPaiListNode: cc.Node,
         paiChuPaiNode: cc.Prefab,
         theMoveNode: cc.Node,
+        //tableUserInfo:cc.Node,
         //paiListReOrderCount:cc.Integer,
     },
 
     // use this for initialization
     //chuPaiActionType
     onLoad: function () {
-
+        var tableUserInfo = cc.find("tableUserInfo");
+        tableUserInfoScript = tableUserInfo.getComponent("tableUserInfo");
 
     },
 
@@ -229,12 +232,16 @@ cc.Class({
         //datalayer -------------------------------------------
 
         var paiList = this.removeElementByNumberFromUser(paiNode, 1)
+        cc.log("241:" + paiList);
         user.paiListArray = paiList;
         user = this.insertMoPaiIntoPaiList(user);
         user = this.synchronizationPaiList(user);
+        user.userMoPai = "";
         cc.log("user openid:" + user.openid)
         this.updateUserListInGobal(user);
-
+        cc.log("241:" + user.paiList);
+        this.removeAllNodeFromSelfPaiList();
+        tableUserInfoScript.intalSelfPaiList(user.paiList);
 
         //add pai to correct point  
 
@@ -818,17 +825,17 @@ var x = touches[0].getLocationX();
         var moPai = user.userMoPai;
         if (moPai != null && moPai != undefined) {
             moPai = parseInt(moPai.trim());
-             cc.log("moPai:"+moPai);
+            cc.log("moPai:" + moPai);
             var paiList = user.paiListArray;
             if (paiList.length > 1) {
                 var temp = [];
                 var insertFlag = false;
                 for (var i = 0; i < paiList.length; ++i) {
                     var pai = parseInt(paiList[i].trim());
-                    cc.log("loop pai:"+pai)
+                    cc.log("loop pai:" + pai)
                     if (moPai < pai) {
                         if (insertFlag == false) {
-                             cc.log("insertFlag pai:"+moPai)
+                            cc.log("insertFlag pai:" + moPai)
                             temp.push(moPai);
                             insertFlag = true;
                         }
@@ -843,7 +850,7 @@ var x = touches[0].getLocationX();
                 paiList.push(moPai);
                 user.paiListArray = paiList;
             }
-           
+
         }
         cc.log("user open:" + user.openid);
         cc.log("insertMoPaiIntoPaiList user.paiListArray:" + user.paiListArray.toString());
@@ -878,7 +885,9 @@ var x = touches[0].getLocationX();
         number = temp[1];
         var paiList = this.getSelfPaiList();
         for (var i = 0; i < paiList.length; ++i) {
-            if (paiList[i] == number) {
+            var temp = paiList[i] + "";
+            temp = temp.trim();
+            if (temp == number) {
                 paiList.splice(i, 1);
                 c++;
                 if (c == b) {
@@ -949,6 +958,11 @@ var x = touches[0].getLocationX();
         return existFlag
 
     },
+    removeAllNodeFromSelfPaiList: function () {
+        var tableNode = cc.find("Canvas/tableNode");
+        var parentNode = cc.find("user3PaiList", tableNode);
+        parentNode.removeAllChildren()
+    },
     /**
      * Get the correct index by the 14 pai 
      */
@@ -964,12 +978,16 @@ var x = touches[0].getLocationX();
             index = 1;
 
         } else {
-            var minPai = parseInt(paiList[0].trim());
+            var firstPai = paiList[0] + "";
+            firstPai = firstPai.trim();
+            var minPai = parseInt(firstPai);
             var maxIndex = paiList.length - 1;
             if (maxIndex == 13) {
                 maxIndex = 12;
             }
-            var maxPai = parseInt(paiList[maxIndex].trim());
+            var lastPai = paiList[maxIndex] + "";
+            lastPai = lastPai.trim();
+            var maxPai = parseInt(lastPai);
             cc.log("moPai:" + moPai);
             cc.log("minPai:" + minPai);
             cc.log("maxPai:" + maxPai);
@@ -981,7 +999,9 @@ var x = touches[0].getLocationX();
 
 
                 for (var i = 0; i < maxIndex; i++) {
-                    var pai = parseInt(paiList[i].trim());
+                    var paiGet = paiList[i] + "";
+                    paiGet = paiGet.trim();
+                    var pai = parseInt(paiGet);
                     var nextI = i + 1;
                     if (nextI == paiList.length) {
                         nextI = i
@@ -990,8 +1010,9 @@ var x = touches[0].getLocationX();
                     if (nextI == i) {
                         index = paiList.length;
                     } else {
-
-                        var nextPai = parseInt(paiList[nextI].trim());
+                        var nextPaiStr = paiList[nextI] + "";
+                        nextPaiStr = nextPaiStr.trim();
+                        var nextPai = parseInt(nextPaiStr);
                         cc.log("pai:" + pai);
                         cc.log("nextPai:" + nextPai);
                         if (pai < moPai && moPai < nextPai) {
