@@ -230,7 +230,9 @@ cc.Class({
 
         var paiList = this.removeElementByNumberFromUser(paiNode, 1)
         user.paiListArray = paiList;
-        user=this.synchronizationPaiList(user);  
+        user = this.insertMoPaiIntoPaiList(user);
+        user = this.synchronizationPaiList(user);
+        cc.log("user openid:" + user.openid)
         this.updateUserListInGobal(user);
 
 
@@ -325,7 +327,7 @@ cc.Class({
         for (var i = 0; i < userList.length; i++) {
             if (userList[i].openid == user.openid) {
                 userList[i] = user;
-                
+
             }
         }
         Global.userList = userList;
@@ -812,18 +814,58 @@ var x = touches[0].getLocationX();
 
     },
     //------------------------utils ------------------------------------------
+    insertMoPaiIntoPaiList: function (user) {
+        var moPai = user.userMoPai;
+        if (moPai != null && moPai != undefined) {
+            moPai = parseInt(moPai.trim());
+             cc.log("moPai:"+moPai);
+            var paiList = user.paiListArray;
+            if (paiList.length > 1) {
+                var temp = [];
+                var insertFlag = false;
+                for (var i = 0; i < paiList.length; ++i) {
+                    var pai = parseInt(paiList[i].trim());
+                    cc.log("loop pai:"+pai)
+                    if (moPai < pai) {
+                        if (insertFlag == false) {
+                             cc.log("insertFlag pai:"+moPai)
+                            temp.push(moPai);
+                            insertFlag = true;
+                        }
+
+                    }
+                    temp.push(pai);
+
+
+                }
+                user.paiListArray = temp;
+            } else {
+                paiList.push(moPai);
+                user.paiListArray = paiList;
+            }
+           
+        }
+        cc.log("user open:" + user.openid);
+        cc.log("insertMoPaiIntoPaiList user.paiListArray:" + user.paiListArray.toString());
+        return user;
+
+    },
+    /**
+     * Synchronization the pai list array into user pai string 
+     */
 
     synchronizationPaiList: function (user) {
 
         var paiList = user.paiListArray;
-        var temp="";
+        var temp = "";
         for (var i = 0; i < paiList.length; ++i) {
-            temp=temp+paiList[i].trim()+","
+            temp = temp + paiList[i] + ","
         }
-        if(temp.length>0){
-            temp=temp.substring(0,temp.length-1)
+        if (temp.length > 0) {
+            temp = temp.substring(0, temp.length - 1)
         }
-        user.paiList=temp;
+        user.paiList = temp;
+        return user;
     },
     /**
      * remove a element from paiList of user self
