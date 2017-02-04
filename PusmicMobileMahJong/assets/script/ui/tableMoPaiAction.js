@@ -34,13 +34,13 @@ cc.Class({
 
     // },
     moPaiTest: function () {
-        this.moPaiAction("15");
+        this.moPaiAction("15","testUser2");
     },
 
-    moPaiAction: function (paiNumber) {
+    moPaiAction: function (paiNumber,userOpenId) {
         var paiList = tableActionScript.getSelfPaiList();
         var latstIndex = 0;
-        if (paiList.length == 14) {
+        if (paiList.length == 13) {
             latstIndex = 13
         } else {
             latstIndex = paiList.length + 1;
@@ -53,8 +53,33 @@ cc.Class({
         sprite.spriteFrame = tableUserInfoScript.liPaiZiMian[index]
         this.user3PaiListNode.addChild(paiNode);
         paiNode.position = cc.p(-520 + latstIndex * 80, 0);
+        //---data layer-----------------
+       var userList = Global.userList;
+       var user
+        for (var i = 0; i < userList.length; i++) {
+            if (userList[i].openid == userOpenId) {
+                user=userList[i] ;
+                break;
+            }
+        }
+        user.userMoPai=paiNumber;
+        this.updateUserListInGobal(user);
 
-    }
+
+    },
+
+     updateUserListInGobal: function (user) {
+        var userList = Global.userList;
+
+        for (var i = 0; i < userList.length; i++) {
+            if (userList[i].openid == user.openid) {
+                userList[i] = user;
+
+            }
+        }
+        Global.userList = userList;
+
+    },
 
 
 });

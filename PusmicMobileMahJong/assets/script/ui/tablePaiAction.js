@@ -127,6 +127,12 @@ cc.Class({
         var deps = cc.loader.getDependsRecursively(spriteFrame);
         cc.loader.release(deps);
         //user.chuPaiCount = user.chuPaiCount + 1;
+
+        //remove paiNode from partnet
+        //cc.log("132:"+paiNode.parent.name);
+        // paiNode.removeFromParent();
+        //userChuPaiListNode.addChild(paiNode);
+       
         return user
 
     },
@@ -232,7 +238,7 @@ cc.Class({
         //datalayer -------------------------------------------
 
         var paiList = this.removeElementByNumberFromUser(paiNode, 1)
-        cc.log("241:" + paiList);
+        cc.log("235:" + paiList);
         user.paiListArray = paiList;
         user = this.insertMoPaiIntoPaiList(user);
         user = this.synchronizationPaiList(user);
@@ -240,14 +246,33 @@ cc.Class({
         cc.log("user openid:" + user.openid)
         this.updateUserListInGobal(user);
         cc.log("241:" + user.paiList);
+        //this.fixUserSelfPaiPoinst();
         this.removeAllNodeFromSelfPaiList();
-        tableUserInfoScript.intalSelfPaiList(user.paiList);
+        //tableUserInfoScript.intalSelfPaiList(user.paiList);
 
         //add pai to correct point  
 
         // pNode.active = true;
         //add it to curernt 
         //  eval("this.user" + point + "PaiListNode.addChild(paiNode)");
+
+    },
+
+    /**
+     * fix the point for self pai list
+     */
+
+    fixUserSelfPaiPoinst: function () {
+        var tableNode = cc.find("Canvas/tableNode");
+        var parentNode = cc.find("user3PaiList", tableNode);
+        var childrens = parentNode.children
+        var startPoint = -520;
+        cc.log("264:"+childrens.length);
+        for (var i = 0; i < childrens.length; i++) {
+            var child = childrens[i];
+            child.position = cc.p(startPoint + i * 79, 0);
+            cc.log("ponit:"+i+":"+(startPoint + i * 79)+"::"+child.name);
+        }
 
     },
 
@@ -267,6 +292,7 @@ cc.Class({
         var tableNode = cc.find("Canvas/tableNode");
         var parentNode = cc.find("user3PaiList", tableNode);
         var children = parentNode.children;
+        cc.log("288:"+children.length);
         var user = this.getCorrectUserByPoint("3");
         var chuPaiPointX = user.chuPaiPointX;
         var moveDistance = 0
@@ -961,7 +987,9 @@ var x = touches[0].getLocationX();
     removeAllNodeFromSelfPaiList: function () {
         var tableNode = cc.find("Canvas/tableNode");
         var parentNode = cc.find("user3PaiList", tableNode);
-        parentNode.removeAllChildren()
+        var count = parentNode.childrenCount;
+cc.log("Node Children Count: " + count);
+       // parentNode.removeAllChildren()
     },
     /**
      * Get the correct index by the 14 pai 
