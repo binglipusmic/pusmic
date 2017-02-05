@@ -61,6 +61,7 @@ cc.Class({
 
     addPaiIntoPaiListNode: function (userChuPaiListNode, name, userPoint, paiNode) {
         var user = this.getCorrectUserByPoint(userPoint);
+        var userPaiList=user.paiList;
         var x = user.chupaiListX;
         var y = user.chupaiListY;
         var paiPath = this.getChuPaiNameByNodeName(name, userPoint);
@@ -107,8 +108,12 @@ cc.Class({
 
         });
         userChuPaiListNode.addChild(pNode);
-
-        var finished = cc.callFunc(this.playSlefChuPaiAction_addChild, this, pNode);
+        var paiNodeArray = [];
+        paiNodeArray.push(pNode);
+        paiNodeArray.push(paiNode);
+        paiNodeArray.push(paiNode.parent);
+        paiNodeArray.push(userPaiList);
+        var finished = cc.callFunc(this.playSlefChuPaiAction_addChild, this, paiNodeArray);
         var moveToY = 0;
 
         if (userPoint == "3") {
@@ -121,18 +126,16 @@ cc.Class({
         cc.log("moveToY:" + moveToY);
         var action = cc.sequence(cc.moveTo(0.15, x, moveToY), cc.scaleTo(0.15, 0.5), cc.removeSelf(), finished);
         //it is other user chupai ,get the first child element 
-
+        cc.log("127:" + paiNode.parent.childrenCount);
         paiNode.runAction(action);
-        var spriteFrame = paiNode.getComponent(cc.Sprite).spriteFrame;
-        var deps = cc.loader.getDependsRecursively(spriteFrame);
-        cc.loader.release(deps);
+
         //user.chuPaiCount = user.chuPaiCount + 1;
 
         //remove paiNode from partnet
-        //cc.log("132:"+paiNode.parent.name);
+        cc.log("132:" + paiNode.parent.name);
         // paiNode.removeFromParent();
         //userChuPaiListNode.addChild(paiNode);
-       
+
         return user
 
     },
@@ -247,7 +250,7 @@ cc.Class({
         this.updateUserListInGobal(user);
         cc.log("241:" + user.paiList);
         //this.fixUserSelfPaiPoinst();
-        this.removeAllNodeFromSelfPaiList();
+        //this.removeAllNodeFromSelfPaiList();
         //tableUserInfoScript.intalSelfPaiList(user.paiList);
 
         //add pai to correct point  
@@ -267,11 +270,11 @@ cc.Class({
         var parentNode = cc.find("user3PaiList", tableNode);
         var childrens = parentNode.children
         var startPoint = -520;
-        cc.log("264:"+childrens.length);
+        cc.log("264:" + childrens.length);
         for (var i = 0; i < childrens.length; i++) {
             var child = childrens[i];
             child.position = cc.p(startPoint + i * 79, 0);
-            cc.log("ponit:"+i+":"+(startPoint + i * 79)+"::"+child.name);
+            cc.log("ponit:" + i + ":" + (startPoint + i * 79) + "::" + child.name);
         }
 
     },
@@ -292,7 +295,7 @@ cc.Class({
         var tableNode = cc.find("Canvas/tableNode");
         var parentNode = cc.find("user3PaiList", tableNode);
         var children = parentNode.children;
-        cc.log("288:"+children.length);
+        cc.log("288:" + children.length);
         var user = this.getCorrectUserByPoint("3");
         var chuPaiPointX = user.chuPaiPointX;
         var moveDistance = 0
@@ -343,10 +346,25 @@ cc.Class({
     },
     //------------------------------------------------------------------------
 
-    playSlefChuPaiAction_addChild: function (target, pNode) {
-        //    cc.log("playSlefChuPaiAction_addChild");
+    playSlefChuPaiAction_addChild: function (target, pNodeArray) {
+        var pNode = pNodeArray[0];
+        var paiNode = pNodeArray[1];
+        var parent = pNodeArray[2];
+        var paiList =pNodeArray[3];
+        cc.log("playSlefChuPaiAction_addChild:" + paiNode.name);
+        cc.log("playSlefChuPaiAction_addChild parent:" + parent.name);
+        cc.log("playSlefChuPaiAction_addChild parent child count1:" + parent.childrenCount);
         pNode.active = true;
 
+        var spriteFrame = paiNode.getComponent(cc.Sprite).spriteFrame;
+        var deps = cc.loader.getDependsRecursively(spriteFrame);
+        cc.loader.release(deps);
+        paiNode.removeFromParent();
+        cc.log("playSlefChuPaiAction_addChild parent child count2:" + parent.childrenCount);
+       // this.removeAllNodeFromSelfPaiList();
+        cc.log("paiList:"+paiList);
+        //tableUserInfoScript.intalSelfPaiList(paiList);
+        
 
     },
 
@@ -988,8 +1006,9 @@ var x = touches[0].getLocationX();
         var tableNode = cc.find("Canvas/tableNode");
         var parentNode = cc.find("user3PaiList", tableNode);
         var count = parentNode.childrenCount;
-cc.log("Node Children Count: " + count);
-       // parentNode.removeAllChildren()
+        cc.log("parentNode: " + parentNode.name);
+        cc.log("Node Children Count: " + count);
+        // parentNode.removeAllChildren()
     },
     /**
      * Get the correct index by the 14 pai 
