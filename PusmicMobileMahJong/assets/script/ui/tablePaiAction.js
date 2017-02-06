@@ -61,7 +61,7 @@ cc.Class({
 
     addPaiIntoPaiListNode: function (userChuPaiListNode, name, userPoint, paiNode) {
         var user = this.getCorrectUserByPoint(userPoint);
-        var userPaiList=user.paiList;
+        var userPaiList = user.paiList;
         var x = user.chupaiListX;
         var y = user.chupaiListY;
         var paiPath = this.getChuPaiNameByNodeName(name, userPoint);
@@ -113,6 +113,7 @@ cc.Class({
         paiNodeArray.push(paiNode);
         paiNodeArray.push(paiNode.parent);
         paiNodeArray.push(userPaiList);
+        paiNodeArray.push(user.openid);
         var finished = cc.callFunc(this.playSlefChuPaiAction_addChild, this, paiNodeArray);
         var moveToY = 0;
 
@@ -296,6 +297,15 @@ cc.Class({
         var parentNode = cc.find("user3PaiList", tableNode);
         var children = parentNode.children;
         cc.log("288:" + children.length);
+        cc.log("mopaiInsertIndex:" + mopaiInsertIndex);
+        if (mopaiInsertIndex == -1) {
+            mopaiInsertIndex = 0;
+        }
+        cc.log("chuPaiIndex:" + chuPaiIndex);
+        for (var i = 0; i < children.length; i++) {
+            var child = children[i];
+            cc.log("288 name:" + child.name);
+        }
         var user = this.getCorrectUserByPoint("3");
         var chuPaiPointX = user.chuPaiPointX;
         var moveDistance = 0
@@ -350,7 +360,8 @@ cc.Class({
         var pNode = pNodeArray[0];
         var paiNode = pNodeArray[1];
         var parent = pNodeArray[2];
-        var paiList =pNodeArray[3];
+        var paiList = pNodeArray[3];
+        var userOpenId = pNodeArray[4];
         cc.log("playSlefChuPaiAction_addChild:" + paiNode.name);
         cc.log("playSlefChuPaiAction_addChild parent:" + parent.name);
         cc.log("playSlefChuPaiAction_addChild parent child count1:" + parent.childrenCount);
@@ -361,10 +372,15 @@ cc.Class({
         cc.loader.release(deps);
         paiNode.removeFromParent();
         cc.log("playSlefChuPaiAction_addChild parent child count2:" + parent.childrenCount);
-       // this.removeAllNodeFromSelfPaiList();
-        cc.log("paiList:"+paiList);
-        //tableUserInfoScript.intalSelfPaiList(paiList);
-        
+        this.removeAllNodeFromSelfPaiList();
+        cc.log("paiList:" + paiList);
+
+        var user = this.getCorrectUserByOpenId(userOpenId);
+        cc.log("374:" + user.paiList);
+        tableUserInfoScript.intalSelfPaiList(user.paiList);
+
+        this.disableAllSlefPai();
+
 
     },
 
@@ -500,6 +516,19 @@ cc.Class({
         }
 
         Global.userList = userList;
+
+    },
+    getCorrectUserByOpenId: function (userOpenId) {
+
+        var userList = Global.userList;
+        var user;
+        for (var i = 0; i < userList.length; i++) {
+            if (userList[i].openid == userOpenId) {
+                user = userList[i];
+            }
+        }
+
+        return user;
 
     },
     getCorrectUserByPoint: function (pointIndex) {
@@ -718,6 +747,20 @@ var touches = event.getTouches();
 var x = touches[0].getLocationX();
 }, this);
      */
+    disableAllSlefPai: function () {
+        var tableNode = cc.find("Canvas/tableNode");
+        var parentNode = cc.find("user3PaiList", tableNode);
+        var children = parentNode.children;
+        for (var i = 0; i < children.length; ++i) {
+            var childredName = children[i].name;
+            cc.log("throwActionForNode childredName:" + childredName);
+            var btn = children[i].getComponent(cc.Button);
+            btn.enableAutoGrayEffect = false;
+            btn.interactable = false;
+            btn.disabledColor =new cc.Color(255,255,255);
+            cc.log("disableAllSlefPai:"+ btn.enableAutoGrayEffect );
+        }
+    },
     //touchmove,'touchstart',touchend
     // when the mo pai action execute,it will disabled all other pai type ,if the que pai type in the pai list
     disableAllSlefPaiAfterQuePai: function () {
@@ -758,10 +801,14 @@ var x = touches[0].getLocationX();
         }
 
     },
-    enabledAllPai: function (parentNode) {
+    enabledAllPai: function (parentNode, autoGray) {
         var children = parentNode.children;
         for (var i = 0; i < children.length; ++i) {
             var btn = children[i].getComponent(cc.Button);
+            if (autoGray != null && autoGray != undefined) {
+                btn.enableAutoGrayEffect = autoGray;
+            }
+
             btn.interactable = true;
         }
     },
@@ -875,7 +922,8 @@ var x = touches[0].getLocationX();
                 var temp = [];
                 var insertFlag = false;
                 for (var i = 0; i < paiList.length; ++i) {
-                    var pai = parseInt(paiList[i].trim());
+                    var p = paiList[i] + "";
+                    var pai = parseInt(p.trim());
                     cc.log("loop pai:" + pai)
                     if (moPai < pai) {
                         if (insertFlag == false) {
@@ -1007,8 +1055,8 @@ var x = touches[0].getLocationX();
         var parentNode = cc.find("user3PaiList", tableNode);
         var count = parentNode.childrenCount;
         cc.log("parentNode: " + parentNode.name);
-        cc.log("Node Children Count: " + count);
-        // parentNode.removeAllChildren()
+        cc.log("Node Children Count 1010: " + count);
+        parentNode.removeAllChildren()
     },
     /**
      * Get the correct index by the 14 pai 

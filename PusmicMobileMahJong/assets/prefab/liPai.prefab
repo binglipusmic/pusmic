@@ -136,8 +136,7 @@
     "paiChuPaiNode": {
       "__uuid__": "f5e4c9ab-550f-4ff5-bf21-e461dbb7b410"
     },
-    "theMoveNode": null,
-    "tableUserInfo": null
+    "theMoveNode": null
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -219,9 +218,9 @@
     },
     "_N$disabledColor": {
       "__type__": "cc.Color",
-      "r": 124,
-      "g": 124,
-      "b": 124,
+      "r": 204,
+      "g": 204,
+      "b": 204,
       "a": 255
     },
     "_N$normalSprite": null,

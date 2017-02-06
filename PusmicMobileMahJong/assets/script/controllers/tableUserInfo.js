@@ -359,6 +359,8 @@ cc.Class({
         for (var i = 0; i < paiArray.length; i++) {
             if (paiArray[i] != null && paiArray[i] != undefined) {
                 var paiNode = cc.instantiate(this.liPaiPrefab);
+                var btn = paiNode.getComponent(cc.Button);
+               
                 var sprite = paiNode.getComponent(cc.Sprite);
                 paiNode.name = "pai" + (i) + "_" + paiArray[i].trim();
                 //var imageUrl = "/img/9t";
