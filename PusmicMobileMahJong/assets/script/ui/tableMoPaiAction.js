@@ -43,7 +43,7 @@ cc.Class({
         if (paiList.length == 13) {
             latstIndex = 13
         } else {
-            latstIndex = paiList.length + 1;
+            latstIndex = paiList.length;
         }
         var paiNode = cc.instantiate(this.liPaiPrefab);
         var sprite = paiNode.getComponent(cc.Sprite);

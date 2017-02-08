@@ -757,8 +757,8 @@ var x = touches[0].getLocationX();
             var btn = children[i].getComponent(cc.Button);
             btn.enableAutoGrayEffect = false;
             btn.interactable = false;
-            btn.disabledColor =new cc.Color(255,255,255);
-            cc.log("disableAllSlefPai:"+ btn.enableAutoGrayEffect );
+            btn.disabledColor = new cc.Color(255, 255, 255);
+            cc.log("disableAllSlefPai:" + btn.enableAutoGrayEffect);
         }
     },
     //touchmove,'touchstart',touchend
@@ -966,6 +966,24 @@ var x = touches[0].getLocationX();
         user.paiList = temp;
         return user;
     },
+    removeElementByNumberByPaiListFromUser: function (paiList, paiNumber, b) {
+        var c = 0;
+        for (var i = 0; i < paiList.length; ++i) {
+            var temp = paiList[i] + "";
+            temp = temp.trim();
+            if (temp == number) {
+                paiList.splice(i, 1);
+                c++;
+                if (c == b) {
+                    break;
+                }
+
+            }
+
+        }
+
+        return paiList
+    },
     /**
      * remove a element from paiList of user self
      * b---remove element number.
@@ -1053,6 +1071,14 @@ var x = touches[0].getLocationX();
     removeAllNodeFromSelfPaiList: function () {
         var tableNode = cc.find("Canvas/tableNode");
         var parentNode = cc.find("user3PaiList", tableNode);
+        var count = parentNode.childrenCount;
+        cc.log("parentNode: " + parentNode.name);
+        cc.log("Node Children Count 1010: " + count);
+        parentNode.removeAllChildren()
+    },
+    removeAllNodeFromOtherPaiList: function (point) {
+        var tableNode = cc.find("Canvas/tableNode");
+        var parentNode = cc.find("user" + point + "PaiList", tableNode);
         var count = parentNode.childrenCount;
         cc.log("parentNode: " + parentNode.name);
         cc.log("Node Children Count 1010: " + count);

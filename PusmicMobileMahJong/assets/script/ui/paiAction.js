@@ -24,6 +24,7 @@ cc.Class({
         cancleNode: cc.Node,
         tablePaiActionNode: cc.Node,
         tableUserInfoNode: cc.Node,
+        paiChuPaiNode: cc.Prefab,
     },
 
     // use this for initialization
@@ -47,6 +48,12 @@ cc.Class({
     testShowAction: function () {
         var actionArray = ['cancle', 'gang', 'peng'];
         this.showAction(actionArray);
+    },
+    testPengPai: function () {
+        this.pengAction("testUser2", "33");
+        this.pengAction("testUser0", "11");
+        this.pengAction("testUser1", "22");
+        this.pengAction("testUser3", "28");
     },
 
     showAction: function (actionArray) {
@@ -74,52 +81,36 @@ cc.Class({
     //------------------------Peng,Gang,Hu Action---------------------------------------
 
     pengAction: function (userOpenId, paiNumber) {
-        var user = tablePaiActionScript.getCorrectUserByPoint(userOpenId);
+        var user = tablePaiActionScript.getCorrectUserByOpenId(userOpenId);
         var pointIndex = user.pointIndex;
         //data layer ------
         var paiList = user.paiListArray;
-        paiList = removeElementByNumberFromUser(paiList, paiNumber, 2);
+        paiList = this.removeElementByNumberFromUser(paiList, paiNumber, 2);
+        cc.log("pengAction paiList:" + paiList);
         user.paiListArray = paiList;
         var pengList = user.pengPaiList;
+        if (pengList == null || pengList == undefined) {
+            pengList = [];
+        }
         pengList.push(paiNumber);
         user.pengPaiList = pengList;
         //update user to gobal
+        user = tablePaiActionScript.synchronizationPaiList(user);
         tablePaiActionScript.updateUserListInGobal(user);
         //data layer end -------------------------------------
         //-------show user pai list-----------------
+        cc.log("pengAction:" + pointIndex);
         if (pointIndex == "3") {
             tablePaiActionScript.removeAllNodeFromSelfPaiList();
-            tableUserInfoScript.intalSelfPaiList(user.paiList);
+            tableUserInfoNodeScript.intalSelfPaiList(user.paiList);
         } else {
             tablePaiActionScript.removeAllNodeFromOtherPaiList(pointIndex);
-            tableUserInfoScript.initalOtherPaiList(paiList,pointIndex);
-        }
-      
-
-
-        //fix the pengpai list point 
-        if (user.pengGangPaiPoint == 0) {
-            if (pointIndex == "3") {
-                user.pengGangPaiPoint = 600;
-            } else if (pointIndex == "1") {
-                user.pengGangPaiPoint = -410;
-            } else if (pointIndex == "2") {
-                user.pengGangPaiPoint = -250;
-            } else if (pointIndex == "4") {
-                user.pengGangPaiPoint = 250;
-            }
+            tableUserInfoNodeScript.initalOtherPaiList(user.paiList, pointIndex);
         }
 
+        this.initalPengAndGangChuPaiList(userOpenId, paiNumber);
 
-        var moveX = 0;
-        var moveY = 0;
-        //self peng pai action
 
-        if (user.pointIndex == "3") {
-            // user.pengGangPaiPoint= user.pengGangPaiPoint-42*3
-        } else {
-            //other pai action 
-        }
 
     },
 
@@ -132,23 +123,81 @@ cc.Class({
     },
 
 
+    initalPengAndGangChuPaiList: function (userOpenId, paiNumber) {
+        var user = tablePaiActionScript.getCorrectUserByOpenId(userOpenId);
+        var pointIndex = user.pointIndex;
+        var tableNode = cc.find("Canvas/tableNode");
+        var userPengPaiListNode = cc.find("user" + pointIndex + "PengPaiListNode", tableNode);
+        userPengPaiListNode.removeAllChildren();
+        var pengList = user.pengPaiList;
+        var gangPaiList = user.gangPaiList;
+        var x = 0;
+        var y = 0;
+        if (pointIndex == "3") {
+            user.pengGangPaiPoint = 410;
+            y = 0;
+            x = user.pengGangPaiPoint;
+        } else if (pointIndex == "1") {
+            user.pengGangPaiPoint = -190;
+            y = 0;
+            x = user.pengGangPaiPoint;
+        } else if (pointIndex == "2") {
+            user.pengGangPaiPoint = -250;
+            y = user.pengGangPaiPoint;
+            x = 0;
+        } else if (pointIndex == "4") {
+            user.pengGangPaiPoint = 250;
+            y = user.pengGangPaiPoint;
+            x = 0;
+        }
+        if (pengList.length > 0) {
+            for (var i = 0; i < pengList.length; i++) {
+                var paiPath = tablePaiActionScript.getChuPaiNameByNodeName(pengList[i], pointIndex);
+
+
+                cc.loader.loadRes(paiPath, function (err, sp) {
+                    if (err) {
+                        cc.log("----" + err.message || err);
+                        return;
+                    }
+
+                    for (var j = 1; j < 4; j++) {
+                        var pNode = cc.instantiate(this.paiChuPaiNode);
+                        pNode.name = "pengpai" + pointIndex + "_" + paiNumber;
+                        pNode.active = true;
+                        cc.log("peng x:" + x + "-----y:" + y);
+                        pNode.position = cc.p(x, y);
+                        x = x - 42;
+                        var sprite = pNode.getComponent(cc.Sprite);
+                        sprite.spriteFrame = new cc.SpriteFrame(sp);
+                        userPengPaiListNode.addChild(pNode);
+                    }
+
+                }.bind(this));
+
+
+            }
+        }
+
+
+    },
+
     //-----------------Action end-------------------------------------------------------
 
     removeElementByNumberFromUser: function (paiList, paiNumber, b) {
-        var c = 0;
+        var c = 1;
+        while (c <= b) {
+            for (var i = 0; i < paiList.length; ++i) {
+                var temp = paiList[i] + "";
+                temp = temp.trim();
+                if (temp == paiNumber) {
+                    paiList.splice(i, 1);
 
-        for (var i = 0; i < paiList.length; ++i) {
-            var temp = paiList[i] + "";
-            temp = temp.trim();
-            if (temp == paiNumber) {
-                paiList.splice(i, 1);
-                c++;
-                if (c == b) {
-                    break;
+
                 }
 
             }
-
+            c++;
         }
 
         return paiList

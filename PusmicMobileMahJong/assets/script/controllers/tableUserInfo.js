@@ -63,7 +63,7 @@ cc.Class({
      */
     testInitalUserList: function () {
         var paiList = ["11, 11, 13, 14, 18, 21, 24, 32, 33, 34, 34, 35, 36, 39",
-            "15, 17, 18, 22, 25, 26, 29, 31, 32, 33, 36, 37, 39",
+            "15, 17, 18, 22, 22, 26, 29, 31, 32, 33, 36, 37, 39",
             "16, 17, 19, 23, 23, 24, 27, 31, 32, 33, 33, 34, 36",
             "15, 17, 18, 18, 22, 22, 25, 26, 28, 28, 29, 34, 38",
         ];
@@ -323,26 +323,28 @@ cc.Class({
                 eval("this.user" + point + "PaiListNode.addChild(paiNode)");
                 //fix the user 1
                 if (point == "1") {
-                    startX = -380;
+                    startX = 380;
                     paiNode.rotation = 180;
-                    paiNode.position = cc.p(startX + i * 55, 0);
+                    paiNode.position = cc.p(startX - i * 55, 0);
                     //this.user1PaiListNode.addChild(paiNode);
                 }
 
                 if (point == "2") {
                     startX = 0;
-                    startY = 180;
-                    paiNode.position = cc.p(startX, startY - i * 30);
-                    paiNode.zIndex = i;
+                    startY = -130;
+                    paiNode.position = cc.p(startX, startY + i * 28);
+                    paiNode.zIndex = paiArray.length-i;
+                     paiNode.width = 40;
+                    paiNode.height = 85;
                    //parentNode
 
                 }
 
                 if (point == "4") {
                     startX = 0;
-                    startY = 180;
-                    paiNode.position = cc.p(startX, startY - i * 30);
-                    paiNode.zIndex = i;
+                    startY = -210;
+                    paiNode.position = cc.p(startX, startY + i * 28);
+                    paiNode.zIndex = paiArray.length-i;
                     paiNode.width = 40;
                     paiNode.height = 85;
                 }
