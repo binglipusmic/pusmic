@@ -62,10 +62,10 @@ cc.Class({
      * 
      */
     testInitalUserList: function () {
-        var paiList = ["11, 11, 13, 14, 18, 21, 24, 32, 33, 34, 34, 35, 36, 39",
-            "15, 17, 18, 22, 22, 26, 29, 31, 32, 33, 36, 37, 39",
-            "16, 17, 19, 23, 23, 24, 27, 31, 32, 33, 33, 34, 36",
-            "15, 17, 18, 18, 22, 22, 25, 26, 28, 28, 29, 34, 38",
+        var paiList = ["11, 11, 13, 14, 18, 21, 24, 32, 33, 34, 34, 35, 35, 35",
+            "15, 17, 18, 22, 22, 23, 29, 29, 29, 33, 36, 37, 39",
+            "16, 17, 19, 23, 23, 23, 24, 31, 32, 33, 33, 34, 36",
+            "15, 15, 15, 18, 22, 22, 25, 26, 28, 28, 29, 34, 38",
         ];
         var userList = [];
         for (var i = 0; i < 5; i++) {
@@ -331,7 +331,7 @@ cc.Class({
 
                 if (point == "2") {
                     startX = 0;
-                    startY = -130;
+                    startY = -90;
                     paiNode.position = cc.p(startX, startY + i * 28);
                     paiNode.zIndex = paiArray.length-i;
                      paiNode.width = 40;
@@ -342,7 +342,7 @@ cc.Class({
 
                 if (point == "4") {
                     startX = 0;
-                    startY = -210;
+                    startY = -220;
                     paiNode.position = cc.p(startX, startY + i * 28);
                     paiNode.zIndex = paiArray.length-i;
                     paiNode.width = 40;

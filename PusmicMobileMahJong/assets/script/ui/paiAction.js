@@ -51,9 +51,10 @@ cc.Class({
     },
     testPengPai: function () {
         this.pengAction("testUser2", "33");
-        this.pengAction("testUser0", "11");
-        this.pengAction("testUser1", "22");
-        this.pengAction("testUser3", "28");
+        //this.pengAction("testUser0", "11");
+        //this.pengAction("testUser1", "22");
+        //this.pengAction("testUser3", "28");
+        this.gangAction("testUser2", "23");
     },
 
     showAction: function (actionArray) {
@@ -113,10 +114,42 @@ cc.Class({
 
 
     },
-
     gangAction: function (userOpenId, paiNumber) {
+        var user = tablePaiActionScript.getCorrectUserByOpenId(userOpenId);
+        var pointIndex = user.pointIndex;
+        //data layer ------
+        var paiList = user.paiListArray;
+        paiList = this.removeElementByNumberFromUser(paiList, paiNumber, 3);
+        cc.log("gangAction paiList:" + paiList);
+        user.paiListArray = paiList;
+        var gangList = user.gangPaiList;
+        if (gangList == null || gangList == undefined) {
+            gangList = [];
+        }
+        gangList.push(paiNumber);
+        user.gangPaiList = gangList;
+        // mopai 
+        //update user to gobal
+        user = tablePaiActionScript.synchronizationPaiList(user);
+        tablePaiActionScript.updateUserListInGobal(user);
+        //data layer end -------------------------------------
+        //-------show user pai list-----------------
+        cc.log("pengAction:" + pointIndex);
+        if (pointIndex == "3") {
+            tablePaiActionScript.removeAllNodeFromSelfPaiList();
+            tableUserInfoNodeScript.intalSelfPaiList(user.paiList);
+        } else {
+            tablePaiActionScript.removeAllNodeFromOtherPaiList(pointIndex);
+            tableUserInfoNodeScript.initalOtherPaiList(user.paiList, pointIndex);
+        }
+
+        this.initalPengAndGangChuPaiList(userOpenId, paiNumber);
+
+
 
     },
+
+
 
     huAction: function (userOpenId, paiNumber) {
 
@@ -138,7 +171,7 @@ cc.Class({
             y = 0;
             x = user.pengGangPaiPoint;
         } else if (pointIndex == "1") {
-            user.pengGangPaiPoint = -190;
+            user.pengGangPaiPoint = -270;
             y = 0;
             x = user.pengGangPaiPoint;
         } else if (pointIndex == "2") {
@@ -146,39 +179,120 @@ cc.Class({
             y = user.pengGangPaiPoint;
             x = 0;
         } else if (pointIndex == "4") {
-            user.pengGangPaiPoint = 250;
+            user.pengGangPaiPoint = 100;
             y = user.pengGangPaiPoint;
             x = 0;
         }
-        if (pengList.length > 0) {
-            for (var i = 0; i < pengList.length; i++) {
-                var paiPath = tablePaiActionScript.getChuPaiNameByNodeName(pengList[i], pointIndex);
-
-
-                cc.loader.loadRes(paiPath, function (err, sp) {
-                    if (err) {
-                        cc.log("----" + err.message || err);
-                        return;
-                    }
-
-                    for (var j = 1; j < 4; j++) {
-                        var pNode = cc.instantiate(this.paiChuPaiNode);
-                        pNode.name = "pengpai" + pointIndex + "_" + paiNumber;
-                        pNode.active = true;
-                        cc.log("peng x:" + x + "-----y:" + y);
-                        pNode.position = cc.p(x, y);
-                        x = x - 42;
-                        var sprite = pNode.getComponent(cc.Sprite);
-                        sprite.spriteFrame = new cc.SpriteFrame(sp);
-                        userPengPaiListNode.addChild(pNode);
-                    }
-
-                }.bind(this));
-
-
+        var needShowList = []
+        if (pengList != null && pengList != undefined)
+            if (pengList.length > 0) {
+                for (var i = 0; i < pengList.length; i++) {
+                    needShowList.push(pengList[i]);
+                }
             }
-        }
+        if (gangPaiList != null && gangPaiList != undefined)
+            if (gangPaiList.length > 0) {
+                for (var i = 0; i < gangPaiList.length; i++) {
+                    needShowList.push(gangPaiList[i] + "_");
+                }
+                //   this.showPengGangPaiListOnTalbe(gangPaiList, pointIndex, paiNumber, userPengPaiListNode, "gang")
+            }
 
+        this.showPengGangPaiListOnTalbe(needShowList, pointIndex, paiNumber, userPengPaiListNode, "peng", x, y)
+
+
+    },
+
+    showPengGangPaiListOnTalbe: function (pengList, pointIndex, paiNumber, userPengPaiListNode, type, x, y) {
+
+        var isGangFlagList = [];
+        for (var i = 0; i < pengList.length; i++) {
+            var tempPai = pengList[i];
+            //var isGang
+            //eval("var   isGang" + paiNumber+"" + " = false;");
+            isGangFlagList[parseInt(tempPai)] = false;
+            if (tempPai.indexOf("_") > 0) {
+                tempPai = tempPai.substring(0, tempPai.length - 1);
+                //eval("   isGang" + paiNumber + " = true;");
+                isGangFlagList[parseInt(tempPai)] = true;
+            }
+            // eval("cc.log( 'isGang 216:'+  isGang" + paiNumber+")");
+            var paiPath = tablePaiActionScript.getChuPaiNameByNodeName(tempPai, pointIndex);
+            var middlePoint = null;
+            // cc.log("isGang loadRes:" + isGang);
+            cc.loader.loadRes(paiPath, function (err, sp) {
+                if (err) {
+                    cc.log("----" + err.message || err);
+                    return;
+                }
+
+
+                var sencodPaiX = -1;
+                var sencodPaiY = -1;
+                for (var j = 1; j < 4; j++) {
+                    var pNode = cc.instantiate(this.paiChuPaiNode);
+                    pNode.name = "pengpai" + pointIndex + "_" + paiNumber;
+                    pNode.active = true;
+                    cc.log("peng x:" + x + "-----y:" + y);
+                    pNode.position = cc.p(x, y);
+                    if (j == 2) {
+                        sencodPaiX = x;
+                        sencodPaiY = y;
+                    }
+
+                    if (pointIndex == "3") {
+                        x = x - 42;
+                    } else if (pointIndex == "1") {
+
+                        x = x + 42;
+
+                    } else if (pointIndex == "2") {
+                        pNode.setLocalZOrder(100 - j);
+                        pNode.zIndex = 100 - j;
+                        y = y + 35;
+                    } else {
+                        y = y - 35;
+                    }
+
+                    var sprite = pNode.getComponent(cc.Sprite);
+                    sprite.spriteFrame = new cc.SpriteFrame(sp);
+                    userPengPaiListNode.addChild(pNode);
+                }
+
+                //add pai 
+                var singleIsGang = isGangFlagList[parseInt(paiNumber)];
+                // eval("singleIsGang=   isGang" + paiNumber + " ;")
+                cc.log("isGang:" + singleIsGang);
+                if (singleIsGang == true) {
+                    var pNode2 = cc.instantiate(this.paiChuPaiNode);
+                    if (pointIndex == "3") {
+                        sencodPaiY = sencodPaiY + 15;
+                    } else if (pointIndex == "1") {
+                        sencodPaiY = sencodPaiY - 10;
+                    } else if (pointIndex == "2") {
+                        sencodPaiX = sencodPaiX + 10
+                    } else {
+                        sencodPaiX = sencodPaiX + 10
+                    }
+
+                    cc.log("isGang paiNumber:" + paiNumber);
+                    cc.log("isGang paiPath:" + paiPath);
+
+                    pNode2.name = "pengpai" + pointIndex + "_gang" + paiNumber;
+                    pNode2.active = true;
+                    cc.log("isGang peng x:" + x + "-----y:" + y);
+                    pNode2.position = cc.p(sencodPaiX, sencodPaiY);
+                    var sprite2 = pNode2.getComponent(cc.Sprite);
+                    sprite2.spriteFrame = new cc.SpriteFrame(sp);
+                    userPengPaiListNode.addChild(pNode2);
+                    //isGang = false;
+
+                }
+
+            }.bind(this));
+
+
+        }
 
     },
 
@@ -193,7 +307,7 @@ cc.Class({
                 if (temp == paiNumber) {
                     paiList.splice(i, 1);
 
-
+                    break;
                 }
 
             }
