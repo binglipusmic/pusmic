@@ -51,10 +51,11 @@ cc.Class({
     },
     testPengPai: function () {
         this.pengAction("testUser2", "33");
-        //this.pengAction("testUser0", "11");
-        //this.pengAction("testUser1", "22");
-        //this.pengAction("testUser3", "28");
-        this.gangAction("testUser2", "23");
+        this.pengAction("testUser0", "11");
+        this.pengAction("testUser1", "22");
+        this.pengAction("testUser3", "28");
+        //this.gangAction("testUser2", "23");
+           this.pengAction("testUser2", "23");
     },
 
     showAction: function (actionArray) {
@@ -257,8 +258,8 @@ cc.Class({
         }
 
         if (gangList != null && gangList != undefined) {
-             for (var i = 0; i < gangList.length; i++) {
-                     var tempPai = gangList[i]+"";
+             for (var k = 0; k < gangList.length; k++) {
+                     var tempPai = gangList[k]+"";
                      tempPai=tempPai.trim();
                      var paiPath = tablePaiActionScript.getChuPaiNameByNodeName(tempPai, pointIndex);
                      cc.loader.loadRes(paiPath, function (err, sp) {
@@ -270,35 +271,33 @@ cc.Class({
 
                     var sencodPaiX = -1;
                     var sencodPaiY = -1;
-                    for (var j = 1; j < 4; j++) {
+                    for (var m = 1; m < 4; m++) {
                         var pNode = cc.instantiate(this.paiChuPaiNode);
                         pNode.name = "pengpai" + pointIndex + "_" + paiNumber;
                         pNode.active = true;
+                        cc.log("gang m:"+m);
                         cc.log("gang x:" + finalX + "-----y:" + finalY);
                         pNode.position = cc.p(finalX, finalY);
-                        if (j == 2) {
+                        if (m == 2) {
                             sencodPaiX = finalX;
                             sencodPaiY = finalY;
                         }
 
                         if (pointIndex == "2") {
-                            pNode.setLocalZOrder(100 - j);
-                            pNode.zIndex = 100 - j;
+                            pNode.setLocalZOrder(100 - m);
+                            pNode.zIndex = 100 - m;
                         }
 
                         var point = this.getCorrectPointByIndex(pointIndex,finalX, finalY);
-                        x = point[0];
-                        y = point[1];
+                        finalX = point[0];
+                        finalY = point[1];
 
                         var sprite = pNode.getComponent(cc.Sprite);
                         sprite.spriteFrame = new cc.SpriteFrame(sp);
                         userPengPaiListNode.addChild(pNode);
                     }
 
-                    //add pai 
-                    var singleIsGang = isGangFlagList[parseInt(paiNumber)];
-                    // eval("singleIsGang=   isGang" + paiNumber + " ;")
-                    cc.log("isGang:" + singleIsGang);
+                  
                     //if (singleIsGang == true) {
                         var pNode2 = cc.instantiate(this.paiChuPaiNode);
                         if (pointIndex == "3") {
@@ -316,7 +315,7 @@ cc.Class({
 
                         pNode2.name = "pengpai" + pointIndex + "_gang" + paiNumber;
                         pNode2.active = true;
-                        cc.log("isGang peng x:" + finalX + "-----y:" + finalY);
+                        cc.log("gang x:" + finalX + "-----y:" + finalY);
                         pNode2.position = cc.p(sencodPaiX, sencodPaiY);
                         var sprite2 = pNode2.getComponent(cc.Sprite);
                         sprite2.spriteFrame = new cc.SpriteFrame(sp);
