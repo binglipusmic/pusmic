@@ -331,8 +331,11 @@ cc.Class({
 
                 if (point == "2") {
                     startX = 0;
-                    startY = -90;
+                    startY = -30;
                     paiNode.position = cc.p(startX, startY + i * 28);
+                    if(i==0){
+                        cc.log("337 startY:"+startY)
+                    }
                     paiNode.zIndex = paiArray.length-i;
                      paiNode.width = 40;
                     paiNode.height = 85;
@@ -342,7 +345,7 @@ cc.Class({
 
                 if (point == "4") {
                     startX = 0;
-                    startY = -220;
+                    startY = -250;
                     paiNode.position = cc.p(startX, startY + i * 28);
                     paiNode.zIndex = paiArray.length-i;
                     paiNode.width = 40;

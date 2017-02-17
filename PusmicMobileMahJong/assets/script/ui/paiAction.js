@@ -107,6 +107,7 @@ cc.Class({
             tableUserInfoNodeScript.intalSelfPaiList(user.paiList);
         } else {
             tablePaiActionScript.removeAllNodeFromOtherPaiList(pointIndex);
+            //if (pointIndex != "2") 
             tableUserInfoNodeScript.initalOtherPaiList(user.paiList, pointIndex);
         }
 
@@ -141,7 +142,9 @@ cc.Class({
             tableUserInfoNodeScript.intalSelfPaiList(user.paiList);
         } else {
             tablePaiActionScript.removeAllNodeFromOtherPaiList(pointIndex);
+            // if (pointIndex != "2") {
             tableUserInfoNodeScript.initalOtherPaiList(user.paiList, pointIndex);
+           //  }
         }
 
         this.initalPengAndGangChuPaiList(userOpenId, paiNumber);
@@ -163,6 +166,7 @@ cc.Class({
         var tableNode = cc.find("Canvas/tableNode");
         var userPengPaiListNode = cc.find("user" + pointIndex + "PengPaiListNode", tableNode);
         userPengPaiListNode.removeAllChildren();
+        cc.log("166:"+userPengPaiListNode.children.length)
         var pengList = user.pengPaiList;
         var gangPaiList = user.gangPaiList;
         var x = 0;
@@ -192,6 +196,7 @@ cc.Class({
     },
 
     showPengGangPaiListOnTalbe: function (pengList, gangList, pointIndex, paiNumber, userPengPaiListNode, type, x, y) {
+        
 
         var isGangFlagList = [];
         var finalX = x;

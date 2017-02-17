@@ -755,10 +755,12 @@ var x = touches[0].getLocationX();
             var childredName = children[i].name;
             cc.log("throwActionForNode childredName:" + childredName);
             var btn = children[i].getComponent(cc.Button);
-            btn.enableAutoGrayEffect = false;
-            btn.interactable = false;
-            btn.disabledColor = new cc.Color(255, 255, 255);
-            cc.log("disableAllSlefPai:" + btn.enableAutoGrayEffect);
+            if (btn != null && btn != undefined) {
+                btn.enableAutoGrayEffect = false;
+                btn.interactable = false;
+                btn.disabledColor = new cc.Color(255, 255, 255);
+                cc.log("disableAllSlefPai:" + btn.enableAutoGrayEffect);
+            }
         }
     },
     //touchmove,'touchstart',touchend
@@ -913,6 +915,43 @@ var x = touches[0].getLocationX();
     },
     //------------------------utils ------------------------------------------
     insertMoPaiIntoPaiList: function (user) {
+        var moPai = user.userMoPai;
+        if (moPai != null && moPai != undefined) {
+            moPai = parseInt(moPai.trim());
+            cc.log("moPai:" + moPai);
+            var paiList = user.paiListArray;
+            if (paiList.length > 1) {
+                var temp = [];
+                var insertFlag = false;
+                for (var i = 0; i < paiList.length; ++i) {
+                    var p = paiList[i] + "";
+                    var pai = parseInt(p.trim());
+                    cc.log("loop pai:" + pai)
+                    if (moPai < pai) {
+                        if (insertFlag == false) {
+                            cc.log("insertFlag pai:" + moPai)
+                            temp.push(moPai);
+                            insertFlag = true;
+                        }
+
+                    }
+                    temp.push(pai);
+
+
+                }
+                user.paiListArray = temp;
+            } else {
+                paiList.push(moPai);
+                user.paiListArray = paiList;
+            }
+
+        }
+        cc.log("user open:" + user.openid);
+        cc.log("insertMoPaiIntoPaiList user.paiListArray:" + user.paiListArray.toString());
+        return user;
+
+    },
+    insertHuPaiIntoPaiList: function (user) {
         var moPai = user.userMoPai;
         if (moPai != null && moPai != undefined) {
             moPai = parseInt(moPai.trim());

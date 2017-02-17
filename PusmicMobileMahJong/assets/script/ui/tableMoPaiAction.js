@@ -33,6 +33,9 @@ cc.Class({
     // update: function (dt) {
 
     // },
+    moPaiFromServer:function(userOpenId){
+
+    },
     moPaiTest: function () {
         this.moPaiAction("15", "testUser2");
     },
