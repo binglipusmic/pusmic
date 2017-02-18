@@ -914,6 +914,39 @@ var x = touches[0].getLocationX();
 
     },
     //------------------------utils ------------------------------------------
+    insertPaiIntoPaiListByPaiAndOpenId: function (paiNumber, userOpenId) {
+        var currentUser = this.getCorrectUserByOpenId(userOpenId);
+        var paiList = currentUser.paiListArray;
+        if (paiNumber != null && paiNumber != undefined) {
+            paiNumber = parseInt(paiNumber.trim());
+        }
+        if (paiList.length > 1) {
+            var temp = [];
+            var insertFlag = false;
+            for (var i = 0; i < paiList.length; ++i) {
+                var p = paiList[i] + "";
+                var pai = parseInt(p.trim());
+                cc.log("loop pai:" + pai)
+                if (paiNumber < pai) {
+                    if (insertFlag == false) {
+                        cc.log("insertFlag pai:" + paiNumber)
+                        temp.push(paiNumber);
+                        insertFlag = true;
+                    }
+
+                }
+                temp.push(pai);
+
+
+            }
+            user.paiListArray = temp;
+        } else {
+            paiList.push(paiNumber);
+            user.paiListArray = paiList;
+        }
+
+        return user.paiListArray
+    },
     insertMoPaiIntoPaiList: function (user) {
         var moPai = user.userMoPai;
         if (moPai != null && moPai != undefined) {

@@ -331,7 +331,7 @@ cc.Class({
 
                 if (point == "2") {
                     startX = 0;
-                    startY = -30;
+                    startY = -50;
                     paiNode.position = cc.p(startX, startY + i * 28);
                     if(i==0){
                         cc.log("337 startY:"+startY)

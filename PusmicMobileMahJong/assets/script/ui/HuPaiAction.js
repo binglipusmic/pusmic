@@ -91,7 +91,75 @@ cc.Class({
         tableActionScript.disableAllSlefPai();
 
     },
+    //decide the painumber if hu or not hu .
+    hupaiLogic: function (paiNumber, userOpenId) {
+        //var currentUser = tableActionScript.getCorrectUserByOpenId(userOpenId);
+        var paiList = tableActionScript.insertPaiIntoPaiListByPaiAndOpenId(paiNumber, userOpenId)
+    },
+    startDecideHu: function (paiList) {
 
+        for (var i = 0; i < paiList.length; i++) {
+            var pai = paiList[i];
+
+        }
+
+    },
+    checkSanZhan: function (pai, paiList) {
+
+        var paiNumber = pai[1];
+        var prePai = -1;
+        var nextPai = -1;
+        if (paiNumber + "" == "1") {
+            prePai = pai + 1;
+            nextPai = pai + 2;
+        } else if (paiNumber + "" == "9") {
+            prePai = pai - 1;
+            nextPai = pai - 2;
+        } else {
+            prePai = pai - 1;
+            nextPai = pai + 1;
+        }
+
+        if (this.contains(prePai, paiList) && this.contains(nextPai, paiList)) {
+            paiList = tableActionScript.removeElementByNumberByPaiListFromUser(paiList, prePai, 1)
+            paiList = tableActionScript.removeElementByNumberByPaiListFromUser(paiList, nextPai, 1)
+              paiList = tableActionScript.removeElementByNumberByPaiListFromUser(paiList, pai, 1)
+        }
+
+        return paiList
+
+    },
+    checkSanZhang:function(pai, paiList){
+        var count=this.countElementAccount(pai, paiList);
+        if(count>=3){
+               paiList = tableActionScript.removeElementByNumberByPaiListFromUser(paiList, pai, 3)
+        }
+
+        return paiList
+
+    },
+
+    //------------------------------------Untils----------------------------------------------------
+    countElementAccount:function(pai, paiList){
+        var count=0;
+          for (var i = 0; i < paiArray.length + 1; i++) {
+              if(paiArray[i]==pai){
+                  count++
+              }
+          }
+
+          return count
+
+    },
+    contains: function (array, obj) {
+        var i = array.length;
+        while (i--) {
+            if (array[i] === obj) {
+                return true;
+            }
+        }
+        return false;
+    },
     getCureentPostionFromUserPointAndPaiList: function (paiArray, point, paiNode) {
         var startX = 0;
         var startY = 0;
