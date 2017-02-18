@@ -1040,21 +1040,30 @@ var x = touches[0].getLocationX();
     },
     removeElementByNumberByPaiListFromUser: function (paiList, paiNumber, b) {
         var c = 0;
-        for (var i = 0; i < paiList.length; ++i) {
-            var temp = paiList[i] + "";
-            temp = temp.trim();
-            if (temp == number) {
-                paiList.splice(i, 1);
-                c++;
-                if (c == b) {
-                    break;
+
+        while (this.contains(paiList, paiNumber) && c != b) {
+            for (var i = 0; i < paiList.length; i++) {
+                var temp = paiList[i] + "";
+                temp = temp.trim();
+                if (temp == paiNumber + "") {
+                    paiList.splice(i, 1);
+                    c++;
+                   
                 }
-
             }
-
         }
 
+
         return paiList
+    },
+    contains: function (array, obj) {
+        var i = array.length;
+        while (i--) {
+            if (array[i] === obj) {
+                return true;
+            }
+        }
+        return false;
     },
     /**
      * remove a element from paiList of user self

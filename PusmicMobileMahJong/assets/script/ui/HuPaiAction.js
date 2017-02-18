@@ -123,32 +123,68 @@ cc.Class({
         if (this.contains(prePai, paiList) && this.contains(nextPai, paiList)) {
             paiList = tableActionScript.removeElementByNumberByPaiListFromUser(paiList, prePai, 1)
             paiList = tableActionScript.removeElementByNumberByPaiListFromUser(paiList, nextPai, 1)
-              paiList = tableActionScript.removeElementByNumberByPaiListFromUser(paiList, pai, 1)
+            paiList = tableActionScript.removeElementByNumberByPaiListFromUser(paiList, pai, 1)
         }
 
         return paiList
 
     },
-    checkSanZhang:function(pai, paiList){
-        var count=this.countElementAccount(pai, paiList);
-        if(count>=3){
-               paiList = tableActionScript.removeElementByNumberByPaiListFromUser(paiList, pai, 3)
+    liangZhang: function (pai, paiList) {
+        var count = this.countElementAccount(pai, paiList);
+        if (count == 2||count == 4) {
+            paiList = tableActionScript.removeElementByNumberByPaiListFromUser(paiList, pai, 2)
+        }
+        return paiList
+    },
+    checkSanZhang: function (pai, paiList) {
+        var count = this.countElementAccount(pai, paiList);
+        if (count >= 3) {
+            paiList = tableActionScript.removeElementByNumberByPaiListFromUser(paiList, pai, 3)
         }
 
         return paiList
 
     },
+    checkQiaoQiDui: function (paiList) {
+        
+        for (var i = 0; i < paiList.length; i++) {
+            var sourceLen=paiList.length;
+            paiList=this.liangZhang(paiList[i],paiList);
+            cc.log("paiList:"+paiList);
+            var oldLen=paiList.length;
+            if(sourceLen!=oldLen){
+                i=0
+            }
+        }
 
+        cc.log("paiList:"+paiList.toString())
+
+        if(paiList.length==0){
+            return true
+        }else{
+            return false
+        }
+    },
+
+    testQiaoQiDui:function(){
+
+        var paiList=[15,15,18,18,22,22,25,25,25,25,29,29,38,38];
+        
+        var f=this.checkQiaoQiDui(paiList);
+        cc.log("check qiaoqidui:"+f);
+
+
+    },
     //------------------------------------Untils----------------------------------------------------
-    countElementAccount:function(pai, paiList){
-        var count=0;
-          for (var i = 0; i < paiArray.length + 1; i++) {
-              if(paiArray[i]==pai){
-                  count++
-              }
-          }
+    countElementAccount: function (pai, paiList) {
+        var count = 0;
+        for (var i = 0; i < paiList.length + 1; i++) {
+            if (paiList[i] == pai) {
+                count++
+            }
+        }
 
-          return count
+        return count
 
     },
     contains: function (array, obj) {
