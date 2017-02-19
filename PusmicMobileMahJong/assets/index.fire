@@ -35854,7 +35854,7 @@
       "__id__": 931
     },
     "component": "HuPaiAction",
-    "handler": "testQiaoQiDui",
+    "handler": "testHu",
     "customEventData": ""
   }
 ]

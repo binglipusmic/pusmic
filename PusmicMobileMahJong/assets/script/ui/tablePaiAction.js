@@ -1040,20 +1040,21 @@ var x = touches[0].getLocationX();
     },
     removeElementByNumberByPaiListFromUser: function (paiList, paiNumber, b) {
         var c = 0;
-
+       // cc.log("1043:" + paiList.toString());
         while (this.contains(paiList, paiNumber) && c != b) {
+            // cc.log("1044: c" +c+"---b:"+b);
             for (var i = 0; i < paiList.length; i++) {
                 var temp = paiList[i] + "";
                 temp = temp.trim();
                 if (temp == paiNumber + "") {
                     paiList.splice(i, 1);
                     c++;
-                   
+                    break;
                 }
             }
         }
 
-
+        //cc.log("1056:" + paiList.toString());
         return paiList
     },
     contains: function (array, obj) {

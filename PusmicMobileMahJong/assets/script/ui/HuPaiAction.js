@@ -1,6 +1,10 @@
 var tableActionScript;
 var tableUserInfoScript;
 var tableMoPaiActionScript;
+var sourcePaiList;
+var sourcePaiCount;
+var huFlag = false;
+var jiangFlag = false;
 cc.Class({
     extends: cc.Component,
 
@@ -94,21 +98,95 @@ cc.Class({
     //decide the painumber if hu or not hu .
     hupaiLogic: function (paiNumber, userOpenId) {
         //var currentUser = tableActionScript.getCorrectUserByOpenId(userOpenId);
+        var huFlagDetails = false;
         var paiList = tableActionScript.insertPaiIntoPaiListByPaiAndOpenId(paiNumber, userOpenId)
-    },
-    startDecideHu: function (paiList) {
+        if (this.checkQiaoQiDui(paiList)) {
+            return true;
+        } else {
 
-        for (var i = 0; i < paiList.length; i++) {
-            var pai = paiList[i];
+            for (var i = 0; i < paiList.length; i++) {
+                paiList.splice(i, 1);
+                i = 0;
+                cc.log("hupaiLogic paiList:" + paiList);
+                //huFlagDetails = this.startDecideHu(paiList);
+
+            }
 
         }
+    },
+    startDecideHu: function (paiList) {
+        cc.log("106 paiList:" + paiList.toString());
+        if (sourcePaiCount == 0) {
+            sourcePaiList = []
+            sourcePaiList = this.deepCopyArray(paiList, sourcePaiList);
+        }
+
+
+        sourcePaiCount++;
+        for (var i = 0; i < paiList.length; i++) {
+            var pai = paiList[i];
+            var count = this.countElementAccount(pai, paiList);
+            var oldLen = paiList.length;
+            var oldPaiList = [];
+            oldPaiList = this.deepCopyArray(paiList, oldPaiList);
+
+
+            paiList = this.checkLianSanZhan(pai, paiList);
+            var newLen = paiList.length;
+            cc.log("116:" + paiList.toString());
+            if (oldLen != newLen) {
+                huFlag = this.startDecideHu(paiList);
+            }
+
+
+            if (count >= 2) {
+                var oldPaiList2 = [];
+                oldPaiList2 = this.deepCopyArray(oldPaiList, oldPaiList2);
+                oldLen = oldPaiList.length;
+                oldPaiList = this.liangZhang(pai, oldPaiList);
+                newLen = oldPaiList.length;
+                if (oldLen != newLen) {
+                    jiangFlag = true;
+                    huFlag = this.startDecideHu(oldPaiList);
+                }
+            }
+
+            if (count >= 3) {
+                oldLen = oldPaiList.length;
+                oldPaiList = this.checkSanZhang(pai, oldPaiList);
+                newLen = oldPaiList.length;
+                if (oldLen != newLen) {
+
+                    huFlag = this.startDecideHu(oldPaiList);
+                }
+            }
+
+
+        }
+        cc.log("paiList:" + paiList.toString());
+
+        //cc.log("oldPaiList:" + oldPaiList.toString());
+
+        if ((paiList.length == 2 && (paiList[0] == paiList[1]))) {
+            huFlag = true
+        } else if (jiangFlag == true && paiList.length == 0) {
+            huFlag = true
+            // var list = [];
+            // list = this.deepCopyArray(sourcePaiList, list);
+            // list.splice(0, 1);
+            // sourcePaiCount = 0;
+            // huFlag = this.startDecideHu(list);
+        }
+
+        return huFlag
 
     },
-    checkSanZhan: function (pai, paiList) {
+    checkLianSanZhan: function (pai, paiList) {
 
         var paiNumber = pai[1];
         var prePai = -1;
         var nextPai = -1;
+        var executeFlag = false;
         if (paiNumber + "" == "1") {
             prePai = pai + 1;
             nextPai = pai + 2;
@@ -119,19 +197,49 @@ cc.Class({
             prePai = pai - 1;
             nextPai = pai + 1;
         }
+        if (this.contains(paiList, prePai) && this.contains(paiList, nextPai)) {
+            executeFlag = true;
 
-        if (this.contains(prePai, paiList) && this.contains(nextPai, paiList)) {
+        } else {
+            prePai = pai + 1;
+            nextPai = pai + 2;
+            cc.log("prePai:" + prePai + "--" + "nextPai:" + nextPai);
+            if (this.contains(paiList, prePai) && this.contains(paiList, nextPai)) {
+                executeFlag = true;
+
+            } else {
+                prePai = pai - 1;
+                nextPai = pai - 2;
+                if (this.contains(paiList, prePai) && this.contains(paiList, nextPai)) {
+                    executeFlag = true;
+
+                } else {
+                    executeFlag = false;;
+                }
+
+            }
+
+        }
+
+        if (executeFlag) {
             paiList = tableActionScript.removeElementByNumberByPaiListFromUser(paiList, prePai, 1)
             paiList = tableActionScript.removeElementByNumberByPaiListFromUser(paiList, nextPai, 1)
             paiList = tableActionScript.removeElementByNumberByPaiListFromUser(paiList, pai, 1)
         }
 
         return paiList
+    },
+    removeLianSanZhang: function (pai, paiList) {
+
+
+
+
+
 
     },
     liangZhang: function (pai, paiList) {
         var count = this.countElementAccount(pai, paiList);
-        if (count == 2||count == 4) {
+        if (count == 2 || count == 4) {
             paiList = tableActionScript.removeElementByNumberByPaiListFromUser(paiList, pai, 2)
         }
         return paiList
@@ -146,36 +254,69 @@ cc.Class({
 
     },
     checkQiaoQiDui: function (paiList) {
-        
+
         for (var i = 0; i < paiList.length; i++) {
-            var sourceLen=paiList.length;
-            paiList=this.liangZhang(paiList[i],paiList);
-            cc.log("paiList:"+paiList);
-            var oldLen=paiList.length;
-            if(sourceLen!=oldLen){
-                i=0
+            var sourceLen = paiList.length;
+            paiList = this.liangZhang(paiList[i], paiList);
+            cc.log("paiList:" + paiList);
+            var oldLen = paiList.length;
+            if (sourceLen != oldLen) {
+                i = 0
             }
         }
 
-        cc.log("paiList:"+paiList.toString())
+        cc.log("paiList:" + paiList.toString())
 
-        if(paiList.length==0){
+        if (paiList.length == 0) {
             return true
-        }else{
+        } else {
             return false
         }
     },
 
-    testQiaoQiDui:function(){
+    testQiaoQiDui: function () {
 
-        var paiList=[15,15,18,18,22,22,25,25,25,25,29,29,38,38];
-        
-        var f=this.checkQiaoQiDui(paiList);
-        cc.log("check qiaoqidui:"+f);
+        var paiList = [15, 15, 18, 18, 22, 22, 25, 25, 25, 25, 29, 29, 38, 38];
+
+        var f = this.checkQiaoQiDui(paiList);
+        cc.log("check qiaoqidui:" + f);
 
 
     },
+    testHu: function () {
+        var paiList = [15, 15, 16, 16, 17, 17, 18, 18, 18, 36, 36];
+        sourcePaiCount = 0;
+        huFlag = false;
+        jiangFlag = false;
+
+        cc.log("testHU 1:" + this.startDecideHu(paiList));
+          huFlag = false;
+        jiangFlag = false;
+        paiList = [15, 16, 17, 19, 19, 19, 23, 23, 35, 36, 37];
+        cc.log("testHU 2:" + this.startDecideHu(paiList));
+          huFlag = false;
+        jiangFlag = false;
+        paiList = [11, 11, 17, 17, 17, 18, 19, 20, 35, 36, 37];
+        cc.log("testHU 3:" + this.startDecideHu(paiList));
+          huFlag = false;
+        jiangFlag = false;
+        paiList = [15, 16, 17, 17, 17, 18, 19, 20, 21, 36, 36];
+        cc.log("testHU 4:" + this.startDecideHu(paiList));
+
+    },
     //------------------------------------Untils----------------------------------------------------
+    deepCopyArray: function (soureArray, descArray) {
+        if (soureArray != null && soureArray.length > 0) {
+            for (var i = 0; i < soureArray.length + 1; i++) {
+                if (soureArray[i] != null && soureArray[i] != undefined)
+                    descArray.push(soureArray[i]);
+            }
+        }
+
+        return descArray;
+
+    },
+
     countElementAccount: function (pai, paiList) {
         var count = 0;
         for (var i = 0; i < paiList.length + 1; i++) {
@@ -190,7 +331,7 @@ cc.Class({
     contains: function (array, obj) {
         var i = array.length;
         while (i--) {
-            if (array[i] === obj) {
+            if (array[i] + "" === obj + "") {
                 return true;
             }
         }
