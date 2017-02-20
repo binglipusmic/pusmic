@@ -28,6 +28,10 @@ const gameUser =
       chuPaiCount:0,
       chuPaiPointX:0,
       userMoPai:"",
+      //hupai  
+      huPai:"",
+      //ziMo,normalHu,gangShangHua,gangShangPao ,haiDi,tianHu,diHu
+      huPaiType:"",
       //gameingStatu:"",
     }
 module.exports = {

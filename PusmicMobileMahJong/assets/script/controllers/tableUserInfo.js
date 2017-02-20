@@ -45,13 +45,13 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
-        this.userInfo1.active = false;
-        this.userInfo2.active = false;
-        this.userInfo3.active = false;
-        this.userInfo4.active = false;
+        // this.userInfo1.active = false;
+        // this.userInfo2.active = false;
+        // this.userInfo3.active = false;
+        // this.userInfo4.active = false;
 
-        this.initalUserPai();
-        this.disabledHuanSanZhangPai();
+        // this.initalUserPai();
+        // this.disabledHuanSanZhangPai();
 
     },
     //this function only inital a gaobal user list for test 
