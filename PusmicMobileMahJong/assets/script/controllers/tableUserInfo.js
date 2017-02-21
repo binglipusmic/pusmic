@@ -112,7 +112,7 @@ cc.Class({
     },
     initalUserPai: function () {
         //inital the test data
-        this.testInitalUserList();
+       // this.testInitalUserList();
         // cc.log("Global.chuPaiActionType initalUserPai:"+Global.chuPaiActionType);
         //hide game mode
         this.tableGameMode.active = false;

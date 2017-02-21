@@ -149,7 +149,21 @@ cc.Class({
                 }
 
                 if (messageDomain.messageAction == "faPai") {
-                     var obj = JSON.parse(messageDomain.messageBody);
+                     var gameUserList = JSON.parse(messageDomain.messageBody);
+                     var userList2 = Global.userList;
+                      for (var j = 0; j < gameUserList.length; j++) {
+                            var gameUser = gameUserList[j];
+                            for (var i = 0; i < userList2.length; i++) {
+                                var user = userList2[i];
+                                if (user.openid == gameUser.openid) {
+                                    user.paiList = gameUser.gameReadyStatu;
+                                }
+                            }
+                        }
+                        Global.userList = userList2;
+                        //table user info
+
+                        userInfoScript.initalUserPai();
                 }
                 //--------------------------------------Game Action  -----------------------------------------------
                 if (messageDomain.messageAction == "gameAction") {
