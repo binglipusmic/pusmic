@@ -147,6 +147,10 @@ cc.Class({
                         alertMessageUI.setTextOfPanel();
                     }
                 }
+
+                if (messageDomain.messageAction == "faPai") {
+                     var obj = JSON.parse(messageDomain.messageBody);
+                }
                 //--------------------------------------Game Action  -----------------------------------------------
                 if (messageDomain.messageAction == "gameAction") {
                     var userList = Global.userList;

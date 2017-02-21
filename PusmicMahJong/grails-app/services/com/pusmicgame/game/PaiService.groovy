@@ -58,6 +58,7 @@ class PaiService {
     def faPai(MessageDomain messageDomain){
 
         def roomNumber = messageDomain.messageBelongsToPrivateChanleNumber;
+        def paiStr="";
         GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
         GameRound gameRound = onlineRoomNumber.gameRound
         if(gameRound) {
@@ -90,9 +91,13 @@ class PaiService {
                 gameRound.gameingRestPaiList=paiList
                 gameRound.save(flush: true, failOnError: true)
                 Collections.sort(gameUserListArray, new CustomComparatorForGameUserPlatObj());
-                def s = JsonOutput.toJson(gameUserListArray);
+                paiStr = JsonOutput.toJson(gameUserListArray);
             }
+
+
         }
+
+        return paiStr
     }
 
 

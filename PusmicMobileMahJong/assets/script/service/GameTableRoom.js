@@ -34,6 +34,8 @@ cc.Class({
         changeUserStatusNoBtnImage: cc.SpriteFrame,
         userStatusYesImage: cc.SpriteFrame,
         userStatusNoImage: cc.SpriteFrame,
+        quePaiNode:cc.Node,
+        tableCenterNode:cc.Node,
         w1: cc.SpriteFrame,
         w2: cc.SpriteFrame,
         w3: cc.SpriteFrame,
@@ -225,6 +227,9 @@ cc.Class({
         this.gameModeNode.active = false;
         this.tableNode.active = true;
         this.tableNode.opacity = 255;
+        //hide other UI .
+        this.quePaiNode.active =false;
+        this.tableCenterNode.active =false;
         this.createRoom_clearTableInitalUserInfo();
         //this.initalUserReadyLayer();
     },

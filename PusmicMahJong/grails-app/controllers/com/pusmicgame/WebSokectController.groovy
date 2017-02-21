@@ -16,6 +16,7 @@ class WebSokectController {
     def websokectService
     def gameRoundService
     def gameStepService
+    def paiService
 
     @MessageMapping("/user_private_message")
     protected String user_private_message(String message,@Headers Map<String, Object> headers){
@@ -58,8 +59,17 @@ class WebSokectController {
             websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s)
             //check the all user if all already done
             def faPaiFlag= userService.checkAllUserStatus(messageJsonObj)
+            println ("faPaiFlag:"+faPaiFlag)
             if(faPaiFlag){
-
+               def paiStr= paiService.faPai(messageJsonObj)
+                println ("paiStr:"+paiStr)
+                MessageDomain newMessageObj=new MessageDomain()
+                newMessageObj.messageBelongsToPrivateChanleNumber=messageJsonObj.messageBelongsToPrivateChanleNumber
+                newMessageObj.messageAction ="faPai"
+                newMessageObj.messageBody = paiStr
+                newMessageObj.messageType ="gameAction"
+                def s2 = new JsonBuilder(messageJsonObj).toPrettyString()
+                websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s2)
             }
         }
         if(messageJsonObj.messageAction.equals("closeGameRoundLun")){

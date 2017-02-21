@@ -41,6 +41,9 @@ cc.Class({
         cePai: cc.SpriteFrame,
         cePaiLeft: cc.SpriteFrame,
         backPai: cc.SpriteFrame,
+
+        quepaiNode:cc.Node,
+        tableCenterPoint:cc.Node,
     },
 
     // use this for initialization
@@ -490,6 +493,10 @@ cc.Class({
     },
 
     initalUserInfoFromGobalList: function () {
+        //hide  table  pai starting 
+        this.quepaiNode.active=false;
+        this.tableCenterPoint.active=false;
+        
         var numberOrder = [3, 4, 1, 2]
         var userList = Global.userList;
         var userInfo = Global.userInfo;

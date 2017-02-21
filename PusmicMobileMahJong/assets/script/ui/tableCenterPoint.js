@@ -27,10 +27,12 @@ cc.Class({
         tenPoint: cc.Node,
         numPoint: cc.Node,
         numberSprite: [cc.SpriteFrame],
+        centerPointNode:cc.Node,
     },
 
     // use self for initialization
     onLoad: function () {
+        
         let self = this;
         self.hideAllPoint();
         timeCount = 30;

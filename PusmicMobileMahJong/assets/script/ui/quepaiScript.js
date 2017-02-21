@@ -17,13 +17,14 @@ cc.Class({
         wanNode: cc.Node,
         thisSelectNode: cc.Node,
         waitOtherUserNode: cc.Node,
+        quePaiNode:cc.Node,
     },
 
     // use this for initialization
     onLoad: function () {
         this.waitOtherUserNode.active = false;
         this.thisSelectNode.active = true;
-
+       // this.quePaiNode.active =false;
     },
 
     quePaiClick: function (event) {

@@ -92,20 +92,22 @@ cc.Class({
                 if (porpertitesName == "dianGangHua_ziMo") {
                     eval("gameMode.dianGangHua_dianPao = '0'");
                 }
-                if (porpertitesName == "fan2") {
-                    fanArray.splice(0, 1);
-                }
-                if (porpertitesName == "fan3") {
-                    fanArray.splice(1, 1);
-                }
-                if (porpertitesName == "fan4") {
-                    fanArray.splice(2, 1);
-                }
-                if (porpertitesName == "fan6") {
-                    fanArray.splice(3, 1);
-                }
-                for (var i = 0; i < fanArray.length; i++) {
-                    eval("gameMode.fan" + fanArray[i] + " = '0'");
+                if (porpertitesName.indexOf("fan") >= 0) {
+                    if (porpertitesName == "fan2") {
+                        fanArray.splice(0, 1);
+                    }
+                    if (porpertitesName == "fan3") {
+                        fanArray.splice(1, 1);
+                    }
+                    if (porpertitesName == "fan4") {
+                        fanArray.splice(2, 1);
+                    }
+                    if (porpertitesName == "fan6") {
+                        fanArray.splice(3, 1);
+                    }
+                    for (var i = 0; i < fanArray.length; i++) {
+                        eval("gameMode.fan" + fanArray[i] + " = '0'");
+                    }
                 }
 
                 if (porpertitesName == "roundCount4") {
@@ -251,6 +253,7 @@ cc.Class({
         } else {
             this.fan2.getComponent(cc.Toggle).isChecked = false
         }
+        cc.log("gameMode.fan3:" + gameMode.fan3);
         if (gameMode.fan3 + "" == "1") {
             this.fan3.getComponent(cc.Toggle).isChecked = true
         } else {
