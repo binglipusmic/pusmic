@@ -127,7 +127,7 @@ cc.Class({
         this.tableTitleNode.active = false;
         //fix user point
         var userList = Global.userList;
-        for (var i = 0; i < userList.length - 1; i++) {
+        for (var i = 0; i < userList.length ; i++) {
             var user = userList[i];
             //show current user node
             if (user.pointIndex != null && user.pointIndex != undefined) {
@@ -137,6 +137,8 @@ cc.Class({
                     eval("this.userInfo" + user.pointIndex + ".active = true");
                     this.fixUserPointByIndex(user.pointIndex);
 
+                }else{
+                     eval("this.userInfo" + user.pointIndex + ".active = false");
                 }
 
                 var paiList = user.paiList;
@@ -296,7 +298,7 @@ cc.Class({
         var paiArray = paiList.split(",");
         var startX = 0;
         var startY = 0;
-        //cc.log("********initalOtherPaiList:" + paiList + "----" + point);
+        cc.log("********initalOtherPaiList:" + paiList + "----" + point);
         for (var i = 0; i < paiArray.length; i++) {
             if (paiArray[i] != null && paiArray[i] != undefined) {
 
@@ -334,7 +336,7 @@ cc.Class({
 
                 if (point == "2") {
                     startX = 0;
-                    startY = -50;
+                    startY = -80;
                     paiNode.position = cc.p(startX, startY + i * 28);
                     if(i==0){
                         cc.log("337 startY:"+startY)
@@ -348,7 +350,7 @@ cc.Class({
 
                 if (point == "4") {
                     startX = 0;
-                    startY = -250;
+                    startY = -210;
                     paiNode.position = cc.p(startX, startY + i * 28);
                     paiNode.zIndex = paiArray.length-i;
                     paiNode.width = 40;
@@ -453,15 +455,17 @@ cc.Class({
 
     fixUserPointByIndex: function (index) {
         if (index == "1") {
-            var widget = this.userInfo1.getComponent(cc.Widget);
-            widget.top = 0;
-            widget.isAlignRight = true;
-            widget.right = 210;
+            // var widget = this.userInfo1.getComponent(cc.Widget);
+            // widget.top = 0;
+            // widget.isAlignRight = true;
+            // widget.right = 210;
+            this.userInfo1.x=457
 
         }
         if (index == "2") {
-            var widget = this.userInfo2.getComponent(cc.Widget);
-            widget.left = 60;
+            //var widget = this.userInfo2.getComponent(cc.Widget);
+            //widget.left = 60;
+            this.userInfo2=607;
         }
 
         if (index == "4") {

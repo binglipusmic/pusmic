@@ -68,8 +68,9 @@ class WebSokectController {
                 newMessageObj.messageAction ="faPai"
                 newMessageObj.messageBody = paiStr
                 newMessageObj.messageType ="gameAction"
-                def s2 = new JsonBuilder(messageJsonObj).toPrettyString()
+                def s2 = new JsonBuilder(newMessageObj).toPrettyString()
                 websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s2)
+                println ("s2:"+s2)
             }
         }
         if(messageJsonObj.messageAction.equals("closeGameRoundLun")){

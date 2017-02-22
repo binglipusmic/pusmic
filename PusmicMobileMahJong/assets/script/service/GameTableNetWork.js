@@ -149,21 +149,33 @@ cc.Class({
                 }
 
                 if (messageDomain.messageAction == "faPai") {
-                     var gameUserList = JSON.parse(messageDomain.messageBody);
-                     var userList2 = Global.userList;
-                      for (var j = 0; j < gameUserList.length; j++) {
-                            var gameUser = gameUserList[j];
-                            for (var i = 0; i < userList2.length; i++) {
-                                var user = userList2[i];
-                                if (user.openid == gameUser.openid) {
-                                    user.paiList = gameUser.gameReadyStatu;
-                                }
+                    var gameUserList = JSON.parse(messageDomain.messageBody);
+                    var userList2 = Global.userList;
+                    var userInfo= Global.userInfo;
+                    for (var j = 0; j < gameUserList.length; j++) {
+                        var gameUser = gameUserList[j];
+                        for (var i = 0; i < userList2.length; i++) {
+                            var user = userList2[i];
+                            if (user.openid == gameUser.openid) {
+                                var paiListString = gameUser.paiList;
+                              
+                                paiListString=this.changeJsonListStringToArrayString(paiListString)
+                                cc.log("gameUser.paiList:" + paiListString);
+                                user.paiList = paiListString;
                             }
-                        }
-                        Global.userList = userList2;
-                        //table user info
 
-                        userInfoScript.initalUserPai();
+                            //   if (user.openid == userInfo.openid) {
+                            //       cc.log("found 3:"+user.openid);
+                            //        user.pointIndex =3
+                            //   }
+                        }
+
+
+                    }
+                    Global.userList = userList2;
+                    //table user info
+
+                     userInfoScript.initalUserPai();
                 }
                 //--------------------------------------Game Action  -----------------------------------------------
                 if (messageDomain.messageAction == "gameAction") {
@@ -200,7 +212,7 @@ cc.Class({
                 console.log("No found correct user info return from server ,please check .");
             }
 
-        }, function () {
+        }.bind(this), function () {
             cc.log("websocket connect subscribe Error:233");
             //client.disconnect();
         });
@@ -343,9 +355,28 @@ cc.Class({
         return messageDomain
 
 
-    }
+    },
     // called every frame, uncomment this function to activate update callback
     // update: function (dt) {
 
     // },
+    //----------------untils-------------------------------
+    changeJsonListStringToArrayString: function (tempString) {
+        var str = "";
+        if (tempString != null && tempString != undefined) {
+            tempString = tempString.replace("[", "");
+            tempString = tempString.replace("]", "");
+            var list = tempString.split(",");
+            for (var i = 0; i < list.length; i++) {
+                if (list[i] != null && list[i] != undefined) {
+                    var s=list[i]+"";
+                    s=s.trim();
+                    str=str+s+","
+                }
+            }
+        }
+
+        return str;
+
+    }
 });

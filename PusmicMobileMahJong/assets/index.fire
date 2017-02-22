@@ -15953,7 +15953,7 @@
     "_tag": -1,
     "_opacityModifyRGB": false,
     "_id": "ba195D1nAhF16Ht384f6MbV",
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 662
@@ -18525,7 +18525,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 547,
+      "x": 607,
       "y": 175
     },
     "_skewX": 0,
@@ -18984,7 +18984,7 @@
     "_target": null,
     "_alignFlags": 33,
     "_left": 0,
-    "_right": 120,
+    "_right": 60,
     "_top": 200,
     "_bottom": 0,
     "_verticalCenter": 0,
@@ -25957,7 +25957,7 @@
     "_target": null,
     "_alignFlags": 1,
     "_left": 0,
-    "_right": 0,
+    "_right": 210,
     "_top": 30,
     "_bottom": 0,
     "_verticalCenter": 0,
