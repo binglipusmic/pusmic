@@ -108,7 +108,7 @@ cc.Class({
         } else {
             tablePaiActionScript.removeAllNodeFromOtherPaiList(pointIndex);
             //if (pointIndex != "2") 
-            tableUserInfoNodeScript.initalOtherPaiList(user.paiList, pointIndex);
+            tableUserInfoNodeScript.initalOtherPaiList(user.paiList, pointIndex,"pengList");
         }
 
         this.initalPengAndGangChuPaiList(userOpenId, paiNumber);
@@ -143,7 +143,7 @@ cc.Class({
         } else {
             tablePaiActionScript.removeAllNodeFromOtherPaiList(pointIndex);
             // if (pointIndex != "2") {
-            tableUserInfoNodeScript.initalOtherPaiList(user.paiList, pointIndex);
+            tableUserInfoNodeScript.initalOtherPaiList(user.paiList, pointIndex,"gang");
            //  }
         }
 

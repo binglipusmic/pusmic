@@ -175,7 +175,7 @@ cc.Class({
                     Global.userList = userList2;
                     //table user info
 
-                     userInfoScript.initalUserPai();
+                     userInfoScript.initalUserPai("inital");
                 }
                 //--------------------------------------Game Action  -----------------------------------------------
                 if (messageDomain.messageAction == "gameAction") {
@@ -375,7 +375,9 @@ cc.Class({
                 }
             }
         }
-
+        if(str.substring(str.length-1)==","){
+            str=str.substring(0,str.length-1)
+        }
         return str;
 
     }
