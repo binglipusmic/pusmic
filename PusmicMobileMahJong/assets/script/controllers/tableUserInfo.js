@@ -1,3 +1,4 @@
+var huanPaiScript
 cc.Class({
     extends: cc.Component,
 
@@ -44,6 +45,7 @@ cc.Class({
 
         quepaiNode: cc.Node,
         tableCenterPoint: cc.Node,
+        huanPaiScriptNode: cc.Node,
     },
 
     // use this for initialization
@@ -55,6 +57,7 @@ cc.Class({
 
         // this.initalUserPai();
         // this.disabledHuanSanZhangPai();
+        huanPaiScript = this.huanPaiScriptNode.getComponent("huanPaiUI")
 
     },
     //this function only inital a gaobal user list for test 
@@ -168,6 +171,8 @@ cc.Class({
         //put back the user list to gobal
 
         Global.userList = userList;
+        //show huanPaiScript
+        huanPaiScript.showHuanPaiNode();
 
 
     },
@@ -191,6 +196,53 @@ cc.Class({
         user.chuPaiCount = 0;
         return user
 
+    },
+    /**
+     * 
+     */
+    getMinLenPaiListFromPai: function (paiList) {
+        var v1 = [];
+        var v2 = [];
+        var v3 = [];
+
+        for (var i = 0; i < paiList.length; ++i) {
+            var pai = paiList[i];
+            var sType = pai + ""
+            var sType = sType.substring(0, 1);
+            if (sType == "1") {
+                v1.push(sType);
+
+            }
+            if (sType == "2") {
+                v2.push(sType);
+
+            }
+            if (sType == "3") {
+                v3.push(sType);
+
+            }
+
+        }
+
+        var resultArray = [v1.length, v2.length, v3.length]
+        var resultArray2 = [v1, v2, v3]
+        resultArray.sort()
+        var l = 0
+        for (var i = 0; i < 3; i++) {
+            if (resultArray[i] >= 3) {
+                l = resultArray[i];
+                break;
+            }
+        }
+        var returnArray;
+        for (var i = 0; i < 3; i++) {
+            if (resultArray2[i].length == l) {
+                returnArray = resultArray2[i];
+                break;
+            }
+        }
+
+        return returnArray;
     },
 
     getLess3NumberType: function (parentNode) {
@@ -276,6 +328,27 @@ cc.Class({
         }
 
     },
+
+    getSlefUser: function () {
+        var gobalUser = Global.userInfo
+        var userList = Global.userList;
+        var user;
+        for (var i = 0; i < userList.length; i++) {
+            if (userList[i].openid == gobalUser.openid) {
+                user = userList[i];
+            }
+        }
+
+        return user;
+
+    },
+    //Force select san zhang pai after the timer end 
+
+    forceFillHuanSanZhangList: function () {
+        var paiList = this.getSlefUser().paiListArray;
+
+    },
+
     //when huan san zhang work, this will disabled less 3 number pai
     disabledHuanSanZhangPai: function () {
 
@@ -462,12 +535,12 @@ cc.Class({
 
     fixUserPointByIndex: function (index) {
         if (index == "1") {
-             var widget = this.userInfo1.getComponent(cc.Widget);
-             widget.top = -20;
+            var widget = this.userInfo1.getComponent(cc.Widget);
+            widget.top = -20;
             // widget.isAlignRight = true;
             // widget.right = 210;
             //this.userInfo1.y=-20;
-            cc.log("fixUserPointByIndex 1:"+this.userInfo1.y)
+            cc.log("fixUserPointByIndex 1:" + this.userInfo1.y)
             //this.userInfo1.y =410;
             this.userInfo1.x = 457;
 

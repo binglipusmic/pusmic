@@ -35,6 +35,7 @@ cc.Class({
         userStatusYesImage: cc.SpriteFrame,
         userStatusNoImage: cc.SpriteFrame,
         quePaiNode:cc.Node,
+        huanPaiNode:cc.Node,
         tableCenterNode:cc.Node,
         w1: cc.SpriteFrame,
         w2: cc.SpriteFrame,
