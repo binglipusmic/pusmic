@@ -585,6 +585,10 @@ cc.Class({
         var paiNumTxt = temp[1];
         var chuPaiIndex = -1;
         chuPaiIndex = temp[0].replace("pai");
+
+        //Fix the game mode aollow huansanzhang 
+        gameMode.huanSanZhang="1";
+        //************************************** */
         // var index = parseInt(name.substring(7));
         // cc.log("index:" + index);
         //var paiList = this.getSelfPaiList();

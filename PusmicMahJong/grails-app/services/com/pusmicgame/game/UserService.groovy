@@ -204,7 +204,74 @@ class UserService {
             return false
         }
     }
+    /**
+     * Execute huan san zhang
+     * @param messageDomain
+     */
 
+    def executeHuanSanZhang(MessageDomain messageDomain) {
+
+    }
+    /**
+     *
+     * @param messageDomain
+     */
+    def setHuanSanZhang(MessageDomain messageDomain) {
+        def flag="false"
+        def obj = JSON.parse(messageDomain.messageBody)
+        def openid = obj.openid
+        def paiList =obj.huanSanZhangPaiList
+        def roomNumber = messageDomain.messageBelongsToPrivateChanleNumber;
+        println "setHuanSanZhang roomNumber:"+roomNumber
+        GameRoomNumber onlineRoomNumber
+
+        GameRoomNumber.withTransaction {
+            onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
+
+            println "setHuanSanZhang roomNumber2:" + roomNumber
+            GameRound gameRound = onlineRoomNumber.gameRound
+            def gameRoundLun = gameRound.gameRoundLun
+            def gameMode = gameRoundLun.gameMode
+            def peopleGameModeNumber = 0;
+            if (gameMode) {
+                peopleGameModeNumber = gameMode.gamePeopleNumber
+            }
+            if (openid) {
+
+                SpringUser user = SpringUser.findByOpenid(openid)
+                if (user) {
+                    GameUser gu = null
+                    def gameUserList = gameRound.gameUser
+                    def peopleCount = 0
+                    gameUserList.each { gameU ->
+                        if (openid == gameU.springUser.openid) {
+                            gu = gameU
+                        }
+                        if (gameU.huanSanZhang) {
+                            peopleCount++
+                        }
+                    }
+
+                    if (gu) {
+                        gu.huanSanZhang = paiList
+                        gu.save(flush: true, failOnError: true)
+                        peopleCount++
+                    }
+                    println "setHuanSanZhang peopleCount:"+peopleCount
+                    println "setHuanSanZhang peopleGameModeNumber:"+peopleGameModeNumber
+                    if (peopleCount.toInteger() >= peopleGameModeNumber.toInteger()) {
+                        flag = "true"
+                    }
+
+                }
+
+
+            }
+        }
+        println "setHuanSanZhang roomNumber flag:"+flag
+        return flag
+
+    }
     /**
      * Change the user status
      * @param messageDomain

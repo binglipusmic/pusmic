@@ -242,6 +242,20 @@ cc.Class({
             }
         }
 
+        
+        
+              
+
+          for (var i = 0; i < 3; i++) {
+               var paiName = "pai" + (i) + "_" + returnArray[i].trim();
+               var paiNode=cc.find(paiName, this.user3PaiListNode);
+               paiNode.y=20;
+               Global.huanSanZhangPaiList.push(returnArray[i]);
+          }
+
+ 
+
+
         return returnArray;
     },
 
@@ -346,6 +360,7 @@ cc.Class({
 
     forceFillHuanSanZhangList: function () {
         var paiList = this.getSlefUser().paiListArray;
+        this.getMinLenPaiListFromPai(paiList);
 
     },
 

@@ -4,7 +4,7 @@ const gameMode =
 		ziMoJiaFan: 0,
         ziMoHu:1,
         dianPaoHu:0,
-        huanSanZhang :0,
+        huanSanZhang :1,
 		dianGangHua_dianPao: 1,
         dianGangHua_ziMo:0,
         dai19JiangDui:1,

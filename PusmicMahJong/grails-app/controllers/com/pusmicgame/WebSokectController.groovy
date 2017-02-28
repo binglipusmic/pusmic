@@ -105,6 +105,31 @@ class WebSokectController {
 
         }
 
+        //huan san Zhang
+        if(messageJsonObj.messageAction.equals("userHuanSanZhang")){
+            def flag=userService.setHuanSanZhang(messageJsonObj)
+
+          /*  MessageDomain newMessageObj=new MessageDomain()
+            newMessageObj.messageBelongsToPrivateChanleNumber=messageJsonObj.messageBelongsToPrivateChanleNumber
+            newMessageObj.messageAction ="HuanSanZhangResult"
+            newMessageObj.messageBody = flag
+            newMessageObj.messageType ="gameAction"
+            def s2 = new JsonBuilder(newMessageObj).toPrettyString()
+            websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s2)*/
+
+            if(flag.equals("true")){
+
+                def paiStr= paiService.huanSanZhangFaPai(messageJsonObj)
+                newMessageObj.messageBelongsToPrivateChanleNumber=messageJsonObj.messageBelongsToPrivateChanleNumber
+                newMessageObj.messageAction ="huanSanZhangFaPai"
+                newMessageObj.messageBody = paiStr
+                newMessageObj.messageType ="gameAction"
+                s2 = new JsonBuilder(newMessageObj).toPrettyString()
+                websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s2)
+            }
+        }
+
+
         //--------------------Game Action-----------------------
         if(messageJsonObj.messageAction.equals("gameAction")){
 

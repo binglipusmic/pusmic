@@ -14,7 +14,8 @@ cc.Class({
         // ...
         text: String,
         alertPanelNode: cc.Node,
-        textNode: cc.Node
+        textNode: cc.Node,
+        buttonNode:cc.Node
     },
 
     // use this for initialization
@@ -36,5 +37,13 @@ cc.Class({
 
     closePanel: function () {
         this.alertPanelNode.active = false;
+    },
+
+    closeButton:function(){
+        this.buttonNode.active=false;
+    },
+
+    showButton:function(){
+        this.buttonNode.active=true;
     }
 });

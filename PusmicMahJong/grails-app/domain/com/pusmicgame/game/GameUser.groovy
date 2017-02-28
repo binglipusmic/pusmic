@@ -15,6 +15,7 @@ class GameUser {
     Date  joinRoundTime
     String huPai
     String huPaiType
+    String huanSanZhang
     static belongsTo = [gameRound:GameRound]
     static constraints = {
         gameRoundScore nullable: true
@@ -27,5 +28,6 @@ class GameUser {
         zhuang nullable: true
         huPai nullable: true
         huPaiType nullable: true
+        huanSanZhang nullable: true
     }
 }

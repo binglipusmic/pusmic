@@ -151,15 +151,15 @@ cc.Class({
                 if (messageDomain.messageAction == "faPai") {
                     var gameUserList = JSON.parse(messageDomain.messageBody);
                     var userList2 = Global.userList;
-                    var userInfo= Global.userInfo;
+                    var userInfo = Global.userInfo;
                     for (var j = 0; j < gameUserList.length; j++) {
                         var gameUser = gameUserList[j];
                         for (var i = 0; i < userList2.length; i++) {
                             var user = userList2[i];
                             if (user.openid == gameUser.openid) {
                                 var paiListString = gameUser.paiList;
-                              
-                                paiListString=this.changeJsonListStringToArrayString(paiListString)
+
+                                paiListString = this.changeJsonListStringToArrayString(paiListString)
                                 cc.log("gameUser.paiList:" + paiListString);
                                 user.paiList = paiListString;
                             }
@@ -175,7 +175,7 @@ cc.Class({
                     Global.userList = userList2;
                     //table user info
 
-                     userInfoScript.initalUserPai("inital");
+                    userInfoScript.initalUserPai("inital");
                 }
                 //--------------------------------------Game Action  -----------------------------------------------
                 if (messageDomain.messageAction == "gameAction") {
@@ -314,6 +314,24 @@ cc.Class({
         this.sendMessageToServer(messageObj);
     },
 
+    //-------------------send huan sanzhang -----------------------------------------------
+    //Global.huanSanZhangPaiList
+    sendHuanSanZhang: function () {
+        var paiList = "";
+        for (var i = 0; i < 3; i++) {
+            paiList = paiList + Global.huanSanZhangPaiList[i]+",";
+        }
+        paiList=paiList.substring(0,paiList.length-1);
+         userInfo = Global.userInfo;
+        var userOpenId = userInfo.openid;
+        var joinRoomNumber = Global.joinRoomNumber;
+        var o = new Object();
+        o.huanSanZhangPaiList = paiList;
+        o.openid = userOpenId;
+        var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "userHuanSanZhang");
+        this.sendMessageToServer(messageObj);
+
+    },
     //-------------------User ready action-------------------------------------------------
     sendUserReadyToServer: function (event) {
         var node = event.target;
@@ -369,14 +387,14 @@ cc.Class({
             var list = tempString.split(",");
             for (var i = 0; i < list.length; i++) {
                 if (list[i] != null && list[i] != undefined) {
-                    var s=list[i]+"";
-                    s=s.trim();
-                    str=str+s+","
+                    var s = list[i] + "";
+                    s = s.trim();
+                    str = str + s + ","
                 }
             }
         }
-        if(str.substring(str.length-1)==","){
-            str=str.substring(0,str.length-1)
+        if (str.substring(str.length - 1) == ",") {
+            str = str.substring(0, str.length - 1)
         }
         return str;
 
