@@ -110,16 +110,16 @@ class PaiService {
                     println "sourcePaiList:"+sourcePaiList.toString()
                     println "targetHuanPaiStr:"+targetHuanPaiStr.toString()
                     println "targetPaiList:"+targetPaiList.toString()
-                     sourcePaiList=sourcePaiList.findAll{!sourHuanList.contains(it)}
-                     targetPaiList=targetPaiList.findAll{!targetHuanList.contains(it)}
+                     sourcePaiList=filterArray(sourcePaiList,sourceHuanPaiStr)
+                     targetPaiList=filterArray(targetPaiList,targetHuanPaiStr)
                     println "sourcePaiList1:"+sourcePaiList.toString()
                     println "targetPaiList1:"+targetPaiList.toString()
 
                     targetHuanList.each{t->
-                        sourcePaiList.push(t.toInteger())
+                        sourcePaiList.add(t.toInteger())
                     }
                     sourHuanList.each{s->
-                        targetPaiList.push(s.toInteger())
+                        targetPaiList.add(s.toInteger())
                     }
 
                     println "sourcePaiList2:"+sourcePaiList.toString()
@@ -156,6 +156,31 @@ class PaiService {
 
         return paiStr
 
+    }
+
+    def filterArray(sourcetArray,filterChildArray){
+        def sourcePaiListTemp=[]
+
+       /* sourcetArray.eachWithIndex{def v,int index->
+            filterChildArray.each{ t->
+
+                if(v+""==t+""){
+                    v.remove()
+                }
+
+            }
+
+        }
+        sourcePaiListTemp=sourcetArray*/
+        filterChildArray.each{
+            if(it){
+                if(!it.toString().equals(",")){
+                    sourcetArray=sourcetArray-it.toInteger()
+                }
+            }
+
+        }
+        return sourcetArray
     }
 
     def faPai(){

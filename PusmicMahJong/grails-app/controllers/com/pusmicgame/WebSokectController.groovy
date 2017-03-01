@@ -120,11 +120,12 @@ class WebSokectController {
             if(flag.equals("true")){
 
                 def paiStr= paiService.huanSanZhangFaPai(messageJsonObj)
+                MessageDomain newMessageObj=new MessageDomain()
                 newMessageObj.messageBelongsToPrivateChanleNumber=messageJsonObj.messageBelongsToPrivateChanleNumber
                 newMessageObj.messageAction ="huanSanZhangFaPai"
                 newMessageObj.messageBody = paiStr
                 newMessageObj.messageType ="gameAction"
-                s2 = new JsonBuilder(newMessageObj).toPrettyString()
+                def  s2 = new JsonBuilder(newMessageObj).toPrettyString()
                 websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s2)
             }
         }
