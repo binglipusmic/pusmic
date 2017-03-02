@@ -8,6 +8,8 @@ var socket;
 var messageDomain;
 var connect_callback;
 var userInfoScript;
+var huanSanZhangScript;
+var quePaiScript;
 cc.Class({
     extends: cc.Component,
 
@@ -27,6 +29,9 @@ cc.Class({
         alertMessageNodeScirpt: cc.Node,
         userInfoScriptNode: cc.Node,
 
+        huanSanZhangNode: cc.Node,
+        quePaiScriptNode: cc.Node,
+
     },
 
     // use this for initialization
@@ -41,6 +46,9 @@ cc.Class({
             // display the error's message header:
             alert(error.headers.message);
         };
+
+        huanSanZhangScript = self.huanSanZhangNode.getComponent("huanPaiUI");
+        quePaiScript = self.quePaiScriptNode.getComponent("quepaiScript");
     },
     connectByPrivateChanel: function () {
         if (client == null || client == undefined) {
@@ -176,6 +184,35 @@ cc.Class({
                     //table user info
 
                     userInfoScript.initalUserPai("inital");
+                }
+
+                //huan sanzhang 
+                if (messageDomain.messageAction == "huanSanZhangFaPai") {
+                var gameUserList = JSON.parse(messageDomain.messageBody);
+                    var userList2 = Global.userList;
+                    var userInfo = Global.userInfo;
+                    for (var j = 0; j < gameUserList.length; j++) {
+                        var gameUser = gameUserList[j];
+                        for (var i = 0; i < userList2.length; i++) {
+                            var user = userList2[i];
+                            if (user.openid == gameUser.openid) {
+                                var paiListString = gameUser.paiList;
+
+                                paiListString = this.changeJsonListStringToArrayString(paiListString)
+                                cc.log("gameUser.paiList:" + paiListString);
+                                user.paiList = paiListString;
+                            }
+
+                            //   if (user.openid == userInfo.openid) {
+                            //       cc.log("found 3:"+user.openid);
+                            //        user.pointIndex =3
+                            //   }
+                        }
+
+
+                    }
+                    Global.userList = userList2;
+                     userInfoScript.initalUserPai("inital");
                 }
                 //--------------------------------------Game Action  -----------------------------------------------
                 if (messageDomain.messageAction == "gameAction") {
@@ -313,16 +350,31 @@ cc.Class({
         var messageObj = this.buildSendMessage("", roomNumber, "faPai");
         this.sendMessageToServer(messageObj);
     },
+    //-------------------send huan sanzhang -----------------------------------------------
+    //Global.huanSanZhangPaiList
+    sendQuePai: function () {
+
+        userInfo = Global.userInfo;
+        var que = userInfo.quePai;
+        var userOpenId = userInfo.openid;
+        var joinRoomNumber = Global.joinRoomNumber;
+        var o = new Object();
+        o.que = que;
+        o.openid = userOpenId;
+        var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "sendQuePai");
+        this.sendMessageToServer(messageObj);
+
+    },
 
     //-------------------send huan sanzhang -----------------------------------------------
     //Global.huanSanZhangPaiList
     sendHuanSanZhang: function () {
         var paiList = "";
         for (var i = 0; i < 3; i++) {
-            paiList = paiList + Global.huanSanZhangPaiList[i]+",";
+            paiList = paiList + Global.huanSanZhangPaiList[i] + ",";
         }
-        paiList=paiList.substring(0,paiList.length-1);
-         userInfo = Global.userInfo;
+        paiList = paiList.substring(0, paiList.length - 1);
+        userInfo = Global.userInfo;
         var userOpenId = userInfo.openid;
         var joinRoomNumber = Global.joinRoomNumber;
         var o = new Object();

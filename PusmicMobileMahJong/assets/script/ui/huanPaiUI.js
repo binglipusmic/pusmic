@@ -85,11 +85,16 @@ cc.Class({
             this.waitPanleNode.active = true;
             gameTableNetWork.sendHuanSanZhang();
             tableUserInfo.disableAllPai();
+            this.unschedule(timerUpate);
         }
 
 
 
 
+    },
+
+    closeWaitPanle:function(){
+          this.waitPanleNode.active = false;
     }
 
     // called every frame, uncomment this function to activate update callback

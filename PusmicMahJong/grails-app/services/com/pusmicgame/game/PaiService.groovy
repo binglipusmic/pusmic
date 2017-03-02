@@ -88,7 +88,7 @@ class PaiService {
             if(gameUserList){
                 def gameUserListArray = []
                 //xipai
-                Integer[] paiList=xiPai()
+                //Integer[] paiList=xiPai()
                 def index=1
                 def orderList=getHuanPaiOrder(4);
                 println "orderList:"+orderList.toString()
@@ -110,18 +110,20 @@ class PaiService {
                     println "sourcePaiList:"+sourcePaiList.toString()
                     println "targetHuanPaiStr:"+targetHuanPaiStr.toString()
                     println "targetPaiList:"+targetPaiList.toString()
-                     sourcePaiList=filterArray(sourcePaiList,sourceHuanPaiStr)
-                     targetPaiList=filterArray(targetPaiList,targetHuanPaiStr)
+                    sourcePaiList=filterArray(sourcePaiList,sourHuanList)
+                    targetPaiList=filterArray(targetPaiList,targetHuanList)
                     println "sourcePaiList1:"+sourcePaiList.toString()
                     println "targetPaiList1:"+targetPaiList.toString()
 
                     targetHuanList.each{t->
+                        println "targetHuanList:"+t
                         sourcePaiList.add(t.toInteger())
                     }
                     sourHuanList.each{s->
                         targetPaiList.add(s.toInteger())
                     }
-
+                    sourcePaiList.sort()
+                    targetPaiList.sort()
                     println "sourcePaiList2:"+sourcePaiList.toString()
                     println "targetPaiList2:"+targetPaiList.toString()
                     gameUserList[orderList[i]].paiList=sourcePaiList
@@ -136,8 +138,8 @@ class PaiService {
                     GameUserPlatObj outputUser = new GameUserPlatObj()
 
                     outputUser.openid = gameU.springUser.openid
+                    outputUser.paiList =gameU.paiList.toString()
 
-                   // outputUser.paiList =userPaiList.toString()
                    // gameU.paiList=userPaiList
 
                     gameU.save(flush: true, failOnError: true)
@@ -172,15 +174,45 @@ class PaiService {
 
         }
         sourcePaiListTemp=sourcetArray*/
-        filterChildArray.each{
+        /*filterChildArray.each{
             if(it){
                 if(!it.toString().equals(",")){
                     sourcetArray=sourcetArray-it.toInteger()
                 }
             }
 
+        }*/
+        println "sourcetArray:"+sourcetArray.getClass().getName()
+        println "sourcetArray:"+sourcetArray.toString()
+        filterChildArray.each{
+            println "filterChildArray:${it}"
         }
-        return sourcetArray
+       // sourcetArray=sourcetArray-filterChildArray
+       // sourcetArray=sourcetArray.replaceAll(filterChildArray)
+        List<Integer> temp=[]
+        sourcetArray.each{
+            temp.add(it)
+        }
+        for(int i=0;i<filterChildArray.size();i++){
+            for(int j=0;j<temp.size();j++){
+                def sf=temp[j]+""
+                def tf=filterChildArray[i]+""
+                //println "sourcetArray sf=${sf},tf=${tf} :" +temp[j]
+                    if(sf.toString().equals(tf)){
+                        println "sourcetArray found :"+temp[j]
+                        temp.removeAt(j)
+                        continue;
+                    }
+            }
+
+        }
+
+        println "sourcetArray=${temp.toString()}"
+        //temp[i]=(sourcetArray[i].toString()+"")
+
+        //temp.removeAll(filterChildArray)
+        println "temp:"+temp.toString()
+        return temp
     }
 
     def faPai(){

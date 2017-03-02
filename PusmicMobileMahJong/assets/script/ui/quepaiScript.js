@@ -1,3 +1,5 @@
+var alerMessage;
+var gameTableNetWork;
 cc.Class({
     extends: cc.Component,
 
@@ -17,14 +19,19 @@ cc.Class({
         wanNode: cc.Node,
         thisSelectNode: cc.Node,
         waitOtherUserNode: cc.Node,
-        quePaiNode:cc.Node,
+        quePaiNode: cc.Node,
+        alertMessageNode: cc.Node,
+        gameTableNetWorkNode: cc.Node,
     },
 
     // use this for initialization
     onLoad: function () {
         this.waitOtherUserNode.active = false;
         this.thisSelectNode.active = true;
-       // this.quePaiNode.active =false;
+        // this.quePaiNode.active =false;
+        alerMessage = this.alertMessageNode.getComponent("alertMessagePanle");
+        gameTableNetWork = this.gameTableNetWorkNode.getComponent("GameTableNetWork")
+
     },
 
     quePaiClick: function (event) {
@@ -47,16 +54,45 @@ cc.Class({
         for (var i = 0; i < userList.length; i++) {
             if (userList[i].openid == userInfo.openid) {
                 userList[i].quePai = que;
+                userInfo.quePai = que;
             }
         }
+        Global.userInfo=userInfo
         //show other wait other user select pai  
         this.thisSelectNode.active = false;
         this.waitOtherUserNode.active = true;
         //set action typeof
-         Global.chuPaiActionType = "normalChuPai";
+        Global.chuPaiActionType = "normalChuPai";
 
 
     },
+
+    showQuePaiNode: function () {
+        this.quePaiNode.active = true;
+    },
+
+    sendQuePai: function () {
+        if (Global.huanSanZhangPaiList.length < 3) {
+            alerMessage.text = "你必须选择三张牌！";
+            alerMessage.setTextOfPanel();
+            alerMessage.alertPanelNode.active = true;
+
+        } else {
+            //Global.chuPaiActionType = ""
+            this.waitPanleNode.active = true;
+            gameTableNetWork.sendHuanSanZhang();
+            tableUserInfo.disableAllPai();
+            this.unschedule(timerUpate);
+        }
+
+
+
+
+    },
+
+
+
+
 
     // called every frame, uncomment this function to activate update callback
     // update: function (dt) {
