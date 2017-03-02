@@ -363,6 +363,7 @@ cc.Class({
         o.openid = userOpenId;
         var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "sendQuePai");
         this.sendMessageToServer(messageObj);
+        
 
     },
 
