@@ -130,6 +130,24 @@ class WebSokectController {
             }
         }
 
+        //quepai only send
+
+        if(messageJsonObj.messageAction.equals("sendQuePai")){
+
+            def obj = JSON.parse(messageJsonObj.messageBody)
+            if(obj.quePaiCount.toString().equals(obj.peopleCount.toString())){
+                messageJsonObj.messageAction="zhuangJiaChuPai"
+
+            }else{
+
+            }
+
+            def s = new JsonBuilder(messageJsonObj).toPrettyString()
+            websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s)
+
+
+
+        }
 
         //--------------------Game Action-----------------------
         if(messageJsonObj.messageAction.equals("gameAction")){

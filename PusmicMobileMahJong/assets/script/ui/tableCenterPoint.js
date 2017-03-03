@@ -133,6 +133,15 @@ cc.Class({
         self.hideAllPoint();
     },
 
+    showCenterPoint:function(){
+        let self = this;
+        self.hideAllPoint();
+        timeCount = 30;
+        this.initalCenterNum();
+        this.centerPointNode.active =true;
+        this.stratTimer();
+    },
+
     // called every frame, uncomment self function to activate update callback
     // update: function (dt) {
 

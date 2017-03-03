@@ -1,5 +1,8 @@
 var alerMessage;
 var gameTableNetWork;
+var timerUpate;
+var timeCount;
+var tableUserInfoScript;
 cc.Class({
     extends: cc.Component,
 
@@ -22,15 +25,42 @@ cc.Class({
         quePaiNode: cc.Node,
         alertMessageNode: cc.Node,
         gameTableNetWorkNode: cc.Node,
+        quePaiTimeLable: cc.Node,
+        tableUserInfoNode:cc.Node,
     },
 
     // use this for initialization
     onLoad: function () {
         this.waitOtherUserNode.active = false;
-        this.thisSelectNode.active = true;
+        tableUserInfoScript=this.tableUserInfoNode.getComponent("tableUserInfo");
+        //this.thisSelectNode.active = true;
         // this.quePaiNode.active =false;
-        alerMessage = this.alertMessageNode.getComponent("alertMessagePanle");
+        //alerMessage = this.alertMessageNode.getComponent("alertMessagePanle");
         gameTableNetWork = this.gameTableNetWorkNode.getComponent("GameTableNetWork")
+        timeCount = 14;
+        timerUpate = function () {
+
+            var showTimerStr = "(" + timeCount + ")";
+            var lable = this.quePaiTimeLable.getComponent(cc.Label);
+            lable.string = showTimerStr;
+            timeCount--;
+
+            if (timeCount == -1) {
+                this.endTimer();
+            }
+
+        };
+    },
+   
+
+    endTimer: function () {
+        Global.chuPaiActionType = ""
+        let self = this;
+        self.unschedule(timerUpate);
+        // Global.chuPaiActionType = ""
+        //auto select latest pai
+        //tableUserInfo.forceFillHuanSanZhangList();
+        //this.sendHuanSanZhang();
 
     },
 
@@ -50,50 +80,76 @@ cc.Class({
 
         var userList = Global.userList;
         var userInfo = Global.userInfo;
-
+        var quePaiCount = 0;
         for (var i = 0; i < userList.length; i++) {
             if (userList[i].openid == userInfo.openid) {
                 userList[i].quePai = que;
                 userInfo.quePai = que;
             }
+
+
+            if (userList[i].quePai != null && userList[i].quePai != undefined) {
+                quePaiCount++
+            }
         }
-        Global.userInfo=userInfo
+        Global.userInfo = userInfo
         //show other wait other user select pai  
-        this.thisSelectNode.active = false;
+        this.quePaiNode.active = false;
         this.waitOtherUserNode.active = true;
         //set action typeof
         Global.chuPaiActionType = "normalChuPai";
+        //send to server
 
+        gameTableNetWork.sendQuePai(quePaiCount, userList.length);
 
     },
 
     showQuePaiNode: function () {
         this.quePaiNode.active = true;
     },
+    closeWaitPanel: function () {
+        this.waitOtherUserNode.active = false;
+    },
 
     sendQuePai: function () {
-        if (Global.huanSanZhangPaiList.length < 3) {
-            alerMessage.text = "你必须选择三张牌！";
-            alerMessage.setTextOfPanel();
-            alerMessage.alertPanelNode.active = true;
+
+        var userList = Global.userList;
+        var userInfo = Global.userInfo;
+        var quePaiCount = 0;
+        for (var i = 0; i < userList.length; i++) {
+            if (userList[i].quePai != null && userList[i].quePai != undefined) {
+                quePaiCount++
+            }
+        }
+        if (quePaiCount < userList.length) {
+            //show wait panl 
+            this.waitPanleNode.active = true;
 
         } else {
             //Global.chuPaiActionType = ""
-            this.waitPanleNode.active = true;
-            gameTableNetWork.sendHuanSanZhang();
-            tableUserInfo.disableAllPai();
-            this.unschedule(timerUpate);
         }
-
-
-
-
     },
 
 
+    stratTimer: function () {
+        //timeCount = 10;
+        let self = this;
+        self.schedule(timerUpate, 1);
+        //
 
+    },
+   
 
+showQuePaiNode:function(){
+    var typeCount=tableUserInfoScript.getTypeCount();
+    if(typeCount[0]+''=="3"){
 
+    }else{
+        //default que 
+
+    }
+
+}
     // called every frame, uncomment this function to activate update callback
     // update: function (dt) {
 

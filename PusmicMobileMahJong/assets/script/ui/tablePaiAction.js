@@ -587,7 +587,7 @@ cc.Class({
         chuPaiIndex = temp[0].replace("pai");
 
         //Fix the game mode aollow huansanzhang 
-        gameMode.huanSanZhang="1";
+        gameMode.huanSanZhang = "1";
         //************************************** */
         // var index = parseInt(name.substring(7));
         // cc.log("index:" + index);
@@ -796,13 +796,30 @@ var x = touches[0].getLocationX();
 
     },
     // after all que pai clean ,the all other pai should be enable
-    enabledAllPaiAfterQuePai: function (parentNode) {
+    enabledAllPaiAfterQuePai: function () {
+         var tableNode = cc.find("Canvas/tableNode");
+        var parentNode = cc.find("user3PaiList", tableNode);
         var existFlag = this.checkQuePaiInSelf();
 
         if (existFlag == false) {
             this.enabledAllPai(parentNode);
         } else {
             //disable other pai ,only enable the que pai
+            var quePaiType = this.getQuePai();
+            var tableNode = cc.find("Canvas/tableNode");
+            var parentNode = cc.find("user3PaiList", tableNode);
+            var children = parentNode.children;
+            for (var i = 0; i < children.length; ++i) {
+                var childredName = children[i].name;
+                cc.log("throwActionForNode childredName:" + childredName);
+                var btn = children[i].getComponent(cc.Button);
+                var sType = this.getTypeByName(childredName);
+                if (sType == que) {
+                    btn.interactable = true;
+                } else {
+                    btn.interactable = false;
+                }
+            }
 
         }
 
@@ -1044,7 +1061,7 @@ var x = touches[0].getLocationX();
     },
     removeElementByNumberByPaiListFromUser: function (paiList, paiNumber, b) {
         var c = 0;
-       // cc.log("1043:" + paiList.toString());
+        // cc.log("1043:" + paiList.toString());
         while (this.contains(paiList, paiNumber) && c != b) {
             // cc.log("1044: c" +c+"---b:"+b);
             for (var i = 0; i < paiList.length; i++) {
@@ -1169,6 +1186,10 @@ var x = touches[0].getLocationX();
         cc.log("parentNode: " + parentNode.name);
         cc.log("Node Children Count 1010: " + count);
         parentNode.removeAllChildren()
+    },
+
+    cleanAllPaiListForAllUser:function(){
+
     },
     /**
      * Get the correct index by the 14 pai 

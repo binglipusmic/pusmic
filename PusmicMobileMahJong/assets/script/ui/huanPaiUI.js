@@ -3,6 +3,7 @@ var timeCount;
 var tableUserInfo;
 var alerMessage;
 var gameTableNetWork;
+var sendFlag = false;
 cc.Class({
     extends: cc.Component,
 
@@ -63,18 +64,20 @@ cc.Class({
 
     },
     endTimer: function () {
+        Global.chuPaiActionType = ""
         let self = this;
         self.unschedule(timerUpate);
         // Global.chuPaiActionType = ""
         //auto select latest pai
-        if (Global.huanSanZhangPaiList.length < 3) {
-            //tableUserInfo.forceFillHuanSanZhangList()
+        if (sendFlag == false) {
+            tableUserInfo.forceFillHuanSanZhangList();
+            this.sendHuanSanZhang();
         }
-        //
 
     },
 
     sendHuanSanZhang: function () {
+        sendFlag=false;
         if (Global.huanSanZhangPaiList.length < 3) {
             alerMessage.text = "你必须选择三张牌！";
             alerMessage.setTextOfPanel();
@@ -86,6 +89,7 @@ cc.Class({
             gameTableNetWork.sendHuanSanZhang();
             tableUserInfo.disableAllPai();
             this.unschedule(timerUpate);
+            sendFlag = true;
         }
 
 
@@ -93,10 +97,12 @@ cc.Class({
 
     },
 
-    closeWaitPanle:function(){
-          this.waitPanleNode.active = false;
-    }
-
+    closeWaitPanle: function () {
+        this.waitPanleNode.active = false;
+    },
+    closeHuanSanZhang: function () {
+        this.huanPaiNode.active = false;
+    },
     // called every frame, uncomment this function to activate update callback
     // update: function (dt) {
 

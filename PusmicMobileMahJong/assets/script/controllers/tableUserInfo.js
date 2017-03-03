@@ -1,4 +1,5 @@
 var huanPaiScript
+var tablePaiActionScript
 cc.Class({
     extends: cc.Component,
 
@@ -46,6 +47,7 @@ cc.Class({
         quepaiNode: cc.Node,
         tableCenterPoint: cc.Node,
         huanPaiScriptNode: cc.Node,
+        tablePaiActionNode:cc.Node,
     },
 
     // use this for initialization
@@ -57,7 +59,8 @@ cc.Class({
 
         // this.initalUserPai();
         // this.disabledHuanSanZhangPai();
-        huanPaiScript = this.huanPaiScriptNode.getComponent("huanPaiUI")
+        huanPaiScript = this.huanPaiScriptNode.getComponent("huanPaiUI");
+        //tablePaiActionScript =this.tablePaiActionNode.getComponent("tablePaiAction");
 
     },
     //this function only inital a gaobal user list for test 
@@ -111,6 +114,22 @@ cc.Class({
         Global.userList = userList;
         Global.userInfo = userInfo;
         Global.chuPaiActionType = "normalChuPai";
+
+    },
+    /**
+     * Clean the table all node 
+     */
+    cleanTable:function(){
+        //tablePaiActionScript.removeAllNodeFromSelfPaiList();
+        //tablePaiActionScript.removeAllNodeFromOtherPaiList();
+        for(var i=0;i<4;i++){
+            var paiNode=cc.find("user"+(i+1)+"PaiList", this.tableNode);
+            paiNode.removeAllChildren();
+            paiNode=cc.find("user"+(i+1)+"PengPaiListNode", this.tableNode);
+            paiNode.removeAllChildren();
+            paiNode=cc.find("user"+(i+1)+"ChuaPaiListNode", this.tableNode);
+            paiNode.removeAllChildren();
+        }
 
     },
     //type:inital 
@@ -197,10 +216,12 @@ cc.Class({
         return user
 
     },
+
     /**
      * 
      */
     getMinLenPaiListFromPai: function (paiList) {
+        cc.log("getMinLenPaiListFromPai:"+paiList.toString());
         var v1 = [];
         var v2 = [];
         var v3 = [];
@@ -210,15 +231,15 @@ cc.Class({
             var sType = pai + ""
             var sType = sType.substring(0, 1);
             if (sType == "1") {
-                v1.push(sType);
+                v1.push(pai);
 
             }
             if (sType == "2") {
-                v2.push(sType);
+                v2.push(pai);
 
             }
             if (sType == "3") {
-                v3.push(sType);
+                v3.push(pai);
 
             }
 
@@ -243,13 +264,14 @@ cc.Class({
         }
 
         
-        
+          cc.log("getMinLenPaiListFromPai returnArray:"+returnArray.toString());
               
 
           for (var i = 0; i < 3; i++) {
-               var paiName = "pai" + (i) + "_" + returnArray[i].trim();
-               var paiNode=cc.find(paiName, this.user3PaiListNode);
-               paiNode.y=20;
+            //    var paiName = "pai" + (i) + "_" + returnArray[i].trim();
+            //     cc.log("getMinLenPaiListFromPai paiName:"+paiName);
+            //    var paiNode=cc.find(paiName, this.user3PaiListNode);
+            //    paiNode.y=20;
                Global.huanSanZhangPaiList.push(returnArray[i]);
           }
 
@@ -259,6 +281,49 @@ cc.Class({
         return returnArray;
     },
 
+     getTypeCount: function () {
+          var children = this.user3PaiListNode.children;
+          var v1 = 0;
+        var v2 = 0;
+        var v3 = 0;
+        var typecount=0;
+        var ownType="";
+        for (var i = 0; i < children.length; ++i) {
+            var childredName = children[i].name;
+            var temp = childredName.split("_")
+            var sType = temp[1];
+            var sType = sType.substring(0, 1);
+            if (sType == "1") {
+                v1++
+            }
+            if (sType == "2") {
+                v2++
+            }
+            if (sType == "3") {
+                v3++
+            }
+
+        }
+
+        if(v1>0){
+            typecount++;
+            ownType=ownType+"1";
+        }
+        if(v2>0){
+            typecount++;
+            ownType=ownType+"2";
+        }
+        if(v3>0){
+            typecount++;
+            ownType=ownType+"3";
+        }
+
+        return typecount
+
+     },
+     /**
+      * Get 
+      */
     getLess3NumberType: function (parentNode) {
         var v1 = 0;
         var v2 = 0;
