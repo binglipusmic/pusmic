@@ -35,6 +35,7 @@ cc.Class({
         quePaiScriptNode: cc.Node,
         tableCenterNode: cc.Node,
         tablePaiNode: cc.Node,
+        paiRestNode:cc.Node,
 
     },
 
@@ -53,8 +54,8 @@ cc.Class({
 
         huanSanZhangScript = self.huanSanZhangNode.getComponent("huanPaiUI");
         quePaiScript = self.quePaiScriptNode.getComponent("quepaiScript");
-        tableCenterScript = self.quePaiScriptNode.getComponent("tableCenterPoint");
-        tablePaiActionScript = self.tablePaiNode.getComponent("tableCenterPoint");
+        tableCenterScript = self.tableCenterNode.getComponent("tableCenterPoint");
+        tablePaiActionScript = self.tablePaiNode.getComponent("tablePaiAction");
     },
     connectByPrivateChanel: function () {
         if (client == null || client == undefined) {
@@ -163,6 +164,7 @@ cc.Class({
                 }
 
                 if (messageDomain.messageAction == "faPai") {
+
                     var gameUserList = JSON.parse(messageDomain.messageBody);
                     var userList2 = Global.userList;
                     var userInfo = Global.userInfo;
@@ -172,7 +174,7 @@ cc.Class({
                             var user = userList2[i];
                             if (user.openid == gameUser.openid) {
                                 var paiListString = gameUser.paiList;
-
+                                user.zhuang = gameUser.zhuang;
                                 paiListString = this.changeJsonListStringToArrayString(paiListString)
                                 cc.log("gameUser.paiList:" + paiListString);
                                 user.paiList = paiListString;
@@ -186,6 +188,11 @@ cc.Class({
 
 
                     }
+                    var paiRestCount=13*gameUserList.length+1;
+                    paiRestCount=108-paiRestCount;
+                    var paiListLable=this.paiRestNode.getComponent(cc.Label)
+                    paiListLable.string=paiRestCount+"";
+                     Global.restPaiCount=paiRestCount;
                     Global.userList = userList2;
                     //table user info
 
@@ -227,22 +234,24 @@ cc.Class({
                     huanSanZhangScript.closeWaitPanle();
                     huanSanZhangScript.closeHuanSanZhang();
                     Global.chuPaiActionType = "";
-                    quePaiScript.showQuePaiNode();
-                    quePaiScript.stratTimer();
+                    quePaiScript.showQuePaiNodeAll();
+                    //quePaiScript.stratTimer();
                 }
 
                 //quepai sendQuePai
                 if (messageDomain.messageAction == "sendQuePai") {
                     var quePaiUser = JSON.parse(messageDomain.messageBody);
+                    cc.log("quePaiUser.quePai:"+quePaiUser.quePai);
+                    cc.log("quePaiUser.openid:"+quePaiUser.openid);
                     var userList2 = Global.userList;
                     var userInfo = Global.userInfo;
                     var quePaiCount = 0;
                     for (var i = 0; i < userList2.length; i++) {
-                        if (userInfo.openid != userList2[i].openid) {
-                            if (quePaiUser.openid != userList2[i].openid) {
+                        if (quePaiUser.openid == userList2[i].openid) {
+                            //if (quePaiUser.openid != userList2[i].openid) {
                                 userList2[i].quePai = quePaiUser.quePai;
                                 //quePaiCount++;
-                            }
+                           // }
                         }
 
                         if (userList2[i].quePai != null && userList2[i].quePai != undefined) {
@@ -262,6 +271,8 @@ cc.Class({
                     var currentUser;
                     var zhuangInde;
                     for (var i = 0; i < userList2.length; i++) {
+                       // cc.log("userList2[i].zhuang:" + userList2[i].zhuang);
+                       // cc.log("userList2[i].pointIndex:" + userList2[i].pointIndex);
                         if (userList2[i].zhuang == "1") {
                             zhuangOpenId = userList2[i].openid;
                             zhuangInde = userList2[i].pointIndex;
@@ -273,11 +284,16 @@ cc.Class({
                     }
 
                     //close all wait Panle .
-                    quePaiScriptNode.closeWaitPanel();
+                    quePaiScript.closeWaitPanel();
                     //show center table
+                    cc.log("zhuangInde:" + zhuangInde);
+                    tableCenterScript.index = zhuangInde;
                     tableCenterScript.showCenterPoint();
                     //enable self pai list 
-                    tablePaiActionScript.enabledAllPaiAfterQuePai();
+                   // if(currentUser.openid==zhuangOpenId){
+                       tablePaiActionScript.enabledAllPaiAfterQuePai();
+                    //}
+                    
                 }
 
 
@@ -427,12 +443,13 @@ cc.Class({
         var userOpenId = userInfo.openid;
         var joinRoomNumber = Global.joinRoomNumber;
         var o = new Object();
-        o.que = que;
+        o.quePai = que;
         o.openid = userOpenId;
         o.quePaiCount = quePaiCount;
         o.peopleCount = peopleCount;
         var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "sendQuePai");
         this.sendMessageToServer(messageObj);
+        cc.log("sendQuePai");
 
 
     },
@@ -451,7 +468,7 @@ cc.Class({
         var o = new Object();
         o.huanSanZhangPaiList = paiList;
         o.openid = userOpenId;
-        cc.log("sendHuanSanZhang userOpenId:"+userOpenId);
+        cc.log("sendHuanSanZhang userOpenId:" + userOpenId);
         var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "userHuanSanZhang");
         this.sendMessageToServer(messageObj);
 

@@ -135,15 +135,24 @@ class WebSokectController {
         if(messageJsonObj.messageAction.equals("sendQuePai")){
 
             def obj = JSON.parse(messageJsonObj.messageBody)
+            def s = new JsonBuilder(messageJsonObj).toPrettyString()
+            websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s)
+            println "obj.quePaiCount.toString():"+obj.quePaiCount.toString()
+            println "obj.peopleCount.toString():"+obj.peopleCount.toString()
             if(obj.quePaiCount.toString().equals(obj.peopleCount.toString())){
                 messageJsonObj.messageAction="zhuangJiaChuPai"
-
+                println "zhuangJiaChuPai:"+obj.peopleCount.toString()
+                def s2 = new JsonBuilder(messageJsonObj).toPrettyString()
+                websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s2)
             }else{
 
             }
+            messageJsonObj.messageAction="zhuangJiaChuPai"
+            def s3 = new JsonBuilder(messageJsonObj).toPrettyString()
+            websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s3)
+           // messageJsonObj.messageAction="zhuangJiaChuPai"
+            println "zhuangJiaChuPai1:"+obj.peopleCount.toString()
 
-            def s = new JsonBuilder(messageJsonObj).toPrettyString()
-            websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s)
 
 
 

@@ -12,4 +12,5 @@ window.Global = {
     subid:0,
     chuPaiActionType:"",
     huanSanZhangPaiList:[],
+    restPaiCount:0,
 };

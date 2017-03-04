@@ -12,6 +12,7 @@ class GameUserPlatObj {
     String userCode
     String publicIp
     String paiList
+    String zhuang
     String headImageFileName
     int gameRoundScore
     int gameScoreCount

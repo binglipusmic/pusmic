@@ -15116,6 +15116,9 @@
     },
     "tablePaiNode": {
       "__id__": 641
+    },
+    "paiRestNode": {
+      "__id__": 464
     }
   },
   {
@@ -24243,7 +24246,8 @@
     },
     "quePaiTimeLable": {
       "__id__": 624
-    }
+    },
+    "tableUserInfoNode": null
   },
   {
     "__type__": "cc.Node",
@@ -26631,6 +26635,23 @@
     ],
     "centerPointNode": {
       "__id__": 552
+    },
+    "paiType": [
+      {
+        "__uuid__": "5c0b9118-80df-4e99-a9df-c51f9cad9d95"
+      },
+      {
+        "__uuid__": "54b6aad8-6951-4393-a14a-872ffd92a0e9"
+      },
+      {
+        "__uuid__": "fea2724f-ea75-4e8e-92a3-f23181d00a60"
+      },
+      {
+        "__uuid__": "10108688-57e3-478c-927d-27c24d77ddc1"
+      }
+    ],
+    "quePaiNode": {
+      "__id__": 554
     }
   },
   {

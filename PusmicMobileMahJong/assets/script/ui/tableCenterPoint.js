@@ -27,12 +27,14 @@ cc.Class({
         tenPoint: cc.Node,
         numPoint: cc.Node,
         numberSprite: [cc.SpriteFrame],
-        centerPointNode:cc.Node,
+        centerPointNode: cc.Node,
+        paiType: [cc.SpriteFrame],
+        quePaiNode: cc.Node,
     },
 
     // use self for initialization
     onLoad: function () {
-        
+
         let self = this;
         self.hideAllPoint();
         timeCount = 30;
@@ -41,7 +43,7 @@ cc.Class({
         timerUpate = function () {
 
 
-           // cc.log("timeCount:" + timeCount + "----" + timeCount.length);
+            // cc.log("timeCount:" + timeCount + "----" + timeCount.length);
 
             this.initalCenterNum();
             timeCount--;
@@ -76,7 +78,7 @@ cc.Class({
         };
 
         self.index = "1";
-        self.stratTimer();
+        //self.stratTimer();
 
     },
     initalCenterNum: function () {
@@ -106,10 +108,10 @@ cc.Class({
     },
 
     hideAllQuePai: function () {
-        this.user1Quepai.active=false;
-        this.user2Quepai.active=false;
-        this.user3Quepai.active=false;
-        this.user4Quepai.active=false;
+        this.user1Quepai.active = false;
+        this.user2Quepai.active = false;
+        this.user3Quepai.active = false;
+        this.user4Quepai.active = false;
     },
 
     hideAllPoint: function () {
@@ -133,13 +135,64 @@ cc.Class({
         self.hideAllPoint();
     },
 
-    showCenterPoint:function(){
+    showCenterPoint: function () {
         let self = this;
+        self.hideAllQuePai();
         self.hideAllPoint();
         timeCount = 30;
         this.initalCenterNum();
-        this.centerPointNode.active =true;
+        this.centerPointNode.active = true;
         this.stratTimer();
+        this.showQuePai();
+    },
+    showQuePai: function () {
+        var userList2 = Global.userList;
+        this.quePaiNode.active = true;
+
+        for (var i = 0; i < userList2.length; i++) {
+
+            var quepai = (userList2[i].quePai);
+           // cc.log("quepai0:" + userList2[i].quePai + "---" + userList2[i].openid);
+            if (quepai != null && quepai != undefined) {
+                quepai = parseInt(userList2[i].quePai);
+              //  cc.log("quepai1:" + quepai.toString());
+                var queScript = this.paiType[quepai - 1];
+                var index = userList2[i].pointIndex;
+                this.setQuePaiSpritFame(index, queScript);
+
+            }
+        }
+
+    },
+    setQuePaiSpritFame: function (index, scpritFame) {
+       // cc.log("setQuePaiSpritFame index:" + index);
+        index = index + "";
+        var sprit;
+        if (index == "1") {
+            sprit = this.user1Quepai.getComponent(cc.Sprite);
+            this.user1Quepai.active = true;
+          //  cc.log(" this.user1Quepai.active :" + this.user1Quepai.active);
+        }
+        if (index == "2") {
+            sprit = this.user2Quepai.getComponent(cc.Sprite);
+            this.user2Quepai.active = true;
+            //cc.log(" this.user2Quepai.active :" + this.user2Quepai.active);
+
+        }
+        if (index == "3") {
+            sprit = this.user3Quepai.getComponent(cc.Sprite);
+            this.user3Quepai.active = true;
+          //  cc.log(" this.user3Quepai.active :" + this.user3Quepai.active);
+
+        }
+        if (index == "4") {
+            sprit = this.user4Quepai.getComponent(cc.Sprite);
+            this.user4Quepai.active = true;
+          //  cc.log(" this.user4Quepai.active :" + this.user4Quepai.active);
+
+        }
+        sprit.spriteFrame = scpritFame;
+
     },
 
     // called every frame, uncomment self function to activate update callback

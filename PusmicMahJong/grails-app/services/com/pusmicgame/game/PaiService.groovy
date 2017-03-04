@@ -139,7 +139,7 @@ class PaiService {
 
                     outputUser.openid = gameU.springUser.openid
                     outputUser.paiList =gameU.paiList.toString()
-
+                    outputUser.zhuang = gameU.zhuang
                    // gameU.paiList=userPaiList
 
                     gameU.save(flush: true, failOnError: true)
@@ -239,7 +239,7 @@ class PaiService {
                     GameUserPlatObj outputUser = new GameUserPlatObj()
 
                     outputUser.openid = gameU.springUser.openid
-
+                    outputUser.zhuang = gameU.zhuang
                     def list=getUserPaiList(paiList,index)
                     def userPaiList=list[1]
                     paiList=list[0]
@@ -264,6 +264,19 @@ class PaiService {
         }
 
         return paiStr
+    }
+
+    def getRestPaiNumber(MessageDomain messageDomain){
+        def roomNumber = messageDomain.messageBelongsToPrivateChanleNumber;
+        def paiStr="";
+        def paiSize=0;
+        GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
+        GameRound gameRound = onlineRoomNumber.gameRound
+        if(gameRound) {
+            paiSize=gameRound.restPaiList.size();
+        }
+        return paiSize;
+
     }
 
 

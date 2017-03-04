@@ -152,6 +152,7 @@ cc.Class({
         var userList = Global.userList;
         for (var i = 0; i < userList.length; i++) {
             var user = userList[i];
+              cc.log("inital user zhuang:"+user.zhuang);
             //show current user node
             if (user.pointIndex != null && user.pointIndex != undefined) {
                 cc.log(user.pointIndex);
@@ -288,6 +289,7 @@ cc.Class({
         var v3 = 0;
         var typecount=0;
         var ownType="";
+        var returnArray=[]
         for (var i = 0; i < children.length; ++i) {
             var childredName = children[i].name;
             var temp = childredName.split("_")
@@ -318,7 +320,9 @@ cc.Class({
             ownType=ownType+"3";
         }
 
-        return typecount
+        returnArray.push(typecount);
+         returnArray.push(ownType);
+        return returnArray
 
      },
      /**

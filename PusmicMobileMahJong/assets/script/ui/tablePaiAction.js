@@ -563,11 +563,8 @@ cc.Class({
         var quePai;
         var userList = Global.userList;
         var userInfo = Global.userInfo;
-        for (var i = 0; i < userList.length; i++) {
-            if (userList[i].openid == userInfo.openid) {
-                quePai = userList[i].quePai;
-            }
-        }
+        quePai=userInfo.quePai;
+        
 
         return quePai;
 
@@ -800,7 +797,7 @@ var x = touches[0].getLocationX();
          var tableNode = cc.find("Canvas/tableNode");
         var parentNode = cc.find("user3PaiList", tableNode);
         var existFlag = this.checkQuePaiInSelf();
-
+        cc.log("enabledAllPaiAfterQuePai flag:"+existFlag);
         if (existFlag == false) {
             this.enabledAllPai(parentNode);
         } else {

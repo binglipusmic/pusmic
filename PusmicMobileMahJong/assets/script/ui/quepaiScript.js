@@ -26,13 +26,13 @@ cc.Class({
         alertMessageNode: cc.Node,
         gameTableNetWorkNode: cc.Node,
         quePaiTimeLable: cc.Node,
-        tableUserInfoNode:cc.Node,
+        tableUserInfoNode: cc.Node,
     },
 
     // use this for initialization
     onLoad: function () {
         this.waitOtherUserNode.active = false;
-        tableUserInfoScript=this.tableUserInfoNode.getComponent("tableUserInfo");
+        //tableUserInfoScript = this.tableUserInfoNode.getComponent("tableUserInfo");
         //this.thisSelectNode.active = true;
         // this.quePaiNode.active =false;
         //alerMessage = this.alertMessageNode.getComponent("alertMessagePanle");
@@ -51,7 +51,7 @@ cc.Class({
 
         };
     },
-   
+
 
     endTimer: function () {
         Global.chuPaiActionType = ""
@@ -78,13 +78,29 @@ cc.Class({
             que = "3";
         }
 
+         var quePaiCount=this.setUePaiInUser(que);
+        //show other wait other user select pai  
+        this.quePaiNode.active = false;
+        this.waitOtherUserNode.active = true;
+        //set action typeof
+        Global.chuPaiActionType = "normalChuPai";
+        //send to server
+        var userList = Global.userList;
+        var userInfo = Global.userInfo;
+        gameTableNetWork.sendQuePai(quePaiCount, userList.length);
+        
+
+    },
+    setUePaiInUser: function (quePai) {
         var userList = Global.userList;
         var userInfo = Global.userInfo;
         var quePaiCount = 0;
         for (var i = 0; i < userList.length; i++) {
             if (userList[i].openid == userInfo.openid) {
-                userList[i].quePai = que;
-                userInfo.quePai = que;
+                userList[i].quePai = quePai;
+                userInfo.quePai = quePai;
+                cc.log("setUePaiInUser :"+quePai);
+                 cc.log("setUePaiInUser openid:"+userInfo.openid);
             }
 
 
@@ -92,16 +108,9 @@ cc.Class({
                 quePaiCount++
             }
         }
-        Global.userInfo = userInfo
-        //show other wait other user select pai  
-        this.quePaiNode.active = false;
-        this.waitOtherUserNode.active = true;
-        //set action typeof
-        Global.chuPaiActionType = "normalChuPai";
-        //send to server
-
-        gameTableNetWork.sendQuePai(quePaiCount, userList.length);
-
+        Global.userInfo = userInfo;
+        Global.userList=userList;
+        return quePaiCount
     },
 
     showQuePaiNode: function () {
@@ -138,18 +147,31 @@ cc.Class({
         //
 
     },
-   
 
-showQuePaiNode:function(){
-    var typeCount=tableUserInfoScript.getTypeCount();
-    if(typeCount[0]+''=="3"){
 
-    }else{
-        //default que 
+    showQuePaiNodeAll: function () {
+        this.showQuePaiNode();
+        this.stratTimer();
+        // var typeCount = tableUserInfoScript.getTypeCount();
+        // if (typeCount[0] + '' == "3") {
+        //     this.showQuePaiNode();
+        //     this.stratTimer();
+        // } else if (typeCount[0] + '' == "1") {
+        //     this.showQuePaiNode();
+        //     this.stratTimer();
+
+
+        // } else {
+        //     this.waitOtherUserNode.active = true;
+        //     //default que 
+        //     var typeAll = "123"
+        //     for (var i = 0; i < typeCount[1].length; i++) {
+        //         typeAll = typeAll.replace(typeCount[1][i], "")
+        //     }
+        //     this.setUePaiInUser(typeAll);
+        // }
 
     }
-
-}
     // called every frame, uncomment this function to activate update callback
     // update: function (dt) {
 
