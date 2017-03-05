@@ -12,6 +12,7 @@ var huanSanZhangScript;
 var quePaiScript;
 var tableCenterScript;
 var tablePaiActionScript;
+var paiActionScript;
 cc.Class({
     extends: cc.Component,
 
@@ -35,7 +36,8 @@ cc.Class({
         quePaiScriptNode: cc.Node,
         tableCenterNode: cc.Node,
         tablePaiNode: cc.Node,
-        paiRestNode:cc.Node,
+        paiRestNode: cc.Node,
+        paiAactionNode: cc.Node,
 
     },
 
@@ -56,6 +58,7 @@ cc.Class({
         quePaiScript = self.quePaiScriptNode.getComponent("quepaiScript");
         tableCenterScript = self.tableCenterNode.getComponent("tableCenterPoint");
         tablePaiActionScript = self.tablePaiNode.getComponent("tablePaiAction");
+        paiActionScript = self.paiAactionNode.getComponent("paiAction");
     },
     connectByPrivateChanel: function () {
         if (client == null || client == undefined) {
@@ -188,11 +191,11 @@ cc.Class({
 
 
                     }
-                    var paiRestCount=13*gameUserList.length+1;
-                    paiRestCount=108-paiRestCount;
-                    var paiListLable=this.paiRestNode.getComponent(cc.Label)
-                    paiListLable.string=paiRestCount+"";
-                     Global.restPaiCount=paiRestCount;
+                    var paiRestCount = 13 * gameUserList.length + 1;
+                    paiRestCount = 108 - paiRestCount;
+                    var paiListLable = this.paiRestNode.getComponent(cc.Label)
+                    paiListLable.string = paiRestCount + "";
+                    Global.restPaiCount = paiRestCount;
                     Global.userList = userList2;
                     //table user info
 
@@ -241,17 +244,17 @@ cc.Class({
                 //quepai sendQuePai
                 if (messageDomain.messageAction == "sendQuePai") {
                     var quePaiUser = JSON.parse(messageDomain.messageBody);
-                    cc.log("quePaiUser.quePai:"+quePaiUser.quePai);
-                    cc.log("quePaiUser.openid:"+quePaiUser.openid);
+                    cc.log("quePaiUser.quePai:" + quePaiUser.quePai);
+                    cc.log("quePaiUser.openid:" + quePaiUser.openid);
                     var userList2 = Global.userList;
                     var userInfo = Global.userInfo;
                     var quePaiCount = 0;
                     for (var i = 0; i < userList2.length; i++) {
                         if (quePaiUser.openid == userList2[i].openid) {
                             //if (quePaiUser.openid != userList2[i].openid) {
-                                userList2[i].quePai = quePaiUser.quePai;
-                                //quePaiCount++;
-                           // }
+                            userList2[i].quePai = quePaiUser.quePai;
+                            //quePaiCount++;
+                            // }
                         }
 
                         if (userList2[i].quePai != null && userList2[i].quePai != undefined) {
@@ -271,8 +274,8 @@ cc.Class({
                     var currentUser;
                     var zhuangInde;
                     for (var i = 0; i < userList2.length; i++) {
-                       // cc.log("userList2[i].zhuang:" + userList2[i].zhuang);
-                       // cc.log("userList2[i].pointIndex:" + userList2[i].pointIndex);
+                        // cc.log("userList2[i].zhuang:" + userList2[i].zhuang);
+                        // cc.log("userList2[i].pointIndex:" + userList2[i].pointIndex);
                         if (userList2[i].zhuang == "1") {
                             zhuangOpenId = userList2[i].openid;
                             zhuangInde = userList2[i].pointIndex;
@@ -290,10 +293,10 @@ cc.Class({
                     tableCenterScript.index = zhuangInde;
                     tableCenterScript.showCenterPoint();
                     //enable self pai list 
-                   // if(currentUser.openid==zhuangOpenId){
-                       tablePaiActionScript.enabledAllPaiAfterQuePai();
+                    // if(currentUser.openid==zhuangOpenId){
+                    tablePaiActionScript.enabledAllPaiAfterQuePai();
                     //}
-                    
+
                 }
 
 
@@ -304,14 +307,39 @@ cc.Class({
                     var userInfo = Global.userInfo;
                     var obj = JSON.parse(messageDomain.messageBody);
                     var fromUserOpenid = obj.fromUserOpenid;
+                    var paiNumber = obj.paiNumber
+
+                    //---------------chupai------------------------
                     if (obj.actionName == "chuPai") {
-                        for (var i = 0; i < userList.length; i++) {
-                            if (userList[i].openid == userInfo.openid) {
-                                //play chupai action on self
-                            } else {
+                        var paiList = obj.paiList;
+                        if (paiList.indexOf(",") > 0) {
+                            paiList = paiList.split(",")
+                        } else {
+                            paiList = [paiList]
+                        }
+                        if (fromUserOpenid != userInfo.openid) {
+                            for (var i = 0; i < userList.length; i++) {
                                 //play chupai action on other side
+                                if (obj.fromUserOpenid == userList[i].openid) {
+                                    //show the chu pai action on animation
+                                    var index = userList[i].pointIndex;
+                                    tablePaiActionScript.playOtherChuPaiAction(paiNumber, index);
+                                    //update the pai list on the chu pai user
+                                    userList[i].paiList = paiList.join(",");
+                                    userList[i].paiListArray = paiList;
+                                } else {
+
+                                }
+                            }
+
+                            //check peng and gang and hu in the chu pai
+                            var actionLevel = paiActionScript.showActionBar(paiNumber, fromUserOpenid, "chupai")
+                            if (actionLevel > 0) {
+
                             }
                         }
+
+
 
 
                     }
@@ -356,7 +384,7 @@ cc.Class({
 
     },
     //-------------------------------chu pai action---------------------------------------------
-    chuPaiAction: function (userOpenId, paiNumber) {
+    sendChuPaiAction: function (userOpenId, paiNumber, paiList) {
         var joinRoomNumber = Global.joinRoomNumber;
         var o = new Object();
         //var gameStep = require("gameStep").gameStep;
@@ -365,9 +393,14 @@ cc.Class({
         o.actionName = "chuPai";
         o.paiNumber = paiNumber;
         o.toUserOpenid = userOpenId;
+        o.paiList = paiList.join(",");
+        o.chuPaiType = Global.chuPaiActionType;
+
+
 
         var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
         this.sendMessageToServer(messageObj);
+        tableCenterScript.endTimer();
     },
     //--------------------------------------------------------------------------------------------------------
     joinRoom: function (joinRoomNumber) {

@@ -71,6 +71,7 @@ cc.Class({
         var parentNode = cc.find("user3PaiList", tableNode);
 
         tableActionScript.enabledAllPai(parentNode,false);
+        Global.chuPaiActionType = "normalMoPai";
 
     },
 

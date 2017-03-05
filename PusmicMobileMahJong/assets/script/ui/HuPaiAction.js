@@ -108,7 +108,7 @@ cc.Class({
                 paiList.splice(i, 1);
                 i = 0;
                 cc.log("hupaiLogic paiList:" + paiList);
-                //huFlagDetails = this.startDecideHu(paiList);
+                huFlagDetails = this.startDecideHu(paiList);
 
             }
 

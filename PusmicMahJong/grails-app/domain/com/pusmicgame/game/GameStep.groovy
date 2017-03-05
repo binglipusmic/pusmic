@@ -7,8 +7,16 @@ class GameStep {
     String paiNumber
     String toUserOpenid
     String joinRoomNumber
+    String gangPaiListStr
+    String pengPaiListStr
+    String paiList
+    String chuPaiType
     Date   executeTime
     static constraints = {
         toUserOpenid   nullable: true
+        gangPaiListStr nullable:true
+        pengPaiListStr nullable:true
+        paiList        nullable:true
+        chuPaiType     nullable:true
     }
 }

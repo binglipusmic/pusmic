@@ -3,6 +3,7 @@ var paiListReOrderCount = "3"
 var nodeMoveX = -1;
 var nodeMoveY = -1;
 var tableUserInfoScript;
+var tableNetWorkScript;
 cc.Class({
     extends: cc.Component,
 
@@ -23,6 +24,7 @@ cc.Class({
         selfChuPaiListNode: cc.Node,
         paiChuPaiNode: cc.Prefab,
         theMoveNode: cc.Node,
+        tableNetWorkScriptNode:cc.Node,
         //tableUserInfo:cc.Node,
         //paiListReOrderCount:cc.Integer,
     },
@@ -32,6 +34,8 @@ cc.Class({
     onLoad: function () {
         var tableUserInfo = cc.find("tableUserInfo");
         tableUserInfoScript = tableUserInfo.getComponent("tableUserInfo");
+        var tableNwtWork =cc.find("tableNerWorkScript");
+        tableNetWorkScript =tableNwtWork.getComponent("GameTableNetWork");
 
     },
 
@@ -259,6 +263,7 @@ cc.Class({
         // pNode.active = true;
         //add it to curernt 
         //  eval("this.user" + point + "PaiListNode.addChild(paiNode)");
+        return  user.paiListArray 
 
     },
 
@@ -570,7 +575,9 @@ cc.Class({
 
     },
 
-
+/**
+ * This is chu pai action 
+ */
     chuPaiAction: function (event) {
 
         var actionType = Global.chuPaiActionType;
@@ -581,6 +588,7 @@ cc.Class({
         var temp = name.split("_");
         var paiNumTxt = temp[1];
         var chuPaiIndex = -1;
+         var userInfo = Global.userInfo;
         chuPaiIndex = temp[0].replace("pai");
 
         //Fix the game mode aollow huansanzhang 
@@ -635,7 +643,10 @@ cc.Class({
             } else {
                 //normal chupai 
                 //enable all pai after quepai clean 
-                this.playSlefChuPaiAction(node, "3");
+                var selfPaiList=this.playSlefChuPaiAction(node, "3");
+                //send chu pai action to server.
+                tableNetWorkScript.sendChuPaiAction(userInfo.openid,paiNumTxt,selfPaiList);
+
 
             }
         }
