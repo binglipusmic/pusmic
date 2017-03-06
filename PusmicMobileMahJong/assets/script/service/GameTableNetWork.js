@@ -39,7 +39,7 @@ cc.Class({
         tablePaiNode: cc.Node,
         paiRestNode: cc.Node,
         paiAactionNode: cc.Node,
-        moPaiActionNode:cc.Node,
+        moPaiActionNode: cc.Node,
 
 
 
@@ -51,7 +51,7 @@ cc.Class({
         actionUIScriptNode = self.actionNodeScript.getComponent("gameConfigButtonListAction");
         alertMessageUI = self.alertMessageNodeScirpt.getComponent("alertMessagePanle");
         userInfoScript = self.userInfoScriptNode.getComponent("tableUserInfo");
-        moPaiScript =self.moPaiActionNode.getComponent("tableMoPaiAction");
+        moPaiScript = self.moPaiActionNode.getComponent("tableMoPaiAction");
         messageDomain = require("messageDomain").messageDomain;
         Global.subid = 0;
         connect_callback = function (error) {
@@ -131,9 +131,30 @@ cc.Class({
                     }
 
                 };
-                 //--------------------------------------------------
+                //--------------------------------------------------
                 if (messageDomain.messageAction == "joinExistRoom") {
-                        var Obj = JSON.parse(messageDomain.messageBody);
+                    var Obj = JSON.parse(messageDomain.messageBody);
+                    var gameUserList = JSON.parse(obj.userList);
+                    var joinMode = JSON.parse(obj.gameMode);
+                    if (joinMode != null && joinMode != undefined) {
+                        Global.gameMode = joinMode;
+                        cc.log("joinMode:" + Global.gameMode.toString());
+                    }
+
+                    var userList = [];
+                    for (var j = 0; j < gameUserList.length; j++) {
+                        var getUser = gameUserList[j]
+                        userList.push(getUser);
+                    }
+                    Global.userList = userList;
+
+                    var paiRestCount = 13 * gameUserList.length + 1;
+                    paiRestCount = 108 - paiRestCount;
+                    var paiListLable = this.paiRestNode.getComponent(cc.Label)
+                    paiListLable.string = paiRestCount + "";
+                    Global.restPaiCount = paiRestCount;
+                     userInfoScript.initalUserPai("inital");
+
                 }
                 //--------------------------------------------------
                 if (messageDomain.messageAction == "joinRoom") {
@@ -302,8 +323,8 @@ cc.Class({
                     tableCenterScript.index = zhuangInde;
                     tableCenterScript.showCenterPoint();
                     //enable self pai list 
-                     if(currentUser.openid==zhuangOpenId){
-                    tablePaiActionScript.enabledAllPaiAfterQuePai();
+                    if (currentUser.openid == zhuangOpenId) {
+                        tablePaiActionScript.enabledAllPaiAfterQuePai();
                     }
 
                 }
@@ -346,7 +367,7 @@ cc.Class({
 
                             //check peng and gang and hu in the chu pai
                             //var actionLevel = paiActionScript.showOtherActionBar(paiNumber, fromUserOpenid, "chupai")
-                           
+
                         }
 
                     }
@@ -377,7 +398,7 @@ cc.Class({
                         var pengFromUserOpenId = obj.fromUserOpenid;
                         var pengPaiNumber = o.nextMoPai;
                         var toUserOpenid = o.toUserOpenid;
-                    
+
                     }
 
                 }
@@ -466,7 +487,7 @@ cc.Class({
         o.paiList = paiList.join(",");
         o.chuPaiType = Global.chuPaiActionType;
         o.nextOpenid = this.getNextUserByOpenId(userOpenId);
-        o.nextMoPai=""
+        o.nextMoPai = ""
 
 
 

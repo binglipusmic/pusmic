@@ -30,5 +30,6 @@ class GameUser {
         huPai nullable: true
         huPaiType nullable: true
         huanSanZhang nullable: true
+        quePai  nullable: true
     }
 }

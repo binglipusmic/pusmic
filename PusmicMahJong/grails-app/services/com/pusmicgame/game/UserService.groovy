@@ -32,7 +32,7 @@ class UserService {
 
     def updateQuePaiForUser(MessageDomain messageDomain){
         def roomNumber = messageDomain.messageBelongsToPrivateChanleNumber;
-        def obj = JSON.parse(messageJsonObj.messageBody)
+        def obj = JSON.parse(messageDomain.messageBody)
         def que=obj.quePai
         def openid=obj.openid
         GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
@@ -71,7 +71,7 @@ class UserService {
                 outputUser.userCode = gameU.springUser.userCode
                 def onlineUser2 = OnlineUser.findBySpringUser(gameU.springUser)
                 if (onlineUser2) {
-                    outputUser.publicIp = onlineUser.publicIPAddress
+                    outputUser.publicIp = onlineUser2.publicIPAddress
                 } else {
                     outputUser.publicIp = "no found"
                 }
@@ -94,6 +94,14 @@ class UserService {
 
             Collections.sort(gameUserListArray, new CustomComparatorForGameUserPlatObj());
             paiStr = JsonOutput.toJson(gameUserListArray);
+            print "join paiStr 97:" + paiStr
+            GameMode gameMode=gameRound.gameRoundLun.gameMode
+            def gameModeStr=JsonOutput.toJson(gameMode);
+            print "join paiStr gameModeStr:" + gameModeStr
+            JoinRoom jr = new JoinRoom()
+            jr.gameMode = gameModeStr
+            jr.userList = paiStr
+            paiStr = JsonOutput.toJson(jr);
         }
 
         return paiStr
@@ -155,7 +163,7 @@ class UserService {
                             outputUser.userCode = gameU.springUser.userCode
                             def onlineUser2 = OnlineUser.findBySpringUser(gameU.springUser)
                             if (onlineUser2) {
-                                outputUser.publicIp = onlineUser.publicIPAddress
+                                outputUser.publicIp = onlineUser2.publicIPAddress
                             } else {
                                 outputUser.publicIp = "no found"
                             }
@@ -172,13 +180,13 @@ class UserService {
                         //gameUserListArray.s
                         actionMessageDomain.messageExecuteFlag = "success"
                         Collections.sort(gameUserListArray, new CustomComparatorForGameUserPlatObj());
-                        print "115"
+                       // print "115"
                         def s = JsonOutput.toJson(gameUserListArray);
-                        print "117"
+                       // print "117"
                         GameModeJson gmjson = new GameModeJson()
                         gmjson = myUtil.gameModeToJsonObject(gameMode, gmjson)
                         def gmStr = JsonOutput.toJson(gmjson);
-                        print "119"
+                      //  print "119"
                         JoinRoom jr = new JoinRoom()
                         jr.gameMode = gmStr
                         jr.userList = s

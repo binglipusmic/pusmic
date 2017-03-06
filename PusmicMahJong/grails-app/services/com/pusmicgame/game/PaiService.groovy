@@ -288,7 +288,7 @@ class PaiService {
         if(gameRound) {
             def paiList=gameRound.restPaiList
 
-            lastPai =(List)paiList.last()
+            lastPai =paiList.last()
             paiList.removeAt(paiList.size()-1)
          //   paiList=list
             gameRound.restPaiList=paiList
