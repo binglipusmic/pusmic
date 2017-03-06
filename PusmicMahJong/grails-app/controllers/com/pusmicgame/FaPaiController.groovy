@@ -39,6 +39,13 @@ class FaPaiController {
 
     }
 
+    def testMoPai(){
+        List pai=[1,2,3,4,5,6,7,8,9,10,11]
+        def lastPai=pai.last()
+        pai.removeAt(pai.size()-1)
+
+        render "lastPai:"+lastPai+"-----"+pai.toString()
+    }
 
     def testHuanSanZhang(){
         def orderList=paiService.getHuanPaiOrder(4);

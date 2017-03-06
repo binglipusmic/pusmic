@@ -62,16 +62,61 @@ cc.Class({
         //this.gangAction("testUser2", "23");
         this.pengAction("testUser2", "23");
     },
-    showActionBar: function (paiNumber, fromPaiOpenId, type) {
+    getSelfActionBarArray: function (paiNumber) {
+        var userInfo = Global.userInfo;
+        var user = tablePaiActionScript.getCorrectUserByOpenId(userInfo.openid);
+        var paiList = user.paiListArray;
+        var paiCount = 0;
+        var actionArray = ['cancle'];
+        var actionLevel = 0;
+        var huFlag = false;
+        huFlag = huPaiScript.hupaiLogic(paiNumber, userInfo.openid);
+        //get pai count in self pai list 
+        for (var i = 0; i < paiList.length; i++) {
+            var pai = paiList[i] + "";
+            pai = pai.trim();
+            if (pai == paiNumber) {
+                paiCount++
+            }
+        }
+
+
+        if (paiCount >= 3) {
+            actionArray.push("gang");
+            actionLevel = 2
+        }
+
+        if (paiCount >= 2) {
+            actionArray.push("peng");
+            actionLevel = 2
+        }
+
+        if (huFlag == true) {
+            actionArray.push("hu");
+            actionLevel = 3
+        }
+        return actionArray;
+
+    },
+    /**
+     * This function only work on self mopai 
+     */
+    showActionBarOnSelf: function (paiNumber, fromPaiOpenId, type) {
+    },
+    /**
+     * This function only work on the chu pai
+     * 
+     */
+    showOtherActionBar: function (paiNumber, fromPaiOpenId, type) {
         //we should consider the action level.
         //hu ==3 , peng,gang==2
+        var actionArray = ['cancle'];
         var showFlag = false;
         var actionLevel = 0;
         this.paiNumber = paiNumber;
         this.fromUserOpenId = fromPaiOpenId;
         paiNumber = paiNumber + "";
         paiNumber = paiNumber.trim();
-        var actionArray = ['cancle'];
         var userInfo = Global.userInfo;
         var user = tablePaiActionScript.getCorrectUserByOpenId(userInfo.openid);
         var paiList = user.paiListArray;
@@ -83,44 +128,48 @@ cc.Class({
         //         return false;
         //     }
         // }
+        var userList = Global.userList;
+        //get other user if have hu
 
-        for (var i = 0; i < paiList.length; i++) {
-            var pai = paiList[i] + "";
-            pai = pai.trim();
-            if (pai == paiNumber) {
-                paiCount++
+        var huFlag = false;
+        var otherHuArray = [];
+        var otherHuMap = new Map();
+        var otherUserResutl = false;
+        for (var i = 0; i < userList.length; i++) {
+            var otherHU = false;
+
+
+            if (userList[i].openid == userInfo.openid) {
+               // huFlag = otherHU;
+            } else {
+                otherHU = huPaiScript.hupaiLogic(paiNumber, userList[i].openid);
+                otherHuMap.set(userList[i].openid, otherHU);
+                if (otherHU == true) {
+                    otherUserResutl = otherHU;
+                }
+
             }
         }
-
-        var huFlag = huPaiScript.hupaiLogic(paiNumber, userInfo.openid);
-        if (paiCount >= 3) {
-            actionArray.push("gang");
-            actionLevel = 2
-        }
-        if (fromPaiOpenId == userInfo.openid) {
-
-            if (huFlag == true) {
-                actionArray.push("zimo");
-                actionLevel = 3;
-            }
-        } else {
-            if (paiCount >= 2) {
-                actionArray.push("peng");
-                actionLevel = 2
-            }
-
-            if (huFlag == true) {
-                actionArray.push("hu");
-                actionLevel = 3
-            }
-
-
-        }
+        actionArray = this.getSelfActionBarArray(paiNumber);
 
 
         if (actionArray.length > 1) {
-            this.showAction(actionArray);
-            showFlag = true;
+            //if the action level is 3 ,show the level
+            if (actionArray.join(",").indexOf("hu") >= 0) {
+                this.showAction(actionArray);
+                // showFlag = true;
+            } else {
+                //if other user no hu ,still show the bar action 
+                if (otherUserResutl == false) {
+                    this.showAction(actionArray);
+                } else {
+                    //other user can hu pai ,but him cancle this hu action 
+                    if (type == "otherCancleHu") {
+                        this.showAction(actionArray);
+                    }
+                }
+            }
+
         } else {
             //go to next user mo pai 
         }
@@ -432,6 +481,11 @@ cc.Class({
     },
     closeActionBar: function () {
         this.actionNode.active = false;
+        var huNode=cc.find("huActionNode",this.actionNode);
+        if(huNode.active==true){
+            //send cancle hu to user.
+        }
+
     },
 
 

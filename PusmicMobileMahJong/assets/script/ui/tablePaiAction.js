@@ -4,6 +4,7 @@ var nodeMoveX = -1;
 var nodeMoveY = -1;
 var tableUserInfoScript;
 var tableNetWorkScript;
+var tableCenterTimmerScript;
 cc.Class({
     extends: cc.Component,
 
@@ -24,7 +25,7 @@ cc.Class({
         selfChuPaiListNode: cc.Node,
         paiChuPaiNode: cc.Prefab,
         theMoveNode: cc.Node,
-        tableNetWorkScriptNode:cc.Node,
+        tableNetWorkScriptNode: cc.Node,
         //tableUserInfo:cc.Node,
         //paiListReOrderCount:cc.Integer,
     },
@@ -34,9 +35,10 @@ cc.Class({
     onLoad: function () {
         var tableUserInfo = cc.find("tableUserInfo");
         tableUserInfoScript = tableUserInfo.getComponent("tableUserInfo");
-        var tableNwtWork =cc.find("tableNerWorkScript");
-        tableNetWorkScript =tableNwtWork.getComponent("GameTableNetWork");
-
+        var tableNwtWork = cc.find("tableNerWorkScript");
+        tableNetWorkScript = tableNwtWork.getComponent("GameTableNetWork");
+        var tableCenterTimmer = cc.find("tableCenterPointNode");
+        tableCenterTimmerScript = tableCenterTimmer.getComponent("tableCenterPoint");
     },
 
 
@@ -263,7 +265,7 @@ cc.Class({
         // pNode.active = true;
         //add it to curernt 
         //  eval("this.user" + point + "PaiListNode.addChild(paiNode)");
-        return  user.paiListArray 
+        return user.paiListArray
 
     },
 
@@ -568,16 +570,16 @@ cc.Class({
         var quePai;
         var userList = Global.userList;
         var userInfo = Global.userInfo;
-        quePai=userInfo.quePai;
-        
+        quePai = userInfo.quePai;
+
 
         return quePai;
 
     },
 
-/**
- * This is chu pai action 
- */
+    /**
+     * This is chu pai action 
+     */
     chuPaiAction: function (event) {
 
         var actionType = Global.chuPaiActionType;
@@ -588,7 +590,7 @@ cc.Class({
         var temp = name.split("_");
         var paiNumTxt = temp[1];
         var chuPaiIndex = -1;
-         var userInfo = Global.userInfo;
+        var userInfo = Global.userInfo;
         chuPaiIndex = temp[0].replace("pai");
 
         //Fix the game mode aollow huansanzhang 
@@ -643,9 +645,12 @@ cc.Class({
             } else {
                 //normal chupai 
                 //enable all pai after quepai clean 
-                var selfPaiList=this.playSlefChuPaiAction(node, "3");
+                var selfPaiList = this.playSlefChuPaiAction(node, "3");
                 //send chu pai action to server.
-                tableNetWorkScript.sendChuPaiAction(userInfo.openid,paiNumTxt,selfPaiList);
+                tableNetWorkScript.sendChuPaiAction(userInfo.openid, paiNumTxt, selfPaiList);
+                //close table center timer
+                tableCenterTimmerScript.endTimer();
+                tableCenterTimmerScript.setNumerToZero();
 
 
             }
@@ -805,10 +810,10 @@ var x = touches[0].getLocationX();
     },
     // after all que pai clean ,the all other pai should be enable
     enabledAllPaiAfterQuePai: function () {
-         var tableNode = cc.find("Canvas/tableNode");
+        var tableNode = cc.find("Canvas/tableNode");
         var parentNode = cc.find("user3PaiList", tableNode);
         var existFlag = this.checkQuePaiInSelf();
-        cc.log("enabledAllPaiAfterQuePai flag:"+existFlag);
+        cc.log("enabledAllPaiAfterQuePai flag:" + existFlag);
         if (existFlag == false) {
             this.enabledAllPai(parentNode);
         } else {
@@ -1196,7 +1201,7 @@ var x = touches[0].getLocationX();
         parentNode.removeAllChildren()
     },
 
-    cleanAllPaiListForAllUser:function(){
+    cleanAllPaiListForAllUser: function () {
 
     },
     /**

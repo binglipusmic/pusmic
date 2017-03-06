@@ -6,6 +6,25 @@ import grails.transaction.Transactional
 @Transactional
 class GameRoundService {
 
+    def checkGameRoomExist(MessageDomain messageJsonObj){
+        def flag=false;
+        def roomNumber = messageJsonObj.messageBelongsToPrivateChanleNumber;
+        GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
+        GameRound gameRound = onlineRoomNumber.gameRound
+        if(gameRound) {
+            def openid = messageJsonObj.messageBody;
+            gameRound.gameUser.each{gu->
+                 if(gu.springUser.openid.equals(openid)){
+                     flag=true;
+                 }
+            }
+        }else{
+            return flag
+        }
+
+        return flag
+    }
+
     def getJoinPopeleCount(MessageDomain messageDomain) {
 
         def peopeleCount=0

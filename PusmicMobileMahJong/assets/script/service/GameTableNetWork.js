@@ -13,6 +13,7 @@ var quePaiScript;
 var tableCenterScript;
 var tablePaiActionScript;
 var paiActionScript;
+var moPaiScript;
 cc.Class({
     extends: cc.Component,
 
@@ -38,6 +39,9 @@ cc.Class({
         tablePaiNode: cc.Node,
         paiRestNode: cc.Node,
         paiAactionNode: cc.Node,
+        moPaiActionNode:cc.Node,
+
+
 
     },
 
@@ -47,6 +51,7 @@ cc.Class({
         actionUIScriptNode = self.actionNodeScript.getComponent("gameConfigButtonListAction");
         alertMessageUI = self.alertMessageNodeScirpt.getComponent("alertMessagePanle");
         userInfoScript = self.userInfoScriptNode.getComponent("tableUserInfo");
+        moPaiScript =self.moPaiActionNode.getComponent("tableMoPaiAction");
         messageDomain = require("messageDomain").messageDomain;
         Global.subid = 0;
         connect_callback = function (error) {
@@ -126,6 +131,10 @@ cc.Class({
                     }
 
                 };
+                 //--------------------------------------------------
+                if (messageDomain.messageAction == "joinExistRoom") {
+                        var Obj = JSON.parse(messageDomain.messageBody);
+                }
                 //--------------------------------------------------
                 if (messageDomain.messageAction == "joinRoom") {
                     var Obj = JSON.parse(messageDomain.messageBody);
@@ -293,9 +302,9 @@ cc.Class({
                     tableCenterScript.index = zhuangInde;
                     tableCenterScript.showCenterPoint();
                     //enable self pai list 
-                    // if(currentUser.openid==zhuangOpenId){
+                     if(currentUser.openid==zhuangOpenId){
                     tablePaiActionScript.enabledAllPaiAfterQuePai();
-                    //}
+                    }
 
                 }
 
@@ -311,6 +320,7 @@ cc.Class({
 
                     //---------------chupai------------------------
                     if (obj.actionName == "chuPai") {
+                        tableCenterScript.endTimer();
                         var paiList = obj.paiList;
                         if (paiList.indexOf(",") > 0) {
                             paiList = paiList.split(",")
@@ -325,23 +335,49 @@ cc.Class({
                                     var index = userList[i].pointIndex;
                                     tablePaiActionScript.playOtherChuPaiAction(paiNumber, index);
                                     //update the pai list on the chu pai user
-                                    userList[i].paiList = paiList.join(",");
-                                    userList[i].paiListArray = paiList;
+                                    //userList[i].paiList = paiList.join(",");
+                                    //userList[i].paiListArray = paiList;
                                 } else {
 
                                 }
                             }
+                            //update pai and pai list to Gobal user list var 
+                            //Global.userList = userList;
 
                             //check peng and gang and hu in the chu pai
-                            var actionLevel = paiActionScript.showActionBar(paiNumber, fromUserOpenid, "chupai")
-                            if (actionLevel > 0) {
-
-                            }
+                            //var actionLevel = paiActionScript.showOtherActionBar(paiNumber, fromUserOpenid, "chupai")
+                           
                         }
 
+                    }
+                    //---------------pengpai-----------------------------------------------
+                    if (obj.actionName == "pengPai") {
+                        var pengFromUserOpenId = obj.fromUserOpenid;
+                        var pengPaiNumber = o.paiNumber;
+                        var toUserOpenid = o.toUserOpenid;
+                        paiActionScript.fromUserOpenId = pengFromUserOpenId;
+                        paiActionScript.paiNumber = pengPaiNumber;
+                        paiActionScript.pengAction();
+                    }
+                    //---------------gangpai-----------------------------------------------
+                    if (obj.actionName == "gangPai") {
+                        var pengFromUserOpenId = obj.fromUserOpenid;
+                        var pengPaiNumber = o.paiNumber;
+                        var toUserOpenid = o.toUserOpenid;
+                        paiActionScript.fromUserOpenId = pengFromUserOpenId;
+                        paiActionScript.paiNumber = pengPaiNumber;
+                        paiActionScript.gangAction();
+                    }
 
-
-
+                    //---------------moPai-----------------------------------------------
+                    if (obj.actionName == "moPai") {
+                        //0, open table center point
+                        tableCenterScript
+                        //1, remove rest pai number in the table 
+                        var pengFromUserOpenId = obj.fromUserOpenid;
+                        var pengPaiNumber = o.nextMoPai;
+                        var toUserOpenid = o.toUserOpenid;
+                    
                     }
 
                 }
@@ -384,6 +420,40 @@ cc.Class({
 
     },
     //-------------------------------chu pai action---------------------------------------------
+    sendCacleHuPaiAction: function () {
+
+    },
+    sendPengPaiAction: function (fromUserOpenId, toUserOpenId, paiNumber) {
+        var joinRoomNumber = Global.joinRoomNumber;
+        var o = new Object();
+        //var gameStep = require("gameStep").gameStep;
+
+        o.fromUserOpenid = fromUserOpenId;
+        o.actionName = "pengPai";
+        o.paiNumber = paiNumber;
+        o.toUserOpenid = toUserOpenId;
+
+        //o.chuPaiType = Global.chuPaiActionType;
+        var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
+        this.sendMessageToServer(messageObj);
+        tableCenterScript.endTimer();
+    },
+    sendGangPaiAction: function (fromUserOpenId, toUserOpenId, paiNumber) {
+        var joinRoomNumber = Global.joinRoomNumber;
+        var o = new Object();
+        //var gameStep = require("gameStep").gameStep;
+
+        o.fromUserOpenid = fromUserOpenId;
+        o.actionName = "gangPai";
+        o.paiNumber = paiNumber;
+        o.toUserOpenid = toUserOpenId;
+
+        //o.chuPaiType = Global.chuPaiActionType;
+        var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
+        this.sendMessageToServer(messageObj);
+        tableCenterScript.endTimer();
+    },
+
     sendChuPaiAction: function (userOpenId, paiNumber, paiList) {
         var joinRoomNumber = Global.joinRoomNumber;
         var o = new Object();
@@ -395,13 +465,50 @@ cc.Class({
         o.toUserOpenid = userOpenId;
         o.paiList = paiList.join(",");
         o.chuPaiType = Global.chuPaiActionType;
+        o.nextOpenid = this.getNextUserByOpenId(userOpenId);
+        o.nextMoPai=""
 
 
 
         var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
         this.sendMessageToServer(messageObj);
-        tableCenterScript.endTimer();
+        //tableCenterScript.endTimer();
     },
+
+    /**
+     * 
+     * Get next user by the current openid 
+     * 
+     */
+
+    getNextUserByOpenId: function (openid) {
+        var userList = Global.userList;
+        var currentIndex = 0;
+        var nextIndex = 0;
+        var nextOpenId = "";
+        for (var j = 0; j < userList.length; j++) {
+            if (userList[j].openid == openid) {
+                currentIndex = userList[j].pointIndex;
+            }
+        }
+
+        currentIndex = parseInt(currentIndex);
+        if (currentIndex == 4) {
+            nextIndex = 1
+        } else {
+            nextIndex = currentIndex + 1
+        }
+
+        for (var j = 0; j < userList.length; j++) {
+            if (userList[j].pointIndex == nextIndex) {
+                nextOpenId = userList[j].openid;
+            }
+        }
+
+        return nextOpenId
+
+    },
+
     //--------------------------------------------------------------------------------------------------------
     joinRoom: function (joinRoomNumber) {
         Global.joinRoomNumber = joinRoomNumber;

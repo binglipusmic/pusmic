@@ -30,7 +30,74 @@ class UserService {
         grailsApplication.mainContext.gameRoomNumberService
     }
 
+    def updateQuePaiForUser(MessageDomain messageDomain){
+        def roomNumber = messageDomain.messageBelongsToPrivateChanleNumber;
+        def obj = JSON.parse(messageJsonObj.messageBody)
+        def que=obj.quePai
+        def openid=obj.openid
+        GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
+        GameRound gameRound = onlineRoomNumber.gameRound
+        if(gameRound) {
+            gameRound.gameUser.each { gameU ->
+                if(gameU.springUser.openid.equals(openid)){
+                    gameU.quePai=que
+                    gameU.save(flush: true, failOnError: true)
+                }
+            }
+
+        }
+    }
+
     //----change user status--------------------------------
+    //The user already exist in the Room
+
+    def joinExitRoom(MessageDomain messageDomain) {
+        def openid = messageDomain.messageBody;
+        def roomNumber = messageDomain.messageBelongsToPrivateChanleNumber;
+        GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
+        GameRound gameRound = onlineRoomNumber.gameRound
+        def paiStr=""
+        def index=1
+        if(gameRound) {
+            def gameUserListArray = []
+            gameRound.gameUser.each{gameU->
+                GameUserPlatObj outputUser = new GameUserPlatObj()
+
+                outputUser.id = gameU.id
+                outputUser.nickName = gameU.springUser.nickname
+                outputUser.openid = gameU.springUser.openid
+                outputUser.headimgurl = gameU.springUser.headimgurl
+                outputUser.unionid = gameU.springUser.unionid
+                outputUser.userCode = gameU.springUser.userCode
+                def onlineUser2 = OnlineUser.findBySpringUser(gameU.springUser)
+                if (onlineUser2) {
+                    outputUser.publicIp = onlineUser.publicIPAddress
+                } else {
+                    outputUser.publicIp = "no found"
+                }
+
+                outputUser.paiList = ""
+                outputUser.gameRoundScore = gameU.gameRoundScore
+                outputUser.gameScoreCount = gameU.gameScoreCount
+                outputUser.gameReadyStatu = gameU.gameReadyStatu
+                outputUser.headImageFileName = gameU.headImageFileName
+
+                outputUser.openid = gameU.springUser.openid
+                outputUser.zhuang = gameU.zhuang
+
+                outputUser.paiList = gameU.paiList.toString()
+                outputUser.quePai  =gameU.quePai
+
+                gameUserListArray.add(outputUser)
+
+            }
+
+            Collections.sort(gameUserListArray, new CustomComparatorForGameUserPlatObj());
+            paiStr = JsonOutput.toJson(gameUserListArray);
+        }
+
+        return paiStr
+    }
     def joinRoom(MessageDomain messageDomain) {
         ActionMessageDomain actionMessageDomain = new ActionMessageDomain()
         def openid = messageDomain.messageBody;

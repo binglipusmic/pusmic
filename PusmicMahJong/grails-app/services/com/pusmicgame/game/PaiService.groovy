@@ -221,6 +221,7 @@ class PaiService {
         faPai(m)
     }
 
+
     def faPai(MessageDomain messageDomain){
 
         def roomNumber = messageDomain.messageBelongsToPrivateChanleNumber;
@@ -279,6 +280,24 @@ class PaiService {
 
     }
 
+
+    def moPai(String userOpenId,roomNumber){
+        GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
+        GameRound gameRound = onlineRoomNumber.gameRound
+        def lastPai
+        if(gameRound) {
+            def paiList=gameRound.restPaiList
+
+            lastPai =(List)paiList.last()
+            paiList.removeAt(paiList.size()-1)
+         //   paiList=list
+            gameRound.restPaiList=paiList
+            gameRound.save(flush: true, failOnError: true)
+        }
+
+        return lastPai
+
+    }
 
     def getUserPaiList( Integer[] paiList,def index){
         def returnList=[]

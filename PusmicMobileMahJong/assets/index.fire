@@ -15119,6 +15119,12 @@
     },
     "paiRestNode": {
       "__id__": 464
+    },
+    "paiAactionNode": {
+      "__id__": 648
+    },
+    "moPaiActionNode": {
+      "__id__": 669
     }
   },
   {
@@ -16124,7 +16130,7 @@
     "_tag": -1,
     "_opacityModifyRGB": false,
     "_id": "8720eyY6TdOa7AO41F9TQFZ",
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 673
@@ -25256,7 +25262,7 @@
     "_tag": -1,
     "_opacityModifyRGB": false,
     "_id": "3ceabkd37xErKyjB390RLfv",
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 671
@@ -25498,7 +25504,9 @@
     },
     "huPaiNode": {
       "__id__": 667
-    }
+    },
+    "paiNumber": null,
+    "fromUserOpenId": null
   },
   {
     "__type__": "cc.Node",

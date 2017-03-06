@@ -106,6 +106,14 @@ cc.Class({
         tenScript.spriteFrame = self.numberSprite[ten];
         numScript.spriteFrame = self.numberSprite[num];
     },
+    setNumerToZero:function(){
+          var tenScript = self.tenPoint.getComponent(cc.Sprite);
+        var numScript = self.numPoint.getComponent(cc.Sprite);
+
+        tenScript.spriteFrame = self.numberSprite[0];
+        numScript.spriteFrame = self.numberSprite[0];
+
+    },
 
     hideAllQuePai: function () {
         this.user1Quepai.active = false;

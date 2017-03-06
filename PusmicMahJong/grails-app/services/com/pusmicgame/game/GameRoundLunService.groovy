@@ -110,11 +110,12 @@ class GameRoundLunService {
         def gameModeJsonObj = obj.gameMode
         def roomNumber = messageDomain.messageBelongsToPrivateChanleNumber
         //2. create a new game round lun
-
+        println "userOpenid:${userOpenid}"
         SpringUser user = SpringUser.findByOpenid(userOpenid)
-        OnlineUser onlineUser=OnlineUser.findBySpringUser(user)
         GameUserPlatObj outputUser =new GameUserPlatObj()
+        OnlineUser onlineUser
         if (user) {
+            onlineUser=OnlineUser.findBySpringUser(user)
 
             //create a new GameMode
             GameMode gameMode = new GameMode()
