@@ -10,12 +10,18 @@ class GameRoundService {
         def flag=false;
         def roomNumber = messageJsonObj.messageBelongsToPrivateChanleNumber;
         GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
-        GameRound gameRound = onlineRoomNumber.gameRound
+        GameRound gameRound
+        if(onlineRoomNumber){
+            gameRound = onlineRoomNumber.gameRound
+        }
+
         if(gameRound) {
             def openid = messageJsonObj.messageBody;
+            println "checkGameRoomExist openid:"+openid
             gameRound.gameUser.each{gu->
+                println "gu.springUser.openid :"+gu.springUser.openid
                  if(gu.springUser.openid.equals(openid)){
-                     flag=true;
+                    flag=true;
                  }
             }
         }else{

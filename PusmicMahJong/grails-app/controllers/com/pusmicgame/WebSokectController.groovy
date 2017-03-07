@@ -185,19 +185,29 @@ class WebSokectController {
             def obj = JSON.parse(messageJsonObj.messageBody)
             if(obj.actionName=="chuPai"){
 
+
+            }
+
+
+            if(obj.actionName=="moPai"){
+
                 //mopai in next user
-                obj.paiNumber= paiService.moPai(obj.nextOpenid,messageJsonObj.messageBelongsToPrivateChanleNumber)
+                obj.paiNumber= paiService.moPai(obj.toUserOpenid,messageJsonObj.messageBelongsToPrivateChanleNumber)
                 if(   obj.paiNumber) {
                     obj.actionName = "moPai"
-                    obj.toUserOpenid =obj.nextOpenid
+                    //obj.toUserOpenid =obj.nextOpenid
                     obj.fromUserOpenid  ="server"
 
                     def s2 = new JsonBuilder(obj).toPrettyString()
                     messageJsonObj.messageBody = s2
                     gameStepService.gameStep(messageJsonObj)
-                    def s3 = new JsonBuilder(messageDomain).toPrettyString()
+                    def s3 = new JsonBuilder(messageJsonObj).toPrettyString()
                     websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s3)
+                }else{
+                    //liu ju
+
                 }
+
             }
 
         }

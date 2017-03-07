@@ -85,7 +85,10 @@ class UserService {
                 outputUser.openid = gameU.springUser.openid
                 outputUser.zhuang = gameU.zhuang
 
-                outputUser.paiList = gameU.paiList.toString()
+                if( gameU.paiList){
+                    outputUser.paiList = gameU.paiList.join(",")
+                }
+
                 outputUser.quePai  =gameU.quePai
 
                 gameUserListArray.add(outputUser)
@@ -95,11 +98,13 @@ class UserService {
             Collections.sort(gameUserListArray, new CustomComparatorForGameUserPlatObj());
             paiStr = JsonOutput.toJson(gameUserListArray);
             print "join paiStr 97:" + paiStr
-            GameMode gameMode=gameRound.gameRoundLun.gameMode
-            def gameModeStr=JsonOutput.toJson(gameMode);
-            print "join paiStr gameModeStr:" + gameModeStr
+            def gameMode = gameRound.gameMode
+            GameModeJson gmjson = new GameModeJson()
+            gmjson = myUtil.gameModeToJsonObject(gameMode, gmjson)
+            def gmStr = JsonOutput.toJson(gmjson);
+            print "join paiStr gameModeStr:" + gmStr
             JoinRoom jr = new JoinRoom()
-            jr.gameMode = gameModeStr
+            jr.gameMode = gmStr
             jr.userList = paiStr
             paiStr = JsonOutput.toJson(jr);
         }

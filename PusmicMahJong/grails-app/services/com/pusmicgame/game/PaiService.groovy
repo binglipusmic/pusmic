@@ -241,7 +241,7 @@ class PaiService {
 
                     outputUser.openid = gameU.springUser.openid
                     outputUser.zhuang = gameU.zhuang
-                    def list=getUserPaiList(paiList,index)
+                    def list=getUserPaiList(paiList,gameU.zhuang)
                     def userPaiList=list[1]
                     paiList=list[0]
 
@@ -289,6 +289,7 @@ class PaiService {
             def paiList=gameRound.restPaiList
 
             lastPai =paiList.last()
+            paiList=(List)paiList
             paiList.removeAt(paiList.size()-1)
          //   paiList=list
             gameRound.restPaiList=paiList
@@ -303,11 +304,17 @@ class PaiService {
         def returnList=[]
         def userPaiList=[]
         def count=0
-        if(index==1){
-            count=14
+        if(index){
+            if(index.toString().equals("1")){
+                count=14
+            }else{
+                count=13
+            }
+
         }else{
             count=13
         }
+
 
         for(int i=0;i<count;i++){
 

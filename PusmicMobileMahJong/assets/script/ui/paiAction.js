@@ -43,7 +43,7 @@ cc.Class({
         this.cancleNode.active = false;
         tablePaiActionScript = this.tablePaiActionNode.getComponent('tablePaiAction');
         tableUserInfoNodeScript = this.tableUserInfoNode.getComponent('tableUserInfo');
-        huPaiScript = this.huPaiNode.getComponent();
+        huPaiScript = this.huPaiNode.getComponent("HuPaiAction");
     },
 
     // called every frame, uncomment this function to activate update callback
@@ -95,6 +95,8 @@ cc.Class({
             actionArray.push("hu");
             actionLevel = 3
         }
+        cc.log("paiCount:"+paiCount.toString());
+        cc.log("actionArray:"+actionArray.toString());
         return actionArray;
 
     },

@@ -47,7 +47,7 @@ cc.Class({
         quepaiNode: cc.Node,
         tableCenterPoint: cc.Node,
         huanPaiScriptNode: cc.Node,
-        tablePaiActionNode:cc.Node,
+        tablePaiActionNode: cc.Node,
     },
 
     // use this for initialization
@@ -119,21 +119,21 @@ cc.Class({
     /**
      * Clean the table all node 
      */
-    cleanTable:function(){
+    cleanTable: function () {
         //tablePaiActionScript.removeAllNodeFromSelfPaiList();
         //tablePaiActionScript.removeAllNodeFromOtherPaiList();
-        for(var i=0;i<4;i++){
-            var paiNode=cc.find("user"+(i+1)+"PaiList", this.tableNode);
+        for (var i = 0; i < 4; i++) {
+            var paiNode = cc.find("user" + (i + 1) + "PaiList", this.tableNode);
             paiNode.removeAllChildren();
-            paiNode=cc.find("user"+(i+1)+"PengPaiListNode", this.tableNode);
+            paiNode = cc.find("user" + (i + 1) + "PengPaiListNode", this.tableNode);
             paiNode.removeAllChildren();
-            paiNode=cc.find("user"+(i+1)+"ChuaPaiListNode", this.tableNode);
+            paiNode = cc.find("user" + (i + 1) + "ChuaPaiListNode", this.tableNode);
             paiNode.removeAllChildren();
         }
 
     },
     //type:inital 
-    initalUserPai: function (initalType) {
+    initalUserPai: function (initalType, type) {
         //inital the test data
         // this.testInitalUserList();
         // cc.log("Global.chuPaiActionType initalUserPai:"+Global.chuPaiActionType);
@@ -152,7 +152,7 @@ cc.Class({
         var userList = Global.userList;
         for (var i = 0; i < userList.length; i++) {
             var user = userList[i];
-              cc.log("inital user zhuang:"+user.zhuang);
+            cc.log("inital user zhuang:" + user.zhuang);
             //show current user node
             if (user.pointIndex != null && user.pointIndex != undefined) {
                 cc.log(user.pointIndex);
@@ -162,13 +162,14 @@ cc.Class({
                     this.fixUserPointByIndex(user.pointIndex);
 
                 } else {
-                    eval("this.userInfo" + user.pointIndex + ".active = false");
+                        eval("this.userInfo" + user.pointIndex + ".active = false");
                 }
 
                 var paiList = user.paiList;
                 if (paiList != null && paiList != undefined) {
                     if ((user.pointIndex + "") == "3") {
                         //inital self pai
+                        cc.log("self user pai");
                         Global.chuPaiActionType = "huanSanZhang";
                         Global.huanSanZhangPaiList = [];
                         user.paiListArray = this.intalSelfPaiList(paiList);
@@ -191,8 +192,11 @@ cc.Class({
         //put back the user list to gobal
 
         Global.userList = userList;
-        //show huanPaiScript
-        huanPaiScript.showHuanPaiNode();
+        if (type != "joinExist") {
+            //show huanPaiScript
+            huanPaiScript.showHuanPaiNode();
+        }
+
 
 
     },
@@ -222,7 +226,7 @@ cc.Class({
      * 
      */
     getMinLenPaiListFromPai: function (paiList) {
-        cc.log("getMinLenPaiListFromPai:"+paiList.toString());
+        cc.log("getMinLenPaiListFromPai:" + paiList.toString());
         var v1 = [];
         var v2 = [];
         var v3 = [];
@@ -264,32 +268,32 @@ cc.Class({
             }
         }
 
-        
-          cc.log("getMinLenPaiListFromPai returnArray:"+returnArray.toString());
-              
 
-          for (var i = 0; i < 3; i++) {
+        cc.log("getMinLenPaiListFromPai returnArray:" + returnArray.toString());
+
+
+        for (var i = 0; i < 3; i++) {
             //    var paiName = "pai" + (i) + "_" + returnArray[i].trim();
             //     cc.log("getMinLenPaiListFromPai paiName:"+paiName);
             //    var paiNode=cc.find(paiName, this.user3PaiListNode);
             //    paiNode.y=20;
-               Global.huanSanZhangPaiList.push(returnArray[i]);
-          }
+            Global.huanSanZhangPaiList.push(returnArray[i]);
+        }
 
- 
+
 
 
         return returnArray;
     },
 
-     getTypeCount: function () {
-          var children = this.user3PaiListNode.children;
-          var v1 = 0;
+    getTypeCount: function () {
+        var children = this.user3PaiListNode.children;
+        var v1 = 0;
         var v2 = 0;
         var v3 = 0;
-        var typecount=0;
-        var ownType="";
-        var returnArray=[]
+        var typecount = 0;
+        var ownType = "";
+        var returnArray = []
         for (var i = 0; i < children.length; ++i) {
             var childredName = children[i].name;
             var temp = childredName.split("_")
@@ -307,27 +311,27 @@ cc.Class({
 
         }
 
-        if(v1>0){
+        if (v1 > 0) {
             typecount++;
-            ownType=ownType+"1";
+            ownType = ownType + "1";
         }
-        if(v2>0){
+        if (v2 > 0) {
             typecount++;
-            ownType=ownType+"2";
+            ownType = ownType + "2";
         }
-        if(v3>0){
+        if (v3 > 0) {
             typecount++;
-            ownType=ownType+"3";
+            ownType = ownType + "3";
         }
 
         returnArray.push(typecount);
-         returnArray.push(ownType);
+        returnArray.push(ownType);
         return returnArray
 
-     },
-     /**
-      * Get 
-      */
+    },
+    /**
+     * Get 
+     */
     getLess3NumberType: function (parentNode) {
         var v1 = 0;
         var v2 = 0;
@@ -559,6 +563,10 @@ cc.Class({
                 }
 
             }
+        }
+
+        if(this.user3PaiListNode.active==false){
+            this.user3PaiListNode.active =true;
         }
 
         return paiArray;

@@ -107,6 +107,7 @@ cc.Class({
         numScript.spriteFrame = self.numberSprite[num];
     },
     setNumerToZero:function(){
+        let self=this;
           var tenScript = self.tenPoint.getComponent(cc.Sprite);
         var numScript = self.numPoint.getComponent(cc.Sprite);
 

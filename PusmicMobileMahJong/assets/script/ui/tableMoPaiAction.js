@@ -33,11 +33,26 @@ cc.Class({
     // update: function (dt) {
 
     // },
-    moPaiFromServer:function(userOpenId){
+    moPaiFromServer: function (userOpenId) {
 
     },
     moPaiTest: function () {
         this.moPaiAction("15", "testUser2");
+    },
+
+    moPaiOnDataLayer: function (paiNumber, userOpenId) {
+        //---data layer-----------------
+        var userList = Global.userList;
+        var user
+        for (var i = 0; i < userList.length; i++) {
+            if (userList[i].openid == userOpenId) {
+                user = userList[i];
+                break;
+            }
+        }
+        user.userMoPai = paiNumber;
+        cc.log("mopai:" + user.pointIndex);
+        this.updateUserListInGobal(user);
     },
 
     moPaiAction: function (paiNumber, userOpenId) {
@@ -56,22 +71,16 @@ cc.Class({
         sprite.spriteFrame = tableUserInfoScript.liPaiZiMian[index]
         this.user3PaiListNode.addChild(paiNode);
         paiNode.position = cc.p(-520 + latstIndex * 80, 0);
-        //---data layer-----------------
-        var userList = Global.userList;
-        var user
-        for (var i = 0; i < userList.length; i++) {
-            if (userList[i].openid == userOpenId) {
-                user = userList[i];
-                break;
-            }
-        }
-        user.userMoPai = paiNumber;
-        this.updateUserListInGobal(user);
+
         var tableNode = cc.find("Canvas/tableNode");
         var parentNode = cc.find("user3PaiList", tableNode);
 
-        tableActionScript.enabledAllPai(parentNode,false);
+        tableActionScript.enabledAllPai(parentNode, false);
         Global.chuPaiActionType = "normalMoPai";
+
+        this.moPaiOnDataLayer(paiNumber, userOpenId);
+        //we need update this into gobal user list
+        //this.updateUserListInGobal(user);
 
     },
 

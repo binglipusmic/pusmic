@@ -134,8 +134,15 @@ cc.Class({
                 //--------------------------------------------------
                 if (messageDomain.messageAction == "joinExistRoom") {
                     var Obj = JSON.parse(messageDomain.messageBody);
-                    var gameUserList = JSON.parse(obj.userList);
-                    var joinMode = JSON.parse(obj.gameMode);
+                    var gobalUser = Global.userInfo
+                    //Obj=JSON.parse(Obj.messageBody);
+                    cc.log("messageBody1:" + messageDomain.messageBody);
+                    //cc.log("messageBody2:"+obj.messageBody);
+
+                    var joinRoomJson = JSON.parse(messageDomain.messageBody);
+                    var gameUserList = JSON.parse(joinRoomJson.userList);
+                    var joinMode = JSON.parse(joinRoomJson.gameMode);
+
                     if (joinMode != null && joinMode != undefined) {
                         Global.gameMode = joinMode;
                         cc.log("joinMode:" + Global.gameMode.toString());
@@ -144,6 +151,15 @@ cc.Class({
                     var userList = [];
                     for (var j = 0; j < gameUserList.length; j++) {
                         var getUser = gameUserList[j]
+                        if (getUser.paiList != null && getUser.paiList != undefined) {
+                            getUser.paiListArray = getUser.paiList.split(",");
+
+                        }
+                        if (getUser.openid == gobalUser.openid) {
+                            getUser.pointIndex = "3";
+                        }
+
+                        // userObj.pointIndex = "3";
                         userList.push(getUser);
                     }
                     Global.userList = userList;
@@ -153,7 +169,8 @@ cc.Class({
                     var paiListLable = this.paiRestNode.getComponent(cc.Label)
                     paiListLable.string = paiRestCount + "";
                     Global.restPaiCount = paiRestCount;
-                     userInfoScript.initalUserPai("inital");
+                    actionUIScriptNode.showGameTalbe("0");
+                    userInfoScript.initalUserPai("inital", "joinExist");
 
                 }
                 //--------------------------------------------------
@@ -229,7 +246,7 @@ cc.Class({
                     Global.userList = userList2;
                     //table user info
 
-                    userInfoScript.initalUserPai("inital");
+                    userInfoScript.initalUserPai("inital", "");
                 }
 
                 //huan sanzhang 
@@ -261,7 +278,7 @@ cc.Class({
                     //clean table 
                     userInfoScript.cleanTable();
                     //inital user on table 
-                    userInfoScript.initalUserPai("inital");
+                    userInfoScript.initalUserPai("inital", "");
                     userInfoScript.disableAllPai();
                     //close wait panel  
                     huanSanZhangScript.closeWaitPanle();
@@ -356,17 +373,17 @@ cc.Class({
                                     var index = userList[i].pointIndex;
                                     tablePaiActionScript.playOtherChuPaiAction(paiNumber, index);
                                     //update the pai list on the chu pai user
-                                    //userList[i].paiList = paiList.join(",");
-                                    //userList[i].paiListArray = paiList;
+                                    userList[i].paiList = paiList.join(",");
+                                    userList[i].paiListArray = paiList;
                                 } else {
 
                                 }
                             }
                             //update pai and pai list to Gobal user list var 
-                            //Global.userList = userList;
+                            Global.userList = userList;
 
                             //check peng and gang and hu in the chu pai
-                            //var actionLevel = paiActionScript.showOtherActionBar(paiNumber, fromUserOpenid, "chupai")
+                            var actionLevel = paiActionScript.showOtherActionBar(paiNumber, fromUserOpenid, "chupai")
 
                         }
 
@@ -391,13 +408,36 @@ cc.Class({
                     }
 
                     //---------------moPai-----------------------------------------------
+
+                    obj.paiNumber
                     if (obj.actionName == "moPai") {
-                        //0, open table center point
-                        tableCenterScript
-                        //1, remove rest pai number in the table 
+                        var paiNumber = obj.paiNumber;
                         var pengFromUserOpenId = obj.fromUserOpenid;
-                        var pengPaiNumber = o.nextMoPai;
-                        var toUserOpenid = o.toUserOpenid;
+                        var pengPaiNumber = obj.nextMoPai;
+                        var toUserOpenid = obj.toUserOpenid;
+                        //0, open table center point
+                        var user = this.getCurreentUserByOpenId(toUserOpenid)
+                        tableCenterScript.index = user.pointIndex;
+                        tableCenterScript.showCenterPoint();
+                        //1, remove rest pai number in the table 
+                        var paiRestCount = Global.restPaiCount;
+                        if (paiRestCount != null && paiRestCount != undefined) {
+                            paiRestCount = parseInt(paiRestCount) - 1;
+                            Global.restPaiCount = paiRestCount;
+                            var paiListLable = this.paiRestNode.getComponent(cc.Label)
+                            paiListLable.string = paiRestCount + "";
+                        }
+                        //moPai
+                        
+                        //2.enable all pai
+                       var userInfo = Global.userInfo;
+                        if (userInfo.openid == toUserOpenid) {
+                            moPaiScript.moPaiAction(paiNumber,toUserOpenid);
+                            tablePaiActionScript.enabledAllPaiAfterQuePai();
+                        }else{
+                            moPaiScript.moPaiOnDataLayer(paiNumber,toUserOpenid);
+                        }
+
 
                     }
 
@@ -699,6 +739,19 @@ cc.Class({
             str = str.substring(0, str.length - 1)
         }
         return str;
+
+    },
+    getCurreentUserByOpenId: function (openid) {
+
+        var userList = Global.userList;
+        var user;
+        for (var i = 0; i < userList.length; i++) {
+            if (userList[i].openid == openid) {
+                user = userList[i];
+            }
+        }
+
+        return user;
 
     }
 });
