@@ -481,6 +481,9 @@ cc.Class({
 
     },
     //-------------------------------chu pai action---------------------------------------------
+    sendCheckActionOnOtherUser: function (paiNumber,fromUserOpenid) {
+
+    },
     sendCacleHuPaiAction: function () {
 
     },
@@ -522,6 +525,28 @@ cc.Class({
 
         o.fromUserOpenid = userOpenId;
         o.actionName = "chuPai";
+        o.paiNumber = paiNumber;
+        o.toUserOpenid = userOpenId;
+        o.paiList = paiList.join(",");
+        o.chuPaiType = Global.chuPaiActionType;
+        o.nextOpenid = this.getNextUserByOpenId(userOpenId);
+        o.nextMoPai = ""
+
+
+
+        var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
+        this.sendMessageToServer(messageObj);
+        //tableCenterScript.endTimer();
+    },
+
+
+    sendMoPaiAction: function (userOpenId, paiNumber, paiList) {
+        var joinRoomNumber = Global.joinRoomNumber;
+        var o = new Object();
+        //var gameStep = require("gameStep").gameStep;
+
+        o.fromUserOpenid = userOpenId;
+        o.actionName = "moPai";
         o.paiNumber = paiNumber;
         o.toUserOpenid = userOpenId;
         o.paiList = paiList.join(",");

@@ -1221,8 +1221,8 @@ var x = touches[0].getLocationX();
         if (paiList != null && paiList != undefined) {
             for (var i = 0; i < paiList.length; i++) {
                 var pai = paiList[i];
-                cc.log("pai" + pai);
-                cc.log("pai:" + pai[0]+":");
+               // cc.log("pai" + pai);
+               // cc.log("pai:" + pai[0]+":");
                 var type = pai[0] + "";
                 type = type.trim();
                 if (que == type) {
