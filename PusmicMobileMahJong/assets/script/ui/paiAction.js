@@ -62,6 +62,42 @@ cc.Class({
         //this.gangAction("testUser2", "23");
         this.pengAction("testUser2", "23");
     },
+    getActionBarArrayByOpenId: function (paiNumber, openid) {
+        var user = tablePaiActionScript.getCorrectUserByOpenId(openid);
+        var paiList = user.paiListArray;
+        var userInfo = Global.userInfo;
+        var paiCount = 0;
+        var actionArray = ['cancle'];
+        var actionLevel = 0;
+        var huFlag = false;
+        huFlag = huPaiScript.hupaiLogic(paiNumber, userInfo.openid);
+        //get pai count in self pai list 
+        for (var i = 0; i < paiList.length; i++) {
+            var pai = paiList[i] + "";
+            pai = pai.trim();
+            if (pai == paiNumber) {
+                paiCount++
+            }
+        }
+        if (paiCount >= 3) {
+            actionArray.push("gang");
+            actionLevel = 2
+        }
+
+        if (paiCount >= 2) {
+            actionArray.push("peng");
+            actionLevel = 2
+        }
+
+        if (huFlag == true) {
+            actionArray.push("hu");
+            actionLevel = 3
+        }
+        cc.log("paiCount:" + paiCount.toString());
+        cc.log("actionArray:" + actionArray.toString());
+        return actionArray;
+
+    },
     getSelfActionBarArray: function (paiNumber) {
         var userInfo = Global.userInfo;
         var user = tablePaiActionScript.getCorrectUserByOpenId(userInfo.openid);
@@ -95,8 +131,8 @@ cc.Class({
             actionArray.push("hu");
             actionLevel = 3
         }
-        cc.log("paiCount:"+paiCount.toString());
-        cc.log("actionArray:"+actionArray.toString());
+        cc.log("paiCount:" + paiCount.toString());
+        cc.log("actionArray:" + actionArray.toString());
         return actionArray;
 
     },
@@ -142,7 +178,7 @@ cc.Class({
 
 
             if (userList[i].openid == userInfo.openid) {
-               // huFlag = otherHU;
+                // huFlag = otherHU;
             } else {
                 otherHU = huPaiScript.hupaiLogic(paiNumber, userList[i].openid);
                 otherHuMap.set(userList[i].openid, otherHU);
@@ -483,10 +519,12 @@ cc.Class({
     },
     closeActionBar: function () {
         this.actionNode.active = false;
-        var huNode=cc.find("huActionNode",this.actionNode);
-        if(huNode.active==true){
+        var huNode = cc.find("huActionNode", this.actionNode);
+        if (huNode.active == true) {
             //send cancle hu to user.
         }
+        //send cancle action to mo pai user
+
 
     },
 

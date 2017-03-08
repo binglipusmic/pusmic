@@ -222,6 +222,7 @@ cc.Class({
     playSlefChuPaiAction: function (paiNode, userPoint) {
         // var user = this.getCorrectUserByPoint(userPoint);
         var name = paiNode.name;
+        var sourceName = paiNode.name;
 
         var tempArray = name.split("_");
         name = tempArray[1];
@@ -245,38 +246,42 @@ cc.Class({
         user = this.fixCurrentChuPaiPoint(user);
 
         //Now, we need insert the 14 into correct point
-        var chupaiIndex = parseInt(tempArray[0].replace("pai", ""));
-        var mopaiInsertIndex = this.getPaiInsertIndexBy14();
-        cc.log("mopaiInsertIndex:" + mopaiInsertIndex);
-        cc.log("chupaiIndex:" + chupaiIndex);
-        //move the other pai into correct point
+        if (sourceName.indexOf("mopai") < 0) {
+            var chupaiIndex = parseInt(tempArray[0].replace("pai", ""));
+            var mopaiInsertIndex = this.getPaiInsertIndexBy14();
+            cc.log("mopaiInsertIndex:" + mopaiInsertIndex);
+            cc.log("chupaiIndex:" + chupaiIndex);
+            //move the other pai into correct point
 
 
-        if (chupaiIndex != mopaiInsertIndex) {
-            mopaiInsertIndex = this.moveOtherPaiIntoCorrectPoint(mopaiInsertIndex, chupaiIndex);
+            if (chupaiIndex != mopaiInsertIndex) {
+                mopaiInsertIndex = this.moveOtherPaiIntoCorrectPoint(mopaiInsertIndex, chupaiIndex);
+            }
+            //move the 14 pai into correct point
+            this.moveLastestPaiToPoint(mopaiInsertIndex);
+
+            //datalayer -------------------------------------------
+
+            var paiList = this.removeElementByNumberFromUser(paiNode, 1)
+            cc.log("235:" + paiList);
+            user.paiListArray = paiList;
+            user = this.insertMoPaiIntoPaiList(user);
+            user = this.synchronizationPaiList(user);
+            user.userMoPai = "";
+            cc.log("user openid:" + user.openid)
+            this.updateUserListInGobal(user);
+            cc.log("241:" + user.paiList);
+            //this.fixUserSelfPaiPoinst();
+            //this.removeAllNodeFromSelfPaiList();
+            //tableUserInfoScript.intalSelfPaiList(user.paiList);
+
+            //add pai to correct point  
+
+            // pNode.active = true;
+            //add it to curernt 
+            //  eval("this.user" + point + "PaiListNode.addChild(paiNode)");
         }
-        //move the 14 pai into correct point
-        this.moveLastestPaiToPoint(mopaiInsertIndex);
-        //datalayer -------------------------------------------
 
-        var paiList = this.removeElementByNumberFromUser(paiNode, 1)
-        cc.log("235:" + paiList);
-        user.paiListArray = paiList;
-        user = this.insertMoPaiIntoPaiList(user);
-        user = this.synchronizationPaiList(user);
-        user.userMoPai = "";
-        cc.log("user openid:" + user.openid)
-        this.updateUserListInGobal(user);
-        cc.log("241:" + user.paiList);
-        //this.fixUserSelfPaiPoinst();
-        //this.removeAllNodeFromSelfPaiList();
-        //tableUserInfoScript.intalSelfPaiList(user.paiList);
-
-        //add pai to correct point  
-
-        // pNode.active = true;
-        //add it to curernt 
-        //  eval("this.user" + point + "PaiListNode.addChild(paiNode)");
         return user.paiListArray
 
     },
@@ -857,6 +862,7 @@ var x = touches[0].getLocationX();
                 var childredName = children[i].name;
                 cc.log("throwActionForNode childredName:" + childredName);
                 var btn = children[i].getComponent(cc.Button);
+                 btn.enableAutoGrayEffect = true; 
                 var sType = this.getTypeByName(childredName);
                 if (sType == quePaiType) {
                     btn.interactable = true;
@@ -1205,7 +1211,7 @@ var x = touches[0].getLocationX();
         var tableNode = cc.find("Canvas/tableNode");
         var parentNode = cc.find("user3ChuaPaiListNode", tableNode);
         var que = this.getQuePai();
-        cc.log("checkQuePaiInSelf:" + que+":");
+        cc.log("checkQuePaiInSelf:" + que + ":");
         que = que + "";
         que = que.trim();
         var existFlag = false;
@@ -1221,8 +1227,8 @@ var x = touches[0].getLocationX();
         if (paiList != null && paiList != undefined) {
             for (var i = 0; i < paiList.length; i++) {
                 var pai = paiList[i];
-               // cc.log("pai" + pai);
-               // cc.log("pai:" + pai[0]+":");
+                // cc.log("pai" + pai);
+                // cc.log("pai:" + pai[0]+":");
                 var type = pai[0] + "";
                 type = type.trim();
                 if (que == type) {

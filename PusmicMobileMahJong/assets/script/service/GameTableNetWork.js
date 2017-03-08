@@ -358,6 +358,7 @@ cc.Class({
 
                     //---------------chupai------------------------
                     if (obj.actionName == "chuPai") {
+
                         tableCenterScript.endTimer();
                         var paiList = obj.paiList;
                         if (paiList.indexOf(",") > 0) {
@@ -365,7 +366,11 @@ cc.Class({
                         } else {
                             paiList = [paiList]
                         }
+
+                        //get next user openid 
+                        var nextUserOpenId = this.getNextUserByOpenId(fromUserOpenid);
                         if (fromUserOpenid != userInfo.openid) {
+                            //reset user action status for each user 
                             for (var i = 0; i < userList.length; i++) {
                                 //play chupai action on other side
                                 if (obj.fromUserOpenid == userList[i].openid) {
@@ -375,17 +380,48 @@ cc.Class({
                                     //update the pai list on the chu pai user
                                     userList[i].paiList = paiList.join(",");
                                     userList[i].paiListArray = paiList;
+                                    userList[i].actionBarFlag = "-2";
                                 } else {
-
+                                    userList[i].actionBarFlag = "-1";
                                 }
                             }
                             //update pai and pai list to Gobal user list var 
                             Global.userList = userList;
 
                             //check peng and gang and hu in the chu pai
-                            var actionLevel = paiActionScript.showOtherActionBar(paiNumber, fromUserOpenid, "chupai")
 
                         }
+                        //only work on the next user 
+                        if (nextUserOpenId == userInfo.openid) {
+                            for (var i = 0; i < userList.length; i++) {
+                                var actionArray = paiActionScript.getActionBarArrayByOpenId(paiNumber, userList[i].openid)
+                                 cc.log("actionArray:"+actionArray.length);
+                                if (actionArray.length > 1) {
+                                    userList[i].actionBarFlag = "1";
+                                    //
+                                } else {
+                                    userList[i].actionBarFlag = "0";
+                                }
+                            }
+
+                            //check if already have action in the other user 
+                            var alreadyExistFlag = false;
+                            for (var i = 0; i < userList.length; i++) {
+                                if (userList[i].actionBarFlag == "1") {
+                                    //show 
+                                    alreadyExistFlag = true;
+                                    this.sendShowActionBarOnOtherUser(userList[i].openid, paiNumber);
+                                }
+                            }
+
+                            if (alreadyExistFlag == false) {
+                                //mopai
+                                this.sendMoPaiAction();
+                            }
+                            //update user list to gobal 
+                              Global.userList = userList;
+                        }
+
 
                     }
                     //---------------pengpai-----------------------------------------------
@@ -409,7 +445,7 @@ cc.Class({
 
                     //---------------moPai-----------------------------------------------
 
-                    obj.paiNumber
+
                     if (obj.actionName == "moPai") {
                         var paiNumber = obj.paiNumber;
                         var pengFromUserOpenId = obj.fromUserOpenid;
@@ -428,18 +464,105 @@ cc.Class({
                             paiListLable.string = paiRestCount + "";
                         }
                         //moPai
-                        
+
                         //2.enable all pai
-                       var userInfo = Global.userInfo;
+                        var userInfo = Global.userInfo;
                         if (userInfo.openid == toUserOpenid) {
-                            moPaiScript.moPaiAction(paiNumber,toUserOpenid);
+                            moPaiScript.moPaiAction(paiNumber, toUserOpenid);
                             tablePaiActionScript.enabledAllPaiAfterQuePai();
-                        }else{
-                            moPaiScript.moPaiOnDataLayer(paiNumber,toUserOpenid);
+                        } else {
+                            moPaiScript.moPaiOnDataLayer(paiNumber, toUserOpenid);
                         }
 
 
                     }
+                    //-----------------check action flag-------------------
+                    if (obj.actionName == "checkActionBarFlag") {
+                        var nextUserOpenid = obj.fromUserOpenid;
+                        var pai = obj.paiNumber
+                        var actionArray = paiActionScript.getSelfActionBarArray(pai, nextUserOpenid, "chupai")
+                        if (actionArray.length > 1) {
+                            this.sendCheckActionOnOtherUser(nextUserOpenid, "1")
+                        } else {
+                            this.sendCheckActionOnOtherUser(nextUserOpenid, "0")
+                        }
+                        var continueFlag = false;
+                        var userList = Global.userList;
+                        var userInfo = Global.userInfo;
+                        for (var i = 0; i < userList.length; i++) {
+                            if (userList[i].actionBarFlag == "-1") {
+
+                            }
+                        }
+                    }
+                    //----------------check action status------------------
+
+
+                    if (obj.actionName == "checkActionBar") {
+                        var fromUserOpenId = obj.fromUserOpenid;
+                        var userInfo = Global.userInfo;
+                        var flag = obj.actionFlag;
+                        var userList = Global.userList;
+                        var sendMoPai = "-1";
+                        var count = 0;
+                        //if (userInfo.openid != fromUserOpenId) {
+                        for (var i = 0; i < userList.length; i++) {
+                            if (userList[i].openid == fromUserOpenId) {
+                                userList[i].actionBarFlag = flag;
+                            }
+                            sendMoPai = flag;
+                            if (userList[i].actionBarFlag != "-1") {
+                                count++
+                            }
+                        }
+
+                        if (sendMoPai == "0" && count == userList.length - 1) {
+                            //no any action bar or it already send the mopai action 
+                            this.sendMoPaiAction();
+                        }
+                    }
+                    //showActionBar
+                    if (obj.actionName == "showActionBar") {
+                        //var fromUserOpenId = obj.fromUserOpenid;
+                        var userInfo = Global.userInfo;
+                        if (userInfo.openid == fromUserOpenId) {
+                            var actionArray = paiActionScript.getSelfActionBarArray(paiNumber);
+                            paiActionScript.showAction(actionArray);
+                        }
+
+                    }
+
+                    //----------------cancleAction-----------------------------------------------
+
+                    if (obj.actionName == "cancleAction") {
+                        var userInfo = Global.userInfo;
+                        var moPaiUserId = this.getNextUserFromCurentIndex();
+                        if (moPaiUserId == userInfo.openid) {
+
+                            var userList = Global.userList;
+                            for (var i = 0; i < userList.length; i++) {
+                                if (userList[i].openid == fromUserOpenId) {
+                                    userList[i].actionBarFlag = "0";
+                                }
+                            }
+
+                            var alreadyExistFlag = false;
+                            for (var i = 0; i < userList.length; i++) {
+                                if (userList[i].actionBarFlag == "1") {
+                                    //show 
+                                    alreadyExistFlag = true;
+                                    //this.sendShowActionBarOnOtherUser(userList[i].openid, paiNumber);
+                                }
+                            }
+
+                            if (alreadyExistFlag == false) {
+                                //mopai
+                                this.sendMoPaiAction();
+                            }
+
+                        }
+                    }
+
 
                 }
 
@@ -481,11 +604,61 @@ cc.Class({
 
     },
     //-------------------------------chu pai action---------------------------------------------
-    sendCheckActionOnOtherUser: function (paiNumber,fromUserOpenid) {
+    sendShowActionBarOnOtherUser: function (showUserOpenid, paiNumber) {
+        var joinRoomNumber = Global.joinRoomNumber;
+        var o = new Object();
+        o.fromUserOpenid = showUserOpenid;
+        o.actionName = "showActionBar";
+        o.paiNumber = paiNumber;
+        var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
+        this.sendMessageToServer(messageObj);
+    },
+    sendCheckNextFlagActionOnOtherUser: function (nextUserOpenid, paiNumber) {
+        var joinRoomNumber = Global.joinRoomNumber;
+        var o = new Object();
+        o.fromUserOpenid = nextUserOpenid;
+        o.actionName = "checkActionBarFlag";
+        o.paiNumber = paiNumber;
+        var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
+        this.sendMessageToServer(messageObj);
+    },
+    sendCheckActionOnOtherUser: function (fromUserOpenid, flag) {
+        var joinRoomNumber = Global.joinRoomNumber;
+        var o = new Object();
+        o.fromUserOpenid = fromUserOpenId;
+        o.actionName = "checkActionBar";
+        o.actionFlag = flag;
+        var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
+        this.sendMessageToServer(messageObj);
+    },
+    sendCacleToMoPaiAction: function (userOpenid) {
+        var moPaiUserOpenId = this.getNextUserFromCurentIndex();
+        var joinRoomNumber = Global.joinRoomNumber;
+        var o = new Object();
+        o.fromUserOpenid = userOpenid;
+        o.actionName = "cancleAction";
+        o.toUserOpenid = userOpenid;
+        var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
+        this.sendMessageToServer(messageObj);
 
     },
     sendCacleHuPaiAction: function () {
 
+    },
+    sendHuPaiAction: function (fromUserOpenId, toUserOpenId, paiNumber, paiType) {
+        var joinRoomNumber = Global.joinRoomNumber;
+        var o = new Object();
+        //var gameStep = require("gameStep").gameStep;
+
+        o.fromUserOpenid = fromUserOpenId;
+        o.actionName = "pengPai";
+        o.paiNumber = paiNumber;
+        o.toUserOpenid = toUserOpenId;
+
+        //o.chuPaiType = Global.chuPaiActionType;
+        var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
+        this.sendMessageToServer(messageObj);
+        tableCenterScript.endTimer();
     },
     sendPengPaiAction: function (fromUserOpenId, toUserOpenId, paiNumber) {
         var joinRoomNumber = Global.joinRoomNumber;
@@ -518,7 +691,10 @@ cc.Class({
         tableCenterScript.endTimer();
     },
 
-    sendChuPaiAction: function (userOpenId, paiNumber, paiList) {
+    /**
+     * paiType --normal chupai  /Gang chupai/Peng Chu pai 
+     */
+    sendChuPaiAction: function (userOpenId, paiNumber, paiList, paiType) {
         var joinRoomNumber = Global.joinRoomNumber;
         var o = new Object();
         //var gameStep = require("gameStep").gameStep;
@@ -540,21 +716,14 @@ cc.Class({
     },
 
 
-    sendMoPaiAction: function (userOpenId, paiNumber, paiList) {
+    sendMoPaiAction: function () {
         var joinRoomNumber = Global.joinRoomNumber;
+        var nextUserOpenId = this.getNextUserFromCurentIndex();
         var o = new Object();
         //var gameStep = require("gameStep").gameStep;
-
-        o.fromUserOpenid = userOpenId;
+        o.fromUserOpenid = nextUserOpenId;
         o.actionName = "moPai";
-        o.paiNumber = paiNumber;
-        o.toUserOpenid = userOpenId;
-        o.paiList = paiList.join(",");
-        o.chuPaiType = Global.chuPaiActionType;
-        o.nextOpenid = this.getNextUserByOpenId(userOpenId);
-        o.nextMoPai = ""
-
-
+        o.toUserOpenid = nextUserOpenId;
 
         var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
         this.sendMessageToServer(messageObj);
@@ -577,6 +746,30 @@ cc.Class({
                 currentIndex = userList[j].pointIndex;
             }
         }
+
+        currentIndex = parseInt(currentIndex);
+        if (currentIndex == userList.length) {
+            nextIndex = 1
+        } else {
+            nextIndex = currentIndex + 1
+        }
+
+        for (var j = 0; j < userList.length; j++) {
+            if (userList[j].pointIndex == nextIndex) {
+                nextOpenId = userList[j].openid;
+            }
+        }
+
+        return nextOpenId
+
+    },
+
+    getNextUserFromCurentIndex: function () {
+        var userList = Global.userList;
+        var currentIndex = tableCenterScript.index;
+        var nextIndex = 0;
+        var nextOpenId = "";
+
 
         currentIndex = parseInt(currentIndex);
         if (currentIndex == 4) {

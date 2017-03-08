@@ -65,7 +65,7 @@ cc.Class({
         }
         var paiNode = cc.instantiate(this.liPaiPrefab);
         var sprite = paiNode.getComponent(cc.Sprite);
-        paiNode.name = "pai" + latstIndex + "_" + paiNumber;
+        paiNode.name = "mopai" + latstIndex + "_" + paiNumber;
 
         var index = tableUserInfoScript.getCurrectIndeOnSeflPai(paiNumber);
         sprite.spriteFrame = tableUserInfoScript.liPaiZiMian[index]
@@ -75,7 +75,7 @@ cc.Class({
         var tableNode = cc.find("Canvas/tableNode");
         var parentNode = cc.find("user3PaiList", tableNode);
 
-        tableActionScript.enabledAllPai(parentNode, false);
+        tableActionScript.enabledAllPaiAfterQuePai(parentNode, false);
         Global.chuPaiActionType = "normalMoPai";
 
         this.moPaiOnDataLayer(paiNumber, userOpenId);

@@ -153,6 +153,9 @@ cc.Class({
         this.centerPointNode.active = true;
         this.stratTimer();
         this.showQuePai();
+        //intail user step for chupai
+
+        Global.chuPaiActionType="";
     },
     showQuePai: function () {
         var userList2 = Global.userList;
