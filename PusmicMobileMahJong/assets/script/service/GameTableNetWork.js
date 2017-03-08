@@ -523,7 +523,8 @@ cc.Class({
                     }
                     //showActionBar
                     if (obj.actionName == "showActionBar") {
-                        //var fromUserOpenId = obj.fromUserOpenid;
+                        cc.log("showActionBar action resive ")
+                        var fromUserOpenId = obj.fromUserOpenid;
                         var userInfo = Global.userInfo;
                         if (userInfo.openid == fromUserOpenId) {
                             var actionArray = paiActionScript.getSelfActionBarArray(paiNumber);

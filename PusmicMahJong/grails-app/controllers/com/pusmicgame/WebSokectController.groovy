@@ -187,10 +187,7 @@ class WebSokectController {
                 websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s)
 
 
-            }
-
-
-            if(obj.actionName=="moPai"){
+            }else if(obj.actionName=="moPai"){
 
                 //mopai in next user
                 obj.paiNumber= paiService.moPai(obj.toUserOpenid,messageJsonObj.messageBelongsToPrivateChanleNumber)
@@ -208,6 +205,10 @@ class WebSokectController {
                     //liu ju
 
                 }
+
+            }else {
+                def s = new JsonBuilder(messageJsonObj).toPrettyString()
+                websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s)
 
             }
 
