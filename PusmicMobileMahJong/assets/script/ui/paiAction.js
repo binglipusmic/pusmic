@@ -3,6 +3,8 @@ var actionName = [];
 var tablePaiActionScript;
 var tableUserInfoNodeScript;
 var huPaiScript;
+var tableNetWorkScript;
+var tableCenterScript;
 cc.Class({
     extends: cc.Component,
 
@@ -29,6 +31,9 @@ cc.Class({
         huPaiNode: cc.Node,
         paiNumber: String,
         fromUserOpenId: String,
+        chuPaiUserOpenId: String,
+        tableNetWorkNode: cc.Node,
+        tableCenterNode: cc.Node,
     },
 
     // use this for initialization
@@ -44,6 +49,8 @@ cc.Class({
         tablePaiActionScript = this.tablePaiActionNode.getComponent('tablePaiAction');
         tableUserInfoNodeScript = this.tableUserInfoNode.getComponent('tableUserInfo');
         huPaiScript = this.huPaiNode.getComponent("HuPaiAction");
+        tableNetWorkScript = this.tableNetWorkNode.getComponent("GameTableNetWork");
+        tableCenterScript = this.tableCenterNode.getComponent("tableCenterPoint");
     },
 
     // called every frame, uncomment this function to activate update callback
@@ -217,8 +224,13 @@ cc.Class({
     },
     showAction: function (actionArray) {
         //from right to left ,the x is reduce.
+        cc.log("showAction actionArray:" + actionArray.toString());
         var startX = 146;
         var actionWidthTemp = [];
+        for (var j = 0; j < actionName.length; j++) {
+            var node2 = cc.find(actionName[j] + "ActionNode", this.actionNode);
+            node2.active = false;;
+        }
         for (var i = 0; i < actionArray.length; i++) {
             var node = cc.find(actionArray[i] + "ActionNode", this.actionNode);
             node.active = true;
@@ -240,6 +252,7 @@ cc.Class({
     //------------------------Peng,Gang,Hu Action---------------------------------------
 
     pengAction: function () {
+        var userInfo = Global.userInfo;
         var userOpenId = this.fromUserOpenId;
         var paiNumber = this.paiNumber;
         var user = tablePaiActionScript.getCorrectUserByOpenId(userOpenId);
@@ -272,8 +285,19 @@ cc.Class({
 
         this.initalPengAndGangChuPaiList(userOpenId, paiNumber);
         Global.chuPaiActionType = "peng";
+        cc.log("pengAction chuPaiUserOpenId:" + this.chuPaiUserOpenId);
+        cc.log("pengAction userInfo.openid:" + userInfo.openid);
+        cc.log("pengAction userOpenId:" + userOpenId);
+        //remove last pai from chu pai user
+        tablePaiActionScript.removeLastPaiOnChuPaiListByUserOpenId(this.chuPaiUserOpenId);
 
-
+        if (userInfo.openid == userOpenId) {
+            tableNetWorkScript.sendPengPaiAction(userOpenId, paiNumber);
+             this.actionNode.active = false;
+            tablePaiActionScript.enabledAllPaiAfterQuePai();
+            tableCenterScript.index = user.pointIndex;
+            tableCenterScript.showCenterPoint();
+        }
     },
     gangAction: function () {
         var userOpenId = this.fromUserOpenId;
@@ -310,6 +334,16 @@ cc.Class({
 
         this.initalPengAndGangChuPaiList(userOpenId, paiNumber);
         Global.chuPaiActionType = "gang";
+        //remove last pai from chu pai user
+        tablePaiActionScript.removeLastPaiOnChuPaiListByUserOpenId(chuPaiUserOpenId);
+
+        if (userInfo.openid == userOpenId) {
+            tableNetWorkScript.sendGangPaiAction(userOpenId, paiNumber);
+             this.actionNode.active = false;
+            //mopai
+            //enable pai 
+            tablePaiActionScript.enabledAllPaiAfterQuePai();
+        }
 
 
     },
@@ -524,7 +558,8 @@ cc.Class({
             //send cancle hu to user.
         }
         //send cancle action to mo pai user
-
+        var userInfo = Global.userInfo;
+        tableNetWorkScript.sendCacleToMoPaiAction(userInfo.openid);
 
     },
 

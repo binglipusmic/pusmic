@@ -216,6 +216,45 @@ cc.Class({
 
 
     },
+
+    removeLastPaiOnChuPaiListByUserOpenId: function (userOpenid) {
+        cc.log("removeLastPaiOnChuPaiListByUserOpenId");
+        var user = this.getCorrectUserByOpenId(userOpenid);
+        var index = user.pointIndex;
+        var tableNode = cc.find("Canvas/tableNode");
+        var userChuPaiListNode = cc.find("user" + index + "ChuaPaiListNode", tableNode);
+        // var chuPaiListNode = cc.find("user" + index + "ChuaPaiListNode",this.tableNode);
+        var children = userChuPaiListNode.children;
+        var lastNode;
+
+        for (var i = 0; i < children.length; i++) {
+            lastNode = children[i];
+        }
+        if (lastNode != null & lastNode != undefined) {
+            lastNode.removeFromParent();
+            cc.log("removeLastPaiOnChuPaiListByUserOpenId remove");
+        }
+        //Fix the user chupai list 
+        children = userChuPaiListNode.children;
+        user.chuPaiCount=parseInt(user.chuPaiCount-1);
+        if (index == "1") {
+            user.chupaiListX = user.chupaiListX + 42;
+        } else if (index == "2") {
+            user.chupaiListY = user.chupaiListY + 35;
+
+        } else if (index == "3") {
+            user.chupaiListX = user.chupaiListX - 42;
+
+        } else if (index == "4") {
+            user.chupaiListY = user.chupaiListY - 35;
+        }
+
+        this.updateUserListInGobal(user);
+
+        // var tableNode =this.tableNode;
+
+
+    },
     /**
      * This method will execute the anication of chupai in self pai list
      */
@@ -844,11 +883,14 @@ var x = touches[0].getLocationX();
         //}
 
     },
+
     // after all que pai clean ,the all other pai should be enable
     enabledAllPaiAfterQuePai: function () {
         var tableNode = cc.find("Canvas/tableNode");
         var parentNode = cc.find("user3PaiList", tableNode);
         var existFlag = this.checkQuePaiInSelf();
+        var quePaiType = this.getQuePai();
+
         cc.log("enabledAllPaiAfterQuePai flag:" + existFlag);
         if (existFlag == false) {
             this.enabledAllPai(parentNode);
@@ -862,11 +904,14 @@ var x = touches[0].getLocationX();
                 var childredName = children[i].name;
                 cc.log("throwActionForNode childredName:" + childredName);
                 var btn = children[i].getComponent(cc.Button);
-                 btn.enableAutoGrayEffect = true; 
+                btn.enableAutoGrayEffect = true;
+
                 var sType = this.getTypeByName(childredName);
                 if (sType == quePaiType) {
                     btn.interactable = true;
+                    btn.disabledColor = new cc.Color(255, 255, 255);
                 } else {
+                    btn.disabledColor = new cc.Color(127.5, 127.5, 127.5);
                     btn.interactable = false;
                 }
             }
@@ -1218,23 +1263,44 @@ var x = touches[0].getLocationX();
         var paiList;
         var userList2 = Global.userList;
         var userInfo = Global.userInfo;
+        var userMoPai;
         for (var i = 0; i < userList2.length; i++) {
             if (userInfo.openid == userList2[i].openid) {
-                paiList = userList2[i].paiListArray
+                paiList = userList2[i].paiListArray;
+                if (userList2[i].userMoPai != null && userList2[i].userMoPai != undefined) {
+                    userMoPai = userList2[i].userMoPai;
+                }
+
             }
         }
 
+        cc.log("checkQuePaiInSelf userMoPai:" + userMoPai + ":");
+        cc.log("checkQuePaiInSelf paiList:" + paiList.toString() + ":");
         if (paiList != null && paiList != undefined) {
             for (var i = 0; i < paiList.length; i++) {
                 var pai = paiList[i];
+                pai = pai + "";
+                pai = pai.trim();
                 // cc.log("pai" + pai);
-                // cc.log("pai:" + pai[0]+":");
+                cc.log("pai:" + pai[0] + ":");
                 var type = pai[0] + "";
                 type = type.trim();
                 if (que == type) {
                     existFlag = true
                 }
             }
+            if (userMoPai != null && userMoPai != undefined) {
+                var type2 = userMoPai + "";
+                type2 = type2.trim();
+              
+                cc.log("checkQuePaiInSelf type2:" + type2[0] + ":");
+                if (que == type2[0]) {
+                    existFlag = true
+                }
+            }
+
+
+
 
         }
 
@@ -1294,7 +1360,7 @@ var x = touches[0].getLocationX();
             cc.log("maxPai:" + maxPai);
             if (moPai < minPai) {
                 index = 0;
-            } else if (moPai > maxPai) {
+            } else if (moPai >= maxPai) {
                 index = paiList.length;
             } else {
 

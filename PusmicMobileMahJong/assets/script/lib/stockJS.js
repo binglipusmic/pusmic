@@ -1100,7 +1100,7 @@ SockJS = (function () {
     SockJS.prototype._didMessage = function (data) {
         var that = this;
         var type = data.slice(0, 1);
-        console.log("1082:");
+        //console.log("1082:");
         switch (type) {
             case 'o':
                 that._dispatchOpen();

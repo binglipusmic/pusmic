@@ -358,7 +358,7 @@ cc.Class({
 
                     //---------------chupai------------------------
                     if (obj.actionName == "chuPai") {
-
+                        paiActionScript.chuPaiUserOpenId = fromUserOpenid;
                         tableCenterScript.endTimer();
                         var paiList = obj.paiList;
                         if (paiList.indexOf(",") > 0) {
@@ -395,7 +395,7 @@ cc.Class({
                         if (nextUserOpenId == userInfo.openid) {
                             for (var i = 0; i < userList.length; i++) {
                                 var actionArray = paiActionScript.getActionBarArrayByOpenId(paiNumber, userList[i].openid)
-                                 cc.log("actionArray:"+actionArray.length);
+                                cc.log("actionArray:" + actionArray.length);
                                 if (actionArray.length > 1) {
                                     userList[i].actionBarFlag = "1";
                                     //
@@ -419,22 +419,31 @@ cc.Class({
                                 this.sendMoPaiAction();
                             }
                             //update user list to gobal 
-                              Global.userList = userList;
+                            Global.userList = userList;
                         }
 
 
                     }
                     //---------------pengpai-----------------------------------------------
                     if (obj.actionName == "pengPai") {
+                        userInfo = Global.userInfo;
                         var pengFromUserOpenId = obj.fromUserOpenid;
-                        var pengPaiNumber = o.paiNumber;
-                        var toUserOpenid = o.toUserOpenid;
-                        paiActionScript.fromUserOpenId = pengFromUserOpenId;
-                        paiActionScript.paiNumber = pengPaiNumber;
-                        paiActionScript.pengAction();
+                        if (userInfo.openid != pengFromUserOpenId) {
+                            var pengPaiNumber = obj.paiNumber;
+
+                            paiActionScript.fromUserOpenId = pengFromUserOpenId;
+                            paiActionScript.paiNumber = pengPaiNumber;
+                            paiActionScript.pengAction();
+                            var user = this.getCurreentUserByOpenId(pengFromUserOpenId)
+                            tableCenterScript.index = user.pointIndex;
+                            tableCenterScript.showCenterPoint();
+                        }
+
+
                     }
                     //---------------gangpai-----------------------------------------------
                     if (obj.actionName == "gangPai") {
+                        userInfo = Global.userInfo;
                         var pengFromUserOpenId = obj.fromUserOpenid;
                         var pengPaiNumber = o.paiNumber;
                         var toUserOpenid = o.toUserOpenid;
@@ -528,6 +537,8 @@ cc.Class({
                         var userInfo = Global.userInfo;
                         if (userInfo.openid == fromUserOpenId) {
                             var actionArray = paiActionScript.getSelfActionBarArray(paiNumber);
+                            paiActionScript.fromUserOpenId = fromUserOpenId;
+                            paiActionScript.paiNumber = paiNumber;
                             paiActionScript.showAction(actionArray);
                         }
 
@@ -538,12 +549,15 @@ cc.Class({
                     if (obj.actionName == "cancleAction") {
                         var userInfo = Global.userInfo;
                         var moPaiUserId = this.getNextUserFromCurentIndex();
+                        fromUserOpenId = obj.fromUserOpenid;
+                        cc.log("moPaiUserId:" + moPaiUserId);
                         if (moPaiUserId == userInfo.openid) {
 
                             var userList = Global.userList;
                             for (var i = 0; i < userList.length; i++) {
                                 if (userList[i].openid == fromUserOpenId) {
                                     userList[i].actionBarFlag = "0";
+                                    cc.log("moPaiUserId actionBarFlag:" + userList[i].openid);
                                 }
                             }
 
@@ -555,7 +569,7 @@ cc.Class({
                                     //this.sendShowActionBarOnOtherUser(userList[i].openid, paiNumber);
                                 }
                             }
-
+                            cc.log("moPaiUserId alreadyExistFlag:" + alreadyExistFlag);
                             if (alreadyExistFlag == false) {
                                 //mopai
                                 this.sendMoPaiAction();
@@ -661,7 +675,8 @@ cc.Class({
         this.sendMessageToServer(messageObj);
         tableCenterScript.endTimer();
     },
-    sendPengPaiAction: function (fromUserOpenId, toUserOpenId, paiNumber) {
+    sendPengPaiAction: function (fromUserOpenId, paiNumber) {
+        cc.log("sendPengPaiAction");
         var joinRoomNumber = Global.joinRoomNumber;
         var o = new Object();
         //var gameStep = require("gameStep").gameStep;
@@ -669,7 +684,10 @@ cc.Class({
         o.fromUserOpenid = fromUserOpenId;
         o.actionName = "pengPai";
         o.paiNumber = paiNumber;
-        o.toUserOpenid = toUserOpenId;
+        o.toUserOpenid = fromUserOpenId;
+
+
+
 
         //o.chuPaiType = Global.chuPaiActionType;
         var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
