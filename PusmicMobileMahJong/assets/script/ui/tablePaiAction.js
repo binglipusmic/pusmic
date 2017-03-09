@@ -1,5 +1,5 @@
 
-var paiListReOrderCount = "3"
+var paiListReOrderCount = "8"
 var nodeMoveX = -1;
 var nodeMoveY = -1;
 var tableUserInfoScript;
@@ -236,7 +236,7 @@ cc.Class({
         }
         //Fix the user chupai list 
         children = userChuPaiListNode.children;
-        user.chuPaiCount=parseInt(user.chuPaiCount-1);
+        user.chuPaiCount = parseInt(user.chuPaiCount - 1);
         if (index == "1") {
             user.chupaiListX = user.chupaiListX + 42;
         } else if (index == "2") {
@@ -285,6 +285,13 @@ cc.Class({
         user = this.fixCurrentChuPaiPoint(user);
 
         //Now, we need insert the 14 into correct point
+        //peng and gang don't need insert the 14 
+        var insertLastPaiFlag = true;
+        if (Global.chuPaiActionType == "peng") {
+            insertLastPaiFlag = false;
+        }
+         cc.log("Global.chuPaiActionType:"+Global.chuPaiActionType);
+        cc.log("insertLastPaiFlag:"+insertLastPaiFlag);
         if (sourceName.indexOf("mopai") < 0) {
             var chupaiIndex = parseInt(tempArray[0].replace("pai", ""));
             var mopaiInsertIndex = this.getPaiInsertIndexBy14();
@@ -297,19 +304,20 @@ cc.Class({
                 mopaiInsertIndex = this.moveOtherPaiIntoCorrectPoint(mopaiInsertIndex, chupaiIndex);
             }
             //move the 14 pai into correct point
-            this.moveLastestPaiToPoint(mopaiInsertIndex);
+
 
             //datalayer -------------------------------------------
 
             var paiList = this.removeElementByNumberFromUser(paiNode, 1)
             cc.log("235:" + paiList);
             user.paiListArray = paiList;
-            user = this.insertMoPaiIntoPaiList(user);
+            if (insertLastPaiFlag == true) {
+                this.moveLastestPaiToPoint(mopaiInsertIndex);
+                user = this.insertMoPaiIntoPaiList(user);
+            }
+
             user = this.synchronizationPaiList(user);
-            user.userMoPai = "";
-            cc.log("user openid:" + user.openid)
-            this.updateUserListInGobal(user);
-            cc.log("241:" + user.paiList);
+
             //this.fixUserSelfPaiPoinst();
             //this.removeAllNodeFromSelfPaiList();
             //tableUserInfoScript.intalSelfPaiList(user.paiList);
@@ -320,6 +328,11 @@ cc.Class({
             //add it to curernt 
             //  eval("this.user" + point + "PaiListNode.addChild(paiNode)");
         }
+
+        user.userMoPai = "";
+        cc.log("user openid:" + user.openid)
+        this.updateUserListInGobal(user);
+        cc.log("241:" + user.paiList);
 
         return user.paiListArray
 
@@ -726,12 +739,13 @@ cc.Class({
                 //close table center timer
                 tableCenterTimmerScript.endTimer();
                 tableCenterTimmerScript.setNumerToZero();
+                  Global.chuPaiActionType = "";
 
 
             }
         }
 
-
+      
         cc.log("huanSanZhangPaiList:" + huanSanZhangPaiList.toString());
 
     },
@@ -1292,7 +1306,7 @@ var x = touches[0].getLocationX();
             if (userMoPai != null && userMoPai != undefined) {
                 var type2 = userMoPai + "";
                 type2 = type2.trim();
-              
+
                 cc.log("checkQuePaiInSelf type2:" + type2[0] + ":");
                 if (que == type2[0]) {
                     existFlag = true

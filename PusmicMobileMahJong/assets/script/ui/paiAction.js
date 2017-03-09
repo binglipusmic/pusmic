@@ -293,10 +293,11 @@ cc.Class({
 
         if (userInfo.openid == userOpenId) {
             tableNetWorkScript.sendPengPaiAction(userOpenId, paiNumber);
-             this.actionNode.active = false;
+            this.actionNode.active = false;
             tablePaiActionScript.enabledAllPaiAfterQuePai();
             tableCenterScript.index = user.pointIndex;
             tableCenterScript.showCenterPoint();
+            tableNetWorkScript.sendCenterIndex(user.openid);
         }
     },
     gangAction: function () {
@@ -335,14 +336,18 @@ cc.Class({
         this.initalPengAndGangChuPaiList(userOpenId, paiNumber);
         Global.chuPaiActionType = "gang";
         //remove last pai from chu pai user
-        tablePaiActionScript.removeLastPaiOnChuPaiListByUserOpenId(chuPaiUserOpenId);
+        tablePaiActionScript.removeLastPaiOnChuPaiListByUserOpenId(this.chuPaiUserOpenId);
 
         if (userInfo.openid == userOpenId) {
-            tableNetWorkScript.sendGangPaiAction(userOpenId, paiNumber);
-             this.actionNode.active = false;
+            tableNetWorkScript.sendGangPaiAction(this.chuPaiUserOpenId,userOpenId, paiNumber);
+            this.actionNode.active = false;
             //mopai
+            tableNetWorkScript.sendMoPaiOnSelecAction(user.openid);
             //enable pai 
             tablePaiActionScript.enabledAllPaiAfterQuePai();
+            tableCenterScript.index = user.pointIndex;
+            tableCenterScript.showCenterPoint();
+            tableNetWorkScript.sendCenterIndex(user.openid);
         }
 
 

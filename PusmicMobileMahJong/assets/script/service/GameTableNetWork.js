@@ -441,15 +441,32 @@ cc.Class({
 
 
                     }
+                    //---------------set center index-----------------
+                    //setCenterIndex
+                    if (obj.actionName == "setCenterIndex") {
+                        userInfo = Global.userInfo;
+                        var setCenterUserOpenId = obj.fromUserOpenid;
+                        if (userInfo.openid != setCenterUserOpenId) {
+                            var user = this.getCurreentUserByOpenId(setCenterUserOpenId);
+                            var userPointIndex = user.pointIndex;
+                            tableCenterScript.index = user.pointIndex;
+                            tableCenterScript.showCenterPoint();
+                        }
+                    }
                     //---------------gangpai-----------------------------------------------
                     if (obj.actionName == "gangPai") {
                         userInfo = Global.userInfo;
                         var pengFromUserOpenId = obj.fromUserOpenid;
                         var pengPaiNumber = o.paiNumber;
                         var toUserOpenid = o.toUserOpenid;
-                        paiActionScript.fromUserOpenId = pengFromUserOpenId;
+                        paiActionScript.fromUserOpenId = toUserOpenid;
                         paiActionScript.paiNumber = pengPaiNumber;
+                        paiActionScript.chuPaiUserOpenId=pengFromUserOpenId;
                         paiActionScript.gangAction();
+
+                         var user = this.getCurreentUserByOpenId(toUserOpenid)
+                         tableCenterScript.index = user.pointIndex;
+                         tableCenterScript.showCenterPoint();
                     }
 
                     //---------------moPai-----------------------------------------------
@@ -619,6 +636,17 @@ cc.Class({
 
     },
     //-------------------------------chu pai action---------------------------------------------
+    sendCenterIndex: function (userOpenId) {
+
+        var joinRoomNumber = Global.joinRoomNumber;
+        var o = new Object();
+        o.fromUserOpenid = userOpenId;
+        o.actionName = "setCenterIndex";
+        o.toUserOpenid = userOpenId;
+        var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
+        this.sendMessageToServer(messageObj);
+    },
+
     sendShowActionBarOnOtherUser: function (showUserOpenid, paiNumber) {
         var joinRoomNumber = Global.joinRoomNumber;
         var o = new Object();
@@ -734,7 +762,21 @@ cc.Class({
         //tableCenterScript.endTimer();
     },
 
+    sendMoPaiOnSelecAction:function(openId){
+        var joinRoomNumber = Global.joinRoomNumber;
+       // var nextUserOpenId = this.getNextUserFromCurentIndex();
+        var o = new Object();
+        //var gameStep = require("gameStep").gameStep;
+        o.fromUserOpenid = openId;
+        o.actionName = "moPai";
+        //we must set the toUserOpenid 
+        o.toUserOpenid = openId;
 
+        var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
+        this.sendMessageToServer(messageObj);
+
+    },
+    //send mo pai will auto get current user 
     sendMoPaiAction: function () {
         var joinRoomNumber = Global.joinRoomNumber;
         var nextUserOpenId = this.getNextUserFromCurentIndex();
