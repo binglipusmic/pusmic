@@ -651,9 +651,11 @@ cc.Class({
 
         }
         if (index == "2") {
-            //var widget = this.userInfo2.getComponent(cc.Widget);
+            var widget = this.userInfo2.getComponent(cc.Widget);
+            widget.top=0;
             //widget.left = 60;
             this.userInfo2.x = -607;
+             this.userInfo2.y = 0;
         }
 
         if (index == "4") {

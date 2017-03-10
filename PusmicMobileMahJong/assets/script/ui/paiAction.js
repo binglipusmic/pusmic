@@ -421,7 +421,7 @@ cc.Class({
             x = user.pengGangPaiPoint;
         } else if (pointIndex == "2") {
             if(pengList.length>0 || gangPaiList>0){
-               user.pengGangPaiPoint = -300;
+               user.pengGangPaiPoint = -220;
             }else{
                user.pengGangPaiPoint = -250;
             }

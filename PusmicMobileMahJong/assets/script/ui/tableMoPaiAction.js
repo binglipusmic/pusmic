@@ -73,7 +73,15 @@ cc.Class({
         var index = tableUserInfoScript.getCurrectIndeOnSeflPai(paiNumber);
         sprite.spriteFrame = tableUserInfoScript.liPaiZiMian[index]
         this.user3PaiListNode.addChild(paiNode);
-        paiNode.position = cc.p(-520 + latstIndex * 80, 0);
+         var startPoint = -520;
+        if (paiArray.length <= 10) {
+             startPoint = parseInt(-520 + (10 - paiArray.length) * 79/2)
+        }else{
+ 
+        }
+
+        paiNode.position = cc.p(startPoint + latstIndex * 80, 0);
+       
 
         var tableNode = cc.find("Canvas/tableNode");
         var parentNode = cc.find("user3PaiList", tableNode);
