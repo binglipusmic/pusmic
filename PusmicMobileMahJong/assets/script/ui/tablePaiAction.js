@@ -252,7 +252,7 @@ cc.Class({
         this.updateUserListInGobal(user);
 
         // var tableNode =this.tableNode;
-
+        cc.log("removeLastPaiOnChuPaiListByUserOpenId end");
 
     },
     /**
@@ -290,8 +290,8 @@ cc.Class({
         if (Global.chuPaiActionType == "peng") {
             insertLastPaiFlag = false;
         }
-         cc.log("Global.chuPaiActionType:"+Global.chuPaiActionType);
-        cc.log("insertLastPaiFlag:"+insertLastPaiFlag);
+        cc.log("Global.chuPaiActionType:" + Global.chuPaiActionType);
+        cc.log("insertLastPaiFlag:" + insertLastPaiFlag);
         if (sourceName.indexOf("mopai") < 0) {
             var chupaiIndex = parseInt(tempArray[0].replace("pai", ""));
             var mopaiInsertIndex = this.getPaiInsertIndexBy14();
@@ -739,13 +739,13 @@ cc.Class({
                 //close table center timer
                 tableCenterTimmerScript.endTimer();
                 tableCenterTimmerScript.setNumerToZero();
-                  Global.chuPaiActionType = "";
+                Global.chuPaiActionType = "";
 
 
             }
         }
 
-      
+
         cc.log("huanSanZhangPaiList:" + huanSanZhangPaiList.toString());
 
     },
@@ -1081,7 +1081,7 @@ var x = touches[0].getLocationX();
     },
     insertMoPaiIntoPaiList: function (user) {
         var moPai = user.userMoPai;
-        if (moPai != null && moPai != undefined) {
+        if (moPai != null && moPai != undefined && moPai!="" ) {
             moPai = moPai + "";
             moPai = parseInt(moPai.trim());
             cc.log("moPai:" + moPai);
@@ -1104,6 +1104,11 @@ var x = touches[0].getLocationX();
                     temp.push(pai);
 
 
+                }
+                //if it always not insert ,so it must the max number ,just insert it into latest
+                if (insertFlag == false) {
+                    temp.push(moPai);
+                    insertFlag = true;
                 }
                 user.paiListArray = temp;
             } else {

@@ -69,6 +69,14 @@ cc.Class({
         //this.gangAction("testUser2", "23");
         this.pengAction("testUser2", "23");
     },
+
+    testshowPengGangPaiListOnTalbe: function () {
+        var y = -250;
+        var x = 0;
+        var tableNode = cc.find("Canvas/tableNode");
+        var userPengPaiListNode = cc.find("user2PengPaiListNode", tableNode);
+        this.showPengGangPaiListOnTalbe([11, 12], null, 2, "12", userPengPaiListNode, "peng", 0, -250)
+    },
     getActionBarArrayByOpenId: function (paiNumber, openid) {
         var user = tablePaiActionScript.getCorrectUserByOpenId(openid);
         var paiList = user.paiListArray;
@@ -252,6 +260,9 @@ cc.Class({
     //------------------------Peng,Gang,Hu Action---------------------------------------
 
     pengAction: function () {
+
+        this.fromUserOpenId = "testUser2"
+        this.paiNumber = "22";
         var userInfo = Global.userInfo;
         var userOpenId = this.fromUserOpenId;
         var paiNumber = this.paiNumber;
@@ -337,9 +348,10 @@ cc.Class({
         Global.chuPaiActionType = "gang";
         //remove last pai from chu pai user
         tablePaiActionScript.removeLastPaiOnChuPaiListByUserOpenId(this.chuPaiUserOpenId);
-
+        cc.log("userInfo.openid:" + userInfo.openid);
+        cc.log("userOpenId:" + userOpenId);
         if (userInfo.openid == userOpenId) {
-            tableNetWorkScript.sendGangPaiAction(this.chuPaiUserOpenId,userOpenId, paiNumber);
+            tableNetWorkScript.sendGangPaiAction(this.chuPaiUserOpenId, userOpenId, paiNumber);
             this.actionNode.active = false;
             //mopai
             tableNetWorkScript.sendMoPaiOnSelecAction(user.openid);
@@ -441,9 +453,12 @@ cc.Class({
                             sencodPaiY = y;
                         }
 
+
                         if (pointIndex == "2") {
-                            pNode.setLocalZOrder(100 - j);
-                            pNode.zIndex = 100 - j;
+                            pNode.setLocalZOrder( Math.abs(y));
+                            pNode.zIndex = Math.abs(y);
+                            pNode.siblingIndex = Math.abs(y);
+                            cc.log("siblingIndex:" + pNode.siblingIndex)
                         }
 
                         var point = this.getCorrectPointByIndex(pointIndex, x, y);
@@ -490,8 +505,8 @@ cc.Class({
                         }
 
                         if (pointIndex == "2") {
-                            pNode.setLocalZOrder(100 - m);
-                            pNode.zIndex = 100 - m;
+                            pNode.setLocalZOrder( Math.abs(y));
+                            pNode.zIndex =  Math.abs(y);
                         }
 
                         var point = this.getCorrectPointByIndex(pointIndex, finalX, finalY);

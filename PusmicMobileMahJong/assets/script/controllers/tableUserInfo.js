@@ -76,6 +76,7 @@ cc.Class({
             "16, 17, 19, 23, 23, 23, 24, 31, 32, 33, 33, 34, 36",
             "15, 15, 15, 18, 22, 22, 25, 26, 28, 28, 29, 34, 38",
         ];
+        this.tableNode.active=true;
         var userList = [];
         for (var i = 0; i < 5; i++) {
             var o = new Object();
@@ -135,8 +136,8 @@ cc.Class({
     //type:inital 
     initalUserPai: function (initalType, type) {
         //inital the test data
-        // this.testInitalUserList();
-        // cc.log("Global.chuPaiActionType initalUserPai:"+Global.chuPaiActionType);
+         this.testInitalUserList();
+         cc.log("Global.chuPaiActionType initalUserPai:"+Global.chuPaiActionType);
         //hide game mode
         this.tableGameMode.active = false;
         this.tableHead.active = true;
@@ -150,6 +151,7 @@ cc.Class({
         this.tableTitleNode.active = false;
         //fix user point
         var userList = Global.userList;
+        
         for (var i = 0; i < userList.length; i++) {
             var user = userList[i];
             cc.log("inital user zhuang:" + user.zhuang);
@@ -162,7 +164,7 @@ cc.Class({
                     this.fixUserPointByIndex(user.pointIndex);
 
                 } else {
-                        eval("this.userInfo" + user.pointIndex + ".active = false");
+                    eval("this.userInfo" + user.pointIndex + ".active = false");
                 }
 
                 var paiList = user.paiList;
@@ -194,7 +196,7 @@ cc.Class({
         Global.userList = userList;
         if (type != "joinExist") {
             //show huanPaiScript
-            huanPaiScript.showHuanPaiNode();
+            //huanPaiScript.showHuanPaiNode();
         }
 
 
@@ -517,7 +519,12 @@ cc.Class({
 
                     if (point == "4") {
                         startX = 0;
-                        startY = -210;
+                        if (paiList.length < 13) {
+                            startY = -230;
+                        } else {
+                            startY = -210;
+                        }
+
                         paiNode.position = cc.p(startX, startY + i * 28);
                         paiNode.zIndex = paiArray.length - i;
                         paiNode.width = 40;
@@ -533,7 +540,11 @@ cc.Class({
     intalSelfPaiList: function (paiList) {
 
         var startPoint = -520;
+        // we need fix the startPoint By pai number 
         var paiArray = paiList.split(",");
+        if (paiArray.length < 13) {
+            //startPoint = -520 + (12 - paiArray.length) * 79
+        }
         for (var i = 0; i < paiArray.length; i++) {
             if (paiArray[i] != null && paiArray[i] != undefined) {
                 var paiNode = cc.instantiate(this.liPaiPrefab);
@@ -565,8 +576,8 @@ cc.Class({
             }
         }
 
-        if(this.user3PaiListNode.active==false){
-            this.user3PaiListNode.active =true;
+        if (this.user3PaiListNode.active == false) {
+            this.user3PaiListNode.active = true;
         }
 
         return paiArray;

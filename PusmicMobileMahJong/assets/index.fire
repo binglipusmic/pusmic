@@ -451,7 +451,7 @@
     },
     "_fillStart": 0,
     "_fillRange": 0,
-    "_isTrimmedMode": true,
+    "_isTrimmedMode": false,
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_atlas": null
@@ -35543,7 +35543,7 @@
       "__id__": 648
     },
     "component": "paiAction",
-    "handler": "testPengPai",
+    "handler": "testshowPengGangPaiListOnTalbe",
     "customEventData": ""
   },
   {
