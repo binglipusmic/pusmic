@@ -136,7 +136,7 @@ cc.Class({
     //type:inital 
     initalUserPai: function (initalType, type) {
         //inital the test data
-         this.testInitalUserList();
+        // this.testInitalUserList();
          cc.log("Global.chuPaiActionType initalUserPai:"+Global.chuPaiActionType);
         //hide game mode
         this.tableGameMode.active = false;
@@ -196,7 +196,7 @@ cc.Class({
         Global.userList = userList;
         if (type != "joinExist") {
             //show huanPaiScript
-            //huanPaiScript.showHuanPaiNode();
+            huanPaiScript.showHuanPaiNode();
         }
 
 
@@ -503,8 +503,10 @@ cc.Class({
                         if (iniType == "inital") {
                             startY = -210;
                         } else {
-                            startY = -80;
+                            startY = -50;
                         }
+                        //fix the start point the pai length
+                        //if()
 
                         paiNode.position = cc.p(startX, startY + i * 28);
                         if (i == 0) {
@@ -520,7 +522,7 @@ cc.Class({
                     if (point == "4") {
                         startX = 0;
                         if (paiList.length < 13) {
-                            startY = -230;
+                            startY = -270;
                         } else {
                             startY = -210;
                         }
@@ -542,8 +544,8 @@ cc.Class({
         var startPoint = -520;
         // we need fix the startPoint By pai number 
         var paiArray = paiList.split(",");
-        if (paiArray.length < 13) {
-            //startPoint = -520 + (12 - paiArray.length) * 79
+        if (paiArray.length <= 10) {
+            startPoint = parseInt(-520 + (10 - paiArray.length) * 79/2)
         }
         for (var i = 0; i < paiArray.length; i++) {
             if (paiArray[i] != null && paiArray[i] != undefined) {

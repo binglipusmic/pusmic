@@ -20394,7 +20394,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": -497,
-      "y": 25
+      "y": 0
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -20425,7 +20425,7 @@
     "_alignFlags": 9,
     "_left": 120,
     "_right": 0,
-    "_top": 100,
+    "_top": 125,
     "_bottom": 0,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
@@ -25513,6 +25513,9 @@
     },
     "tableCenterNode": {
       "__id__": 671
+    },
+    "user3PaiListNode": {
+      "__id__": 513
     }
   },
   {
@@ -26252,6 +26255,9 @@
     },
     "tableUserInfo": {
       "__id__": 404
+    },
+    "paiActionNode": {
+      "__id__": 648
     }
   },
   {
@@ -26962,7 +26968,7 @@
     "_enabled": true,
     "isAlignOnce": true,
     "_target": null,
-    "_alignFlags": 1,
+    "_alignFlags": 0,
     "_left": 0,
     "_right": 210,
     "_top": 30,
@@ -34474,7 +34480,7 @@
       "height": 750
     },
     "_fitWidth": true,
-    "_fitHeight": false
+    "_fitHeight": true
   },
   {
     "__type__": "cc.Node",

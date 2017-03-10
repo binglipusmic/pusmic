@@ -1,6 +1,7 @@
 
 var tableActionScript;
 var tableUserInfoScript;
+var paiActionScript;
 cc.Class({
     extends: cc.Component,
 
@@ -19,6 +20,7 @@ cc.Class({
         liPaiPrefab: cc.Prefab,
         user3PaiListNode: cc.Node,
         tableUserInfo: cc.Node,
+        paiActionNode: cc.Node,
     },
 
 
@@ -27,6 +29,7 @@ cc.Class({
     onLoad: function () {
         tableActionScript = this.tableAction.getComponent("tablePaiAction");
         tableUserInfoScript = this.tableUserInfo.getComponent("tableUserInfo");
+        paiActionScript = this.paiActionNode.getComponent("paiAction");
     },
 
     // called every frame, uncomment this function to activate update callback
@@ -77,10 +80,28 @@ cc.Class({
 
         tableActionScript.enabledAllPaiAfterQuePai(parentNode, false);
         Global.chuPaiActionType = "normalMoPai";
+        //check if show gang action on this paiList
+        var paiCount = 0;
+        for (var i = 0; i < paiList.length; i++) {
+            var pai = paiList[i] + "";
+            pai = pai.trim();
+            if (pai == paiNumber) {
+                paiCount++
+            }
+        }
+        if (paiCount == 3) {
+            var actionArray = ['cancle', 'gang'];
+            paiActionScript.fromUserOpenId=userOpenId;
+            paiActionScript.paiNumber=paiNumber;
+            paiActionScript.chuPaiUserOpenId=userOpenId;
+            paiActionScript.showAction(actionArray);
+        }
 
         this.moPaiOnDataLayer(paiNumber, userOpenId);
         //we need update this into gobal user list
         //this.updateUserListInGobal(user);
+
+
 
     },
 
