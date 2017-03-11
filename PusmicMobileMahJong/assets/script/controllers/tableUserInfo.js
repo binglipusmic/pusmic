@@ -57,7 +57,7 @@ cc.Class({
         // this.userInfo3.active = false;
         // this.userInfo4.active = false;
 
-        // this.initalUserPai();
+        // this.initalUserPai("inital","");
         // this.disabledHuanSanZhangPai();
         huanPaiScript = this.huanPaiScriptNode.getComponent("huanPaiUI");
         //tablePaiActionScript =this.tablePaiActionNode.getComponent("tablePaiAction");
@@ -78,7 +78,7 @@ cc.Class({
         ];
         this.tableNode.active = true;
         var userList = [];
-        for (var i = 0; i < 5; i++) {
+        for (var i = 1; i < 5; i++) {
             var o = new Object();
             o.id = i;
             o.nickName = "testUser" + i;
@@ -92,7 +92,7 @@ cc.Class({
             o.paiList = paiList[i];
             o.gameReadyStatu = "1";
             o.gameScoreCount = "1";
-            o.pointIndex = i + 1;
+            o.pointIndex = i ;
             o.headImageFileName = "1";
 
             if (i == 0) {
@@ -115,6 +115,7 @@ cc.Class({
         Global.userList = userList;
         Global.userInfo = userInfo;
         Global.chuPaiActionType = "normalChuPai";
+        cc.log(" Global.userList:"+ Global.userList.length);
 
     },
     /**
@@ -136,8 +137,8 @@ cc.Class({
     //type:inital 
     initalUserPai: function (initalType, type) {
         //inital the test data
-        // this.testInitalUserList();
-        cc.log("Global.chuPaiActionType initalUserPai:" + Global.chuPaiActionType);
+     //    this.testInitalUserList();
+      //  cc.log("Global.chuPaiActionType initalUserPai:" + Global.chuPaiActionType);
         //hide game mode
         this.tableGameMode.active = false;
         this.tableHead.active = true;
@@ -154,9 +155,11 @@ cc.Class({
         //show table action list
         this.tableActionNode.active = true;
 
+//cc.log("userList.length:"+userList.length);
         for (var i = 0; i < userList.length; i++) {
             var user = userList[i];
             cc.log("inital user zhuang:" + user.zhuang);
+              cc.log("inital user openid:" + user.openid);
             //show current user node
             if (user.pointIndex != null && user.pointIndex != undefined) {
                 cc.log(user.pointIndex);
@@ -672,7 +675,7 @@ cc.Class({
         }
     },
 
-    
+
     intalUserInfoReadyIcon: function () {
 
         var userList = Global.userList;
