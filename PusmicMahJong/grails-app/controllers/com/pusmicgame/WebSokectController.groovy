@@ -202,7 +202,7 @@ class WebSokectController {
                     def s3 = new JsonBuilder(messageJsonObj).toPrettyString()
                     websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s3)
                 }else{
-                    //liu ju
+                    //liu ju---pai end ,send end game to all user.
 
                 }
 

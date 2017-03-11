@@ -40,6 +40,7 @@ cc.Class({
         paiRestNode: cc.Node,
         paiAactionNode: cc.Node,
         moPaiActionNode: cc.Node,
+        tableActionNode: cc.Node,
 
 
 
@@ -457,8 +458,8 @@ cc.Class({
                     if (obj.actionName == "gangPai") {
                         userInfo = Global.userInfo;
                         var pengFromUserOpenId = obj.fromUserOpenid;
-                        var pengPaiNumber = o.paiNumber;
-                        var toUserOpenid = o.toUserOpenid;
+                        var pengPaiNumber = obj.paiNumber;
+                        var toUserOpenid = obj.toUserOpenid;
                         paiActionScript.fromUserOpenId = toUserOpenid;
                         paiActionScript.paiNumber = pengPaiNumber;
                         paiActionScript.chuPaiUserOpenId=pengFromUserOpenId;

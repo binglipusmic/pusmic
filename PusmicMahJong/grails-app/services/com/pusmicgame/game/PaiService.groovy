@@ -287,13 +287,17 @@ class PaiService {
         def lastPai
         if(gameRound) {
             def paiList=gameRound.restPaiList
+            if(paiList){
+                lastPai =paiList.last()
+                paiList=(List)paiList
+                paiList.removeAt(paiList.size()-1)
+                //   paiList=list
+                gameRound.restPaiList=paiList
+                gameRound.save(flush: true, failOnError: true)
 
-            lastPai =paiList.last()
-            paiList=(List)paiList
-            paiList.removeAt(paiList.size()-1)
-         //   paiList=list
-            gameRound.restPaiList=paiList
-            gameRound.save(flush: true, failOnError: true)
+            }
+
+
         }
 
         return lastPai

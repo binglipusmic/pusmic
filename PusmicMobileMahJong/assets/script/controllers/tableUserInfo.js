@@ -76,7 +76,7 @@ cc.Class({
             "16, 17, 19, 23, 23, 23, 24, 31, 32, 33, 33, 34, 36",
             "15, 15, 15, 18, 22, 22, 25, 26, 28, 28, 29, 34, 38",
         ];
-        this.tableNode.active=true;
+        this.tableNode.active = true;
         var userList = [];
         for (var i = 0; i < 5; i++) {
             var o = new Object();
@@ -137,7 +137,7 @@ cc.Class({
     initalUserPai: function (initalType, type) {
         //inital the test data
         // this.testInitalUserList();
-         cc.log("Global.chuPaiActionType initalUserPai:"+Global.chuPaiActionType);
+        cc.log("Global.chuPaiActionType initalUserPai:" + Global.chuPaiActionType);
         //hide game mode
         this.tableGameMode.active = false;
         this.tableHead.active = true;
@@ -151,7 +151,9 @@ cc.Class({
         this.tableTitleNode.active = false;
         //fix user point
         var userList = Global.userList;
-        
+        //show table action list
+        this.tableActionNode.active = true;
+
         for (var i = 0; i < userList.length; i++) {
             var user = userList[i];
             cc.log("inital user zhuang:" + user.zhuang);
@@ -500,10 +502,10 @@ cc.Class({
 
                     if (point == "2") {
                         startX = 0;
-                        if (iniType == "inital") {
+                        if (paiArray.length == 13) {
                             startY = -210;
                         } else {
-                            startY = -50;
+                            startY = 50;
                         }
                         //fix the start point the pai length
                         //if()
@@ -522,7 +524,7 @@ cc.Class({
                     if (point == "4") {
                         startX = 0;
                         if (paiList.length < 13) {
-                            startY = -270;
+                            startY = -340;
                         } else {
                             startY = -210;
                         }
@@ -545,7 +547,7 @@ cc.Class({
         // we need fix the startPoint By pai number 
         var paiArray = paiList.split(",");
         if (paiArray.length <= 10) {
-            startPoint = parseInt(-520 + (10 - paiArray.length) * 79/2)
+            startPoint = parseInt(-520 + (10 - paiArray.length) * 79 / 2)
         }
         for (var i = 0; i < paiArray.length; i++) {
             if (paiArray[i] != null && paiArray[i] != undefined) {
@@ -574,6 +576,9 @@ cc.Class({
                 } else {
                     paiNode.position = cc.p(startPoint + i * 79, 0);
                 }
+
+                paiNode.setLocalZOrder(200);
+                paiNode.zIndex = 200;
 
             }
         }
@@ -641,29 +646,33 @@ cc.Class({
     fixUserPointByIndex: function (index) {
         if (index == "1") {
             var widget = this.userInfo1.getComponent(cc.Widget);
-            widget.top = -20;
+            widget.top = -40;
             // widget.isAlignRight = true;
             // widget.right = 210;
             //this.userInfo1.y=-20;
             cc.log("fixUserPointByIndex 1:" + this.userInfo1.y)
             //this.userInfo1.y =410;
-            this.userInfo1.x = 457;
+            this.userInfo1.x = -600;
+            //this.userInfo1.y = 0;
 
         }
         if (index == "2") {
             var widget = this.userInfo2.getComponent(cc.Widget);
-            widget.top=0;
+            widget.top = 0;
             //widget.left = 60;
             this.userInfo2.x = -607;
-             this.userInfo2.y = 0;
+            //  this.userInfo2.y = 0;
         }
 
         if (index == "4") {
-            //var widget = this.userInfo4.getComponent(cc.Widget);
-            //widget.right = 60;
+            var widget = this.userInfo4.getComponent(cc.Widget);
+            widget.isAlignRight =true;
+            widget.right = 20;
             this.userInfo4.x = 607;
         }
     },
+
+    
     intalUserInfoReadyIcon: function () {
 
         var userList = Global.userList;

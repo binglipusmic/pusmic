@@ -507,7 +507,7 @@ cc.Class({
 
             if (user.chuPaiCount == paiListReOrderCount) {
                 user.chupaiListY = -95;
-                user.chupaiListX = 210;
+                user.chupaiListX = 210-42;
 
             } else {
                 user.chupaiListX = user.chupaiListX - 42;
@@ -520,7 +520,7 @@ cc.Class({
         cc.log("this.paiListReOrderCount:" + paiListReOrderCount);
         if (userIndex == "2") {
             if (user.chuPaiCount == paiListReOrderCount) {
-                user.chupaiListY = 120;
+                user.chupaiListY = 120-35;
                 user.chupaiListX = 226;
 
             } else {
@@ -532,7 +532,7 @@ cc.Class({
 
             if (user.chuPaiCount == paiListReOrderCount) {
                 user.chupaiListY = 3;
-                user.chupaiListX = -210;
+                user.chupaiListX = -210+42;
 
             } else {
                 user.chupaiListX = user.chupaiListX + 42;
@@ -541,7 +541,7 @@ cc.Class({
         if (userIndex == "4") {
             if (user.chuPaiCount == paiListReOrderCount) {
                 user.chupaiListX = -225;
-                user.chupaiListY = -120;
+                user.chupaiListY = -120+35;
 
 
             } else {
@@ -1065,11 +1065,18 @@ var x = touches[0].getLocationX();
                         insertFlag = true;
                     }
 
+                } else {
+
                 }
                 temp.push(pai);
 
 
             }
+
+            if (insertFlag == false) {
+                temp.push(paiNumber);
+            }
+
             // user.paiListArray = temp;
         } else {
             temp.push(paiNumber);
@@ -1081,7 +1088,7 @@ var x = touches[0].getLocationX();
     },
     insertMoPaiIntoPaiList: function (user) {
         var moPai = user.userMoPai;
-        if (moPai != null && moPai != undefined && moPai!="" ) {
+        if (moPai != null && moPai != undefined && moPai != "") {
             moPai = moPai + "";
             moPai = parseInt(moPai.trim());
             cc.log("moPai:" + moPai);

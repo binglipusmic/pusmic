@@ -74,8 +74,8 @@ cc.Class({
         sprite.spriteFrame = tableUserInfoScript.liPaiZiMian[index]
         this.user3PaiListNode.addChild(paiNode);
          var startPoint = -520;
-        if (paiArray.length <= 10) {
-             startPoint = parseInt(-520 + (10 - paiArray.length) * 79/2)
+        if (paiList.length <= 10) {
+             startPoint = parseInt(-520 + (10 - paiList.length) * 79/2)
         }else{
  
         }

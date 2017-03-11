@@ -103,14 +103,9 @@ cc.Class({
         if (this.checkQiaoQiDui(paiList)) {
             return true;
         } else {
-
-            for (var i = 0; i < paiList.length; i++) {
-                paiList.splice(i, 1);
-                i = 0;
-                cc.log("hupaiLogic paiList:" + paiList);
-                huFlagDetails = this.startDecideHu(paiList);
-
-            }
+             huFlagDetails = this.startDecideHu(paiList);
+            cc.log("huFlagDetails:" + huFlagDetails);
+            return huFlagDetails;
 
         }
     },
@@ -290,15 +285,15 @@ cc.Class({
         jiangFlag = false;
 
         cc.log("testHU 1:" + this.startDecideHu(paiList));
-          huFlag = false;
+        huFlag = false;
         jiangFlag = false;
         paiList = [15, 16, 17, 19, 19, 19, 23, 23, 35, 36, 37];
         cc.log("testHU 2:" + this.startDecideHu(paiList));
-          huFlag = false;
+        huFlag = false;
         jiangFlag = false;
         paiList = [11, 11, 17, 17, 17, 18, 19, 20, 35, 36, 37];
         cc.log("testHU 3:" + this.startDecideHu(paiList));
-          huFlag = false;
+        huFlag = false;
         jiangFlag = false;
         paiList = [15, 16, 17, 17, 17, 18, 19, 20, 21, 36, 36];
         cc.log("testHU 4:" + this.startDecideHu(paiList));
