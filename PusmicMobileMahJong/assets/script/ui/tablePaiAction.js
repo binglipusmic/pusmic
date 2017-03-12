@@ -196,6 +196,7 @@ cc.Class({
     },
     /**
      * This method will execute the other chupai action 
+     * 
      */
     playOtherChuPaiAction: function (paiNumber, userPoint) {
         //var user = this.getCorrectUserByPoint(userPoint);
@@ -210,9 +211,18 @@ cc.Class({
         var paiNode = userPaiList.children[0]
         //   cc.log("paiNode:" + paiNode.name);
         var user = this.addPaiIntoPaiListNode(userChuPaiListNode, paiNumber, userPoint, paiNode, 'other');
+        // data layer fixed ;
+        var paiList = user.paiListArray;
+        cc.log("playOtherChuPaiAction paiNumber:" + paiNumber);
+        cc.log("playOtherChuPaiAction paiList1:" + paiList.toString());
+        paiList = this.removeElementByNumberFromUser(paiNumber, paiList, 1);
+        cc.log("playOtherChuPaiAction paiList2:" + paiList.toString());
+        user.paiListArray = paiList;
 
         user = this.fixCurrentChuPaiPoint(user);
+        user = this.synchronizationPaiList(user);
         this.updateUserListInGobal(user);
+        tableUserInfoScript.initalOtherPaiList(user.paiList, user.pointIndex, "");
 
 
     },
@@ -248,6 +258,7 @@ cc.Class({
         } else if (index == "4") {
             user.chupaiListY = user.chupaiListY - 35;
         }
+
 
         this.updateUserListInGobal(user);
 
@@ -308,7 +319,7 @@ cc.Class({
 
             //datalayer -------------------------------------------
 
-            var paiList = this.removeElementByNumberFromUser(paiNode, 1)
+            var paiList = this.removeElementByNodeFromUser(paiNode, 1)
             cc.log("235:" + paiList);
             user.paiListArray = paiList;
             if (insertLastPaiFlag == true) {
@@ -507,7 +518,7 @@ cc.Class({
 
             if (user.chuPaiCount == paiListReOrderCount) {
                 user.chupaiListY = -95;
-                user.chupaiListX = 210-42;
+                user.chupaiListX = 210 - 42;
 
             } else {
                 user.chupaiListX = user.chupaiListX - 42;
@@ -520,7 +531,7 @@ cc.Class({
         cc.log("this.paiListReOrderCount:" + paiListReOrderCount);
         if (userIndex == "2") {
             if (user.chuPaiCount == paiListReOrderCount) {
-                user.chupaiListY = 120-35;
+                user.chupaiListY = 120 - 35;
                 user.chupaiListX = 226;
 
             } else {
@@ -532,7 +543,7 @@ cc.Class({
 
             if (user.chuPaiCount == paiListReOrderCount) {
                 user.chupaiListY = 3;
-                user.chupaiListX = -210+42;
+                user.chupaiListX = -210 + 42;
 
             } else {
                 user.chupaiListX = user.chupaiListX + 42;
@@ -541,7 +552,7 @@ cc.Class({
         if (userIndex == "4") {
             if (user.chuPaiCount == paiListReOrderCount) {
                 user.chupaiListX = -225;
-                user.chupaiListY = -120+35;
+                user.chupaiListY = -120 + 35;
 
 
             } else {
@@ -1211,16 +1222,10 @@ var x = touches[0].getLocationX();
         }
         return false;
     },
-    /**
-     * remove a element from paiList of user self
-     * b---remove element number.
-     */
-    removeElementByNumberFromUser: function (node, b) {
-        var number = node.name;
+    removeElementByNumberFromUser: function (number, paiList, b) {
         var c = 0;
-        var temp = number.split("_");
-        number = temp[1];
-        var paiList = this.getSelfPaiList();
+        number = number + "";
+        number = number.trim();
         for (var i = 0; i < paiList.length; ++i) {
             var temp = paiList[i] + "";
             temp = temp.trim();
@@ -1235,6 +1240,19 @@ var x = touches[0].getLocationX();
 
         }
 
+        return paiList
+    },
+    /**
+     * remove a element from paiList of user self
+     * b---remove element number.
+     */
+    removeElementByNodeFromUser: function (node, b) {
+        var number = node.name;
+        var c = 0;
+        var temp = number.split("_");
+        number = temp[1];
+        var paiList = this.getSelfPaiList();
+        this.removeElementByNumberFromUser(number, paiList, b);
         return paiList
 
     },

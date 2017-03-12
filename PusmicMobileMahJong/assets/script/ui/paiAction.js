@@ -427,11 +427,8 @@ cc.Class({
             y = 0;
             x = user.pengGangPaiPoint;
         } else if (pointIndex == "2") {
-            if(paiList.length<13){
-               user.pengGangPaiPoint = -220;
-            }else{
-               user.pengGangPaiPoint = -250;
-            }
+             user.pengGangPaiPoint = -210;
+            
             
 
             y = user.pengGangPaiPoint;

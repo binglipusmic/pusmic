@@ -14,6 +14,7 @@ var tableCenterScript;
 var tablePaiActionScript;
 var paiActionScript;
 var moPaiScript;
+var tableUserInfoScript;
 cc.Class({
     extends: cc.Component,
 
@@ -41,6 +42,7 @@ cc.Class({
         paiAactionNode: cc.Node,
         moPaiActionNode: cc.Node,
         tableActionNode: cc.Node,
+        tableUserInfoNode: cc.Node,
 
 
 
@@ -65,6 +67,7 @@ cc.Class({
         tableCenterScript = self.tableCenterNode.getComponent("tableCenterPoint");
         tablePaiActionScript = self.tablePaiNode.getComponent("tablePaiAction");
         paiActionScript = self.paiAactionNode.getComponent("paiAction");
+        tableUserInfoScript = self.tableUserInfoNode.getComponent("tableUserInfo");
     },
     connectByPrivateChanel: function () {
         if (client == null || client == undefined) {
@@ -382,6 +385,8 @@ cc.Class({
                                     userList[i].paiList = paiList.join(",");
                                     userList[i].paiListArray = paiList;
                                     userList[i].actionBarFlag = "-2";
+
+                                    
                                 } else {
                                     userList[i].actionBarFlag = "-1";
                                 }
@@ -462,12 +467,12 @@ cc.Class({
                         var toUserOpenid = obj.toUserOpenid;
                         paiActionScript.fromUserOpenId = toUserOpenid;
                         paiActionScript.paiNumber = pengPaiNumber;
-                        paiActionScript.chuPaiUserOpenId=pengFromUserOpenId;
+                        paiActionScript.chuPaiUserOpenId = pengFromUserOpenId;
                         paiActionScript.gangAction();
 
-                         var user = this.getCurreentUserByOpenId(toUserOpenid)
-                         tableCenterScript.index = user.pointIndex;
-                         tableCenterScript.showCenterPoint();
+                        var user = this.getCurreentUserByOpenId(toUserOpenid)
+                        tableCenterScript.index = user.pointIndex;
+                        tableCenterScript.showCenterPoint();
                     }
 
                     //---------------moPai-----------------------------------------------
@@ -491,6 +496,12 @@ cc.Class({
                             paiListLable.string = paiRestCount + "";
                         }
                         //moPai
+                        //user.paiListArray.push(paiNumber);
+                        // moPaiScript.moPaiOnDataLayer(paiNumber, toUserOpenid);
+                        // user = tablePaiActionScript.insertMoPaiIntoPaiList(user);
+                        // user = tablePaiActionScript.synchronizationPaiList(user);
+                        //GUI add a new pai
+                        // tableUserInfoScript.initalOtherPaiListOnePai(paiNumber, user.paiListArray, user.pointIndex, "");
 
                         //2.enable all pai
                         var userInfo = Global.userInfo;
@@ -499,6 +510,11 @@ cc.Class({
                             tablePaiActionScript.enabledAllPaiAfterQuePai();
                         } else {
                             moPaiScript.moPaiOnDataLayer(paiNumber, toUserOpenid);
+                            user = tablePaiActionScript.insertMoPaiIntoPaiList(user);
+                            user = tablePaiActionScript.synchronizationPaiList(user);
+                            var paiListStr = user.paiList;
+                            tableUserInfoScript.initalOtherPaiList(paiListStr, user.pointIndex, "");
+                            tablePaiActionScript.updateUserListInGobal(user);
                         }
 
 
@@ -763,9 +779,9 @@ cc.Class({
         //tableCenterScript.endTimer();
     },
 
-    sendMoPaiOnSelecAction:function(openId){
+    sendMoPaiOnSelecAction: function (openId) {
         var joinRoomNumber = Global.joinRoomNumber;
-       // var nextUserOpenId = this.getNextUserFromCurentIndex();
+        // var nextUserOpenId = this.getNextUserFromCurentIndex();
         var o = new Object();
         //var gameStep = require("gameStep").gameStep;
         o.fromUserOpenid = openId;

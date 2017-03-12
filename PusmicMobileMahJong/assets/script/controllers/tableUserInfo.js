@@ -92,7 +92,7 @@ cc.Class({
             o.paiList = paiList[i];
             o.gameReadyStatu = "1";
             o.gameScoreCount = "1";
-            o.pointIndex = i ;
+            o.pointIndex = i;
             o.headImageFileName = "1";
 
             if (i == 0) {
@@ -115,7 +115,7 @@ cc.Class({
         Global.userList = userList;
         Global.userInfo = userInfo;
         Global.chuPaiActionType = "normalChuPai";
-        cc.log(" Global.userList:"+ Global.userList.length);
+        cc.log(" Global.userList:" + Global.userList.length);
 
     },
     /**
@@ -137,8 +137,8 @@ cc.Class({
     //type:inital 
     initalUserPai: function (initalType, type) {
         //inital the test data
-     //    this.testInitalUserList();
-      //  cc.log("Global.chuPaiActionType initalUserPai:" + Global.chuPaiActionType);
+        //    this.testInitalUserList();
+        //  cc.log("Global.chuPaiActionType initalUserPai:" + Global.chuPaiActionType);
         //hide game mode
         this.tableGameMode.active = false;
         this.tableHead.active = true;
@@ -155,11 +155,11 @@ cc.Class({
         //show table action list
         this.tableActionNode.active = true;
 
-//cc.log("userList.length:"+userList.length);
+        //cc.log("userList.length:"+userList.length);
         for (var i = 0; i < userList.length; i++) {
             var user = userList[i];
             cc.log("inital user zhuang:" + user.zhuang);
-              cc.log("inital user openid:" + user.openid);
+            cc.log("inital user openid:" + user.openid);
             //show current user node
             if (user.pointIndex != null && user.pointIndex != undefined) {
                 cc.log(user.pointIndex);
@@ -462,12 +462,141 @@ cc.Class({
         }
 
     },
+    getCorrectUserByPoint: function (pointIndex) {
 
+        var userList = Global.userList;
+        var user;
+        for (var i = 0; i < userList.length; i++) {
+            if (userList[i].pointIndex == pointIndex) {
+                user = userList[i];
+            }
+        }
+
+        return user;
+
+    },
+    /**
+     * Only add one pai into last position.
+     */
+    initalOtherPaiListOnePai:function(paiNumber,paiArray, point, iniType){
+        // var paiArray = paiList.split(",");
+        var startX = 0;
+        var startY = 0;
+        cc.log("********initalOtherPaiList:" + paiArray.toString() + "----" + point);
+        var currentUser = this.getCorrectUserByPoint(point);
+        var pengList = currentUser.pengPaiList;
+        var gangList = currentUser.gangPaiList;
+        var pengLength = 0;
+        if (pengList == null || pengList == undefined) {
+
+        } else {
+            pengLength = pengList.length;
+        }
+        var gangLength = 0;
+        if (gangList == null || gangList == undefined) {
+
+        } else {
+            gangLength = gangLength.length;
+        }
+        var i=paiArray.length;
+       // for (var i = 0; i < paiArray.length; i++) {
+            if (paiNumber != null && paiNumber != undefined) {
+                if (paiNumber!= "") {
+                    paiNumber=paiNumber+"";
+                    var paiNode;
+                    var sprite;
+                    paiNode = cc.instantiate(this.backNode);
+                    paiNode.name = "pai" + (i) + "_" + paiNumber.trim();
+                    sprite = paiNode.getComponent(cc.Sprite);
+                    if (point == "1") {
+
+                        sprite.spriteFrame = this.backPai;
+                        //this.user1PaiListNode.addChild(paiNode);
+
+                    } else {
+
+                        if (point == "2") {
+                            sprite.spriteFrame = this.cePaiLeft;
+                            //this.user2PaiListNode.addChild(paiNode);
+                        } else {
+                            sprite.spriteFrame = this.cePai;
+                            // this.user4PaiListNode.addChild(paiNode);
+                        }
+
+                    }
+
+
+                    eval("this.user" + point + "PaiListNode.addChild(paiNode)");
+                    //fix the user 1
+                    if (point == "1") {
+                        startX = 380;
+                        paiNode.rotation = 180;
+                        paiNode.position = cc.p(startX - i * 55, 0);
+                        //this.user1PaiListNode.addChild(paiNode);
+                    }
+
+                    if (point == "2") {
+                        startX = 0;
+                         if (pengLength > 0 || gangLength > 0) {
+                             startY = -80;
+                         } else {
+                            startY = -180;
+                        }
+                        //fix the start point the pai length
+                        //if()
+
+                        paiNode.position = cc.p(startX, startY + i * 28);
+                        if (i == 0) {
+                            cc.log("337 startY:" + startY)
+                        }
+                        paiNode.zIndex = paiArray.length - i;
+                        paiNode.width = 40;
+                        paiNode.height = 85;
+                        //parentNode
+
+                    }
+
+                    if (point == "4") {
+                        startX = 0;
+                         if (pengLength > 0 || gangLength > 0) {
+                               startY = -210;
+                         } else {
+                            startY = -180;
+                        }
+
+                        paiNode.position = cc.p(startX, startY + i * 28);
+                        paiNode.zIndex = paiArray.length - i;
+                        paiNode.width = 40;
+                        paiNode.height = 85;
+                    }
+
+                }
+            }
+        //}
+
+        return paiArray
+
+    },
     initalOtherPaiList: function (paiList, point, iniType) {
         var paiArray = paiList.split(",");
         var startX = 0;
         var startY = 0;
         cc.log("********initalOtherPaiList:" + paiList + "----" + point);
+        var currentUser = this.getCorrectUserByPoint(point);
+        var pengList = currentUser.pengPaiList;
+        var gangList = currentUser.gangPaiList;
+        var pengLength = 0;
+        if (pengList == null || pengList == undefined) {
+
+        } else {
+            pengLength = pengList.length;
+        }
+        var gangLength = 0;
+        if (gangList == null || gangList == undefined) {
+
+        } else {
+            gangLength = gangLength.length;
+        }
         for (var i = 0; i < paiArray.length; i++) {
             if (paiArray[i] != null && paiArray[i] != undefined) {
                 if (paiArray[i] != "") {
@@ -505,10 +634,10 @@ cc.Class({
 
                     if (point == "2") {
                         startX = 0;
-                        if (paiArray.length == 13) {
-                            startY = -210;
-                        } else {
-                            startY = 50;
+                         if (pengLength > 0 || gangLength > 0) {
+                             startY = -80;
+                         } else {
+                            startY = -180;
                         }
                         //fix the start point the pai length
                         //if()
@@ -526,10 +655,10 @@ cc.Class({
 
                     if (point == "4") {
                         startX = 0;
-                        if (paiList.length < 13) {
-                            startY = -340;
-                        } else {
-                            startY = -210;
+                         if (pengLength > 0 || gangLength > 0) {
+                               startY = -210;
+                         } else {
+                            startY = -180;
                         }
 
                         paiNode.position = cc.p(startX, startY + i * 28);
@@ -669,7 +798,7 @@ cc.Class({
 
         if (index == "4") {
             var widget = this.userInfo4.getComponent(cc.Widget);
-            widget.isAlignRight =true;
+            widget.isAlignRight = true;
             widget.right = 20;
             this.userInfo4.x = 607;
         }
