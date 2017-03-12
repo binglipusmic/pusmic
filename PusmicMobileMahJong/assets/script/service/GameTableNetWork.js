@@ -510,11 +510,11 @@ cc.Class({
                             tablePaiActionScript.enabledAllPaiAfterQuePai();
                         } else {
                             moPaiScript.moPaiOnDataLayer(paiNumber, toUserOpenid);
-                            user = tablePaiActionScript.insertMoPaiIntoPaiList(user);
-                            user = tablePaiActionScript.synchronizationPaiList(user);
-                            var paiListStr = user.paiList;
-                            tableUserInfoScript.initalOtherPaiList(paiListStr, user.pointIndex, "");
-                            tablePaiActionScript.updateUserListInGobal(user);
+                            //user = tablePaiActionScript.insertMoPaiIntoPaiList(user);
+                            //user = tablePaiActionScript.synchronizationPaiList(user);
+                            //var paiListStr = user.paiList;
+                            //tableUserInfoScript.initalOtherPaiList(paiListStr, user.pointIndex, "");
+                            //tablePaiActionScript.updateUserListInGobal(user);
                         }
 
 

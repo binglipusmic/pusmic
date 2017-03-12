@@ -5,7 +5,7 @@ var tableUserInfoNodeScript;
 var huPaiScript;
 var tableNetWorkScript;
 var tableCenterScript;
-var pengOrder=100;
+var pengOrder = 100;
 cc.Class({
     extends: cc.Component,
 
@@ -79,15 +79,37 @@ cc.Class({
         var userPengPaiListNode = cc.find("user2PengPaiListNode", tableNode);
         this.showPengGangPaiListOnTalbe([11, 12], null, 2, "12", userPengPaiListNode, "peng", 0, -250)
     },
+    clearQuePaiInPaiList: function (quePai, paiList) {
+        cc.log("clearQuePaiInPaiList paiList1:"+paiList);
+        if (quePai != null && quePai != undefined) {
+            quePai=quePai+"";
+            quePai=quePai.trim();
+            for (var i = 0; i < paiList.length; i++) {
+                var pai = paiList[i] + "";
+                pai = pai.trim();
+                pai=pai[0];
+                if (pai == quePai) {
+                    paiList.splice(i,1)
+                }
+            }
+
+        }
+         cc.log("clearQuePaiInPaiList paiList2:"+paiList);
+        return paiList;
+
+    },
     getActionBarArrayByOpenId: function (paiNumber, openid) {
         var user = tablePaiActionScript.getCorrectUserByOpenId(openid);
         var paiList = user.paiListArray;
+        var quePai = user.quePai;
         var userInfo = Global.userInfo;
         var paiCount = 0;
         var actionArray = ['cancle'];
         var actionLevel = 0;
         var huFlag = false;
         huFlag = huPaiScript.hupaiLogic(paiNumber, userInfo.openid);
+
+        paiList=this.clearQuePaiInPaiList(quePai,paiList);
         //get pai count in self pai list 
         for (var i = 0; i < paiList.length; i++) {
             var pai = paiList[i] + "";
@@ -313,7 +335,7 @@ cc.Class({
         }
     },
     gangAction: function () {
-          var userInfo = Global.userInfo;
+        var userInfo = Global.userInfo;
         var userOpenId = this.fromUserOpenId;
         var paiNumber = this.paiNumber;
         var user = tablePaiActionScript.getCorrectUserByOpenId(userOpenId);
@@ -328,10 +350,10 @@ cc.Class({
                 user.userMoPai = "";
                 tablePaiActionScript.updateUserListInGobal(user);
                 var chilren = this.user3PaiListNode.children;
-                var moPaiNode=null;
+                var moPaiNode = null;
                 for (var i = 0; i < children.length; i++) {
                     var lastNode = children[i];
-                    if(lastNode.name.indexOf("mopai")>=0){
+                    if (lastNode.name.indexOf("mopai") >= 0) {
                         lastNode.removeFromParent();
                     }
                 }
@@ -374,10 +396,10 @@ cc.Class({
         Global.chuPaiActionType = "gang";
         //remove last pai from chu pai user
         cc.log("userInfo.openid:" + this.chuPaiUserOpenId);
-          if (userOpenId != this.chuPaiUserOpenId) {
-                tablePaiActionScript.removeLastPaiOnChuPaiListByUserOpenId(this.chuPaiUserOpenId);
-      
-          }
+        if (userOpenId != this.chuPaiUserOpenId) {
+            tablePaiActionScript.removeLastPaiOnChuPaiListByUserOpenId(this.chuPaiUserOpenId);
+
+        }
         cc.log("userInfo.openid:" + userInfo.openid);
         cc.log("userOpenId:" + userOpenId);
         if (userInfo.openid == userOpenId) {
@@ -404,7 +426,7 @@ cc.Class({
 
 
     initalPengAndGangChuPaiList: function (userOpenId, paiNumber, type) {
-        
+
         var user = tablePaiActionScript.getCorrectUserByOpenId(userOpenId);
         var pointIndex = user.pointIndex;
         var tableNode = cc.find("Canvas/tableNode");
@@ -413,11 +435,11 @@ cc.Class({
         cc.log("166:" + userPengPaiListNode.children.length)
         var pengList = user.pengPaiList;
         var gangPaiList = user.gangPaiList;
-        var paiList =user.paiListArray;
+        var paiList = user.paiListArray;
         var x = 0;
         var y = 0;
         //inital the orlder inital  value 
-        pengOrder=100;
+        pengOrder = 100;
         if (pointIndex == "3") {
             user.pengGangPaiPoint = 410;
             y = 0;
@@ -427,9 +449,9 @@ cc.Class({
             y = 0;
             x = user.pengGangPaiPoint;
         } else if (pointIndex == "2") {
-             user.pengGangPaiPoint = -210;
-            
-            
+            user.pengGangPaiPoint = -210;
+
+
 
             y = user.pengGangPaiPoint;
             x = 0;
@@ -502,8 +524,8 @@ cc.Class({
                         var point = this.getCorrectPointByIndex(pointIndex, x, y);
                         x = point[0];
                         y = point[1];
-                       // pengOrder=point[2];
-                       
+                        // pengOrder=point[2];
+
 
                         var sprite = pNode.getComponent(cc.Sprite);
                         sprite.spriteFrame = new cc.SpriteFrame(sp);
@@ -547,7 +569,7 @@ cc.Class({
                         if (pointIndex == "2") {
                             pNode.setLocalZOrder(Math.abs(pengOrder));
                             pNode.zIndex = Math.abs(pengOrder);
-                             pengOrder--;
+                            pengOrder--;
                         }
 
                         var point = this.getCorrectPointByIndex(pointIndex, finalX, finalY);
@@ -594,7 +616,7 @@ cc.Class({
 
     getCorrectPointByIndex: function (pointIndex, x, y) {
         var point = [];
-        var sourceY=y;
+        var sourceY = y;
         if (pointIndex == "3") {
             x = x - 42;
         } else if (pointIndex == "1") {
@@ -607,8 +629,8 @@ cc.Class({
         } else {
             y = y - 35;
         }
-        if(Math.abs(sourceY)<Math.abs(y)){
-            sourceY=Math.abs(sourceY)-1;
+        if (Math.abs(sourceY) < Math.abs(y)) {
+            sourceY = Math.abs(sourceY) - 1;
 
         }
 

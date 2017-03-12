@@ -582,6 +582,7 @@ cc.Class({
         var startX = 0;
         var startY = 0;
         cc.log("********initalOtherPaiList:" + paiList + "----" + point);
+        //eval("this.user" + point + "PaiListNode.removeAllChildren()");
         var currentUser = this.getCorrectUserByPoint(point);
         var pengList = currentUser.pengPaiList;
         var gangList = currentUser.gangPaiList;
@@ -635,7 +636,7 @@ cc.Class({
                     if (point == "2") {
                         startX = 0;
                          if (pengLength > 0 || gangLength > 0) {
-                             startY = -80;
+                             startY = -180+(pengLength*100+gangLength*100);
                          } else {
                             startY = -180;
                         }
