@@ -80,22 +80,26 @@ cc.Class({
         this.showPengGangPaiListOnTalbe([11, 12], null, 2, "12", userPengPaiListNode, "peng", 0, -250)
     },
     clearQuePaiInPaiList: function (quePai, paiList) {
-        cc.log("clearQuePaiInPaiList paiList1:"+paiList);
+        cc.log("clearQuePaiInPaiList paiList1:" + paiList);
+        var temp = [];
+
         if (quePai != null && quePai != undefined) {
-            quePai=quePai+"";
-            quePai=quePai.trim();
+            quePai = quePai + "";
+            quePai = quePai.trim();
             for (var i = 0; i < paiList.length; i++) {
                 var pai = paiList[i] + "";
                 pai = pai.trim();
-                pai=pai[0];
-                if (pai == quePai) {
-                    paiList.splice(i,1)
+                var paiType = pai[0];
+                if (paiType != quePai) {
+                    temp.push(pai);
                 }
+
             }
+         
 
         }
-         cc.log("clearQuePaiInPaiList paiList2:"+paiList);
-        return paiList;
+        cc.log("clearQuePaiInPaiList paiList2:" + paiList);
+        return temp;
 
     },
     getActionBarArrayByOpenId: function (paiNumber, openid) {
@@ -109,7 +113,7 @@ cc.Class({
         var huFlag = false;
         huFlag = huPaiScript.hupaiLogic(paiNumber, userInfo.openid);
 
-        paiList=this.clearQuePaiInPaiList(quePai,paiList);
+        paiList = this.clearQuePaiInPaiList(quePai, paiList);
         //get pai count in self pai list 
         for (var i = 0; i < paiList.length; i++) {
             var pai = paiList[i] + "";

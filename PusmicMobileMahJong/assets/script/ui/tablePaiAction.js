@@ -72,6 +72,7 @@ cc.Class({
         var y = user.chupaiListY;
         var paiPath = this.getChuPaiNameByNodeName(name, userPoint);
         cc.log("paiPath:" + paiPath);
+        cc.log("addPaiIntoPaiListNode user:" + user.openid);
         var pNode = cc.instantiate(this.paiChuPaiNode);
 
 
@@ -121,6 +122,7 @@ cc.Class({
         paiNodeArray.push(paiNode.parent);
         paiNodeArray.push(userPaiList);
         paiNodeArray.push(user.openid);
+        cc.log("type:" + type);
         if (type == 'self') {
 
             finished = cc.callFunc(this.playSlefChuPaiAction_addChild, this, paiNodeArray);
@@ -222,9 +224,11 @@ cc.Class({
         var paiNode = userPaiList.children[0]
         //   cc.log("paiNode:" + paiNode.name);
         var user = this.addPaiIntoPaiListNode(userChuPaiListNode, paiNumber, userPoint, paiNode, 'other');
+        cc.log("playOtherChuPaiAction userPoint:" + userPoint);
+        cc.log("playOtherChuPaiAction user:" + user.openid);
         //remove node ON GUI
         //this.removeLastPaiOnChuPaiListByUserOpenId
-        this.removeLastPaiOnPaiListByUser(user);
+        //this.removeLastPaiOnPaiListByUser(user);
         // data layer fixed ;
         var paiList = user.paiListArray;
         cc.log("playOtherChuPaiAction paiNumber:" + paiNumber);
@@ -241,6 +245,40 @@ cc.Class({
 
 
     },
+    removeLastPaiOnPaiListByUserOpenId: function (openId) {
+        var user = this.getCorrectUserByOpenId(openId);
+        var index = user.pointIndex;
+        var tableNode = cc.find("Canvas/tableNode");
+        var userChuPaiListNode = cc.find("user" + index + "PaiList", tableNode);
+        // var chuPaiListNode = cc.find("user" + index + "ChuaPaiListNode",this.tableNode);
+        var children = userChuPaiListNode.children;
+        var lastNode;
+        var childrenLen = children.length
+        cc.log("removeLastPaiOnPaiListByUser children1:" + userChuPaiListNode.children.length);
+        if (index == "2") {
+            lastNode = children[0];
+        } else if (index == "1") {
+            lastNode = children[childrenLen - 1];
+        } else if (index == "4") {
+            lastNode = children[0];
+        }
+
+        // for (var i = 0; i < children.length; i++) {
+        //     cc.log("removeLastPaiOnPaiListByUser lastNode:" + children[i].name);
+        //     lastNode = children[i];
+        // }
+        if (lastNode != null & lastNode != undefined) {
+            lastNode.removeFromParent();
+            cc.log("removeLastPaiOnPaiListByUser remove:" + lastNode.name);
+        }
+
+        cc.log("removeLastPaiOnPaiListByUser children2:" + userChuPaiListNode.children.length);
+
+
+        // var tableNode =this.tableNode;
+        cc.log("removeLastPaiOnPaiListByUser end");
+
+    },
     removeLastPaiOnPaiListByUser: function (user) {
         var index = user.pointIndex;
         var tableNode = cc.find("Canvas/tableNode");
@@ -248,12 +286,12 @@ cc.Class({
         // var chuPaiListNode = cc.find("user" + index + "ChuaPaiListNode",this.tableNode);
         var children = userChuPaiListNode.children;
         var lastNode;
-        var childrenLen=children.length
+        var childrenLen = children.length
         cc.log("removeLastPaiOnPaiListByUser children1:" + userChuPaiListNode.children.length);
         if (index == "2") {
             lastNode = children[0];
         } else if (index == "1") {
-            lastNode = children[childrenLen-1];
+            lastNode = children[childrenLen - 1];
         } else if (index == "4") {
             lastNode = children[0];
         }
@@ -519,6 +557,7 @@ cc.Class({
 
     },
     playOtherChuPaiAction_addChild: function (target, pNodeArray) {
+        cc.log("playSlefChuPaiAction_addChild:");
         var pNode = pNodeArray[0];
         var paiNode = pNodeArray[1];
         var parent = pNodeArray[2];
@@ -532,7 +571,10 @@ cc.Class({
         var spriteFrame = paiNode.getComponent(cc.Sprite).spriteFrame;
         var deps = cc.loader.getDependsRecursively(spriteFrame);
         cc.loader.release(deps);
-        paiNode.removeFromParent();
+        //we should remove on next step;
+        //paiNode.removeFromParent();
+
+        this.removeLastPaiOnPaiListByUserOpenId(userOpenId);
 
 
 
@@ -1150,7 +1192,7 @@ var x = touches[0].getLocationX();
         if (moPai != null && moPai != undefined && moPai != "") {
             moPai = moPai + "";
             moPai = parseInt(moPai.trim());
-            cc.log("moPai:" + moPai);
+            cc.log("insertMoPaiIntoPaiList moPai:" + moPai);
             var paiList = user.paiListArray;
             if (paiList.length > 1) {
                 var temp = [];
