@@ -194,6 +194,17 @@ cc.Class({
         this.playOtherChuPaiAction("27", "4");
         this.disableAllSlefPaiAfterQuePai();
     },
+    testRmoveLast: function () {
+        var user = this.getCorrectUserByPoint("1");
+        this.removeLastPaiOnPaiListByUser(user);
+
+        var index = user.pointIndex;
+        var tableNode = cc.find("Canvas/tableNode");
+        var userChuPaiListNode = cc.find("user" + index + "PaiList", tableNode);
+        // var chuPaiListNode = cc.find("user" + index + "ChuaPaiListNode",this.tableNode);
+        var children = userChuPaiListNode.children;
+        cc.log("testOtherChuPai:" + children.length);
+    },
     /**
      * This method will execute the other chupai action 
      * 
@@ -213,19 +224,20 @@ cc.Class({
         var user = this.addPaiIntoPaiListNode(userChuPaiListNode, paiNumber, userPoint, paiNode, 'other');
         //remove node ON GUI
         //this.removeLastPaiOnChuPaiListByUserOpenId
-        //this.removeLastPaiOnPaiListByUser(user);
+        this.removeLastPaiOnPaiListByUser(user);
         // data layer fixed ;
         var paiList = user.paiListArray;
         cc.log("playOtherChuPaiAction paiNumber:" + paiNumber);
         cc.log("playOtherChuPaiAction paiList1:" + paiList.toString());
-        //paiList = this.removeElementByNumberFromUser(paiNumber, paiList, 1);
+        paiList = this.removeElementByNumberFromUser(paiNumber, paiList, 1);
         cc.log("playOtherChuPaiAction paiList2:" + paiList.toString());
-        //user.paiListArray = paiList;
+        user.paiListArray = paiList;
 
-        //user = this.fixCurrentChuPaiPoint(user);
-        //user = this.synchronizationPaiList(user);
-        //this.updateUserListInGobal(user);
-        //tableUserInfoScript.initalOtherPaiList(user.paiList, user.pointIndex, "");
+        user = this.fixCurrentChuPaiPoint(user);
+        user = this.synchronizationPaiList(user);
+        this.updateUserListInGobal(user);
+        // this.removeAllNodeFromOtherPaiList(user.pointIndex);
+        // tableUserInfoScript.initalOtherPaiList(user.paiList, user.pointIndex, "");
 
 
     },
@@ -236,11 +248,20 @@ cc.Class({
         // var chuPaiListNode = cc.find("user" + index + "ChuaPaiListNode",this.tableNode);
         var children = userChuPaiListNode.children;
         var lastNode;
+        var childrenLen=children.length
         cc.log("removeLastPaiOnPaiListByUser children1:" + userChuPaiListNode.children.length);
-        for (var i = 0; i < children.length; i++) {
-            cc.log("removeLastPaiOnPaiListByUser lastNode:" + children[i].name);
-            lastNode = children[i];
+        if (index == "2") {
+            lastNode = children[0];
+        } else if (index == "1") {
+            lastNode = children[childrenLen-1];
+        } else if (index == "4") {
+            lastNode = children[0];
         }
+
+        // for (var i = 0; i < children.length; i++) {
+        //     cc.log("removeLastPaiOnPaiListByUser lastNode:" + children[i].name);
+        //     lastNode = children[i];
+        // }
         if (lastNode != null & lastNode != undefined) {
             lastNode.removeFromParent();
             cc.log("removeLastPaiOnPaiListByUser remove:" + lastNode.name);
@@ -351,7 +372,7 @@ cc.Class({
             user.paiListArray = paiList;
             if (insertLastPaiFlag == true) {
                 this.moveLastestPaiToPoint(mopaiInsertIndex);
-                user = this.insertMoPaiIntoPaiList(user);
+
             }
 
             user = this.synchronizationPaiList(user);
@@ -1137,7 +1158,7 @@ var x = touches[0].getLocationX();
                 for (var i = 0; i < paiList.length; ++i) {
                     var p = paiList[i] + "";
                     var pai = parseInt(p.trim());
-                   // cc.log("loop pai:" + pai)
+                    // cc.log("loop pai:" + pai)
                     if (moPai < pai) {
                         if (insertFlag == false) {
                             cc.log("insertFlag pai:" + moPai)
@@ -1167,7 +1188,7 @@ var x = touches[0].getLocationX();
         return user;
 
     },
-    
+
     /**
      * Synchronization the pai list array into user pai string 
      */

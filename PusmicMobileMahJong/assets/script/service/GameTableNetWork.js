@@ -512,8 +512,8 @@ cc.Class({
                             moPaiScript.moPaiOnDataLayer(paiNumber, toUserOpenid);
                             //user = tablePaiActionScript.insertMoPaiIntoPaiList(user);
                             //user = tablePaiActionScript.synchronizationPaiList(user);
-                            //var paiListStr = user.paiList;
-                            //tableUserInfoScript.initalOtherPaiList(paiListStr, user.pointIndex, "");
+                            var paiListStr = user.paiList;
+                            tableUserInfoScript.initalOtherPaiListOnePai(paiNumber,user.paiListArray, user.pointIndex, "");
                             //tablePaiActionScript.updateUserListInGobal(user);
                         }
 

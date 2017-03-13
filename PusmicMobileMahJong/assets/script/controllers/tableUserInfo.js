@@ -57,7 +57,7 @@ cc.Class({
         // this.userInfo3.active = false;
         // this.userInfo4.active = false;
 
-        // this.initalUserPai("inital","");
+         this.initalUserPai("inital","");
         // this.disabledHuanSanZhangPai();
         huanPaiScript = this.huanPaiScriptNode.getComponent("huanPaiUI");
         //tablePaiActionScript =this.tablePaiActionNode.getComponent("tablePaiAction");
@@ -89,7 +89,7 @@ cc.Class({
             o.unionid = "testUser" + i;
             o.userCode = "testUser" + i;
             o.publicIp = "127.0.0.1";
-            o.paiList = paiList[i];
+            o.paiList = paiList[i-1];
             o.gameReadyStatu = "1";
             o.gameScoreCount = "1";
             o.pointIndex = i;
@@ -137,7 +137,7 @@ cc.Class({
     //type:inital 
     initalUserPai: function (initalType, type) {
         //inital the test data
-        //    this.testInitalUserList();
+            this.testInitalUserList();
         //  cc.log("Global.chuPaiActionType initalUserPai:" + Global.chuPaiActionType);
         //hide game mode
         this.tableGameMode.active = false;
@@ -173,6 +173,7 @@ cc.Class({
                 }
 
                 var paiList = user.paiList;
+                cc.log(user.pointIndex+":"+paiList.toString());
                 if (paiList != null && paiList != undefined) {
                     if ((user.pointIndex + "") == "3") {
                         //inital self pai
@@ -201,7 +202,7 @@ cc.Class({
         Global.userList = userList;
         if (type != "joinExist") {
             //show huanPaiScript
-            huanPaiScript.showHuanPaiNode();
+            //huanPaiScript.showHuanPaiNode();
         }
 
 
@@ -475,6 +476,19 @@ cc.Class({
         return user;
 
     },
+    testAddOne:function(){
+        var paiList = [
+            15, 17, 18, 22, 22, 23, 29, 29, 29, 33, 36, 37, 39
+           
+        ];
+       this.initalOtherPaiListOnePai("11",paiList,"1","");
+       var tableNode = cc.find("Canvas/tableNode");
+        var userChuPaiListNode = cc.find("user2PaiList", tableNode);
+        // var chuPaiListNode = cc.find("user" + index + "ChuaPaiListNode",this.tableNode);
+        var children = userChuPaiListNode.children;
+        cc.log("testAddOne:" + children.length);
+      
+    },
     /**
      * Only add one pai into last position.
      */
@@ -482,8 +496,15 @@ cc.Class({
         // var paiArray = paiList.split(",");
         var startX = 0;
         var startY = 0;
-        cc.log("********initalOtherPaiList:" + paiArray.toString() + "----" + point);
+        cc.log("********initalOtherPaiListOnePai:" + paiArray.toString() + "----" + point);
         var currentUser = this.getCorrectUserByPoint(point);
+         var tableNode = cc.find("Canvas/tableNode");
+        var userChuPaiListNode = cc.find("user"+point+"PaiList", tableNode);
+       
+        var chirenLen=userChuPaiListNode.children.length;
+         var firstNode=userChuPaiListNode.children[0];
+         var lastNode=userChuPaiListNode.children[chirenLen-1];
+         cc.log("firstNode x:"+firstNode.x+"-"+firstNode.y);
         var pengList = currentUser.pengPaiList;
         var gangList = currentUser.gangPaiList;
         var pengLength = 0;
@@ -499,6 +520,7 @@ cc.Class({
             gangLength = gangLength.length;
         }
         var i=paiArray.length;
+        cc.log("i:"+i);
        // for (var i = 0; i < paiArray.length; i++) {
             if (paiNumber != null && paiNumber != undefined) {
                 if (paiNumber!= "") {
@@ -506,21 +528,15 @@ cc.Class({
                     var paiNode;
                     var sprite;
                     paiNode = cc.instantiate(this.backNode);
-                    paiNode.name = "pai" + (i) + "_" + paiNumber.trim();
+                    paiNode.name = "pai" + (chirenLen+1) + "_" + paiNumber.trim();
                     sprite = paiNode.getComponent(cc.Sprite);
                     if (point == "1") {
-
                         sprite.spriteFrame = this.backPai;
-                        //this.user1PaiListNode.addChild(paiNode);
-
-                    } else {
-
+                     } else {
                         if (point == "2") {
                             sprite.spriteFrame = this.cePaiLeft;
-                            //this.user2PaiListNode.addChild(paiNode);
                         } else {
                             sprite.spriteFrame = this.cePai;
-                            // this.user4PaiListNode.addChild(paiNode);
                         }
 
                     }
@@ -531,25 +547,14 @@ cc.Class({
                     if (point == "1") {
                         startX = 380;
                         paiNode.rotation = 180;
-                        paiNode.position = cc.p(startX - i * 55, 0);
+                        paiNode.position = cc.p(lastNode.x - 55, 0);
                         //this.user1PaiListNode.addChild(paiNode);
                     }
 
                     if (point == "2") {
-                        startX = 0;
-                         if (pengLength > 0 || gangLength > 0) {
-                             startY = -80;
-                         } else {
-                            startY = -180;
-                        }
-                        //fix the start point the pai length
-                        //if()
-
-                        paiNode.position = cc.p(startX, startY + i * 28);
-                        if (i == 0) {
-                            cc.log("337 startY:" + startY)
-                        }
-                        paiNode.zIndex = paiArray.length - i;
+                        
+                        paiNode.position = cc.p(firstNode.x, firstNode.y+ 28);
+                        paiNode.zIndex = paiArray.length-chirenLen;
                         paiNode.width = 40;
                         paiNode.height = 85;
                         //parentNode
@@ -557,18 +562,15 @@ cc.Class({
                     }
 
                     if (point == "4") {
-                        startX = 0;
-                         if (pengLength > 0 || gangLength > 0) {
-                               startY = -210;
-                         } else {
-                            startY = -180;
-                        }
+                        
 
-                        paiNode.position = cc.p(startX, startY + i * 28);
-                        paiNode.zIndex = paiArray.length - i;
+                        paiNode.position = cc.p(firstNode.x, firstNode.y+28);
+                        paiNode.zIndex = paiArray.length-chirenLen;
                         paiNode.width = 40;
                         paiNode.height = 85;
                     }
+
+                    cc.log("add one:"+paiNode.active+"----"+paiNode.x+":"+paiNode.y)+"---z:"+ paiNode.zIndex;
 
                 }
             }
@@ -667,6 +669,8 @@ cc.Class({
                         paiNode.width = 40;
                         paiNode.height = 85;
                     }
+
+                    cc.log(point+":"+paiNode.x+"-"+paiNode.y);
 
                 }
             }

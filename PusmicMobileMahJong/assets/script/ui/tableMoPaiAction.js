@@ -54,6 +54,8 @@ cc.Class({
             }
         }
         user.userMoPai = paiNumber;
+        user = tableActionScript.insertMoPaiIntoPaiList(user);
+        user = tableActionScript.synchronizationPaiList(user);
         cc.log("mopai:" + user.pointIndex);
         this.updateUserListInGobal(user);
     },
@@ -73,15 +75,15 @@ cc.Class({
         var index = tableUserInfoScript.getCurrectIndeOnSeflPai(paiNumber);
         sprite.spriteFrame = tableUserInfoScript.liPaiZiMian[index]
         this.user3PaiListNode.addChild(paiNode);
-         var startPoint = -520;
+        var startPoint = -520;
         if (paiList.length <= 10) {
-             startPoint = parseInt(-520 + (10 - paiList.length) * 79/2)
-        }else{
- 
+            startPoint = parseInt(-520 + (10 - paiList.length) * 79 / 2)
+        } else {
+
         }
 
         paiNode.position = cc.p(startPoint + latstIndex * 80, 0);
-       
+
 
         var tableNode = cc.find("Canvas/tableNode");
         var parentNode = cc.find("user3PaiList", tableNode);
@@ -99,9 +101,9 @@ cc.Class({
         }
         if (paiCount == 3) {
             var actionArray = ['cancle', 'gang'];
-            paiActionScript.fromUserOpenId=userOpenId;
-            paiActionScript.paiNumber=paiNumber;
-            paiActionScript.chuPaiUserOpenId=userOpenId;
+            paiActionScript.fromUserOpenId = userOpenId;
+            paiActionScript.paiNumber = paiNumber;
+            paiActionScript.chuPaiUserOpenId = userOpenId;
             paiActionScript.showAction(actionArray);
         }
 
