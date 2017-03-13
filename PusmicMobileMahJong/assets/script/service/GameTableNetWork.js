@@ -462,15 +462,15 @@ cc.Class({
                     //---------------gangpai-----------------------------------------------
                     if (obj.actionName == "gangPai") {
                         userInfo = Global.userInfo;
-                        var pengFromUserOpenId = obj.fromUserOpenid;
-                        var pengPaiNumber = obj.paiNumber;
-                        var toUserOpenid = obj.toUserOpenid;
-                        paiActionScript.fromUserOpenId = toUserOpenid;
+                        var gangFromUserOpenId = obj.fromUserOpenid;
+                        var gangPaiNumber = obj.paiNumber;
+                        var chuPaiUserOpenId = obj.toUserOpenid;
+                        paiActionScript.fromUserOpenId = gangFromUserOpenId;
                         paiActionScript.paiNumber = pengPaiNumber;
-                        paiActionScript.chuPaiUserOpenId = pengFromUserOpenId;
+                        paiActionScript.chuPaiUserOpenId = chuPaiUserOpenId;
                         paiActionScript.gangAction();
 
-                        var user = this.getCurreentUserByOpenId(toUserOpenid)
+                        var user = this.getCurreentUserByOpenId(gangFromUserOpenId)
                         tableCenterScript.index = user.pointIndex;
                         tableCenterScript.showCenterPoint();
                     }
@@ -739,7 +739,7 @@ cc.Class({
         this.sendMessageToServer(messageObj);
         tableCenterScript.endTimer();
     },
-    sendGangPaiAction: function (fromUserOpenId, toUserOpenId, paiNumber) {
+    sendGangPaiAction: function (chuPaiUserOpenId,fromUserOpenId, paiNumber) {
         var joinRoomNumber = Global.joinRoomNumber;
         var o = new Object();
         //var gameStep = require("gameStep").gameStep;
@@ -747,7 +747,7 @@ cc.Class({
         o.fromUserOpenid = fromUserOpenId;
         o.actionName = "gangPai";
         o.paiNumber = paiNumber;
-        o.toUserOpenid = toUserOpenId;
+        o.toUserOpenid = chuPaiUserOpenId;
 
         //o.chuPaiType = Global.chuPaiActionType;
         var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");

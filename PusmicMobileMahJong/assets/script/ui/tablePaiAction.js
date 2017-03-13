@@ -141,9 +141,12 @@ cc.Class({
         cc.log("y:" + y);
         cc.log("moveToY:" + moveToY);
         var action
+        if (type == 'self') {
+            action = cc.sequence(cc.moveTo(0.15, x, moveToY), cc.scaleTo(0.15, 0.5), cc.removeSelf(), finished);
+        } else {
+            action = cc.sequence(cc.moveTo(0.15, x, moveToY), cc.scaleTo(0.15, 0.5), finished);
 
-        action = cc.sequence(cc.moveTo(0.15, x, moveToY), cc.scaleTo(0.15, 0.5), cc.removeSelf(), finished);
-
+        }
         //it is other user chupai ,get the first child element 
         cc.log("127:" + paiNode.parent.childrenCount);
         paiNode.runAction(action);
