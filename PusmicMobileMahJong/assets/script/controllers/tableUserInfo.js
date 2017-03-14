@@ -57,7 +57,7 @@ cc.Class({
         // this.userInfo3.active = false;
         // this.userInfo4.active = false;
 
-        // this.initalUserPai("inital","");
+        this.initalUserPai("inital", "");
         // this.disabledHuanSanZhangPai();
         huanPaiScript = this.huanPaiScriptNode.getComponent("huanPaiUI");
         //tablePaiActionScript =this.tablePaiActionNode.getComponent("tablePaiAction");
@@ -72,9 +72,9 @@ cc.Class({
      */
     testInitalUserList: function () {
         var paiList = ["11, 11, 13, 14, 18, 21, 24, 32, 33, 34, 34, 35, 35, 35",
-            "15, 17, 18, 22, 22, 23, 29, 29, 29, 33, 36, 37, 39",
+            "15, 17, 17, 28, 22, 22, 23, 29, 29, 31, 33, 33, 39",
             "16, 17, 19, 23, 23, 23, 24, 31, 32, 33, 33, 34, 36",
-            "15, 15, 15, 18, 22, 22, 25, 26, 28, 28, 29, 34, 38",
+            "15, 15, 15, 18, 22, 22, 25, 26, 26, 28, 29, 29, 38",
         ];
         this.tableNode.active = true;
         var userList = [];
@@ -109,7 +109,7 @@ cc.Class({
         }
         var gameMode = require("gameMode").gameMode;
         var userInfo = require("userInfoDomain").userInfoDomain;
-        userInfo.openid = "testUser2";
+        userInfo.openid = "testUser3";
         gameMode.huanSanZhang = "1";
         Global.gameMode = gameMode;
         Global.userList = userList;
@@ -137,7 +137,7 @@ cc.Class({
     //type:inital 
     initalUserPai: function (initalType, type) {
         //inital the test data
-        //    this.testInitalUserList();
+        this.testInitalUserList();
         //  cc.log("Global.chuPaiActionType initalUserPai:" + Global.chuPaiActionType);
         //hide game mode
         this.tableGameMode.active = false;
@@ -202,7 +202,7 @@ cc.Class({
         Global.userList = userList;
         if (type != "joinExist") {
             //show huanPaiScript
-            huanPaiScript.showHuanPaiNode();
+            //huanPaiScript.showHuanPaiNode();
         }
 
 
@@ -643,7 +643,10 @@ cc.Class({
                     if (point == "2") {
                         startX = 0;
                         if (pengLength > 0 || gangLength > 0) {
-                            startY = -180 + (pengLength * 100 + gangLength * 100);
+                            startY = -180 + (pengLength * 115 + gangLength * 115);
+                            if (startY >= 240) {
+                                startY = 240
+                            }
                         } else {
                             startY = -180;
                         }
@@ -671,6 +674,8 @@ cc.Class({
 
                         paiNode.position = cc.p(startX, startY + i * 28);
                         paiNode.zIndex = paiArray.length - i;
+                        //paiNode.setLocalZOrder(1000 - i);
+                        // paiNode.siblingIndex = 1000 - i;
                         paiNode.width = 40;
                         paiNode.height = 85;
                     }
@@ -680,6 +685,22 @@ cc.Class({
                 }
             }
         }
+
+        if (point == "4") {
+            eval("this.user" + point + "PaiListNode.zIndex=140");
+            eval("this.user" + point + "PaiListNode.setLocalZOrder(140)");
+          //  cc.log("4 inital zindex:" + paiNode.zIndex);
+          //  cc.log("4 inital setLocalZOrder:" + paiNode.getLocalZOrder());
+
+        }
+        if (point == "2") {
+            eval("this.user" + point + "PaiListNode.zIndex=120");
+            eval("this.user" + point + "PaiListNode.setLocalZOrder(120)");
+           // cc.log("4 inital zindex:" + paiNode.zIndex);
+           // cc.log("4 inital setLocalZOrder:" + paiNode.getLocalZOrder());
+
+        }
+
 
         return paiArray
     },
@@ -727,6 +748,8 @@ cc.Class({
 
         if (this.user3PaiListNode.active == false) {
             this.user3PaiListNode.active = true;
+            this.user3PaiListNode.setLocalZOrder(200);
+            this.user3PaiListNode.zIndex = 200;
         }
 
         return paiArray;

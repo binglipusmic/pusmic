@@ -16256,7 +16256,7 @@
     "_tag": -1,
     "_opacityModifyRGB": false,
     "_id": "8720eyY6TdOa7AO41F9TQFZ",
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 681
@@ -20574,7 +20574,7 @@
     "_enabled": true,
     "isAlignOnce": true,
     "_target": null,
-    "_alignFlags": 13,
+    "_alignFlags": 9,
     "_left": 120,
     "_right": 0,
     "_top": 0,
@@ -20886,7 +20886,7 @@
     "_enabled": true,
     "isAlignOnce": true,
     "_target": null,
-    "_alignFlags": 37,
+    "_alignFlags": 33,
     "_left": 120,
     "_right": 120,
     "_top": 0,
@@ -35829,7 +35829,7 @@
     "_tag": -1,
     "_opacityModifyRGB": false,
     "_id": "b736aGi8xtCHrNykAgVi+Gk",
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 939
@@ -36007,7 +36007,7 @@
       "__id__": 654
     },
     "component": "paiAction",
-    "handler": "testshowPengGangPaiListOnTalbe",
+    "handler": "testOtherPengPai",
     "customEventData": ""
   },
   {

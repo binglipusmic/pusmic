@@ -95,7 +95,7 @@ cc.Class({
                 }
 
             }
-         
+
 
         }
         cc.log("clearQuePaiInPaiList paiList2:" + paiList);
@@ -285,6 +285,28 @@ cc.Class({
 
 
     },
+    testOtherPengPai: function () {
+        this.fromUserOpenId = "testUser2";
+        this.paiNumber = "17";
+        this.pengAction();
+        this.paiNumber = "22";
+        this.pengAction();
+        this.fromUserOpenId = "testUser2";
+        this.paiNumber = "29";
+        this.pengAction();
+        //this.paiNumber = "33";
+        //this.pengAction();
+
+        this.fromUserOpenId = "testUser4";
+        this.paiNumber = "15";
+        this.pengAction();
+        this.paiNumber = "22";
+        this.pengAction();
+        this.paiNumber = "26";
+        this.pengAction();
+       // this.paiNumber = "29";
+       // this.pengAction();
+    },
     //------------------------Peng,Gang,Hu Action---------------------------------------
 
     pengAction: function () {
@@ -295,6 +317,7 @@ cc.Class({
         var paiNumber = this.paiNumber;
         var user = tablePaiActionScript.getCorrectUserByOpenId(userOpenId);
         var pointIndex = user.pointIndex;
+        cc.log("pointIndex:" + pointIndex);
         //data layer ------
         var paiList = user.paiListArray;
         paiList = this.removeElementByNumberFromUser(paiList, paiNumber, 2);
@@ -326,8 +349,8 @@ cc.Class({
         cc.log("pengAction chuPaiUserOpenId:" + this.chuPaiUserOpenId);
         cc.log("pengAction userInfo.openid:" + userInfo.openid);
         cc.log("pengAction userOpenId:" + userOpenId);
-        //remove last pai from chu pai user
-        tablePaiActionScript.removeLastPaiOnChuPaiListByUserOpenId(this.chuPaiUserOpenId);
+        //remove last pai from chu pai list layer.
+        // tablePaiActionScript.removeLastPaiOnChuPaiListByUserOpenId(this.chuPaiUserOpenId);
 
         if (userInfo.openid == userOpenId) {
             tableNetWorkScript.sendPengPaiAction(userOpenId, paiNumber);
@@ -523,8 +546,18 @@ cc.Class({
                             //pNode.siblingIndex = pengOrder;
                             pengOrder--;
                             cc.log("siblingIndex:" + pengOrder)
+                            userPengPaiListNode.setLocalZOrder(121);
+                            userPengPaiListNode.zIndex = 121;
+
+
                         }
 
+                        if (pointIndex == "4") {
+                            userPengPaiListNode.setLocalZOrder(139);
+                            userPengPaiListNode.zIndex = 139;
+                            //cc.log("4 zindex:" + pNode.zIndex);
+                            // cc.log("4 setLocalZOrder:" + pNode.getLocalZOrder());
+                        }
                         var point = this.getCorrectPointByIndex(pointIndex, x, y);
                         x = point[0];
                         y = point[1];
@@ -674,6 +707,10 @@ cc.Class({
             }
             c++;
         }
+
+        //only for test peng pai
+        paiList.splice(0, 1);
+        //onely for test end
 
         return paiList
 
