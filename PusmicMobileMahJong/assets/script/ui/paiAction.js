@@ -286,26 +286,48 @@ cc.Class({
 
     },
     testOtherPengPai: function () {
-        this.fromUserOpenId = "testUser2";
-        this.paiNumber = "17";
-        this.pengAction();
-        this.paiNumber = "22";
-        this.pengAction();
-        this.fromUserOpenId = "testUser2";
-        this.paiNumber = "29";
-        this.pengAction();
-        //this.paiNumber = "33";
-        //this.pengAction();
+        //     this.fromUserOpenId = "testUser2";
+        //     this.paiNumber = "17";
+        //     this.pengAction();
+        //     this.paiNumber = "22";
+        //     this.pengAction();
+        //     this.fromUserOpenId = "testUser2";
+        //     this.paiNumber = "29";
+        //     this.pengAction();
+        //     this.paiNumber = "33";
+        //     this.pengAction();
+
+        //     this.fromUserOpenId = "testUser4";
+        //     this.paiNumber = "15";
+        //     this.pengAction();
+        //     this.paiNumber = "22";
+        //     this.pengAction();
+        //     this.paiNumber = "26";
+        //     this.pengAction();
+        //    this.paiNumber = "29";
+        //    this.pengAction();
 
         this.fromUserOpenId = "testUser4";
-        this.paiNumber = "15";
+        this.paiNumber = "11";
         this.pengAction();
-        this.paiNumber = "22";
-        this.pengAction();
-        this.paiNumber = "26";
-        this.pengAction();
-       // this.paiNumber = "29";
-       // this.pengAction();
+           // this.paiNumber = "24";
+           // this.pengAction();
+            this.paiNumber = "24";
+            //this.pengAction();
+            this.paiNumber = "35";
+            //this.pengAction();
+
+        this.fromUserOpenId = "testUser4";
+        this.paiNumber = "14";
+        this.chuPaiUserOpenId = "testUser2";
+        this.gangAction();
+        this.paiNumber = "35";
+        this.chuPaiUserOpenId = "testUser2";
+       // this.gangAction();
+
+    },
+    testGangAction: function () {
+
     },
     //------------------------Peng,Gang,Hu Action---------------------------------------
 
@@ -472,7 +494,7 @@ cc.Class({
             y = 0;
             x = user.pengGangPaiPoint;
         } else if (pointIndex == "1") {
-            user.pengGangPaiPoint = -270;
+            user.pengGangPaiPoint = -200;
             y = 0;
             x = user.pengGangPaiPoint;
         } else if (pointIndex == "2") {
@@ -619,16 +641,18 @@ cc.Class({
                     }
 
 
+
                     //if (singleIsGang == true) {
                     var pNode2 = cc.instantiate(this.paiChuPaiNode);
                     if (pointIndex == "3") {
                         sencodPaiY = sencodPaiY + 15;
                     } else if (pointIndex == "1") {
-                        sencodPaiY = sencodPaiY - 10;
+                        sencodPaiY = sencodPaiY + 15;
                     } else if (pointIndex == "2") {
-                        sencodPaiX = sencodPaiX + 10
+                        sencodPaiY = sencodPaiY + 15
                     } else {
-                        sencodPaiX = sencodPaiX + 10
+                        sencodPaiY = sencodPaiY + 15
+
                     }
 
                     cc.log("isGang paiNumber:" + paiNumber);
@@ -636,6 +660,10 @@ cc.Class({
 
                     pNode2.name = "pengpai" + pointIndex + "_gang" + paiNumber;
                     pNode2.active = true;
+                    if (pointIndex == "2") {
+                        pNode2.setLocalZOrder(Math.abs(pengOrder + 100));
+                        pNode2.zIndex = Math.abs(pengOrder + 100);
+                    }
                     cc.log("gang x:" + finalX + "-----y:" + finalY);
                     pNode2.position = cc.p(sencodPaiX, sencodPaiY);
                     var sprite2 = pNode2.getComponent(cc.Sprite);

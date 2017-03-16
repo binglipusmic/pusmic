@@ -71,10 +71,10 @@ cc.Class({
      * 
      */
     testInitalUserList: function () {
-        var paiList = ["11, 11, 13, 14, 18, 21, 24, 32, 33, 34, 34, 35, 35, 35",
-            "15, 17, 17, 28, 22, 22, 23, 29, 29, 31, 33, 33, 39",
-            "16, 17, 19, 23, 23, 23, 24, 31, 32, 33, 33, 34, 36",
-            "15, 15, 15, 18, 22, 22, 25, 26, 26, 28, 29, 29, 38",
+        var paiList = ["11, 11, 13, 14, 14, 14, 24, 24, 33, 34, 34, 35, 35, 35",
+            "15, 17, 17, 28, 22, 22, 23, 29, 29, 33, 33, 33, 39",
+            "11, 11, 19, 23, 23, 23, 24, 31, 32, 33, 33, 33, 36",
+            "11, 11, 15, 24, 24, 22, 35, 35, 26, 14, 14, 14, 38",
         ];
         this.tableNode.active = true;
         var userList = [];
@@ -92,7 +92,12 @@ cc.Class({
             o.paiList = paiList[i - 1];
             o.gameReadyStatu = "1";
             o.gameScoreCount = "1";
-            o.pointIndex = i;
+            if (i < 4) {
+                o.pointIndex = i + 1;
+            } else {
+                o.pointIndex = 1
+            }
+
             o.headImageFileName = "1";
 
             if (i == 0) {
@@ -109,12 +114,13 @@ cc.Class({
         }
         var gameMode = require("gameMode").gameMode;
         var userInfo = require("userInfoDomain").userInfoDomain;
-        userInfo.openid = "testUser3";
+        userInfo.openid = "testUser2";
         gameMode.huanSanZhang = "1";
         Global.gameMode = gameMode;
         Global.userList = userList;
         Global.userInfo = userInfo;
         Global.chuPaiActionType = "normalChuPai";
+        cc.log(" Global.userInfo:" + userInfo.toString());
         cc.log(" Global.userList:" + Global.userList.length);
 
     },
@@ -644,20 +650,18 @@ cc.Class({
                         startX = 0;
                         if (pengLength > 0 || gangLength > 0) {
                             startY = -180 + (pengLength * 115 + gangLength * 115);
-                            if (startY >= 240) {
-                                startY = 240
-                            }
+                            //if (startY >= 240) {
+                                startY = 260
+                            //}
                         } else {
-                            startY = -180;
+                            startY = 180;
                         }
                         //fix the start point the pai length
                         //if()
 
-                        paiNode.position = cc.p(startX, startY + i * 28);
-                        if (i == 0) {
-                            cc.log("337 startY:" + startY)
-                        }
-                        paiNode.zIndex = paiArray.length - i;
+                        paiNode.position = cc.p(startX, startY - i * 28);
+                        //paiNode.zIndex = paiArray.length - i;
+                        paiNode.zIndex = paiArray.length + i;
                         paiNode.width = 40;
                         paiNode.height = 85;
                         //parentNode
@@ -689,15 +693,15 @@ cc.Class({
         if (point == "4") {
             eval("this.user" + point + "PaiListNode.zIndex=140");
             eval("this.user" + point + "PaiListNode.setLocalZOrder(140)");
-          //  cc.log("4 inital zindex:" + paiNode.zIndex);
-          //  cc.log("4 inital setLocalZOrder:" + paiNode.getLocalZOrder());
+            //  cc.log("4 inital zindex:" + paiNode.zIndex);
+            //  cc.log("4 inital setLocalZOrder:" + paiNode.getLocalZOrder());
 
         }
         if (point == "2") {
             eval("this.user" + point + "PaiListNode.zIndex=120");
             eval("this.user" + point + "PaiListNode.setLocalZOrder(120)");
-           // cc.log("4 inital zindex:" + paiNode.zIndex);
-           // cc.log("4 inital setLocalZOrder:" + paiNode.getLocalZOrder());
+            // cc.log("4 inital zindex:" + paiNode.zIndex);
+            // cc.log("4 inital setLocalZOrder:" + paiNode.getLocalZOrder());
 
         }
 
