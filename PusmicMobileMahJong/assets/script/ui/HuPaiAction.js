@@ -26,6 +26,11 @@ cc.Class({
         user3PaiListNode: cc.Node,
         tableUserInfo: cc.Node,
         tableMoPaiNode: cc.Node,
+        huPaiScriptFrame: cc.SpriteFrame,
+        user1HuNode: cc.Node,
+        user2HuNode: cc.Node,
+        user3HuNode: cc.Node,
+        user4HuNode: cc.Node,
     },
 
     // use this for initialization
@@ -62,7 +67,7 @@ cc.Class({
 
         var paiNode = cc.instantiate(this.moPaiPrefab);
         var sprite = paiNode.getComponent(cc.Sprite);
-        paiNode.name = "pai" + latstIndex + "_" + paiNumber;
+        paiNode.name = "hupai" + latstIndex + "_" + paiNumber;
         //paiNode.active = false;
         var sprite = paiNode.getComponent(cc.Sprite);
         cc.loader.loadRes(paiPath, function (err, sp) {
@@ -78,8 +83,8 @@ cc.Class({
         paiNode = this.getCureentPostionFromUserPointAndPaiList(paiList, userPoint, paiNode);
         var userNodeName = "user" + userPoint + "PengPaiListNode";
         cc.log("userNodeName:" + userNodeName);
-        var userNodePaiList = cc.find(userNodeName, this.tableNode);
-        userNodePaiList.addChild(paiNode);
+        //var userNodePaiList = cc.find(userNodeName, this.tableNode);
+        //userNodePaiList.addChild(paiNode);
         //---data layer-----------------
         var userList = Global.userList;
         var user
@@ -94,6 +99,32 @@ cc.Class({
         tableMoPaiActionScript.updateUserListInGobal(user);
         tableActionScript.disableAllSlefPai();
 
+        //show HU pai on the current user 
+
+        userPoint = userPoint + "";
+
+
+        // var huPaiNode = cc.instantiate(this.moPaiPrefab);
+        // var huSprite = huPaiNode.getComponent(cc.Sprite);
+        // huSprite.spriteFrame = this.huPaiScriptFrame;
+        if (userPoint == "1") {
+            this.user1HuNode.active = true;
+        } else if (userPoint == "2") {
+            this.user2HuNode.active = true;
+        } else if (userPoint == "3") {
+            this.user3HuNode.active = true;
+
+        } else {
+            this.user4HuNode.active = true;
+            this.user4HuNode.zIndex = 400;
+            this.user4HuNode.children[0].zIndex=40;
+            this.user4HuNode.addChild(paiNode);
+
+        }
+
+        //  userNodePaiList.addChild(huPaiNode);
+
+
     },
     //decide the painumber if hu or not hu .
     hupaiLogic: function (paiNumber, userOpenId) {
@@ -103,7 +134,7 @@ cc.Class({
         if (this.checkQiaoQiDui(paiList)) {
             return true;
         } else {
-             huFlagDetails = this.startDecideHu(paiList);
+            huFlagDetails = this.startDecideHu(paiList);
             cc.log("huFlagDetails:" + huFlagDetails);
             return huFlagDetails;
 
@@ -332,63 +363,30 @@ cc.Class({
         }
         return false;
     },
+    //currentUser
+    getCurrentPostinbyCurrentUser: function (currentUser) {
+
+    },
     getCureentPostionFromUserPointAndPaiList: function (paiArray, point, paiNode) {
         var startX = 0;
         var startY = 0;
         var latestX = 0;
         var latestY = 0;
         var startPoint = -520;
-        for (var i = 0; i < paiArray.length + 1; i++) {
-            if (paiArray[i] != null && paiArray[i] != undefined) {
-                //fix the user 1
-                if (point == "1") {
-                    startX = 380;
-                    // latestX=startX - i * 55;
-                    // latestY=0
-                    paiNode.position = cc.p(startX - i * 55, 0);
-                    //this.user1PaiListNode.addChild(paiNode);
-                }
+        var userNodeName = "user" + point + "PaiList";
+        var userNodePaiList = cc.find(userNodeName, this.tableNode);
+        var chilrenList = userNodePaiList.children;
+        //getCorrectUserByOpenId
 
-                if (point == "2") {
-                    startX = 0;
-                    startY = -400;
-                    paiNode.position = cc.p(startX, startY + i * 28);
-                    paiNode.zIndex = (paiArray.length - i);
-                    paiNode.width = 40;
-                    paiNode.height = 85;
-                    //paiNode.setLocalZOrder(1000);
-                    //paiNode.zIndex = 1000;
-                    //parentNode
-
-                }
-                if (point == "3") {
-                    if (i == 13) {
-                        paiNode.position = cc.p(startPoint + i * 80, 0);
-                    } else {
-                        paiNode.position = cc.p(startPoint + i * 79, 0);
-                    }
-
-
-                }
-
-                if (point == "4") {
-                    startX = 0;
-                    startY = -200;
-                    paiNode.position = cc.p(startX, startY + i * 28);
-
-                    paiNode.width = 40;
-                    paiNode.height = 85;
-                }
-            }
-        }
         if (point == "1") {
             paiNode.position = cc.p(paiNode.position.x + 85, paiNode.position.y);
         } else if (point == "2") {
             paiNode.position = cc.p(paiNode.position.x, paiNode.position.y - 25);
         } else if (point == "4") {
-            paiNode.position = cc.p(paiNode.position.x, paiNode.position.y - 85);
-            paiNode.setLocalZOrder(1000);
-            paiNode.zIndex = 1000;
+            //paiNode.position = cc.p(chilrenList[0].x, chilrenList[chilrenList.length-1].y );
+            paiNode.position = cc.p(-70, 0);
+            paiNode.setLocalZOrder(30);
+            paiNode.zIndex = 30;
         } else if (point == "3") {
             paiNode.position = cc.p(paiNode.position.x - 90, paiNode.position.y + 10);
 

@@ -286,44 +286,27 @@ cc.Class({
 
     },
     testOtherPengPai: function () {
-        //     this.fromUserOpenId = "testUser2";
-        //     this.paiNumber = "17";
-        //     this.pengAction();
-        //     this.paiNumber = "22";
-        //     this.pengAction();
-        //     this.fromUserOpenId = "testUser2";
-        //     this.paiNumber = "29";
-        //     this.pengAction();
-        //     this.paiNumber = "33";
-        //     this.pengAction();
 
-        //     this.fromUserOpenId = "testUser4";
-        //     this.paiNumber = "15";
-        //     this.pengAction();
-        //     this.paiNumber = "22";
-        //     this.pengAction();
-        //     this.paiNumber = "26";
-        //     this.pengAction();
-        //    this.paiNumber = "29";
-        //    this.pengAction();
 
-        this.fromUserOpenId = "testUser4";
-        this.paiNumber = "11";
+        this.fromUserOpenId = "testUser3";
+        this.paiNumber = "15";
         this.pengAction();
-           // this.paiNumber = "24";
-           // this.pengAction();
-            this.paiNumber = "24";
-            //this.pengAction();
-            this.paiNumber = "35";
-            //this.pengAction();
+        this.paiNumber = "29";
+        this.pengAction();
+        // this.paiNumber = "24";
+        // //this.pengAction();
+        // this.paiNumber = "35";
+        // //this.pengAction();
 
-        this.fromUserOpenId = "testUser4";
-        this.paiNumber = "14";
-        this.chuPaiUserOpenId = "testUser2";
-        this.gangAction();
+        this.fromUserOpenId = "testUser3";
+        // this.paiNumber = "14";
+        // this.chuPaiUserOpenId = "testUser2";
+        // this.gangAction();
         this.paiNumber = "35";
-        this.chuPaiUserOpenId = "testUser2";
-       // this.gangAction();
+        //this.chuPaiUserOpenId = "testUser2";
+        //this.gangAction();
+         this.huAction();
+
 
     },
     testGangAction: function () {
@@ -357,16 +340,17 @@ cc.Class({
         //data layer end -------------------------------------
         //-------show user pai list-----------------
         cc.log("pengAction:" + pointIndex);
+        var endPoing = this.initalPengAndGangChuPaiList(userOpenId, paiNumber, "peng");
         if (pointIndex == "3") {
             tablePaiActionScript.removeAllNodeFromSelfPaiList();
             tableUserInfoNodeScript.intalSelfPaiList(user.paiList);
         } else {
             tablePaiActionScript.removeAllNodeFromOtherPaiList(pointIndex);
             //if (pointIndex != "2") 
-            tableUserInfoNodeScript.initalOtherPaiList(user.paiList, pointIndex, "pengList");
+            tableUserInfoNodeScript.initalOtherPaiList(user.paiList, pointIndex, "pengList", endPoing);
         }
 
-        this.initalPengAndGangChuPaiList(userOpenId, paiNumber, "peng");
+
         Global.chuPaiActionType = "peng";
         cc.log("pengAction chuPaiUserOpenId:" + this.chuPaiUserOpenId);
         cc.log("pengAction userInfo.openid:" + userInfo.openid);
@@ -431,17 +415,18 @@ cc.Class({
         //data layer end -------------------------------------
         //-------show user pai list-----------------
         cc.log("pengAction:" + pointIndex);
+        var endPoint = this.initalPengAndGangChuPaiList(userOpenId, paiNumber, "gang");
         if (pointIndex == "3") {
             tablePaiActionScript.removeAllNodeFromSelfPaiList();
             tableUserInfoNodeScript.intalSelfPaiList(user.paiList);
         } else {
             tablePaiActionScript.removeAllNodeFromOtherPaiList(pointIndex);
             // if (pointIndex != "2") {
-            tableUserInfoNodeScript.initalOtherPaiList(user.paiList, pointIndex, "gang");
+            tableUserInfoNodeScript.initalOtherPaiList(user.paiList, pointIndex, "gang", endPoint);
             //  }
         }
 
-        this.initalPengAndGangChuPaiList(userOpenId, paiNumber, "gang");
+
         Global.chuPaiActionType = "gang";
         //remove last pai from chu pai user
         cc.log("userInfo.openid:" + this.chuPaiUserOpenId);
@@ -470,7 +455,7 @@ cc.Class({
 
     huAction: function () {
         var userInfo = Global.userInfo;
-        huPaiScript.huPaiAction(this.paiNumber, userInfo.openid);
+        huPaiScript.huPaiAction(this.paiNumber, this.fromUserOpenId);
     },
 
 
@@ -513,6 +498,52 @@ cc.Class({
 
         this.showPengGangPaiListOnTalbe(pengList, gangPaiList, pointIndex, paiNumber, userPengPaiListNode, type, x, y)
         cc.log("end");
+        var endPoint = this.getEndPoint(pengList, gangPaiList, pointIndex, paiNumber, userPengPaiListNode, type, x, y);
+        // return endPoint;
+        return endPoint
+
+    },
+
+    getEndPoint: function (pengList, gangList, pointIndex, paiNumber, userPengPaiListNode, type, x, y) {
+        var finalX = x;
+        var finalY = y;
+        var endPoint;
+        if (pengList != null && pengList != undefined) {
+            for (var i = 0; i < pengList.length; i++) {
+                //get final point for gang
+                for (var j = 1; j < 4; j++) {
+
+                    var point0 = this.getCorrectPointByIndex(pointIndex, finalX, finalY);
+                    finalX = point0[0];
+                    finalY = point0[1];
+                    cc.log("endPoint finalX:" + finalX);
+                }
+            }
+        }
+
+        if (gangList != null && gangList != undefined) {
+            for (var k = 0; k < gangList.length; k++) {
+                for (var j = 1; j < 4; j++) {
+                    var point = this.getCorrectPointByIndex(pointIndex, finalX, finalY);
+                    finalX = point[0];
+                    cc.log("endPoint finalX 2:" + finalX);
+                    finalY = point[1];
+                }
+            }
+        }
+        //get final end point 
+        if (pointIndex == "1") {
+            endPoint = finalX;
+            cc.log("endPoint:" + endPoint);
+        } else if (pointIndex == "3") {
+            endPoint = finalX;
+        } else if (pointIndex == "2") {
+            endPoint = finalY;
+        } else {
+            endPoint = finalY;
+        }
+
+        return endPoint;
 
     },
 
@@ -522,6 +553,7 @@ cc.Class({
         var isGangFlagList = [];
         var finalX = x;
         var finalY = y;
+        var endPoint;
         if (pengList != null && pengList != undefined) {
             for (var i = 0; i < pengList.length; i++) {
                 //get final point for gang
@@ -584,6 +616,7 @@ cc.Class({
                         x = point[0];
                         y = point[1];
                         // pengOrder=point[2];
+
 
 
                         var sprite = pNode.getComponent(cc.Sprite);
@@ -737,10 +770,15 @@ cc.Class({
         }
 
         //only for test peng pai
-        paiList.splice(0, 1);
+        if (paiList.length > 1)
+            paiList.splice(0, 1);
+
         //onely for test end
 
+        cc.log("peng pai list:" + paiList);
         return paiList
+
+
 
     },
 
