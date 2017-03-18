@@ -17,6 +17,15 @@ class GameUser {
     String huPaiType
     String huanSanZhang
     String quePai
+
+
+    //+
+    int huPaiNumber
+    int ziGangNumber
+    int baGangNumber
+    //-
+    int dianGangNumber
+    int dianPaoNumber
     static belongsTo = [gameRound:GameRound]
     static constraints = {
         gameRoundScore nullable: true
