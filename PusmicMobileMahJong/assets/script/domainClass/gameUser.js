@@ -20,6 +20,7 @@ const gameUser =
       paiListArray:[],
       huanSanZhangPaiList:[],
       pengPaiList:[],
+      gangFromUserOpenId:[],
       gangPaiList:[],
       pengGangPaiPoint:0,
       quePai:"",

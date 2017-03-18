@@ -96,6 +96,47 @@ class GameRoundLunService {
 
     }
 
+    def checkGameRounDone(MessageDomain messageDomain){
+        def flag=false;
+        def roomNumber = messageDomain.messageBelongsToPrivateChanleNumber
+        if (roomNumber) {
+            def r = GameRoomNumber.findByRoomNumber(roomNumber)
+            if (r) {
+                GameRound gameRound = r.gameRound
+                if(gameRound){
+                    GameRoundLun gameRoundLun = gameRound.gameRoundLun
+                    if(gameRoundLun){
+                        def gameMode=gameRoundLun.gameMode
+                        def modeCount=0
+
+                        if(gameMode.roundCount8){
+                            if(gameMode.roundCount8.toString()=="1"){
+                                modeCount=8
+                            }
+                        }
+                        if(gameMode.roundCount4){
+                            if(gameMode.roundCount4.toString()=="1"){
+                                modeCount=4
+                            }
+                        }
+                        def currentCountRound=gameRoundLun.currentRoundCount
+                        if(!currentCountRound){
+                            currentCountRound=0
+                        }
+                        if(currentCountRound!=0)
+                        if(currentCountRound==modeCount){
+                            flag=true;
+                        }
+                    }
+                }
+
+            }
+        }
+
+        return flag
+
+    }
+
     /**
      *  o.userOpenId=userInfo.openid;
      o.gameMode=messageObj
@@ -137,6 +178,7 @@ class GameRoundLunService {
             gameRoundLun.addToUsers(user)
             //gameRoundLun.user=user
             gameRoundLun.gameMode = gameMode
+            gameRoundLun.currentRoundCount=0;
             gameRoundLun.save(flush: true, failOnError: true)
             println "line 120:"
             user.addToGameRoundLun(gameRoundLun)

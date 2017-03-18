@@ -52,6 +52,8 @@ cc.Class({
         user2HuNode: cc.Node,
         user3HuNode: cc.Node,
         user4HuNode: cc.Node,
+
+        userScoreNode:cc.Node,
     },
 
     // use this for initialization
@@ -62,6 +64,7 @@ cc.Class({
         // this.userInfo4.active = false;
 
         this.initalUserPai("inital", "");
+        this.userScoreNode.zIndex=500;
         // this.disabledHuanSanZhangPai();
         huanPaiScript = this.huanPaiScriptNode.getComponent("huanPaiUI");
         //tablePaiActionScript =this.tablePaiActionNode.getComponent("tablePaiAction");

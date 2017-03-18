@@ -105,6 +105,18 @@ cc.Class({
     getActionBarArrayByOpenId: function (paiNumber, openid) {
         var user = tablePaiActionScript.getCorrectUserByOpenId(openid);
         var paiList = user.paiListArray;
+        var pengList = user.pengPaiList;
+        if (pengList == null || pengList == undefined) {
+            pengList = [];
+        }
+        for (var i = 0; i < pengList.length; i++) {
+            var pengPai = pengList[i] + "";
+            pengPai = pengPai.trim();
+            if (pengPai == paiNumber + "") {
+                actionArray.push("gang");
+                actionLevel = 2
+            }
+        }
         var quePai = user.quePai;
         var userInfo = Global.userInfo;
         var paiCount = 0;
@@ -288,24 +300,24 @@ cc.Class({
     testOtherPengPai: function () {
 
 
-        this.fromUserOpenId = "testUser3";
+        this.fromUserOpenId = "testUser2";
         this.paiNumber = "15";
-        this.pengAction();
+        //this.pengAction();
         this.paiNumber = "29";
-        this.pengAction();
+        //this.pengAction();
         // this.paiNumber = "24";
         // //this.pengAction();
         // this.paiNumber = "35";
         // //this.pengAction();
 
-        this.fromUserOpenId = "testUser3";
-        // this.paiNumber = "14";
-        // this.chuPaiUserOpenId = "testUser2";
-        // this.gangAction();
+        this.fromUserOpenId = "testUser1";
+         this.paiNumber = "16";
+         this.chuPaiUserOpenId = "testUser3";
+         this.gangAction();
         this.paiNumber = "35";
         //this.chuPaiUserOpenId = "testUser2";
         //this.gangAction();
-         this.huAction();
+        //this.huAction();
 
 
     },
@@ -375,6 +387,21 @@ cc.Class({
         var pointIndex = user.pointIndex;
         //data layer ------
         var paiList = user.paiListArray;
+         var pengList = user.pengPaiList;
+         var gangList = user.gangPaiList;
+        //check if pa gang
+        if (pengList == null || pengList == undefined) {
+            pengList = [];
+        }
+        for (var i = 0; i < pengList.length; i++) {
+            var pengPai = pengList[i] + "";
+            pengPai = pengPai.trim();
+            if (pengPai == paiNumber + "") {
+               pengList.splice(i,1);
+               user.pengPaiList=pengList;
+               //gangList.push(paiNumber);
+            }
+        }
         if (userOpenId == this.chuPaiUserOpenId) {
             //remove the mo pai on this 
             if (user.userMoPai == paiNumber) {
@@ -402,7 +429,7 @@ cc.Class({
 
         cc.log("gangAction paiList:" + paiList);
         user.paiListArray = paiList;
-        var gangList = user.gangPaiList;
+        
         if (gangList == null || gangList == undefined) {
             gangList = [];
         }

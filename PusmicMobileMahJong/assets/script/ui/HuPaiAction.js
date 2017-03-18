@@ -109,15 +109,18 @@ cc.Class({
         // huSprite.spriteFrame = this.huPaiScriptFrame;
         if (userPoint == "1") {
             this.user1HuNode.active = true;
+             this.user1HuNode.addChild(paiNode);
         } else if (userPoint == "2") {
             this.user2HuNode.active = true;
+             this.user2HuNode.zIndex = 400;
+             this.user2HuNode.addChild(paiNode);
         } else if (userPoint == "3") {
             this.user3HuNode.active = true;
-
+            this.user3HuNode.addChild(paiNode);
         } else {
             this.user4HuNode.active = true;
             this.user4HuNode.zIndex = 400;
-            this.user4HuNode.children[0].zIndex=40;
+            this.user4HuNode.children[0].zIndex = 40;
             this.user4HuNode.addChild(paiNode);
 
         }
@@ -379,16 +382,16 @@ cc.Class({
         //getCorrectUserByOpenId
 
         if (point == "1") {
-            paiNode.position = cc.p(paiNode.position.x + 85, paiNode.position.y);
+            paiNode.position = cc.p(0, -70);
         } else if (point == "2") {
-            paiNode.position = cc.p(paiNode.position.x, paiNode.position.y - 25);
+            paiNode.position = cc.p(70, 0);
         } else if (point == "4") {
             //paiNode.position = cc.p(chilrenList[0].x, chilrenList[chilrenList.length-1].y );
             paiNode.position = cc.p(-70, 0);
             paiNode.setLocalZOrder(30);
             paiNode.zIndex = 30;
         } else if (point == "3") {
-            paiNode.position = cc.p(paiNode.position.x - 90, paiNode.position.y + 10);
+            paiNode.position = cc.p(0, 80);
 
             paiNode.width = 75;
             paiNode.height = 110;

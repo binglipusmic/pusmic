@@ -204,6 +204,21 @@ class WebSokectController {
                 }else{
                     //liu ju---pai end ,send end game to all user.
 
+                    //check if the round already comple the count for the game lun.
+                    //No complet---start a new game round
+                    //comple ----end this game lun
+                    if(gameRoundLunService.checkGameRounDone(messageJsonObj)){
+                        messageJsonObj.messageAction="endGameRoundLun"
+                        def s3 = new JsonBuilder(messageJsonObj).toPrettyString()
+                        websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s3)
+                    }else{
+                        messageJsonObj.messageAction="endGameRoundAndStartNewRound"
+                        def s3 = new JsonBuilder(messageJsonObj).toPrettyString()
+                        websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s3)
+                    }
+
+
+
                 }
 
             }else {
