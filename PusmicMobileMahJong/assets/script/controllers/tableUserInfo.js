@@ -1,5 +1,7 @@
-var huanPaiScript
-var tablePaiActionScript
+var huanPaiScript;
+var tablePaiActionScript;
+var iniMainScript;
+var tableNetworkScript;
 cc.Class({
     extends: cc.Component,
 
@@ -53,7 +55,10 @@ cc.Class({
         user3HuNode: cc.Node,
         user4HuNode: cc.Node,
 
-        userScoreNode:cc.Node,
+        userScoreNode: cc.Node,
+        userRoundScoreNode: cc.Node,
+        iniMainNode:cc.Node,
+        tableNetworkNode:cc.Node,
     },
 
     // use this for initialization
@@ -64,9 +69,11 @@ cc.Class({
         // this.userInfo4.active = false;
 
         this.initalUserPai("inital", "");
-        this.userScoreNode.zIndex=500;
+        this.userScoreNode.zIndex = 500;
+        this.userRoundScoreNode.zIndex =500;
         // this.disabledHuanSanZhangPai();
         huanPaiScript = this.huanPaiScriptNode.getComponent("huanPaiUI");
+
         //tablePaiActionScript =this.tablePaiActionNode.getComponent("tablePaiAction");
 
     },
@@ -80,11 +87,13 @@ cc.Class({
     testInitalUserList: function () {
         var paiList = ["11, 11, 15, 24, 24, 22, 35, 35, 35, 14, 14, 14, 38",
             "15, 15, 17, 18, 19, 22, 23, 24, 29, 29, 29, 36, 37",
-            "15, 15, 17, 18, 19, 22, 23, 24, 29, 29, 29, 36, 37",
+            "15, 15, 17, 18, 19, 22, 23, 24, 29, 29, 29, 36, 37,38",
             "11, 11, 15, 24, 24, 22, 35, 35, 26, 14, 14, 14, 38",
         ];
         this.tableNode.active = true;
         var userList = [];
+       // iniMainScript=this.iniMainNode.getComponent("");
+       tableNetworkScript=this.tableNetworkNode.getComponent("GameTableNetWork");
         for (var i = 1; i < 5; i++) {
             var o = new Object();
             o.id = i;
@@ -99,6 +108,7 @@ cc.Class({
             o.paiList = paiList[i - 1];
             o.gameReadyStatu = "1";
             o.gameScoreCount = "1";
+            //o.pointIndex = i;
             if (i < 4) {
                 o.pointIndex = i + 1;
             } else {
@@ -129,6 +139,12 @@ cc.Class({
         Global.chuPaiActionType = "normalChuPai";
         cc.log(" Global.userInfo:" + userInfo.toString());
         cc.log(" Global.userList:" + Global.userList.length);
+        Global.joinRoomNumber="100000";
+        var roomNumber= Global.joinRoomNumber;
+          cc.log("roomNumber:" + roomNumber);
+          tableNetworkScript.connectByPrivateChanel();
+          //tableNetworkScript.testJoinRoom(roomNumber);
+  
 
     },
     /**
@@ -220,7 +236,7 @@ cc.Class({
         Global.userList = userList;
         if (type != "joinExist") {
             //show huanPaiScript
-            //huanPaiScript.showHuanPaiNode();
+           // huanPaiScript.showHuanPaiNode();
         }
 
 
@@ -585,11 +601,13 @@ cc.Class({
                 if (point == "4") {
 
 
-                    paiNode.position = cc.p(firstNode.x, firstNode.y + 28);
-                    paiNode.zIndex = paiArray.length - chirenLen;
+                    paiNode.position = cc.p(firstNode.x, firstNode.y +28);
+                    paiNode.zIndex = paiArray.length - chirenLen-1;
                     paiNode.width = 40;
                     paiNode.height = 85;
                 }
+
+                paiNode.name="autoMoPai"
 
                 cc.log("add one:" + paiNode.active + "----" + paiNode.x + ":" + paiNode.y) + "---z:" + paiNode.zIndex;
 
@@ -842,7 +860,7 @@ cc.Class({
     },
 
     fixUserPointByIndex: function (index) {
-        index=index+"";
+        index = index + "";
         if (index == "1") {
             var widget = this.userInfo1.getComponent(cc.Widget);
             widget.top = -40;
@@ -862,13 +880,13 @@ cc.Class({
             this.userInfo2.x = -607;
             //  this.userInfo2.y = 0;
         }
-        cc.log("fixUserPointByIndex:"+index);
+        cc.log("fixUserPointByIndex:" + index);
         if (index == "4") {
             var widget = this.userInfo4.getComponent(cc.Widget);
             widget.isAlignRight = true;
             widget.right = 60;
             //this.userInfo4.x = 607;
-             cc.log("fixUserPointByIndex:"+this.userInfo4.x);
+            cc.log("fixUserPointByIndex:" + this.userInfo4.x);
         }
     },
 

@@ -53,7 +53,7 @@ cc.Class({
 
     },
 
-    huPaiAction: function (paiNumber, userOpenId) {
+    huPaiAction: function (paiNumber, userOpenId, preStep) {
         var currentUser = tableActionScript.getCorrectUserByOpenId(userOpenId);
         var paiList = currentUser.paiListArray;
         var latstIndex = 0;
@@ -95,6 +95,15 @@ cc.Class({
             }
         }
         user.userMoPai = paiNumber;
+        user.huPai = paiNumber;
+        if (preStep == "zigang") {
+            user.huPaiType = "gangshanghua"
+        } else if (preStep == "gang") {
+            user.huPaiType = "gangshangpao"
+        }else{
+            user.huPaiType =""
+        }
+
         tableActionScript.insertMoPaiIntoPaiList(user);
         tableMoPaiActionScript.updateUserListInGobal(user);
         tableActionScript.disableAllSlefPai();
@@ -109,11 +118,11 @@ cc.Class({
         // huSprite.spriteFrame = this.huPaiScriptFrame;
         if (userPoint == "1") {
             this.user1HuNode.active = true;
-             this.user1HuNode.addChild(paiNode);
+            this.user1HuNode.addChild(paiNode);
         } else if (userPoint == "2") {
             this.user2HuNode.active = true;
-             this.user2HuNode.zIndex = 400;
-             this.user2HuNode.addChild(paiNode);
+            this.user2HuNode.zIndex = 400;
+            this.user2HuNode.addChild(paiNode);
         } else if (userPoint == "3") {
             this.user3HuNode.active = true;
             this.user3HuNode.addChild(paiNode);

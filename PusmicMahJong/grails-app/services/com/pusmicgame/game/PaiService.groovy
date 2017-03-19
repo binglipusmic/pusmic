@@ -279,7 +279,28 @@ class PaiService {
         return paiSize;
 
     }
+    def testmoPai(String userOpenId,roomNumber){
+//        GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
+//        GameRound gameRound = onlineRoomNumber.gameRound
+//        def lastPai
+//        if(gameRound) {
+//            def paiList=gameRound.restPaiList
+//            if(paiList){
+//                lastPai =paiList.last()
+//                paiList=(List)paiList
+//                paiList.removeAt(paiList.size()-1)
+//                //   paiList=list
+//                gameRound.restPaiList=paiList
+//                gameRound.save(flush: true, failOnError: true)
+//
+//            }
+//
+//
+//        }
 
+        return "13"
+
+    }
 
     def moPai(String userOpenId,roomNumber){
         GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)

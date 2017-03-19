@@ -2,6 +2,7 @@
 var tableActionScript;
 var tableUserInfoScript;
 var paiActionScript;
+var tableUserPaiScript;
 cc.Class({
     extends: cc.Component,
 
@@ -21,6 +22,7 @@ cc.Class({
         user3PaiListNode: cc.Node,
         tableUserInfo: cc.Node,
         paiActionNode: cc.Node,
+        tableUserPaiNode: cc.Node,
     },
 
 
@@ -30,6 +32,7 @@ cc.Class({
         tableActionScript = this.tableAction.getComponent("tablePaiAction");
         tableUserInfoScript = this.tableUserInfo.getComponent("tableUserInfo");
         paiActionScript = this.paiActionNode.getComponent("paiAction");
+        //tableUserPaiScript =this.tableUserPaiNode.getComponent("tablePaiAction");
     },
 
     // called every frame, uncomment this function to activate update callback
@@ -50,13 +53,13 @@ cc.Class({
         for (var i = 0; i < userList.length; i++) {
             if (userList[i].openid == userOpenId) {
                 user = userList[i];
-                break;
+                //break;
             }
         }
         user.userMoPai = paiNumber;
         user = tableActionScript.insertMoPaiIntoPaiList(user);
         user = tableActionScript.synchronizationPaiList(user);
-        cc.log("mopai:" + user.pointIndex);
+        cc.log("moPaiOnDataLayer mopai:" + user.userMoPai);
         this.updateUserListInGobal(user);
     },
 
@@ -91,23 +94,36 @@ cc.Class({
         tableActionScript.enabledAllPaiAfterQuePai(parentNode, false);
         Global.chuPaiActionType = "normalMoPai";
         //check if show gang action on this paiList
-        var paiCount = 0;
-        for (var i = 0; i < paiList.length; i++) {
-            var pai = paiList[i] + "";
-            pai = pai.trim();
-            if (pai == paiNumber) {
-                paiCount++
-            }
-        }
-        if (paiCount == 3) {
-            var actionArray = ['cancle', 'gang'];
+        // var paiCount = 0;
+        // for (var i = 0; i < paiList.length; i++) {
+        //     var pai = paiList[i] + "";
+        //     pai = pai.trim();
+        //     if (pai == paiNumber) {
+        //         paiCount++
+        //     }
+        // }
+        // if (paiCount == 3) {
+        //     var actionArray = ['cancle', 'gang'];
+        //     paiActionScript.fromUserOpenId = userOpenId;
+        //     paiActionScript.paiNumber = paiNumber;
+        //     paiActionScript.chuPaiUserOpenId = userOpenId;
+        //     paiActionScript.showAction(actionArray);
+        // }
+        this.moPaiOnDataLayer(paiNumber, userOpenId);
+        var actionArray = paiActionScript.getActionBarArrayByOpenId(paiNumber, userOpenId, "mopai");
+
+        if (actionArray.length > 1) {
             paiActionScript.fromUserOpenId = userOpenId;
             paiActionScript.paiNumber = paiNumber;
             paiActionScript.chuPaiUserOpenId = userOpenId;
             paiActionScript.showAction(actionArray);
+
+            tableActionScript.disableAllSlefPai();
+
+        } else {
+
         }
 
-        this.moPaiOnDataLayer(paiNumber, userOpenId);
         //we need update this into gobal user list
         //this.updateUserListInGobal(user);
 

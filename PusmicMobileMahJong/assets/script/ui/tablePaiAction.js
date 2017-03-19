@@ -222,9 +222,22 @@ cc.Class({
         var tableNode = cc.find("Canvas/tableNode");
         var userChuPaiListNode = cc.find("user" + userPoint + "ChuaPaiListNode", tableNode);
         var userPaiList = cc.find("user" + userPoint + "PaiList", tableNode);
+        var children = userPaiList.children
         // cc.log("userPaiList:" + userPaiList.name);
         //    cc.log("userPaiList children:" + userPaiList.children.length);
-        var paiNode = userPaiList.children[0]
+        var paiNode = null;
+        for (var i = 0; i < children.length; i++) {
+            cc.log("removeLastPaiOnPaiListByUser lastNode:" + children[i].name);
+            if (children[i].name == "autoMoPai") {
+                paiNode = children[i];
+            }
+
+        }
+
+        if (paiNode == null) {
+            paiNode = userPaiList.children[0];
+        }
+
         //   cc.log("paiNode:" + paiNode.name);
         var user = this.addPaiIntoPaiListNode(userChuPaiListNode, paiNumber, userPoint, paiNode, 'other');
         cc.log("playOtherChuPaiAction userPoint:" + userPoint);
@@ -249,6 +262,7 @@ cc.Class({
 
     },
     removeLastPaiOnPaiListByUserOpenId: function (openId) {
+        cc.log("removeLastPaiOnPaiListByUser openid:" + openId);
         var user = this.getCorrectUserByOpenId(openId);
         var index = user.pointIndex;
         var tableNode = cc.find("Canvas/tableNode");
@@ -258,18 +272,21 @@ cc.Class({
         var lastNode;
         var childrenLen = children.length
         cc.log("removeLastPaiOnPaiListByUser children1:" + userChuPaiListNode.children.length);
-        if (index == "2") {
-            lastNode = children[0];
-        } else if (index == "1") {
-            lastNode = children[childrenLen - 1];
-        } else if (index == "4") {
-            lastNode = children[0];
-        }
-
-        // for (var i = 0; i < children.length; i++) {
-        //     cc.log("removeLastPaiOnPaiListByUser lastNode:" + children[i].name);
-        //     lastNode = children[i];
+        // if (index == "2") {
+        //     lastNode = children[0];
+        // } else if (index == "1") {
+        //     lastNode = children[childrenLen - 1];
+        // } else if (index == "4") {
+        //     lastNode = children[childrenLen - 1];
         // }
+
+        for (var i = 0; i < children.length; i++) {
+            cc.log("removeLastPaiOnPaiListByUser lastNode:" + children[i].name);
+            if (children[i].name == "autoMoPai") {
+                lastNode = children[i];
+            }
+
+        }
         if (lastNode != null & lastNode != undefined) {
             lastNode.removeFromParent();
             cc.log("removeLastPaiOnPaiListByUser remove:" + lastNode.name);
@@ -366,12 +383,6 @@ cc.Class({
         var tempArray = name.split("_");
         name = tempArray[1];
 
-        // cc.log("user.chupaiListX:" + user.chupaiListX);
-
-        // cc.log("x:" + x + "----" + "y:" + y);
-        //, cc.removeSelf()
-
-
 
         //add the target pai into pai list.
         var parentNode = paiNode.parent.parent;
@@ -406,17 +417,14 @@ cc.Class({
             //move the 14 pai into correct point
 
 
-            //datalayer -------------------------------------------
-
-            var paiList = this.removeElementByNodeFromUser(paiNode, 1)
-            cc.log("235:" + paiList);
-            user.paiListArray = paiList;
             if (insertLastPaiFlag == true) {
                 this.moveLastestPaiToPoint(mopaiInsertIndex);
+                //
+
 
             }
 
-            user = this.synchronizationPaiList(user);
+
 
             //this.fixUserSelfPaiPoinst();
             //this.removeAllNodeFromSelfPaiList();
@@ -428,6 +436,14 @@ cc.Class({
             //add it to curernt 
             //  eval("this.user" + point + "PaiListNode.addChild(paiNode)");
         }
+
+
+        //datalayer -------------------------------------------
+
+        var paiList = this.removeElementByNodeFromUser(paiNode, 1)
+        cc.log("235:" + paiList);
+        user.paiListArray = paiList;
+        user = this.synchronizationPaiList(user);
 
         user.userMoPai = "";
         cc.log("user openid:" + user.openid)
@@ -571,11 +587,13 @@ cc.Class({
         cc.log("playSlefChuPaiAction_addChild parent child count1:" + parent.childrenCount);
         pNode.active = true;
 
-        var spriteFrame = paiNode.getComponent(cc.Sprite).spriteFrame;
-        var deps = cc.loader.getDependsRecursively(spriteFrame);
-        cc.loader.release(deps);
-        //we should remove on next step;
-        //paiNode.removeFromParent();
+        if (paiNode.name != "autoMoPai") {
+            var spriteFrame = paiNode.getComponent(cc.Sprite).spriteFrame;
+            var deps = cc.loader.getDependsRecursively(spriteFrame);
+            cc.loader.release(deps);
+            //we should remove on next step;
+            paiNode.removeFromParent();
+        }
 
         this.removeLastPaiOnPaiListByUserOpenId(userOpenId);
 
@@ -611,7 +629,7 @@ cc.Class({
 
             if (user.chuPaiCount == paiListReOrderCount) {
                 user.chupaiListY = -95;
-                user.chupaiListX = 210 - 42;
+                user.chupaiListX = 210;
 
             } else {
                 user.chupaiListX = user.chupaiListX - 42;
@@ -624,7 +642,7 @@ cc.Class({
         cc.log("this.paiListReOrderCount:" + paiListReOrderCount);
         if (userIndex == "2") {
             if (user.chuPaiCount == paiListReOrderCount) {
-                user.chupaiListY = 120 - 35;
+                user.chupaiListY = 120;
                 user.chupaiListX = 226;
 
             } else {
@@ -636,7 +654,7 @@ cc.Class({
 
             if (user.chuPaiCount == paiListReOrderCount) {
                 user.chupaiListY = 3;
-                user.chupaiListX = -210 + 42;
+                user.chupaiListX = -210;
 
             } else {
                 user.chupaiListX = user.chupaiListX + 42;
@@ -645,7 +663,7 @@ cc.Class({
         if (userIndex == "4") {
             if (user.chuPaiCount == paiListReOrderCount) {
                 user.chupaiListX = -225;
-                user.chupaiListY = -120 + 35;
+                user.chupaiListY = -120;
 
 
             } else {
@@ -1153,6 +1171,7 @@ var x = touches[0].getLocationX();
         var paiList = currentUser.paiListArray;
         var temp = [];
         if (paiNumber != null && paiNumber != undefined) {
+            paiNumber = paiNumber + "";
             paiNumber = parseInt(paiNumber.trim());
         }
         if (paiList.length > 1) {

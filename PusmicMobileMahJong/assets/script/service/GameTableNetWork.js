@@ -346,6 +346,13 @@ cc.Class({
                     //enable self pai list 
                     if (currentUser.openid == zhuangOpenId) {
                         tablePaiActionScript.enabledAllPaiAfterQuePai();
+
+                        //check if user have gang
+                        var actionArray = paiActionScript.getActionBarArrayByOpenId(paiNumber, currentUser.openid, "mopai")
+                        cc.log("actionArray:" + actionArray.length);
+                        if (actionArray.length > 1) {
+                            paiActionScript.showAction(actionArray);
+                        }
                     }
 
                 }
@@ -386,7 +393,7 @@ cc.Class({
                                     userList[i].paiListArray = paiList;
                                     userList[i].actionBarFlag = "-2";
 
-                                    
+
                                 } else {
                                     userList[i].actionBarFlag = "-1";
                                 }
@@ -400,7 +407,7 @@ cc.Class({
                         //only work on the next user 
                         if (nextUserOpenId == userInfo.openid) {
                             for (var i = 0; i < userList.length; i++) {
-                                var actionArray = paiActionScript.getActionBarArrayByOpenId(paiNumber, userList[i].openid)
+                                var actionArray = paiActionScript.getActionBarArrayByOpenId(paiNumber, userList[i].openid, "")
                                 cc.log("actionArray:" + actionArray.length);
                                 if (actionArray.length > 1) {
                                     userList[i].actionBarFlag = "1";
@@ -513,7 +520,7 @@ cc.Class({
                             //user = tablePaiActionScript.insertMoPaiIntoPaiList(user);
                             //user = tablePaiActionScript.synchronizationPaiList(user);
                             var paiListStr = user.paiList;
-                            tableUserInfoScript.initalOtherPaiListOnePai(paiNumber,user.paiListArray, user.pointIndex, "");
+                            tableUserInfoScript.initalOtherPaiListOnePai(paiNumber, user.paiListArray, user.pointIndex, "");
                             //tablePaiActionScript.updateUserListInGobal(user);
                         }
 
@@ -606,7 +613,10 @@ cc.Class({
                             cc.log("moPaiUserId alreadyExistFlag:" + alreadyExistFlag);
                             if (alreadyExistFlag == false) {
                                 //mopai
-                                this.sendMoPaiAction();
+                                if (userInfo.openid != fromUserOpenId) {
+                                    this.sendMoPaiAction();
+                                }
+
                             }
 
                         }
@@ -739,7 +749,7 @@ cc.Class({
         this.sendMessageToServer(messageObj);
         tableCenterScript.endTimer();
     },
-    sendGangPaiAction: function (chuPaiUserOpenId,fromUserOpenId, paiNumber) {
+    sendGangPaiAction: function (chuPaiUserOpenId, fromUserOpenId, paiNumber) {
         var joinRoomNumber = Global.joinRoomNumber;
         var o = new Object();
         //var gameStep = require("gameStep").gameStep;
@@ -867,6 +877,22 @@ cc.Class({
     },
 
     //--------------------------------------------------------------------------------------------------------
+    testJoinRoom: function (joinRoomNumber) {
+        Global.joinRoomNumber = joinRoomNumber;
+        // client.unsubscribe("sub-" + Global.subid);
+
+        //client.disconnect();
+        //this.connectByPrivateChanel();
+        this.subscribeToPrivateChanelNoConnetAgain("100000");
+        Global.subid = Global.subid + 1;
+        cc.log("Global.subid:" + Global.subid);
+        userInfo = Global.userInfo;
+        var openId = userInfo.openid;
+        //var messageObj = this.buildSendMessage(openId, joinRoomNumber, "joinRoom");
+        //this.sendMessageToServer(messageObj);
+    },
+
+
     joinRoom: function (joinRoomNumber) {
         Global.joinRoomNumber = joinRoomNumber;
         client.unsubscribe("sub-" + Global.subid);
