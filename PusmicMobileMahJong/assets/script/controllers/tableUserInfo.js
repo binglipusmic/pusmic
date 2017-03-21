@@ -57,8 +57,8 @@ cc.Class({
 
         userScoreNode: cc.Node,
         userRoundScoreNode: cc.Node,
-        iniMainNode:cc.Node,
-        tableNetworkNode:cc.Node,
+        iniMainNode: cc.Node,
+        tableNetworkNode: cc.Node,
     },
 
     // use this for initialization
@@ -68,11 +68,12 @@ cc.Class({
         // this.userInfo3.active = false;
         // this.userInfo4.active = false;
 
-        this.initalUserPai("inital", "");
+        // this.initalUserPai("inital", "");
         this.userScoreNode.zIndex = 500;
-        this.userRoundScoreNode.zIndex =500;
+        this.userRoundScoreNode.zIndex = 500;
         // this.disabledHuanSanZhangPai();
         huanPaiScript = this.huanPaiScriptNode.getComponent("huanPaiUI");
+        tableNetworkScript = this.tableNetworkNode.getComponent("GameTableNetWork");
 
         //tablePaiActionScript =this.tablePaiActionNode.getComponent("tablePaiAction");
 
@@ -84,16 +85,15 @@ cc.Class({
      * user 2 chupai list point :x -210,y -45
      * 
      */
-    testInitalUserList: function () {
+    testInitalUserList: function (initalType) {
         var paiList = ["11, 11, 15, 24, 24, 22, 35, 35, 35, 14, 14, 14, 38",
             "15, 15, 17, 18, 19, 22, 23, 24, 29, 29, 29, 36, 37",
-            "15, 15, 17, 18, 19, 22, 23, 24, 29, 29, 29, 36, 37,38",
-            "11, 11, 15, 24, 24, 22, 35, 35, 26, 14, 14, 14, 38",
+            "15, 16, 17, 18, 19, 22, 23, 24, 29, 29, 29, 36, 37,38",
+            "11, 12, 15, 24, 24, 22, 35, 35, 26, 14, 14, 14, 38",
         ];
         this.tableNode.active = true;
         var userList = [];
-       // iniMainScript=this.iniMainNode.getComponent("");
-       tableNetworkScript=this.tableNetworkNode.getComponent("GameTableNetWork");
+        // iniMainScript=this.iniMainNode.getComponent("");
         for (var i = 1; i < 5; i++) {
             var o = new Object();
             o.id = i;
@@ -108,12 +108,31 @@ cc.Class({
             o.paiList = paiList[i - 1];
             o.gameReadyStatu = "1";
             o.gameScoreCount = "1";
-            //o.pointIndex = i;
-            if (i < 4) {
-                o.pointIndex = i + 1;
-            } else {
-                o.pointIndex = 1
+            if (initalType == "test3") {
+                o.pointIndex = i;
+            } else if (initalType == "test2") {
+                if (i < 4) {
+                    o.pointIndex = i + 1;
+                } else {
+                    o.pointIndex = 1
+                }
+            } else if (initalType == "test1") {
+                if (i < 3) {
+                    o.pointIndex = i + 2;
+                } else if (i == 3) {
+                    o.pointIndex = 1;
+                } else if (i == 4) {
+                    o.pointIndex = 2;
+                }
+            } else if (initalType == "test4") {
+                if (i == 1) {
+                    o.pointIndex = 4;
+                } else {
+                    o.pointIndex = i - 1
+                }
             }
+            //o.pointIndex = i;
+
 
             o.headImageFileName = "1";
 
@@ -139,12 +158,12 @@ cc.Class({
         Global.chuPaiActionType = "normalChuPai";
         cc.log(" Global.userInfo:" + userInfo.toString());
         cc.log(" Global.userList:" + Global.userList.length);
-        Global.joinRoomNumber="100000";
-        var roomNumber= Global.joinRoomNumber;
-          cc.log("roomNumber:" + roomNumber);
-          tableNetworkScript.connectByPrivateChanel();
-          //tableNetworkScript.testJoinRoom(roomNumber);
-  
+        Global.joinRoomNumber = "100000";
+        var roomNumber = Global.joinRoomNumber;
+        cc.log("roomNumber:" + roomNumber);
+        tableNetworkScript.connectByPrivateChanel();
+        //tableNetworkScript.testJoinRoom(roomNumber);
+
 
     },
     /**
@@ -160,13 +179,50 @@ cc.Class({
             paiNode.removeAllChildren();
             paiNode = cc.find("user" + (i + 1) + "ChuaPaiListNode", this.tableNode);
             paiNode.removeAllChildren();
+
+            var huNode = cc.find("user" + (i + 1) + "HuPai", this.tableNode);
+            var chilren = huNode.children;
+            var moPaiNode = null;
+            for (var j = 0; j < chilren.length; j++) {
+                var node = chilren[j];
+                if (node.name.indexOf("hupai") >= 0) {
+                    moPaiNode = node;
+                }
+            }
+
+            if(moPaiNode!=null){
+                moPaiNode.removeFromParent();
+            }
+            huNode.active=false;
+
         }
 
+    },
+
+    testConnectRoom: function () {
+        tableNetworkScript.testJoinRoom("100000")
+    },
+
+    inistalTestUser1: function () {
+        this.initalUserPai("test1", "");
+        Global.chuPaiActionType = "normalChuPai"
+    },
+    inistalTestUser2: function () {
+        this.initalUserPai("test2", "");
+        Global.chuPaiActionType = "normalChuPai"
+    },
+    inistalTestUser3: function () {
+        this.initalUserPai("test3", "");
+        Global.chuPaiActionType = "normalChuPai"
+    },
+    inistalTestUser4: function () {
+        this.initalUserPai("test4", "");
+        Global.chuPaiActionType = "normalChuPai"
     },
     //type:inital 
     initalUserPai: function (initalType, type) {
         //inital the test data
-        this.testInitalUserList();
+        //this.testInitalUserList(initalType);
         //  cc.log("Global.chuPaiActionType initalUserPai:" + Global.chuPaiActionType);
         //hide game mode
         this.tableGameMode.active = false;
@@ -236,7 +292,7 @@ cc.Class({
         Global.userList = userList;
         if (type != "joinExist") {
             //show huanPaiScript
-           // huanPaiScript.showHuanPaiNode();
+            huanPaiScript.showHuanPaiNode();
         }
 
 
@@ -601,13 +657,13 @@ cc.Class({
                 if (point == "4") {
 
 
-                    paiNode.position = cc.p(firstNode.x, firstNode.y +28);
-                    paiNode.zIndex = paiArray.length - chirenLen-1;
+                    paiNode.position = cc.p(firstNode.x, firstNode.y + 28);
+                    paiNode.zIndex = paiArray.length - chirenLen - 1;
                     paiNode.width = 40;
                     paiNode.height = 85;
                 }
 
-                paiNode.name="autoMoPai"
+                paiNode.name = "autoMoPai"
 
                 cc.log("add one:" + paiNode.active + "----" + paiNode.x + ":" + paiNode.y) + "---z:" + paiNode.zIndex;
 

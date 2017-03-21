@@ -100,11 +100,11 @@ cc.Class({
             user.huPaiType = "gangshanghua"
         } else if (preStep == "gang") {
             user.huPaiType = "gangshangpao"
-        }else{
-            user.huPaiType =""
+        } else {
+            user.huPaiType = ""
         }
 
-        tableActionScript.insertMoPaiIntoPaiList(user);
+        // tableActionScript.insertMoPaiIntoPaiList(user);
         tableMoPaiActionScript.updateUserListInGobal(user);
         tableActionScript.disableAllSlefPai();
 
@@ -139,10 +139,15 @@ cc.Class({
 
     },
     //decide the painumber if hu or not hu .
-    hupaiLogic: function (paiNumber, userOpenId) {
+    hupaiLogic: function (paiNumber, userOpenId, paiList, type) {
         //var currentUser = tableActionScript.getCorrectUserByOpenId(userOpenId);
         var huFlagDetails = false;
-        var paiList = tableActionScript.insertPaiIntoPaiListByPaiAndOpenId(paiNumber, userOpenId)
+        //var paiList = tableActionScript.insertPaiIntoPaiListByPaiAndOpenId(paiNumber, userOpenId)
+        //if pai from other user ,it need insert into pai list 
+        //if it from self it noe need insert the pai again.
+        if (type != "mopai") {
+            var paiList = tableActionScript.insertPaiIntoPaiListByPaiAndPaiList(paiNumber, paiList);
+        }
         if (this.checkQiaoQiDui(paiList)) {
             return true;
         } else {
@@ -171,7 +176,7 @@ cc.Class({
 
             paiList = this.checkLianSanZhan(pai, paiList);
             var newLen = paiList.length;
-            cc.log("116:" + paiList.toString());
+            //cc.log("116:" + paiList.toString());
             if (oldLen != newLen) {
                 huFlag = this.startDecideHu(paiList);
             }
@@ -241,7 +246,7 @@ cc.Class({
         } else {
             prePai = pai + 1;
             nextPai = pai + 2;
-            cc.log("prePai:" + prePai + "--" + "nextPai:" + nextPai);
+            // cc.log("prePai:" + prePai + "--" + "nextPai:" + nextPai);
             if (this.contains(paiList, prePai) && this.contains(paiList, nextPai)) {
                 executeFlag = true;
 

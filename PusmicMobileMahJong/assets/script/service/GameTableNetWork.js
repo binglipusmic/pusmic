@@ -81,6 +81,9 @@ cc.Class({
         }
     },
     subscribeToPrivateChanelNoConnetAgain: function (thisRooNumber) {
+        if (client == null || client == undefined) {
+
+        }
         client.subscribe("/queue/privateUserChanel" + thisRooNumber, function (message) {
             var bodyStr = message.body;
             cc.log("######################");
@@ -406,8 +409,11 @@ cc.Class({
                         }
                         //only work on the next user 
                         if (nextUserOpenId == userInfo.openid) {
+                            userList = Global.userList;
                             for (var i = 0; i < userList.length; i++) {
                                 var actionArray = paiActionScript.getActionBarArrayByOpenId(paiNumber, userList[i].openid, "")
+                                cc.log("openid :" + userList[i].openid);
+                                cc.log("paiList:" + userList[i].paiListArray.toString());
                                 cc.log("actionArray:" + actionArray.length);
                                 if (actionArray.length > 1) {
                                     userList[i].actionBarFlag = "1";
@@ -881,9 +887,14 @@ cc.Class({
         Global.joinRoomNumber = joinRoomNumber;
         // client.unsubscribe("sub-" + Global.subid);
 
+
+        var userInfo = require("userInfoDomain").userInfoDomain;
+
+        userInfo.roomNumber = joinRoomNumber;
+        Global.userInfo = userInfo;
         //client.disconnect();
-        //this.connectByPrivateChanel();
-        this.subscribeToPrivateChanelNoConnetAgain("100000");
+        this.connectByPrivateChanel();
+        this.subscribeToPrivateChanelNoConnetAgain(joinRoomNumber);
         Global.subid = Global.subid + 1;
         cc.log("Global.subid:" + Global.subid);
         userInfo = Global.userInfo;

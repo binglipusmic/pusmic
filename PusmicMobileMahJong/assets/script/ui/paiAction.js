@@ -85,6 +85,25 @@ cc.Class({
         var userPengPaiListNode = cc.find("user2PengPaiListNode", tableNode);
         this.showPengGangPaiListOnTalbe([11, 12], null, 2, "12", userPengPaiListNode, "peng", 0, -250)
     },
+    checkQueInList: function (quePai, paiList) {
+        var flag = false;
+        if (quePai != null && quePai != undefined) {
+            quePai = quePai + "";
+            quePai = quePai.trim();
+            for (var i = 0; i < paiList.length; i++) {
+                var pai = paiList[i] + "";
+                pai = pai.trim();
+                var paiType = pai[0];
+                if (paiType == quePai) {
+                    flag = true;
+                }
+
+            }
+
+
+        }
+        return flag;
+    },
     clearQuePaiInPaiList: function (quePai, paiList) {
         cc.log("clearQuePaiInPaiList paiList1:" + paiList);
         var temp = [];
@@ -129,9 +148,15 @@ cc.Class({
         var actionArray = ['cancle'];
         var actionLevel = 0;
         var huFlag = false;
-        huFlag = huPaiScript.hupaiLogic(paiNumber, userInfo.openid);
 
-        paiList = this.clearQuePaiInPaiList(quePai, paiList);
+        if (this.checkQueInList(quePai, paiList) == false) {
+            paiList = this.clearQuePaiInPaiList(quePai, paiList);
+            huFlag = huPaiScript.hupaiLogic(paiNumber, userInfo.openid, paiList,type);
+        }
+
+
+
+        //we need clear the mopai from the paiList 
         //get pai count in self pai list 
         for (var i = 0; i < paiList.length; i++) {
             var pai = paiList[i] + "";
@@ -140,9 +165,18 @@ cc.Class({
                 paiCount++
             }
         }
-        if (paiCount >= 3) {
-            actionArray.push("gang");
-            actionLevel = 2
+        if (type != "mopai") {
+            if (paiCount >= 3) {
+                actionArray.push("gang");
+                actionLevel = 2
+            }
+        } else {
+
+            if (paiCount == 4) {
+                actionArray.push("gang");
+                actionLevel = 2
+            }
+
         }
         if (type != "mopai") {
             if (paiCount >= 2) {
@@ -169,7 +203,12 @@ cc.Class({
         var actionArray = ['cancle'];
         var actionLevel = 0;
         var huFlag = false;
-        huFlag = huPaiScript.hupaiLogic(paiNumber, userInfo.openid);
+        var quePai = user.quePai;
+        if (this.checkQueInList(quePai, paiList) == false) {
+            paiList = this.clearQuePaiInPaiList(quePai, paiList);
+            huFlag = huPaiScript.hupaiLogic(paiNumber, userInfo.openid, paiList,"mopai");
+        }
+
         //get pai count in self pai list 
         for (var i = 0; i < paiList.length; i++) {
             var pai = paiList[i] + "";
@@ -243,7 +282,12 @@ cc.Class({
             if (userList[i].openid == userInfo.openid) {
                 // huFlag = otherHU;
             } else {
-                otherHU = huPaiScript.hupaiLogic(paiNumber, userList[i].openid);
+                var quePai = userList[i].quePai;
+                if (this.checkQueInList(quePai, userList[i].paiListArray) == false) {
+                    paiList = this.clearQuePaiInPaiList(quePai, userList[i].paiListArray);
+                    otherHU = huPaiScript.hupaiLogic(paiNumber, userList[i].openid,"");
+                }
+
                 otherHuMap.set(userList[i].openid, otherHU);
                 if (otherHU == true) {
                     otherUserResutl = otherHU;
@@ -311,7 +355,7 @@ cc.Class({
 
     },
     testPalyOtherChuPai: function () {
-         var tableNode = cc.find("Canvas/tableNode");
+        var tableNode = cc.find("Canvas/tableNode");
         var user = tablePaiActionScript.getCorrectUserByOpenId("testUser2");
         var userChuPaiListNode = cc.find("user3PaiList", tableNode);
         // var chuPaiListNode = cc.find("user" + index + "ChuaPaiListNode",this.tableNode);
@@ -851,11 +895,12 @@ cc.Class({
         }
         //send cancle action to mo pai user
         var userInfo = Global.userInfo;
-        tableNetWorkScript.sendCacleToMoPaiAction(userInfo.openid);
+
         this.preStep = "";
         if (this.chuPaiUserOpenId == this.fromUserOpenId) {
             tablePaiActionScript.enabledAllPaiAfterQuePai();
         } else {
+            tableNetWorkScript.sendCacleToMoPaiAction(userInfo.openid);
             tablePaiActionScript.disableAllSlefPai();
         }
 

@@ -1166,9 +1166,7 @@ var x = touches[0].getLocationX();
 
     },
     //------------------------utils ------------------------------------------
-    insertPaiIntoPaiListByPaiAndOpenId: function (paiNumber, userOpenId) {
-        var currentUser = this.getCorrectUserByOpenId(userOpenId);
-        var paiList = currentUser.paiListArray;
+    insertPaiIntoPaiListByPaiAndPaiList: function (paiNumber, paiList) {
         var temp = [];
         if (paiNumber != null && paiNumber != undefined) {
             paiNumber = paiNumber + "";
@@ -1208,6 +1206,14 @@ var x = touches[0].getLocationX();
         }
 
         return temp
+    },
+
+    insertPaiIntoPaiListByPaiAndOpenId: function (paiNumber, userOpenId) {
+        var currentUser = this.getCorrectUserByOpenId(userOpenId);
+        var paiList = currentUser.paiListArray;
+        var temp=this.insertPaiIntoPaiListByPaiAndPaiList(paiNumber,paiList);
+        return temp
+
     },
     insertMoPaiIntoPaiList: function (user) {
         var moPai = user.userMoPai;
