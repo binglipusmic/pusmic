@@ -349,9 +349,12 @@ cc.Class({
                     //enable self pai list 
                     if (currentUser.openid == zhuangOpenId) {
                         tablePaiActionScript.enabledAllPaiAfterQuePai();
-
+                        var paiLast=currentUser.paiListArray[currentUser.paiListArray.length-1]
+                        cc.log("First mopai:"+paiLast);
+                        currentUser.userMoPai = paiLast;
+                        tableActionScript.updateUserListInGobal(currentUser);
                         //check if user have gang
-                        var actionArray = paiActionScript.getActionBarArrayByOpenId(paiNumber, currentUser.openid, "mopai")
+                        var actionArray = paiActionScript.checkActionArrayInSelfPaiList(currentUser.openid)
                         cc.log("actionArray:" + actionArray.length);
                         if (actionArray.length > 1) {
                             paiActionScript.showAction(actionArray);
@@ -629,6 +632,25 @@ cc.Class({
                     }
 
 
+                    //-----------hupai action-------------------
+                    if (obj.actionName == "huPai") {
+                        fromUserOpenId = obj.fromUserOpenid;
+                        paiNumber = obj.paiNumber;
+                        var chuPaiUserOpenId = obj.chuPaiUserOpenId;
+                        var huChuPaiType = obj.huChuPaiType;
+
+                        var userInfo = Global.userInfo;
+                        if (userInfo.openid != fromUserOpenId) {
+                            paiActionScript.fromUserOpenId = fromUserOpenId;
+                            paiActionScript.paiNumber = paiNumber;
+                            paiActionScript.chuPaiUserOpenId = chuPaiUserOpenId;
+                            paiActionScript.preStep = huChuPaiType;
+                            paiActionScript.huAction();
+                        }
+                    }
+
+
+
                 }
 
 
@@ -721,15 +743,16 @@ cc.Class({
     sendCacleHuPaiAction: function () {
 
     },
-    sendHuPaiAction: function (fromUserOpenId, toUserOpenId, paiNumber, paiType) {
+    sendHuPaiAction: function (fromUserOpenId, chuPaiUserOpenId, paiNumber, huChuPaiType) {
         var joinRoomNumber = Global.joinRoomNumber;
         var o = new Object();
         //var gameStep = require("gameStep").gameStep;
 
         o.fromUserOpenid = fromUserOpenId;
-        o.actionName = "pengPai";
+        o.actionName = "huPai";
         o.paiNumber = paiNumber;
-        o.toUserOpenid = toUserOpenId;
+        o.chuPaiUserOpenId = chuPaiUserOpenId;
+        o.huChuPaiType = huChuPaiType;
 
         //o.chuPaiType = Global.chuPaiActionType;
         var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");

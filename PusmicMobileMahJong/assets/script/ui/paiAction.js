@@ -127,31 +127,65 @@ cc.Class({
         return temp;
 
     },
+    checkActionArrayInSelfPaiList: function (openid) {
+        var user = tablePaiActionScript.getCorrectUserByOpenId(openid);
+        var paiList = user.paiListArray;
+        huFlag = huPaiScript.hupaiLogicNoInsert(paiList);
+        var actionArray = ['cancle'];
+        for (var j = 0; j < paiList.length; j++) {
+            var paiNumber = paiList[j] + ""
+            paiNumber = paiNumber.trim();
+            var paiCount = 0;
+            for (var i = 0; i < paiList.length; i++) {
+                var pai = paiList[i] + "";
+                pai = pai.trim();
+                if (pai == paiNumber) {
+                    paiCount++
+                }
+            }
+
+            if (paiCount == 4) {
+                actionArray.push("gang");
+            }
+        }
+
+
+        if (huFlag == true) {
+            actionArray.push("hu");
+            actionLevel = 3
+        }
+        return actionArray;
+    },
     getActionBarArrayByOpenId: function (paiNumber, openid, type) {
         var user = tablePaiActionScript.getCorrectUserByOpenId(openid);
         var paiList = user.paiListArray;
         var pengList = user.pengPaiList;
-        if (pengList == null || pengList == undefined) {
-            pengList = [];
-        }
-        for (var i = 0; i < pengList.length; i++) {
-            var pengPai = pengList[i] + "";
-            pengPai = pengPai.trim();
-            if (pengPai == paiNumber + "") {
-                actionArray.push("gang");
-                actionLevel = 2
-            }
-        }
+        var actionArray = ['cancle'];
+
         var quePai = user.quePai;
         var userInfo = Global.userInfo;
         var paiCount = 0;
-        var actionArray = ['cancle'];
+
         var actionLevel = 0;
         var huFlag = false;
+        if (pengList == null || pengList == undefined) {
+            pengList = [];
+        }
+        //only mo pai check the peng list on gang 
+        if (type == "mopai") {
+            for (var i = 0; i < pengList.length; i++) {
+                var pengPai = pengList[i] + "";
+                pengPai = pengPai.trim();
+                if (pengPai == paiNumber + "") {
+                    actionArray.push("gang");
+                    actionLevel = 2;
+                }
+            }
+        }
 
         if (this.checkQueInList(quePai, paiList) == false) {
             paiList = this.clearQuePaiInPaiList(quePai, paiList);
-            huFlag = huPaiScript.hupaiLogic(paiNumber, userInfo.openid, paiList,type);
+            huFlag = huPaiScript.hupaiLogic(paiNumber, userInfo.openid, paiList, type);
         }
 
 
@@ -206,7 +240,7 @@ cc.Class({
         var quePai = user.quePai;
         if (this.checkQueInList(quePai, paiList) == false) {
             paiList = this.clearQuePaiInPaiList(quePai, paiList);
-            huFlag = huPaiScript.hupaiLogic(paiNumber, userInfo.openid, paiList,"mopai");
+            huFlag = huPaiScript.hupaiLogic(paiNumber, userInfo.openid, paiList, "mopai");
         }
 
         //get pai count in self pai list 
@@ -285,7 +319,7 @@ cc.Class({
                 var quePai = userList[i].quePai;
                 if (this.checkQueInList(quePai, userList[i].paiListArray) == false) {
                     paiList = this.clearQuePaiInPaiList(quePai, userList[i].paiListArray);
-                    otherHU = huPaiScript.hupaiLogic(paiNumber, userList[i].openid,"");
+                    otherHU = huPaiScript.hupaiLogic(paiNumber, userList[i].openid, "");
                 }
 
                 otherHuMap.set(userList[i].openid, otherHU);
@@ -382,6 +416,13 @@ cc.Class({
         var paiListStr = user.paiList;
         // tableUserInfoNodeScript.initalOtherPaiListOnePai("11", user.paiListArray, user.pointIndex, "");
 
+    },
+    testHuPai: function () {
+        this.fromUserOpenId = "testUser1";
+        this.chuPaiUserOpenId = "testUser2";
+        this.paiNumber = "15";
+        //this.gangAction();
+        this.huAction();
     },
     testOtherPengPai: function () {
 
@@ -503,7 +544,7 @@ cc.Class({
         gangExistUser.push(existUserString);
         user.gangExistUser = gangExistUser;
 
-        //check if pa gang
+        //check if pa gang only on self  
         if (pengList == null || pengList == undefined) {
             pengList = [];
         }
@@ -513,13 +554,15 @@ cc.Class({
             if (pengPai == paiNumber + "") {
                 pengList.splice(i, 1);
                 user.pengPaiList = pengList;
-                //gangList.push(paiNumber);
+                //gangList.push(paiNumber); 
             }
-        }
+        };
+        paiList = this.removeAllElementByNumberFromUser(paiList, paiNumber);
         if (userOpenId == this.chuPaiUserOpenId) {
+
             //remove the mo pai on this 
             if (user.userMoPai == paiNumber) {
-                paiList = this.removeElementByNumberFromUser(paiList, paiNumber, 3);
+
                 //remove the mopai 
                 user.userMoPai = "";
                 tablePaiActionScript.updateUserListInGobal(user);
@@ -535,11 +578,10 @@ cc.Class({
                 this.preStep = "zigang";
 
             } else {
-                paiList = this.removeElementByNumberFromUser(paiList, paiNumber, 4);
                 this.preStep = "gang";
             }
         } else {
-            paiList = this.removeElementByNumberFromUser(paiList, paiNumber, 3);
+
             this.preStep = "gang";
         }
 
@@ -560,7 +602,7 @@ cc.Class({
         tablePaiActionScript.updateUserListInGobal(user);
         //data layer end -------------------------------------
         //-------show user pai list-----------------
-        cc.log("pengAction:" + pointIndex);
+        cc.log("gangAction:" + pointIndex);
         var endPoint = this.initalPengAndGangChuPaiList(userOpenId, paiNumber, "gang");
         if (pointIndex == "3") {
             tablePaiActionScript.removeAllNodeFromSelfPaiList();
@@ -573,7 +615,7 @@ cc.Class({
         }
 
 
-        Global.chuPaiActionType = "gang";
+        Global.chuPaiActionType = "hu";
         //remove last pai from chu pai user
         cc.log("userInfo.openid:" + this.chuPaiUserOpenId);
         if (userOpenId != this.chuPaiUserOpenId) {
@@ -603,8 +645,30 @@ cc.Class({
 
 
     huAction: function () {
+        if (this.preStep == null || this.preStep == undefined || this.preStep == "") {
+            this.preStep = "normalChuPai"
+        }
+
         var userInfo = Global.userInfo;
-        huPaiScript.huPaiAction(this.paiNumber, this.fromUserOpenId, this.preStep);
+        var userOpenId = this.fromUserOpenId;
+        var chupaiOpenId = this.chuPaiUserOpenId;
+        huPaiScript.huPaiAction(this.paiNumber, this.fromUserOpenId, Global.chuPaiActionType);
+        //cache the user hupai information
+        var user = tablePaiActionScript.getCorrectUserByOpenId(userOpenId);
+        user.huPai = this.paiNumber;
+        user.huPaiFromUser = this.chuPaiUserOpenId;
+        user.huchuPaiType = this.preStep;
+
+        tablePaiActionScript.updateUserListInGobal(user);
+
+        //self user send the hupai to other user
+
+        if (userOpenId == userInfo.openid) {
+            tableNetWorkScript.sendHuPaiAction(userOpenId, chupaiOpenId, this.paiNumber, Global.chuPaiActionType);
+            this.actionNode.active = false;
+            tablePaiActionScript.disableAllSlefPai();
+        }
+
     },
 
 
@@ -911,6 +975,23 @@ cc.Class({
 
 
     //-----------------Action end-------------------------------------------------------
+    removeAllElementByNumberFromUser: function (paiList, paiNumber) {
+        paiNumber = paiNumber + "";
+        paiNumber = paiNumber.trim();
+        var tempList = [];
+        for (var i = 0; i < paiList.length; ++i) {
+            var temp = paiList[i] + "";
+            temp = temp.trim();
+            if (temp == paiNumber) {
+                //paiList.splice(i, 1);
+            } else {
+                tempList.push(temp);
+            }
+
+        }
+
+        return paiList
+    },
 
     removeElementByNumberFromUser: function (paiList, paiNumber, b) {
         var c = 1;

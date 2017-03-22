@@ -68,6 +68,7 @@ cc.Class({
     addPaiIntoPaiListNode: function (userChuPaiListNode, name, userPoint, paiNode, type) {
         var user = this.getCorrectUserByPoint(userPoint);
         var userPaiList = user.paiList;
+        cc.log("addPaiIntoPaiListNode userPaiList:" + userPaiList);
         var x = user.chupaiListX;
         var y = user.chupaiListY;
         var paiPath = this.getChuPaiNameByNodeName(name, userPoint);
@@ -566,11 +567,13 @@ cc.Class({
         cc.log("playSlefChuPaiAction_addChild parent child count2:" + parent.childrenCount);
         this.removeAllNodeFromSelfPaiList();
         cc.log("paiList:" + paiList);
-
+       
         var user = this.getCorrectUserByOpenId(userOpenId);
+        user.paiList = paiList;
+        this.updateUserListInGobal(user);
         cc.log("374:" + user.paiList);
         tableUserInfoScript.intalSelfPaiList(user.paiList);
-
+        cc.log("375:" + user.paiList);
         this.disableAllSlefPai();
 
 
@@ -1211,7 +1214,7 @@ var x = touches[0].getLocationX();
     insertPaiIntoPaiListByPaiAndOpenId: function (paiNumber, userOpenId) {
         var currentUser = this.getCorrectUserByOpenId(userOpenId);
         var paiList = currentUser.paiListArray;
-        var temp=this.insertPaiIntoPaiListByPaiAndPaiList(paiNumber,paiList);
+        var temp = this.insertPaiIntoPaiListByPaiAndPaiList(paiNumber, paiList);
         return temp
 
     },

@@ -96,13 +96,13 @@ cc.Class({
         }
         user.userMoPai = paiNumber;
         user.huPai = paiNumber;
-        if (preStep == "zigang") {
-            user.huPaiType = "gangshanghua"
-        } else if (preStep == "gang") {
-            user.huPaiType = "gangshangpao"
-        } else {
-            user.huPaiType = ""
-        }
+        // if (preStep == "zigang") {
+        //     user.huPaiType = "gangshanghua"
+        // } else if (preStep == "gang") {
+        //     user.huPaiType = "gangshangpao"
+        // } else {
+        //     user.huPaiType = ""
+        // }
 
         // tableActionScript.insertMoPaiIntoPaiList(user);
         tableMoPaiActionScript.updateUserListInGobal(user);
@@ -137,6 +137,17 @@ cc.Class({
         //  userNodePaiList.addChild(huPaiNode);
 
 
+    },
+    hupaiLogicNoInsert:function(paiList){
+       var huFlagDetails = false;
+          if (this.checkQiaoQiDui(paiList)) {
+            return true;
+        } else {
+            huFlagDetails = this.startDecideHu(paiList);
+            cc.log("huFlagDetails:" + huFlagDetails);
+            return huFlagDetails;
+
+        }
     },
     //decide the painumber if hu or not hu .
     hupaiLogic: function (paiNumber, userOpenId, paiList, type) {
