@@ -86,13 +86,15 @@ cc.Class({
      * 
      */
     testInitalUserList: function (initalType) {
-        var paiList = ["11, 11, 15, 24, 24, 22, 35, 35, 35, 14, 14, 14, 38",
+        var paiList = ["11, 11, 15, 24, 24, 22, 35, 35, 35, 36, 36, 36, 38,38",
             "15, 15, 17, 18, 19, 22, 23, 24, 29, 29, 29, 36, 37",
-            "15, 16, 17, 18, 19, 22, 23, 24, 29, 29, 29, 36, 37,38",
+            "15, 16, 17, 18, 19, 22, 23, 24, 29, 29, 29, 36, 37,25",
             "11, 12, 15, 24, 24, 22, 35, 35, 26, 14, 14, 14, 38",
         ];
         this.tableNode.active = true;
         var userList = [];
+          var userInfo = require("userInfoDomain").userInfoDomain;
+      
         // iniMainScript=this.iniMainNode.getComponent("");
         for (var i = 1; i < 5; i++) {
             var o = new Object();
@@ -104,19 +106,23 @@ cc.Class({
             o.openid = "testUser" + i;
             o.unionid = "testUser" + i;
             o.userCode = "testUser" + i;
+            
             o.publicIp = "127.0.0.1";
             o.paiList = paiList[i - 1];
             o.gameReadyStatu = "1";
             o.gameScoreCount = "1";
             if (initalType == "test3") {
                 o.pointIndex = i;
+                 userInfo.openid = "testUser" + 3;
             } else if (initalType == "test2") {
+                  userInfo.openid = "testUser" + 2;
                 if (i < 4) {
                     o.pointIndex = i + 1;
                 } else {
                     o.pointIndex = 1
                 }
             } else if (initalType == "test1") {
+                  userInfo.openid = "testUser" + 1;
                 if (i < 3) {
                     o.pointIndex = i + 2;
                 } else if (i == 3) {
@@ -125,6 +131,7 @@ cc.Class({
                     o.pointIndex = 2;
                 }
             } else if (initalType == "test4") {
+                  userInfo.openid = "testUser" +4;
                 if (i == 1) {
                     o.pointIndex = 4;
                 } else {
@@ -149,8 +156,7 @@ cc.Class({
 
         }
         var gameMode = require("gameMode").gameMode;
-        var userInfo = require("userInfoDomain").userInfoDomain;
-        userInfo.openid = "testUser2";
+       
         gameMode.huanSanZhang = "1";
         Global.gameMode = gameMode;
         Global.userList = userList;
@@ -222,7 +228,7 @@ cc.Class({
     //type:inital 
     initalUserPai: function (initalType, type) {
         //inital the test data
-        //this.testInitalUserList(initalType);
+        this.testInitalUserList(initalType);
         //  cc.log("Global.chuPaiActionType initalUserPai:" + Global.chuPaiActionType);
         //hide game mode
         this.tableGameMode.active = false;
@@ -292,7 +298,7 @@ cc.Class({
         Global.userList = userList;
         if (type != "joinExist") {
             //show huanPaiScript
-            huanPaiScript.showHuanPaiNode();
+           // huanPaiScript.showHuanPaiNode();
         }
 
 
@@ -843,6 +849,7 @@ cc.Class({
                 this.user3PaiListNode.addChild(paiNode);
                 if (i == 13) {
                     paiNode.position = cc.p(startPoint + i * 80, 0);
+                    paiNode.name="mopai_"+paiArray[i].trim();
                 } else {
                     paiNode.position = cc.p(startPoint + i * 79, 0);
                 }

@@ -130,14 +130,18 @@ cc.Class({
     checkActionArrayInSelfPaiList: function (openid) {
         var user = tablePaiActionScript.getCorrectUserByOpenId(openid);
         var paiList = user.paiListArray;
-        huFlag = huPaiScript.hupaiLogicNoInsert(paiList);
+        var tempList=[];
+         for (var j = 0; j < paiList.length; j++) {
+             tempList.push(paiList[j])
+         }
+        huFlag = huPaiScript.hupaiLogicNoInsert(tempList);
         var actionArray = ['cancle'];
-        for (var j = 0; j < paiList.length; j++) {
-            var paiNumber = paiList[j] + ""
+        for (var j = 0; j < tempList.length; j++) {
+            var paiNumber = tempList[j] + ""
             paiNumber = paiNumber.trim();
             var paiCount = 0;
-            for (var i = 0; i < paiList.length; i++) {
-                var pai = paiList[i] + "";
+            for (var i = 0; i < tempList.length; i++) {
+                var pai = tempList[i] + "";
                 pai = pai.trim();
                 if (pai == paiNumber) {
                     paiCount++
@@ -399,7 +403,7 @@ cc.Class({
         var node = null;
         for (var i = 0; i < children.length; i++) {
 
-            if (children[i].name.indexOf("22") >= 0) {
+            if (children[i].name.indexOf("38") >= 0) {
                 node = children[i];
             }
 

@@ -390,8 +390,24 @@ cc.Class({
         //  cc.log("parentNode:" + parentNode.name);
         var userChuPaiListNode = cc.find("user" + userPoint + "ChuaPaiListNode", parentNode);
         //   cc.log("userChuPaiListNode:" + userChuPaiListNode);
+      
 
-        var user = this.addPaiIntoPaiListNode(userChuPaiListNode, name, userPoint, paiNode, 'self');
+        //datalayer -------------------------------------------
+        var user = this.getCorrectUserByPoint(userPoint);
+        cc.log("234:" + user.paiListArray);
+        var paiList = this.removeElementByNodeFromUser(paiNode, 1)
+       // paiList=paiList.sort();
+        cc.log("235:" + paiList);
+        user.paiListArray = paiList;
+        user = this.synchronizationPaiList(user);
+
+        user.userMoPai = "";
+        cc.log("user openid:" + user.openid)
+        this.updateUserListInGobal(user);
+        cc.log("241:" + user.paiList);
+        //----------------------------------------------------
+
+        user = this.addPaiIntoPaiListNode(userChuPaiListNode, name, userPoint, paiNode, 'self');
         cc.log("get 243:" + userPoint);
         user.chuPaiPointX = paiNode.x;
         user = this.fixCurrentChuPaiPoint(user);
@@ -421,8 +437,6 @@ cc.Class({
             if (insertLastPaiFlag == true) {
                 this.moveLastestPaiToPoint(mopaiInsertIndex);
                 //
-
-
             }
 
 
@@ -439,17 +453,7 @@ cc.Class({
         }
 
 
-        //datalayer -------------------------------------------
 
-        var paiList = this.removeElementByNodeFromUser(paiNode, 1)
-        cc.log("235:" + paiList);
-        user.paiListArray = paiList;
-        user = this.synchronizationPaiList(user);
-
-        user.userMoPai = "";
-        cc.log("user openid:" + user.openid)
-        this.updateUserListInGobal(user);
-        cc.log("241:" + user.paiList);
 
         return user.paiListArray
 
@@ -567,7 +571,7 @@ cc.Class({
         cc.log("playSlefChuPaiAction_addChild parent child count2:" + parent.childrenCount);
         this.removeAllNodeFromSelfPaiList();
         cc.log("paiList:" + paiList);
-       
+
         var user = this.getCorrectUserByOpenId(userOpenId);
         user.paiList = paiList;
         this.updateUserListInGobal(user);
@@ -1296,7 +1300,7 @@ var x = touches[0].getLocationX();
         }
 
         //cc.log("1056:" + paiList.toString());
-        return paiList
+        return paiList.sort(function(a, b) { return a-b})
     },
     contains: function (array, obj) {
         var i = array.length;
@@ -1325,7 +1329,7 @@ var x = touches[0].getLocationX();
 
         }
 
-        return paiList
+        return paiList.sort()
     },
     /**
      * remove a element from paiList of user self
@@ -1338,6 +1342,7 @@ var x = touches[0].getLocationX();
         number = temp[1];
         var paiList = this.getSelfPaiList();
         this.removeElementByNumberFromUser(number, paiList, b);
+        paiList.sort(function(a, b) { return a-b});
         return paiList
 
     },

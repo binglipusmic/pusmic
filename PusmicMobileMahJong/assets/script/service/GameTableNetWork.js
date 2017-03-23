@@ -349,10 +349,18 @@ cc.Class({
                     //enable self pai list 
                     if (currentUser.openid == zhuangOpenId) {
                         tablePaiActionScript.enabledAllPaiAfterQuePai();
-                        var paiLast=currentUser.paiListArray[currentUser.paiListArray.length-1]
-                        cc.log("First mopai:"+paiLast);
+                        var paiLast = currentUser.paiListArray[currentUser.paiListArray.length - 1]
+                        cc.log("First mopai:" + paiLast);
                         currentUser.userMoPai = paiLast;
                         tableActionScript.updateUserListInGobal(currentUser);
+
+                        var tableNode = cc.find("Canvas/tableNode");
+                        var parentNode = cc.find("user3PaiList", tableNode);
+                        var children = parentNode.children;
+                        cc.log("First Name:"+children[children.length-1].name)
+                        children[children.length-1].name="mopai_" + paiLast
+                     cc.log("Last Name:"+children[children.length-1].name)
+
                         //check if user have gang
                         var actionArray = paiActionScript.checkActionArrayInSelfPaiList(currentUser.openid)
                         cc.log("actionArray:" + actionArray.length);
