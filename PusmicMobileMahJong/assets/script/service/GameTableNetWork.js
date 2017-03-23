@@ -357,9 +357,9 @@ cc.Class({
                         var tableNode = cc.find("Canvas/tableNode");
                         var parentNode = cc.find("user3PaiList", tableNode);
                         var children = parentNode.children;
-                        cc.log("First Name:"+children[children.length-1].name)
-                        children[children.length-1].name="mopai_" + paiLast
-                     cc.log("Last Name:"+children[children.length-1].name)
+                        cc.log("First Name:" + children[children.length - 1].name)
+                        children[children.length - 1].name = "mopai_" + paiLast
+                        cc.log("Last Name:" + children[children.length - 1].name)
 
                         //check if user have gang
                         var actionArray = paiActionScript.checkActionArrayInSelfPaiList(currentUser.openid)
@@ -422,13 +422,17 @@ cc.Class({
                         if (nextUserOpenId == userInfo.openid) {
                             userList = Global.userList;
                             for (var i = 0; i < userList.length; i++) {
-                                var actionArray = paiActionScript.getActionBarArrayByOpenId(paiNumber, userList[i].openid, "")
-                                cc.log("openid :" + userList[i].openid);
-                                cc.log("paiList:" + userList[i].paiListArray.toString());
-                                cc.log("actionArray:" + actionArray.length);
-                                if (actionArray.length > 1) {
-                                    userList[i].actionBarFlag = "1";
-                                    //
+                                if (fromUserOpenid != userList[i].openid) {
+                                    var actionArray = paiActionScript.getActionBarArrayByOpenId(paiNumber, userList[i].openid, "")
+                                    cc.log("openid :" + userList[i].openid);
+                                    cc.log("paiList:" + userList[i].paiListArray.toString());
+                                    cc.log("actionArray:" + actionArray.length);
+                                    if (actionArray.length > 1) {
+                                        userList[i].actionBarFlag = "1";
+                                        this.sendShowActionBarOnOtherUser(userList[i].openid, actionArray.toString());
+                                    } else {
+                                        userList[i].actionBarFlag = "0";
+                                    }
                                 } else {
                                     userList[i].actionBarFlag = "0";
                                 }
@@ -440,7 +444,7 @@ cc.Class({
                                 if (userList[i].actionBarFlag == "1") {
                                     //show 
                                     alreadyExistFlag = true;
-                                    this.sendShowActionBarOnOtherUser(userList[i].openid, paiNumber);
+                                    
                                 }
                             }
 
@@ -592,11 +596,12 @@ cc.Class({
                     if (obj.actionName == "showActionBar") {
                         cc.log("showActionBar action resive ")
                         var fromUserOpenId = obj.fromUserOpenid;
+                        var arrayString = obj.actionArrayStr;
                         var userInfo = Global.userInfo;
                         if (userInfo.openid == fromUserOpenId) {
-                            var actionArray = paiActionScript.getSelfActionBarArray(paiNumber);
-                            paiActionScript.fromUserOpenId = fromUserOpenId;
-                            paiActionScript.paiNumber = paiNumber;
+                            var actionArray = arrayString.split(",");
+                            //paiActionScript.fromUserOpenId = fromUserOpenId;
+                           // paiActionScript.paiNumber = paiNumber;
                             paiActionScript.showAction(actionArray);
                         }
 
@@ -710,12 +715,12 @@ cc.Class({
         this.sendMessageToServer(messageObj);
     },
 
-    sendShowActionBarOnOtherUser: function (showUserOpenid, paiNumber) {
+    sendShowActionBarOnOtherUser: function (showUserOpenid, arrayString) {
         var joinRoomNumber = Global.joinRoomNumber;
         var o = new Object();
         o.fromUserOpenid = showUserOpenid;
         o.actionName = "showActionBar";
-        o.paiNumber = paiNumber;
+        o.actionArrayStr = arrayString;
         var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
         this.sendMessageToServer(messageObj);
     },

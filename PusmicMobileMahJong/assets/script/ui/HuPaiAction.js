@@ -53,6 +53,15 @@ cc.Class({
 
     },
 
+    testHuLoginc: function () {
+        var paiStr = "22,23,24,27,27,31,31,32,32,34,35,36,36,36";
+        var paiList = paiStr.split(",");
+        var huFlagDetails = this.startDecideHu(paiList);
+        cc.log("huFlagDetails:" + huFlagDetails);
+        //12,14,14,16,18,18,18,35,35,35,37,39,39
+        paiStr = "12,14,14,16,18,18,18,35,35,35,37,39,39";
+    },
+
     huPaiAction: function (paiNumber, userOpenId, preStep) {
         var currentUser = tableActionScript.getCorrectUserByOpenId(userOpenId);
         var paiList = currentUser.paiListArray;
@@ -138,9 +147,9 @@ cc.Class({
 
 
     },
-    hupaiLogicNoInsert:function(paiList){
-       var huFlagDetails = false;
-          if (this.checkQiaoQiDui(paiList)) {
+    hupaiLogicNoInsert: function (paiList) {
+        var huFlagDetails = false;
+        if (this.checkQiaoQiDui(paiList)) {
             return true;
         } else {
             huFlagDetails = this.startDecideHu(paiList);
@@ -151,18 +160,23 @@ cc.Class({
     },
     //decide the painumber if hu or not hu .
     hupaiLogic: function (paiNumber, userOpenId, paiList, type) {
+        var tempList = [];
+        for (var i = 0; i < paiList.length; i++) {
+            tempList.push(paiList[i]);
+        }
         //var currentUser = tableActionScript.getCorrectUserByOpenId(userOpenId);
         var huFlagDetails = false;
         //var paiList = tableActionScript.insertPaiIntoPaiListByPaiAndOpenId(paiNumber, userOpenId)
         //if pai from other user ,it need insert into pai list 
         //if it from self it noe need insert the pai again.
         if (type != "mopai") {
-            var paiList = tableActionScript.insertPaiIntoPaiListByPaiAndPaiList(paiNumber, paiList);
+            cc.log("No is mopai insert the paiNumber");
+            tempList = tableActionScript.insertPaiIntoPaiListByPaiAndPaiList(paiNumber, tempList);
         }
-        if (this.checkQiaoQiDui(paiList)) {
+        if (this.checkQiaoQiDui(tempList)) {
             return true;
         } else {
-            huFlagDetails = this.startDecideHu(paiList);
+            huFlagDetails = this.startDecideHu(tempList);
             cc.log("huFlagDetails:" + huFlagDetails);
             return huFlagDetails;
 
@@ -221,10 +235,15 @@ cc.Class({
 
         //cc.log("oldPaiList:" + oldPaiList.toString());
 
-        if ((paiList.length == 2 && (paiList[0] == paiList[1]))) {
+        if (paiList.length == 2 && paiList[0] == paiList[1] && jiangFlag != true) {
+            cc.log("paiList[0]---" + paiList[0]);
+            cc.log("paiList[1]---" + paiList[1])
+
             huFlag = true
+            cc.log("jiang  hu " + huFlag)
         } else if (jiangFlag == true && paiList.length == 0) {
             huFlag = true
+            cc.log("clear hu " + huFlag)
             // var list = [];
             // list = this.deepCopyArray(sourcePaiList, list);
             // list.splice(0, 1);

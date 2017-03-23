@@ -130,10 +130,10 @@ cc.Class({
     checkActionArrayInSelfPaiList: function (openid) {
         var user = tablePaiActionScript.getCorrectUserByOpenId(openid);
         var paiList = user.paiListArray;
-        var tempList=[];
-         for (var j = 0; j < paiList.length; j++) {
-             tempList.push(paiList[j])
-         }
+        var tempList = [];
+        for (var j = 0; j < paiList.length; j++) {
+            tempList.push(paiList[j])
+        }
         huFlag = huPaiScript.hupaiLogicNoInsert(tempList);
         var actionArray = ['cancle'];
         for (var j = 0; j < tempList.length; j++) {
@@ -163,12 +163,26 @@ cc.Class({
     getActionBarArrayByOpenId: function (paiNumber, openid, type) {
         var user = tablePaiActionScript.getCorrectUserByOpenId(openid);
         var paiList = user.paiListArray;
+        var tempList = [];
+        for (var i = 0; i < paiList.length; i++) {
+            tempList.push(paiList[i])
+        }
         var pengList = user.pengPaiList;
         var actionArray = ['cancle'];
 
         var quePai = user.quePai;
         var userInfo = Global.userInfo;
         var paiCount = 0;
+        quePai = quePai + "";
+        cc.log("getActionBarArrayByOpenId quePai:" + quePai);
+        //check quepai 
+        // if (type != "mopai") {
+        var paiType = paiNumber + "";
+        paiType = paiType.trim();
+        if (paiType[0] == quePai) {
+            return actionArray;
+        }
+        //  }
 
         var actionLevel = 0;
         var huFlag = false;
@@ -187,17 +201,20 @@ cc.Class({
             }
         }
 
-        if (this.checkQueInList(quePai, paiList) == false) {
-            paiList = this.clearQuePaiInPaiList(quePai, paiList);
-            huFlag = huPaiScript.hupaiLogic(paiNumber, userInfo.openid, paiList, type);
+        if (this.checkQueInList(quePai, tempList) == false) {
+            tempList = this.clearQuePaiInPaiList(quePai, tempList);
+
+            cc.log("huFlag0:" + huFlag);
+            huFlag = huPaiScript.hupaiLogic(paiNumber, userInfo.openid, tempList, type);
+            cc.log("huFlag1:" + huFlag);
         }
 
 
 
         //we need clear the mopai from the paiList 
         //get pai count in self pai list 
-        for (var i = 0; i < paiList.length; i++) {
-            var pai = paiList[i] + "";
+        for (var i = 0; i < tempList.length; i++) {
+            var pai = tempList[i] + "";
             pai = pai.trim();
             if (pai == paiNumber) {
                 paiCount++
@@ -237,16 +254,22 @@ cc.Class({
         var userInfo = Global.userInfo;
         var user = tablePaiActionScript.getCorrectUserByOpenId(userInfo.openid);
         var paiList = user.paiListArray;
+        var temp = [];
+        for (var i = 0; i < paiList.length; i++) {
+            temp.push(paiList[i]);
+        }
         var paiCount = 0;
         var actionArray = ['cancle'];
         var actionLevel = 0;
         var huFlag = false;
         var quePai = user.quePai;
-        if (this.checkQueInList(quePai, paiList) == false) {
-            paiList = this.clearQuePaiInPaiList(quePai, paiList);
-            huFlag = huPaiScript.hupaiLogic(paiNumber, userInfo.openid, paiList, "mopai");
+        cc.log("getSelfActionBarArray paiList1:" + temp.toString());
+        if (this.checkQueInList(quePai, temp) == false) {
+            temp = this.clearQuePaiInPaiList(quePai, temp);
+            huFlag = huPaiScript.hupaiLogic(paiNumber, userInfo.openid, temp, "mopai");
         }
-
+        cc.log("getSelfActionBarArray paiList2:" + paiList.toString());
+        paiNumber = paiNumber + "";
         //get pai count in self pai list 
         for (var i = 0; i < paiList.length; i++) {
             var pai = paiList[i] + "";
@@ -499,7 +522,7 @@ cc.Class({
         cc.log("pengAction userInfo.openid:" + userInfo.openid);
         cc.log("pengAction userOpenId:" + userOpenId);
         //remove last pai from chu pai list layer.
-        // tablePaiActionScript.removeLastPaiOnChuPaiListByUserOpenId(this.chuPaiUserOpenId);
+        tablePaiActionScript.removeLastPaiOnChuPaiListByUserOpenId(this.chuPaiUserOpenId);
 
         if (userInfo.openid == userOpenId) {
             tableNetWorkScript.sendPengPaiAction(userOpenId, paiNumber);

@@ -228,7 +228,7 @@ cc.Class({
         //    cc.log("userPaiList children:" + userPaiList.children.length);
         var paiNode = null;
         for (var i = 0; i < children.length; i++) {
-            cc.log("removeLastPaiOnPaiListByUser lastNode:" + children[i].name);
+          //  cc.log("removeLastPaiOnPaiListByUser lastNode:" + children[i].name);
             if (children[i].name == "autoMoPai") {
                 paiNode = children[i];
             }
@@ -390,19 +390,19 @@ cc.Class({
         //  cc.log("parentNode:" + parentNode.name);
         var userChuPaiListNode = cc.find("user" + userPoint + "ChuaPaiListNode", parentNode);
         //   cc.log("userChuPaiListNode:" + userChuPaiListNode);
-      
+
 
         //datalayer -------------------------------------------
         var user = this.getCorrectUserByPoint(userPoint);
         cc.log("234:" + user.paiListArray);
         var paiList = this.removeElementByNodeFromUser(paiNode, 1)
-       // paiList=paiList.sort();
+        // paiList=paiList.sort();
         cc.log("235:" + paiList);
         user.paiListArray = paiList;
         user = this.synchronizationPaiList(user);
 
-        user.userMoPai = "";
-        cc.log("user openid:" + user.openid)
+        //user.userMoPai = "";
+        // cc.log("user openid:" + user.openid)
         this.updateUserListInGobal(user);
         cc.log("241:" + user.paiList);
         //----------------------------------------------------
@@ -574,6 +574,7 @@ cc.Class({
 
         var user = this.getCorrectUserByOpenId(userOpenId);
         user.paiList = paiList;
+        user.userMoPai = "";
         this.updateUserListInGobal(user);
         cc.log("374:" + user.paiList);
         tableUserInfoScript.intalSelfPaiList(user.paiList);
@@ -1300,7 +1301,7 @@ var x = touches[0].getLocationX();
         }
 
         //cc.log("1056:" + paiList.toString());
-        return paiList.sort(function(a, b) { return a-b})
+        return paiList.sort(function (a, b) { return a - b })
     },
     contains: function (array, obj) {
         var i = array.length;
@@ -1342,7 +1343,7 @@ var x = touches[0].getLocationX();
         number = temp[1];
         var paiList = this.getSelfPaiList();
         this.removeElementByNumberFromUser(number, paiList, b);
-        paiList.sort(function(a, b) { return a-b});
+        paiList.sort(function (a, b) { return a - b });
         return paiList
 
     },
@@ -1492,7 +1493,7 @@ var x = touches[0].getLocationX();
             cc.log("moPai:" + moPai);
             cc.log("minPai:" + minPai);
             cc.log("maxPai:" + maxPai);
-            if (moPai < minPai) {
+            if (moPai <= minPai) {
                 index = 0;
             } else if (moPai >= maxPai) {
                 index = paiList.length;
@@ -1516,10 +1517,21 @@ var x = touches[0].getLocationX();
                         var nextPai = parseInt(nextPaiStr);
                         cc.log("pai:" + pai);
                         cc.log("nextPai:" + nextPai);
-                        if (pai < moPai && moPai < nextPai) {
+                        if (pai == moPai) {
+                            index = nextI;
+                            break;
+                        } else if (pai == nextPai) {
+                            // nextI = nextI + 1;
+                            // if (nextI >= paiList.length) {
+                            //     nextI = paiList.length + 1
+                            // }
                             index = nextI;
                             break;
                         }
+                        // if (pai <= moPai && moPai <= nextPai) {
+                        //     index = nextI;
+                        //     break;
+                        // }
 
                     }
 
