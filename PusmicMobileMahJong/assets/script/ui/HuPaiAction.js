@@ -54,12 +54,19 @@ cc.Class({
     },
 
     testHuLoginc: function () {
-        var paiStr = "22,23,24,27,27,31,31,32,32,34,35,36,36,36";
+        //   var paiStr = "22,23,24,27,27,31,31,32,32,34,35,36,36,36";
+        // var paiList = paiStr.split(",");
+        //var huFlagDetails = this.startDecideHu(paiList);
+        cc.log("huFlagDetails:" + huFlagDetails);
+        //12,14,14,16,18,18,18,35,35,35,37,39,39
+        // paiStr = "12,14,14,16,18,18,18,35,35,35,37,39,39";
+        // paiList = paiStr.split(",");
+        // huFlagDetails = this.startDecideHu(paiList);
+        // cc.log("huFlagDetails:" + huFlagDetails);
+        var paiStr = "22,22,22,26,26,26,27,28,33,33,34,34,36,36";
         var paiList = paiStr.split(",");
         var huFlagDetails = this.startDecideHu(paiList);
         cc.log("huFlagDetails:" + huFlagDetails);
-        //12,14,14,16,18,18,18,35,35,35,37,39,39
-        paiStr = "12,14,14,16,18,18,18,35,35,35,37,39,39";
     },
 
     huPaiAction: function (paiNumber, userOpenId, preStep) {
@@ -160,6 +167,9 @@ cc.Class({
     },
     //decide the painumber if hu or not hu .
     hupaiLogic: function (paiNumber, userOpenId, paiList, type) {
+        jiangFlag = false;
+        huFlag = false;
+        sourcePaiCount = 0;
         var tempList = [];
         for (var i = 0; i < paiList.length; i++) {
             tempList.push(paiList[i]);
@@ -181,6 +191,32 @@ cc.Class({
             return huFlagDetails;
 
         }
+    },
+
+    analyze: function (paiList) {
+        if (paiList.length == 0) {
+            return true;
+        };
+        var huflag = false;
+        for (var i = 0; i < paiList.length; i++) {
+            var oldPaiList = [];
+            oldPaiList = this.deepCopyArray(paiList, oldPaiList);
+            var pai = paiList[i];
+            //check pai is san lian zhang 
+            var oldPaiList2 = [];
+            oldPaiList2 = this.deepCopyArray(oldPaiList, oldPaiList2);
+            oldLen = oldPaiList.length;
+            oldPaiList = this.liangZhang(pai, oldPaiList);
+            newLen = oldPaiList.length;
+            if (oldLen != newLen) {
+            }
+            //check pai is  san zhang 
+
+            //all not is ,return false 
+
+
+        }
+
     },
     startDecideHu: function (paiList) {
         cc.log("106 paiList:" + paiList.toString());
@@ -206,16 +242,18 @@ cc.Class({
                 huFlag = this.startDecideHu(paiList);
             }
 
-
-            if (count >= 2) {
-                var oldPaiList2 = [];
-                oldPaiList2 = this.deepCopyArray(oldPaiList, oldPaiList2);
-                oldLen = oldPaiList.length;
-                oldPaiList = this.liangZhang(pai, oldPaiList);
-                newLen = oldPaiList.length;
-                if (oldLen != newLen) {
-                    jiangFlag = true;
-                    huFlag = this.startDecideHu(oldPaiList);
+            if (jiangFlag == false) {
+                if (count >= 2) {
+                    var oldPaiList2 = [];
+                    oldPaiList2 = this.deepCopyArray(oldPaiList, oldPaiList2);
+                    oldLen = oldPaiList.length;
+                    oldPaiList = this.liangZhang(pai, oldPaiList);
+                    newLen = oldPaiList.length;
+                    if (oldLen != newLen) {
+                        jiangFlag = true;
+                        cc.log("jang is true:" + pai);
+                        huFlag = this.startDecideHu(oldPaiList);
+                    }
                 }
             }
 
@@ -234,7 +272,7 @@ cc.Class({
         cc.log("paiList:" + paiList.toString());
 
         //cc.log("oldPaiList:" + oldPaiList.toString());
-
+        cc.log("jiang flag: " + jiangFlag)
         if (paiList.length == 2 && paiList[0] == paiList[1] && jiangFlag != true) {
             cc.log("paiList[0]---" + paiList[0]);
             cc.log("paiList[1]---" + paiList[1])
@@ -250,6 +288,8 @@ cc.Class({
             // sourcePaiCount = 0;
             // huFlag = this.startDecideHu(list);
         }
+
+        jiangFlag = false;
 
         return huFlag
 

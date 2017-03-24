@@ -44,6 +44,9 @@ cc.Class({
         tableActionNode: cc.Node,
         tableUserInfoNode: cc.Node,
 
+        gameRoundEndNode: cc.Node,
+        allGameRoundEndNode: cc.Node,
+
 
 
     },
@@ -421,6 +424,8 @@ cc.Class({
                         //only work on the next user 
                         if (nextUserOpenId == userInfo.openid) {
                             userList = Global.userList;
+                            var huActionListCache = [];
+                            var noHuActionListCache = [];
                             for (var i = 0; i < userList.length; i++) {
                                 if (fromUserOpenid != userList[i].openid) {
                                     var actionArray = paiActionScript.getActionBarArrayByOpenId(paiNumber, userList[i].openid, "")
@@ -429,7 +434,17 @@ cc.Class({
                                     cc.log("actionArray:" + actionArray.length);
                                     if (actionArray.length > 1) {
                                         userList[i].actionBarFlag = "1";
-                                        this.sendShowActionBarOnOtherUser(userList[i].openid, actionArray.toString());
+                                        var o = new Object();
+                                        o.userOpenId = userList[i].openid;
+                                        o.actionArray = actionArray;
+                                        o.paiNumber = paiNumber;
+                                        if (actionArray.toString().indexOf("hu") >= 0) {
+                                            huActionListCache.push(o);
+                                        } else {
+                                            noHuActionListCache.push(o);
+                                        }
+
+                                        //this.sendShowActionBarOnOtherUser(userList[i].openid, actionArray.toString(), paiNumber);
                                     } else {
                                         userList[i].actionBarFlag = "0";
                                     }
@@ -438,13 +453,48 @@ cc.Class({
                                 }
                             }
 
+                            if (huActionListCache.length > 0) {
+
+                                /**
+                                 * Here have a bug ,if two user already to hu pai ,but the other user already to peng or gang 
+                                 * The correct way should need wait the two user to do decide.
+                                 * But now ,it only support one user to do decide.
+                                 * 
+                                 */
+
+                                //TODO we still need send the noHuActionListCache after the huActoin close the action bar.
+                                 var othreActionString="";
+                                if (noHuActionListCache.length > 0) {
+                                    othreActionString= JSON.stringify(noHuActionListCache[0])
+                                }
+                                for (var j = 0; j < huActionListCache.length; j++) {
+                                    var obj = huActionListCache[j];
+                                    this.sendShowActionBarOnOtherUser(obj.userOpenId, obj.actionArray.toString(), obj.paiNumber,othreActionString);
+                                }
+
+
+
+
+                            } else {
+                                if (noHuActionListCache.length > 0) {
+                                    for (var j = 0; j < noHuActionListCache.length; j++) {
+                                        var obj = noHuActionListCache[j];
+                                        this.sendShowActionBarOnOtherUser(obj.userOpenId, obj.actionArray.toString(), obj.paiNumber,"");
+
+                                    }
+                                }
+                            }
+
+
+
+
                             //check if already have action in the other user 
                             var alreadyExistFlag = false;
                             for (var i = 0; i < userList.length; i++) {
                                 if (userList[i].actionBarFlag == "1") {
                                     //show 
                                     alreadyExistFlag = true;
-                                    
+
                                 }
                             }
 
@@ -597,11 +647,14 @@ cc.Class({
                         cc.log("showActionBar action resive ")
                         var fromUserOpenId = obj.fromUserOpenid;
                         var arrayString = obj.actionArrayStr;
+                        var otherUserActionString=obj.otherActionStr;
+                        paiNumber = obj.paiNumber;
                         var userInfo = Global.userInfo;
                         if (userInfo.openid == fromUserOpenId) {
                             var actionArray = arrayString.split(",");
-                            //paiActionScript.fromUserOpenId = fromUserOpenId;
-                           // paiActionScript.paiNumber = paiNumber;
+                            paiActionScript.fromUserOpenId = fromUserOpenId;
+                            paiActionScript.paiNumber = paiNumber;
+                            paiActionScript.otherUserActionString=otherUserActionString;
                             paiActionScript.showAction(actionArray);
                         }
 
@@ -647,6 +700,8 @@ cc.Class({
 
                     //-----------hupai action-------------------
                     if (obj.actionName == "huPai") {
+                        var userInfo = Global.userInfo;
+                        var userList = Global.userList;
                         fromUserOpenId = obj.fromUserOpenid;
                         paiNumber = obj.paiNumber;
                         var chuPaiUserOpenId = obj.chuPaiUserOpenId;
@@ -660,6 +715,52 @@ cc.Class({
                             paiActionScript.preStep = huChuPaiType;
                             paiActionScript.huAction();
                         }
+                        var moPaiUserId = this.getNextUserFromCurentIndex();
+                        //check if game round endTimer
+                        var huPeople = 0;
+                        var endGameFlag = false;
+                        for (var i = 0; i < userList.length; i++) {
+                            if (userList.huPai != null && userList != undefined && userList != "") {
+                                huPeople++
+                            }
+
+                        }
+
+                        if (huPeople == userList.length) {
+                            endGameFlag = true;
+                        }
+
+                        if (Global.restPaiCount == 0) {
+                            endGameFlag = true;
+                        }
+
+                        if (endGameFlag == false) {
+                            if (moPaiUserId == userInfo.openid) {
+                                this.sendMoPaiAction();
+                            }
+                        } else {
+                            //check the round end 
+                            var gameMode = Global.gameMode;
+                            var gameRoundCount = 0;
+                            if (gameMode.roundCount4 + "" == "1") {
+                                gameRoundCount = 4
+                            }
+                            if (gameMode.roundCount8 + "" == "1") {
+                                gameRoundCount = 8
+                            }
+                            if (Global.gameRoundCount == gameRoundCount) {
+                                //show all round end interface
+                                this.allGameRoundEndNode.active = true;
+
+                            } else {
+                                //show round end interface 
+                                this.gameRoundEndNode.active = true;
+
+                            }
+
+                        }
+
+
                     }
 
 
@@ -715,12 +816,14 @@ cc.Class({
         this.sendMessageToServer(messageObj);
     },
 
-    sendShowActionBarOnOtherUser: function (showUserOpenid, arrayString) {
+    sendShowActionBarOnOtherUser: function (showUserOpenid, arrayString, paiNumber,otherActionString) {
         var joinRoomNumber = Global.joinRoomNumber;
         var o = new Object();
         o.fromUserOpenid = showUserOpenid;
         o.actionName = "showActionBar";
         o.actionArrayStr = arrayString;
+        o.paiNumber = paiNumber;
+        o.otherActionStr=otherActionString;
         var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
         this.sendMessageToServer(messageObj);
     },

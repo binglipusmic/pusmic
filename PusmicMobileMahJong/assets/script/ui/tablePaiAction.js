@@ -228,7 +228,7 @@ cc.Class({
         //    cc.log("userPaiList children:" + userPaiList.children.length);
         var paiNode = null;
         for (var i = 0; i < children.length; i++) {
-          //  cc.log("removeLastPaiOnPaiListByUser lastNode:" + children[i].name);
+            //  cc.log("removeLastPaiOnPaiListByUser lastNode:" + children[i].name);
             if (children[i].name == "autoMoPai") {
                 paiNode = children[i];
             }
@@ -334,13 +334,14 @@ cc.Class({
 
     },
 
-    removeLastPaiOnChuPaiListByUserOpenId: function (userOpenid) {
-        cc.log("removeLastPaiOnChuPaiListByUserOpenId");
+    removeLastPaiOnChuPaiListByUserOpenId: function (userOpenid, paiNumber) {
+        cc.log("removeLastPaiOnChuPaiListByUserOpenId:"+userOpenid);
         var user = this.getCorrectUserByOpenId(userOpenid);
         var index = user.pointIndex;
         var tableNode = cc.find("Canvas/tableNode");
         var userChuPaiListNode = cc.find("user" + index + "ChuaPaiListNode", tableNode);
         // var chuPaiListNode = cc.find("user" + index + "ChuaPaiListNode",this.tableNode);
+          cc.log("removeLastPaiOnChuPaiListByUserOpenId node:"+userChuPaiListNode.name);
         var children = userChuPaiListNode.children;
         var lastNode;
 
@@ -349,7 +350,7 @@ cc.Class({
         }
         if (lastNode != null & lastNode != undefined) {
             lastNode.removeFromParent();
-            cc.log("removeLastPaiOnChuPaiListByUserOpenId remove");
+            cc.log("removeLastPaiOnChuPaiListByUserOpenId remove:" + lastNode.name);
         }
         //Fix the user chupai list 
         children = userChuPaiListNode.children;
@@ -605,8 +606,10 @@ cc.Class({
 
         this.removeLastPaiOnPaiListByUserOpenId(userOpenId);
 
-
-
+        var user = this.getCorrectUserByOpenId(userOpenId);
+        user.paiList = paiList;
+        user.userMoPai = "";
+        this.updateUserListInGobal(user);
     },
 
     /**

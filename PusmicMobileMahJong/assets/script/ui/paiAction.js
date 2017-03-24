@@ -36,6 +36,7 @@ cc.Class({
         fromUserOpenId: String,
         chuPaiUserOpenId: String,
         preStep: String,
+        otherUserActionString: String,
         tableNetWorkNode: cc.Node,
         tableCenterNode: cc.Node,
         user3PaiListNode: cc.Node,
@@ -406,7 +407,7 @@ cc.Class({
         }
 
         this.actionNode.active = true;
-
+        this.actionNode.zIndex = 500;
         //disable user pai 
 
         tablePaiActionScript.disableAllSlefPai();
@@ -486,6 +487,7 @@ cc.Class({
         var userInfo = Global.userInfo;
         var userOpenId = this.fromUserOpenId;
         var paiNumber = this.paiNumber;
+        cc.log("pengAction paiNumber:" + paiNumber);
         var user = tablePaiActionScript.getCorrectUserByOpenId(userOpenId);
         var pointIndex = user.pointIndex;
         cc.log("pointIndex:" + pointIndex);
@@ -522,7 +524,7 @@ cc.Class({
         cc.log("pengAction userInfo.openid:" + userInfo.openid);
         cc.log("pengAction userOpenId:" + userOpenId);
         //remove last pai from chu pai list layer.
-        tablePaiActionScript.removeLastPaiOnChuPaiListByUserOpenId(this.chuPaiUserOpenId);
+        tablePaiActionScript.removeLastPaiOnChuPaiListByUserOpenId(this.chuPaiUserOpenId, paiNumber);
 
         if (userInfo.openid == userOpenId) {
             tableNetWorkScript.sendPengPaiAction(userOpenId, paiNumber);
@@ -585,6 +587,10 @@ cc.Class({
             }
         };
         paiList = this.removeAllElementByNumberFromUser(paiList, paiNumber);
+
+        if (user.userMoPai != paiNumber) {
+            tablePaiActionScript.removeLastPaiOnChuPaiListByUserOpenId(this.chuPaiUserOpenId, paiNumber);
+        }
         if (userOpenId == this.chuPaiUserOpenId) {
 
             //remove the mo pai on this 
@@ -593,7 +599,7 @@ cc.Class({
                 //remove the mopai 
                 user.userMoPai = "";
                 tablePaiActionScript.updateUserListInGobal(user);
-                var chilren = this.user3PaiListNode.children;
+                var children = this.user3PaiListNode.children;
                 var moPaiNode = null;
                 for (var i = 0; i < children.length; i++) {
                     var lastNode = children[i];
@@ -645,10 +651,8 @@ cc.Class({
         Global.chuPaiActionType = "hu";
         //remove last pai from chu pai user
         cc.log("userInfo.openid:" + this.chuPaiUserOpenId);
-        if (userOpenId != this.chuPaiUserOpenId) {
-            tablePaiActionScript.removeLastPaiOnChuPaiListByUserOpenId(this.chuPaiUserOpenId);
+        // if (userOpenId != this.chuPaiUserOpenId) {
 
-        }
         cc.log("userInfo.openid:" + userInfo.openid);
         cc.log("userOpenId:" + userOpenId);
         if (userInfo.openid == userOpenId) {
@@ -991,7 +995,14 @@ cc.Class({
         if (this.chuPaiUserOpenId == this.fromUserOpenId) {
             tablePaiActionScript.enabledAllPaiAfterQuePai();
         } else {
-            tableNetWorkScript.sendCacleToMoPaiAction(userInfo.openid);
+            if (this.otherUserActionString != null && this.otherUserActionString != "") {
+              //show other user pai 
+                var obj = JSON.parse(this.otherUserActionString);
+                tableNetWorkScript.sendShowActionBarOnOtherUser(obj.userOpenId, obj.actionArray.toString(), obj.paiNumber,"");
+            } else {
+                tableNetWorkScript.sendCacleToMoPaiAction(userInfo.openid);
+            }
+
             tablePaiActionScript.disableAllSlefPai();
         }
 

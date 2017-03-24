@@ -13,4 +13,5 @@ window.Global = {
     chuPaiActionType:"",
     huanSanZhangPaiList:[],
     restPaiCount:0,
+    gameRoundCount:0,
 };
