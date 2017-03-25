@@ -1289,27 +1289,31 @@ var x = touches[0].getLocationX();
     },
     removeElementByNumberByPaiListFromUser: function (paiList, paiNumber, b) {
         var c = 0;
-        // cc.log("1043:" + paiList.toString());
+        //  cc.log("1043:" + paiList.toString());
+        //       cc.log("1043 paiNumber:" + paiNumber);
+        //           cc.log("1043 paiNumber:" + this.contains(paiList, paiNumber));
+        //              cc.log("1043: c" +c+"---b:"+b);
         while (this.contains(paiList, paiNumber) && c != b) {
-            // cc.log("1044: c" +c+"---b:"+b);
+             //cc.log("1044: c" +c+"---b:"+b);
             for (var i = 0; i < paiList.length; i++) {
                 var temp = paiList[i] + "";
                 temp = temp.trim();
                 if (temp == paiNumber + "") {
                     paiList.splice(i, 1);
+
                     c++;
                     break;
                 }
             }
         }
 
-        //cc.log("1056:" + paiList.toString());
+        // scc.log("1056:" + paiList.toString());
         return paiList.sort(function (a, b) { return a - b })
     },
     contains: function (array, obj) {
         var i = array.length;
         while (i--) {
-            if (array[i] === obj) {
+            if (array[i]+"" === obj+"") {
                 return true;
             }
         }
