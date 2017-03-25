@@ -232,6 +232,28 @@ cc.Class({
                 actionArray.push("gang");
                 actionLevel = 2
             }
+            for (var i = 0; i < tempList.length; i++) {
+                var tempPai = tempList[i] + "";
+                tempPai = tempPai.trim();
+                var tempCount = 0
+                for (var j = 0; j < tempList.length; j++) {
+                    var temp2 = tempList[j] + "";
+                    temp2 = temp2.trim();
+                    if (temp2 == tempPai) {
+                        tempCount++
+                        if (tempCount == 4) {
+                            break;
+                        }
+                    }
+                }
+
+                if (tempCount == 4) {
+                    actionArray.push("gang");
+                    actionLevel = 2
+                }
+            }
+
+
 
         }
         if (type != "mopai") {
@@ -996,9 +1018,9 @@ cc.Class({
             tablePaiActionScript.enabledAllPaiAfterQuePai();
         } else {
             if (this.otherUserActionString != null && this.otherUserActionString != "") {
-              //show other user pai 
+                //show other user pai 
                 var obj = JSON.parse(this.otherUserActionString);
-                tableNetWorkScript.sendShowActionBarOnOtherUser(obj.userOpenId, obj.actionArray.toString(), obj.paiNumber,"");
+                tableNetWorkScript.sendShowActionBarOnOtherUser(obj.userOpenId, obj.actionArray.toString(), obj.paiNumber, "");
             } else {
                 tableNetWorkScript.sendCacleToMoPaiAction(userInfo.openid);
             }

@@ -463,13 +463,13 @@ cc.Class({
                                  */
 
                                 //TODO we still need send the noHuActionListCache after the huActoin close the action bar.
-                                 var othreActionString="";
+                                var othreActionString = "";
                                 if (noHuActionListCache.length > 0) {
-                                    othreActionString= JSON.stringify(noHuActionListCache[0])
+                                    othreActionString = JSON.stringify(noHuActionListCache[0])
                                 }
                                 for (var j = 0; j < huActionListCache.length; j++) {
                                     var obj = huActionListCache[j];
-                                    this.sendShowActionBarOnOtherUser(obj.userOpenId, obj.actionArray.toString(), obj.paiNumber,othreActionString);
+                                    this.sendShowActionBarOnOtherUser(obj.userOpenId, obj.actionArray.toString(), obj.paiNumber, othreActionString);
                                 }
 
 
@@ -479,7 +479,7 @@ cc.Class({
                                 if (noHuActionListCache.length > 0) {
                                     for (var j = 0; j < noHuActionListCache.length; j++) {
                                         var obj = noHuActionListCache[j];
-                                        this.sendShowActionBarOnOtherUser(obj.userOpenId, obj.actionArray.toString(), obj.paiNumber,"");
+                                        this.sendShowActionBarOnOtherUser(obj.userOpenId, obj.actionArray.toString(), obj.paiNumber, "");
 
                                     }
                                 }
@@ -647,14 +647,14 @@ cc.Class({
                         cc.log("showActionBar action resive ")
                         var fromUserOpenId = obj.fromUserOpenid;
                         var arrayString = obj.actionArrayStr;
-                        var otherUserActionString=obj.otherActionStr;
+                        var otherUserActionString = obj.otherActionStr;
                         paiNumber = obj.paiNumber;
                         var userInfo = Global.userInfo;
                         if (userInfo.openid == fromUserOpenId) {
                             var actionArray = arrayString.split(",");
                             paiActionScript.fromUserOpenId = fromUserOpenId;
                             paiActionScript.paiNumber = paiNumber;
-                            paiActionScript.otherUserActionString=otherUserActionString;
+                            paiActionScript.otherUserActionString = otherUserActionString;
                             paiActionScript.showAction(actionArray);
                         }
 
@@ -706,6 +706,11 @@ cc.Class({
                         paiNumber = obj.paiNumber;
                         var chuPaiUserOpenId = obj.chuPaiUserOpenId;
                         var huChuPaiType = obj.huChuPaiType;
+
+                        //---set hu pai user center point 
+                        var huuser = this.getCurreentUserByOpenId(fromUserOpenId)
+                        tableCenterScript.index = huuser.pointIndex;
+                        //tableCenterScript.showCenterPoint();
 
                         var userInfo = Global.userInfo;
                         if (userInfo.openid != fromUserOpenId) {
@@ -816,14 +821,14 @@ cc.Class({
         this.sendMessageToServer(messageObj);
     },
 
-    sendShowActionBarOnOtherUser: function (showUserOpenid, arrayString, paiNumber,otherActionString) {
+    sendShowActionBarOnOtherUser: function (showUserOpenid, arrayString, paiNumber, otherActionString) {
         var joinRoomNumber = Global.joinRoomNumber;
         var o = new Object();
         o.fromUserOpenid = showUserOpenid;
         o.actionName = "showActionBar";
         o.actionArrayStr = arrayString;
         o.paiNumber = paiNumber;
-        o.otherActionStr=otherActionString;
+        o.otherActionStr = otherActionString;
         var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
         this.sendMessageToServer(messageObj);
     },
@@ -1004,6 +1009,32 @@ cc.Class({
         var nextOpenId = "";
 
 
+        currentIndex = this.getNextIndex(currentIndex);
+        //tableActionScript.getNextUserFromCurentIndex
+        var user = tableActionScript.getCorrectUserByPoint(currentIndex);
+        if (user.huPai != null && user.huPai != undefined & user.huPai != "") {
+            currentIndex = this.getNextIndex(currentIndex);
+            user = tableActionScript.getCorrectUserByPoint(currentIndex);
+            if (user.huPai != null && user.huPai != undefined & user.huPai != "") {
+                currentIndex = this.getNextIndex(currentIndex);
+                user = tableActionScript.getCorrectUserByPoint(currentIndex);
+            }
+        }
+
+        // for (var j = 0; j < userList.length; j++) {
+        //     if (userList[j].pointIndex == nextIndex) {
+        //         nextOpenId = userList[j].openid;
+
+        //     }
+        // }
+        nextOpenId = user.openid;
+        return nextOpenId
+
+    },
+
+    getNextIndex: function (currentIndex) {
+        currentIndex = currentIndex + "";
+        currentIndex = currentIndex.trim();
         currentIndex = parseInt(currentIndex);
         if (currentIndex == 4) {
             nextIndex = 1
@@ -1011,14 +1042,7 @@ cc.Class({
             nextIndex = currentIndex + 1
         }
 
-        for (var j = 0; j < userList.length; j++) {
-            if (userList[j].pointIndex == nextIndex) {
-                nextOpenId = userList[j].openid;
-            }
-        }
-
-        return nextOpenId
-
+        return currentIndex
     },
 
     //--------------------------------------------------------------------------------------------------------

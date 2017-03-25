@@ -109,7 +109,7 @@ cc.Class({
         //     paiActionScript.chuPaiUserOpenId = userOpenId;
         //     paiActionScript.showAction(actionArray);
         // }
-        
+        this.moPaiOnDataLayer(paiNumber, userOpenId);
         var actionArray = paiActionScript.getActionBarArrayByOpenId(paiNumber, userOpenId, "mopai");
 
         if (actionArray.length > 1) {
@@ -124,7 +124,7 @@ cc.Class({
 
         }
 
-        this.moPaiOnDataLayer(paiNumber, userOpenId);
+      
 
         //we need update this into gobal user list
         //this.updateUserListInGobal(user);

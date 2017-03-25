@@ -275,7 +275,7 @@ cc.Class({
                 var p = noJiangpaiList[i];
                 // cc.log("no jiang p:" + p.toString())
                 var phuflag = this.analyze(p);
-                cc.log("no jiang phuflag:" + phuflag)
+                //cc.log("no jiang phuflag:" + phuflag)
                 if (phuflag == true) {
                     return true;
                 }
@@ -364,20 +364,21 @@ cc.Class({
 
     },
     checkQiaoQiDui: function (paiList) {
-
-        for (var i = 0; i < paiList.length; i++) {
-            var sourceLen = paiList.length;
-            paiList = this.liangZhang(paiList[i], paiList);
-            cc.log("paiList:" + paiList);
-            var oldLen = paiList.length;
+        var tempList=[];
+        tempList=this.deepCopyArray(paiList,tempList)
+        for (var i = 0; i < tempList.length; i++) {
+            var sourceLen = tempList.length;
+            tempList = this.liangZhang(tempList[i], tempList);
+            cc.log("paiList:" + tempList);
+            var oldLen = tempList.length;
             if (sourceLen != oldLen) {
                 i = 0
             }
         }
 
-        cc.log("paiList:" + paiList.toString())
+        cc.log("paiList:" + tempList.toString())
 
-        if (paiList.length == 0) {
+        if (tempList.length == 0) {
             return true
         } else {
             return false
