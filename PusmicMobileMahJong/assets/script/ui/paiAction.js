@@ -705,13 +705,14 @@ cc.Class({
         var userInfo = Global.userInfo;
         var userOpenId = this.fromUserOpenId;
         var chupaiOpenId = this.chuPaiUserOpenId;
+        cc.log("huAction pai:" + this.paiNumber);
         huPaiScript.huPaiAction(this.paiNumber, this.fromUserOpenId, Global.chuPaiActionType);
         //cache the user hupai information
         var user = tablePaiActionScript.getCorrectUserByOpenId(userOpenId);
         user.huPai = this.paiNumber;
         user.huPaiFromUser = this.chuPaiUserOpenId;
         user.huchuPaiType = this.preStep;
-
+        var pointIndex = user.pointIndex;
         tablePaiActionScript.updateUserListInGobal(user);
 
         //self user send the hupai to other user
@@ -720,6 +721,18 @@ cc.Class({
             tableNetWorkScript.sendHuPaiAction(userOpenId, chupaiOpenId, this.paiNumber, Global.chuPaiActionType);
             this.actionNode.active = false;
             tablePaiActionScript.disableAllSlefPai();
+            //remove mopai 
+            if (userOpenId == chupaiOpenId) {
+                var tableNode = cc.find("Canvas/tableNode");
+                var userPaiListNode = cc.find("user" + pointIndex + "PaiList", tableNode);
+                var children = userPaiListNode.children;
+                for(var i=0;i<children.length;i++){
+                    var cNode=children[i];
+                    if(cNode.name.indexOf("mopai")>=0){
+                        cNode.removeFromParent();
+                    }
+                }
+            }
         }
 
     },

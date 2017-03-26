@@ -692,6 +692,7 @@ cc.Class({
      * This method will get the correct image path from image folder of resourecs
      */
     getChuPaiNameByNodeName: function (paiName, userIndex) {
+        cc.log("getChuPaiNameByNodeName:"+paiName);
         var returnName = "";
         var backPrefix = "";
         var folderName = "user" + userIndex;

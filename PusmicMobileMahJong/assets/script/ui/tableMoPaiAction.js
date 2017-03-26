@@ -43,7 +43,7 @@ cc.Class({
 
     },
     moPaiTest: function () {
-        this.moPaiAction("15", "testUser2");
+        this.moPaiAction("15", "testUser1");
     },
 
     moPaiOnDataLayer: function (paiNumber, userOpenId) {

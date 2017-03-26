@@ -86,7 +86,7 @@ cc.Class({
      * 
      */
     testInitalUserList: function (initalType) {
-        var paiList = ["11, 11, 15, 24, 24, 22, 35, 35, 35, 36, 36, 36, 38,38",
+        var paiList = ["11, 11, 13, 14, 24, 25, 26, 35, 35, 35, 36, 36, 36",
             "15, 15, 17, 18, 19, 22, 23, 24, 29, 29, 29, 36, 37",
             "15, 16, 17, 18, 19, 22, 23, 24, 29, 29, 29, 36, 37,37",
             "11, 12, 15, 24, 24, 22, 35, 35, 26, 14, 14, 14, 38",
@@ -229,7 +229,7 @@ cc.Class({
     //type:inital 
     initalUserPai: function (initalType, type) {
         //inital the test data
-       // this.testInitalUserList(initalType);
+        this.testInitalUserList(initalType);
         //  cc.log("Global.chuPaiActionType initalUserPai:" + Global.chuPaiActionType);
         //hide game mode
         this.tableGameMode.active = false;
@@ -299,7 +299,7 @@ cc.Class({
         Global.userList = userList;
         if (type != "joinExist") {
             //show huanPaiScript
-            huanPaiScript.showHuanPaiNode();
+           // huanPaiScript.showHuanPaiNode();
         }
 
 

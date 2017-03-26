@@ -16298,7 +16298,7 @@
     "_tag": -1,
     "_opacityModifyRGB": false,
     "_id": "8720eyY6TdOa7AO41F9TQFZ",
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 947
@@ -46342,7 +46342,7 @@
     "_tag": -1,
     "_opacityModifyRGB": false,
     "_id": "804fdv11ERHOYaiATXAJGiD",
-    "_active": false,
+    "_active": true,
     "_components": [],
     "_prefab": null,
     "groupIndex": 0
@@ -46569,10 +46569,10 @@
   {
     "__type__": "cc.ClickEvent",
     "target": {
-      "__id__": 673
+      "__id__": 675
     },
-    "component": "HuPaiAction",
-    "handler": "testHuLoginc",
+    "component": "tableMoPaiAction",
+    "handler": "moPaiTest",
     "customEventData": ""
   },
   {

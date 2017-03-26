@@ -497,6 +497,7 @@ cc.Class({
 
                                 }
                             }
+                            cc.log("alreadyExistFlag:" + alreadyExistFlag);
 
                             if (alreadyExistFlag == false) {
                                 //mopai
@@ -955,6 +956,7 @@ cc.Class({
     },
     //send mo pai will auto get current user 
     sendMoPaiAction: function () {
+        cc.log("sendMoPaiAction");
         var joinRoomNumber = Global.joinRoomNumber;
         var nextUserOpenId = this.getNextUserFromCurentIndex();
         var o = new Object();
@@ -1008,16 +1010,23 @@ cc.Class({
         var nextIndex = 0;
         var nextOpenId = "";
 
-
+        cc.log("1013 currentIndex:" + currentIndex);
         currentIndex = this.getNextIndex(currentIndex);
         //tableActionScript.getNextUserFromCurentIndex
-        var user = tableActionScript.getCorrectUserByPoint(currentIndex);
+        cc.log("1016 currentIndex:" + currentIndex);
+        var user = tablePaiActionScript.getCorrectUserByPoint(currentIndex);
+        cc.log("1018 user.huPai:" + user.huPai);
         if (user.huPai != null && user.huPai != undefined & user.huPai != "") {
             currentIndex = this.getNextIndex(currentIndex);
-            user = tableActionScript.getCorrectUserByPoint(currentIndex);
+            user = tablePaiActionScript.getCorrectUserByPoint(currentIndex);
+            cc.log("1022 user.huPai:" + user.huPai);
             if (user.huPai != null && user.huPai != undefined & user.huPai != "") {
                 currentIndex = this.getNextIndex(currentIndex);
-                user = tableActionScript.getCorrectUserByPoint(currentIndex);
+                user = tablePaiActionScript.getCorrectUserByPoint(currentIndex);
+                cc.log("1026 user.huPai:" + user.huPai);
+                if (user.huPai != null && user.huPai != undefined & user.huPai != "") {
+                    //show end round 
+                }
             }
         }
 
@@ -1028,21 +1037,28 @@ cc.Class({
         //     }
         // }
         nextOpenId = user.openid;
+        cc.log("getNextUserFromCurentIndex:" + nextOpenId);
         return nextOpenId
 
     },
 
     getNextIndex: function (currentIndex) {
+        var nextIndex = 0;
         currentIndex = currentIndex + "";
         currentIndex = currentIndex.trim();
         currentIndex = parseInt(currentIndex);
-        if (currentIndex == 4) {
+       // cc.log("currentIndex:" + currentIndex);
+       // cc.log("Global.userList.length:" + Global.userList.length);
+        if (currentIndex == Global.userList.length) {
+           // cc.log("1050:" + currentIndex);
             nextIndex = 1
         } else {
-            nextIndex = currentIndex + 1
-        }
 
-        return currentIndex
+            nextIndex = currentIndex + 1
+            //cc.log("1053:" + nextIndex);
+        }
+        //cc.log("1057:" + nextIndex);
+        return nextIndex
     },
 
     //--------------------------------------------------------------------------------------------------------
