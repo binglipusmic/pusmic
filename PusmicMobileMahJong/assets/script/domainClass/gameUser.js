@@ -34,6 +34,8 @@ const gameUser =
       huPai:"",
       //ziMo,normalHu,gangShangHua,gangShangPao ,haiDi,tianHu,diHu
       huPaiType:"",
+      //round socre count 
+      
       //gameingStatu:"",
     }
 module.exports = {

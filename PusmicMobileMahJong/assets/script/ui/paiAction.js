@@ -670,7 +670,7 @@ cc.Class({
         }
 
 
-        Global.chuPaiActionType = "hu";
+        Global.chuPaiActionType = "gang";
         //remove last pai from chu pai user
         cc.log("userInfo.openid:" + this.chuPaiUserOpenId);
         // if (userOpenId != this.chuPaiUserOpenId) {
@@ -718,7 +718,7 @@ cc.Class({
         //self user send the hupai to other user
 
         if (userOpenId == userInfo.openid) {
-            tableNetWorkScript.sendHuPaiAction(userOpenId, chupaiOpenId, this.paiNumber, Global.chuPaiActionType);
+            tableNetWorkScript.sendHuPaiAction(userOpenId, chupaiOpenId, this.paiNumber, Global.chuPaiActionType,this.preStep);
             this.actionNode.active = false;
             tablePaiActionScript.disableAllSlefPai();
             //remove mopai 

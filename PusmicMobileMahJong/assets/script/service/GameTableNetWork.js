@@ -355,7 +355,7 @@ cc.Class({
                         var paiLast = currentUser.paiListArray[currentUser.paiListArray.length - 1]
                         cc.log("First mopai:" + paiLast);
                         currentUser.userMoPai = paiLast;
-                        tableActionScript.updateUserListInGobal(currentUser);
+                        tablePaiActionScript.updateUserListInGobal(currentUser);
 
                         var tableNode = cc.find("Canvas/tableNode");
                         var parentNode = cc.find("user3PaiList", tableNode);
@@ -374,8 +374,10 @@ cc.Class({
 
                 }
 
-
-
+                if (messageDomain.messageAction == "endGameRoundLun") {
+                }
+                if (messageDomain.messageAction == "endGameRoundAndStartNewRound") {
+                }
                 //--------------------------------------Game Action  -----------------------------------------------
                 if (messageDomain.messageAction == "gameAction") {
                     var userList = Global.userList;
@@ -707,10 +709,18 @@ cc.Class({
                         paiNumber = obj.paiNumber;
                         var chuPaiUserOpenId = obj.chuPaiUserOpenId;
                         var huChuPaiType = obj.huChuPaiType;
+                        var preStep = obj.preStep;
 
                         //---set hu pai user center point 
                         var huuser = this.getCurreentUserByOpenId(fromUserOpenId)
                         tableCenterScript.index = huuser.pointIndex;
+                        //update the hupai for the hu user
+                        huuser.huPai = paiNumber;
+                        huuser.huPaiFromUser = chuPaiUserOpenId;
+                        huuser.huChuPaiType = huChuPaiType;
+                        tablePaiActionScript.updateUserListInGobal(huuser);
+
+
                         //tableCenterScript.showCenterPoint();
 
                         var userInfo = Global.userInfo;
@@ -722,7 +732,7 @@ cc.Class({
                             paiActionScript.huAction();
                         }
                         var moPaiUserId = this.getNextUserFromCurentIndex();
-                        //check if game round endTimer
+                        //check if game round end
                         var huPeople = 0;
                         var endGameFlag = false;
                         for (var i = 0; i < userList.length; i++) {
@@ -732,12 +742,12 @@ cc.Class({
 
                         }
 
-                        if (huPeople == userList.length) {
+                        if (huPeople == userList.length - 1) {
                             endGameFlag = true;
                         }
 
                         if (Global.restPaiCount == 0) {
-                            endGameFlag = true;
+                            // endGameFlag = true;
                         }
 
                         if (endGameFlag == false) {
@@ -745,24 +755,26 @@ cc.Class({
                                 this.sendMoPaiAction();
                             }
                         } else {
+                            this.sendCheckRoundEnd();
                             //check the round end 
-                            var gameMode = Global.gameMode;
-                            var gameRoundCount = 0;
-                            if (gameMode.roundCount4 + "" == "1") {
-                                gameRoundCount = 4
-                            }
-                            if (gameMode.roundCount8 + "" == "1") {
-                                gameRoundCount = 8
-                            }
-                            if (Global.gameRoundCount == gameRoundCount) {
-                                //show all round end interface
-                                this.allGameRoundEndNode.active = true;
+                            // var gameMode = Global.gameMode;
+                            // var gameRoundCount = 0;
+                            // if (gameMode.roundCount4 + "" == "1") {
+                            //     gameRoundCount = 4
+                            // }
+                            // if (gameMode.roundCount8 + "" == "1") {
+                            //     gameRoundCount = 8
+                            // }
+                            // if (Global.gameRoundCount == gameRoundCount) {
+                            //     //show all round end interface
+                            //     this.allGameRoundEndNode.active = true;
 
-                            } else {
-                                //show round end interface 
-                                this.gameRoundEndNode.active = true;
+                            // } else {
+                            //     //show round end interface 
+                            //     this.gameRoundEndNode.active = true;
 
-                            }
+                            // }
+                            //send to server to check if it already end the round and round lun 
 
                         }
 
@@ -811,6 +823,18 @@ cc.Class({
 
     },
     //-------------------------------chu pai action---------------------------------------------
+    sendCheckRoundEnd: function () {
+
+        var joinRoomNumber = Global.joinRoomNumber;
+        var o = new Object();
+        //o.fromUserOpenid = userOpenId;
+        o.actionName = "checkRoundEnd";
+        //o.toUserOpenid = userOpenId;
+        var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
+        this.sendMessageToServer(messageObj);
+    },
+
+
     sendCenterIndex: function (userOpenId) {
 
         var joinRoomNumber = Global.joinRoomNumber;
@@ -865,7 +889,7 @@ cc.Class({
     sendCacleHuPaiAction: function () {
 
     },
-    sendHuPaiAction: function (fromUserOpenId, chuPaiUserOpenId, paiNumber, huChuPaiType) {
+    sendHuPaiAction: function (fromUserOpenId, chuPaiUserOpenId, paiNumber, huChuPaiType, preStep) {
         var joinRoomNumber = Global.joinRoomNumber;
         var o = new Object();
         //var gameStep = require("gameStep").gameStep;
@@ -875,6 +899,7 @@ cc.Class({
         o.paiNumber = paiNumber;
         o.chuPaiUserOpenId = chuPaiUserOpenId;
         o.huChuPaiType = huChuPaiType;
+        o.preStep = preStep;
 
         //o.chuPaiType = Global.chuPaiActionType;
         var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
@@ -1047,10 +1072,10 @@ cc.Class({
         currentIndex = currentIndex + "";
         currentIndex = currentIndex.trim();
         currentIndex = parseInt(currentIndex);
-       // cc.log("currentIndex:" + currentIndex);
-       // cc.log("Global.userList.length:" + Global.userList.length);
+        // cc.log("currentIndex:" + currentIndex);
+        // cc.log("Global.userList.length:" + Global.userList.length);
         if (currentIndex == Global.userList.length) {
-           // cc.log("1050:" + currentIndex);
+            // cc.log("1050:" + currentIndex);
             nextIndex = 1
         } else {
 
@@ -1232,6 +1257,10 @@ cc.Class({
     // update: function (dt) {
 
     // },
+    //----------------Count round socre--------------------
+    countUserRoundScore:function(){
+         
+    },
     //----------------untils-------------------------------
     changeJsonListStringToArrayString: function (tempString) {
         var str = "";

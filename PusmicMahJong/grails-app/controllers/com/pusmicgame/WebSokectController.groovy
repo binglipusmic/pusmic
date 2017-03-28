@@ -221,8 +221,25 @@ class WebSokectController {
 
 
                 }
+//huPai
+            }else if(obj.actionName=="huPai") {
+                //check if end this round
 
-            }else {
+                def s = new JsonBuilder(messageJsonObj).toPrettyString()
+                websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s)
+//checkRoundEnd
+            }else if(obj.actionName=="checkRoundEnd"){
+                if(gameRoundLunService.checkGameRounDone(messageJsonObj)){
+                    messageJsonObj.messageAction="endGameRoundLun"
+                    def s3 = new JsonBuilder(messageJsonObj).toPrettyString()
+                    websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s3)
+                }else{
+                    messageJsonObj.messageAction="endGameRoundAndStartNewRound"
+                    def s3 = new JsonBuilder(messageJsonObj).toPrettyString()
+                    websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s3)
+                }
+
+            } else{
                 def s = new JsonBuilder(messageJsonObj).toPrettyString()
                 websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s)
 

@@ -178,7 +178,7 @@ class GameRoundLunService {
             gameRoundLun.addToUsers(user)
             //gameRoundLun.user=user
             gameRoundLun.gameMode = gameMode
-            gameRoundLun.currentRoundCount=0;
+            gameRoundLun.currentRoundCount=1;
             gameRoundLun.save(flush: true, failOnError: true)
             println "line 120:"
             user.addToGameRoundLun(gameRoundLun)
@@ -232,6 +232,15 @@ class GameRoundLunService {
 
         messageDomain.messageBody= new JsonBuilder(outputUser).toPrettyString()
         return messageDomain
+
+    }
+
+    /**
+     *
+     * @param messageDomain
+     */
+
+    def createNewGameRound(MessageDomain messageDomain) {
 
     }
 
