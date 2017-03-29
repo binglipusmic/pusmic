@@ -588,7 +588,9 @@ cc.Class({
             var user2 = userList2[i];
             if (user2.huPai != null && user2.huPai != undefined && user2.huPai != "") {
             } else {
-                existUserString = existUserString + user2.openid + ";"
+                if (user2.openid != userInfo.openid) {
+                    existUserString = existUserString + user2.openid + ";"
+                }
             }
         }
 
@@ -718,7 +720,7 @@ cc.Class({
         //self user send the hupai to other user
 
         if (userOpenId == userInfo.openid) {
-            tableNetWorkScript.sendHuPaiAction(userOpenId, chupaiOpenId, this.paiNumber, Global.chuPaiActionType,this.preStep);
+            tableNetWorkScript.sendHuPaiAction(userOpenId, chupaiOpenId, this.paiNumber, Global.chuPaiActionType, this.preStep);
             this.actionNode.active = false;
             tablePaiActionScript.disableAllSlefPai();
             //remove mopai 
@@ -726,9 +728,9 @@ cc.Class({
                 var tableNode = cc.find("Canvas/tableNode");
                 var userPaiListNode = cc.find("user" + pointIndex + "PaiList", tableNode);
                 var children = userPaiListNode.children;
-                for(var i=0;i<children.length;i++){
-                    var cNode=children[i];
-                    if(cNode.name.indexOf("mopai")>=0){
+                for (var i = 0; i < children.length; i++) {
+                    var cNode = children[i];
+                    if (cNode.name.indexOf("mopai") >= 0) {
                         cNode.removeFromParent();
                     }
                 }

@@ -1258,8 +1258,165 @@ cc.Class({
 
     // },
     //----------------Count round socre--------------------
-    countUserRoundScore:function(){
-         
+    countUserRoundScore: function () {
+
+        var userList = Global.userList;
+        var noHuList = [];
+
+        for (var i = 0; i < userList.length; i++) {
+            var user = userList[i];
+            if (user.huPai != null && user.huPai != undefined && user.huPai != "") {
+                //-----count gang -----------------------
+                var gangPaiList = user.gangPaiList;
+                var gangFromUserListOpenId = user.gangFromUserListOpenId;
+                var userGangExistUser = user.gangExistUser;
+                if (gangPaiList != null && gangPaiList != undefined && gangPaiList.length > 0) {
+                    for (var j = 0; j < gangPaiList.length; j++) {
+                        var existUserStr = userGangExistUser[j];
+                        if (gangFromUserListOpenId[j] == user.openid) {
+                            // zi gang
+                            this.setExistUserRoundCount(existUserStr, 2, user);
+
+                        } else {
+                            //other gang 
+                            this.setExistUserRoundCount(existUserStr, 1, user);
+                        }
+                    }
+                }
+
+                //-----------pai count -----------------------------------
+            } else {
+                noHuList.push(userList[i]);
+            }
+        }
+
+
+
+    },
+    //--------------count pai list---------------------------------------
+    countHuPaiFanshu: function (pengList, gangList, paiList) {
+        var fanShu = 0;
+        var gameMode=Global.gameMode;
+
+        gangList = gangList.sort(function (a, b) { return a - b });
+        pengList = pengList.sort(function (a, b) { return a - b });
+        paiList = paiList.sort(function (a, b) { return a - b });
+        var caChepailist = [];
+        var daDuiZiFlag = true;
+        var qingYiSeFlag = true;
+        var qiaoQiDuiFlag = true;
+        var anGangFlag = false;
+        var yaoJiuFlag =false;
+        var jiangDuiFlag=true;
+        var menqingZhongZhang=false;
+
+
+        var minPai = paiList[0];
+        minPai = minPai + "";
+        minPaiType = minPai[0];
+        for (var i = 0; i < paiList.length; i++) {
+            var paiArrayCache = []
+            var pai = paiList[i] + "";
+            pai = pai.trim();
+            if(pai!="2"&&pai!="5"&&pai!="8"){
+                jiangDuiFlag=false;
+            }
+            var paiType = pai[0] + "";
+            var count = this.countElementAccount(pai, paiList);
+            paiArrayCache.push(pai);
+            paiArrayCache.push(count);
+            if (count == 1) {
+                daDuiZiFlag = false;
+                qiaoQiDuiFlag = false;
+                jiangDuiFlag=false;
+            }
+
+            if (count == 3) {
+                qiaoQiDuiFlag = false;
+            }
+            if (count == 4) {
+                daDuiZiFlag=false;
+                anGangFlag = true;
+                jiangDuiFlag=false;
+            }
+            if (paiType != minPaiType) {
+                qingYiSeFlag = false;
+            }
+            // cc.log("paiArrayCache:" + paiArrayCache.toString());
+
+            caChepailist.push(paiArrayCache);
+        }
+
+        //qing yi se 
+        if (gangList != null && gangList != undefined && gangList.length > 0) {
+            for (var i = 0; i < gangList.length; i++) {
+                var pai = gangList[i] + "";
+                pai = pai.trim();
+                var paiType = pai[0] + "";
+                if (paiType != minPaiType) {
+                    qingYiSeFlag = false;
+                }
+
+                fanShu=fanShu+2;
+            }
+
+            qiaoQiDuiFlag = false;
+        }
+        if (pengList != null && pengList != undefined && pengList.length > 0) {
+            for (var i = 0; i < pengList.length; i++) {
+                var pai = pengList[i] + "";
+                pai = pai.trim();
+                var paiType = pai[0] + "";
+                if (paiType != minPaiType) {
+                    qingYiSeFlag = false;
+                }
+            }
+
+            qiaoQiDuiFlag = false;
+
+        }
+
+        if(daDuiZiFlag){
+            fanShu=fanShu+2;
+        }
+        if(qingYiSeFlag){
+            fanShu=fanShu+4;
+        }
+
+        if(qiaoQiDuiFlag){
+            fanShu=fanShu+4;
+        }
+
+
+        //qiao qi dui 
+
+    },
+    /**Set the gang score for user and other exist  */
+    setExistUserRoundCount: function (existUserStr, score, user) {
+        var existUserList = existUserStr.split(";");
+        for (var i = 0; i < existUserList.length; i++) {
+            var existUser = tablePaiActionScript.getCurreentUserByOpenId()
+            if (existUser.roundScoreCount == null || existUser.roundScoreCount == undefined || existUser.roundScoreCount == "") {
+                existUser.roundScoreCount = 0 - score;
+            } else {
+                existUser.roundScoreCount = existUser.roundScoreCount - score;
+            }
+            existUser.huPaiDetails = existUser.huPaiDetails + "被杠失分:-" + score + ";"
+        }
+
+        if (user.roundScoreCount == null || user.roundScoreCount == undefined || user.roundScoreCount == "") {
+            user.roundScoreCount = score;
+        } else {
+            user.roundScoreCount = user.roundScoreCount + score * existUserList.length;
+            if (score == 2) {
+                user.huPaiDetails = user.huPaiDetails + "自杠得分:" + score * existUserList.length + ";"
+            } else {
+                user.huPaiDetails = user.huPaiDetails + "杠牌得分:" + score * existUserList.length + ";"
+            }
+
+        }
+
+
     },
     //----------------untils-------------------------------
     changeJsonListStringToArrayString: function (tempString) {
