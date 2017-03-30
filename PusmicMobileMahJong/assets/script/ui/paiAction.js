@@ -473,6 +473,11 @@ cc.Class({
         this.paiNumber = "15";
         //this.gangAction();
         this.huAction();
+        cc.log("476");
+        tableNetWorkScript.countUserRoundScore();
+        cc.log("477");
+        tableNetWorkScript.testScoreOutput();
+
     },
     testOtherPengPai: function () {
 
@@ -574,6 +579,7 @@ cc.Class({
         if (gangFromUserList == null || gangFromUserList == undefined) {
             gangFromUserList = [];
         }
+        Global.gangFromUserOpenId = this.chuPaiUserOpenId;
         gangFromUserList.push(this.chuPaiUserOpenId);
         user.gangFromUserListOpenId = gangFromUserList;
         //GET THE user list when it gang
@@ -641,8 +647,7 @@ cc.Class({
 
             this.preStep = "gang";
         }
-
-
+        Global.gangHuPai = paiNumber;
 
         cc.log("gangAction paiList:" + paiList);
         user.paiListArray = paiList;
@@ -714,13 +719,48 @@ cc.Class({
         user.huPai = this.paiNumber;
         user.huPaiFromUser = this.chuPaiUserOpenId;
         user.huchuPaiType = this.preStep;
+
+
+        var userList2 = Global.userList;
+        var existUserString = "";
+        //zi mo add all not hu user into exist user 
+        if (userOpenId == chupaiOpenId) {
+            for (var i = 0; i < userList2.length; i++) {
+                var user2 = userList2[i];
+                if (user2.huPai != null && user2.huPai != undefined && user2.huPai != "") {
+                } else {
+                    if (user2.openid != userInfo.openid) {
+                        existUserString = existUserString + user2.openid + ";"
+                    }
+                }
+            }
+            if (Global.chuPaiActionType == "gang") {
+                user.huGangShangHuaChuPaiUserOpenId = Global.gangFromUserOpenId;
+            } else {
+               // user.huGangShangHuaChuPaiUserOpenId = "";
+            }
+
+        } else {
+            //dian pao 
+            existUserString = chupaiOpenId;
+        }
+
+        if (existUserString.length > 0) {
+            if (existUserString.substring(existUserString.length - 1) == ";") {
+                existUserString = existUserString.substring(0, existUserString.length - 1);
+            }
+        }
+         cc.log("existUserString 753:"+existUserString);
+        cc.log("existUserString 753 user:"+user.openid);
+        user.existUserString = existUserString;
+
         var pointIndex = user.pointIndex;
         tablePaiActionScript.updateUserListInGobal(user);
 
         //self user send the hupai to other user
 
         if (userOpenId == userInfo.openid) {
-            tableNetWorkScript.sendHuPaiAction(userOpenId, chupaiOpenId, this.paiNumber, Global.chuPaiActionType, this.preStep);
+            tableNetWorkScript.sendHuPaiAction(userOpenId, chupaiOpenId, this.paiNumber, Global.chuPaiActionType, this.preStep, existUserString, Global.gangFromUserOpenId);
             this.actionNode.active = false;
             tablePaiActionScript.disableAllSlefPai();
             //remove mopai 

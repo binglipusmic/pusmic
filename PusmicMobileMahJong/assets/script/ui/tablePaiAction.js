@@ -335,13 +335,13 @@ cc.Class({
     },
 
     removeLastPaiOnChuPaiListByUserOpenId: function (userOpenid, paiNumber) {
-        cc.log("removeLastPaiOnChuPaiListByUserOpenId:"+userOpenid);
+        cc.log("removeLastPaiOnChuPaiListByUserOpenId:" + userOpenid);
         var user = this.getCorrectUserByOpenId(userOpenid);
         var index = user.pointIndex;
         var tableNode = cc.find("Canvas/tableNode");
         var userChuPaiListNode = cc.find("user" + index + "ChuaPaiListNode", tableNode);
         // var chuPaiListNode = cc.find("user" + index + "ChuaPaiListNode",this.tableNode);
-          cc.log("removeLastPaiOnChuPaiListByUserOpenId node:"+userChuPaiListNode.name);
+        cc.log("removeLastPaiOnChuPaiListByUserOpenId node:" + userChuPaiListNode.name);
         var children = userChuPaiListNode.children;
         var lastNode;
 
@@ -692,7 +692,7 @@ cc.Class({
      * This method will get the correct image path from image folder of resourecs
      */
     getChuPaiNameByNodeName: function (paiName, userIndex) {
-        cc.log("getChuPaiNameByNodeName:"+paiName);
+        cc.log("getChuPaiNameByNodeName:" + paiName);
         var returnName = "";
         var backPrefix = "";
         var folderName = "user" + userIndex;
@@ -874,7 +874,8 @@ cc.Class({
                 tableCenterTimmerScript.endTimer();
                 tableCenterTimmerScript.setNumerToZero();
                 Global.chuPaiActionType = "";
-
+                Global.gangFromUserOpenId = "";
+                Global.gangHuPai = "";
 
             }
         }
@@ -1295,7 +1296,7 @@ var x = touches[0].getLocationX();
         //           cc.log("1043 paiNumber:" + this.contains(paiList, paiNumber));
         //              cc.log("1043: c" +c+"---b:"+b);
         while (this.contains(paiList, paiNumber) && c != b) {
-             //cc.log("1044: c" +c+"---b:"+b);
+            //cc.log("1044: c" +c+"---b:"+b);
             for (var i = 0; i < paiList.length; i++) {
                 var temp = paiList[i] + "";
                 temp = temp.trim();
@@ -1314,7 +1315,7 @@ var x = touches[0].getLocationX();
     contains: function (array, obj) {
         var i = array.length;
         while (i--) {
-            if (array[i]+"" === obj+"") {
+            if (array[i] + "" === obj + "") {
                 return true;
             }
         }

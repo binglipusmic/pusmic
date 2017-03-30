@@ -38,6 +38,13 @@ const gameUser =
       huPaiDetails:"",
       roundScoreCount:"",
 
+      existUserString:"",
+      huGangPai:"",
+      huPaiFromUser:"",
+      huChuPaiType:"",
+      huPaiFanShu:0,
+      huGangShangHuaChuPaiUserOpenId:"",
+
       //gameingStatu:"",
     }
 module.exports = {

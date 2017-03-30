@@ -14,4 +14,8 @@ window.Global = {
     huanSanZhangPaiList:[],
     restPaiCount:0,
     gameRoundCount:0,
+    chuPaiUserOpenId:"",
+    gangHuPai:"",
+    gangFromUserOpenId:"",
+    huGangShangHuaChuPaiUserOpenId:"",
 };

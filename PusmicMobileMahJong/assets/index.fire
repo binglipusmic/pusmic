@@ -46569,10 +46569,10 @@
   {
     "__type__": "cc.ClickEvent",
     "target": {
-      "__id__": 673
+      "__id__": 654
     },
-    "component": "HuPaiAction",
-    "handler": "testHuLoginc",
+    "component": "paiAction",
+    "handler": "testHuPai",
     "customEventData": ""
   },
   {

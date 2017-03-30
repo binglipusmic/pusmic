@@ -710,7 +710,9 @@ cc.Class({
                         var chuPaiUserOpenId = obj.chuPaiUserOpenId;
                         var huChuPaiType = obj.huChuPaiType;
                         var preStep = obj.preStep;
-
+                        var existUserString = obj.existUserString;
+                        var gangFromUserOpenId = obj.gangFromUserOpenId;
+                        //Global.huGangShangHuaChuPaiUserOpenId = gangFromUserOpenId;
                         //---set hu pai user center point 
                         var huuser = this.getCurreentUserByOpenId(fromUserOpenId)
                         tableCenterScript.index = huuser.pointIndex;
@@ -718,6 +720,9 @@ cc.Class({
                         huuser.huPai = paiNumber;
                         huuser.huPaiFromUser = chuPaiUserOpenId;
                         huuser.huChuPaiType = huChuPaiType;
+                        huuser.existUserString = existUserString;
+                        huuser.huGangPai = gangPai;
+                        huuser.huGangShangHuaChuPaiUserOpenId = gangFromUserOpenId;
                         tablePaiActionScript.updateUserListInGobal(huuser);
 
 
@@ -889,7 +894,7 @@ cc.Class({
     sendCacleHuPaiAction: function () {
 
     },
-    sendHuPaiAction: function (fromUserOpenId, chuPaiUserOpenId, paiNumber, huChuPaiType, preStep) {
+    sendHuPaiAction: function (fromUserOpenId, chuPaiUserOpenId, paiNumber, huChuPaiType, preStep, existUserString, gangFromUserOpenId) {
         var joinRoomNumber = Global.joinRoomNumber;
         var o = new Object();
         //var gameStep = require("gameStep").gameStep;
@@ -900,6 +905,8 @@ cc.Class({
         o.chuPaiUserOpenId = chuPaiUserOpenId;
         o.huChuPaiType = huChuPaiType;
         o.preStep = preStep;
+        o.existUserString = existUserString;
+        o.gangFromUserOpenId = gangFromUserOpenId;
 
         //o.chuPaiType = Global.chuPaiActionType;
         var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
@@ -1259,19 +1266,46 @@ cc.Class({
     // },
     //----------------Count round socre--------------------
     countUserRoundScore: function () {
-
+        cc.log("countUserRoundScore starting ");
         var userList = Global.userList;
         var noHuList = [];
-
+        var gameMode = Global.gameMode;
+        var maxFan = 0;
+        if (gameMode.fan2 + "" == "1") {
+            maxFan = 2;
+        }
+        if (gameMode.fan3 + "" == "1") {
+            maxFan = 3;
+        }
+        if (gameMode.fan4 + "" == "1") {
+            maxFan = 4;
+        }
+        if (gameMode.fan6 + "" == "1") {
+            maxFan = 6;
+        }
+        cc.log("maxFan:" + maxFan);
+        var roundScore = 0;
+        var fanshu = 0;
+        var details = "";
         for (var i = 0; i < userList.length; i++) {
             var user = userList[i];
+            user.huPaiFanShu = 0;
+            var zimoJiaDiFalg = false;
             if (user.huPai != null && user.huPai != undefined && user.huPai != "") {
                 //-----count gang -----------------------
                 var gangPaiList = user.gangPaiList;
+                var pengList = user.pengList;
+                var paiList = user.paiListArray;
                 var gangFromUserListOpenId = user.gangFromUserListOpenId;
                 var userGangExistUser = user.gangExistUser;
+                var existUserString = user.existUserString;
+                cc.log("user :" + user.openid);
+                cc.log("user existUserString:" + existUserString);
                 if (gangPaiList != null && gangPaiList != undefined && gangPaiList.length > 0) {
                     for (var j = 0; j < gangPaiList.length; j++) {
+                        if (user.huPaiFanShu <= maxFan) {
+                            user.huPaiFanShu = user.huPaiFanShu + 1;
+                        }
                         var existUserStr = userGangExistUser[j];
                         if (gangFromUserListOpenId[j] == user.openid) {
                             // zi gang
@@ -1284,42 +1318,162 @@ cc.Class({
                     }
                 }
 
-                //-----------pai count -----------------------------------
+                //-----------hu pai  fanshu count -----------------------------------
+                var returnArray = this.countHuPaiFanshu(pengList, gangPaiList, paiList);
+                fanshu = returnArray[0];
+
+                details = returnArray[1];
+                user.huPaiFanShu = user.huPaiFanShu + fanshu
+                cc.log(" user.huPaiFanShu:" + user.huPaiFanShu);
+                cc.log(" user.details:" + details);
+                if (user.huPaiFanShu > maxFan) {
+                    user.huPaiFanShu = maxFan;
+                }
+
+                //-----------zi mo check ----------------------------
+                if (user.huPaiFanShu < maxFan) {
+                    if (user.huPaiFromUser == user.openid) {
+                        if (gameMode.ziMoJiaDi + "" == "1") {
+                            //roundScore = roundScore + 1;
+                            details = details + "自摸加底1;"
+                            zimoJiaDiFalg = true;
+                        }
+
+                        if (gameMode.ziMoJiaFan + "" == "1") {
+                            //fanshu = fanshu + 1;
+                            user.huPaiFanShu = user.huPaiFanShu + 1;
+                            details = details + "自摸加1番;"
+                        }
+
+                    }
+                }
+                //-----------gang shang hua check --------------------
+                if (user.huchuPaiType == "gang") {
+                    if (user.huPaiFanShu < maxFan) {
+                        user.huPaiFanShu = user.huPaiFanShu + 1;
+                        var huGangPai = user.huGangPai;
+                        var gangFromUserList = user.gangFromUserListOpenId;
+                    }
+
+                }
+
+                //existUserString
+                if (gameMode.dianGangHua_ziMo + "" == "1") {
+
+                }
+
+                if (gameMode.dianGangHua_dianPao + "" == "1") {
+
+                }
+
+                //------------Round score count--------------------
+                //get fan shu 
+                if (user.huPaiFanShu > maxFan) {
+                    user.huPaiFanShu = maxFan;
+                }
+                if (user.huPaiFanShu == 0) {
+                    roundScore = 1;
+                } else {
+                    //roundScore=fanshu*2;
+                    var a = 2;
+                    for (var n = 1; n <= user.huPaiFanShu; n++) {
+                        a = a * 2;
+                    }
+                    roundScore = a;
+                }
+
+                cc.log("roundScore:" + roundScore);
+                //start count for each user 
+
+                if (user.huchuPaiType == "gang" && gameMode.dianGangHua_dianPao + "" == "1") {
+                    var tempUser = this.getCurreentUserByOpenId(user.huGangShangHuaChuPaiUserOpenId);
+                    if (user.roundScoreCount != null & user.roundScoreCount != undefined) {
+                        user.roundScoreCount = roundScore * 1;
+                    } else {
+                        user.roundScoreCount = user.roundScoreCount + roundScore * 1;
+                    }
+                    user.huPaiDetails = details + " *1";
+
+                    tempUser.roundScoreCount = tempUser.roundScoreCount - roundScore;
+
+                } else {
+                    var existUserList = existUserString.split(";");
+                    if (user.roundScoreCount != null & user.roundScoreCount != undefined) {
+                        user.roundScoreCount = roundScore * existUserList.length;
+                    } else {
+                        user.roundScoreCount = user.roundScoreCount + roundScore * existUserList.length;
+                    }
+                    user.huPaiDetails = details + " *" + existUserList.length;
+
+                    for (var k = 0; k < existUserList.length; k++) {
+                        if (existUserList[k] != null && existUserList[k] != undefined && existUserList[k] != "") {
+                            var tempUser = this.getCurreentUserByOpenId(existUserList[k]);
+                            tempUser.roundScoreCount = tempUser.roundScoreCount - roundScore;
+                        }
+
+                    }
+                }
+
             } else {
                 noHuList.push(userList[i]);
             }
         }
 
+        //check jiao 
 
+        if (noHuList.length > 1) {
+
+        }
+
+        Global.userList = userList;
+
+    },
+    //existUserString
+    testScoreOutput: function () {
+
+        var userList = Global.userList;
+        for (var i = 0; i < userList.length; i++) {
+            var score = userList[i].roundScoreCount;
+            var details = userList[i].huPaiDetails;
+            cc.log("user:" + userList[i].openid + "--" + score);
+            cc.log("user details:" + details);
+        }
 
     },
     //--------------count pai list---------------------------------------
     countHuPaiFanshu: function (pengList, gangList, paiList) {
         var fanShu = 0;
-        var gameMode=Global.gameMode;
+        var gameMode = Global.gameMode;
+        var details = "";
+        var returnArray = [];
+        if (gangList != null && gangList != undefined && gangList.length > 0) {
+            gangList = gangList.sort(function (a, b) { return a - b });
+        }
+        if (paiList != null && paiList != undefined && paiList.length > 0) {
+            paiList = paiList.sort(function (a, b) { return a - b });
 
-        gangList = gangList.sort(function (a, b) { return a - b });
-        pengList = pengList.sort(function (a, b) { return a - b });
-        paiList = paiList.sort(function (a, b) { return a - b });
+        }
         var caChepailist = [];
         var daDuiZiFlag = true;
         var qingYiSeFlag = true;
         var qiaoQiDuiFlag = true;
         var anGangFlag = false;
-        var yaoJiuFlag =false;
-        var jiangDuiFlag=true;
-        var menqingZhongZhang=false;
+        var anGangCount = 0;
+        var yaoJiuFlag = false;
+        var jiangDuiFlag = true;
+        var menqingFlag = true;
+        var zhongZhangFlag = true;
 
 
         var minPai = paiList[0];
         minPai = minPai + "";
-        minPaiType = minPai[0];
+        var minPaiType = minPai[0];
         for (var i = 0; i < paiList.length; i++) {
             var paiArrayCache = []
             var pai = paiList[i] + "";
             pai = pai.trim();
-            if(pai!="2"&&pai!="5"&&pai!="8"){
-                jiangDuiFlag=false;
+            if (pai != "2" && pai != "5" && pai != "8") {
+                jiangDuiFlag = false;
             }
             var paiType = pai[0] + "";
             var count = this.countElementAccount(pai, paiList);
@@ -1328,19 +1482,36 @@ cc.Class({
             if (count == 1) {
                 daDuiZiFlag = false;
                 qiaoQiDuiFlag = false;
-                jiangDuiFlag=false;
+                jiangDuiFlag = false;
             }
 
             if (count == 3) {
                 qiaoQiDuiFlag = false;
             }
             if (count == 4) {
-                daDuiZiFlag=false;
+                daDuiZiFlag = false;
                 anGangFlag = true;
-                jiangDuiFlag=false;
+                jiangDuiFlag = false;
+                anGangCount++;
             }
             if (paiType != minPaiType) {
                 qingYiSeFlag = false;
+            }
+            // 1,9 check 
+
+            if (count == 1) {
+                if (pai == "4" || pai == "5" || pai == "6") {
+                    yaoJiuFlag = false;
+                }
+            } else {
+                if (pai != "1" && pai != "9") {
+                    yaoJiuFlag = false;
+                }
+            }
+
+            //zhongzhang flag
+            if (pai == "1" || pai == "9") {
+                zhongZhangFlag = false;
             }
             // cc.log("paiArrayCache:" + paiArrayCache.toString());
 
@@ -1357,10 +1528,15 @@ cc.Class({
                     qingYiSeFlag = false;
                 }
 
-                fanShu=fanShu+2;
+                if (pai != "1" && pai != "9") {
+                    yaoJiuFlag = false;
+                }
+
+                fanShu = fanShu + 2;
             }
 
             qiaoQiDuiFlag = false;
+            menqingFlag = false;
         }
         if (pengList != null && pengList != undefined && pengList.length > 0) {
             for (var i = 0; i < pengList.length; i++) {
@@ -1370,32 +1546,68 @@ cc.Class({
                 if (paiType != minPaiType) {
                     qingYiSeFlag = false;
                 }
+                if (pai != "1" && pai != "9") {
+                    yaoJiuFlag = false;
+                }
             }
 
             qiaoQiDuiFlag = false;
+            menqingFlag = false;
 
         }
 
-        if(daDuiZiFlag){
-            fanShu=fanShu+2;
-        }
-        if(qingYiSeFlag){
-            fanShu=fanShu+4;
+        if (daDuiZiFlag) {
+            fanShu = fanShu + 1;
+            details = details + " 大对子:1番;"
         }
 
-        if(qiaoQiDuiFlag){
-            fanShu=fanShu+4;
+
+        if (qingYiSeFlag) {
+            fanShu = fanShu + 2;
+            details = details + "清一色:2番;"
+        }
+
+
+        if (qiaoQiDuiFlag) {
+            fanShu = fanShu + 2;
+            details = details + "巧七对:2番;"
+        }
+
+        if (anGangFlag) {
+            fanShu = fanShu + anGangCount;
+            details = details + "自杠:" + anGangCount + "番;"
+        }
+
+
+        if (gameMode.dai19JiangDui + "" == "1") {
+            if (yaoJiuFlag) {
+                fanShu = fanShu + 2;
+                details = details + "带幺九:2番;"
+            }
+        }
+        if (gameMode.mengQingZhongZhang + "" == "1") {
+            if (menqingFlag) {
+                fanShu = fanShu + 1;
+                details = details + "门清:1番;"
+            }
+            if (zhongZhangFlag) {
+                fanShu = fanShu + 1;
+                details = details + "中张:1番;"
+            }
         }
 
 
         //qiao qi dui 
+        returnArray.push(fanShu);
+        returnArray.push(details);
+        return returnArray
 
     },
     /**Set the gang score for user and other exist  */
     setExistUserRoundCount: function (existUserStr, score, user) {
         var existUserList = existUserStr.split(";");
         for (var i = 0; i < existUserList.length; i++) {
-            var existUser = tablePaiActionScript.getCurreentUserByOpenId()
+            var existUser = this.getCurreentUserByOpenId(existUserList[i])
             if (existUser.roundScoreCount == null || existUser.roundScoreCount == undefined || existUser.roundScoreCount == "") {
                 existUser.roundScoreCount = 0 - score;
             } else {
@@ -1451,5 +1663,16 @@ cc.Class({
 
         return user;
 
-    }
+    },
+    countElementAccount: function (pai, paiList) {
+        var count = 0;
+        for (var i = 0; i < paiList.length + 1; i++) {
+            if (paiList[i] == pai) {
+                count++
+            }
+        }
+
+        return count
+
+    },
 });
