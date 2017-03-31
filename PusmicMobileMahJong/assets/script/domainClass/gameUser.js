@@ -23,6 +23,7 @@ const gameUser =
       gangExistUser:[],
       gangFromUserListOpenId:[],
       gangPaiList:[],
+      gangTypeList:[],
       pengGangPaiPoint:0,
       quePai:"",
       chupaiListX:0,

@@ -546,6 +546,8 @@ cc.Class({
                         var gangFromUserOpenId = obj.fromUserOpenid;
                         var gangPaiNumber = obj.paiNumber;
                         var chuPaiUserOpenId = obj.toUserOpenid;
+                        var gangTypeList = obj.gangTypeList;
+
                         paiActionScript.fromUserOpenId = gangFromUserOpenId;
                         paiActionScript.paiNumber = pengPaiNumber;
                         paiActionScript.chuPaiUserOpenId = chuPaiUserOpenId;
@@ -932,7 +934,7 @@ cc.Class({
         this.sendMessageToServer(messageObj);
         tableCenterScript.endTimer();
     },
-    sendGangPaiAction: function (chuPaiUserOpenId, fromUserOpenId, paiNumber) {
+    sendGangPaiAction: function (chuPaiUserOpenId, fromUserOpenId, paiNumber, gangTypeList) {
         var joinRoomNumber = Global.joinRoomNumber;
         var o = new Object();
         //var gameStep = require("gameStep").gameStep;
@@ -941,6 +943,7 @@ cc.Class({
         o.actionName = "gangPai";
         o.paiNumber = paiNumber;
         o.toUserOpenid = chuPaiUserOpenId;
+        o.gangTypeList = gangTypeList;
 
         //o.chuPaiType = Global.chuPaiActionType;
         var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
@@ -1042,20 +1045,20 @@ cc.Class({
         var nextIndex = 0;
         var nextOpenId = "";
 
-        cc.log("1013 currentIndex:" + currentIndex);
+        //cc.log("1013 currentIndex:" + currentIndex);
         currentIndex = this.getNextIndex(currentIndex);
         //tableActionScript.getNextUserFromCurentIndex
-        cc.log("1016 currentIndex:" + currentIndex);
+        // cc.log("1016 currentIndex:" + currentIndex);
         var user = tablePaiActionScript.getCorrectUserByPoint(currentIndex);
-        cc.log("1018 user.huPai:" + user.huPai);
+        // cc.log("1018 user.huPai:" + user.huPai);
         if (user.huPai != null && user.huPai != undefined & user.huPai != "") {
             currentIndex = this.getNextIndex(currentIndex);
             user = tablePaiActionScript.getCorrectUserByPoint(currentIndex);
-            cc.log("1022 user.huPai:" + user.huPai);
+            // cc.log("1022 user.huPai:" + user.huPai);
             if (user.huPai != null && user.huPai != undefined & user.huPai != "") {
                 currentIndex = this.getNextIndex(currentIndex);
                 user = tablePaiActionScript.getCorrectUserByPoint(currentIndex);
-                cc.log("1026 user.huPai:" + user.huPai);
+                //cc.log("1026 user.huPai:" + user.huPai);
                 if (user.huPai != null && user.huPai != undefined & user.huPai != "") {
                     //show end round 
                 }
@@ -1299,6 +1302,8 @@ cc.Class({
                 var gangFromUserListOpenId = user.gangFromUserListOpenId;
                 var userGangExistUser = user.gangExistUser;
                 var existUserString = user.existUserString;
+                var gangTypeList = user.gangTypeList;
+                cc.log("user gangTypeList1306:" + gangTypeList);
                 cc.log("user :" + user.openid);
                 cc.log("user existUserString:" + existUserString);
                 if (gangPaiList != null && gangPaiList != undefined && gangPaiList.length > 0) {
@@ -1306,23 +1311,22 @@ cc.Class({
                         if (user.huPaiFanShu <= maxFan) {
                             user.huPaiFanShu = user.huPaiFanShu + 1;
                         }
-                        var existUserStr = userGangExistUser[j];
-                        if (gangFromUserListOpenId[j] == user.openid) {
-                            // zi gang
-                            this.setExistUserRoundCount(existUserStr, 2, user);
-
-                        } else {
-                            //other gang 
-                            this.setExistUserRoundCount(existUserStr, 1, user);
-                        }
+                        var userGangExistUser = userGangExistUser[j];
+                        this.setExistUserRoundCount(userGangExistUser, gangTypeList[j], user);
                     }
+                    if (gangTypeList[j] == "2") {
+                        details = details + " 自杠*" + gangPaiList.length;
+                    } else {
+                        details = details + " 巴杠*" + gangPaiList.length;
+                    }
+
                 }
 
                 //-----------hu pai  fanshu count -----------------------------------
                 var returnArray = this.countHuPaiFanshu(pengList, gangPaiList, paiList);
                 fanshu = returnArray[0];
 
-                details = returnArray[1];
+                details = details + returnArray[1];
                 user.huPaiFanShu = user.huPaiFanShu + fanshu
                 cc.log(" user.huPaiFanShu:" + user.huPaiFanShu);
                 cc.log(" user.details:" + details);
@@ -1347,6 +1351,8 @@ cc.Class({
 
                     }
                 }
+
+                cc.log(" user.huPaiFanShu 1355:" + user.huPaiFanShu);
                 //-----------gang shang hua check --------------------
                 if (user.huchuPaiType == "gang") {
                     if (user.huPaiFanShu < maxFan) {
@@ -1373,21 +1379,30 @@ cc.Class({
                 }
                 if (user.huPaiFanShu == 0) {
                     roundScore = 1;
+                    details = details + "平胡";
                 } else {
                     //roundScore=fanshu*2;
-                    var a = 2;
-                    for (var n = 1; n <= user.huPaiFanShu; n++) {
-                        a = a * 2;
+                    var a = 1;
+                    cc.log("1384 user.huPaiFanShu:" + user.huPaiFanShu);
+                    if (user.huPaiFanShu +""== "1") {
+
+                    } else {
+                        for (var n = 1; n <= user.huPaiFanShu; n++) {
+                            a = a * 2;
+                        }
                     }
+
                     roundScore = a;
+                    cc.log("1389 a:" + a);
                 }
 
                 cc.log("roundScore:" + roundScore);
                 //start count for each user 
 
                 if (user.huchuPaiType == "gang" && gameMode.dianGangHua_dianPao + "" == "1") {
+                    cc.log("1388:" + user.huGangShangHuaChuPaiUserOpenId);
                     var tempUser = this.getCurreentUserByOpenId(user.huGangShangHuaChuPaiUserOpenId);
-                    if (user.roundScoreCount != null & user.roundScoreCount != undefined) {
+                    if (user.roundScoreCount == null || user.roundScoreCount == undefined) {
                         user.roundScoreCount = roundScore * 1;
                     } else {
                         user.roundScoreCount = user.roundScoreCount + roundScore * 1;
@@ -1395,20 +1410,33 @@ cc.Class({
                     user.huPaiDetails = details + " *1";
 
                     tempUser.roundScoreCount = tempUser.roundScoreCount - roundScore;
+                    tempUser.huPaiDetails = tempUser.huPaiDetails + " 杠上炮-" + roundScore + ";";
 
                 } else {
                     var existUserList = existUserString.split(";");
-                    if (user.roundScoreCount != null & user.roundScoreCount != undefined) {
+                    cc.log("user.roundScoreCount0:" + user.roundScoreCount);
+                    if (user.roundScoreCount == null || user.roundScoreCount == undefined) {
                         user.roundScoreCount = roundScore * existUserList.length;
                     } else {
                         user.roundScoreCount = user.roundScoreCount + roundScore * existUserList.length;
                     }
                     user.huPaiDetails = details + " *" + existUserList.length;
-
+                    cc.log("user.roundScoreCount1:" + roundScore);
+                    cc.log("user.roundScoreCount2:" + roundScore * existUserList.length);
+                    cc.log("user.roundScoreCount3:" + user.roundScoreCount);
+                    cc.log("user.huPaiDetails:" + user.huPaiDetails);
                     for (var k = 0; k < existUserList.length; k++) {
+                        cc.log("existUserList[k]:" + existUserList[k]);
                         if (existUserList[k] != null && existUserList[k] != undefined && existUserList[k] != "") {
                             var tempUser = this.getCurreentUserByOpenId(existUserList[k]);
-                            tempUser.roundScoreCount = tempUser.roundScoreCount - roundScore;
+                            if (tempUser.roundScoreCount == null || tempUser.roundScoreCount == undefined) {
+                                tempUser.roundScoreCount = - roundScore;
+                            } else {
+                                tempUser.roundScoreCount = tempUser.roundScoreCount - roundScore;
+                            }
+
+                            tempUser.huPaiDetails = "";
+                            cc.log("tempUser.roundScoreCount:" + tempUser.roundScoreCount);
                         }
 
                     }
@@ -1532,12 +1560,13 @@ cc.Class({
                     yaoJiuFlag = false;
                 }
 
-                fanShu = fanShu + 2;
+                // fanShu = fanShu + 1;
             }
 
             qiaoQiDuiFlag = false;
             menqingFlag = false;
         }
+        cc.log("1554:" + fanShu);
         if (pengList != null && pengList != undefined && pengList.length > 0) {
             for (var i = 0; i < pengList.length; i++) {
                 var pai = pengList[i] + "";
@@ -1596,7 +1625,7 @@ cc.Class({
             }
         }
 
-
+        cc.log("1612:" + fanShu);
         //qiao qi dui 
         returnArray.push(fanShu);
         returnArray.push(details);
@@ -1604,29 +1633,44 @@ cc.Class({
 
     },
     /**Set the gang score for user and other exist  */
-    setExistUserRoundCount: function (existUserStr, score, user) {
+    setExistUserRoundCount: function (existUserStr, type, user) {
+        cc.log("existUserStr:" + existUserStr);
+        var score = 0;
+        if (type == "1") {
+            score = 1;
+        }
+        if (type == "2") {
+            score = 2;
+        }
         var existUserList = existUserStr.split(";");
         for (var i = 0; i < existUserList.length; i++) {
-            var existUser = this.getCurreentUserByOpenId(existUserList[i])
+            cc.log("existUserList[i]:" + existUserList[i]);
+            var existUser = this.getCurreentUserByOpenId(existUserList[i]);
             if (existUser.roundScoreCount == null || existUser.roundScoreCount == undefined || existUser.roundScoreCount == "") {
                 existUser.roundScoreCount = 0 - score;
             } else {
                 existUser.roundScoreCount = existUser.roundScoreCount - score;
             }
+            if (existUser.huPaiDetails == undefined) {
+                existUser.huPaiDetails = "";
+            }
             existUser.huPaiDetails = existUser.huPaiDetails + "被杠失分:-" + score + ";"
+            cc.log(" existUser.roundScoreCount:" + existUser.roundScoreCount);
+            cc.log(" existUser.huPaiDetails:" + existUser.huPaiDetails);
         }
 
         if (user.roundScoreCount == null || user.roundScoreCount == undefined || user.roundScoreCount == "") {
-            user.roundScoreCount = score;
+            user.roundScoreCount = score * existUserList.length;
         } else {
             user.roundScoreCount = user.roundScoreCount + score * existUserList.length;
-            if (score == 2) {
-                user.huPaiDetails = user.huPaiDetails + "自杠得分:" + score * existUserList.length + ";"
-            } else {
-                user.huPaiDetails = user.huPaiDetails + "杠牌得分:" + score * existUserList.length + ";"
-            }
-
         }
+        if (score == 2) {
+            user.huPaiDetails = user.huPaiDetails + "自杠得分:" + score * existUserList.length + ";"
+        } else {
+            user.huPaiDetails = user.huPaiDetails + "杠牌得分:" + score * existUserList.length + ";"
+        }
+        cc.log(" user.roundScoreCount:" + user.roundScoreCount);
+        cc.log(" user.huPaiDetails:" + user.huPaiDetails);
 
 
     },

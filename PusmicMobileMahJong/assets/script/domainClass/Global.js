@@ -18,4 +18,5 @@ window.Global = {
     gangHuPai:"",
     gangFromUserOpenId:"",
     huGangShangHuaChuPaiUserOpenId:"",
+    huPreStep:"",
 };

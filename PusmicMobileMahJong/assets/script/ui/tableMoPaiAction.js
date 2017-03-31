@@ -43,7 +43,7 @@ cc.Class({
 
     },
     moPaiTest: function () {
-        this.moPaiAction("15", "testUser1");
+        this.moPaiAction("36", "testUser1");
     },
 
     moPaiOnDataLayer: function (paiNumber, userOpenId) {
@@ -65,6 +65,9 @@ cc.Class({
 
     moPaiAction: function (paiNumber, userOpenId) {
         var paiList = tableActionScript.getSelfPaiList();
+
+        cc.log("moPaiAction paiList:" + paiList.toString());
+        cc.log("moPaiAction paiList len:" + paiList.length);
         var latstIndex = 0;
         if (paiList.length == 13) {
             latstIndex = 13
@@ -84,7 +87,8 @@ cc.Class({
         } else {
 
         }
-
+        cc.log("moPaiAction startPoint:" + startPoint);
+       // cc.log("moPaiAction startPoint x:" + stxartPoint + latstIndex * 80);
         paiNode.position = cc.p(startPoint + latstIndex * 80, 0);
 
 
@@ -124,7 +128,7 @@ cc.Class({
 
         }
 
-      
+
 
         //we need update this into gobal user list
         //this.updateUserListInGobal(user);
