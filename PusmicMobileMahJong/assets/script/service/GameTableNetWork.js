@@ -1474,13 +1474,7 @@ cc.Class({
         var gameMode = Global.gameMode;
         var details = "";
         var returnArray = [];
-        if (gangList != null && gangList != undefined && gangList.length > 0) {
-            gangList = gangList.sort(function (a, b) { return a - b });
-        }
-        if (paiList != null && paiList != undefined && paiList.length > 0) {
-            paiList = paiList.sort(function (a, b) { return a - b });
-
-        }
+       
         var caChepailist = [];
         var daDuiZiFlag = true;
         var qingYiSeFlag = true;
