@@ -21,6 +21,7 @@ const gameUser =
       huanSanZhangPaiList:[],
       pengPaiList:[],
       gangExistUser:[],
+      gangExistUserCache:[],
       gangFromUserListOpenId:[],
       gangPaiList:[],
       gangTypeList:[],
@@ -45,6 +46,7 @@ const gameUser =
       huChuPaiType:"",
       huPaiFanShu:0,
       huGangShangHuaChuPaiUserOpenId:"",
+      huGangPaiInOtherUserFromOpenId:"",
 
       //gameingStatu:"",
     }

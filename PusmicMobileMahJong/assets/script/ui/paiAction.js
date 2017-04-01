@@ -474,7 +474,7 @@ cc.Class({
         tablePaiActionScript.playSlefChuPaiAction(node, "3");
     },
     testMoPaiAction: function () {
-        moPaiScript.moPaiAction("11", "testUser1");
+        moPaiScript.moPaiAction("15", "testUser1");
         //  moPaiScript.moPaiOnDataLayer("11", "testUser2");
         //  moPaiScript.moPaiOnDataLayer(paiNumber, toUserOpenid);
         //var user = tablePaiActionScript.getCorrectUserByOpenId("testUser2");
@@ -484,11 +484,13 @@ cc.Class({
     },
     testHuPai: function () {
 
-        this.fromUserOpenId = "testUser1";
-        this.paiNumber = "36";
-        this.chuPaiUserOpenId = "testUser2";
+        this.fromUserOpenId = "testUser2";
+        this.paiNumber = "29";
+        this.chuPaiUserOpenId = "testUser4";
         // this.pengAction();
         this.gangAction();
+         //Global.huPreStep = "";
+        //  this.preStep="";
         this.testMoPaiAction();
         this.fromUserOpenId = "testUser1";
         this.chuPaiUserOpenId = "testUser2";
@@ -607,13 +609,17 @@ cc.Class({
         user.gangFromUserListOpenId = gangFromUserList;
         //zi gang or pa gang 
         var gangTypeList = user.gangTypeList;
-        if (gangTypeList == null || gangTypeList == undefined) {
+        if (gangTypeList == null || gangTypeList == undefined || gangTypeList == "") {
             gangTypeList = [];
         }
         //GET THE user list when it gang
         var gangExistUser = user.gangExistUser;
         if (gangExistUser == null || gangExistUser == undefined) {
             gangExistUser = [];
+        }
+         var gangExistUserCache = user.gangExistUserCache;
+        if (gangExistUserCache == null || gangExistUserCache == undefined) {
+            gangExistUserCache = [];
         }
 
         var userList2 = Global.userList;
@@ -679,19 +685,22 @@ cc.Class({
         //--------------GANG USER---------------------
 
         var existUserString = "";
+        var existUserStringCache = "";
         for (var i = 0; i < userList2.length; i++) {
             var user2 = userList2[i];
             if (user2.huPai != null && user2.huPai != undefined && user2.huPai != "") {
             } else {
-                if (isZiGangFlag) {
-                    if (user2.openid != this.fromUserOpenId) {
-                        existUserString = existUserString + user2.openid + ";"
-                    }
+                //gang from self mo pai, every body should in this gang
+                //if (this.chuPaiUserOpenId == user.openid) {
+                if (user2.openid != this.fromUserOpenId) {
+                    existUserString = existUserString + user2.openid + ";"
+                    existUserStringCache = existUserStringCache + user2.openid + ";"
                 }
+                //}
             }
         }
-
-        if (isZiGangFlag == false) {
+          gangExistUserCache.push(existUserStringCache);
+        if (this.chuPaiUserOpenId != user.openid) {
             existUserString = this.chuPaiUserOpenId;
         }
 
@@ -701,15 +710,18 @@ cc.Class({
 
         gangExistUser.push(existUserString);
         user.gangExistUser = gangExistUser;
+        user.gangExistUserCache =gangExistUserCache;
         cc.log(" user.gangExistUser:" + user.gangExistUser);
-
+        //gangExistUserCache
         if (isZiGangFlag) {
             gangTypeList.push("2");
         } else {
             gangTypeList.push("1");
         }
+        //gangTypeList.push("2");
         user.gangTypeList = gangTypeList;
-        cc.log("user.gangTypeList:" + gangTypeList.toString());
+        cc.log("user.gangTypeList0:" + gangTypeList);
+        cc.log("user.gangTypeList1:" + gangTypeList[0]);
         // mopai 
         //update user to gobal
         user = tablePaiActionScript.synchronizationPaiList(user);
@@ -758,6 +770,7 @@ cc.Class({
 
 
     huAction: function () {
+         var gameMode = Global.gameMode;
         if (this.preStep == null || this.preStep == undefined || this.preStep == "") {
             this.preStep = "normalChuPai"
         }
@@ -778,13 +791,13 @@ cc.Class({
         var existUserString = "";
         cc.log("hu gang:" + Global.chuPaiActionType);
         if (Global.huPreStep == "gang") {
-            user.huGangShangHuaChuPaiUserOpenId = Global.gangFromUserOpenId;
+            user.huGangShangHuaChuPaiUserOpenId = this.chuPaiUserOpenId;
             cc.log("hu huGangShangHuaChuPaiUserOpenId:" + user.huGangShangHuaChuPaiUserOpenId + "---" + user.openid)
         } else {
             // user.huGangShangHuaChuPaiUserOpenId = "";
         }
         //zi mo add all not hu user into exist user 
-        if (userOpenId == chupaiOpenId) {
+        if (userOpenId == chupaiOpenId ||(gameMode.dianGangHua_ziMo+""=="1" &&Global.huPreStep == "gang") ) {
             for (var i = 0; i < userList2.length; i++) {
                 var user2 = userList2[i];
                 if (user2.huPai != null && user2.huPai != undefined && user2.huPai != "") {
@@ -797,6 +810,7 @@ cc.Class({
 
 
         } else {
+           
             //dian pao 
             existUserString = chupaiOpenId;
         }
