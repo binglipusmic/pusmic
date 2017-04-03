@@ -15,6 +15,7 @@ var tablePaiActionScript;
 var paiActionScript;
 var moPaiScript;
 var tableUserInfoScript;
+var huPaiScript;
 cc.Class({
     extends: cc.Component,
 
@@ -46,7 +47,7 @@ cc.Class({
 
         gameRoundEndNode: cc.Node,
         allGameRoundEndNode: cc.Node,
-
+        huPaiNode: cc.Node,
 
 
     },
@@ -71,6 +72,7 @@ cc.Class({
         tablePaiActionScript = self.tablePaiNode.getComponent("tablePaiAction");
         paiActionScript = self.paiAactionNode.getComponent("paiAction");
         tableUserInfoScript = self.tableUserInfoNode.getComponent("tableUserInfo");
+        huPaiScript = self.huPaiNode.getComponent("HuPaiAction");
     },
     connectByPrivateChanel: function () {
         if (client == null || client == undefined) {
@@ -724,7 +726,8 @@ cc.Class({
                         huuser.huChuPaiType = huChuPaiType;
                         huuser.existUserString = existUserString;
                         huuser.huGangPai = gangPai;
-                        huuser.huGangShangHuaChuPaiUserOpenId =chuPaiUserOpenId// gangFromUserOpenId;
+                        huuser.huGangShangHuaChuPaiUserOpenId = chuPaiUserOpenId// gangFromUserOpenId;
+                        huuser.huGangPaiInOtherUserFromOpenId = gangFromUserOpenId;
                         tablePaiActionScript.updateUserListInGobal(huuser);
 
 
@@ -1268,6 +1271,67 @@ cc.Class({
 
     // },
     //----------------Count round socre--------------------
+    checkUserIfTingPai: function (user) {
+        var paiList = user.paiListArray;
+         cc.log("1276:"+paiList.toString());
+        var gangPaiList = user.gangPaiList;
+        var pengList = user.pengList;
+
+        var tempPaiList = [];
+        for (var i = 0; i < paiList.length; i++) {
+            tempPaiList.push(paiList[i]);
+        }
+        var quePai = user.quePai;
+        if (quePai == undefined) {
+            quePai = "2";
+        }
+        var paiTypeList = ["1", "2", "3"];
+        var temp = [];
+        cc.log("checkUserIfTingPai quePai:" + quePai);
+        for (var i = 0; i < paiTypeList.length; i++) {
+            var pai = paiTypeList[i];
+            if (quePai + "" != pai) {
+                temp.push(pai);
+            }
+        }
+        cc.log("checkUserIfTingPai temp:" + temp.toString());
+        var testPaiList = [];
+        for (var i = 0; i < temp.length; i++) {
+            for (var j = 1; j <= 9; j++) {
+                var paiNumber = temp[i] + "" + j;
+                testPaiList.push(paiNumber);
+            }
+        }
+        cc.log("testPaiList:" + testPaiList.toString());
+        var huFlag = false;
+        if (user.maxFanShu == undefined || user.maxFanShu == null) {
+            user.maxFanShu = 0;
+        }
+        for (var i = 0; i < testPaiList.length; i++) {
+             cc.log("1311:"+paiList.toString());
+            huFlag = huPaiScript.hupaiLogic(testPaiList[i], user.openid, tempPaiList, "");
+            cc.log("1312:"+tempPaiList.toString());
+             cc.log("1313 pai:"+paiList.toString());
+            if (huFlag == true) {
+                paiList.push(testPaiList[i]);
+                cc.log("1317:"+paiList.toString());
+                paiList.sort(function (a, b) { return a - b });
+                var returnArray = this.countHuPaiFanshu(pengList, gangPaiList, paiList);
+                var fanshu = returnArray[0];
+                if (fanshu == undefined) {
+                    fanshu = 0;
+                }
+                fanshu = parseInt(fanshu);
+                if (fanshu > user.maxFanShu) {
+                    user.maxFanShu = fanshu;
+                }
+                //break;
+            }
+        }
+        cc.log("checkUserIfTingPai:" + huFlag);
+        return huFlag
+
+    },
     countUserRoundScore: function () {
         cc.log("countUserRoundScore starting ");
         var userList = Global.userList;
@@ -1290,14 +1354,26 @@ cc.Class({
         var roundScore = 0;
         var fanshu = 0;
         var details = "";
+        //First set the ting jiao 
+        for (var i = 0; i < userList.length; i++) {
+            var user = userList[i];
+            if (user.huPai != null && user.huPai != undefined && user.huPai != "") {
+
+            } else {
+                var xiaJiaoFlag = this.checkUserIfTingPai(user);
+                user.tingJiao = xiaJiaoFlag;
+            }
+        }
+
         for (var i = 0; i < userList.length; i++) {
             var user = userList[i];
             user.huPaiFanShu = 0;
             var zimoJiaDiFalg = false;
-            if (user.huPai != null && user.huPai != undefined && user.huPai != "") {
-                //-----count gang -----------------------
+
+            //First ----gang count ---only on hu pai and ting pai 
+            if ((user.huPai != null && user.huPai != undefined && user.huPai != "") || user.tingJiao == true) {
+
                 var gangPaiList = user.gangPaiList;
-                var pengList = user.pengList;
                 var paiList = user.paiListArray;
                 var gangFromUserListOpenId = user.gangFromUserListOpenId;
                 var userGangExistUser = user.gangExistUser;
@@ -1331,6 +1407,15 @@ cc.Class({
 
 
                 }
+            }
+
+            if (user.huPai != null && user.huPai != undefined && user.huPai != "") {
+                //-----count gang -----------------------
+                var gangPaiList = user.gangPaiList;
+                var pengList = user.pengList;
+                var paiList = user.paiListArray;
+
+
 
                 //-----------hu pai  fanshu count -----------------------------------
                 var returnArray = this.countHuPaiFanshu(pengList, gangPaiList, paiList);
@@ -1419,23 +1504,23 @@ cc.Class({
                 if (user.huchuPaiType == "gang" && gameMode.dianGangHua_dianPao + "" == "1") {
                     cc.log("1388:" + user.huGangShangHuaChuPaiUserOpenId);
                     var tempUser = this.getCurreentUserByOpenId(user.huGangShangHuaChuPaiUserOpenId);
-                    
+
                     if (user.roundScoreCount == null || user.roundScoreCount == undefined) {
                         user.roundScoreCount = roundScore * 1;
                     } else {
                         user.roundScoreCount = user.roundScoreCount + roundScore * 1;
                     }
 
-                    if(user.huPaiDetails==undefined || user.huPaiDetails==null){
-                        user.huPaiDetails="";
+                    if (user.huPaiDetails == undefined || user.huPaiDetails == null) {
+                        user.huPaiDetails = "";
                     }
-                    user.huPaiDetails=user.huPaiDetails+" 胡牌得分:"+roundScore * 1+";";
-                   // user.huPaiDetails = details + " 杠上炮 " + roundScore * 1;
-                    if(tempUser.roundScoreCount==undefined || tempUser.roundScoreCount==null){
-                         tempUser.roundScoreCount=0;
+                    user.huPaiDetails = user.huPaiDetails + " 胡牌得分:" + roundScore * 1 + ";";
+                    // user.huPaiDetails = details + " 杠上炮 " + roundScore * 1;
+                    if (tempUser.roundScoreCount == undefined || tempUser.roundScoreCount == null) {
+                        tempUser.roundScoreCount = 0;
                     }
-                    if(tempUser.huPaiDetails==undefined || tempUser.huPaiDetails==null){
-                         tempUser.huPaiDetails="";
+                    if (tempUser.huPaiDetails == undefined || tempUser.huPaiDetails == null) {
+                        tempUser.huPaiDetails = "";
                     }
                     tempUser.roundScoreCount = tempUser.roundScoreCount - roundScore;
                     tempUser.huPaiDetails = tempUser.huPaiDetails + " 杠上炮-" + roundScore + ";";
@@ -1474,49 +1559,55 @@ cc.Class({
                 if (user.huchuPaiType == "gang") {
                     var firstGangUserOpenId = user.huGangShangHuaChuPaiUserOpenId;
                     var firstGangUser = this.getCurreentUserByOpenId(firstGangUserOpenId);
-                    var firstGangUserPaiList = firstGangUser.gangPaiList;
-                    cc.log("firstGangUserPaiList:"+firstGangUserPaiList);
-                    var resultScoreceHuJiao = 0;
-                    if (firstGangUserPaiList != null && firstGangUserPaiList != undefined && firstGangUserPaiList.length > 0) {
-                        var firstUserGangExistUser = firstGangUser.gangExistUser;
-                          cc.log("firstUserGangExistUser:"+firstUserGangExistUser);
-                        var firstGangTypeList = firstGangUser.gangTypeList;
-                        for (var v = 0; v < firstGangUserPaiList.length; v++) {
-                            if (firstGangUserPaiList[v] + "" ==  "29") {
-                                var firstUserGangExistUser = firstUserGangExistUser[v];
-                                var firstUserGangList = [];
-                                if (firstUserGangExistUser != undefined && firstUserGangExistUser != null) {
-                                    firstUserGangList = firstUserGangExistUser.split(";");
-                                    var score = 0;
-                                    if (firstGangTypeList[v] + "" == "1") {
-                                        score = 1;
-                                    }
-                                    if (firstGangTypeList[v] + "" == "2") {
-                                        score = 2;
-                                    }
-                                    var tempUserCacheList = [];
-                                    for (var t = 0; t < firstUserGangList.length; t++) {
-                                        if (firstUserGangList[t] != user.openid) {
-                                            tempUserCacheList.push(firstUserGangList[t]);
+                    //var firstXiaJiaoFlag = this.checkUserIfTingPai(firstGangUser);
+                    if ((firstGangUser.huPai != null && firstGangUser.huPai != undefined && firstGangUser.huPai != "") || firstGangUser.tingJiao == true) {
+
+                        //only firstGangUser xia jiao 
+                        var firstGangUserPaiList = firstGangUser.gangPaiList;
+                        cc.log("firstGangUserPaiList:" + firstGangUserPaiList);
+                        var resultScoreceHuJiao = 0;
+                        if (firstGangUserPaiList != null && firstGangUserPaiList != undefined && firstGangUserPaiList.length > 0) {
+                            var firstUserGangExistUser = firstGangUser.gangExistUser;
+                            cc.log("firstUserGangExistUser:" + firstUserGangExistUser);
+                            var firstGangTypeList = firstGangUser.gangTypeList;
+                            var firstGangFromUserListOpenId = firstGangUser.gangFromUserListOpenId;
+                            for (var v = 0; v < firstGangUserPaiList.length; v++) {
+                                if (user.huGangPaiInOtherUserFromOpenId == firstGangFromUserListOpenId[v]) {
+                                    var firstUserGangExistUser = firstUserGangExistUser[v];
+                                    var firstUserGangList = [];
+                                    if (firstUserGangExistUser != undefined && firstUserGangExistUser != null) {
+                                        firstUserGangList = firstUserGangExistUser.split(";");
+                                        var score = 0;
+                                        if (firstGangTypeList[v] + "" == "1") {
+                                            score = 1;
                                         }
-                                    }
-                                    if (tempUserCacheList.length == 0) {
-                                        resultScoreceHuJiao = score
-                                    } else {
-                                        resultScoreceHuJiao = tempUserCacheList.length * score
-                                    }
+                                        if (firstGangTypeList[v] + "" == "2") {
+                                            score = 2;
+                                        }
+                                        var tempUserCacheList = [];
+                                        for (var t = 0; t < firstUserGangList.length; t++) {
+                                            if (firstUserGangList[t] != user.openid) {
+                                                tempUserCacheList.push(firstUserGangList[t]);
+                                            }
+                                        }
+                                        if (tempUserCacheList.length == 0) {
+                                            resultScoreceHuJiao = score
+                                        } else {
+                                            resultScoreceHuJiao = tempUserCacheList.length * score
+                                        }
 
+                                    }
                                 }
-                            }
 
+                            }
+                            if (user.roundScoreCount == undefined || user.roundScoreCount == null) {
+                                user.roundScoreCount = 0;
+                            }
+                            user.roundScoreCount = user.roundScoreCount + resultScoreceHuJiao;
+                            user.huPaiDetails = user.huPaiDetails + " 呼叫转移 " + resultScoreceHuJiao + ";"
+                            firstGangUser.roundScoreCount = firstGangUser.roundScoreCount - resultScoreceHuJiao;
+                            firstGangUser.huPaiDetails = firstGangUser.huPaiDetails + " 呼叫转移 -" + resultScoreceHuJiao + ";"
                         }
-                        if (user.roundScoreCount == undefined || user.roundScoreCount == null) {
-                            user.roundScoreCount = 0;
-                        }
-                        user.roundScoreCount = user.roundScoreCount + resultScoreceHuJiao;
-                        user.huPaiDetails=user.huPaiDetails+" 呼叫转移 "+resultScoreceHuJiao+";"
-                        firstGangUser.roundScoreCount = firstGangUser.roundScoreCount - resultScoreceHuJiao;
-                        firstGangUser.huPaiDetails=firstGangUser.huPaiDetails+" 呼叫转移 -"+resultScoreceHuJiao+";"
                     }
                 }
 
@@ -1525,6 +1616,69 @@ cc.Class({
             } else {
                 noHuList.push(userList[i]);
             }
+
+            //查叫，查花猪
+            var chaFanShu = 0;
+            var xiaJiaoUserList = [];
+            var noXiaJiaoUserList = [];
+            //查叫
+            for (var i = 0; i < noHuList.length; i++) {
+                //查花猪 
+                //user.maxFanShu
+                if (noHuList[i].tingJiao) {
+                    xiaJiaoUserList.push(noHuList[i]);
+                    //chaFanShu = user.maxFanShu;
+                } else {
+                    noXiaJiaoUserList.push(noHuList[i]);
+
+                }
+
+            }
+
+            for (var j = 0; j < noXiaJiaoUserList.length; j++) {
+                chaFanShu = 0;
+                var peiFuFenShu = 0;
+                for (var k = 0; k < xiaJiaoUserList.length; k++) {
+                    if (this.checkHuaZhu(noXiaJiaoUserList(i))) {
+                        chaFanShu = maxFan;
+                    } else {
+                        chaFanShu = xiaJiaoUserList[k].maxFanShu;
+                    }
+
+                    //get the pei fu fan shu .
+                    var b = 1;
+                    if (chaFanShu == 0) {
+                        peiFuFenShu = 1;
+                    } else {
+                        for (var n = 1; n <= chaFanShu; n++) {
+                            b = b * 2;
+                        }
+                        peiFuFenShu = b;
+                    }
+
+                    if (xiaJiaoUserList[k].huPaiDetails == undefined || xiaJiaoUserList[k].huPaiDetails == null) {
+                        xiaJiaoUserList[k].huPaiDetails = "";
+                    }
+                    xiaJiaoUserList[k].huPaiDetails = xiaJiaoUserList[k].huPaiDetails + " 查叫得分:" + peiFuFenShu + ";";
+                    if (xiaJiaoUserList[k].roundScoreCount == undefined || xiaJiaoUserList[k].roundScoreCount == null) {
+                        xiaJiaoUserList[k].roundScoreCount = 0;
+                    }
+                    xiaJiaoUserList[k].roundScoreCount = xiaJiaoUserList[k].roundScoreCount + peiFuFenShu;
+
+
+                }
+                if (noXiaJiaoUserList[j].huPaiDetails == undefined || noXiaJiaoUserList[j].huPaiDetails == null) {
+                    noXiaJiaoUserList[j].huPaiDetails = "";
+                }
+                noXiaJiaoUserList[j].huPaiDetails = noXiaJiaoUserList[j].huPaiDetails + " 赔叫失分:-" + peiFuFenShu + ";"
+                if (noXiaJiaoUserList[j].roundScoreCount == undefined || noXiaJiaoUserList[j].roundScoreCount == null) {
+                    noXiaJiaoUserList[j].roundScoreCount = 0;
+                }
+
+                  noXiaJiaoUserList[j].roundScoreCount=  noXiaJiaoUserList[j].roundScoreCount-peiFuFenShu*xiaJiaoUserList.length;
+            }
+
+
         }
 
         //check jiao 
@@ -1535,6 +1689,24 @@ cc.Class({
 
         Global.userList = userList;
 
+    },
+
+    //查花猪 
+    checkHuaZhu: function (user) {
+        var isHuaZhu = false;
+        var quePai = user.quePai;
+        if (quePai != null && quePai != undefined) {
+            var paiList = user.paiListArray;
+            for (var i = 0; i < paiList.length; i++) {
+                var pai = paiList[i] + "";
+                pai = pai + "";
+                if (quePai == pai[0]) {
+                    isHuaZhu = true;
+                }
+            }
+        }
+
+        return isHuaZhu;
     },
     //existUserString
     testScoreOutput: function () {

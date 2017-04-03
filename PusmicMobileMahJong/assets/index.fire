@@ -15273,7 +15273,10 @@
       "__id__": 407
     },
     "gameRoundEndNode": null,
-    "allGameRoundEndNode": null
+    "allGameRoundEndNode": null,
+    "huPaiNode": {
+      "__id__": 673
+    }
   },
   {
     "__type__": "cc.Node",

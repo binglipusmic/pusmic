@@ -48,6 +48,9 @@ const gameUser =
       huGangShangHuaChuPaiUserOpenId:"",
       huGangPaiInOtherUserFromOpenId:"",
 
+      tingJiao:"",
+      maxFanShu:0,
+
       //gameingStatu:"",
     }
 module.exports = {

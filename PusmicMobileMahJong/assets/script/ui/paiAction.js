@@ -792,6 +792,7 @@ cc.Class({
         cc.log("hu gang:" + Global.chuPaiActionType);
         if (Global.huPreStep == "gang") {
             user.huGangShangHuaChuPaiUserOpenId = this.chuPaiUserOpenId;
+            user.huGangPaiInOtherUserFromOpenId = Global.gangFromUserOpenId;
             cc.log("hu huGangShangHuaChuPaiUserOpenId:" + user.huGangShangHuaChuPaiUserOpenId + "---" + user.openid)
         } else {
             // user.huGangShangHuaChuPaiUserOpenId = "";
