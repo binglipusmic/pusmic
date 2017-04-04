@@ -7,6 +7,7 @@ var tableNetWorkScript;
 var tableCenterScript;
 var pengOrder = 100;
 var moPaiScript;
+var roundScoreUIScript;
 cc.Class({
     extends: cc.Component,
 
@@ -41,6 +42,7 @@ cc.Class({
         tableCenterNode: cc.Node,
         user3PaiListNode: cc.Node,
         moPaiActionNode: cc.Node,
+        roundScoreScriptNode:cc.Node,
     },
 
     // use this for initialization
@@ -60,7 +62,8 @@ cc.Class({
         tableNetWorkScript = this.tableNetWorkNode.getComponent("GameTableNetWork");
         tableCenterScript = this.tableCenterNode.getComponent("tableCenterPoint");
         moPaiScript = this.moPaiActionNode.getComponent("tableMoPaiAction");
-    },
+        roundScoreUIScript =this.roundScoreScriptNode.getComponent("roundScoreUI");    
+},
 
     // called every frame, uncomment this function to activate update callback
     // update: function (dt) {
@@ -488,8 +491,11 @@ cc.Class({
         this.paiNumber = "29";
         this.chuPaiUserOpenId = "testUser4";
         // this.pengAction();
+        var user = tablePaiActionScript.getCorrectUserByOpenId("testUser2");
+        cc.log("testHuPai:" + user.paiListArray.toString());
         this.gangAction();
-         //Global.huPreStep = "";
+        cc.log("testHuPai1:" + user.paiListArray.toString());
+        //Global.huPreStep = "";
         //  this.preStep="";
         this.testMoPaiAction();
         this.fromUserOpenId = "testUser1";
@@ -501,6 +507,8 @@ cc.Class({
         tableNetWorkScript.countUserRoundScore();
         // cc.log("477");
         tableNetWorkScript.testScoreOutput();
+
+        roundScoreUIScript.initalRoundScore();
 
     },
     testOtherPengPai: function () {
@@ -617,7 +625,7 @@ cc.Class({
         if (gangExistUser == null || gangExistUser == undefined) {
             gangExistUser = [];
         }
-         var gangExistUserCache = user.gangExistUserCache;
+        var gangExistUserCache = user.gangExistUserCache;
         if (gangExistUserCache == null || gangExistUserCache == undefined) {
             gangExistUserCache = [];
         }
@@ -640,6 +648,8 @@ cc.Class({
                 //gangList.push(paiNumber); 
             }
         };
+        cc.log("gangAction source pai:" + paiNumber);
+        cc.log("gangAction paiList:" + paiList.toString());
         paiList = this.removeAllElementByNumberFromUser(paiList, paiNumber);
         //if the gang pai from other user.
         if (userOpenId != this.chuPaiUserOpenId) {
@@ -699,7 +709,7 @@ cc.Class({
                 //}
             }
         }
-          gangExistUserCache.push(existUserStringCache);
+        gangExistUserCache.push(existUserStringCache);
         if (this.chuPaiUserOpenId != user.openid) {
             existUserString = this.chuPaiUserOpenId;
         }
@@ -710,7 +720,7 @@ cc.Class({
 
         gangExistUser.push(existUserString);
         user.gangExistUser = gangExistUser;
-        user.gangExistUserCache =gangExistUserCache;
+        user.gangExistUserCache = gangExistUserCache;
         cc.log(" user.gangExistUser:" + user.gangExistUser);
         //gangExistUserCache
         if (isZiGangFlag) {
@@ -770,7 +780,7 @@ cc.Class({
 
 
     huAction: function () {
-         var gameMode = Global.gameMode;
+        var gameMode = Global.gameMode;
         if (this.preStep == null || this.preStep == undefined || this.preStep == "") {
             this.preStep = "normalChuPai"
         }
@@ -798,7 +808,7 @@ cc.Class({
             // user.huGangShangHuaChuPaiUserOpenId = "";
         }
         //zi mo add all not hu user into exist user 
-        if (userOpenId == chupaiOpenId ||(gameMode.dianGangHua_ziMo+""=="1" &&Global.huPreStep == "gang") ) {
+        if (userOpenId == chupaiOpenId || (gameMode.dianGangHua_ziMo + "" == "1" && Global.huPreStep == "gang")) {
             for (var i = 0; i < userList2.length; i++) {
                 var user2 = userList2[i];
                 if (user2.huPai != null && user2.huPai != undefined && user2.huPai != "") {
@@ -811,7 +821,7 @@ cc.Class({
 
 
         } else {
-           
+
             //dian pao 
             existUserString = chupaiOpenId;
         }

@@ -87,8 +87,8 @@ cc.Class({
      */
     testInitalUserList: function (initalType) {
         var paiList = ["11, 11, 13, 14, 24, 25, 26, 35, 35, 35, 36, 36, 36",
-            "15, 15, 17, 18, 19, 22, 23, 24, 29, 29, 29, 36, 37",
-            "15, 16, 17, 18, 19, 22, 23, 24, 29, 29, 29, 36, 37,37",
+            "15, 15, 17, 18, 19, 22, 23, 24, 25, 26, 29, 29, 29",
+            "15, 16, 17, 18, 19, 22, 23, 24, 29, 29, 29, 36, 37",
             "11, 12, 15, 24, 24, 22, 35, 35, 26, 14, 14, 14, 38",
         ];
         this.tableNode.active = true;
@@ -106,6 +106,9 @@ cc.Class({
             o.openid = "testUser" + i;
             o.unionid = "testUser" + i;
             o.userCode = "testUser" + i;
+            if(i!=1){
+                 o.quePai="3";
+            }
             
             o.publicIp = "127.0.0.1";
             o.paiList = paiList[i - 1];
@@ -117,6 +120,7 @@ cc.Class({
                  userInfo.openid = "testUser" + 3;
             } else if (initalType == "test2") {
                   userInfo.openid = "testUser" + 2;
+                 
                 if (i < 4) {
                     o.pointIndex = i + 1;
                 } else {
