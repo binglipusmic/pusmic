@@ -508,7 +508,8 @@ cc.Class({
         // cc.log("477");
         tableNetWorkScript.testScoreOutput();
 
-        roundScoreUIScript.initalRoundScore();
+      //  roundScoreUIScript.initalRoundScore();
+      //  roundScoreUIScript.initalAllRoundScore();
 
     },
     testOtherPengPai: function () {
