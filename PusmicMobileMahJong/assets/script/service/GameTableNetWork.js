@@ -16,6 +16,7 @@ var paiActionScript;
 var moPaiScript;
 var tableUserInfoScript;
 var huPaiScript;
+var messageScript;
 cc.Class({
     extends: cc.Component,
 
@@ -48,6 +49,7 @@ cc.Class({
         gameRoundEndNode: cc.Node,
         allGameRoundEndNode: cc.Node,
         huPaiNode: cc.Node,
+        messageNode:cc.Node,
 
 
     },
@@ -73,6 +75,7 @@ cc.Class({
         paiActionScript = self.paiAactionNode.getComponent("paiAction");
         tableUserInfoScript = self.tableUserInfoNode.getComponent("tableUserInfo");
         huPaiScript = self.huPaiNode.getComponent("HuPaiAction");
+        messageScript=self.messageNode.getComponent("messageUI");
     },
     connectByPrivateChanel: function () {
         if (client == null || client == undefined) {
@@ -559,6 +562,12 @@ cc.Class({
                         tableCenterScript.index = user.pointIndex;
                         tableCenterScript.showCenterPoint();
                     }
+                    //-------------------------------------------------------------------
+                     if (obj.actionName == "sendMessage") {
+                         var sendUserOpendId=obj.openid;
+                         var messageBody=obj.messageString;
+                         messageScript.showMessage(messageBody);
+                     }
 
                     //---------------moPai-----------------------------------------------
 
@@ -1105,7 +1114,7 @@ cc.Class({
         // client.unsubscribe("sub-" + Global.subid);
 
 
-        var userInfo = require("userInfoDomain").userInfoDomain;
+        var userInfo = Global.userInfo ;
 
         userInfo.roomNumber = joinRoomNumber;
         Global.userInfo = userInfo;
@@ -1245,6 +1254,19 @@ cc.Class({
         var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "userReadyStatuChange");
         this.sendMessageToServer(messageObj);
 
+    },
+
+    //--------------- Game chat room 
+    sendMessageToUser:function(messageString){
+
+        var userInfo = Global.userInfo;
+        var userOpenId = userInfo.openid;
+        var joinRoomNumber = Global.joinRoomNumber;
+        var o = new Object();
+        o.messageString = messageString;
+        o.openid = userOpenId;
+        var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "sendMessage");
+        this.sendMessageToServer(messageObj);
     },
 
     //--------------------------------------------------------------------------------------------------------

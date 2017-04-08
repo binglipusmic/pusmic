@@ -2,6 +2,7 @@ var huanPaiScript;
 var tablePaiActionScript;
 var iniMainScript;
 var tableNetworkScript;
+var iniIndexScript;
 cc.Class({
     extends: cc.Component,
 
@@ -59,6 +60,7 @@ cc.Class({
         userRoundScoreNode: cc.Node,
         iniMainNode: cc.Node,
         tableNetworkNode: cc.Node,
+        indexNode: cc.Node,
     },
 
     // use this for initialization
@@ -74,7 +76,7 @@ cc.Class({
         // this.disabledHuanSanZhangPai();
         huanPaiScript = this.huanPaiScriptNode.getComponent("huanPaiUI");
         tableNetworkScript = this.tableNetworkNode.getComponent("GameTableNetWork");
-
+        iniIndexScript = this.indexNode.getComponent("iniIndex");
         //tablePaiActionScript =this.tablePaiActionNode.getComponent("tablePaiAction");
 
     },
@@ -93,8 +95,8 @@ cc.Class({
         ];
         this.tableNode.active = true;
         var userList = [];
-          var userInfo = require("userInfoDomain").userInfoDomain;
-      
+        var userInfo = require("userInfoDomain").userInfoDomain;
+
         // iniMainScript=this.iniMainNode.getComponent("");
         for (var i = 1; i < 5; i++) {
             var o = new Object();
@@ -106,28 +108,30 @@ cc.Class({
             o.openid = "testUser" + i;
             o.unionid = "testUser" + i;
             o.userCode = "testUser" + i;
-            if(i!=1){
-                 o.quePai="3";
+            if (i != 1) {
+                o.quePai = "3";
             }
-            
+
             o.publicIp = "127.0.0.1";
             o.paiList = paiList[i - 1];
             o.gameReadyStatu = "1";
             o.gameScoreCount = "1";
             if (initalType == "test3") {
                 o.pointIndex = i;
-                o.userMoPai="37";
-                 userInfo.openid = "testUser" + 3;
+                o.userMoPai = "37";
+                userInfo.openid = "testUser" + 3;
+                userInfo.nickName = "testUser" + 3;
             } else if (initalType == "test2") {
-                  userInfo.openid = "testUser" + 2;
-                 
+                userInfo.openid = "testUser" + 2;
+                userInfo.nickName = "testUser" + 2;
                 if (i < 4) {
                     o.pointIndex = i + 1;
                 } else {
                     o.pointIndex = 1
                 }
             } else if (initalType == "test1") {
-                  userInfo.openid = "testUser" + 1;
+                userInfo.nickName = "testUser" + 1;
+                userInfo.openid = "testUser" + 1;
                 if (i < 3) {
                     o.pointIndex = i + 2;
                 } else if (i == 3) {
@@ -136,7 +140,8 @@ cc.Class({
                     o.pointIndex = 2;
                 }
             } else if (initalType == "test4") {
-                  userInfo.openid = "testUser" +4;
+                userInfo.nickName = "testUser" + 4;
+                userInfo.openid = "testUser" + 4;
                 if (i == 1) {
                     o.pointIndex = 4;
                 } else {
@@ -161,7 +166,7 @@ cc.Class({
 
         }
         var gameMode = require("gameMode").gameMode;
-       
+
         gameMode.huanSanZhang = "1";
         Global.gameMode = gameMode;
         Global.userList = userList;
@@ -201,10 +206,10 @@ cc.Class({
                 }
             }
 
-            if(moPaiNode!=null){
+            if (moPaiNode != null) {
                 moPaiNode.removeFromParent();
             }
-            huNode.active=false;
+            huNode.active = false;
 
         }
 
@@ -233,7 +238,10 @@ cc.Class({
     //type:inital 
     initalUserPai: function (initalType, type) {
         //inital the test data
+        //**********Test */
         this.testInitalUserList(initalType);
+        //iniIndexScript.sendUserCode();
+        //*********Test End */
         //  cc.log("Global.chuPaiActionType initalUserPai:" + Global.chuPaiActionType);
         //hide game mode
         this.tableGameMode.active = false;
@@ -303,7 +311,7 @@ cc.Class({
         Global.userList = userList;
         if (type != "joinExist") {
             //show huanPaiScript
-           // huanPaiScript.showHuanPaiNode();
+            //huanPaiScript.showHuanPaiNode();
         }
 
 
@@ -854,7 +862,7 @@ cc.Class({
                 this.user3PaiListNode.addChild(paiNode);
                 if (i == 13) {
                     paiNode.position = cc.p(startPoint + i * 80, 0);
-                    paiNode.name="mopai_"+paiArray[i].trim();
+                    paiNode.name = "mopai_" + paiArray[i].trim();
                 } else {
                     paiNode.position = cc.p(startPoint + i * 79, 0);
                 }

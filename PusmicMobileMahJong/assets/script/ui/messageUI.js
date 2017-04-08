@@ -1,3 +1,5 @@
+var tableNetWorkScript;
+
 cc.Class({
     extends: cc.Component,
 
@@ -19,21 +21,24 @@ cc.Class({
         changyongYuNode: cc.Node,
         inputEditNode: cc.Node,
         messageRichTextBodyNode: cc.Node,
-        messageScrollView :cc.Node,
+        messageScrollView: cc.Node,
+        tableNetWorkNode: cc.Node,
 
     },
 
     // use this for initialization
     onLoad: function () {
- //var rit = this.messageRichTextBodyNode.getComponent(cc.RichText);
+        tableNetWorkScript = this.tableNetWorkNode.getComponent("GameTableNetWork");
+        //var rit = this.messageRichTextBodyNode.getComponent(cc.RichText);
 
-       // rit.string = rit.string + "sdfsdfsdfsdf\nsdfsdfsdfsd\nsdfsdfsdfsdf\nsdfsdfsdfsd\nsdfsdfsdfsdf\nsdfsdfsdfsd\nsdfsdfsdfsdf\nsdfsdfsdfsd\nsdfsdfsdfsdf\nsdfsdfsdfsd\nsdfsdfsdfsdf\nsdfsdfsdfsd\nsdfsdfsdfsdf\nsdfsdfsdfsd\nsdfsdfsdfsdf\nsdfsdfsdfsd\nsdfsdfsdfsdf\nsdfsdfsdfsd\nsdfsdfsdfsdf\nsdfsdfsdfsd\nsdfsdfsdfsdf\nsdfsdfsdfsd\nsdfsdfsdfsdf\nsdfsdfsdfsd\nsdfsdfsdfsdf\nsdfsdfsdfsd\nsdfsdfsdfsdf\nsdfsdfsdfsd\nsdfsdfsdfsdf\nsdfsdfsdfsd\nsdfsdfsdfsdf\nsdfsdfsdfsd\nsdfsdfsdfsdf\nsdfsdfsdfsd\n" + "\n"
+        // rit.string = rit.string + "sdfsdfsdfsdf\nsdfsdfsdfsd\nsdfsdfsdfsdf\nsdfsdfsdfsd\nsdfsdfsdfsdf\nsdfsdfsdfsd\nsdfsdfsdfsdf\nsdfsdfsdfsd\nsdfsdfsdfsdf\nsdfsdfsdfsd\nsdfsdfsdfsdf\nsdfsdfsdfsd\nsdfsdfsdfsdf\nsdfsdfsdfsd\nsdfsdfsdfsdf\nsdfsdfsdfsd\nsdfsdfsdfsdf\nsdfsdfsdfsd\nsdfsdfsdfsdf\nsdfsdfsdfsd\nsdfsdfsdfsdf\nsdfsdfsdfsd\nsdfsdfsdfsdf\nsdfsdfsdfsd\nsdfsdfsdfsdf\nsdfsdfsdfsd\nsdfsdfsdfsdf\nsdfsdfsdfsd\nsdfsdfsdfsdf\nsdfsdfsdfsd\nsdfsdfsdfsdf\nsdfsdfsdfsd\nsdfsdfsdfsdf\nsdfsdfsdfsd\n" + "\n"
 
     },
 
     openMessage: function () {
         if (this.messageNode.active == false) {
             this.messageNode.active = true;
+            this.messageNode.zIndex = 1000;
         } else {
             this.messageNode.active = false;
         }
@@ -86,6 +91,8 @@ cc.Class({
 
     },
     sendMessage: function () {
+        var userInfo = Global.userInfo;
+
         var myEditBox = this.inputEditNode.getComponent(cc.EditBox);
         var message = myEditBox.string;
         cc.log("message:" + message);
@@ -108,11 +115,11 @@ cc.Class({
 
 
         }
-        var rit = this.messageRichTextBodyNode.getComponent(cc.RichText);
 
-        rit.string = rit.string + message + "\n"
-        var scroView=this.messageScrollView.getComponent(cc.ScrollView);
-        scroView.scrollToBottom();
+        message = userInfo.nickName + ":" + message;
+
+        //tableNetWorkScript.sendMessageToUser(message);
+        this.showMessage(message);
         // if (this.messageRichTextBodyNode.height > 360) {
         //     var t = (this.messageRichTextBodyNode.height - 360) / 40;
         //     t = Math.ceil(t);
@@ -122,6 +129,15 @@ cc.Class({
         //this.messageRichTextBodyNode.y = -337.5;
 
 
+
+    },
+
+    showMessage: function (message) {
+        var rit = this.messageRichTextBodyNode.getComponent(cc.RichText);
+
+        rit.string = rit.string + message + "\n"
+        var scroView = this.messageScrollView.getComponent(cc.ScrollView);
+        scroView.scrollToBottom();
 
     },
 

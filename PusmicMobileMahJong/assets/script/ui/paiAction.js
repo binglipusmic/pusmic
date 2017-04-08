@@ -138,7 +138,7 @@ cc.Class({
         for (var j = 0; j < paiList.length; j++) {
             tempList.push(paiList[j])
         }
-        huFlag = huPaiScript.hupaiLogicNoInsert(tempList);
+        var huFlag = huPaiScript.hupaiLogicNoInsert(tempList);
         var actionArray = ['cancle'];
         for (var j = 0; j < tempList.length; j++) {
             var paiNumber = tempList[j] + ""
