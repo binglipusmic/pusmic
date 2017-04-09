@@ -88,14 +88,14 @@ cc.Class({
         paiNode.name = "hupai" + latstIndex + "_" + paiNumber;
         //paiNode.active = false;
         var sprite = paiNode.getComponent(cc.Sprite);
-        cc.loader.loadRes(paiPath, function (err, sp) {
+        cc.loader.loadRes(paiPath,cc.SpriteFrame, function (err, sp) {
             cc.log("61:" + paiPath);
             if (err) {
                 cc.log("Error:" + err);
                 return;
             }
             cc.log("65:");
-            sprite.spriteFrame = new cc.SpriteFrame(sp);
+            sprite.spriteFrame = sp;
             paiNode.active = true;
         });
         paiNode = this.getCureentPostionFromUserPointAndPaiList(paiList, userPoint, paiNode);

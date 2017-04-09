@@ -49,7 +49,7 @@ cc.Class({
         gameRoundEndNode: cc.Node,
         allGameRoundEndNode: cc.Node,
         huPaiNode: cc.Node,
-        messageNode:cc.Node,
+        messageNode: cc.Node,
 
 
     },
@@ -75,7 +75,7 @@ cc.Class({
         paiActionScript = self.paiAactionNode.getComponent("paiAction");
         tableUserInfoScript = self.tableUserInfoNode.getComponent("tableUserInfo");
         huPaiScript = self.huPaiNode.getComponent("HuPaiAction");
-        messageScript=self.messageNode.getComponent("messageUI");
+        messageScript = self.messageNode.getComponent("messageUI");
     },
     connectByPrivateChanel: function () {
         if (client == null || client == undefined) {
@@ -553,21 +553,24 @@ cc.Class({
                         var chuPaiUserOpenId = obj.toUserOpenid;
                         var gangTypeList = obj.gangTypeList;
 
-                        paiActionScript.fromUserOpenId = gangFromUserOpenId;
-                        paiActionScript.paiNumber = pengPaiNumber;
-                        paiActionScript.chuPaiUserOpenId = chuPaiUserOpenId;
-                        paiActionScript.gangAction();
+                        if (userInfo.openid != gangFromUserOpenId) {
 
-                        var user = this.getCurreentUserByOpenId(gangFromUserOpenId)
-                        tableCenterScript.index = user.pointIndex;
-                        tableCenterScript.showCenterPoint();
+                            paiActionScript.fromUserOpenId = gangFromUserOpenId;
+                            paiActionScript.paiNumber = pengPaiNumber;
+                            paiActionScript.chuPaiUserOpenId = chuPaiUserOpenId;
+                            paiActionScript.gangAction();
+
+                            var user = this.getCurreentUserByOpenId(gangFromUserOpenId)
+                            tableCenterScript.index = user.pointIndex;
+                            tableCenterScript.showCenterPoint();
+                        }
                     }
                     //-------------------------------------------------------------------
-                     if (obj.actionName == "sendMessage") {
-                         var sendUserOpendId=obj.openid;
-                         var messageBody=obj.messageString;
-                         messageScript.showMessage(messageBody);
-                     }
+                    if (obj.actionName == "sendMessage") {
+                        var sendUserOpendId = obj.openid;
+                        var messageBody = obj.messageString;
+                        messageScript.showMessage(messageBody);
+                    }
 
                     //---------------moPai-----------------------------------------------
 
@@ -1114,7 +1117,7 @@ cc.Class({
         // client.unsubscribe("sub-" + Global.subid);
 
 
-        var userInfo = Global.userInfo ;
+        var userInfo = Global.userInfo;
 
         userInfo.roomNumber = joinRoomNumber;
         Global.userInfo = userInfo;
@@ -1257,7 +1260,7 @@ cc.Class({
     },
 
     //--------------- Game chat room 
-    sendMessageToUser:function(messageString){
+    sendMessageToUser: function (messageString) {
 
         var userInfo = Global.userInfo;
         var userOpenId = userInfo.openid;
@@ -1673,7 +1676,7 @@ cc.Class({
                         }
                         if (isHuaZhuFlag) {
                             chaFanShu = maxFan;
-                             noXiaJiaoUserList[j].huPaiDetails = noXiaJiaoUserList[j].huPaiDetails +"查花猪 "
+                            noXiaJiaoUserList[j].huPaiDetails = noXiaJiaoUserList[j].huPaiDetails + "查花猪 "
                         } else {
                             chaFanShu = xiaJiaoUserList[k].maxFanShu;
                         }
@@ -1721,16 +1724,16 @@ cc.Class({
     checkHuaZhu: function (user) {
         var isHuaZhu = false;
         var quePai = user.quePai;
-       
+
         if (quePai != null && quePai != undefined) {
             var paiList = user.paiListArray;
-          
+
             for (var i = 0; i < paiList.length; i++) {
                 var pai = paiList[i] + "";
                 pai = pai + "";
-                pai=pai.trim();
-                  
-                if (quePai+"" == pai[0]+"") {
+                pai = pai.trim();
+
+                if (quePai + "" == pai[0] + "") {
                     isHuaZhu = true;
                 }
             }

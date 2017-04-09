@@ -42,7 +42,7 @@ cc.Class({
         tableCenterNode: cc.Node,
         user3PaiListNode: cc.Node,
         moPaiActionNode: cc.Node,
-        roundScoreScriptNode:cc.Node,
+        roundScoreScriptNode: cc.Node,
     },
 
     // use this for initialization
@@ -62,8 +62,8 @@ cc.Class({
         tableNetWorkScript = this.tableNetWorkNode.getComponent("GameTableNetWork");
         tableCenterScript = this.tableCenterNode.getComponent("tableCenterPoint");
         moPaiScript = this.moPaiActionNode.getComponent("tableMoPaiAction");
-        roundScoreUIScript =this.roundScoreScriptNode.getComponent("roundScoreUI");    
-},
+        roundScoreUIScript = this.roundScoreScriptNode.getComponent("roundScoreUI");
+    },
 
     // called every frame, uncomment this function to activate update callback
     // update: function (dt) {
@@ -477,7 +477,7 @@ cc.Class({
         tablePaiActionScript.playSlefChuPaiAction(node, "3");
     },
     testMoPaiAction: function () {
-        moPaiScript.moPaiAction("15", "testUser1");
+        moPaiScript.moPaiAction("19", "testUser1");
         //  moPaiScript.moPaiOnDataLayer("11", "testUser2");
         //  moPaiScript.moPaiOnDataLayer(paiNumber, toUserOpenid);
         //var user = tablePaiActionScript.getCorrectUserByOpenId("testUser2");
@@ -508,8 +508,8 @@ cc.Class({
         // cc.log("477");
         tableNetWorkScript.testScoreOutput();
 
-      //  roundScoreUIScript.initalRoundScore();
-      //  roundScoreUIScript.initalAllRoundScore();
+        //  roundScoreUIScript.initalRoundScore();
+        //  roundScoreUIScript.initalAllRoundScore();
 
     },
     testOtherPengPai: function () {
@@ -976,7 +976,7 @@ cc.Class({
                 var paiPath = tablePaiActionScript.getChuPaiNameByNodeName(tempPai, pointIndex);
                 var middlePoint = null;
                 // cc.log("isGang loadRes:" + isGang);
-                cc.loader.loadRes(paiPath, function (err, sp) {
+                cc.loader.loadRes(paiPath, cc.SpriteFrame, function (err, sp) {
                     if (err) {
                         cc.log("----" + err.message || err);
                         return;
@@ -1023,7 +1023,7 @@ cc.Class({
 
 
                         var sprite = pNode.getComponent(cc.Sprite);
-                        sprite.spriteFrame = new cc.SpriteFrame(sp);
+                        sprite.spriteFrame = sp;
                         userPengPaiListNode.addChild(pNode);
                     }
 
@@ -1040,7 +1040,7 @@ cc.Class({
                 var tempPai = gangList[k] + "";
                 tempPai = tempPai.trim();
                 var paiPath = tablePaiActionScript.getChuPaiNameByNodeName(tempPai, pointIndex);
-                cc.loader.loadRes(paiPath, function (err, sp) {
+                cc.loader.loadRes(paiPath, cc.SpriteFrame, function (err, sp) {
                     if (err) {
                         cc.log("----" + err.message || err);
                         return;
@@ -1072,7 +1072,7 @@ cc.Class({
                         finalY = point[1];
 
                         var sprite = pNode.getComponent(cc.Sprite);
-                        sprite.spriteFrame = new cc.SpriteFrame(sp);
+                        sprite.spriteFrame = sp;
                         userPengPaiListNode.addChild(pNode);
                     }
 
@@ -1102,8 +1102,10 @@ cc.Class({
                     }
                     cc.log("gang x:" + finalX + "-----y:" + finalY);
                     pNode2.position = cc.p(sencodPaiX, sencodPaiY);
+                    cc.log("sencodPaiX:" + sencodPaiX);
+                    cc.log("sencodPaiY:" + sencodPaiY);
                     var sprite2 = pNode2.getComponent(cc.Sprite);
-                    sprite2.spriteFrame = new cc.SpriteFrame(sp);
+                    sprite2.spriteFrame = sp;
                     userPengPaiListNode.addChild(pNode2);
                     //isGang = false;
 

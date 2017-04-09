@@ -100,7 +100,7 @@ cc.Class({
         //pNode.width = 42;
         //pNode.height = 61;
         var sprite = pNode.getComponent(cc.Sprite);
-        cc.loader.loadRes(paiPath, function (err, sp) {
+        cc.loader.loadRes(paiPath,cc.SpriteFrame, function (err, sp) {
             if (err) {
                 //  cc.log("----" + err.message || err);
                 return;
@@ -108,7 +108,7 @@ cc.Class({
             // cc.log("85");
 
 
-            sprite.spriteFrame = new cc.SpriteFrame(sp);
+            sprite.spriteFrame = sp;
 
             //  cc.log("99");
             // cc.log('Result should be a sprite frame: ' + (sp instanceof cc.SpriteFrame));

@@ -174,7 +174,7 @@ cc.Class({
         Global.chuPaiActionType = "normalChuPai";
         cc.log(" Global.userInfo:" + userInfo.toString());
         cc.log(" Global.userList:" + Global.userList.length);
-        Global.joinRoomNumber = "100000";
+        Global.joinRoomNumber = "749746";
         var roomNumber = Global.joinRoomNumber;
         cc.log("roomNumber:" + roomNumber);
         tableNetworkScript.connectByPrivateChanel();
@@ -216,7 +216,7 @@ cc.Class({
     },
 
     testConnectRoom: function () {
-        tableNetworkScript.testJoinRoom("100000")
+        tableNetworkScript.testJoinRoom("749746")
     },
 
     inistalTestUser1: function () {
