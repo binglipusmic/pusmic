@@ -133,6 +133,8 @@ class GameRoundLunService {
             }
         }
 
+        println ("checkGameRounDone:"+flag)
+
         return flag
 
     }

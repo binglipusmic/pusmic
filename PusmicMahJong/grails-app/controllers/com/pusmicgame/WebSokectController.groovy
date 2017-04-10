@@ -192,6 +192,7 @@ class WebSokectController {
 
                 //mopai in next user
                 obj.paiNumber= paiService.moPai(obj.toUserOpenid,messageJsonObj.messageBelongsToPrivateChanleNumber)
+                println "195:"+obj.paiNumber
                 if(   obj.paiNumber) {
                     obj.actionName = "moPai"
                     //obj.toUserOpenid =obj.nextOpenid
@@ -208,17 +209,18 @@ class WebSokectController {
                     //check if the round already comple the count for the game lun.
                     //No complet---start a new game round
                     //comple ----end this game lun
+                    def s3
                     if(gameRoundLunService.checkGameRounDone(messageJsonObj)){
                         messageJsonObj.messageAction="endGameRoundLun"
-                        def s3 = new JsonBuilder(messageJsonObj).toPrettyString()
+                        s3= new JsonBuilder(messageJsonObj).toPrettyString()
                         websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s3)
                     }else{
                         messageJsonObj.messageAction="endGameRoundAndStartNewRound"
-                        def s3 = new JsonBuilder(messageJsonObj).toPrettyString()
+                        s3 = new JsonBuilder(messageJsonObj).toPrettyString()
                         websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s3)
                     }
 
-
+                    println "222 s3:"+s3
 
                 }
 //huPai
@@ -239,7 +241,11 @@ class WebSokectController {
                     websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s3)
                 }
 
-            } else{
+            }else if(obj.actionName=="saveRoundScore") {
+
+                 gameRoundService.saveRoundScore(obj,messageJsonObj.messageBelongsToPrivateChanleNumber)
+
+            }else {
                 def s = new JsonBuilder(messageJsonObj).toPrettyString()
                 websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s)
 

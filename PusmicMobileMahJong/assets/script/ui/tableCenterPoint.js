@@ -106,9 +106,9 @@ cc.Class({
         tenScript.spriteFrame = self.numberSprite[ten];
         numScript.spriteFrame = self.numberSprite[num];
     },
-    setNumerToZero:function(){
-        let self=this;
-          var tenScript = self.tenPoint.getComponent(cc.Sprite);
+    setNumerToZero: function () {
+        let self = this;
+        var tenScript = self.tenPoint.getComponent(cc.Sprite);
         var numScript = self.numPoint.getComponent(cc.Sprite);
 
         tenScript.spriteFrame = self.numberSprite[0];
@@ -151,11 +151,12 @@ cc.Class({
         timeCount = 30;
         this.initalCenterNum();
         this.centerPointNode.active = true;
+        //this.centerPointNode.zIndex = 0;
         this.stratTimer();
         this.showQuePai();
         //intail user step for chupai
 
-        Global.chuPaiActionType="";
+        Global.chuPaiActionType = "";
     },
     showQuePai: function () {
         var userList2 = Global.userList;
@@ -164,10 +165,10 @@ cc.Class({
         for (var i = 0; i < userList2.length; i++) {
 
             var quepai = (userList2[i].quePai);
-           // cc.log("quepai0:" + userList2[i].quePai + "---" + userList2[i].openid);
+            // cc.log("quepai0:" + userList2[i].quePai + "---" + userList2[i].openid);
             if (quepai != null && quepai != undefined) {
                 quepai = parseInt(userList2[i].quePai);
-              //  cc.log("quepai1:" + quepai.toString());
+                //  cc.log("quepai1:" + quepai.toString());
                 var queScript = this.paiType[quepai - 1];
                 var index = userList2[i].pointIndex;
                 this.setQuePaiSpritFame(index, queScript);
@@ -177,13 +178,13 @@ cc.Class({
 
     },
     setQuePaiSpritFame: function (index, scpritFame) {
-       // cc.log("setQuePaiSpritFame index:" + index);
+        // cc.log("setQuePaiSpritFame index:" + index);
         index = index + "";
         var sprit;
         if (index == "1") {
             sprit = this.user1Quepai.getComponent(cc.Sprite);
             this.user1Quepai.active = true;
-          //  cc.log(" this.user1Quepai.active :" + this.user1Quepai.active);
+            //  cc.log(" this.user1Quepai.active :" + this.user1Quepai.active);
         }
         if (index == "2") {
             sprit = this.user2Quepai.getComponent(cc.Sprite);
@@ -194,13 +195,13 @@ cc.Class({
         if (index == "3") {
             sprit = this.user3Quepai.getComponent(cc.Sprite);
             this.user3Quepai.active = true;
-          //  cc.log(" this.user3Quepai.active :" + this.user3Quepai.active);
+            //  cc.log(" this.user3Quepai.active :" + this.user3Quepai.active);
 
         }
         if (index == "4") {
             sprit = this.user4Quepai.getComponent(cc.Sprite);
             this.user4Quepai.active = true;
-          //  cc.log(" this.user4Quepai.active :" + this.user4Quepai.active);
+            //  cc.log(" this.user4Quepai.active :" + this.user4Quepai.active);
 
         }
         sprit.spriteFrame = scpritFame;

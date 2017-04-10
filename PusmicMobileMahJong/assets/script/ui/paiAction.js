@@ -477,7 +477,7 @@ cc.Class({
         tablePaiActionScript.playSlefChuPaiAction(node, "3");
     },
     testMoPaiAction: function () {
-        moPaiScript.moPaiAction("19", "testUser1");
+        moPaiScript.moPaiAction("27", "testUser2");
         //  moPaiScript.moPaiOnDataLayer("11", "testUser2");
         //  moPaiScript.moPaiOnDataLayer(paiNumber, toUserOpenid);
         //var user = tablePaiActionScript.getCorrectUserByOpenId("testUser2");

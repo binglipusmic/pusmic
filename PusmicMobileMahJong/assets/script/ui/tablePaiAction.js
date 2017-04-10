@@ -1,5 +1,5 @@
 
-var paiListReOrderCount = "8"
+var paiListReOrderCount = "10"
 var nodeMoveX = -1;
 var nodeMoveY = -1;
 var tableUserInfoScript;
@@ -272,7 +272,7 @@ cc.Class({
         var children = userChuPaiListNode.children;
         var lastNode;
         var childrenLen = children.length
-        cc.log("removeLastPaiOnPaiListByUser children1:" + userChuPaiListNode.children.length);
+       // cc.log("removeLastPaiOnPaiListByUser children1:" + userChuPaiListNode.children.length);
         // if (index == "2") {
         //     lastNode = children[0];
         // } else if (index == "1") {
@@ -282,7 +282,7 @@ cc.Class({
         // }
 
         for (var i = 0; i < children.length; i++) {
-            cc.log("removeLastPaiOnPaiListByUser lastNode:" + children[i].name);
+           // cc.log("removeLastPaiOnPaiListByUser lastNode:" + children[i].name);
             if (children[i].name == "autoMoPai") {
                 lastNode = children[i];
             }
@@ -290,14 +290,14 @@ cc.Class({
         }
         if (lastNode != null & lastNode != undefined) {
             lastNode.removeFromParent();
-            cc.log("removeLastPaiOnPaiListByUser remove:" + lastNode.name);
+          //  cc.log("removeLastPaiOnPaiListByUser remove:" + lastNode.name);
         }
 
-        cc.log("removeLastPaiOnPaiListByUser children2:" + userChuPaiListNode.children.length);
+       // cc.log("removeLastPaiOnPaiListByUser children2:" + userChuPaiListNode.children.length);
 
 
         // var tableNode =this.tableNode;
-        cc.log("removeLastPaiOnPaiListByUser end");
+       // cc.log("removeLastPaiOnPaiListByUser end");
 
     },
     removeLastPaiOnPaiListByUser: function (user) {
@@ -654,7 +654,7 @@ cc.Class({
         if (userIndex == "2") {
             if (user.chuPaiCount == paiListReOrderCount) {
                 user.chupaiListY = 120;
-                user.chupaiListX = 226;
+                user.chupaiListX = 186;
 
             } else {
                 user.chupaiListY = user.chupaiListY - 35;
@@ -673,7 +673,7 @@ cc.Class({
         }
         if (userIndex == "4") {
             if (user.chuPaiCount == paiListReOrderCount) {
-                user.chupaiListX = -225;
+                user.chupaiListX = -186;
                 user.chupaiListY = -120;
 
 
@@ -1433,7 +1433,7 @@ var x = touches[0].getLocationX();
                     existFlag = true
                 }
             }
-            if (userMoPai != null && userMoPai != undefined) {
+            if (userMoPai != null && userMoPai != undefined &&userMoPai !="") {
                 var type2 = userMoPai + "";
                 type2 = type2.trim();
 

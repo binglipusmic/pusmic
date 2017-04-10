@@ -67,7 +67,7 @@ cc.Class({
             paiStr = "22,22,22,26,26,26,27,28,33,33,33,36,36,36";
             paiList = paiStr.split(",");
             huFlagDetails = this.startDecideHu(paiList);
-            cc.log("huFlagDetails2:"+i+"--" + huFlagDetails);
+            cc.log("huFlagDetails2:" + i + "--" + huFlagDetails);
         }
     },
 
@@ -88,7 +88,7 @@ cc.Class({
         paiNode.name = "hupai" + latstIndex + "_" + paiNumber;
         //paiNode.active = false;
         var sprite = paiNode.getComponent(cc.Sprite);
-        cc.loader.loadRes(paiPath,cc.SpriteFrame, function (err, sp) {
+        cc.loader.loadRes(paiPath, cc.SpriteFrame, function (err, sp) {
             cc.log("61:" + paiPath);
             if (err) {
                 cc.log("Error:" + err);
@@ -366,14 +366,16 @@ cc.Class({
     },
     checkQiaoQiDui: function (paiList) {
         var tempList = [];
-        tempList = this.deepCopyArray(paiList, tempList)
-        for (var i = 0; i < tempList.length; i++) {
-            var sourceLen = tempList.length;
-            tempList = this.liangZhang(tempList[i], tempList);
-            cc.log("paiList:" + tempList);
-            var oldLen = tempList.length;
-            if (sourceLen != oldLen) {
-                i = 0
+        if (paiList.length >= 13) {
+            tempList = this.deepCopyArray(paiList, tempList)
+            for (var i = 0; i < tempList.length; i++) {
+                var sourceLen = tempList.length;
+                tempList = this.liangZhang(tempList[i], tempList);
+                cc.log("paiList:" + tempList);
+                var oldLen = tempList.length;
+                if (sourceLen != oldLen) {
+                    i = 0
+                }
             }
         }
 

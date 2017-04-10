@@ -239,7 +239,7 @@ cc.Class({
     initalUserPai: function (initalType, type) {
         //inital the test data
         //**********Test */
-        this.testInitalUserList(initalType);
+        //this.testInitalUserList(initalType);
         //iniIndexScript.sendUserCode();
         //*********Test End */
         //  cc.log("Global.chuPaiActionType initalUserPai:" + Global.chuPaiActionType);
@@ -311,7 +311,7 @@ cc.Class({
         Global.userList = userList;
         if (type != "joinExist") {
             //show huanPaiScript
-            //huanPaiScript.showHuanPaiNode();
+            huanPaiScript.showHuanPaiNode();
         }
 
 
@@ -326,11 +326,11 @@ cc.Class({
             user.chupaiListY = -45;
 
         } else if (point == "2") {
-            user.chupaiListX = 170;
+            user.chupaiListX = 130;
             user.chupaiListY = 120;
 
         } else if (point == "4") {
-            user.chupaiListX = -170;
+            user.chupaiListX = -130;
             user.chupaiListY = -120;
 
         }

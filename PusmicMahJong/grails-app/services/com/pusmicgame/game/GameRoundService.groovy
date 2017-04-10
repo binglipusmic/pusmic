@@ -96,4 +96,32 @@ class GameRoundService {
     def serviceMethod() {
 
     }
+
+
+    def saveRoundScore(obj,roomNumber){
+
+        GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
+        if (onlineRoomNumber) {
+            GameRound gameRound = onlineRoomNumber.gameRound
+            if (gameRound) {
+                //check the user count if already full
+
+                def gameUsers=gameRound.gameUser;
+                if(gameUsers){
+                    gameUsers.each{user->
+                        if(user.springUser.openid.equals(obj.fromUserOpenid)){
+                            user.roundScoreCount=obj.roundScoreCount
+                            user.huPaiDetails=obj.huPaiDetails
+                            user.save(flush: true, failOnError: true)
+                        }
+
+
+                    }
+                }
+
+
+            }
+        }
+
+    }
 }

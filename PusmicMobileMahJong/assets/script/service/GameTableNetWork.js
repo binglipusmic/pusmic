@@ -17,6 +17,7 @@ var moPaiScript;
 var tableUserInfoScript;
 var huPaiScript;
 var messageScript;
+var roundScoreScript;
 cc.Class({
     extends: cc.Component,
 
@@ -50,6 +51,7 @@ cc.Class({
         allGameRoundEndNode: cc.Node,
         huPaiNode: cc.Node,
         messageNode: cc.Node,
+        roundScoreNode: cc.Node,
 
 
     },
@@ -76,6 +78,7 @@ cc.Class({
         tableUserInfoScript = self.tableUserInfoNode.getComponent("tableUserInfo");
         huPaiScript = self.huPaiNode.getComponent("HuPaiAction");
         messageScript = self.messageNode.getComponent("messageUI");
+        roundScoreScript = self.roundScoreNode.getComponent("roundScoreUI");
     },
     connectByPrivateChanel: function () {
         if (client == null || client == undefined) {
@@ -382,6 +385,13 @@ cc.Class({
                 if (messageDomain.messageAction == "endGameRoundLun") {
                 }
                 if (messageDomain.messageAction == "endGameRoundAndStartNewRound") {
+                    //messageScript
+                    this.countUserRoundScore();
+                    this.testScoreOutput();
+                    var userInfo = Global.userInfo;
+                    var currentUser = this.getCurreentUserByOpenId(userInfo.openid);
+                    this.sendRoundScoreToServer(currentUser);
+                    roundScoreScript.initalRoundScore();
                 }
                 //--------------------------------------Game Action  -----------------------------------------------
                 if (messageDomain.messageAction == "gameAction") {
@@ -407,20 +417,23 @@ cc.Class({
                         if (fromUserOpenid != userInfo.openid) {
                             //reset user action status for each user 
                             for (var i = 0; i < userList.length; i++) {
-                                //play chupai action on other side
-                                if (obj.fromUserOpenid == userList[i].openid) {
-                                    //show the chu pai action on animation
-                                    var index = userList[i].pointIndex;
-                                    tablePaiActionScript.playOtherChuPaiAction(paiNumber, index);
-                                    //update the pai list on the chu pai user
-                                    userList[i].paiList = paiList.join(",");
-                                    userList[i].paiListArray = paiList;
-                                    userList[i].actionBarFlag = "-2";
+                                if (userList[i].huPai == null || userList[i].huPai == undefined || userList[i].huPai == "") {
+                                    //play chupai action on other side
+                                    if (obj.fromUserOpenid == userList[i].openid) {
+                                        //show the chu pai action on animation
+                                        var index = userList[i].pointIndex;
+                                        tablePaiActionScript.playOtherChuPaiAction(paiNumber, index);
+                                        //update the pai list on the chu pai user
+                                        userList[i].paiList = paiList.join(",");
+                                        userList[i].paiListArray = paiList;
+                                        userList[i].actionBarFlag = "-2";
 
 
-                                } else {
-                                    userList[i].actionBarFlag = "-1";
+                                    } else {
+                                        userList[i].actionBarFlag = "-1";
+                                    }
                                 }
+
                             }
                             //update pai and pai list to Gobal user list var 
                             Global.userList = userList;
@@ -556,7 +569,7 @@ cc.Class({
                         if (userInfo.openid != gangFromUserOpenId) {
 
                             paiActionScript.fromUserOpenId = gangFromUserOpenId;
-                            paiActionScript.paiNumber = pengPaiNumber;
+                            paiActionScript.paiNumber = gangPaiNumber;
                             paiActionScript.chuPaiUserOpenId = chuPaiUserOpenId;
                             paiActionScript.gangAction();
 
@@ -737,7 +750,7 @@ cc.Class({
                         huuser.huPaiFromUser = chuPaiUserOpenId;
                         huuser.huChuPaiType = huChuPaiType;
                         huuser.existUserString = existUserString;
-                        huuser.huGangPai = gangPai;
+                        // huuser.huGangPai = gangPai;
                         huuser.huGangShangHuaChuPaiUserOpenId = chuPaiUserOpenId// gangFromUserOpenId;
                         huuser.huGangPaiInOtherUserFromOpenId = gangFromUserOpenId;
                         tablePaiActionScript.updateUserListInGobal(huuser);
@@ -845,6 +858,18 @@ cc.Class({
 
     },
     //-------------------------------chu pai action---------------------------------------------
+    sendRoundScoreToServer: function (user) {
+        var joinRoomNumber = Global.joinRoomNumber;
+        var o = new Object();
+        o.fromUserOpenid = user.openid;
+        o.actionName = "saveRoundScore";
+        o.roundScoreCount = user.roundScoreCount;
+        o.huPaiDetails = user.huPaiDetails;
+        //o.toUserOpenid = userOpenId;
+        var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
+        this.sendMessageToServer(messageObj);
+    },
+
     sendCheckRoundEnd: function () {
 
         var joinRoomNumber = Global.joinRoomNumber;
@@ -1037,19 +1062,22 @@ cc.Class({
             }
         }
 
-        currentIndex = parseInt(currentIndex);
-        if (currentIndex == userList.length) {
-            nextIndex = 1
-        } else {
-            nextIndex = currentIndex + 1
-        }
-
-        for (var j = 0; j < userList.length; j++) {
-            if (userList[j].pointIndex == nextIndex) {
-                nextOpenId = userList[j].openid;
+        var user = tablePaiActionScript.getCorrectUserByPoint(currentIndex);
+        // cc.log("1018 user.huPai:" + user.huPai);
+        if (user.huPai != null && user.huPai != undefined & user.huPai != "") {
+            currentIndex = this.getNextIndex(currentIndex);
+            user = tablePaiActionScript.getCorrectUserByPoint(currentIndex);
+            // cc.log("1022 user.huPai:" + user.huPai);
+            if (user.huPai != null && user.huPai != undefined & user.huPai != "") {
+                currentIndex = this.getNextIndex(currentIndex);
+                user = tablePaiActionScript.getCorrectUserByPoint(currentIndex);
+                //cc.log("1026 user.huPai:" + user.huPai);
+                if (user.huPai != null && user.huPai != undefined & user.huPai != "") {
+                    //show end round 
+                }
             }
         }
-
+        nextOpenId = user.openid;
         return nextOpenId
 
     },
@@ -1384,6 +1412,9 @@ cc.Class({
         //First set the ting jiao 
         for (var i = 0; i < userList.length; i++) {
             var user = userList[i];
+            if (user.huPaiDetails == undefined || user.huPaiDetails == null) {
+                user.huPaiDetails = "";
+            }
             if (user.huPai != null && user.huPai != undefined && user.huPai != "") {
 
             } else {
@@ -1482,7 +1513,7 @@ cc.Class({
                     if (user.huPaiFanShu < maxFan) {
                         user.huPaiFanShu = user.huPaiFanShu + 1;
                         details = details + "点杠加1番;"
-                        var huGangPai = user.huGangPai;
+                        //var huGangPai = user.huGangPai;
                         var gangFromUserList = user.gangFromUserListOpenId;
                     }
                 }
@@ -1575,6 +1606,9 @@ cc.Class({
                                 tempUser.roundScoreCount = - roundScore;
                             } else {
                                 tempUser.roundScoreCount = tempUser.roundScoreCount - roundScore;
+                            }
+                            if (tempUser.huPaiDetails == undefined || tempUser.huPaiDetails == null) {
+                                tempUser.huPaiDetails = "";
                             }
 
                             tempUser.huPaiDetails = tempUser.huPaiDetails + " 胡牌失分:-" + roundScore + ";";
