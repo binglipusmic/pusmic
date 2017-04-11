@@ -780,6 +780,22 @@ cc.Class({
     },
 
 
+    setZhuangOnFirstHU: function () {
+        var userList = Global.userList;
+        var huPaiNumer = 0;
+        for (var i = 0; i < userList.length; i++) {
+            var user = userList[i];
+            if (user2.huPai != null && user2.huPai != undefined && user2.huPai != "") {
+                huPaiNumer++;
+            }
+        }
+
+        if (huPaiNumer == 1) {
+            for (var i = 0; i < userList.length; i++) {
+                var user = userList[i];
+            }
+        }
+    },
 
     huAction: function () {
         var gameMode = Global.gameMode;

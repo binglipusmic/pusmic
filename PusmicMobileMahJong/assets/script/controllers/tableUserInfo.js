@@ -182,6 +182,16 @@ cc.Class({
 
 
     },
+    cleanUserList: function () {
+        var userList = Global.userList;
+        for (var i = 0; i < userList.length; i++) {
+             var user=userList[i];
+             user.gameReadyStatu="";
+             user.gameRoundScore="";
+             user.gameScoreCount="";
+
+        }
+    },
     /**
      * Clean the table all node 
      */

@@ -88,6 +88,10 @@ cc.Class({
     },
     closeRoundScore:function(){
         this.userRoundScoreNode.active =false;
+        //go to a new game ground
+        //1.clean the data layer
+        
+        //2.GUI
     }
 
     // called every frame, uncomment this function to activate update callback
