@@ -365,7 +365,9 @@ cc.Class({
 
     },
     checkQiaoQiDui: function (paiList) {
+        cc.log("checkQiaoQiDui pailist:" + paiList.toString());
         var tempList = [];
+        var flag = false;
         if (paiList.length >= 13) {
             tempList = this.deepCopyArray(paiList, tempList)
             for (var i = 0; i < tempList.length; i++) {
@@ -377,15 +379,20 @@ cc.Class({
                     i = 0
                 }
             }
+
+            if (tempList.length == 0) {
+                flag = true
+            } else {
+                flag = false
+            }
         }
+
+        
 
         cc.log("paiList:" + tempList.toString())
+        return flag;
 
-        if (tempList.length == 0) {
-            return true
-        } else {
-            return false
-        }
+
     },
 
     testQiaoQiDui: function () {

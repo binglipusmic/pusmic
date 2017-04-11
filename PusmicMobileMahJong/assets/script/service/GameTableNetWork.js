@@ -412,27 +412,30 @@ cc.Class({
                             paiList = [paiList]
                         }
 
+                        var u = this.getCurreentUserByOpenId(fromUserOpenid);
+
+
                         //get next user openid 
                         var nextUserOpenId = this.getNextUserByOpenId(fromUserOpenid);
                         if (fromUserOpenid != userInfo.openid) {
                             //reset user action status for each user 
                             for (var i = 0; i < userList.length; i++) {
-                                if (userList[i].huPai == null || userList[i].huPai == undefined || userList[i].huPai == "") {
-                                    //play chupai action on other side
-                                    if (obj.fromUserOpenid == userList[i].openid) {
-                                        //show the chu pai action on animation
-                                        var index = userList[i].pointIndex;
-                                        tablePaiActionScript.playOtherChuPaiAction(paiNumber, index);
-                                        //update the pai list on the chu pai user
-                                        userList[i].paiList = paiList.join(",");
-                                        userList[i].paiListArray = paiList;
-                                        userList[i].actionBarFlag = "-2";
+
+                                //play chupai action on other side
+                                if (obj.fromUserOpenid == userList[i].openid) {
+                                    //show the chu pai action on animation
+                                    var index = userList[i].pointIndex;
+                                    tablePaiActionScript.playOtherChuPaiAction(paiNumber, index);
+                                    //update the pai list on the chu pai user
+                                    userList[i].paiList = paiList.join(",");
+                                    userList[i].paiListArray = paiList;
+                                    userList[i].actionBarFlag = "-2";
 
 
-                                    } else {
-                                        userList[i].actionBarFlag = "-1";
-                                    }
+                                } else {
+                                    userList[i].actionBarFlag = "-1";
                                 }
+
 
                             }
                             //update pai and pai list to Gobal user list var 
@@ -448,25 +451,27 @@ cc.Class({
                             var noHuActionListCache = [];
                             for (var i = 0; i < userList.length; i++) {
                                 if (fromUserOpenid != userList[i].openid) {
-                                    var actionArray = paiActionScript.getActionBarArrayByOpenId(paiNumber, userList[i].openid, "")
-                                    cc.log("openid :" + userList[i].openid);
-                                    cc.log("paiList:" + userList[i].paiListArray.toString());
-                                    cc.log("actionArray:" + actionArray.length);
-                                    if (actionArray.length > 1) {
-                                        userList[i].actionBarFlag = "1";
-                                        var o = new Object();
-                                        o.userOpenId = userList[i].openid;
-                                        o.actionArray = actionArray;
-                                        o.paiNumber = paiNumber;
-                                        if (actionArray.toString().indexOf("hu") >= 0) {
-                                            huActionListCache.push(o);
-                                        } else {
-                                            noHuActionListCache.push(o);
-                                        }
+                                    if (userList[i].huPai == null || userList[i].huPai == undefined || userList[i].huPai == "") {
+                                        var actionArray = paiActionScript.getActionBarArrayByOpenId(paiNumber, userList[i].openid, "")
+                                        cc.log("openid :" + userList[i].openid);
+                                        cc.log("paiList:" + userList[i].paiListArray.toString());
+                                        cc.log("actionArray:" + actionArray.length);
+                                        if (actionArray.length > 1) {
+                                            userList[i].actionBarFlag = "1";
+                                            var o = new Object();
+                                            o.userOpenId = userList[i].openid;
+                                            o.actionArray = actionArray;
+                                            o.paiNumber = paiNumber;
+                                            if (actionArray.toString().indexOf("hu") >= 0) {
+                                                huActionListCache.push(o);
+                                            } else {
+                                                noHuActionListCache.push(o);
+                                            }
 
-                                        //this.sendShowActionBarOnOtherUser(userList[i].openid, actionArray.toString(), paiNumber);
-                                    } else {
-                                        userList[i].actionBarFlag = "0";
+                                            //this.sendShowActionBarOnOtherUser(userList[i].openid, actionArray.toString(), paiNumber);
+                                        } else {
+                                            userList[i].actionBarFlag = "0";
+                                        }
                                     }
                                 } else {
                                     userList[i].actionBarFlag = "0";
@@ -1062,6 +1067,8 @@ cc.Class({
             }
         }
 
+        currentIndex = this.getNextIndex(currentIndex);
+        cc.log("getNextUserByOpenId currentIndex:" + currentIndex);
         var user = tablePaiActionScript.getCorrectUserByPoint(currentIndex);
         // cc.log("1018 user.huPai:" + user.huPai);
         if (user.huPai != null && user.huPai != undefined & user.huPai != "") {
@@ -1091,7 +1098,7 @@ cc.Class({
         //cc.log("1013 currentIndex:" + currentIndex);
         currentIndex = this.getNextIndex(currentIndex);
         //tableActionScript.getNextUserFromCurentIndex
-        // cc.log("1016 currentIndex:" + currentIndex);
+        cc.log("1096 currentIndex:" + currentIndex);
         var user = tablePaiActionScript.getCorrectUserByPoint(currentIndex);
         // cc.log("1018 user.huPai:" + user.huPai);
         if (user.huPai != null && user.huPai != undefined & user.huPai != "") {
@@ -1335,9 +1342,9 @@ cc.Class({
             tempPaiList.push(paiList[i]);
         }
         var quePai = user.quePai;
-        //if (quePai == undefined) {
-        quePai = "3";
-        //}
+        if (quePai == undefined) {
+            quePai = "3";
+        }
         var paiTypeList = ["1", "2", "3"];
         var temp = [];
         cc.log("checkUserIfTingPai quePai:" + quePai);
