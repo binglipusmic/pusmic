@@ -13,7 +13,7 @@ window.Global = {
     chuPaiActionType:"",
     huanSanZhangPaiList:[],
     restPaiCount:0,
-    gameRoundCount:0,
+    gameRoundCount:1,
     chuPaiUserOpenId:"",
     gangHuPai:"",
     gangFromUserOpenId:"",

@@ -785,15 +785,22 @@ cc.Class({
         var huPaiNumer = 0;
         for (var i = 0; i < userList.length; i++) {
             var user = userList[i];
-            if (user2.huPai != null && user2.huPai != undefined && user2.huPai != "") {
+            if (user.huPai != null && user.huPai != undefined && user.huPai != "") {
                 huPaiNumer++;
             }
         }
 
         if (huPaiNumer == 1) {
             for (var i = 0; i < userList.length; i++) {
-                var user = userList[i];
+                var user2 = userList[i];
+                if (user2.huPai != null && user2.huPai != undefined && user2.huPai != "") {
+                    user2.zhuang = "1";
+                } else {
+                    user2.zhuang = "";
+                }
             }
+             //update user list to Global
+             Global.userList=userList;
         }
     },
 
@@ -855,6 +862,10 @@ cc.Class({
 
         var pointIndex = user.pointIndex;
         tablePaiActionScript.updateUserListInGobal(user);
+
+        //now we need set the zhuang jia on the first hu
+        this.setZhuangOnFirstHU();
+
 
         //self user send the hupai to other user
 

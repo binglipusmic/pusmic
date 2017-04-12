@@ -72,10 +72,10 @@ cc.Class({
              modeStr=modeStr+"4番封顶"+" "
          }
            if(gameMode.roundCount4+""=="1"){
-             modeStr=modeStr+"4局一轮"+" "
+             modeStr=modeStr+Global.gameRoundCount+"/4局一轮"+" "
          }
            if(gameMode.roundCount8+""=="1"){
-             modeStr=modeStr+"8局一轮"+" "
+             modeStr=modeStr+Global.gameRoundCount+"/8局一轮"+" "
          }
 
 

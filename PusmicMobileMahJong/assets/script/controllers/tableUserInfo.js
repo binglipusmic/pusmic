@@ -174,7 +174,7 @@ cc.Class({
         Global.chuPaiActionType = "normalChuPai";
         cc.log(" Global.userInfo:" + userInfo.toString());
         cc.log(" Global.userList:" + Global.userList.length);
-        Global.joinRoomNumber = "321418";
+        Global.joinRoomNumber = "585930";
         var roomNumber = Global.joinRoomNumber;
         cc.log("roomNumber:" + roomNumber);
         tableNetworkScript.connectByPrivateChanel();
@@ -185,12 +185,46 @@ cc.Class({
     cleanUserList: function () {
         var userList = Global.userList;
         for (var i = 0; i < userList.length; i++) {
-             var user=userList[i];
-             user.gameReadyStatu="";
-             user.gameRoundScore="";
-             user.gameScoreCount="";
-
+            var user = userList[i];
+            user.gameReadyStatu = "";
+            user.gameRoundScore = "";
+            user.gameScoreCount = "";
+            user.paiList = "";
+            user.paiListArray = [];
+            user.huanSanZhangPaiList = [];
+            user.pengPaiList = [];
+            user.gangExistUser = [];
+            user.gangExistUserCache = [];
+            user.gangFromUserListOpenId = [];
+            user.gangPaiList = [];
+            user.gangTypeList = [];
+            user.pengGangPaiPoint = 0;
+            user.quePai = "";
+            user.chuPaiPointX = 0;
+            user.chupaiListY = 0;
+            user.chuPaiCount = 0;
+            user.chuPaiPointX = 0;
+            user.userMoPai = "";
+            user.huPai = "";
+            user.huPaiType = "";
+            user.huPaiDetails = "";
+            user.roundScoreCount = "";
+            user.existUserString = "";
+            user.huGangPai = "";
+            user.huPaiFromUser = "";
+            user.huChuPaiType = "";
+            user.huPaiFanShu = 0;
+            user.huGangShangHuaChuPaiUserOpenId = "";
+            user.huGangPaiInOtherUserFromOpenId = "";
+            user.tingJiao = "";
+            user.maxFanShu = 0;
         }
+
+        Global.userList = userList;
+
+        //Add the round count
+
+        Global.gameRoundCount = Global.gameRoundCount + 1;
     },
     /**
      * Clean the table all node 
@@ -226,7 +260,7 @@ cc.Class({
     },
 
     testConnectRoom: function () {
-        tableNetworkScript.testJoinRoom("321418")
+        tableNetworkScript.testJoinRoom("585930")
     },
 
     inistalTestUser1: function () {
@@ -249,7 +283,7 @@ cc.Class({
     initalUserPai: function (initalType, type) {
         //inital the test data
         //**********Test */
-        //this.testInitalUserList(initalType);
+        this.testInitalUserList(initalType);
         //iniIndexScript.sendUserCode();
         //*********Test End */
         //  cc.log("Global.chuPaiActionType initalUserPai:" + Global.chuPaiActionType);
@@ -321,7 +355,7 @@ cc.Class({
         Global.userList = userList;
         if (type != "joinExist") {
             //show huanPaiScript
-            huanPaiScript.showHuanPaiNode();
+            //huanPaiScript.showHuanPaiNode();
         }
 
 
@@ -945,9 +979,37 @@ cc.Class({
 
     },
 
+    resetUserPoint: function () {
+
+        for (var i = 1; i < 5; i++) {
+
+            if (i == 1) {
+                this.userInfo1.x = 0;
+                this.userInfo1.y = 345;
+            }
+            if (i == 2) {
+                this.userInfo2.x = -607;
+                this.userInfo2.y = 175;
+            }
+            if (i == 3) {
+                this.userInfo3.x = 0;
+                this.userInfo3.y = -75;
+            }
+            if (i == 4) {
+                this.userInfo4.x = 547;
+                this.userInfo4.y = 175;
+            }
+
+
+        }
+
+    },
+
     fixUserPointByIndex: function (index) {
         index = index + "";
         if (index == "1") {
+            cc.log("this.userInfo1 x:"+this.userInfo1.x);
+              cc.log("this.userInfo1 y:"+this.userInfo1.y);
             var widget = this.userInfo1.getComponent(cc.Widget);
             widget.top = -40;
             // widget.isAlignRight = true;
@@ -998,6 +1060,16 @@ cc.Class({
             }
         }
 
+    },
+
+    initalUserOnRound: function () {
+        this.userInfo3.active = true;
+        this.user1ReadNode.active = true;
+        this.user2ReadNode.active = true;
+        this.user3ReadNode.active = true;
+        this.user4ReadNode.active = true;
+        this.resetUserPoint();
+        this.intalUserInfoReadyIcon();
     },
 
     initalUserInfoFromGobalList: function () {

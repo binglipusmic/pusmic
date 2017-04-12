@@ -226,26 +226,47 @@ class WebSokectController {
 //huPai
             }else if(obj.actionName=="huPai") {
                 //check if end this round
-
+                gameStepService.gameStep(messageJsonObj)
                 def s = new JsonBuilder(messageJsonObj).toPrettyString()
                 websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s)
 //checkRoundEnd
             }else if(obj.actionName=="checkRoundEnd"){
                 if(gameRoundLunService.checkGameRounDone(messageJsonObj)){
-                    messageJsonObj.messageAction="endGameRoundLun"
-                    def s3 = new JsonBuilder(messageJsonObj).toPrettyString()
-                    websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s3)
+
+                    def s2 = new JsonBuilder(newMessageObj).toPrettyString()
+                    websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s2)
                 }else{
                     messageJsonObj.messageAction="endGameRoundAndStartNewRound"
                     def s3 = new JsonBuilder(messageJsonObj).toPrettyString()
                     websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s3)
                 }
 
-            }else if(obj.actionName=="saveRoundScore") {
+
+
+
+                //startNewRound
+
+            }else if(obj.actionName=="startNewRound") {
+                gameRoundLunService.createNewGameRound(messageJsonObj)
+//                    messageJsonObj.messageAction="endGameRoundLun"
+//                    def s3 = new JsonBuilder(messageJsonObj).toPrettyString()
+//                    websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s3)
+
+
+                def paiStr= userService.joinExitRoom(messageJsonObj)
+                println ("paiStr:"+paiStr)
+                MessageDomain newMessageObj=new MessageDomain()
+                newMessageObj.messageBelongsToPrivateChanleNumber=messageJsonObj.messageBelongsToPrivateChanleNumber
+                newMessageObj.messageAction ="joinExistRoom"
+                newMessageObj.messageBody = paiStr
+                newMessageObj.messageType ="gameAction"
+
+            } else if(obj.actionName=="saveRoundScore") {
 
                  gameRoundService.saveRoundScore(obj,messageJsonObj.messageBelongsToPrivateChanleNumber)
 
             }else {
+                gameStepService.gameStep(messageJsonObj)
                 def s = new JsonBuilder(messageJsonObj).toPrettyString()
                 websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s)
 

@@ -795,6 +795,7 @@ cc.Class({
                                 this.sendMoPaiAction();
                             }
                         } else {
+                            cc.log("**sendCheckRoundEnd**");
                             this.sendCheckRoundEnd();
                             //check the round end 
                             // var gameMode = Global.gameMode;
@@ -870,6 +871,17 @@ cc.Class({
         o.actionName = "saveRoundScore";
         o.roundScoreCount = user.roundScoreCount;
         o.huPaiDetails = user.huPaiDetails;
+        //o.toUserOpenid = userOpenId;
+        var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
+        this.sendMessageToServer(messageObj);
+    },
+
+    sendStartNewRound: function () {
+
+        var joinRoomNumber = Global.joinRoomNumber;
+        var o = new Object();
+        //o.fromUserOpenid = userOpenId;
+        o.actionName = "startNewRound";
         //o.toUserOpenid = userOpenId;
         var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
         this.sendMessageToServer(messageObj);

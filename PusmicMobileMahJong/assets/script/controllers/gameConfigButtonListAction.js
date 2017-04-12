@@ -35,7 +35,7 @@ cc.Class({
 
         userNickNameNode: cc.Node,
         userCodeNode: cc.Node,
-        userImageNode:cc.Node,
+        userImageNode: cc.Node,
 
         tableNetWorkNode: cc.Node,
 
@@ -91,15 +91,15 @@ cc.Class({
             userCode.string = userInfo.userCode;
 
         }
-        var  serverUrl = Global.hostHttpProtocol + "://" + Global.hostServerIp + ":" + Global.hostServerPort;
-       
-        var testHeaImageurl=serverUrl+"/webchatImage/"+userInfo.headImageFileName;
-        cc.log("testHeaImageurl:"+testHeaImageurl);
-        var userImage=this.userImageNode.getComponent(cc.Sprite);
-         cc.loader.load( testHeaImageurl,function (err, texture) {
-                    var frame = new cc.SpriteFrame(texture);
-                    userImage.spriteFrame = frame;
-                });
+        var serverUrl = Global.hostHttpProtocol + "://" + Global.hostServerIp + ":" + Global.hostServerPort;
+
+        var testHeaImageurl = serverUrl + "/webchatImage/" + userInfo.headImageFileName;
+        cc.log("testHeaImageurl:" + testHeaImageurl);
+        var userImage = this.userImageNode.getComponent(cc.Sprite);
+        cc.loader.load(testHeaImageurl, function (err, texture) {
+            var frame = new cc.SpriteFrame(texture);
+            userImage.spriteFrame = frame;
+        });
     },
 
     // action 1,build a  new room ,0, back to room
@@ -158,6 +158,18 @@ cc.Class({
     },
 
     //read the game user from Gobal user list and inital the user 
+    showGameTalbeRound: function () {
+        this.gameTable.active = true;
+        this.joinRoomNumberUINode.active = false;
+        this.gameModeNode.active = false;
+        this.indexNode.active = false;
+        this.mainMenuNode.active = false;
+
+        this.gameTableHead.active = false;
+        this.gameTableModeBarNode.active = true;
+        this.closeRoomBtn.active = false;
+        showGameMode.showGameMode();
+    },
 
     showGameTalbe: function (roomOwner) {
         this.gameTable.active = true;
