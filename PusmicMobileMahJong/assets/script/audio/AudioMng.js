@@ -1,4 +1,8 @@
-var gameConfigSetting
+var gameConfigSetting;
+var manPaiListArray = new Map();
+var womenPaiListArray = new Map();
+var manActionListArray = new Map();
+var womenActionListArray = new Map();
 cc.Class({
     extends: cc.Component,
 
@@ -35,7 +39,20 @@ cc.Class({
         bgm: {
             default: null,
             url: cc.AudioClip
-        }
+        },
+        chuPai: {
+            default: null,
+            url: cc.AudioClip
+        },
+        moPai: {
+            default: null,
+            url: cc.AudioClip
+        },
+
+        paiAudiolistMan: [cc.AudioClip],
+        paiAudiolistWomen: [cc.AudioClip],
+        paiAudiolistManAction: [cc.AudioClip],
+        paiAudiolistWomenAction: [cc.AudioClip],
     },
 
     // use this for initialization
@@ -53,6 +70,13 @@ cc.Class({
             Global.gameConfigSetting = require("gameConfigSetting").gameConfigSetting;
         }
         gameConfigSetting = Global.gameConfigSetting;
+
+        manPaiListArray.set(11, [0, 1, 2]);
+        manPaiListArray.set(12, [3]);
+        manPaiListArray.set(13, [4]);
+        manPaiListArray.set(14, [5]);
+        manPaiListArray.set(15, [7, 8]);
+        manPaiListArray.set(11, [0, 1, 2]);
     },
 
     // called every frame, uncomment this function to activate update callback
@@ -61,7 +85,7 @@ cc.Class({
     // },
 
     playMusic: function () {
-         gameConfigSetting= Global.gameConfigSetting;
+        gameConfigSetting = Global.gameConfigSetting;
         if (gameConfigSetting.music == "1") {
             cc.audioEngine.playMusic(this.bgm, true);
         }
@@ -101,5 +125,45 @@ cc.Class({
 
     playButton: function () {
         this._playSFX(this.buttonAudio);
+    },
+    playChuPai: function (paiNum) {
+        //musicEffect
+        gameConfigSetting = Global.gameConfigSetting;
+        if (gameConfigSetting.musicEffect == "1") {
+            //pai effect
+            var userInfo = Global.userInfo;
+            var soundPai;
+            var soundList = [];
+            if (userInfo.sex + "" == "1") {
+                soundPai = this.paiAudiolistMan;
+            } else {
+                soundPai = this.paiAudiolistWomen;
+            }
+
+            for (var i = 0; i < soundPai.length; i++) {
+               cc.log("soundPai "+i+":" + soundPai[i]);
+            
+                if (soundPai[i].indexOf(paiNum) >= 0) {
+                    soundList.push(soundPai[i]);
+                }
+            }
+
+            if (soundList.length > 0) {
+                cc.log("soundList:" + soundList.length);
+                var k = Math.floor(Math.random() * (soundList.length));
+                cc.log("soundList k:" + k);
+                this._playSFX(soundList[k]);
+            }
+
+
+        }
+
+    },
+    playMoPai: function () {
+        gameConfigSetting = Global.gameConfigSetting;
+        if (gameConfigSetting.musicEffect == "1") {
+            this._playSFX(this.moPai);
+        }
+
     }
 });

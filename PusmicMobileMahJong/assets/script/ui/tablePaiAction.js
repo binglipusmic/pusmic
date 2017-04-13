@@ -5,6 +5,7 @@ var nodeMoveY = -1;
 var tableUserInfoScript;
 var tableNetWorkScript;
 var tableCenterTimmerScript;
+var audioScript;
 cc.Class({
     extends: cc.Component,
 
@@ -26,6 +27,7 @@ cc.Class({
         paiChuPaiNode: cc.Prefab,
         theMoveNode: cc.Node,
         tableNetWorkScriptNode: cc.Node,
+        audioNode: cc.Node,
         //tableUserInfo:cc.Node,
         //paiListReOrderCount:cc.Integer,
     },
@@ -33,12 +35,15 @@ cc.Class({
     // use this for initialization
     //chuPaiActionType
     onLoad: function () {
+
         var tableUserInfo = cc.find("tableUserInfo");
         tableUserInfoScript = tableUserInfo.getComponent("tableUserInfo");
         var tableNwtWork = cc.find("tableNerWorkScript");
         tableNetWorkScript = tableNwtWork.getComponent("GameTableNetWork");
         var tableCenterTimmer = cc.find("tableCenterPointNode");
         tableCenterTimmerScript = tableCenterTimmer.getComponent("tableCenterPoint");
+        var audioNode = cc.find("audioScript");
+        audioScript = audioNode.getComponent("AudioMng");
     },
 
 
@@ -100,7 +105,7 @@ cc.Class({
         //pNode.width = 42;
         //pNode.height = 61;
         var sprite = pNode.getComponent(cc.Sprite);
-        cc.loader.loadRes(paiPath,cc.SpriteFrame, function (err, sp) {
+        cc.loader.loadRes(paiPath, cc.SpriteFrame, function (err, sp) {
             if (err) {
                 //  cc.log("----" + err.message || err);
                 return;
@@ -123,6 +128,7 @@ cc.Class({
         paiNodeArray.push(paiNode.parent);
         paiNodeArray.push(userPaiList);
         paiNodeArray.push(user.openid);
+        paiNodeArray.push(name);
         cc.log("type:" + type);
         if (type == 'self') {
 
@@ -272,7 +278,7 @@ cc.Class({
         var children = userChuPaiListNode.children;
         var lastNode;
         var childrenLen = children.length
-       // cc.log("removeLastPaiOnPaiListByUser children1:" + userChuPaiListNode.children.length);
+        // cc.log("removeLastPaiOnPaiListByUser children1:" + userChuPaiListNode.children.length);
         // if (index == "2") {
         //     lastNode = children[0];
         // } else if (index == "1") {
@@ -282,7 +288,7 @@ cc.Class({
         // }
 
         for (var i = 0; i < children.length; i++) {
-           // cc.log("removeLastPaiOnPaiListByUser lastNode:" + children[i].name);
+            // cc.log("removeLastPaiOnPaiListByUser lastNode:" + children[i].name);
             if (children[i].name == "autoMoPai") {
                 lastNode = children[i];
             }
@@ -290,14 +296,14 @@ cc.Class({
         }
         if (lastNode != null & lastNode != undefined) {
             lastNode.removeFromParent();
-          //  cc.log("removeLastPaiOnPaiListByUser remove:" + lastNode.name);
+            //  cc.log("removeLastPaiOnPaiListByUser remove:" + lastNode.name);
         }
 
-       // cc.log("removeLastPaiOnPaiListByUser children2:" + userChuPaiListNode.children.length);
+        // cc.log("removeLastPaiOnPaiListByUser children2:" + userChuPaiListNode.children.length);
 
 
         // var tableNode =this.tableNode;
-       // cc.log("removeLastPaiOnPaiListByUser end");
+        // cc.log("removeLastPaiOnPaiListByUser end");
 
     },
     removeLastPaiOnPaiListByUser: function (user) {
@@ -560,6 +566,7 @@ cc.Class({
         var parent = pNodeArray[2];
         var paiList = pNodeArray[3];
         var userOpenId = pNodeArray[4];
+        var paiNumber = pNodeArray[5];
         cc.log("playSlefChuPaiAction_addChild:" + paiNode.name);
         cc.log("playSlefChuPaiAction_addChild parent:" + parent.name);
         cc.log("playSlefChuPaiAction_addChild parent child count1:" + parent.childrenCount);
@@ -582,6 +589,8 @@ cc.Class({
         cc.log("375:" + user.paiList);
         this.disableAllSlefPai();
 
+        audioScript.playChuPai(paiNumber);
+
 
     },
     playOtherChuPaiAction_addChild: function (target, pNodeArray) {
@@ -591,6 +600,7 @@ cc.Class({
         var parent = pNodeArray[2];
         var paiList = pNodeArray[3];
         var userOpenId = pNodeArray[4];
+        var paiNumber = pNodeArray[5];
         cc.log("playSlefChuPaiAction_addChild:" + paiNode.name);
         cc.log("playSlefChuPaiAction_addChild parent:" + parent.name);
         cc.log("playSlefChuPaiAction_addChild parent child count1:" + parent.childrenCount);
@@ -610,6 +620,8 @@ cc.Class({
         user.paiList = paiList;
         user.userMoPai = "";
         this.updateUserListInGobal(user);
+
+        audioScript.playChuPai(paiNumber);
     },
 
     /**
@@ -1433,7 +1445,7 @@ var x = touches[0].getLocationX();
                     existFlag = true
                 }
             }
-            if (userMoPai != null && userMoPai != undefined &&userMoPai !="") {
+            if (userMoPai != null && userMoPai != undefined && userMoPai != "") {
                 var type2 = userMoPai + "";
                 type2 = type2.trim();
 

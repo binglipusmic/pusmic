@@ -3,6 +3,7 @@ var tableActionScript;
 var tableUserInfoScript;
 var paiActionScript;
 var tableUserPaiScript;
+var audioScript;
 cc.Class({
     extends: cc.Component,
 
@@ -23,12 +24,14 @@ cc.Class({
         tableUserInfo: cc.Node,
         paiActionNode: cc.Node,
         tableUserPaiNode: cc.Node,
+        audioNode:cc.Node,
     },
 
 
 
     // use this for initialization
     onLoad: function () {
+        audioScript=this.audioNode.getComponent("AudioMng");
         tableActionScript = this.tableAction.getComponent("tablePaiAction");
         tableUserInfoScript = this.tableUserInfo.getComponent("tableUserInfo");
         paiActionScript = this.paiActionNode.getComponent("paiAction");
@@ -88,6 +91,8 @@ cc.Class({
 
         }
         cc.log("moPaiAction startPoint:" + startPoint);
+        //play audio
+        audioScript.playMoPai();
        // cc.log("moPaiAction startPoint x:" + stxartPoint + latstIndex * 80);
         paiNode.position = cc.p(startPoint + latstIndex * 80, 0);
 
