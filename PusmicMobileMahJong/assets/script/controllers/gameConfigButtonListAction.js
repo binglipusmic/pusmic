@@ -200,6 +200,14 @@ cc.Class({
 
     },
 
+    endGameRoundLun: function () {
+        this.gameTable.active = false;
+        //this.mainMenuNode.active = true;
+        //tableNetWork.closeGameRoundLun();
+        Global.joinRoomNumber = "";
+        this.enterMainEntry("1");
+    },
+
     showLoadingIcon: function () {
         this.loadingNode.active = true;
         var seq = cc.repeatForever(

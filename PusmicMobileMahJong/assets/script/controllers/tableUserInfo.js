@@ -90,8 +90,8 @@ cc.Class({
     testInitalUserList: function (initalType) {
         var paiList = ["11, 11, 13, 14, 14, 15, 16, 16, 17, 18, 19, 19, 19",
             "15, 15, 17, 18, 19, 22, 23, 24, 25, 26, 29, 29, 29",
-            "15, 16, 17, 18, 19, 22, 23, 24, 29, 29, 29, 36, 37",
-            "11, 12, 15, 24, 24, 22, 35, 35, 26, 14, 14, 14, 38",
+            "15, 16, 17, 18, 19, 22, 23, 24, 26, 26, 26, 29, 29",
+            "11, 12, 13, 24, 24, 24, 35, 35, 35, 36, 36, 36, 38",
         ];
         this.tableNode.active = true;
         var userList = [];
@@ -224,7 +224,7 @@ cc.Class({
 
         //Add the round count
 
-        Global.gameRoundCount = Global.gameRoundCount + 1;
+        //Global.gameRoundCount = Global.gameRoundCount + 1;
     },
     /**
      * Clean the table all node 
@@ -283,7 +283,10 @@ cc.Class({
     initalUserPai: function (initalType, type) {
         //inital the test data
         //**********Test */
-        this.testInitalUserList(initalType);
+        if (initalType != "inital") {
+            this.testInitalUserList(initalType);
+        }
+
         //iniIndexScript.sendUserCode();
         //*********Test End */
         //  cc.log("Global.chuPaiActionType initalUserPai:" + Global.chuPaiActionType);
@@ -1008,8 +1011,8 @@ cc.Class({
     fixUserPointByIndex: function (index) {
         index = index + "";
         if (index == "1") {
-            cc.log("this.userInfo1 x:"+this.userInfo1.x);
-              cc.log("this.userInfo1 y:"+this.userInfo1.y);
+            cc.log("this.userInfo1 x:" + this.userInfo1.x);
+            cc.log("this.userInfo1 y:" + this.userInfo1.y);
             var widget = this.userInfo1.getComponent(cc.Widget);
             widget.top = -40;
             // widget.isAlignRight = true;

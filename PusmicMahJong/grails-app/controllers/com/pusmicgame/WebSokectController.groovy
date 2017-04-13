@@ -12,33 +12,34 @@ class WebSokectController {
 
     def userService
     def gameRoundLunService
-    def index() { }
+
+    def index() {}
     def websokectService
     def gameRoundService
     def gameStepService
     def paiService
 
     @MessageMapping("/user_private_message")
-    protected String user_private_message(String message,@Headers Map<String, Object> headers){
+    protected String user_private_message(String message, @Headers Map<String, Object> headers) {
         println "userResiveMessage:@@@@@@@@@@@@@@@@@@@@@@@@:${message}"
-        MessageDomain messageJsonObj=JSON.parse(message);
-       // println "userResiveMessage:"+messageJsonObj.messageAction
+        MessageDomain messageJsonObj = JSON.parse(message);
+        // println "userResiveMessage:"+messageJsonObj.messageAction
         //closeGameRoundLun
-        if(messageJsonObj.messageAction.equals("joinRoom")){
-            def flag=gameRoundService.checkGameRoomExist(messageJsonObj)
-            if(flag){
+        if (messageJsonObj.messageAction.equals("joinRoom")) {
+            def flag = gameRoundService.checkGameRoomExist(messageJsonObj)
+            if (flag) {
                 //join already exist room
-                def paiStr= userService.joinExitRoom(messageJsonObj)
-                println ("paiStr:"+paiStr)
-                MessageDomain newMessageObj=new MessageDomain()
-                newMessageObj.messageBelongsToPrivateChanleNumber=messageJsonObj.messageBelongsToPrivateChanleNumber
-                newMessageObj.messageAction ="joinExistRoom"
+                def paiStr = userService.joinExitRoom(messageJsonObj)
+                println("paiStr:" + paiStr)
+                MessageDomain newMessageObj = new MessageDomain()
+                newMessageObj.messageBelongsToPrivateChanleNumber = messageJsonObj.messageBelongsToPrivateChanleNumber
+                newMessageObj.messageAction = "joinExistRoom"
                 newMessageObj.messageBody = paiStr
-                newMessageObj.messageType ="gameAction"
+                newMessageObj.messageType = "gameAction"
                 def s2 = new JsonBuilder(newMessageObj).toPrettyString()
-                websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s2)
+                websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)
 
-            }else {
+            } else {
 
                 // println gameRoundService.getPopeleCountForJoinRoom(messageJsonObj)
                 if (gameRoundService.getPopeleCountForJoinRoom(messageJsonObj).equals("!")) {
@@ -68,207 +69,217 @@ class WebSokectController {
                 websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)
             }
         }
-        if(messageJsonObj.messageAction.equals("userReadyStatuChange")){
+        if (messageJsonObj.messageAction.equals("userReadyStatuChange")) {
 
-            messageJsonObj=userService.changeUserStatus(messageJsonObj)
+            messageJsonObj = userService.changeUserStatus(messageJsonObj)
             def s = new JsonBuilder(messageJsonObj).toPrettyString()
-            websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s)
+            websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)
             //check the all user if all already done
-            def faPaiFlag= userService.checkAllUserStatus(messageJsonObj)
-            println ("faPaiFlag:"+faPaiFlag)
-            if(faPaiFlag){
-               def paiStr= paiService.faPai(messageJsonObj)
-                println ("paiStr:"+paiStr)
-                MessageDomain newMessageObj=new MessageDomain()
-                newMessageObj.messageBelongsToPrivateChanleNumber=messageJsonObj.messageBelongsToPrivateChanleNumber
-                newMessageObj.messageAction ="faPai"
+            def faPaiFlag = userService.checkAllUserStatus(messageJsonObj)
+            println("faPaiFlag:" + faPaiFlag)
+            if (faPaiFlag) {
+                def paiStr = paiService.faPai(messageJsonObj)
+                println("paiStr:" + paiStr)
+                MessageDomain newMessageObj = new MessageDomain()
+                newMessageObj.messageBelongsToPrivateChanleNumber = messageJsonObj.messageBelongsToPrivateChanleNumber
+                newMessageObj.messageAction = "faPai"
                 newMessageObj.messageBody = paiStr
-                newMessageObj.messageType ="gameAction"
+                newMessageObj.messageType = "gameAction"
                 def s2 = new JsonBuilder(newMessageObj).toPrettyString()
-                websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s2)
-                println ("s2:"+s2)
+                websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)
+                println("s2:" + s2)
             }
         }
-        if(messageJsonObj.messageAction.equals("closeGameRoundLun")){
+        if (messageJsonObj.messageAction.equals("closeGameRoundLun")) {
             gameRoundLunService.closeGameRoundLun(messageJsonObj)
 
         }
-        if(messageJsonObj.messageAction.equals("buildNewRoundLun")){
+        if (messageJsonObj.messageAction.equals("buildNewRoundLun")) {
 
-            messageJsonObj=gameRoundLunService.createNewGameRoundLun(messageJsonObj)
+            messageJsonObj = gameRoundLunService.createNewGameRoundLun(messageJsonObj)
             def s = new JsonBuilder(messageJsonObj).toPrettyString()
-            websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s)
+            websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)
         }
 
-        if(messageJsonObj.messageAction.equals("buildNewRound")){
+        if (messageJsonObj.messageAction.equals("buildNewRound")) {
             //GameMode gameMode=(GameMode)JSON.parse(messageJsonObj.me);
-           // gameRoundLunService.createNewGameRoundLun(messageJsonObj)
+            // gameRoundLunService.createNewGameRoundLun(messageJsonObj)
         }
 
-        if(messageJsonObj.messageAction.equals("removeOnlineUser")){
+        if (messageJsonObj.messageAction.equals("removeOnlineUser")) {
             //GameMode gameMode=(GameMode)JSON.parse(messageJsonObj.me);
             gameRoundLunService.createNewGameRoundLun(messageJsonObj)
         }
         //updateOnlinUserDateTime
 
-        if(messageJsonObj.messageAction.equals("updateOnlinUserDateTime")){
+        if (messageJsonObj.messageAction.equals("updateOnlinUserDateTime")) {
             //GameMode gameMode=(GameMode)JSON.parse(messageJsonObj.me);
             println "updateOnlinUserDateTime"
-           def openId=messageJsonObj.messageBody
-            if(openId){
+            def openId = messageJsonObj.messageBody
+            if (openId) {
                 userService.updateOnlineTime(openId)
             }
 
         }
 
         //huan san Zhang
-        if(messageJsonObj.messageAction.equals("userHuanSanZhang")){
-            def flag=userService.setHuanSanZhang(messageJsonObj)
+        if (messageJsonObj.messageAction.equals("userHuanSanZhang")) {
+            def flag = userService.setHuanSanZhang(messageJsonObj)
 
-          /*  MessageDomain newMessageObj=new MessageDomain()
-            newMessageObj.messageBelongsToPrivateChanleNumber=messageJsonObj.messageBelongsToPrivateChanleNumber
-            newMessageObj.messageAction ="HuanSanZhangResult"
-            newMessageObj.messageBody = flag
-            newMessageObj.messageType ="gameAction"
-            def s2 = new JsonBuilder(newMessageObj).toPrettyString()
-            websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s2)*/
+            /*  MessageDomain newMessageObj=new MessageDomain()
+              newMessageObj.messageBelongsToPrivateChanleNumber=messageJsonObj.messageBelongsToPrivateChanleNumber
+              newMessageObj.messageAction ="HuanSanZhangResult"
+              newMessageObj.messageBody = flag
+              newMessageObj.messageType ="gameAction"
+              def s2 = new JsonBuilder(newMessageObj).toPrettyString()
+              websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s2)*/
 
-            if(flag.equals("true")){
+            if (flag.equals("true")) {
 
-                def paiStr= paiService.huanSanZhangFaPai(messageJsonObj)
-                MessageDomain newMessageObj=new MessageDomain()
-                newMessageObj.messageBelongsToPrivateChanleNumber=messageJsonObj.messageBelongsToPrivateChanleNumber
-                newMessageObj.messageAction ="huanSanZhangFaPai"
+                def paiStr = paiService.huanSanZhangFaPai(messageJsonObj)
+                MessageDomain newMessageObj = new MessageDomain()
+                newMessageObj.messageBelongsToPrivateChanleNumber = messageJsonObj.messageBelongsToPrivateChanleNumber
+                newMessageObj.messageAction = "huanSanZhangFaPai"
                 newMessageObj.messageBody = paiStr
-                newMessageObj.messageType ="gameAction"
-                def  s2 = new JsonBuilder(newMessageObj).toPrettyString()
-                websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s2)
+                newMessageObj.messageType = "gameAction"
+                def s2 = new JsonBuilder(newMessageObj).toPrettyString()
+                websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)
             }
         }
 
         //quepai only send
 
-        if(messageJsonObj.messageAction.equals("sendQuePai")){
+        if (messageJsonObj.messageAction.equals("sendQuePai")) {
             userService.updateQuePaiForUser(messageJsonObj)
-          //  updateQuePaiForUser
+            //  updateQuePaiForUser
             def obj = JSON.parse(messageJsonObj.messageBody)
             def s = new JsonBuilder(messageJsonObj).toPrettyString()
-            websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s)
-            println "obj.quePaiCount.toString():"+obj.quePaiCount.toString()
-            println "obj.peopleCount.toString():"+obj.peopleCount.toString()
-            if(obj.quePaiCount.toString().equals(obj.peopleCount.toString())){
-                messageJsonObj.messageAction="zhuangJiaChuPai"
-                println "zhuangJiaChuPai:"+obj.peopleCount.toString()
+            websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)
+            println "obj.quePaiCount.toString():" + obj.quePaiCount.toString()
+            println "obj.peopleCount.toString():" + obj.peopleCount.toString()
+            if (obj.quePaiCount.toString().equals(obj.peopleCount.toString())) {
+                messageJsonObj.messageAction = "zhuangJiaChuPai"
+                println "zhuangJiaChuPai:" + obj.peopleCount.toString()
                 def s2 = new JsonBuilder(messageJsonObj).toPrettyString()
-                websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s2)
-            }else{
+                websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)
+            } else {
 
             }
-           // messageJsonObj.messageAction="zhuangJiaChuPai"
-           // def s3 = new JsonBuilder(messageJsonObj).toPrettyString()
-           // websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s3)
-           // messageJsonObj.messageAction="zhuangJiaChuPai"
-            println "zhuangJiaChuPai1:"+obj.peopleCount.toString()
-
-
+            // messageJsonObj.messageAction="zhuangJiaChuPai"
+            // def s3 = new JsonBuilder(messageJsonObj).toPrettyString()
+            // websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s3)
+            // messageJsonObj.messageAction="zhuangJiaChuPai"
+            println "zhuangJiaChuPai1:" + obj.peopleCount.toString()
 
 
         }
 
         //--------------------Game Action-----------------------
-        if(messageJsonObj.messageAction.equals("gameAction")){
-
+        if (messageJsonObj.messageAction.equals("gameAction")) {
 
 
             def obj = JSON.parse(messageJsonObj.messageBody)
-            if(obj.actionName=="chuPai"){
+            if (obj.actionName == "chuPai") {
                 gameStepService.gameStep(messageJsonObj)
                 def s = new JsonBuilder(messageJsonObj).toPrettyString()
-                websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s)
+                websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)
                 println "chupai ********"
 
 
-            }else if(obj.actionName=="moPai"){
+            } else if (obj.actionName == "moPai") {
 
                 //mopai in next user
-                obj.paiNumber= paiService.moPai(obj.toUserOpenid,messageJsonObj.messageBelongsToPrivateChanleNumber)
-                println "195:"+obj.paiNumber
-                if(   obj.paiNumber) {
+                obj.paiNumber = paiService.moPai(obj.toUserOpenid, messageJsonObj.messageBelongsToPrivateChanleNumber)
+                println "195:" + obj.paiNumber
+                if (obj.paiNumber) {
                     obj.actionName = "moPai"
                     //obj.toUserOpenid =obj.nextOpenid
-                    obj.fromUserOpenid  ="server"
+                    obj.fromUserOpenid = "server"
 
                     def s2 = new JsonBuilder(obj).toPrettyString()
                     messageJsonObj.messageBody = s2
                     gameStepService.gameStep(messageJsonObj)
                     def s3 = new JsonBuilder(messageJsonObj).toPrettyString()
                     websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s3)
-                }else{
+                } else {
                     //liu ju---pai end ,send end game to all user.
 
                     //check if the round already comple the count for the game lun.
                     //No complet---start a new game round
                     //comple ----end this game lun
                     def s3
-                    if(gameRoundLunService.checkGameRounDone(messageJsonObj)){
-                        messageJsonObj.messageAction="endGameRoundLun"
-                        s3= new JsonBuilder(messageJsonObj).toPrettyString()
+                    if (gameRoundLunService.checkGameRounDone(messageJsonObj)) {
+                        messageJsonObj.messageAction = "endGameRoundLun"
+                        s3 = new JsonBuilder(messageJsonObj).toPrettyString()
                         websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s3)
-                    }else{
-                        messageJsonObj.messageAction="endGameRoundAndStartNewRound"
+                    } else {
+                        messageJsonObj.messageAction = "endGameRoundAndStartNewRound"
                         s3 = new JsonBuilder(messageJsonObj).toPrettyString()
                         websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s3)
                     }
 
-                    println "222 s3:"+s3
+                    println "222 s3:" + s3
 
                 }
 //huPai
-            }else if(obj.actionName=="huPai") {
+            } else if (obj.actionName == "huPai") {
                 //check if end this round
                 gameStepService.gameStep(messageJsonObj)
                 def s = new JsonBuilder(messageJsonObj).toPrettyString()
-                websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s)
+                websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)
 //checkRoundEnd
-            }else if(obj.actionName=="checkRoundEnd"){
-                if(gameRoundLunService.checkGameRounDone(messageJsonObj)){
+            } else if (obj.actionName == "checkRoundEnd") {
+                if (gameRoundLunService.checkGameRounDone(messageJsonObj)) {
 
                     def s2 = new JsonBuilder(newMessageObj).toPrettyString()
-                    websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s2)
-                }else{
-                    messageJsonObj.messageAction="endGameRoundAndStartNewRound"
+                    websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)
+                } else {
+                    messageJsonObj.messageAction = "endGameRoundAndStartNewRound"
                     def s3 = new JsonBuilder(messageJsonObj).toPrettyString()
                     websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s3)
                 }
 
-
-
-
                 //startNewRound
 
-            }else if(obj.actionName=="startNewRound") {
-                gameRoundLunService.createNewGameRound(messageJsonObj)
+            } else if (obj.actionName == "startNewRound") {
+                def currentRoundCount = gameRoundLunService.createNewGameRound(messageJsonObj)
+                if (currentRoundCount != -1) {
+                    MessageDomain newMessageObj = new MessageDomain()
+                    newMessageObj.messageBelongsToPrivateChanleNumber = messageJsonObj.messageBelongsToPrivateChanleNumber
+                    newMessageObj.messageAction = "setCurrentRoundCount"
+                    newMessageObj.messageBody = currentRoundCount
+                    newMessageObj.messageType = "gameAction"
+                    def s2 = new JsonBuilder(newMessageObj).toPrettyString()
+                    websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)
+                }
 //                    messageJsonObj.messageAction="endGameRoundLun"
 //                    def s3 = new JsonBuilder(messageJsonObj).toPrettyString()
 //                    websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s3)
 
+//
+//                def paiStr= userService.joinExitRoom(messageJsonObj)
+//                println ("paiStr:"+paiStr)
+//                MessageDomain newMessageObj=new MessageDomain()
+//                newMessageObj.messageBelongsToPrivateChanleNumber=messageJsonObj.messageBelongsToPrivateChanleNumber
+//                newMessageObj.messageAction ="joinExistRoom"
+//                newMessageObj.messageBody = paiStr
+//                newMessageObj.messageType ="gameAction"
+//
+//                def s2 = new JsonBuilder(newMessageObj).toPrettyString()
+//                websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s2)
+            } else if (obj.actionName == "saveRoundScore") {
 
-                def paiStr= userService.joinExitRoom(messageJsonObj)
-                println ("paiStr:"+paiStr)
-                MessageDomain newMessageObj=new MessageDomain()
-                newMessageObj.messageBelongsToPrivateChanleNumber=messageJsonObj.messageBelongsToPrivateChanleNumber
-                newMessageObj.messageAction ="joinExistRoom"
-                newMessageObj.messageBody = paiStr
-                newMessageObj.messageType ="gameAction"
+                gameRoundService.saveRoundScore(obj, messageJsonObj.messageBelongsToPrivateChanleNumber)
+                if (gameRoundLunService.checkGameRounDone(messageJsonObj)) {
 
-            } else if(obj.actionName=="saveRoundScore") {
+                } else {
 
-                 gameRoundService.saveRoundScore(obj,messageJsonObj.messageBelongsToPrivateChanleNumber)
+                }
 
-            }else {
+            } else {
                 gameStepService.gameStep(messageJsonObj)
                 def s = new JsonBuilder(messageJsonObj).toPrettyString()
-                websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s)
+                websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)
 
             }
 

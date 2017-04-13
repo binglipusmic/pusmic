@@ -477,13 +477,25 @@ cc.Class({
         tablePaiActionScript.playSlefChuPaiAction(node, "3");
     },
     testMoPaiAction: function () {
-        moPaiScript.moPaiAction("37", "testUser1");
+        moPaiScript.moPaiAction("12", "testUser1");
         //tableCenterScript.index =2;
         //  moPaiScript.moPaiOnDataLayer("11", "testUser2");
         //  moPaiScript.moPaiOnDataLayer(paiNumber, toUserOpenid);
         //var user = tablePaiActionScript.getCorrectUserByOpenId("testUser2");
         //var paiListStr = user.paiList;
         // tableUserInfoNodeScript.initalOtherPaiListOnePai("11", user.paiListArray, user.pointIndex, "");
+
+    },
+    testMoPaiAction2: function () {
+        moPaiScript.moPaiAction("24", "testUser2");
+
+    },
+    testMoPaiAction3: function () {
+        moPaiScript.moPaiAction("14", "testUser3");
+
+    },
+    testMoPaiAction4: function () {
+        moPaiScript.moPaiAction("38", "testUser4");
 
     },
     testHuPai: function () {
@@ -799,8 +811,8 @@ cc.Class({
                     user2.zhuang = "";
                 }
             }
-             //update user list to Global
-             Global.userList=userList;
+            //update user list to Global
+            Global.userList = userList;
         }
     },
 

@@ -244,6 +244,7 @@ class GameRoundLunService {
 
     def createNewGameRound(MessageDomain messageDomain) {
         def roomNumber = messageDomain.messageBelongsToPrivateChanleNumber
+        int currentRoundCount=-1;
         if(roomNumber){
             println "roomNumber:"+roomNumber
             GameRoomNumber gRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
@@ -254,53 +255,85 @@ class GameRoundLunService {
                 GameRound gameRound=gRoomNumber.gameRound
                 println "gameRound:"+gameRound.id
                 if(gameRound){
-                    GameRoundLun gameRoundLun=gameRound.gameRoundLun
-                    if(gameRoundLun){
-                        GameRound gameRound2 = new GameRound()
-                        gameRound2.startTime = new Date()
-                        gameRound2.gameMode = gameRound.gameMode
-                        gameRound2.gameRoundLun = gameRoundLun
-                        gameRound2.roomNumber = gRoomNumber
-                        println "260:"+ gameRound.id
-                        println "260:"+ gameRound.gameUser.size()
-                        gameRound.gameUser.each{gu->
-                            GameUser newgu = new GameUser()
-                            //println "262:"+newgu.springUser.openid
-
-
-                            newgu.gameScoreCount=0
-                            newgu.gameReadyStatu="0"
-                            newgu.gameRoundScore=0
-                            newgu.joinRoundTime=new Date()
-                            newgu.huPai=""
-                            newgu.huPaiType=""
-                            newgu.huanSanZhang=""
-                            newgu.quePai=""
-                            newgu.roundScoreCount=0;
-                            newgu.huPaiDetails="";
-                            newgu.springUser=gu.springUser;
-                            newgu.publicIp=gu.publicIp;
-
-                            newgu.save(flush: true, failOnError: true)
-                            gameRound2.addToGameUser(newgu)
-                            gameRound2.save(flush: true, failOnError: true)
-                            newgu.gameRound=gameRound2
-                            newgu.save(flush: true, failOnError: true)
-                            //gameRound2.save(flush: true, failOnError: true)
+                    //check if we need build a new round------------------------
+                    boolean checkFlag=false
+                    if(gameRound.restPaiList==null){
+                        //checkFlag=true;
+                    }else{
+                        if(gameRound.restPaiList.size()==0){
+                            checkFlag=true;
                         }
-
-                       // gameRound2.gameUser=gameRound.gameUser
-                        gameRound2.save(flush: true, failOnError: true)
-                        gameRoundLun.addTo("gameRound", gameRound2)
-                        gameRoundLun.save(flush: true, failOnError: true)
-
-                        gRoomNumber.gameRound = gameRound2
-                        gRoomNumber.save(flush: true, failOnError: true)
                     }
+                    int huPaiUserCount=0
+                    gameRound.gameUser.each { gu ->
+                        if(gu.roundScoreCount!=0 ||gu.huPaiDetails.length()>0){
+                            huPaiUserCount++
+                        }
+                    }
+
+                    if(huPaiUserCount>0){
+                        if(huPaiUserCount== gameRound.gameUser.size()-1){
+                            checkFlag=true;
+                        }
+                    }
+
+                    //----------end check -------------------------------------
+
+
+                   if(checkFlag==true) {
+                       GameRoundLun gameRoundLun = gameRound.gameRoundLun
+                       if (gameRoundLun) {
+                           GameRound gameRound2 = new GameRound()
+                           gameRound2.startTime = new Date()
+                           gameRound2.gameMode = gameRound.gameMode
+                           gameRound2.gameRoundLun = gameRoundLun
+                           gameRound2.roomNumber = gRoomNumber
+                           gameRound2.restPaiList=[13,15,34,23,35]
+                           println "260:" + gameRound.id
+                           println "260:" + gameRound.gameUser.size()
+                           gameRound.gameUser.each { gu ->
+                               GameUser newgu = new GameUser()
+                               //println "262:"+newgu.springUser.openid
+
+
+                               newgu.gameScoreCount = 0
+                               newgu.gameReadyStatu = "0"
+                               newgu.gameRoundScore = 0
+                               newgu.joinRoundTime = new Date()
+                               newgu.huPai = ""
+                               newgu.huPaiType = ""
+                               newgu.huanSanZhang = ""
+                               newgu.quePai = ""
+                               newgu.roundScoreCount = 0;
+                               newgu.huPaiDetails = "";
+                               newgu.springUser = gu.springUser;
+                               newgu.publicIp = gu.publicIp;
+
+                               newgu.save(flush: true, failOnError: true)
+                               gameRound2.addToGameUser(newgu)
+                               gameRound2.save(flush: true, failOnError: true)
+                               newgu.gameRound = gameRound2
+                               newgu.save(flush: true, failOnError: true)
+                               //gameRound2.save(flush: true, failOnError: true)
+                           }
+
+                           // gameRound2.gameUser=gameRound.gameUser
+                           gameRound2.save(flush: true, failOnError: true)
+                           gameRoundLun.addTo("gameRound", gameRound2)
+                           gameRoundLun.currentRoundCount=gameRoundLun.currentRoundCount+1;
+                           currentRoundCount= gameRoundLun.currentRoundCount;
+                           gameRoundLun.save(flush: true, failOnError: true)
+
+                           gRoomNumber.gameRound = gameRound2
+                           gRoomNumber.save(flush: true, failOnError: true)
+                       }
+                   }
                 }
             }
 
         }
+
+        return currentRoundCount
 
     }
 

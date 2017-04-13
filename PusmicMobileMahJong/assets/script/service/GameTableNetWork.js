@@ -306,6 +306,18 @@ cc.Class({
                     //quePaiScript.stratTimer();
                 }
 
+                //set current round count
+                if (messageDomain.messageAction == "setCurrentRoundCount") {
+                    var currentRoundCount = messageDomain.messageBody
+                    if (currentRoundCount != null && currentRoundCount != undefined) {
+                        Global.gameRoundCount = parseInt(currentRoundCount);
+                        cc.log("set gameRoundCount:" + Global.gameRoundCount);
+                    }
+
+
+                }
+
+
                 //quepai sendQuePai
                 if (messageDomain.messageAction == "sendQuePai") {
                     var quePaiUser = JSON.parse(messageDomain.messageBody);
@@ -773,26 +785,29 @@ cc.Class({
                         }
                         var moPaiUserId = this.getNextUserFromCurentIndex();
                         //check if game round end
+                        userList = Global.userList;
                         var huPeople = 0;
                         var endGameFlag = false;
                         for (var i = 0; i < userList.length; i++) {
-                            if (userList.huPai != null && userList != undefined && userList != "") {
+
+                            if (userList[i].huPai != null && userList[i] != undefined && userList[i] != "") {
                                 huPeople++
                             }
 
                         }
-
+                        cc.log("huPeople:" + huPeople);
+                        cc.log("userList.length:" + userList.length);
                         if (huPeople == userList.length - 1) {
                             endGameFlag = true;
                         }
-
+                        cc.log("endGameFlag:" + endGameFlag);
                         if (Global.restPaiCount == 0) {
                             // endGameFlag = true;
                         }
 
                         if (endGameFlag == false) {
                             if (moPaiUserId == userInfo.openid) {
-                                this.sendMoPaiAction();
+                                //  this.sendMoPaiAction();
                             }
                         } else {
                             cc.log("**sendCheckRoundEnd**");

@@ -84,15 +84,25 @@ cc.Class({
         var userList = Global.userList;
         for (var i = 0; i < userList.length; i++) {
             var user = userList[i];
-            var userDetailsNode = cc.find("user1DetailsRichText", bgNode);
-            var detailsRichText = userDetailsNode.getComponent(cc.RichText);
+            var nodeName = "user" + (i + 1) + "ScoreNode";
+            var userNode = cc.find(nodeName, this.userAllRoundScireNode);
+            var bgNode = cc.find("bgSprite", userNode);
+            var userDetailsNode = cc.find("huPaiDetailsNode", bgNode);
+            var detailsRichText = userDetailsNode.getComponent(cc.Label);
             detailsRichText.string = "";
-            var userCountNode = cc.find("totalCountAllNode", bgNode);
+            var userCountNode = cc.find("totalCountNode", bgNode);
             var userCountAllLable = userCountNode.getComponent(cc.Label);
-            userCountAllLable.string = 0;
+            userCountAllLable.string = "总成绩: 0";
         }
 
         this.userAllRoundScireNode.active = false;
+
+
+        userInfoScript.cleanUserList();
+        userInfoScript.cleanTable();
+        userInfoScript.initalUserOnRound();
+
+        gameConfigButtonScript.endGameRoundLun();
     },
     closeRoundScore: function () {
         this.userRoundScoreNode.active = false;
