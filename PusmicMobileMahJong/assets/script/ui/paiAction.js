@@ -8,6 +8,7 @@ var tableCenterScript;
 var pengOrder = 100;
 var moPaiScript;
 var roundScoreUIScript;
+var audioScript;
 cc.Class({
     extends: cc.Component,
 
@@ -43,6 +44,7 @@ cc.Class({
         user3PaiListNode: cc.Node,
         moPaiActionNode: cc.Node,
         roundScoreScriptNode: cc.Node,
+        audioNode: cc.Node,
     },
 
     // use this for initialization
@@ -63,6 +65,7 @@ cc.Class({
         tableCenterScript = this.tableCenterNode.getComponent("tableCenterPoint");
         moPaiScript = this.moPaiActionNode.getComponent("tableMoPaiAction");
         roundScoreUIScript = this.roundScoreScriptNode.getComponent("roundScoreUI");
+        audioScript = this.audioNode.getComponent("AudioMng");
     },
 
     // called every frame, uncomment this function to activate update callback
@@ -608,6 +611,8 @@ cc.Class({
             tableNetWorkScript.sendCenterIndex(user.openid);
         }
 
+
+        audioScript.playAction("peng");
         // this.actionNode.active = false;
         // tablePaiActionScript.enabledAllPaiAfterQuePai();
     },
@@ -788,6 +793,7 @@ cc.Class({
         // tablePaiActionScript.enabledAllPaiAfterQuePai();
 
         cc.log("gang:" + Global.huPreStep);
+        audioScript.playAction("gang");
 
     },
 
@@ -877,6 +883,11 @@ cc.Class({
 
         //now we need set the zhuang jia on the first hu
         this.setZhuangOnFirstHU();
+        if (userOpenId == chupaiOpenId) {
+            audioScript.playAction("zimo");
+        } else {
+            audioScript.playAction("hu");
+        }
 
 
         //self user send the hupai to other user

@@ -1,0 +1,26 @@
+{
+  "appKey": "",
+  "appSecret": "",
+  "excludeScenes": [
+    "2bdd81d0-4e75-4545-9a1d-666fbaa9a9e3"
+  ],
+  "includeAnySDK": false,
+  "includeSdk": [
+    "anysdk"
+  ],
+  "inlineSpriteFrames": true,
+  "mergeStartScene": false,
+  "oauthLoginServer": "",
+  "orientation": {
+    "landscapeLeft": true,
+    "landscapeRight": true,
+    "portrait": false,
+    "upsideDown": false
+  },
+  "packageName": "org.cocos2d.PusmicMobileMahJong",
+  "privateKey": "",
+  "renderMode": "0",
+  "startScene": "d5ab33a1-b0e1-4ea6-ad7c-7c7978faa6a5",
+  "title": "PusmicMobileMahJong",
+  "webOrientation": "auto"
+}

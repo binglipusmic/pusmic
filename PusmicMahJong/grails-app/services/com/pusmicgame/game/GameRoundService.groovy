@@ -113,6 +113,20 @@ class GameRoundService {
                             user.roundScoreCount=obj.roundScoreCount
                             user.huPaiDetails=obj.huPaiDetails
                             user.save(flush: true, failOnError: true)
+                            //update total in spring user
+                            if(user.roundScoreCount) {
+
+                                if(user.roundScoreCount>0) {
+                                    var springUser = user.springUser
+                                    if (springUser.winCount) {
+                                        springUser.winCount = springUser.winCount + 1
+                                    } else {
+                                        springUser.winCount = 1
+                                    }
+                                    springUser.save(flush: true, failOnError: true)
+                                }
+                            }
+
                         }
 
 

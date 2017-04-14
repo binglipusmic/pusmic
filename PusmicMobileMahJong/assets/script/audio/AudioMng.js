@@ -141,8 +141,8 @@ cc.Class({
             }
 
             for (var i = 0; i < soundPai.length; i++) {
-               cc.log("soundPai "+i+":" + soundPai[i]);
-            
+                //cc.log("soundPai "+i+":" + soundPai[i]);
+
                 if (soundPai[i].indexOf(paiNum) >= 0) {
                     soundList.push(soundPai[i]);
                 }
@@ -153,6 +153,7 @@ cc.Class({
                 var k = Math.floor(Math.random() * (soundList.length));
                 cc.log("soundList k:" + k);
                 this._playSFX(soundList[k]);
+                this._playSFX(this.chuPai);
             }
 
 
@@ -165,5 +166,55 @@ cc.Class({
             this._playSFX(this.moPai);
         }
 
+    },
+    playAction: function (actionName) {
+        if (actionName == "zimo") {
+            actionName = "hu1";
+        }
+
+        if (actionName == "hu") {
+        }
+
+        gameConfigSetting = Global.gameConfigSetting;
+        if (gameConfigSetting.musicEffect == "1") {
+            //pai effect
+            var userInfo = Global.userInfo;
+            var soundPai;
+            var soundList = [];
+            if (userInfo.sex + "" == "1") {
+                soundPai = this.paiAudiolistManAction;
+            } else {
+                soundPai = this.paiAudiolistWomenAction;
+            }
+
+            for (var i = 0; i < soundPai.length; i++) {
+                //cc.log("soundPai "+i+":" + soundPai[i]);
+
+                if (soundPai[i].indexOf(actionName) >= 0) {
+                    if (actionName == "hu") {
+                        if (soundPai[i].indexOf("hu1") < 0) {
+                            soundList.push(soundPai[i]);
+                        }
+                    } else {
+                        soundList.push(soundPai[i]);
+                    }
+
+                }
+            }
+
+            if (soundList.length > 0) {
+                cc.log("soundList:" + soundList.length);
+                var k = Math.floor(Math.random() * (soundList.length));
+                cc.log("soundList k:" + k);
+                this._playSFX(soundList[k]);
+                //this._playSFX(this.chuPai);
+            }
+
+
+        }
+
     }
+
+
+
 });

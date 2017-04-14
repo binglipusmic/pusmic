@@ -230,6 +230,14 @@ class GameRoundLunService {
             outputUser.gameScoreCount=gu.gameScoreCount
             outputUser.gameReadyStatu=gu.gameReadyStatu
             //outputUser.headImageFileName=user.headImageFileName
+
+            //add game count
+//            if(user.gameCount){
+//                user.gameCount=user.gameCount+1
+//            }else{
+//                user.gameCount=1
+//            }
+//            user.save(flush: true, failOnError: true)
         }
 
         messageDomain.messageBody= new JsonBuilder(outputUser).toPrettyString()
@@ -315,6 +323,14 @@ class GameRoundLunService {
                                newgu.gameRound = gameRound2
                                newgu.save(flush: true, failOnError: true)
                                //gameRound2.save(flush: true, failOnError: true)
+
+                               def user=gu.springUser
+                               if(user.gameCount){
+                                   user.gameCount=user.gameCount+1
+                               }else{
+                                   user.gameCount=2
+                               }
+                               user.save(flush: true, failOnError: true)
                            }
 
                            // gameRound2.gameUser=gameRound.gameUser
