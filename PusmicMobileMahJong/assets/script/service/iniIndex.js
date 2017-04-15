@@ -5,6 +5,7 @@ var serverUrl;
 var socket;
 var gameActionListGet;
 var onlineCheckUser;
+var messageScript;
 cc.Class({
     extends: cc.Component,
 
@@ -21,10 +22,13 @@ cc.Class({
         // ...
         gameActionList: cc.Node,
         checkOnlineUser: cc.Node,
+        messageNode: cc.Node,
+
     },
 
     // use this for initialization
     onLoad: function () {
+        messageScript = this.messageNode.getComponent("alertMessagePanle");
 
         //webchat head img test-------------------------------
         /*
@@ -66,7 +70,7 @@ cc.Class({
                     }
                     //************we must check user in here*******************************
                     //NEED TO DO ********************
-                    
+
                     if (Global.userInfo == null || Global.userInfo == undefined) {
 
 
@@ -145,9 +149,165 @@ cc.Class({
     gameStop: function () {
 
     },
+    testSaveToken: function () {
+        this.sendUserAuthTokenAndRefreshTokenToServer("testAuth", "refreshToken", "test5")
+    },
+    buildSendMessage: function (messageBody, roomNum, action) {
+        var messageDomain = require("messageDomain").messageDomain;
+        messageDomain.messageBelongsToPrivateChanleNumber = roomNum;
+        messageDomain.messageAction = action;
+        messageDomain.messageBody = messageBody;
+
+        return messageDomain
+
+
+    },
+    sendUserAuthTokenAndRefreshTokenToServer: function (authToken, refreshToken, openid) {
+        var o = new Object();
+        o.authToken = authToken;
+        o.refreshToken = refreshToken;
+        o.openid = openid;
+        var messageObj = this.buildSendMessage(JSON.stringify(o), "", "saveAuthToken");
+
+        client.send("/app/usercode_resive_message", {}, JSON.stringify(messageObj));
+    },
+
     sendUserCode: function () {
         //client.send("/app/usercode_resive_message", {}, JSON.stringify("test"));
-        gameActionListGet.showLoadingIcon();
-        client.send("/app/usercode_resive_message", {}, "test");
-    }
+        //gameActionListGet.showLoadingIcon();
+        //client.send("/app/usercode_resive_message", {}, "test");
+
+
+        //  cc.sys.localStorage.setItem('gameConfig', JSON.stringify(Global.gameConfigSetting));
+
+
+        var isinstall = jsb.reflection.callStaticMethod('WXApiManager', 'isWXInstalled');
+        if (isinstall) {
+            //check openid if in the client
+            var openid = cc.sys.localStorage.getItem("openid");
+
+            if (openid == null || openid == undefined || openid == "") {
+                //open webchat to auth user
+                jsb.reflection.callStaticMethod('WXApiManager', 'sendAuthRequestWX', 'snsapi_userinfo', 'pusmic_game_majhong');
+            } else {
+                //refresh auth token again.
+                var messageObj = this.buildSendMessage(openid, "", "refreshToken");
+                client.send("/app/usercode_resive_message", {}, JSON.stringify(messageObj));
+
+            }
+        }
+        else {
+            specialModule._loginfun = null;
+            messageScript.text = "未安装微信!";
+            messageScript.setTextOfPanel();
+            cc.log('未安装微信!');
+        }
+
+    },
+    refreshToken: function (refresh_token) {
+        var appid = "wxc759dfd81a4af8da";
+        var appSecrect = "a8864c0ae4a3422e78561be99c46cb5e";
+        var xhr = new XMLHttpRequest();
+        //https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=APPID&grant_type=refresh_token&refresh_token=REFRESH_TOKEN
+
+        var url = "https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=" + appid + "&grant_type=refresh_token&refresh_token=" + refresh_token;
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+                var response = xhr.responseText;
+                console.log(response);
+                if (response.length > 0) {
+                    if (response.indexOf("errcode") >= 0) {
+                        messageScript.text = response;
+                        messageScript.setTextOfPanel();
+                    } else {
+                        var userObj = JSON.parse(response);
+                        var access_token = userObj.access_token;
+                        var openid = userObj.openid;
+                        var refresh_token_new = userObj.refresh_token;
+                        if (refresh_token_new != refresh_token) {
+                            cc.sys.localStorage.setItem('refresh_token', refresh_token_new);
+                            this.sendUserAuthTokenAndRefreshTokenToServer(access_token, refresh_token, openid);
+                        }
+                        //store the token into server
+                    }
+
+
+                }
+            }
+        }.bind(this);
+        xhr.open("GET", url, true);
+        xhr.send();
+    },
+    //refresh token
+    //https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=APPID&grant_type=refresh_token&refresh_token=REFRESH_TOKEN
+    //get token by code from native call
+    getRequstTokenByCode: function (code) {
+        var appid = "wxc759dfd81a4af8da";
+        var appSecrect = "a8864c0ae4a3422e78561be99c46cb5e";
+        var grant_type = "authorization_code";
+
+
+        var xhr = new XMLHttpRequest();
+        var url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + appid + "&secret=" + appSecrect + "&code=" + code + "&grant_type=" + grant_type;
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+                var response = xhr.responseText;
+                console.log(response);
+                if (response.length > 0) {
+                    if (response.indexOf("errcode") >= 0) {
+                        messageScript.text = response;
+                        messageScript.setTextOfPanel();
+                    } else {
+                        var userObj = JSON.parse(response);
+                        var access_token = userObj.access_token;
+                        var openid = userObj.openid;
+                        var refresh_token = userObj.refresh_token;
+                        cc.sys.localStorage.setItem('openid', openid);
+                        //cc.sys.localStorage.setItem('access_token', access_token);
+                        this.sendUserAuthTokenAndRefreshTokenToServer(access_token, refresh_token, openid);
+                        //store the token into server
+                    }
+
+
+                }
+            }
+        }.bind(this);
+        xhr.open("GET", url, true);
+        xhr.send();
+
+    },
+
+    getUserInfoAndStoreIntoServer: function (access_token, openid) {
+
+        var xhr = new XMLHttpRequest();
+        var url = "https://api.weixin.qq.com/sns/userinfo?access_token=" + access_token + "&openid=" + openid;
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+                var response = xhr.responseText;
+                console.log(response);
+                if (response.length > 0) {
+                    if (response.indexOf("errcode") >= 0) {
+                        messageScript.text = response;
+                        messageScript.setTextOfPanel();
+                    } else {
+                        var userObj = JSON.parse(response);
+                        cc.sys.localStorage.setItem('authUserObject', JSON.stringify(userObj));
+                        //userObj.action = "saveUserInfo";
+                        //store the token into server
+                        var messageObj = this.buildSendMessage(JSON.stringify(o), "", "saveUserInfo");
+                        client.send("/app/usercode_resive_message", {}, JSON.stringify(messageObj));
+                        // client.send("/app/usercode_resive_message", {}, JSON.stringify(userObj));
+                    }
+
+
+                }
+            }
+        };
+        xhr.open("GET", url, true);
+        xhr.send();
+
+    },
+
+    //https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID
+
 });

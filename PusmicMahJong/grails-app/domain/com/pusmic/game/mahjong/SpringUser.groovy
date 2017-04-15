@@ -40,6 +40,7 @@ class SpringUser implements Serializable {
 	//this field send from Mobile client
 	String mobileUserCode
 	String mobileUserState
+	String webChatUserCode
 
 	//---------agent-----------
 	String agentLevel

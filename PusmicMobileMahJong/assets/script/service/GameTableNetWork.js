@@ -879,6 +879,10 @@ cc.Class({
 
     },
     //-------------------------------chu pai action---------------------------------------------
+    sendUserAuthTokenAndRefreshTokenToServer:function(authToken,refreshToken,openid){
+        
+    },
+ 
     sendRoundScoreToServer: function (user) {
         var joinRoomNumber = Global.joinRoomNumber;
         var o = new Object();

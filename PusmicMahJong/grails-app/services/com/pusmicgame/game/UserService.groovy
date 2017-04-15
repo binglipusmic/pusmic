@@ -9,6 +9,7 @@ import com.pusmicgame.domain.GameUserPlatObj
 import com.pusmicgame.domain.JoinRoom
 import com.pusmicgame.domain.MessageDomain
 import com.pusmicgame.domain.UserInfo
+import com.pusmicgame.domain.UserAuthObject
 import com.pusmicgame.mahjong.Utils
 
 import grails.transaction.Transactional
@@ -21,26 +22,92 @@ import com.pusmicgame.utils.CustomComparatorForGameUserPlatObj
 
 @Transactional
 class UserService {
-
+    def appid = "wxc759dfd81a4af8da";
+    def appSecrect = "a8864c0ae4a3422e78561be99c46cb5e";
+    def grant_type = ""
     def grailsApplication
 
     def myUtil = new Utils()
+
+    //------------login user by code----------------------------
+
+    def loginUserByCode(code) {
+        grant_type = "authorization_code";
+        def url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + appid + "&secret=" + appSecrect + "&code=" + code + "&grant_type=" + grant_type;
+        def springUser
+        def jsonString = new URL(url).getText()
+        if(jsonString){
+            if(jsonString.contains("errcode")){
+                println "errorCode:"+jsonString
+                springUser=jsonString
+            }else{
+                UserAuthObject userAuthObj=JSON.parse(jsonString);
+
+
+
+                springUser=createNewSpringUserOrUpdate(userAuthObj)
+            }
+
+        }else{
+
+        }
+        return springUser
+
+
+    }
+    //---------spring user create or update --------------------
+    def createNewSpringUserOrUpdate(UserAuthObject userAuthObject) {
+        def openid = userAuthObject.openid
+        def springUser
+        if (openid) {
+            springUser= SpringUser.findByOpenid(openid)
+            if (!springUser) {
+                springUser = new SpringUser()
+                new SpringUser(username: userName, password: 'password', city: "", country: "CN", language: "chinese",
+                        nickname: "", openid: openid, province: "", headimgurl: "", unionid: "", access_token: "",
+                        refresh_token: "", userCode: "")
+            }
+
+            springUser.refresh_token = userAuthObject.refreshToken;
+            springUser.access_token = userAuthObject.authToken
+            springUser.save(flush: true, failOnError: true)
+        }
+        return springUser
+    }
+
+    def createNewSpringUserOrUpdateUserInfo(UserInfo userInfo) {
+        if (userInfo) {
+            def openid = userInfo.openid
+            if (openid) {
+                def springUser = SpringUser.findByOpenid(openid)
+                springUser.nickname = userInfo.nickname
+                springUser.sex = userInfo.sex
+                springUser.province = userInfo.province
+                springUser.city = userInfo.city
+                springUser.country = userInfo.country
+                springUser.headimgurl = userInfo.headimgurl
+                springUser.save(flush: true, failOnError: true)
+            }
+
+        }
+
+    }
 
     private getGameRoomNumberService() {
         grailsApplication.mainContext.gameRoomNumberService
     }
 
-    def updateQuePaiForUser(MessageDomain messageDomain){
+    def updateQuePaiForUser(MessageDomain messageDomain) {
         def roomNumber = messageDomain.messageBelongsToPrivateChanleNumber;
         def obj = JSON.parse(messageDomain.messageBody)
-        def que=obj.quePai
-        def openid=obj.openid
+        def que = obj.quePai
+        def openid = obj.openid
         GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
         GameRound gameRound = onlineRoomNumber.gameRound
-        if(gameRound) {
+        if (gameRound) {
             gameRound.gameUser.each { gameU ->
-                if(gameU.springUser.openid.equals(openid)){
-                    gameU.quePai=que
+                if (gameU.springUser.openid.equals(openid)) {
+                    gameU.quePai = que
                     gameU.save(flush: true, failOnError: true)
                 }
             }
@@ -56,11 +123,11 @@ class UserService {
         def roomNumber = messageDomain.messageBelongsToPrivateChanleNumber;
         GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
         GameRound gameRound = onlineRoomNumber.gameRound
-        def paiStr=""
-        def index=1
-        if(gameRound) {
+        def paiStr = ""
+        def index = 1
+        if (gameRound) {
             def gameUserListArray = []
-            gameRound.gameUser.each{gameU->
+            gameRound.gameUser.each { gameU ->
                 GameUserPlatObj outputUser = new GameUserPlatObj()
 
                 outputUser.id = gameU.id
@@ -85,11 +152,11 @@ class UserService {
                 outputUser.openid = gameU.springUser.openid
                 outputUser.zhuang = gameU.zhuang
 
-                if( gameU.paiList){
+                if (gameU.paiList) {
                     outputUser.paiList = gameU.paiList.join(",")
                 }
 
-                outputUser.quePai  =gameU.quePai
+                outputUser.quePai = gameU.quePai
 
                 gameUserListArray.add(outputUser)
 
@@ -111,6 +178,7 @@ class UserService {
 
         return paiStr
     }
+
     def joinRoom(MessageDomain messageDomain) {
         ActionMessageDomain actionMessageDomain = new ActionMessageDomain()
         def openid = messageDomain.messageBody;
@@ -185,13 +253,13 @@ class UserService {
                         //gameUserListArray.s
                         actionMessageDomain.messageExecuteFlag = "success"
                         Collections.sort(gameUserListArray, new CustomComparatorForGameUserPlatObj());
-                       // print "115"
+                        // print "115"
                         def s = JsonOutput.toJson(gameUserListArray);
-                       // print "117"
+                        // print "117"
                         GameModeJson gmjson = new GameModeJson()
                         gmjson = myUtil.gameModeToJsonObject(gameMode, gmjson)
                         def gmStr = JsonOutput.toJson(gmjson);
-                      //  print "119"
+                        //  print "119"
                         JoinRoom jr = new JoinRoom()
                         jr.gameMode = gmStr
                         jr.userList = s
@@ -247,40 +315,40 @@ class UserService {
      * Check the all user if already start
      * @param messageDomain
      */
-    def checkAllUserStatus(MessageDomain messageDomain){
-        def flag=false;
-        def readFlag=true;
-        def peopleGameModeNumber=0;
+    def checkAllUserStatus(MessageDomain messageDomain) {
+        def flag = false;
+        def readFlag = true;
+        def peopleGameModeNumber = 0;
         def roomNumber = messageDomain.messageBelongsToPrivateChanleNumber;
         GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
         GameRound gameRound = onlineRoomNumber.gameRound
-        if(gameRound){
-            def gameRoundLun=gameRound.gameRoundLun
-            if(gameRoundLun){
-                def gameMode=gameRoundLun.gameMode
-                if(gameMode){
-                    peopleGameModeNumber=gameMode.gamePeopleNumber
+        if (gameRound) {
+            def gameRoundLun = gameRound.gameRoundLun
+            if (gameRoundLun) {
+                def gameMode = gameRoundLun.gameMode
+                if (gameMode) {
+                    peopleGameModeNumber = gameMode.gamePeopleNumber
                 }
             }
 
-            def gameUsersCount=gameRound.gameUser.size()+""
-            def gameUsers=gameRound.gameUser
-            if(peopleGameModeNumber+""==gameUsersCount){
-                flag=true;
+            def gameUsersCount = gameRound.gameUser.size() + ""
+            def gameUsers = gameRound.gameUser
+            if (peopleGameModeNumber + "" == gameUsersCount) {
+                flag = true;
 
-                gameUsers.each {gu->
+                gameUsers.each { gu ->
 
-                    if(gu.gameReadyStatu!="1"){
-                        readFlag=false
+                    if (gu.gameReadyStatu != "1") {
+                        readFlag = false
                     }
 
                 }
             }
         }
 
-        if(flag==true &&readFlag ==true ){
+        if (flag == true && readFlag == true) {
             return true
-        }else{
+        } else {
             return false
         }
     }
@@ -297,12 +365,12 @@ class UserService {
      * @param messageDomain
      */
     def setHuanSanZhang(MessageDomain messageDomain) {
-        def flag="false"
+        def flag = "false"
         def obj = JSON.parse(messageDomain.messageBody)
         def openid = obj.openid
-        def paiList =obj.huanSanZhangPaiList
+        def paiList = obj.huanSanZhangPaiList
         def roomNumber = messageDomain.messageBelongsToPrivateChanleNumber;
-        println "setHuanSanZhang roomNumber:"+roomNumber
+        println "setHuanSanZhang roomNumber:" + roomNumber
         GameRoomNumber onlineRoomNumber
 
         GameRoomNumber.withTransaction {
@@ -337,8 +405,8 @@ class UserService {
                         gu.save(flush: true, failOnError: true)
                         peopleCount++
                     }
-                    println "setHuanSanZhang peopleCount:"+peopleCount
-                    println "setHuanSanZhang peopleGameModeNumber:"+peopleGameModeNumber
+                    println "setHuanSanZhang peopleCount:" + peopleCount
+                    println "setHuanSanZhang peopleGameModeNumber:" + peopleGameModeNumber
                     if (peopleCount.toInteger() >= peopleGameModeNumber.toInteger()) {
                         flag = "true"
                     }
@@ -348,7 +416,7 @@ class UserService {
 
             }
         }
-        println "setHuanSanZhang roomNumber flag:"+flag
+        println "setHuanSanZhang roomNumber flag:" + flag
         return flag
 
     }
@@ -363,21 +431,21 @@ class UserService {
         def obj = JSON.parse(messageDomain.messageBody)
         ActionMessageDomain actionMessageDomain = new ActionMessageDomain()
         def roomNumber = messageDomain.messageBelongsToPrivateChanleNumber;
-        println "changeUserStatus roomNumber:"+roomNumber
+        println "changeUserStatus roomNumber:" + roomNumber
         GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
         GameRound gameRound = onlineRoomNumber.gameRound
         def userReadyStatu = obj.userReadyStatu
-        println "changeUserStatus userReadyStatu:"+userReadyStatu
+        println "changeUserStatus userReadyStatu:" + userReadyStatu
         def openid = obj.openid
         if (openid) {
 
             SpringUser user = SpringUser.findByOpenid(openid)
             if (user) {
-                GameUser gu =null
+                GameUser gu = null
                 def gameUserList = gameRound.gameUser
                 gameUserList.each { gameU ->
-                    if( openid == gameU.springUser.openid){
-                        gu=gameU
+                    if (openid == gameU.springUser.openid) {
+                        gu = gameU
                     }
                 }
 
@@ -385,20 +453,17 @@ class UserService {
                     gu.gameReadyStatu = userReadyStatu
 
                     gu.save(flush: true, failOnError: true)
-                    println ("changeUserStatus gu:"+gu.id)
-                    println ("changeUserStatus gu openid :"+gu.springUser.openid)
-                    println ("changeUserStatus gu gameReadyStatu:"+gu.gameReadyStatu)
+                    println("changeUserStatus gu:" + gu.id)
+                    println("changeUserStatus gu openid :" + gu.springUser.openid)
+                    println("changeUserStatus gu gameReadyStatu:" + gu.gameReadyStatu)
                     //messageDomain.messageBody = "success:" + openid
-
-
-
 
 
                     def gameUserListArray = []
                     gameUserList.each { gameU ->
-                        println ("changeUserStatus gameU id :"+gameU.id)
-                        println ("changeUserStatus gameU openid :"+gameU.springUser.openid)
-                        println ("changeUserStatus gameU gameReadyStatu:"+gameU.gameReadyStatu)
+                        println("changeUserStatus gameU id :" + gameU.id)
+                        println("changeUserStatus gameU openid :" + gameU.springUser.openid)
+                        println("changeUserStatus gameU gameReadyStatu:" + gameU.gameReadyStatu)
                         GameUserPlatObj outputUser = new GameUserPlatObj()
 
                         outputUser.openid = gameU.springUser.openid
@@ -435,7 +500,7 @@ class UserService {
 
 
         def s2 = JsonOutput.toJson(actionMessageDomain)
-        println "changeUserStatus:"+s2
+        println "changeUserStatus:" + s2
         messageDomain.messageBody = s2
 
         return messageDomain
@@ -507,10 +572,10 @@ class UserService {
             def url = "http://wx.qlogo.cn/mmopen/Po9mkm3Z42tolYpxUVpY6mvCmqalibOpcJ2jG3Qza5qgtibO1NLFNUF7icwCibxPicbGmkoiciaqKEIdvvveIBfEQqal8vkiavHIeqFT/96"
             userOpenid = noOnlineUser.openid
             //if (!noOnlineUser.headImageFileName) {
-                def headImageName = getHeadImage(url, userOpenid)
-                if (headImageName) {
-                    noOnlineUser.headImageFileName = headImageName
-                }
+            def headImageName = getHeadImage(url, userOpenid)
+            if (headImageName) {
+                noOnlineUser.headImageFileName = headImageName
+            }
             //}
 
             noOnlineUser.addToLoginUserInfo(userLoginInfo)
@@ -612,8 +677,8 @@ class UserService {
             }
 
             InputStream is = url2.openStream();
-            println "conn.inputStream:"+conn.inputStream.bytes.length
-            println  "fileName:"+fileName
+            println "conn.inputStream:" + conn.inputStream.bytes.length
+            println "fileName:" + fileName
             //InputStream is = conn.inputStream
             FileOutputStream fos = new FileOutputStream(new File(fileName))
 

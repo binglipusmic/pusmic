@@ -15,6 +15,8 @@ class GameUserPlatObj {
     String zhuang
     String headImageFileName
     String quePai
+    String action
+
     int gameRoundScore
     int gameScoreCount
     String gameReadyStatu

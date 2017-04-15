@@ -1,5 +1,10 @@
 package com.pusmicgame
 
+import com.pusmicgame.domain.MessageDomain
+import com.pusmicgame.domain.UserAuthObject
+import com.pusmicgame.domain.UserInfo
+import grails.converters.JSON
+import org.grails.web.json.JSONElement
 import org.grails.web.util.WebUtils
 import org.springframework.messaging.handler.annotation.Header
 import org.springframework.messaging.handler.annotation.Headers
@@ -24,7 +29,28 @@ class UserController {
      Map<String, Object> sessionHeaders = SimpMessageHeaderAccessor.getSessionAttributes(headers);
         String publicIp = (String) sessionHeaders.get(PUBLICIP_ATTR);
         println "usercode_resive_message ip::"+publicIp
-        def s=userService.getUserInfoFromSpringUserByCode(code,publicIp)
+        def s
+        if(code){
+            s=userService.loginUserByCode(code);
+        }
+
+        MessageDomain messageJsonObj = JSON.parse(authObject);
+        if(messageJsonObj){
+           // def s=userService.createNewSpringUserOrUpdate(code,publicIp)
+           if(messageJsonObj.messageAction.equals("saveAuthToken")){
+               UserAuthObject userAuthObj=JSON.parse(messageJsonObj.messageBody);
+               userService.createNewSpringUserOrUpdate(userAuthObj)
+           }
+
+            if(messageJsonObj.messageAction.equals("saveUserInfo")){
+                UserInfo userInfo=JSON.parse(messageJsonObj.messageBody);
+                userService.createNewSpringUserOrUpdateUserInfo(userInfo);
+            }
+
+            //UserInfo
+        }
+
+
         println "user info::"+s
         return s
     }
