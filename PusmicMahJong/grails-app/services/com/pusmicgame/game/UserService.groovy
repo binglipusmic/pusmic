@@ -10,6 +10,7 @@ import com.pusmicgame.domain.JoinRoom
 import com.pusmicgame.domain.MessageDomain
 import com.pusmicgame.domain.UserInfo
 import com.pusmicgame.domain.UserAuthObject
+import com.pusmicgame.domain.WebChatTokenObj
 import com.pusmicgame.mahjong.Utils
 
 import grails.transaction.Transactional
@@ -38,15 +39,13 @@ class UserService {
         def jsonString = new URL(url).getText()
         if(jsonString){
             if(jsonString.contains("errcode")){
-                println "errorCode:"+jsonString
-                springUser=jsonString
+                println "Web chat login error:"+jsonString;
             }else{
-                UserAuthObject userAuthObj=JSON.parse(jsonString);
-
-
-
+                WebChatTokenObj userAuthObj=JSON.parse(jsonString);
                 springUser=createNewSpringUserOrUpdate(userAuthObj)
             }
+
+
 
         }else{
 
@@ -56,7 +55,7 @@ class UserService {
 
     }
     //---------spring user create or update --------------------
-    def createNewSpringUserOrUpdate(UserAuthObject userAuthObject) {
+    def createNewSpringUserOrUpdate(WebChatTokenObj userAuthObject) {
         def openid = userAuthObject.openid
         def springUser
         if (openid) {
@@ -75,11 +74,11 @@ class UserService {
         return springUser
     }
 
-    def createNewSpringUserOrUpdateUserInfo(UserInfo userInfo) {
-        if (userInfo) {
-            def openid = userInfo.openid
+    def createNewSpringUserOrUpdateUserInfo(openid) {
+
+        def springUser
             if (openid) {
-                def springUser = SpringUser.findByOpenid(openid)
+                springUser = SpringUser.findByOpenid(openid)
                 springUser.nickname = userInfo.nickname
                 springUser.sex = userInfo.sex
                 springUser.province = userInfo.province
@@ -89,7 +88,7 @@ class UserService {
                 springUser.save(flush: true, failOnError: true)
             }
 
-        }
+        return springUser
 
     }
 

@@ -76,6 +76,7 @@ cc.Class({
 
                         console.log("userInfo.nickname:" + userInfo.nickName);
                         console.log("userInfo.headImageFileName:" + userInfo.headImageFileName);
+                        cc.sys.localStorage.setItem('userOpenId', userInfo.openid);
                         Global.userInfo = userInfo;
                         //update the user public ip from url call
                         //self.updateUserIP(userInfo.id);
@@ -117,6 +118,37 @@ cc.Class({
 
         }
 
+
+        //----------------------------
+
+        var nowTime = new Date("2017", "4", "12");
+        //nowTime=this.dateFormat(nowTime);
+        var oldTiem = new Date("2017", "3", "12");
+        var cha = (nowTime - oldTiem) / 3600 / 1000 / 24;
+        cc.log("nowTime:" + cha);
+
+
+    },
+
+    dateFormat: function (date) {
+        var year = date.getFullYear();
+        var Month = date.getMonth() + 1;
+        var Day = date.getDate();
+        return year + "-" + Month + "-" + Day
+    },
+
+    compareDayWithNow: function (oldTime) {
+        var now = new Date();
+        var year = now.getFullYear();
+        var Month = now.getMonth() + 1;
+        var Day = now.getDate();
+
+        var nowTime = new Date(year, Month, Day);
+
+        var cache = oldTime.split("-");
+        var oldTime = new Date(cache[0], cache[1], cache[2]);
+        var cha = (nowTime - oldTime) / 3600 / 1000 / 24;
+        return cha;
 
     },
 
@@ -182,15 +214,28 @@ cc.Class({
 
 
         var isinstall = jsb.reflection.callStaticMethod('WXApiManager', 'isWXInstalled');
+        var nowTime = new Date();
+        cc.log("nowTime:" + nowTime);
         if (isinstall) {
             //check openid if in the client
-            var openid = cc.sys.localStorage.getItem("openid");
+            var authLoginTime = cc.sys.localStorage.getItem("authLoginTime");
+            var reLoginFlag = false;
+            if (authLoginTime == null || authLoginTime == undefined || authLoginTime == "") {
+                reLoginFlag = true;
+            } else {
+                var cha = this.compareDayWithNow(authLoginTime);
+                if (cha >= 29) {
+                    reLoginFlag = true;
+                }
 
-            if (openid == null || openid == undefined || openid == "") {
+            }
+
+            if (reLoginFlag) {
                 //open webchat to auth user
                 jsb.reflection.callStaticMethod('WXApiManager', 'sendAuthRequestWX', 'snsapi_userinfo', 'pusmic_game_majhong');
             } else {
                 //refresh auth token again.
+                var openid= cc.sys.localStorage.getItem('userOpenId');
                 var messageObj = this.buildSendMessage(openid, "", "refreshToken");
                 client.send("/app/usercode_resive_message", {}, JSON.stringify(messageObj));
 
@@ -205,8 +250,8 @@ cc.Class({
 
     },
     refreshToken: function (refresh_token) {
-        var appid = "wxc759dfd81a4af8da";
-        var appSecrect = "a8864c0ae4a3422e78561be99c46cb5e";
+        var appid = "";
+        var appSecrect = "";
         var xhr = new XMLHttpRequest();
         //https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=APPID&grant_type=refresh_token&refresh_token=REFRESH_TOKEN
 
@@ -241,39 +286,26 @@ cc.Class({
     //refresh token
     //https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=APPID&grant_type=refresh_token&refresh_token=REFRESH_TOKEN
     //get token by code from native call
-    getRequstTokenByCode: function (code) {
-        var appid = "wxc759dfd81a4af8da";
-        var appSecrect = "a8864c0ae4a3422e78561be99c46cb5e";
+    getRequstTokenByCode: function (code, errorCode) {
+        cc.log("getRequstTokenByCode:" + code);
+        cc.log("errorCode:" + errorCode);
+        var appid = "";
+        var appSecrect = "";
         var grant_type = "authorization_code";
+        var nowDate = new Date();
+        nowDate = this.dateFormat(nowDate);
+
+        if (errorCode + "" == "0") {
+            cc.sys.localStorage.setItem('authLoginTime', nowDate);
+            cc.sys.localStorage.setItem('webChatCode', code);
+            var messageObj = this.buildSendMessage(code, "", "getTokenByCode");
+            client.send("/app/usercode_resive_message", {}, JSON.stringify(messageObj));
+        } else {
+            messageScript.text = "你必须要同意微信授权才能登陆游戏!";
+            messageScript.setTextOfPanel();
+        }
 
 
-        var xhr = new XMLHttpRequest();
-        var url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + appid + "&secret=" + appSecrect + "&code=" + code + "&grant_type=" + grant_type;
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
-                var response = xhr.responseText;
-                console.log(response);
-                if (response.length > 0) {
-                    if (response.indexOf("errcode") >= 0) {
-                        messageScript.text = response;
-                        messageScript.setTextOfPanel();
-                    } else {
-                        var userObj = JSON.parse(response);
-                        var access_token = userObj.access_token;
-                        var openid = userObj.openid;
-                        var refresh_token = userObj.refresh_token;
-                        cc.sys.localStorage.setItem('openid', openid);
-                        //cc.sys.localStorage.setItem('access_token', access_token);
-                        this.sendUserAuthTokenAndRefreshTokenToServer(access_token, refresh_token, openid);
-                        //store the token into server
-                    }
-
-
-                }
-            }
-        }.bind(this);
-        xhr.open("GET", url, true);
-        xhr.send();
 
     },
 
