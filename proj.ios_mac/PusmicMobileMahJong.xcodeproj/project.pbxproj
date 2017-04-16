@@ -59,6 +59,7 @@
 		8772ED121EA127CE002B62A8 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8772ED111EA127CE002B62A8 /* CoreTelephony.framework */; };
 		8772ED141EA127D7002B62A8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8772ED131EA127D7002B62A8 /* CFNetwork.framework */; };
 		8772ED161EA128CC002B62A8 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8772ED151EA128CC002B62A8 /* icon.png */; };
+		8772ED181EA13886002B62A8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8772ED171EA13886002B62A8 /* CoreLocation.framework */; };
 		A92275421517C094001B78AA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A92275411517C094001B78AA /* QuartzCore.framework */; };
 		A92275441517C094001B78AA /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A92275431517C094001B78AA /* OpenGLES.framework */; };
 		A92275461517C094001B78AA /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A92275451517C094001B78AA /* OpenAL.framework */; };
@@ -208,6 +209,7 @@
 		8772ED111EA127CE002B62A8 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/CoreTelephony.framework; sourceTree = DEVELOPER_DIR; };
 		8772ED131EA127D7002B62A8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
 		8772ED151EA128CC002B62A8 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		8772ED171EA13886002B62A8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
 		A922753D1517C094001B78AA /* PusmicMobileMahJong-mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PusmicMobileMahJong-mobile.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A92275411517C094001B78AA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		A92275431517C094001B78AA /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -277,6 +279,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8772ED181EA13886002B62A8 /* CoreLocation.framework in Frameworks */,
 				8772ED141EA127D7002B62A8 /* CFNetwork.framework in Frameworks */,
 				8772ED121EA127CE002B62A8 /* CoreTelephony.framework in Frameworks */,
 				8772ED101EA127BC002B62A8 /* Security.framework in Frameworks */,
@@ -393,6 +396,7 @@
 		A92275401517C094001B78AA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8772ED171EA13886002B62A8 /* CoreLocation.framework */,
 				8772ED131EA127D7002B62A8 /* CFNetwork.framework */,
 				8772ED111EA127CE002B62A8 /* CoreTelephony.framework */,
 				8772ED0F1EA127BC002B62A8 /* Security.framework */,

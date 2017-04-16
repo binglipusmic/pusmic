@@ -31,11 +31,15 @@
     NSString *strMsg0 =[NSString stringWithFormat:@"code:%@,state:%@,errCode:%d",authResp.code,authResp.state,authResp.errCode];
     NSLog(@"%@",strMsg0);
     
-    NSString *func =[NSString stringWithFormat:@"require('GameLogin').GameLoginOcCallJs('%@')",authResp.code];
+   // if(authResp.errCode==0){
+        NSString *func =[NSString stringWithFormat:@"require('iniIndex').getRequstTokenByCode('%@','%d')",authResp.code,authResp.errCode];
+        
+        const char *stringFunc =[func UTF8String];
+        JS::MutableHandleValue *outval;
+        ScriptingCore ::getInstance()->evalString(stringFunc,*outval);
+   // }
     
-    const char *stringFunc =[func UTF8String];
-    JS::MutableHandleValue *outval;
-    ScriptingCore ::getInstance()->evalString(stringFunc,*outval);
+  
     
     
 }
@@ -62,7 +66,7 @@
     }
 }
 
-+(BOOL) callNativeUIWithTitle:(NSString *) scope andContent:(NSString *) state{
++(BOOL) sendAuthRequestWX:(NSString *) scope andContent:(NSString *) state{
     NSLog(@"----通过微信API 发送请求到微信----");
     SendAuthReq* req=[[[SendAuthReq alloc] init] autorelease];
     req.scope = scope;
@@ -70,6 +74,11 @@
     
     return [WXApi sendAuthReq:req viewController:NULL delegate:[WXApiManager sharedManager]];
     
+}
+
++(BOOL) isWXInstalled
+{
+    return [WXApi isWXAppInstalled];
 }
 
 @end

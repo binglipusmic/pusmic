@@ -24,6 +24,7 @@
  ****************************************************************************/
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 #import "cocos2d.h"
 
 #import "AppController.h"
