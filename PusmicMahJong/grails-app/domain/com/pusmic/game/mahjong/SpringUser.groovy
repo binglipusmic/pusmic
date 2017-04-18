@@ -94,6 +94,7 @@ class SpringUser implements Serializable {
         userCode nullable: true
         userType nullable: true
 		headImageFileName nullable: true
+		webChatUserCode nullable: true
         //publicIPAddress nullable: true
         //roomNumber nullable: true
 

@@ -29,7 +29,7 @@ cc.Class({
     // use this for initialization
     onLoad: function () {
         messageScript = this.messageNode.getComponent("alertMessagePanle");
-
+        //window.iniIndex = require("iniIndex");
         //webchat head img test-------------------------------
         /*
         var url = "http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/46";
@@ -54,10 +54,10 @@ cc.Class({
         socket = new SockJS(serverUrl + "/stomp");
         console.log("conect to server");
         client = Stomp.over(socket);
-        var csrfHeaderName = "Set-Cookie";
-        var csrfToken = "session=B227654DB13B28329F96DB2959FAE26B";
+        // var csrfHeaderName = "Set-Cookie";
+        // var csrfToken = "session=B227654DB13B28329F96DB2959FAE26B";
         var headers = {};
-        headers[csrfHeaderName] = csrfToken;
+        // headers["user-agent"] = "test";
         client.connect(headers, function () {
             client.subscribe("/queue/pusmicGamePushLoginUserInfoChanle", function (message) {
                 var bodyStr = message.body;
@@ -203,6 +203,20 @@ cc.Class({
 
         client.send("/app/usercode_resive_message", {}, JSON.stringify(messageObj));
     },
+    sendUserCodetest: function () {
+        var messageObj = this.buildSendMessage("2233", "", "refreshToken");
+        client.send("/app/usercode_resive_message", {}, JSON.stringify(messageObj));
+    },
+
+    reinstalClient: function () {
+        var serverUrl = Global.hostHttpProtocol + "://" + Global.hostServerIp + ":" + Global.hostServerPort;
+        socket = new SockJS(serverUrl + "/stomp");
+        console.log("conect to server");
+        client = Stomp.over(socket);
+        var headers = {};
+        client.connect(headers, function () { });
+        //return client
+    },
 
     sendUserCode: function () {
         //client.send("/app/usercode_resive_message", {}, JSON.stringify("test"));
@@ -212,10 +226,10 @@ cc.Class({
 
         //  cc.sys.localStorage.setItem('gameConfig', JSON.stringify(Global.gameConfigSetting));
 
-
-        var isinstall = jsb.reflection.callStaticMethod('WXApiManager', 'isWXInstalled');
         var nowTime = new Date();
-        cc.log("nowTime:" + nowTime);
+        cc.log("nowTime 218:" + nowTime);
+        var isinstall = jsb.reflection.callStaticMethod('WXApiManager', 'isWXInstalled');
+        cc.log("isinstall:" + isinstall);
         if (isinstall) {
             //check openid if in the client
             var authLoginTime = cc.sys.localStorage.getItem("authLoginTime");
@@ -229,14 +243,18 @@ cc.Class({
                 }
 
             }
+            cc.log("reLoginFlag:" + reLoginFlag);
 
             if (reLoginFlag) {
                 //open webchat to auth user
-                jsb.reflection.callStaticMethod('WXApiManager', 'sendAuthRequestWX', 'snsapi_userinfo', 'pusmic_game_majhong');
+                jsb.reflection.callStaticMethod('WXApiManager', 'sendAuthRequestWX');
             } else {
                 //refresh auth token again.
-                var openid= cc.sys.localStorage.getItem('userOpenId');
+                var openid = cc.sys.localStorage.getItem('userOpenId');
                 var messageObj = this.buildSendMessage(openid, "", "refreshToken");
+                if (client == null || client == undefined) {
+                    this.reinstalClient();
+                }
                 client.send("/app/usercode_resive_message", {}, JSON.stringify(messageObj));
 
             }
@@ -286,26 +304,30 @@ cc.Class({
     //refresh token
     //https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=APPID&grant_type=refresh_token&refresh_token=REFRESH_TOKEN
     //get token by code from native call
-    getRequstTokenByCode: function (code, errorCode) {
+    getRequstTokenByCode: function (code) {
         cc.log("getRequstTokenByCode:" + code);
-        cc.log("errorCode:" + errorCode);
+        //cc.log("errorCode:" + errorCode);
         var appid = "";
         var appSecrect = "";
         var grant_type = "authorization_code";
         var nowDate = new Date();
         nowDate = this.dateFormat(nowDate);
 
-        if (errorCode + "" == "0") {
-            cc.sys.localStorage.setItem('authLoginTime', nowDate);
-            cc.sys.localStorage.setItem('webChatCode', code);
-            var messageObj = this.buildSendMessage(code, "", "getTokenByCode");
-            client.send("/app/usercode_resive_message", {}, JSON.stringify(messageObj));
-        } else {
-            messageScript.text = "你必须要同意微信授权才能登陆游戏!";
-            messageScript.setTextOfPanel();
+        //if (errorCode + "" == "0") {
+        cc.sys.localStorage.setItem('authLoginTime', nowDate);
+        cc.sys.localStorage.setItem('webChatCode', code);
+        var messageObj = this.buildSendMessage(code, "", "getTokenByCode");
+        if (client == null || client == undefined) {
+            this.reinstalClient();
         }
+        client.send("/app/usercode_resive_message", {}, JSON.stringify(messageObj));
 
 
+    },
+
+    getRequstTokenByCodeOnError: function () {
+        messageScript.text = "你必须要同意微信授权才能登陆游戏!";
+        messageScript.setTextOfPanel();
 
     },
 

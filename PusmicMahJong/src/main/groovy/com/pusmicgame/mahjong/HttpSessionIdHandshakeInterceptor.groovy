@@ -14,10 +14,11 @@ import com.pusmicgame.mahjong.Utils
 /**
  * Created by prominic2 on 16/12/25.
  */
-class HttpSessionIdHandshakeInterceptor implements HandshakeInterceptor{
-    def SESSION_ATTR="session"
-    def PUBLICIP_ATTR="remoteIpAddress"
-    def myUtils=new Utils()
+class HttpSessionIdHandshakeInterceptor implements HandshakeInterceptor {
+    def SESSION_ATTR = "session"
+    def PUBLICIP_ATTR = "remoteIpAddress"
+    def myUtils = new Utils()
+
     public boolean beforeHandshake(ServerHttpRequest request,
                                    ServerHttpResponse response,
                                    WebSocketHandler wsHandler,
@@ -25,25 +26,32 @@ class HttpSessionIdHandshakeInterceptor implements HandshakeInterceptor{
             throws Exception {
         if (request instanceof ServletServerHttpRequest) {
 
-            def session=getSession()
+            def session = getSession()
             //println "HttpSessionIdHandshakeInterceptor:::"+request.getServletRequest().getUserPrincipal().name
-            request.getHeaders().each{k,v->
+
+
+
+            request.headers.set("user-agent","")
+            request.getHeaders().each { k, v ->
 
                 println "31:${k}-----${v}"
 
             }
-            def ip=myUtils.fixTheWebsokectRemoteIp(request.getRemoteAddress().toString())
 
-            if(ip){
-                session.public_ip=ip
-                println "request:"+session.public_ip
+
+
+            def ip = myUtils.fixTheWebsokectRemoteIp(request.getRemoteAddress().toString())
+
+            if (ip) {
+                session.public_ip = ip
+                println "request:" + session.public_ip
             }
             ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
-           // HttpSession session = servletRequest.getServletRequest().getSession(false);
+            // HttpSession session = servletRequest.getServletRequest().getSession(false);
             if (session != null) {
                 attributes.put(SESSION_ATTR, session.getId());
                 attributes.put(PUBLICIP_ATTR, ip);
-                println "SESSION_ATTR:"+session.getId()
+                println "SESSION_ATTR:" + session.getId()
                 //WebUtils.retrieveGrailsWebRequest().se=session
             }
 
