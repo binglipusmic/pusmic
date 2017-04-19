@@ -44,13 +44,13 @@ class UserController {
                     def code=messageJsonObj.messageBody;
                     //UserAuthObject userAuthObj = JSON.parse(messageJsonObj.messageBody);
                     //userService.createNewSpringUserOrUpdate(userAuthObj)
-                    s=userService.loginUserByCode(code);
+                    s=userService.loginUserByCode(code,publicIp);
                 }
 
                 if (messageJsonObj.messageAction.equals("refreshToken")) {
                     //UserInfo userInfo = JSON.parse(messageJsonObj.messageBody);
                     def openid=messageJsonObj.messageBody;
-                    s=userService.createNewSpringUserOrUpdateUserInfo(openid);
+                    s=userService.refreshTokenByOpenid(openid,publicIp);
                 }
 
                 //UserInfo

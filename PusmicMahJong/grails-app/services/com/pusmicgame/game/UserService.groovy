@@ -10,6 +10,7 @@ import com.pusmicgame.domain.JoinRoom
 import com.pusmicgame.domain.MessageDomain
 import com.pusmicgame.domain.UserInfo
 import com.pusmicgame.domain.UserAuthObject
+import com.pusmicgame.domain.WXUserInfo
 import com.pusmicgame.domain.WebChatTokenObj
 import com.pusmicgame.mahjong.Utils
 
@@ -21,6 +22,8 @@ import groovy.json.JsonOutput
 
 import com.pusmicgame.utils.CustomComparatorForGameUserPlatObj
 
+import javax.swing.Spring
+
 @Transactional
 class UserService {
     def appid = "wxc759dfd81a4af8da";
@@ -30,9 +33,38 @@ class UserService {
 
     def myUtil = new Utils()
 
+    //---change spring user to plat object and get it json strnig
+
+    def getSpringUserJsonStringspringUser(gameU){
+
+
+            GameUserPlatObj outputUser = new GameUserPlatObj()
+            outputUser.id = gameU.id
+            outputUser.nickName = gameU.springUser.nickname
+            outputUser.openid = gameU.springUser.openid
+            outputUser.headimgurl = gameU.springUser.headimgurl
+            outputUser.unionid = gameU.springUser.unionid
+            outputUser.userCode = gameU.springUser.userCode
+            def onlineUser2 = OnlineUser.findBySpringUser(gameU.springUser)
+            if (onlineUser2) {
+                outputUser.publicIp = onlineUser2.publicIPAddress
+            } else {
+                outputUser.publicIp = "no found"
+            }
+
+            outputUser.paiList = ""
+            outputUser.gameRoundScore = gameU.gameRoundScore
+            outputUser.gameScoreCount = gameU.gameScoreCount
+            outputUser.gameReadyStatu = gameU.gameReadyStatu
+            outputUser.headImageFileName = gameU.headImageFileName
+
+
+
+    }
+
     //------------login user by code----------------------------
 
-    def loginUserByCode(code) {
+    def loginUserByCode(code,pulicIp) {
         grant_type = "authorization_code";
         def url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + appid + "&secret=" + appSecrect + "&code=" + code + "&grant_type=" + grant_type;
         def springUser
@@ -41,8 +73,10 @@ class UserService {
             if(jsonString.contains("errcode")){
                 println "Web chat login error:"+jsonString;
             }else{
+                println "jsonString:"+jsonString
                 WebChatTokenObj userAuthObj=JSON.parse(jsonString);
                 springUser=createNewSpringUserOrUpdate(userAuthObj)
+                springUser=createNewSpringUserOrUpdateUserInfo(springUser.openid)
             }
 
 
@@ -50,7 +84,13 @@ class UserService {
         }else{
 
         }
-        return springUser
+        def s=""
+        if(springUser){
+            s=getUserInfoFromSpringUserBySpringUser(springUser,pulicIp)
+        }
+
+
+        return s
 
 
     }
@@ -61,14 +101,24 @@ class UserService {
         if (openid) {
             springUser= SpringUser.findByOpenid(openid)
             if (!springUser) {
-                springUser = new SpringUser()
-                new SpringUser(username: userName, password: 'password', city: "", country: "CN", language: "chinese",
+                springUser = new SpringUser(username: "", password: 'password%^', city: "", country: "CN", language: "chinese",
                         nickname: "", openid: openid, province: "", headimgurl: "", unionid: "", access_token: "",
                         refresh_token: "", userCode: "")
             }
 
-            springUser.refresh_token = userAuthObject.refreshToken;
-            springUser.access_token = userAuthObject.authToken
+            springUser.userCode=getUserCode()
+            springUser.username=openid
+            springUser.userType=""
+            springUser.headImageFileName=""
+            springUser.headimgurl=""
+            springUser.unionid=""
+            springUser.city=""
+            springUser.password="password%^"
+            springUser.province=""
+            springUser.nickname=""
+            springUser.country=""
+            springUser.refresh_token = userAuthObject.refresh_token;
+            springUser.access_token = userAuthObject.access_token
             springUser.save(flush: true, failOnError: true)
         }
         return springUser
@@ -78,17 +128,60 @@ class UserService {
 
         def springUser
             if (openid) {
+
                 springUser = SpringUser.findByOpenid(openid)
-                springUser.nickname = userInfo.nickname
-                springUser.sex = userInfo.sex
-                springUser.province = userInfo.province
-                springUser.city = userInfo.city
-                springUser.country = userInfo.country
-                springUser.headimgurl = userInfo.headimgurl
-                springUser.save(flush: true, failOnError: true)
+                if(springUser){
+                    def url = "https://api.weixin.qq.com/sns/userinfo?access_token="+springUser.access_token+"&openid="+springUser.openid
+
+                    def jsonString = new URL(url).getText()
+                    if(jsonString) {
+
+                        WXUserInfo userInfo=JSON.parse(jsonString);
+                        springUser.nickname = userInfo.nickname
+                        springUser.sex = userInfo.sex
+                        springUser.province = userInfo.province
+                        springUser.city = userInfo.city
+                        springUser.country = userInfo.country
+                        springUser.headimgurl = userInfo.headimgurl
+                        springUser.save(flush: true, failOnError: true)
+                    }
+                }
+
             }
 
         return springUser
+
+    }
+
+
+    def refreshTokenByOpenid(openid,publicIp){
+        def springUser
+        if (openid) {
+
+            springUser = SpringUser.findByOpenid(openid)
+            if (springUser) {
+                def url = "https://api.weixin.qq.com/sns/oauth2/refresh_token?appid="+appid+"&grant_type=refresh_token&refresh_token="+springUser.refresh_token
+                println "refreshTokenByOpenid url:"+url
+                def jsonString = new URL(url).getText()
+                if(jsonString) {
+                    WebChatTokenObj userAuthObj=JSON.parse(jsonString);
+                    //TODO check if change ,no change ,no store
+                    springUser.access_token=userAuthObj.access_token
+                    springUser.refresh_token=userAuthObj.refresh_token
+                    //TODO referesh user info from webchat server in here
+                    springUser.save(flush: true, failOnError: true)
+                }
+            }
+        }
+
+        def s=""
+        if(springUser){
+            s=getUserInfoFromSpringUserBySpringUser(springUser,publicIp)
+        }
+
+
+        return s
+        //https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=APPID&grant_type=refresh_token&refresh_token=REFRESH_TOKEN
 
     }
 
@@ -522,6 +615,67 @@ class UserService {
 
     def removeOnlineUser(def userOpenId) {
 
+    }
+
+    def getUserInfoFromSpringUserBySpringUser(SpringUser springUser, def publicIp) {
+       def  onlineUser = OnlineUser.findBySpringUser(springUser)
+        if (!onlineUser) {
+            onlineUser = new OnlineUser()
+        }
+
+        onlineUser.springUser = springUser
+
+        onlineUser.onlineTime = new Date()
+        onlineUser.roomNumber = gameRoomNumberService.getRandomRoomNumber()
+        onlineUser.publicIPAddress = publicIp
+        onlineUser.save(flush: true, failOnError: true)
+        //update login info record
+        def userLoginInfo = new LoingUserInfo()
+        userLoginInfo.ipAddress = publicIp
+        userLoginInfo.loginTime = new Date()
+
+
+        def userOpenid = springUser.openid
+        def url=springUser.headimgurl
+        //if (!noOnlineUser.headImageFileName) {
+        def headImageName = getHeadImage(url, userOpenid)
+        if (headImageName) {
+            springUser.headImageFileName = headImageName
+        }
+        springUser.addToLoginUserInfo(userLoginInfo)
+        springUser.save(flush: true, failOnError: true)
+
+
+
+        UserInfo userInfo = new UserInfo()
+        userInfo.publicIPAddress = onlineUser.publicIPAddress
+        userInfo.id = onlineUser.springUser.id
+        userInfo.city = onlineUser.springUser.city
+        userInfo.country = onlineUser.springUser.country
+        userInfo.language = onlineUser.springUser.language
+        userInfo.nickName = onlineUser.springUser.nickname
+        userInfo.openid = onlineUser.springUser.openid
+        userInfo.province = onlineUser.springUser.province
+        userInfo.headimgurl = onlineUser.springUser.headimgurl
+        userInfo.unionid = onlineUser.springUser.unionid
+        userInfo.sex = onlineUser.springUser.sex
+        userInfo.diamondsNumber = onlineUser.springUser.diamondsNumber
+        userInfo.gameCount = onlineUser.springUser.gameCount
+        userInfo.winCount = onlineUser.springUser.winCount
+        userInfo.agentLevel = onlineUser.springUser.agentLevel
+        userInfo.userCode = onlineUser.springUser.userCode
+        userInfo.userType = onlineUser.springUser.userType
+        userInfo.roomNumber = onlineUser.roomNumber
+        if (springUser.headImageFileName) {
+            userInfo.headImageFileName = springUser.headImageFileName
+        } else {
+            userInfo.headImageFileName = ""
+        }
+
+
+
+        def s = new JsonBuilder(userInfo).toPrettyString()
+        return s
     }
 
     def getUserInfoFromSpringUserByCode(String userCode, def publicIp) {

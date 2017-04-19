@@ -28,6 +28,20 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
+
+        //-----------------------
+        cc.game.on(cc.game.EVENT_HIDE, function () {
+            // cc.audioEngine.pauseMusic();
+            // cc.audioEngine.pauseAllEffects();
+            
+            cc.game.pause();
+        });
+        cc.game.on(cc.game.EVENT_SHOW, function () {
+            // cc.audioEngine.pauseMusic();
+            // cc.audioEngine.pauseAllEffects();
+
+            cc.game.resume();
+        });
         messageScript = this.messageNode.getComponent("alertMessagePanle");
         //window.iniIndex = require("iniIndex");
         //webchat head img test-------------------------------
