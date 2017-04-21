@@ -25,4 +25,5 @@ class UserInfo {
     String publicIPAddress
     String roomNumber
     String headImageFileName
+    String webChatUserCode
 }

@@ -75,7 +75,7 @@ class UserService {
             }else{
                 println "jsonString:"+jsonString
                 WebChatTokenObj userAuthObj=JSON.parse(jsonString);
-                springUser=createNewSpringUserOrUpdate(userAuthObj)
+                springUser=createNewSpringUserOrUpdate(userAuthObj,code)
                 springUser=createNewSpringUserOrUpdateUserInfo(springUser.openid)
             }
 
@@ -95,7 +95,7 @@ class UserService {
 
     }
     //---------spring user create or update --------------------
-    def createNewSpringUserOrUpdate(WebChatTokenObj userAuthObject) {
+    def createNewSpringUserOrUpdate(WebChatTokenObj userAuthObject,String code) {
         def openid = userAuthObject.openid
         def springUser
         if (openid) {
@@ -107,6 +107,7 @@ class UserService {
             }
 
             springUser.userCode=getUserCode()
+            springUser.webChatUserCode=code
             springUser.username=openid
             springUser.userType=""
             springUser.headImageFileName=""
@@ -666,6 +667,7 @@ class UserService {
         userInfo.userCode = onlineUser.springUser.userCode
         userInfo.userType = onlineUser.springUser.userType
         userInfo.roomNumber = onlineUser.roomNumber
+        userInfo.webChatUserCode=onlineUser.springUser.webChatUserCode;
         if (springUser.headImageFileName) {
             userInfo.headImageFileName = springUser.headImageFileName
         } else {

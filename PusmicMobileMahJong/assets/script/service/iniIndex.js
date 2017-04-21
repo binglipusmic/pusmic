@@ -102,22 +102,23 @@ cc.Class({
 
                         //user login success ,go to game main sence
                         //cc.director.loadScene('table');
-                        client.disconnect();
-                        client = null;
-                        //
-                        var userCode = cc.sys.localStorage.setItem('webChatCode');
 
-                        if (userCode == obj.userCode) {
+                        //
+                        var userCode = cc.sys.localStorage.getItem('webChatCode');
+                        console.log("user code equ:" + userCode);
+                        console.log("obj user code equ:" + obj.webChatUserCode);
+                        if (userCode == obj.webChatUserCode) {
+                            client.disconnect();
+                            client = null;
                             gameActionListGet.enterMainEntry("1");
                             gameActionListGet.showUserNickNameAndCode();
                             gameActionListGet.closeLoadingIcon();
-                            console.log("user code equ:" + userCode);
-                            console.log("obj user code equ:" + obj.userCode);
+
                             //get location 
 
                             if (cc.sys.os == cc.sys.OS_IOS) {
-                                console.log("ios platam:" );
-                                isinstall = jsb.reflection.callStaticMethod('LocationFunc', 'getCurrentLocation');
+                                console.log("ios platam:");
+                                jsb.reflection.callStaticMethod('LocationFunc', 'getCurrentLocation');
 
                             }
                         }
@@ -348,7 +349,8 @@ cc.Class({
         var grant_type = "authorization_code";
         var nowDate = new Date();
         nowDate = this.dateFormat(nowDate);
-
+        console.log("getRequstTokenByCode:" + code);
+        console.log("getRequstTokenByCode nowDate:" + nowDate);
         //if (errorCode + "" == "0") {
         cc.sys.localStorage.setItem('authLoginTime', nowDate);
         cc.sys.localStorage.setItem('webChatCode', code);

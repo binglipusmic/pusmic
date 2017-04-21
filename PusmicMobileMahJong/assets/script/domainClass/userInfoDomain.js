@@ -22,6 +22,7 @@ const userInfoDomain =
       gameRoundScore:"",
       gameScoreCount:"",
       headImageFileName:"",
+      webChatUserCode:"",
       //gameingStatu:"",
     }
 module.exports = {
