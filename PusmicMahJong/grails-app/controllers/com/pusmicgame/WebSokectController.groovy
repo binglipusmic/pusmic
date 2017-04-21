@@ -21,7 +21,7 @@ class WebSokectController {
 
     @MessageMapping("/user_private_message")
     protected String user_private_message(String message, @Headers Map<String, Object> headers) {
-        println "userResiveMessage:@@@@@@@@@@@@@@@@@@@@@@@@:${message}"
+        //println "userResiveMessage:@@@@@@@@@@@@@@@@@@@@@@@@:${message}"
         MessageDomain messageJsonObj = JSON.parse(message);
         // println "userResiveMessage:"+messageJsonObj.messageAction
         //closeGameRoundLun
@@ -172,6 +172,33 @@ class WebSokectController {
             println "zhuangJiaChuPai1:" + obj.peopleCount.toString()
 
 
+        }
+        //-------------------Audio message----------------------
+        //sendMp3Message
+        if (messageJsonObj.messageAction.equals("sendMp3Message")) {
+            def obj = JSON.parse(messageJsonObj.messageBody);
+            def audioMessage =obj.audioMessage
+            def userCode=obj.userCode
+            audioMessage.replaceAll("\r", "")
+            audioMessage.replaceAll("\n", "")
+        //    byte[] decoded = audioMessage.decodeBase64()
+       //     def date=new Date().getTime().toString()
+       //     def fileName=userCode+date+".mp3"
+      //      fileName="out/AudioMessage/"+fileName
+
+//            new File(fileName).withOutputStream {
+//                it.write(decoded);
+//            }
+
+
+
+            MessageDomain newMessageObj = new MessageDomain()
+            newMessageObj.messageBelongsToPrivateChanleNumber = messageJsonObj.messageBelongsToPrivateChanleNumber
+            newMessageObj.messageAction = "playMp3Message"
+            newMessageObj.messageBody = audioMessage
+            newMessageObj.messageType = userCode
+            def s2 = new JsonBuilder(newMessageObj).toPrettyString()
+            websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)
         }
 
         //--------------------Game Action-----------------------

@@ -1,3 +1,4 @@
+var tableNetWorkScript;
 cc.Class({
     extends: cc.Component,
 
@@ -13,6 +14,10 @@ cc.Class({
         // },
         // ...
         micButtonNode: cc.Node,
+        micPicNode: cc.Node,
+        micProcessNode: cc.Node,
+
+        tableNetWorkNode:cc.Node,
     },
 
     // use this for initialization
@@ -28,6 +33,9 @@ cc.Class({
 
         this.micButtonNode.on(cc.Node.EventType.TOUCH_START, this.startRecored, this);
         this.micButtonNode.on(cc.Node.EventType.TOUCH_END, this.stopRecord, this);
+
+
+
         //var button = this.micButtonNode.getComponent(cc.Button);
         //button.clickEvents.push(clickEventHandler);
         if (cc.sys.isNative) {
@@ -38,8 +46,13 @@ cc.Class({
 
     },
 
+    setProcessBar: function (number) {
+        var processBar = this.micProcessNode.getComponent(cc.ProgressBar);
+        processBar.progress = number;
+    },
 
     startRecored: function (event) {
+        this.micPicNode.active = true;
         cc.audioEngine.pauseAll();
         //cc.audioEngine.pauseAllEffects();
         if (cc.sys.isNative) {
@@ -53,6 +66,10 @@ cc.Class({
 
     stopRecord: function (event) {
         cc.audioEngine.resumeAll();
+        this.micPicNode.active = false;
+        var processBar = this.micProcessNode.getComponent(cc.ProgressBar);
+        processBar.progress = 0;
+
         if (cc.sys.isNative) {
             if (cc.sys.os == cc.sys.OS_IOS) {
                 var isinstall = jsb.reflection.callStaticMethod('AudioFunc', 'stopRecord');

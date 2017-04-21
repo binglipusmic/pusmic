@@ -394,6 +394,13 @@ cc.Class({
 
                 }
 
+                //-------------Play Audio message------------------------------
+                if (messageDomain.messageAction == "playMp3Message") {
+                    var mp3MessageBase64Encode = messageDomain.messageBody;
+                    if (cc.sys.os == cc.sys.OS_IOS) {
+                        var isinstall = jsb.reflection.callStaticMethod('AudioFunc', 'saveEncodeBase64toMp3:title:', mp3MessageBase64Encode, "");
+                    }
+                }
                 if (messageDomain.messageAction == "endGameRoundLun") {
                 }
                 if (messageDomain.messageAction == "endGameRoundAndStartNewRound") {
@@ -879,10 +886,10 @@ cc.Class({
 
     },
     //-------------------------------chu pai action---------------------------------------------
-    sendUserAuthTokenAndRefreshTokenToServer:function(authToken,refreshToken,openid){
-        
+    sendUserAuthTokenAndRefreshTokenToServer: function (authToken, refreshToken, openid) {
+
     },
- 
+
     sendRoundScoreToServer: function (user) {
         var joinRoomNumber = Global.joinRoomNumber;
         var o = new Object();
@@ -1282,7 +1289,17 @@ cc.Class({
 
 
     },
-
+    //-------------------send Audio message -----------------------------------------------
+    sendAudioMessage: function (mp3Base64EncodeString) {
+        var joinRoomNumber = Global.joinRoomNumber;
+        userInfo = Global.userInfo;
+        var userCode = userInfo.userCode;
+        var o = new Object();
+        o.audioMessage = mp3Base64EncodeString;
+        o.userCode = userCode;
+        var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "sendMp3Message");
+        this.sendMessageToServer(messageObj);
+    },
     //-------------------send huan sanzhang -----------------------------------------------
     //Global.huanSanZhangPaiList
     sendHuanSanZhang: function () {

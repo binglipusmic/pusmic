@@ -23,6 +23,7 @@ cc.Class({
         gameActionList: cc.Node,
         checkOnlineUser: cc.Node,
         messageNode: cc.Node,
+       
 
     },
 
@@ -33,13 +34,14 @@ cc.Class({
         cc.game.on(cc.game.EVENT_HIDE, function () {
             // cc.audioEngine.pauseMusic();
             // cc.audioEngine.pauseAllEffects();
-            
+           // cc.eventManager.removeCustomListeners(cc.game.EVENT_HIDE);
             cc.game.pause();
         });
         cc.game.on(cc.game.EVENT_SHOW, function () {
             // cc.audioEngine.pauseMusic();
             // cc.audioEngine.pauseAllEffects();
 
+           
             cc.game.resume();
         });
         messageScript = this.messageNode.getComponent("alertMessagePanle");

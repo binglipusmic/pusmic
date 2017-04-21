@@ -12,7 +12,7 @@
   "mergeStartScene": false,
   "oauthLoginServer": "",
   "orientation": {
-    "landscapeLeft": true,
+    "landscapeLeft": false,
     "landscapeRight": true,
     "portrait": false,
     "upsideDown": false
