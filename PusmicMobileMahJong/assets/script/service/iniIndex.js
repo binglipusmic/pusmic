@@ -23,7 +23,7 @@ cc.Class({
         gameActionList: cc.Node,
         checkOnlineUser: cc.Node,
         messageNode: cc.Node,
-       
+
 
     },
 
@@ -34,14 +34,14 @@ cc.Class({
         cc.game.on(cc.game.EVENT_HIDE, function () {
             // cc.audioEngine.pauseMusic();
             // cc.audioEngine.pauseAllEffects();
-           // cc.eventManager.removeCustomListeners(cc.game.EVENT_HIDE);
+            // cc.eventManager.removeCustomListeners(cc.game.EVENT_HIDE);
             cc.game.pause();
         });
         cc.game.on(cc.game.EVENT_SHOW, function () {
             // cc.audioEngine.pauseMusic();
             // cc.audioEngine.pauseAllEffects();
 
-           
+
             cc.game.resume();
         });
         messageScript = this.messageNode.getComponent("alertMessagePanle");
@@ -84,6 +84,7 @@ cc.Class({
                     for (var p in obj) {
                         userInfo[p] = obj[p]
                     }
+
                     //************we must check user in here*******************************
                     //NEED TO DO ********************
 
@@ -103,9 +104,23 @@ cc.Class({
                         //cc.director.loadScene('table');
                         client.disconnect();
                         client = null;
-                        gameActionListGet.enterMainEntry("1");
-                        gameActionListGet.showUserNickNameAndCode();
-                        gameActionListGet.closeLoadingIcon();
+                        //
+                        var userCode = cc.sys.localStorage.setItem('webChatCode');
+
+                        if (userCode == obj.userCode) {
+                            gameActionListGet.enterMainEntry("1");
+                            gameActionListGet.showUserNickNameAndCode();
+                            gameActionListGet.closeLoadingIcon();
+                            console.log("user code equ:" + userCode);
+                            console.log("obj user code equ:" + obj.userCode);
+                            //get location 
+
+                            if (cc.sys.os == cc.sys.OS_IOS) {
+                                console.log("ios platam:" );
+                                isinstall = jsb.reflection.callStaticMethod('LocationFunc', 'getCurrentLocation');
+
+                            }
+                        }
                     }
                 } else {
 
@@ -244,7 +259,10 @@ cc.Class({
 
         var nowTime = new Date();
         cc.log("nowTime 218:" + nowTime);
-        var isinstall = jsb.reflection.callStaticMethod('WXApiManager', 'isWXInstalled');
+        var isinstall = false;
+        if (cc.sys.os == cc.sys.OS_IOS) {
+            isinstall = jsb.reflection.callStaticMethod('WXApiManager', 'isWXInstalled');
+        }
         cc.log("isinstall:" + isinstall);
         if (isinstall) {
             //check openid if in the client
@@ -263,7 +281,9 @@ cc.Class({
 
             if (reLoginFlag) {
                 //open webchat to auth user
-                jsb.reflection.callStaticMethod('WXApiManager', 'sendAuthRequestWX');
+                if (cc.sys.os == cc.sys.OS_IOS) {
+                    jsb.reflection.callStaticMethod('WXApiManager', 'sendAuthRequestWX');
+                }
             } else {
                 //refresh auth token again.
                 var openid = cc.sys.localStorage.getItem('userOpenId');
