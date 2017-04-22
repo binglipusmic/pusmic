@@ -513,6 +513,28 @@ class UserService {
         return flag
 
     }
+
+    def updateUserLocation(MessageDomain messageDomain){
+        def obj = JSON.parse(messageDomain.messageBody)
+        def openid = obj.openid
+        def longitude=Double.parseDouble(obj.longitude)
+        def latitude=Double.parseDouble(obj.latitude)
+        if (openid) {
+            def
+            SpringUser user = SpringUser.findByOpenid(openid)
+            if (user) {
+                def loginInfo=user.loginUserInfo.last()
+                if(loginInfo){
+                    loginInfo.longitude=longitude
+                    loginInfo.latitude=latitude
+                    loginInfo.save(flush: true, failOnError: true)
+                }
+
+            }
+        }
+        return true
+    }
+
     /**
      * Change the user status
      * @param messageDomain

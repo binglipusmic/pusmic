@@ -146,6 +146,13 @@ class WebSokectController {
                 websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)
             }
         }
+        //update user location
+
+        if (messageJsonObj.messageAction.equals("updateLocation")) {
+            def flag = userService.updateUserLocation(messageJsonObj)
+
+
+        }
 
         //quepai only send
 
@@ -256,9 +263,10 @@ class WebSokectController {
                 websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)
 //checkRoundEnd
             } else if (obj.actionName == "checkRoundEnd") {
+                //this should check the lun round if end
                 if (gameRoundLunService.checkGameRounDone(messageJsonObj)) {
-
-                    def s2 = new JsonBuilder(newMessageObj).toPrettyString()
+                    messageJsonObj.messageAction = "endGameRoundLun"
+                    def s2 = new JsonBuilder(messageJsonObj).toPrettyString()
                     websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)
                 } else {
                     messageJsonObj.messageAction = "endGameRoundAndStartNewRound"
