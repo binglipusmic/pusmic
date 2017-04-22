@@ -51,6 +51,9 @@ const gameUser =
       tingJiao:"",
       maxFanShu:0,
 
+      longitude:0.0,
+      latitude:0.0,
+
       //gameingStatu:"",
     }
 module.exports = {

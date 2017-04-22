@@ -29,6 +29,12 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
+        //------------
+        if (cc.sys.os == cc.sys.OS_IOS) {
+            console.log("ios platam:");
+            jsb.reflection.callStaticMethod('LocationFunc', 'initalLocation');
+
+        }
 
         //-----------------------
         cc.game.on(cc.game.EVENT_HIDE, function () {
@@ -79,67 +85,74 @@ cc.Class({
                 var bodyStr = message.body;
                 cc.log("######################");
                 cc.log(bodyStr);
-                var obj = JSON.parse(bodyStr);
-                if (obj != undefined && obj != null) {
-                    for (var p in obj) {
-                        userInfo[p] = obj[p]
-                    }
-
-                    //************we must check user in here*******************************
-                    //NEED TO DO ********************
-
-                    if (Global.userInfo == null || Global.userInfo == undefined) {
-
-
-                        console.log("userInfo.nickname:" + userInfo.nickName);
-                        console.log("userInfo.headImageFileName:" + userInfo.headImageFileName);
-                        cc.sys.localStorage.setItem('userOpenId', userInfo.openid);
-                        Global.userInfo = userInfo;
-                        //update the user public ip from url call
-                        //self.updateUserIP(userInfo.id);
-                        //
-                        //self.initalPrivateChanleForUser(userInfo.roomNumber);
-
-                        //user login success ,go to game main sence
-                        //cc.director.loadScene('table');
-
-                        //
-                        var userCode = cc.sys.localStorage.getItem('webChatCode');
-                        console.log("user code equ:" + userCode);
-                        console.log("obj user code equ:" + obj.webChatUserCode);
-                        if (userCode == obj.webChatUserCode) {
-                            client.disconnect();
-                            client = null;
-                            gameActionListGet.enterMainEntry("1");
-                            gameActionListGet.showUserNickNameAndCode();
-                            gameActionListGet.closeLoadingIcon();
-
-                            //get location 
-
-                            if (cc.sys.os == cc.sys.OS_IOS) {
-                                console.log("ios platam:");
-                                jsb.reflection.callStaticMethod('LocationFunc', 'getCurrentLocation');
-
-                            }
-                        }
-                    }
+                if (bodyStr.length == 0) {
+                    this.reforceLogin();
                 } else {
 
-                    console.log("No found correct user info return from server ,please check .");
+
+                    var obj = JSON.parse(bodyStr);
+                    if (obj != undefined && obj != null) {
+                        for (var p in obj) {
+                            userInfo[p] = obj[p]
+                        }
+
+                        //************we must check user in here*******************************
+                        //NEED TO DO ********************
+
+                        if (Global.userInfo == null || Global.userInfo == undefined) {
+
+
+                            console.log("userInfo.nickname:" + userInfo.nickName);
+                            console.log("userInfo.headImageFileName:" + userInfo.headImageFileName);
+                            cc.sys.localStorage.setItem('userOpenId', userInfo.openid);
+                            Global.userInfo = userInfo;
+                            //update the user public ip from url call
+                            //self.updateUserIP(userInfo.id);
+                            //
+                            //self.initalPrivateChanleForUser(userInfo.roomNumber);
+
+                            //user login success ,go to game main sence
+                            //cc.director.loadScene('table');
+
+                            //
+                            var userCode = cc.sys.localStorage.getItem('webChatCode');
+                            console.log("user code equ:" + userCode);
+                            console.log("obj user code equ:" + obj.webChatUserCode);
+                            if (userCode == obj.webChatUserCode) {
+                                client.disconnect();
+                                client = null;
+                                gameActionListGet.enterMainEntry("1");
+                                gameActionListGet.showUserNickNameAndCode();
+                                gameActionListGet.closeLoadingIcon();
+
+                                //get location 
+
+                                if (cc.sys.os == cc.sys.OS_IOS) {
+                                    console.log("ios platam:");
+                                    jsb.reflection.callStaticMethod('LocationFunc', 'getCurrentLocation');
+
+                                }
+                            }
+                        }
+                    } else {
+
+                        console.log("No found correct user info return from server ,please check .");
+                    }
                 }
 
                 //self.testLabel.string = message.body;
                 //$("#helloDiv").append(message.body);
 
                 //cc.director.loadScene('gameMain2');
-            }, function () {
+            }.bind(this), function () {
                 cc.log("websocket connect subscribe Error:233");
                 //client.disconnect();
             });
-        }, function () {
+        }.bind(this), function () {
             cc.log("websocket connect  Error:234");
             //client.disconnect();
         });
+
 
         //onlineCheckUser.client = client;
         onlineCheckUser.checkonlineUser(client);
@@ -248,6 +261,36 @@ cc.Class({
         var headers = {};
         client.connect(headers, function () { });
         //return client
+    },
+
+    reforceLogin: function () {
+        var nowTime = new Date();
+        cc.log("nowTime 218:" + nowTime);
+        var isinstall = false;
+        if (cc.sys.os == cc.sys.OS_IOS) {
+            isinstall = jsb.reflection.callStaticMethod('WXApiManager', 'isWXInstalled');
+        }
+
+        if (isinstall) {
+            //check openid if in the client
+            var authLoginTime = cc.sys.localStorage.getItem("authLoginTime");
+            var reLoginFlag = false;
+         
+            cc.log("reLoginFlag:" + reLoginFlag);
+
+
+            //open webchat to auth user
+            if (cc.sys.os == cc.sys.OS_IOS) {
+                jsb.reflection.callStaticMethod('WXApiManager', 'sendAuthRequestWX');
+            }
+
+        }
+        else {
+            specialModule._loginfun = null;
+            messageScript.text = "未安装微信!";
+            messageScript.setTextOfPanel();
+            cc.log('未安装微信!');
+        }
     },
 
     sendUserCode: function () {

@@ -12,12 +12,12 @@
   "mergeStartScene": false,
   "oauthLoginServer": "",
   "orientation": {
-    "landscapeLeft": false,
+    "landscapeLeft": true,
     "landscapeRight": true,
     "portrait": false,
     "upsideDown": false
   },
-  "packageName": "com.pusmicgame.mahjong",
+  "packageName": "com.pusmicgame.mahjongGame",
   "privateKey": "",
   "renderMode": "0",
   "startScene": "d5ab33a1-b0e1-4ea6-ad7c-7c7978faa6a5",

@@ -121,6 +121,9 @@ cc.Class({
                 o.userMoPai = "37";
                 userInfo.openid = "testUser" + 3;
                 userInfo.nickName = "testUser" + 3;
+                if(i==3){
+                    o.zhuang="1";
+                }
             } else if (initalType == "test2") {
                 userInfo.openid = "testUser" + 2;
                 userInfo.nickName = "testUser" + 2;
@@ -129,9 +132,15 @@ cc.Class({
                 } else {
                     o.pointIndex = 1
                 }
+                 if(i==2){
+                    o.zhuang="1";
+                }
             } else if (initalType == "test1") {
                 userInfo.nickName = "testUser" + 1;
                 userInfo.openid = "testUser" + 1;
+                 if(i==4){
+                    o.zhuang="1";
+                }
                 if (i < 3) {
                     o.pointIndex = i + 2;
                 } else if (i == 3) {
@@ -142,6 +151,9 @@ cc.Class({
             } else if (initalType == "test4") {
                 userInfo.nickName = "testUser" + 4;
                 userInfo.openid = "testUser" + 4;
+                 if(i==4){
+                    o.zhuang="1";
+                }
                 if (i == 1) {
                     o.pointIndex = 4;
                 } else {
@@ -154,9 +166,9 @@ cc.Class({
             o.headImageFileName = "1";
 
             if (i == 0) {
-                o.zhuang = "1";
+               // o.zhuang = "1";
             } else {
-                o.zhuang = "0";
+               // o.zhuang = "0";
                 if (i == 2) {
                     o.userMoPai = "22";
                 }
@@ -284,7 +296,7 @@ cc.Class({
         //inital the test data
         //**********Test */
         if (initalType != "inital") {
-            this.testInitalUserList(initalType);
+            //this.testInitalUserList(initalType);
         }
 
         //iniIndexScript.sendUserCode();
@@ -323,9 +335,24 @@ cc.Class({
                 if (user.pointIndex != "3") {
                     eval("this.userInfo" + user.pointIndex + ".active = true");
                     this.fixUserPointByIndex(user.pointIndex);
+                    var userNodeName="user"+user.pointIndex+"Node";
+                    var userNode=cc.find(userNodeName,this.tableNode);
+                     var userInfoNode=cc.find("userInfoNode",userNode);
+                     var userZhuangSpriteNode=cc.find("userZhuangSprite",userInfoNode);
+                    if(user.zhuang=="1"){
+                        userZhuangSpriteNode.active=true;
+                    }else{
+                        userZhuangSpriteNode.active=false;
+                    }
 
                 } else {
                     eval("this.userInfo" + user.pointIndex + ".active = false");
+                    var  userSlefZhuangImageNode=cc.find("userselfZhuangSprite",this.tableNode);
+                    if(user.zhuang=="1"){
+                        userSlefZhuangImageNode.active=true;
+                    }else{
+                        userSlefZhuangImageNode.active=false;
+                    }
                 }
 
                 var paiList = user.paiList;
@@ -358,7 +385,7 @@ cc.Class({
         Global.userList = userList;
         if (type != "joinExist") {
             //show huanPaiScript
-            //huanPaiScript.showHuanPaiNode();
+            huanPaiScript.showHuanPaiNode();
         }
 
 

@@ -402,6 +402,13 @@ cc.Class({
                     }
                 }
                 if (messageDomain.messageAction == "endGameRoundLun") {
+                    this.countUserRoundScore();
+                    this.testScoreOutput();
+                    var userInfo = Global.userInfo;
+                    var currentUser = this.getCurreentUserByOpenId(userInfo.openid);
+                    this.sendRoundScoreToServer(currentUser);
+                    roundScoreScript.initalRoundScore();
+                    roundScoreScript.endLunFlag="1";
                 }
                 if (messageDomain.messageAction == "endGameRoundAndStartNewRound") {
                     //messageScript
@@ -411,6 +418,7 @@ cc.Class({
                     var currentUser = this.getCurreentUserByOpenId(userInfo.openid);
                     this.sendRoundScoreToServer(currentUser);
                     roundScoreScript.initalRoundScore();
+                     roundScoreScript.endLunFlag="0";
                 }
                 //--------------------------------------Game Action  -----------------------------------------------
                 if (messageDomain.messageAction == "gameAction") {
@@ -871,6 +879,9 @@ cc.Class({
     subscribeToPrivateChanel: function (thisRooNumber) {
         client.connect({}, function () {
             this.subscribeToPrivateChanelNoConnetAgain(thisRooNumber);
+            //after reconect ,send the location infomation
+            this.sendLocationInfoToServer();
+            
         }.bind(this), function () {
             cc.log("websocket connect  Error:234");
             //client.disconnect();
@@ -885,9 +896,30 @@ cc.Class({
         }
 
     },
+    //-------------------------------save location to user info -----------------
+    saveLocationInfoToGobalInfo: function (longitude, latitude) {
+        var userInfo = Global.userInfo;
+
+        userInfo.longitude = longitude;
+        userInfo.latitude = latitude;
+        Global.userInfo = userInfo;
+
+    },
     //-------------------------------chu pai action---------------------------------------------
     sendUserAuthTokenAndRefreshTokenToServer: function (authToken, refreshToken, openid) {
 
+    },
+
+    sendLocationInfoToServer: function () {
+
+        var joinRoomNumber = Global.joinRoomNumber;
+        var userInfo = Global.userInfo;
+        var o = new Object();
+        o.openid = userInfo.openid;
+        o.longitude = userInfo.longitude;
+        o.latitude = userInfo.latitude;
+        var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "updateLocation");
+        this.sendMessageToServer(messageObj);
     },
 
     sendRoundScoreToServer: function (user) {

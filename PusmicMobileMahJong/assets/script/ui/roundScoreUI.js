@@ -20,6 +20,7 @@ cc.Class({
         userInfoNode: cc.Node,
         gameConfigButtonListNode: cc.Node,
         tableNetWorkNode: cc.Node,
+        endLunFlag: "0",
 
     },
 
@@ -112,11 +113,15 @@ cc.Class({
         userInfoScript.cleanTable();
         //2.GUI
         //gameConfigButtonScript.showGameTalbe("");
-        userInfoScript.initalUserOnRound();
+        if (this.endLunFlag == "0") {
+            userInfoScript.initalUserOnRound();
 
-        //3 send 
+            //3 send 
 
-        tableNetWorkScript.sendStartNewRound();
+            tableNetWorkScript.sendStartNewRound();
+        }else{
+            this.initalAllRoundScore();
+        }
     }
 
     // called every frame, uncomment this function to activate update callback
