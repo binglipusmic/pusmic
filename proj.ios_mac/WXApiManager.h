@@ -7,7 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 #import "WXApi.h"
+#define BUFFER_SIZE 1024 * 100
+
 
 @protocol WXApiManagerDelegate <NSObject>
 
@@ -34,6 +37,18 @@
 
 @property (nonatomic, assign) id<WXApiManagerDelegate> delegate;
 
+
 + (instancetype)sharedManager;
++ (BOOL)sendMessageToFriend:(NSString *)str title:(NSString *)tit;
++ (BOOL)sendAppContentData:(NSData *)data
+                   ExtInfo:(NSString *)info
+                    ExtURL:(NSString *)url
+                     Title:(NSString *)title
+               Description:(NSString *)description
+                MessageExt:(NSString *)messageExt
+             MessageAction:(NSString *)action
+                ThumbImage:(UIImage *)thumbImage
+                   InScene:(enum WXScene)scene;
+
 
 @end

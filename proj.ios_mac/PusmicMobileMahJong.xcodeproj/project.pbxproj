@@ -60,6 +60,12 @@
 		8772ED141EA127D7002B62A8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8772ED131EA127D7002B62A8 /* CFNetwork.framework */; };
 		8772ED161EA128CC002B62A8 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8772ED151EA128CC002B62A8 /* icon.png */; };
 		8772ED181EA13886002B62A8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8772ED171EA13886002B62A8 /* CoreLocation.framework */; };
+		878771121EA7B9370014B31A /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 878771111EA7B9370014B31A /* CoreAudio.framework */; };
+		878771141EA7B9420014B31A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 878771131EA7B9420014B31A /* AVFoundation.framework */; };
+		8787711D1EA7C9340014B31A /* AudioFunc.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8787711C1EA7C9340014B31A /* AudioFunc.mm */; };
+		878771301EA8FE360014B31A /* IosAudioPlay.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8787712F1EA8FE360014B31A /* IosAudioPlay.mm */; };
+		87B241E41EA9E62000B194CA /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 87B241E31EA9E62000B194CA /* libmp3lame.a */; };
+		87B241E91EAA57A000B194CA /* LocationFunc.mm in Sources */ = {isa = PBXBuildFile; fileRef = 87B241E81EAA57A000B194CA /* LocationFunc.mm */; };
 		A92275421517C094001B78AA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A92275411517C094001B78AA /* QuartzCore.framework */; };
 		A92275441517C094001B78AA /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A92275431517C094001B78AA /* OpenGLES.framework */; };
 		A92275461517C094001B78AA /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A92275451517C094001B78AA /* OpenAL.framework */; };
@@ -210,6 +216,16 @@
 		8772ED131EA127D7002B62A8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
 		8772ED151EA128CC002B62A8 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		8772ED171EA13886002B62A8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
+		878771111EA7B9370014B31A /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/CoreAudio.framework; sourceTree = DEVELOPER_DIR; };
+		878771131EA7B9420014B31A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
+		8787711B1EA7C9340014B31A /* AudioFunc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioFunc.h; path = ios/AudioFunc.h; sourceTree = "<group>"; };
+		8787711C1EA7C9340014B31A /* AudioFunc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AudioFunc.mm; path = ios/AudioFunc.mm; sourceTree = "<group>"; };
+		8787712E1EA8FE360014B31A /* IosAudioPlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IosAudioPlay.h; sourceTree = "<group>"; };
+		8787712F1EA8FE360014B31A /* IosAudioPlay.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IosAudioPlay.mm; sourceTree = "<group>"; };
+		87B241E21EA9E62000B194CA /* lame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lame.h; sourceTree = "<group>"; };
+		87B241E31EA9E62000B194CA /* libmp3lame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmp3lame.a; sourceTree = "<group>"; };
+		87B241E71EAA57A000B194CA /* LocationFunc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocationFunc.h; path = ios/LocationFunc.h; sourceTree = "<group>"; };
+		87B241E81EAA57A000B194CA /* LocationFunc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = LocationFunc.mm; path = ios/LocationFunc.mm; sourceTree = "<group>"; };
 		A922753D1517C094001B78AA /* PusmicMobileMahJong-mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PusmicMobileMahJong-mobile.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A92275411517C094001B78AA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		A92275431517C094001B78AA /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -279,6 +295,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				878771141EA7B9420014B31A /* AVFoundation.framework in Frameworks */,
+				878771121EA7B9370014B31A /* CoreAudio.framework in Frameworks */,
 				8772ED181EA13886002B62A8 /* CoreLocation.framework in Frameworks */,
 				8772ED141EA127D7002B62A8 /* CFNetwork.framework in Frameworks */,
 				8772ED121EA127CE002B62A8 /* CoreTelephony.framework in Frameworks */,
@@ -297,6 +315,7 @@
 				BA4E718119EB6E3F00932425 /* MediaPlayer.framework in Frameworks */,
 				C037820C18BF77C500FE4F13 /* libjscocos2d iOS.a in Frameworks */,
 				ABE457011D35194300F1F400 /* libPluginProtocol.a in Frameworks */,
+				87B241E41EA9E62000B194CA /* libmp3lame.a in Frameworks */,
 				1A676839180E9C1E0076BC67 /* libcocos2d iOS.a in Frameworks */,
 				D6B061241803AB9F0077942B /* CoreMotion.framework in Frameworks */,
 				1A82F5FB169AC92500C4B13A /* libsqlite3.dylib in Frameworks */,
@@ -396,6 +415,8 @@
 		A92275401517C094001B78AA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				878771131EA7B9420014B31A /* AVFoundation.framework */,
+				878771111EA7B9370014B31A /* CoreAudio.framework */,
 				8772ED171EA13886002B62A8 /* CoreLocation.framework */,
 				8772ED131EA127D7002B62A8 /* CFNetwork.framework */,
 				8772ED111EA127CE002B62A8 /* CoreTelephony.framework */,
@@ -450,6 +471,8 @@
 		D45446CC156DE73F00887EB5 /* ios */ = {
 			isa = PBXGroup;
 			children = (
+				87B241E21EA9E62000B194CA /* lame.h */,
+				87B241E31EA9E62000B194CA /* libmp3lame.a */,
 				509D4AAB17EBB2AB00697056 /* AppController.h */,
 				509D4AAC17EBB2AB00697056 /* AppController.mm */,
 				509D4AAD17EBB2AB00697056 /* Default-568h@2x.png */,
@@ -464,9 +487,15 @@
 				5091732E17ECDF8A00D62437 /* Icons */,
 				509D4AB717EBB2AB00697056 /* Info.plist */,
 				509D4AB817EBB2AB00697056 /* main.m */,
+				8787712E1EA8FE360014B31A /* IosAudioPlay.h */,
+				8787712F1EA8FE360014B31A /* IosAudioPlay.mm */,
 				509D4AB917EBB2AB00697056 /* Prefix.pch */,
 				509D4ABA17EBB2AB00697056 /* RootViewController.h */,
 				509D4ABB17EBB2AB00697056 /* RootViewController.mm */,
+				8787711B1EA7C9340014B31A /* AudioFunc.h */,
+				8787711C1EA7C9340014B31A /* AudioFunc.mm */,
+				87B241E71EAA57A000B194CA /* LocationFunc.h */,
+				87B241E81EAA57A000B194CA /* LocationFunc.mm */,
 			);
 			name = ios;
 			sourceTree = "<group>";
@@ -657,6 +686,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				509D4AC917EBB2AB00697056 /* RootViewController.mm in Sources */,
+				878771301EA8FE360014B31A /* IosAudioPlay.mm in Sources */,
+				87B241E91EAA57A000B194CA /* LocationFunc.mm in Sources */,
 				8772ED081EA10745002B62A8 /* WXApiManager.mm in Sources */,
 				AB2EB9E51D34F56100695C92 /* manualanysdkbindings.cpp in Sources */,
 				D4545227156E28EF00887EB5 /* AppDelegate.cpp in Sources */,
@@ -664,6 +695,7 @@
 				AB2EB9E61D34F56100695C92 /* SDKManager.cpp in Sources */,
 				AB2EB9E31D34F56100695C92 /* jsb_anysdk_basic_conversions.cpp in Sources */,
 				509D4AC817EBB2AB00697056 /* main.m in Sources */,
+				8787711D1EA7C9340014B31A /* AudioFunc.mm in Sources */,
 				509D4ABC17EBB2AB00697056 /* AppController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -806,7 +838,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -827,6 +859,7 @@
 					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "-ObjC";
+				PROVISIONING_PROFILE = "74e4c14d-792b-4f50-bc9c-d2b019534515";
 				SDKROOT = iphoneos;
 				STRIP_PNG_TEXT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -839,7 +872,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -859,6 +892,7 @@
 					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "-ObjC";
+				PROVISIONING_PROFILE = "74e4c14d-792b-4f50-bc9c-d2b019534515";
 				SDKROOT = iphoneos;
 				STRIP_PNG_TEXT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";

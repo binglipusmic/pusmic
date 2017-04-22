@@ -1,0 +1,21 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "roundBg",
+    "texture": "5d8a5109-af42-4265-a53b-f95de107807a",
+    "rect": [
+      0,
+      0,
+      1183,
+      160
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      1183,
+      160
+    ]
+  }
+}

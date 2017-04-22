@@ -1,0 +1,21 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "backRoom",
+    "texture": "44c84cd4-dc8e-46c5-aeb2-e745769eea36",
+    "rect": [
+      1,
+      0,
+      376,
+      110
+    ],
+    "offset": [
+      0,
+      0.5
+    ],
+    "originalSize": [
+      378,
+      111
+    ]
+  }
+}

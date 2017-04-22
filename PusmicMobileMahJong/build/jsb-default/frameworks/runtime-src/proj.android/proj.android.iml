@@ -15,5 +15,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="java" />
     <orderEntry type="library" name="wechat-sdk-android-with-mta-1.1.7" level="project" />
+    <orderEntry type="library" name="libPluginProtocol" level="project" />
   </component>
 </module>

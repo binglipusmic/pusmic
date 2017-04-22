@@ -2,8 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
   <dict>
-    <key>CFBundleDevelopmentRegion</key>
-    <string>English</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>请允许乐乐麻将使用你的地理位置</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>乐乐麻将需要定位你的地理位置</string>
     <key>CFBundleDisplayName</key>
     <string>${PRODUCT_NAME}</string>
     <key>CFBundleExecutable</key>
@@ -59,7 +61,7 @@
       </dict>
     </dict>
     <key>CFBundleIdentifier</key>
-    <string>com.pusmicgame.mahjong</string>
+    <string>com.pusmicgame.mahjongGameGame</string>
     <key>CFBundleInfoDictionaryVersion</key>
     <string>6.0</string>
     <key>CFBundleName</key>
@@ -87,6 +89,20 @@
     </array>
     <key>CFBundleVersion</key>
     <string>1.0</string>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>mqqOpensdkSSoLogin</string>
+      <string>sinaweibo</string>
+      <string>mqq</string>
+      <string>mqqapi</string>
+      <string>mqqopensdkapiV3</string>
+      <string>mqqopensdkapiV2</string>
+      <string>mqqapiwallet</string>
+      <string>mqqwpa</string>
+      <string>mqqbrowser</string>
+      <string>weixin</string>
+      <string>wechat</string>
+    </array>
     <key>LSRequiresIPhoneOS</key>
     <true/>
     <key>NSAppTransportSecurity</key>
@@ -111,20 +127,6 @@
     <array>
       <string>UIInterfaceOrientationLandscapeRight</string>
       <string>UIInterfaceOrientationLandscapeLeft</string>
-    </array>
-    <key>LSApplicationQueriesSchemes</key>
-    <array>
-      <string>mqqOpensdkSSoLogin</string>
-      <string>sinaweibo</string>
-      <string>mqq</string>
-      <string>mqqapi</string>
-      <string>mqqopensdkapiV3</string>
-      <string>mqqopensdkapiV2</string>
-      <string>mqqapiwallet</string>
-      <string>mqqwpa</string>
-      <string>mqqbrowser</string>
-      <string>weixin</string>
-      <string>wechat</string>
     </array>
   </dict>
 </plist>

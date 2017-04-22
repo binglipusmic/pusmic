@@ -1,0 +1,21 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "biaoqing14",
+    "texture": "3ddf5272-b40a-467b-bdfb-0674bece1739",
+    "rect": [
+      216,
+      232,
+      63,
+      67
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      63,
+      67
+    ]
+  }
+}

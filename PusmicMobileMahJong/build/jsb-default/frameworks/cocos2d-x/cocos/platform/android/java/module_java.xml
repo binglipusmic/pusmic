@@ -17,32 +17,24 @@
   
   <path id="java.module.production.classpath">
     <path refid="${module.jdk.classpath.java}"/>
-    <path refid="library.com.android.vending.expansion.zipfile.classpath"/>
     <path refid="library.android-async-http-1.4.9.classpath"/>
-    <path refid="library.httpclient-4.4.1.1.classpath"/>
   </path>
   
   <path id="java.runtime.production.module.classpath">
     <pathelement location="${java.output.dir}"/>
-    <path refid="library.com.android.vending.expansion.zipfile.classpath"/>
     <path refid="library.android-async-http-1.4.9.classpath"/>
-    <path refid="library.httpclient-4.4.1.1.classpath"/>
   </path>
   
   <path id="java.module.classpath">
     <path refid="${module.jdk.classpath.java}"/>
     <pathelement location="${java.output.dir}"/>
-    <path refid="library.com.android.vending.expansion.zipfile.classpath"/>
     <path refid="library.android-async-http-1.4.9.classpath"/>
-    <path refid="library.httpclient-4.4.1.1.classpath"/>
   </path>
   
   <path id="java.runtime.module.classpath">
     <pathelement location="${java.testoutput.dir}"/>
     <pathelement location="${java.output.dir}"/>
-    <path refid="library.com.android.vending.expansion.zipfile.classpath"/>
     <path refid="library.android-async-http-1.4.9.classpath"/>
-    <path refid="library.httpclient-4.4.1.1.classpath"/>
   </path>
   
   

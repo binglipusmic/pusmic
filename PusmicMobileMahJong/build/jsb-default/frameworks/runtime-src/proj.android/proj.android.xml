@@ -76,13 +76,7 @@
   
   <path id="library.android-async-http-1.4.9.classpath">
     <pathelement location="${basedir}/../../cocos2d-x/cocos/platform/android/java/libs/android-async-http-1.4.9.jar"/>
-  </path>
-  
-  <path id="library.com.android.vending.expansion.zipfile.classpath">
     <pathelement location="${basedir}/../../cocos2d-x/cocos/platform/android/java/libs/com.android.vending.expansion.zipfile.jar"/>
-  </path>
-  
-  <path id="library.httpclient-4.4.1.1.classpath">
     <pathelement location="${basedir}/../../cocos2d-x/cocos/platform/android/java/libs/httpclient-4.4.1.1.jar"/>
   </path>
   

@@ -1,0 +1,21 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "actionImg_04",
+    "texture": "7ead0a2e-b82e-4f53-b42e-79e46b269492",
+    "rect": [
+      0,
+      8,
+      141,
+      130
+    ],
+    "offset": [
+      -0.5,
+      -3.5
+    ],
+    "originalSize": [
+      142,
+      139
+    ]
+  }
+}

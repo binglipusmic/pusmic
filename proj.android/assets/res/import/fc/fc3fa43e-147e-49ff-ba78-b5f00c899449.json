@@ -1,0 +1,21 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "mic",
+    "texture": "407350b3-f2c7-45db-aa8f-0ab4bdb34af2",
+    "rect": [
+      20,
+      4,
+      87,
+      119
+    ],
+    "offset": [
+      -0.5,
+      0.5
+    ],
+    "originalSize": [
+      128,
+      128
+    ]
+  }
+}

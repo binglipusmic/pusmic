@@ -26,6 +26,19 @@ THE SOFTWARE.
 ****************************************************************************/
 package org.cocos2dx.javascript;
 
+import android.provider.Settings;
+import android.provider.SyncStateContract;
+import android.util.Log;
+import android.widget.Toast;
+import com.tencent.mm.opensdk.constants.ConstantsAPI;
+import com.tencent.mm.opensdk.modelbase.BaseReq;
+import com.tencent.mm.opensdk.modelbase.BaseResp;
+import com.tencent.mm.opensdk.modelmsg.*;
+import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import net.sourceforge.simcpux.wxapi.Util;
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 
@@ -35,13 +48,22 @@ import org.cocos2dx.javascript.SDKWrapper;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import org.cocos2dx.lib.Cocos2dxJavascriptJavaBridge;
 
-public class AppActivity extends Cocos2dxActivity {
+public class AppActivity extends Cocos2dxActivity  {
+
+    private static final String APP_ID="wxc759dfd81a4af8da";
+    static int mTargetScene = SendMessageToWX.Req.WXSceneSession;
+    static IWXAPI api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SDKWrapper.getInstance().init(this);
+
+
+        api= WXAPIFactory.createWXAPI(this,APP_ID,true);
+        api.registerApp(APP_ID);
     }
 	
     @Override
@@ -125,5 +147,80 @@ public class AppActivity extends Cocos2dxActivity {
     protected void onStart() {
         SDKWrapper.getInstance().onStart();
         super.onStart();
+    }
+
+
+
+
+
+
+    //----------------WebChat---------------------------
+    public  static void sendReq(){
+        final SendAuth.Req req = new SendAuth.Req();
+        req.scope = "snsapi_userinfo";
+        req.state = "pusmicGameMajhong";
+        api.sendReq(req);
+        //finish();
+    }
+
+    public static boolean isWXInstalled(){
+        return api.isWXAppInstalled();
+    }
+
+    public static void sendApplicatoinMessage(String roomNumber){
+        final WXAppExtendObject appdata = new WXAppExtendObject();
+        final String path =  "icon_min.png";
+        appdata.fileData = Util.readFromFile(path, 0, -1);
+        appdata.extInfo = "this is ext info";
+
+        final WXMediaMessage msg = new WXMediaMessage();
+        msg.setThumbImage(Util.extractThumbNail(path, 150, 150, true));
+        msg.title = "this is title";
+        msg.description = "this is description sjgksgj sklgjl sjgsgskl gslgj sklgj sjglsjgs kl gjksss ssssssss sjskgs kgjsj jskgjs kjgk sgjsk Very Long Very Long Very Long Very Longgj skjgks kgsk lgskg jslgj";
+        msg.mediaObject = appdata;
+
+        SendMessageToWX.Req req = new SendMessageToWX.Req();
+        req.transaction = buildTransaction("appdata");
+        req.message = msg;
+        req.scene = mTargetScene;
+        api.sendReq(req);
+
+        //finish();
+
+    }
+
+    private static String buildTransaction(final String type) {
+        return (type == null) ? String.valueOf(System.currentTimeMillis()) : type + System.currentTimeMillis();
+    }
+
+
+
+    private void goToGetMsg() {
+        //Intent intent = new Intent(this, GetFromWXActivity.class);
+       // intent.putExtras(getIntent());
+        //startActivity(intent);
+       // finish();
+    }
+
+    private void goToShowMsg(ShowMessageFromWX.Req showReq) {
+        WXMediaMessage wxMsg = showReq.message;
+        WXAppExtendObject obj = (WXAppExtendObject) wxMsg.mediaObject;
+
+        StringBuffer msg = new StringBuffer(); // ��֯һ������ʾ����Ϣ����
+        msg.append("description: ");
+        msg.append(wxMsg.description);
+        msg.append("\n");
+        msg.append("extInfo: ");
+        msg.append(obj.extInfo);
+        msg.append("\n");
+        msg.append("filePath: ");
+        msg.append(obj.filePath);
+
+//        Intent intent = new Intent(this, ShowFromWXActivity.class);
+//        intent.putExtra(SyncStateContract.Constants.ShowMsgActivity.STitle, wxMsg.title);
+//        intent.putExtra(Constants.ShowMsgActivity.SMessage, msg.toString());
+//        intent.putExtra(Constants.ShowMsgActivity.BAThumbData, wxMsg.thumbData);
+//        startActivity(intent);
+//        finish();
     }
 }

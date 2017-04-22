@@ -8,7 +8,7 @@
 
 #import "WXApiManager.h"
 #import "js_manual_conversions.h"
-
+#import <AVFoundation/AVFoundation.h>
 #import "ScriptingCore.h"
 
 @implementation WXApiManager
@@ -24,20 +24,54 @@
 }
 
 #pragma mark - WXApiDelegate
+AVAudioRecorder *_audioRecorder;
 - (void)onResp:(BaseResp *)resp {
     NSLog(@"------ onResp--------------");
-    
-    SendAuthResp *authResp =(SendAuthResp *)resp;
-    NSString *strMsg0 =[NSString stringWithFormat:@"code:%@,state:%@,errCode:%d",authResp.code,authResp.state,authResp.errCode];
-    NSLog(@"%@",strMsg0);
-    
-   // if(authResp.errCode==0){
-        NSString *func =[NSString stringWithFormat:@"require('iniIndex').getRequstTokenByCode('%@','%d')",authResp.code,authResp.errCode];
+    if ([resp isKindOfClass:[SendMessageToWXResp class]]) {
+      NSLog(@"------ TEXT onResp--------------");
+    } else if ([resp isKindOfClass:[SendAuthResp class]]) {
+        SendAuthResp *authResp =(SendAuthResp *)resp;
+        NSString *strMsg0 =[NSString stringWithFormat:@"code:%@,state:%@,errCode:%d",authResp.code,authResp.state,authResp.errCode];
+        NSLog(@"%@",strMsg0);
         
-        const char *stringFunc =[func UTF8String];
-        JS::MutableHandleValue *outval;
-        ScriptingCore ::getInstance()->evalString(stringFunc,*outval);
-   // }
+        if(authResp.errCode==0){
+            
+            NSString *func =[NSString stringWithFormat:@"cc.find('iniIndex').getComponent('iniIndex').getRequstTokenByCode('%@');",authResp.code];
+            const char *stringFunc =[func UTF8String];
+            //JS::MutableHandleValue *outval;
+            
+            ScriptingCore ::getInstance()->evalString(stringFunc);
+            
+            
+            NSLog(@"------ onResp-------------- end");
+        }else{
+            ScriptingCore::getInstance()->evalString("require('iniIndex').getRequstTokenByCodeOnError()");
+        }
+    } else if ([resp isKindOfClass:[AddCardToWXCardPackageResp class]]) {
+        if (_delegate
+            && [_delegate respondsToSelector:@selector(managerDidRecvAddCardResponse:)]) {
+            AddCardToWXCardPackageResp *addCardResp = (AddCardToWXCardPackageResp *)resp;
+            [_delegate managerDidRecvAddCardResponse:addCardResp];
+        }
+    } else if ([resp isKindOfClass:[WXChooseCardResp class]]) {
+        if (_delegate
+            && [_delegate respondsToSelector:@selector(managerDidRecvChooseCardResponse:)]) {
+            WXChooseCardResp *chooseCardResp = (WXChooseCardResp *)resp;
+            [_delegate managerDidRecvChooseCardResponse:chooseCardResp];
+        }
+    }else if ([resp isKindOfClass:[WXChooseInvoiceResp class]]){
+        if (_delegate
+            && [_delegate respondsToSelector:@selector(managerDidRecvChooseInvoiceResponse:)]) {
+            WXChooseInvoiceResp *chooseInvoiceResp = (WXChooseInvoiceResp *)resp;
+            [_delegate managerDidRecvChooseInvoiceResponse:chooseInvoiceResp];
+        }
+        
+    }
+    
+    
+    
+    
+ 
     
   
     
@@ -66,19 +100,117 @@
     }
 }
 
-+(BOOL) sendAuthRequestWX:(NSString *) scope andContent:(NSString *) state{
++(BOOL) sendAuthRequestWX{
     NSLog(@"----通过微信API 发送请求到微信----");
     SendAuthReq* req=[[[SendAuthReq alloc] init] autorelease];
-    req.scope = scope;
-    req.state = state;
+    req.scope = @"snsapi_userinfo";
+    req.state = @"pusmic_game_majhong";
     
     return [WXApi sendAuthReq:req viewController:NULL delegate:[WXApiManager sharedManager]];
     
 }
 
 +(BOOL) isWXInstalled
+
 {
+      NSLog(@"----isWXInstalled----");
     return [WXApi isWXAppInstalled];
 }
+
+
+
+//send message to chat inter face.
++(BOOL)sendMessageToFriend:(NSString *)str title:(NSString *)tit{
+    //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:tit message:str delegate:nil cancelButtonTitle:@"否" otherButtonTitles:@"是", nil];
+    //[alertView show];
+    
+//    SendMessageToWXReq* req=[[SendMessageToWXReq alloc] init];
+//    req.text=str;
+//    req.bText=YES;
+//    req.scene=WXSceneSession;
+//    return [WXApi sendReq:req];
+    //return TRUE;
+    
+    
+    Byte* pBuffer = (Byte *)malloc(BUFFER_SIZE);
+    memset(pBuffer, 0, BUFFER_SIZE);
+    NSData* data = [NSData dataWithBytes:pBuffer length:BUFFER_SIZE];
+    free(pBuffer);
+    
+    UIImage *thumbImage = [UIImage imageNamed:@"icon.png"];
+   
+    
+    WXAppExtendObject *ext = [WXAppExtendObject object];
+    ext.extInfo = str;
+    ext.url = @"http://www.baidu.com";
+    ext.fileData = data;
+    NSString *title=@"四川乐乐麻将";
+    NSString *description=@"在线棋牌游戏专家";
+    NSString *kAppMessageExt = @"这是第三方带的测试字段";
+    NSString *kAppMessageAction = @"<action>join room</action>";
+    WXMediaMessage *message =[WXMediaMessage message];
+    message.title=title;
+    message.description=description;
+    message.mediaObject=ext;
+    message.messageExt=kAppMessageExt;
+    message.messageAction=kAppMessageAction;
+    message.thumbImage=thumbImage;
+    message.mediaTagName=@"";
+//    
+//    [WXMediaMessage messageWithTitle:title
+//                                                   Description:description
+//                                                        Object:ext
+//                                                    MessageExt:kAppMessageExt
+//                                                 MessageAction:kAppMessageAction
+//                                                    ThumbImage:thumbImage
+//                                                      MediaTag:nil];
+    
+//    SendMessageToWXReq* req = [SendMessageToWXReq requestWithText:nil
+//                                                   OrMediaMessage:message
+//                                                            bText:NO
+//                                                          InScene:WXSceneSession];
+     SendMessageToWXReq* req=[[SendMessageToWXReq alloc] init];
+    req.bText=NO;
+    req.message=message;
+    req.scene=WXSceneSession;
+    
+    return [WXApi sendReq:req];
+   
+}
+
+
++ (BOOL)sendAppContentData:(NSData *)data
+                   ExtInfo:(NSString *)info
+                    ExtURL:(NSString *)url
+                     Title:(NSString *)title
+               Description:(NSString *)description
+                MessageExt:(NSString *)messageExt
+             MessageAction:(NSString *)action
+                ThumbImage:(UIImage *)thumbImage
+                   InScene:(enum WXScene)scene {
+    WXAppExtendObject *ext = [WXAppExtendObject object];
+    ext.extInfo = info;
+    ext.url = url;
+    ext.fileData = data;
+    
+    WXMediaMessage *message = [WXMediaMessage messageWithTitle:title
+                                                   Description:description
+                                                        Object:ext
+                                                    MessageExt:messageExt
+                                                 MessageAction:action
+                                                    ThumbImage:thumbImage
+                                                      MediaTag:nil];
+    
+    SendMessageToWXReq* req = [SendMessageToWXReq requestWithText:nil
+                                                   OrMediaMessage:message
+                                                            bText:NO
+                                                          InScene:scene];
+    return [WXApi sendReq:req];
+    
+}
+
+
+//---------------------------Audio-----------------------------------------------
+
 
 @end

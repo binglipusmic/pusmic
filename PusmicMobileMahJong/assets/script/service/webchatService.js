@@ -16,14 +16,19 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
-       
+
     },
 
 
     sendMessageToWebChat: function () {
 
+        if (cc.sys.os == cc.sys.OS_IOS) {
+            var isinstall = jsb.reflection.callStaticMethod('WXApiManager', 'sendMessageToFriend:title:', "这是一个测试", "");
 
-        var isinstall = jsb.reflection.callStaticMethod('WXApiManager', 'sendMessageToFriend:title:', "这是一个测试", "");
+        }
+        if (cc.sys.os == cc.sys.OS_ANDROID) {
+             jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "sendApplicatoinMessage","(Ljava/lang/String;)V","roomnumber");
+      }
 
     },
 

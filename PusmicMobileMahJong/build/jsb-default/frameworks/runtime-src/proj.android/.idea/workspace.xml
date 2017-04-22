@@ -9,17 +9,335 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5edab9a8-cc24-4cff-b9d9-7e5bbfc8819d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../PusmicMahJong/grails-app/controllers/com/pusmicgame/WebSokectController.groovy" afterPath="$PROJECT_DIR$/../../../../../../PusmicMahJong/grails-app/controllers/com/pusmicgame/WebSokectController.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../PusmicMahJong/grails-app/domain/com/pusmic/game/mahjong/LoingUserInfo.groovy" afterPath="$PROJECT_DIR$/../../../../../../PusmicMahJong/grails-app/domain/com/pusmic/game/mahjong/LoingUserInfo.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../PusmicMahJong/grails-app/services/com/pusmicgame/game/UserService.groovy" afterPath="$PROJECT_DIR$/../../../../../../PusmicMahJong/grails-app/services/com/pusmicgame/game/UserService.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../assets/index.fire" afterPath="$PROJECT_DIR$/../../../../../assets/index.fire" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../assets/script/controllers/tableUserInfo.js" afterPath="$PROJECT_DIR$/../../../../../assets/script/controllers/tableUserInfo.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../assets/script/domainClass/gameUser.js" afterPath="$PROJECT_DIR$/../../../../../assets/script/domainClass/gameUser.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../assets/script/service/GameTableNetWork.js" afterPath="$PROJECT_DIR$/../../../../../assets/script/service/GameTableNetWork.js" />
+    <list default="true" id="7763de97-1a28-476f-b489-76594beb3354" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/build/cocos2d_libs.xcodeproj/xcuserdata/prominic2.xcuserdatad/xcschemes/libcocos2d Mac.xcscheme" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/build/cocos2d_libs.xcodeproj/xcuserdata/prominic2.xcuserdatad/xcschemes/libcocos2d iOS.xcscheme" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/build/cocos2d_libs.xcodeproj/xcuserdata/prominic2.xcuserdatad/xcschemes/xcschememanagement.plist" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/generated/source/buildConfig/debug/org/cocos2dx/lib/BuildConfig.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/generated/source/buildConfig/release/org/cocos2dx/lib/BuildConfig.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/bundles/debug/AndroidManifest.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/bundles/debug/aapt/AndroidManifest.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/bundles/debug/classes.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/bundles/debug/libs/android-async-http-1.4.9.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/bundles/debug/libs/com.android.vending.expansion.zipfile.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/bundles/debug/libs/httpclient-4.4.1.1.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/bundles/release/AndroidManifest.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/bundles/release/aapt/AndroidManifest.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/bundles/release/classes.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/bundles/release/libs/android-async-http-1.4.9.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/bundles/release/libs/com.android.vending.expansion.zipfile.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/bundles/release/libs/httpclient-4.4.1.1.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/BuildConfig.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxAccelerometer.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxActivity$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxActivity$Cocos2dxEGLConfigChooser$ConfigValue.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxActivity$Cocos2dxEGLConfigChooser.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxActivity.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxBitmap.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxDownloader$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxDownloader$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxDownloader$3$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxDownloader$3.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxDownloader$4.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxDownloader.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxEditBox.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxEditBoxHelper$1$1$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxEditBoxHelper$1$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxEditBoxHelper$1$2$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxEditBoxHelper$1$2$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxEditBoxHelper$1$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxEditBoxHelper$1$3.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxEditBoxHelper$1$4.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxEditBoxHelper$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxEditBoxHelper$10.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxEditBoxHelper$11.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxEditBoxHelper$12.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxEditBoxHelper$13.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxEditBoxHelper$14.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxEditBoxHelper$15.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxEditBoxHelper$16.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxEditBoxHelper$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxEditBoxHelper$3.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxEditBoxHelper$4.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxEditBoxHelper$5.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxEditBoxHelper$6.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxEditBoxHelper$7.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxEditBoxHelper$8.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxEditBoxHelper$9.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxEditBoxHelper.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxGLSurfaceView$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxGLSurfaceView$10.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxGLSurfaceView$11.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxGLSurfaceView$12.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxGLSurfaceView$13.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxGLSurfaceView$14.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxGLSurfaceView$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxGLSurfaceView$3.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxGLSurfaceView$4.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxGLSurfaceView$5.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxGLSurfaceView$6.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxGLSurfaceView$7.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxGLSurfaceView$8.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxGLSurfaceView$9.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxGLSurfaceView.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxHandler$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxHandler$DialogMessage.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxHandler.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxHelper$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxHelper$Cocos2dxHelperListener.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxHelper.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxHttpURLConnection.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxJavascriptJavaBridge.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxLocalStorage$DBOpenHelper.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxLocalStorage.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxMusic.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxReflectionHelper.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxRenderer.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxSound$OnLoadCompletedListener.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxSound$SoundInfoForLoadedCompleted.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxSound.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxTextInputWrapper.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxTypefaces.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxVideoHelper$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxVideoHelper$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxVideoHelper$3.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxVideoHelper$4.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxVideoHelper$VideoEventRunnable.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxVideoHelper$VideoHandler.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxVideoHelper.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxVideoView$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxVideoView$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxVideoView$3.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxVideoView$4$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxVideoView$4.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxVideoView$5.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxVideoView$6.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxVideoView$OnVideoEventListener.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxVideoView.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxWebView$Cocos2dxWebViewClient$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxWebView$Cocos2dxWebViewClient$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxWebView$Cocos2dxWebViewClient$3.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxWebView$Cocos2dxWebViewClient.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxWebView.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxWebViewHelper$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxWebViewHelper$10.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxWebViewHelper$11.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxWebViewHelper$12.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxWebViewHelper$13.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxWebViewHelper$14.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxWebViewHelper$15.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxWebViewHelper$16.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxWebViewHelper$17.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxWebViewHelper$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxWebViewHelper$3.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxWebViewHelper$4.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxWebViewHelper$5.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxWebViewHelper$6.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxWebViewHelper$7.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxWebViewHelper$8.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxWebViewHelper$9.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/Cocos2dxWebViewHelper.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/DataTaskHandler.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/DownloadTask.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/FileTaskHandler.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/GameControllerAdapter$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/GameControllerAdapter$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/GameControllerAdapter$3.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/GameControllerAdapter$4.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/GameControllerAdapter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/GameControllerDelegate$ControllerEventListener.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/GameControllerDelegate.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/GameControllerUtils.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/HeadTaskHandler.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/ResizeLayout$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/ResizeLayout.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/debug/org/cocos2dx/lib/ShouldStartLoadingWorker.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/BuildConfig.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxAccelerometer.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxActivity$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxActivity$Cocos2dxEGLConfigChooser$ConfigValue.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxActivity$Cocos2dxEGLConfigChooser.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxActivity.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxBitmap.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxDownloader$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxDownloader$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxDownloader$3$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxDownloader$3.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxDownloader$4.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxDownloader.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxEditBox.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxEditBoxHelper$1$1$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxEditBoxHelper$1$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxEditBoxHelper$1$2$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxEditBoxHelper$1$2$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxEditBoxHelper$1$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxEditBoxHelper$1$3.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxEditBoxHelper$1$4.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxEditBoxHelper$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxEditBoxHelper$10.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxEditBoxHelper$11.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxEditBoxHelper$12.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxEditBoxHelper$13.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxEditBoxHelper$14.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxEditBoxHelper$15.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxEditBoxHelper$16.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxEditBoxHelper$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxEditBoxHelper$3.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxEditBoxHelper$4.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxEditBoxHelper$5.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxEditBoxHelper$6.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxEditBoxHelper$7.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxEditBoxHelper$8.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxEditBoxHelper$9.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxEditBoxHelper.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxGLSurfaceView$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxGLSurfaceView$10.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxGLSurfaceView$11.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxGLSurfaceView$12.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxGLSurfaceView$13.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxGLSurfaceView$14.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxGLSurfaceView$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxGLSurfaceView$3.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxGLSurfaceView$4.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxGLSurfaceView$5.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxGLSurfaceView$6.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxGLSurfaceView$7.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxGLSurfaceView$8.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxGLSurfaceView$9.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxGLSurfaceView.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxHandler$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxHandler$DialogMessage.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxHandler.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxHelper$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxHelper$Cocos2dxHelperListener.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxHelper.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxHttpURLConnection.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxJavascriptJavaBridge.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxLocalStorage$DBOpenHelper.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxLocalStorage.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxMusic.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxReflectionHelper.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxRenderer.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxSound$OnLoadCompletedListener.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxSound$SoundInfoForLoadedCompleted.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxSound.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxTextInputWrapper.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxTypefaces.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxVideoHelper$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxVideoHelper$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxVideoHelper$3.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxVideoHelper$4.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxVideoHelper$VideoEventRunnable.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxVideoHelper$VideoHandler.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxVideoHelper.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxVideoView$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxVideoView$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxVideoView$3.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxVideoView$4$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxVideoView$4.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxVideoView$5.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxVideoView$6.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxVideoView$OnVideoEventListener.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxVideoView.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxWebView$Cocos2dxWebViewClient$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxWebView$Cocos2dxWebViewClient$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxWebView$Cocos2dxWebViewClient$3.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxWebView$Cocos2dxWebViewClient.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxWebView.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxWebViewHelper$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxWebViewHelper$10.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxWebViewHelper$11.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxWebViewHelper$12.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxWebViewHelper$13.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxWebViewHelper$14.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxWebViewHelper$15.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxWebViewHelper$16.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxWebViewHelper$17.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxWebViewHelper$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxWebViewHelper$3.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxWebViewHelper$4.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxWebViewHelper$5.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxWebViewHelper$6.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxWebViewHelper$7.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxWebViewHelper$8.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxWebViewHelper$9.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/Cocos2dxWebViewHelper.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/DataTaskHandler.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/DownloadTask.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/FileTaskHandler.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/GameControllerAdapter$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/GameControllerAdapter$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/GameControllerAdapter$3.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/GameControllerAdapter$4.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/GameControllerAdapter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/GameControllerDelegate$ControllerEventListener.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/GameControllerDelegate.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/GameControllerUtils.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/HeadTaskHandler.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/ResizeLayout$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/ResizeLayout.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/classes/release/org/cocos2dx/lib/ShouldStartLoadingWorker.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/incremental/aidl/debug/dependency.store" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/incremental/aidl/release/dependency.store" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/incremental/mergeAssets/debug/merger.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/incremental/mergeAssets/release/merger.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/incremental/packageResourcesdebug/merger.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/intermediates/incremental/packageResourcesrelease/merger.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/outputs/aar/libcocos2dx-debug.aar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/outputs/aar/libcocos2dx-release.aar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/tmp/packageDebugJar/MANIFEST.MF" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/build/tmp/packageReleaseJar/MANIFEST.MF" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/scripting/js-bindings/proj.ios_mac/cocos2d_js_bindings.xcodeproj/xcuserdata/prominic2.xcuserdatad/xcschemes/libjscocos2d Mac.xcscheme" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/scripting/js-bindings/proj.ios_mac/cocos2d_js_bindings.xcodeproj/xcuserdata/prominic2.xcuserdatad/xcschemes/libjscocos2d iOS.xcscheme" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/scripting/js-bindings/proj.ios_mac/cocos2d_js_bindings.xcodeproj/xcuserdata/prominic2.xcuserdatad/xcschemes/xcschememanagement.plist" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IosAudioPlay.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IosAudioPlay.mm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_vending_expansion_zipfile.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/httpclient_4_4_1_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/gen/com/pusmicgame/mahjongGame/BuildConfig.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/gen/com/pusmicgame/mahjongGame/Manifest.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/gen/com/pusmicgame/mahjongGame/R.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/proj.android/com/pusmicgame/mahjongGame/BuildConfig.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/proj.android/com/pusmicgame/mahjongGame/R$attr.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/proj.android/com/pusmicgame/mahjongGame/R$drawable.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/proj.android/com/pusmicgame/mahjongGame/R$id.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/proj.android/com/pusmicgame/mahjongGame/R$layout.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/proj.android/com/pusmicgame/mahjongGame/R$string.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/proj.android/com/pusmicgame/mahjongGame/R.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/proj.android/org/cocos2dx/javascript/WXApiMannger.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/proj.android.apk" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/org/cocos2dx/javascript/WXApiMannger.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/proj.android/org/cocos2dx/javascript/AppActivity.class" afterPath="$PROJECT_DIR$/out/production/proj.android/org/cocos2dx/javascript/AppActivity.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/proj.android/org/cocos2dx/lib/R$attr.class" afterPath="$PROJECT_DIR$/out/production/proj.android/org/cocos2dx/lib/R$attr.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/proj.android/org/cocos2dx/lib/R$drawable.class" afterPath="$PROJECT_DIR$/out/production/proj.android/org/cocos2dx/lib/R$drawable.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/proj.android/org/cocos2dx/lib/R$id.class" afterPath="$PROJECT_DIR$/out/production/proj.android/org/cocos2dx/lib/R$id.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/proj.android/org/cocos2dx/lib/R$layout.class" afterPath="$PROJECT_DIR$/out/production/proj.android/org/cocos2dx/lib/R$layout.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/proj.android/org/cocos2dx/lib/R$string.class" afterPath="$PROJECT_DIR$/out/production/proj.android/org/cocos2dx/lib/R$string.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/proj.android/org/cocos2dx/lib/R.class" afterPath="$PROJECT_DIR$/out/production/proj.android/org/cocos2dx/lib/R.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/proj.android/proj.android.apk" afterPath="$PROJECT_DIR$/out/production/proj.android/proj.android.apk" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/proj.android/proj.android.unaligned.apk" afterPath="$PROJECT_DIR$/out/production/proj.android/proj.android.unaligned.apk" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../simulator/android/PusmicMobileMahJong-debug.apk" afterPath="$PROJECT_DIR$/../../../simulator/android/PusmicMobileMahJong-debug.apk" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.ios_mac/PusmicMobileMahJong.xcodeproj/project.xcworkspace/xcuserdata/prominic2.xcuserdatad/UserInterfaceState.xcuserstate" afterPath="$PROJECT_DIR$/../../../../../../proj.ios_mac/PusmicMobileMahJong.xcodeproj/project.xcworkspace/xcuserdata/prominic2.xcuserdatad/UserInterfaceState.xcuserstate" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../assets/script/service/iniIndex.js" afterPath="$PROJECT_DIR$/../../../../../assets/script/service/iniIndex.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../assets/script/ui/roundScoreUI.js" afterPath="$PROJECT_DIR$/../../../../../assets/script/ui/roundScoreUI.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../settings/builder.json" afterPath="$PROJECT_DIR$/../../../../../settings/builder.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../assets/script/service/webchatService.js" afterPath="$PROJECT_DIR$/../../../../../assets/script/service/webchatService.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/java/gen/org/cocos2dx/lib/BuildConfig.java" afterPath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/java/gen/org/cocos2dx/lib/BuildConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/java/java.iml" afterPath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/java/java.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/java/module_java.xml" afterPath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/java/module_java.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/android_async_http_1_4_9.xml" afterPath="$PROJECT_DIR$/.idea/libraries/android_async_http_1_4_9.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ant.properties" afterPath="$PROJECT_DIR$/ant.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jni/Application.mk" afterPath="$PROJECT_DIR$/jni/Application.mk" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/proj.android.iml" afterPath="$PROJECT_DIR$/proj.android.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/proj.android.xml" afterPath="$PROJECT_DIR$/proj.android.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/strings.xml" afterPath="$PROJECT_DIR$/res/values/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/cocos2dx/javascript/AppActivity.java" afterPath="$PROJECT_DIR$/src/org/cocos2dx/javascript/AppActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.ios_mac/PusmicMobileMahJong.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/../../../../../../proj.ios_mac/PusmicMobileMahJong.xcodeproj/project.pbxproj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.ios_mac/PusmicMobileMahJong.xcodeproj/xcuserdata/prominic2.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist" afterPath="$PROJECT_DIR$/../../../../../../proj.ios_mac/PusmicMobileMahJong.xcodeproj/xcuserdata/prominic2.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.ios_mac/WXApiManager.h" afterPath="$PROJECT_DIR$/../../../../../../proj.ios_mac/WXApiManager.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.ios_mac/WXApiManager.mm" afterPath="$PROJECT_DIR$/../../../../../../proj.ios_mac/WXApiManager.mm" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.ios_mac/ios/Info.plist" afterPath="$PROJECT_DIR$/../../../../../../proj.ios_mac/ios/Info.plist" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.ios_mac/mac/Info.plist" afterPath="$PROJECT_DIR$/../../../../../../proj.ios_mac/mac/Info.plist" />
     </list>
     <ignored path="proj.android.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -37,74 +355,118 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
-    <favorites_list name="proj.android">
-      <favorite_root url="file://$PROJECT_DIR$/libs/wechat-sdk-android-with-mta-1.1.7.jar" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-    </favorites_list>
+    <favorites_list name="proj.android" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="AppActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/cocos2dx/javascript/AppActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="84" column="53" selection-start-line="84" selection-start-column="53" selection-end-line="84" selection-end-column="53" />
+            <state relative-caret-position="210">
+              <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="56" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Activity.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$PROJECT_DIR$/../../../../../../../Library/android22-sdk/platforms/android-10/android.jar!/android/app/Activity.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="183">
+              <caret line="63" column="18" selection-start-line="63" selection-start-column="18" selection-end-line="63" selection-end-column="18" />
+              <folding>
+                <element signature="e#2294#2295#0" expanded="true" />
+                <element signature="e#2345#2346#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+              <folding>
+                <element signature="e#688#706#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="strings.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="468">
+              <caret line="147" column="52" selection-start-line="147" selection-start-column="52" selection-end-line="147" selection-end-column="52" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ConstantsAPI.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$PROJECT_DIR$/libs/wechat-sdk-android-with-mta-1.1.7.jar!/com/tencent/mm/opensdk/constants/ConstantsAPI.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="165">
+              <caret line="14" column="8" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+        <entry file="file://$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/java/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="447">
-              <caret line="54" column="79" selection-start-line="54" selection-start-column="79" selection-end-line="54" selection-end-column="79" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WXApiMannger.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/cocos2dx/javascript/WXApiMannger.java">
+      <file leaf-file-name="WXAPIManager.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/cocos2dx/javascript/WXAPIManager.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="105">
-              <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+              <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Cocos2dxActivity.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Cocos2dxActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
-              <caret line="248" column="0" selection-start-line="248" selection-start-column="0" selection-end-line="248" selection-end-column="0" />
+            <state relative-caret-position="75">
+              <caret line="53" column="22" selection-start-line="53" selection-start-column="22" selection-end-line="53" selection-end-column="22" />
+              <folding>
+                <element signature="n#!!doc" expanded="false" />
+                <element signature="imports" expanded="false" />
+                <element signature="e#3140#3141#0" expanded="false" />
+                <element signature="e#3178#3179#0" expanded="false" />
+                <element signature="e#3627#3628#0" expanded="false" />
+                <element signature="e#3674#3675#0" expanded="false" />
+                <element signature="e#9554#9555#0" expanded="false" />
+                <element signature="e#9585#9586#0" expanded="false" />
+                <element signature="e#9768#9769#0" expanded="false" />
+                <element signature="e#9840#9841#0" expanded="false" />
+                <element signature="e#12726#12727#0" expanded="false" />
+                <element signature="e#12759#12760#0" expanded="false" />
+                <element signature="e#13134#13135#0" expanded="false" />
+                <element signature="e#13191#13192#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WXEntryActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/net/sourceforge/simcpux/wxapi/WXEntryActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="37" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="37" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Cocos2dxHelper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxHelper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="296">
-              <caret line="66" column="43" selection-start-line="66" selection-start-column="43" selection-end-line="66" selection-end-column="43" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Cocos2dxDownloader.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxDownloader.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="20" column="39" selection-start-line="20" selection-start-column="39" selection-end-line="20" selection-end-column="39" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -112,26 +474,14 @@
       <file leaf-file-name="SDKWrapper.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/cocos2dx/javascript/SDKWrapper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+            <state relative-caret-position="75">
+              <caret line="12" column="21" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
-  <component name="GenerateSignedApkSettings">
-    <option name="KEY_STORE_PATH" value="$PROJECT_DIR$/../../../../../../pusmic_new.keystore" />
-    <option name="KEY_ALIAS" value="pusmicgame_new" />
-    <option name="REMEMBER_PASSWORDS" value="true" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../../../.." />
@@ -149,8 +499,12 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/src/org/cocos2dx/javascript/SDKWrapper.java" />
+        <option value="$PROJECT_DIR$/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/src/net/sourceforge/simcpux/wxapi/GetFromWXActivity.java" />
+        <option value="$PROJECT_DIR$/src/org/cocos2dx/javascript/AppActivity.java" />
+        <option value="$PROJECT_DIR$/src/net/sourceforge/simcpux/wxapi/WXEntryActivity.java" />
         <option value="$PROJECT_DIR$/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/src/org/cocos2dx/javascript/WXApiMannger.java" />
       </list>
     </option>
   </component>
@@ -163,7 +517,7 @@
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1920" />
-    <option name="height" value="977" />
+    <option name="height" value="979" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -190,20 +544,13 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="proj.android" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Android API 10 Platform &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -244,15 +591,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="libs" />
+              <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="wechat-sdk-android-with-mta-1.1.7.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tencent" />
+              <option name="myItemId" value="wxapi" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -266,23 +609,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="libs" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wechat-sdk-android-with-mta-1.1.7.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tencent" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="opensdk" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="openapi" />
+              <option name="myItemId" value="res" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -296,51 +623,22 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="libs" />
+              <option name="myItemId" value="res" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="wechat-sdk-android-with-mta-1.1.7.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tencent" />
+              <option name="myItemId" value="values" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="opensdk" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="proj.android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="proj.android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="libs" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="proj.android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
-      <pane id="PackagesPane" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../../../pusmic_new.keystore" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/libs/libPluginProtocol.jar!/" />
     <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="project.structure.last.edited" value="Libraries" />
@@ -348,18 +646,19 @@
     <property name="project.structure.side.proportion" value="0.33103448" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="device.picker.selection" value="Nexus_5X_API_22" />
+    <property name="device.picker.selection" value="29109a8c7cf4" />
     <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
     <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
     <property name="GenerateAntBuildDialog.backupFiles" value="true" />
     <property name="GenerateAntBuildDialog.outputFileNameProperty" value="proj.android" />
-    <property name="ExportedModule" value="proj.android" />
-    <property name="ExportedApkPath" value="$PROJECT_DIR$/proj.android.apk" />
-    <property name="AndroidRunProguardForReleaseBuild" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/libs" />
+      <recent name="$PROJECT_DIR$/src/net/sourceforge/simcpux/wxapi" />
+      <recent name="$PROJECT_DIR$/src/org/cocos2dx/javascript" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$/res/drawable-mdpi" />
     </key>
   </component>
   <component name="RunManager" selected="Android Application.app">
@@ -805,22 +1104,22 @@
       <option name="ARTIFACT_NAME" value="" />
       <option name="PM_INSTALL_OPTIONS" value="" />
       <option name="ACTIVITY_EXTRA_FLAGS" value="" />
-      <option name="MODE" value="default_activity" />
-      <option name="TARGET_SELECTION_MODE" value="USB_DEVICE" />
+      <option name="MODE" value="specific_activity" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
       <option name="PREFERRED_AVD" value="" />
       <option name="CLEAR_LOGCAT" value="false" />
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
       <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
       <option name="FORCE_STOP_RUNNING_APP" value="true" />
       <option name="DEBUGGER_TYPE" value="Java" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="true" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
       <option name="PREFERRED_AVD" value="" />
       <Java />
       <Profilers>
         <option name="GAPID_DISABLE_PCS" value="false" />
       </Profilers>
       <option name="DEEP_LINK" value="" />
-      <option name="ACTIVITY_CLASS" value="" />
+      <option name="ACTIVITY_CLASS" value="org.cocos2dx.javascript.AppActivity" />
       <method>
         <option name="Make" enabled="true" />
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
@@ -835,41 +1134,42 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="5edab9a8-cc24-4cff-b9d9-7e5bbfc8819d" name="Default" comment="" />
-      <created>1492840221131</created>
+      <changelist id="7763de97-1a28-476f-b489-76594beb3354" name="Default" comment="" />
+      <created>1492874078921</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1492840221131</updated>
-      <workItem from="1492840223817" duration="2097000" />
-      <workItem from="1492843526791" duration="123000" />
-      <workItem from="1492843892241" duration="4032000" />
+      <updated>1492874078921</updated>
+      <workItem from="1492874080772" duration="3273000" />
+      <workItem from="1492877641870" duration="907000" />
+      <workItem from="1492878559967" duration="5192000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6252000" />
+    <option name="totallyTimeSpent" value="9372000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1920" height="977" extended-state="6" />
-    <editor active="false" />
+    <frame x="0" y="23" width="1920" height="979" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32945284" sideWeight="0.49574015" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24973376" sideWeight="0.24041812" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329849" sideWeight="0.4914803" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33178115" sideWeight="0.4201278" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.329849" sideWeight="0.16347177" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33178115" sideWeight="0.5798722" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32945284" sideWeight="0.4978701" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.329849" sideWeight="0.83652824" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329849" sideWeight="0.49574015" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298731" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24973376" sideWeight="0.75958186" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27795526" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
@@ -881,7 +1181,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -906,139 +1205,499 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/org/cocos2dx/javascript/AppActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="38" column="13" selection-start-line="38" selection-start-column="13" selection-end-line="38" selection-end-column="13" />
+        <state relative-caret-position="540">
+          <caret line="61" column="8" selection-start-line="61" selection-start-column="8" selection-end-line="61" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxHelper.java">
+    <entry file="file://$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/java/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxDownloader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="20" column="39" selection-start-line="20" selection-start-column="39" selection-end-line="20" selection-end-column="39" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/cocos2dx/javascript/SDKWrapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/cocos2dx/javascript/AppActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="38" column="13" selection-start-line="38" selection-start-column="13" selection-end-line="38" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="645">
-          <caret line="66" column="43" selection-start-line="66" selection-start-column="43" selection-end-line="66" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxDownloader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/cocos2dx/javascript/SDKWrapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/cocos2dx/javascript/SDKWrapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxDownloader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="20" column="39" selection-start-line="20" selection-start-column="39" selection-end-line="20" selection-end-column="39" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="66" column="43" selection-start-line="66" selection-start-column="43" selection-end-line="66" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/cocos2dx/javascript/AppActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="84" column="53" selection-start-line="84" selection-start-column="53" selection-end-line="84" selection-end-column="53" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="447">
-          <caret line="54" column="79" selection-start-line="54" selection-start-column="79" selection-end-line="54" selection-end-column="79" />
+        <state relative-caret-position="405">
+          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/cocos2dx/javascript/WXApiMannger.java">
+    <entry file="file://$PROJECT_DIR$/src/org/cocos2dx/javascript/WXAPIManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
-          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="248" column="0" selection-start-line="248" selection-start-column="0" selection-end-line="248" selection-end-column="0" />
+        <state relative-caret-position="75">
+          <caret line="53" column="22" selection-start-line="53" selection-start-column="22" selection-end-line="53" selection-end-column="22" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#3140#3141#0" expanded="false" />
+            <element signature="e#3178#3179#0" expanded="false" />
+            <element signature="e#3627#3628#0" expanded="false" />
+            <element signature="e#3674#3675#0" expanded="false" />
+            <element signature="e#9554#9555#0" expanded="false" />
+            <element signature="e#9585#9586#0" expanded="false" />
+            <element signature="e#9768#9769#0" expanded="false" />
+            <element signature="e#9840#9841#0" expanded="false" />
+            <element signature="e#12726#12727#0" expanded="false" />
+            <element signature="e#12759#12760#0" expanded="false" />
+            <element signature="e#13134#13135#0" expanded="false" />
+            <element signature="e#13191#13192#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/sourceforge/simcpux/wxapi/WXEntryActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="41" column="20" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="20" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/cocos2dx/javascript/SDKWrapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2625">
+          <caret line="205" column="4" selection-start-line="205" selection-start-column="4" selection-end-line="205" selection-end-column="4" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+            <element signature="e#4293#4294#0" expanded="false" />
+            <element signature="e#4355#4356#0" expanded="false" />
+            <element signature="e#9056#9057#0" expanded="false" />
+            <element signature="e#9102#9103#0" expanded="false" />
+            <element signature="e#9150#9151#0" expanded="false" />
+            <element signature="e#9182#9183#0" expanded="false" />
+            <element signature="e#9416#9417#0" expanded="false" />
+            <element signature="e#9464#9465#0" expanded="false" />
+            <element signature="e#9516#9517#0" expanded="false" />
+            <element signature="e#9555#9556#0" expanded="false" />
+            <element signature="e#10499#10500#0" expanded="false" />
+            <element signature="e#10549#10550#0" expanded="false" />
+            <element signature="e#10602#10603#0" expanded="false" />
+            <element signature="e#10654#10655#0" expanded="false" />
+            <element signature="e#10703#10704#0" expanded="false" />
+            <element signature="e#10759#10760#0" expanded="false" />
+            <element signature="e#10807#10808#0" expanded="false" />
+            <element signature="e#10841#10842#0" expanded="false" />
+            <element signature="e#10893#10894#0" expanded="false" />
+            <element signature="e#10944#10945#0" expanded="false" />
+            <element signature="e#11635#11636#0" expanded="false" />
+            <element signature="e#11703#11704#0" expanded="false" />
+            <element signature="e#11753#11754#0" expanded="false" />
+            <element signature="e#11817#11818#0" expanded="false" />
+            <element signature="e#13951#13952#0" expanded="false" />
+            <element signature="e#14019#14020#0" expanded="false" />
+            <element signature="e#14068#14069#0" expanded="false" />
+            <element signature="e#14135#14136#0" expanded="false" />
+            <element signature="e#14183#14184#0" expanded="false" />
+            <element signature="e#14249#14250#0" expanded="false" />
+            <element signature="e#14299#14300#0" expanded="false" />
+            <element signature="e#14367#14368#0" expanded="false" />
+            <element signature="e#14422#14423#0" expanded="false" />
+            <element signature="e#14499#14500#0" expanded="false" />
+            <element signature="e#14555#14556#0" expanded="false" />
+            <element signature="e#14633#14634#0" expanded="false" />
+            <element signature="e#14687#14688#0" expanded="false" />
+            <element signature="e#14760#14761#0" expanded="false" />
+            <element signature="e#14962#14963#0" expanded="false" />
+            <element signature="e#15026#15027#0" expanded="false" />
+            <element signature="e#15309#15310#0" expanded="false" />
+            <element signature="e#15375#15376#0" expanded="false" />
+            <element signature="e#15432#15433#0" expanded="false" />
+            <element signature="e#15497#15498#0" expanded="false" />
+            <element signature="e#15553#15554#0" expanded="false" />
+            <element signature="e#15617#15618#0" expanded="false" />
+            <element signature="e#15663#15664#0" expanded="false" />
+            <element signature="e#15733#15734#0" expanded="false" />
+            <element signature="e#15796#15797#0" expanded="false" />
+            <element signature="e#15865#15866#0" expanded="false" />
+            <element signature="e#15923#15924#0" expanded="false" />
+            <element signature="e#15986#15987#0" expanded="false" />
+            <element signature="e#16030#16031#0" expanded="false" />
+            <element signature="e#16092#16093#0" expanded="false" />
+            <element signature="e#16137#16138#0" expanded="false" />
+            <element signature="e#16200#16201#0" expanded="false" />
+            <element signature="e#16243#16244#0" expanded="false" />
+            <element signature="e#16304#16305#0" expanded="false" />
+            <element signature="e#17284#17285#0" expanded="false" />
+            <element signature="e#17358#17359#0" expanded="false" />
+            <element signature="e#17818#17819#0" expanded="false" />
+            <element signature="e#17913#17914#0" expanded="false" />
+            <element signature="e#24733#24734#0" expanded="false" />
+            <element signature="e#24813#24814#0" expanded="false" />
+            <element signature="e#24860#24861#0" expanded="false" />
+            <element signature="e#24939#24940#0" expanded="false" />
+            <element signature="e#24980#24981#0" expanded="false" />
+            <element signature="e#25024#25025#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/cocos2dx/javascript/AppActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="52" column="62" selection-start-line="52" selection-start-column="62" selection-end-line="52" selection-end-column="62" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/java/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/cocos2dx/javascript/WXAPIManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="53" column="22" selection-start-line="53" selection-start-column="22" selection-end-line="53" selection-end-column="22" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#3140#3141#0" expanded="false" />
+            <element signature="e#3178#3179#0" expanded="false" />
+            <element signature="e#3627#3628#0" expanded="false" />
+            <element signature="e#3674#3675#0" expanded="false" />
+            <element signature="e#9554#9555#0" expanded="false" />
+            <element signature="e#9585#9586#0" expanded="false" />
+            <element signature="e#9768#9769#0" expanded="false" />
+            <element signature="e#9840#9841#0" expanded="false" />
+            <element signature="e#12726#12727#0" expanded="false" />
+            <element signature="e#12759#12760#0" expanded="false" />
+            <element signature="e#13134#13135#0" expanded="false" />
+            <element signature="e#13191#13192#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/sourceforge/simcpux/wxapi/WXEntryActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="41" column="20" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2625">
+          <caret line="205" column="4" selection-start-line="205" selection-start-column="4" selection-end-line="205" selection-end-column="4" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+            <element signature="e#4293#4294#0" expanded="false" />
+            <element signature="e#4355#4356#0" expanded="false" />
+            <element signature="e#9056#9057#0" expanded="false" />
+            <element signature="e#9102#9103#0" expanded="false" />
+            <element signature="e#9150#9151#0" expanded="false" />
+            <element signature="e#9182#9183#0" expanded="false" />
+            <element signature="e#9416#9417#0" expanded="false" />
+            <element signature="e#9464#9465#0" expanded="false" />
+            <element signature="e#9516#9517#0" expanded="false" />
+            <element signature="e#9555#9556#0" expanded="false" />
+            <element signature="e#10499#10500#0" expanded="false" />
+            <element signature="e#10549#10550#0" expanded="false" />
+            <element signature="e#10602#10603#0" expanded="false" />
+            <element signature="e#10654#10655#0" expanded="false" />
+            <element signature="e#10703#10704#0" expanded="false" />
+            <element signature="e#10759#10760#0" expanded="false" />
+            <element signature="e#10807#10808#0" expanded="false" />
+            <element signature="e#10841#10842#0" expanded="false" />
+            <element signature="e#10893#10894#0" expanded="false" />
+            <element signature="e#10944#10945#0" expanded="false" />
+            <element signature="e#11635#11636#0" expanded="false" />
+            <element signature="e#11703#11704#0" expanded="false" />
+            <element signature="e#11753#11754#0" expanded="false" />
+            <element signature="e#11817#11818#0" expanded="false" />
+            <element signature="e#13951#13952#0" expanded="false" />
+            <element signature="e#14019#14020#0" expanded="false" />
+            <element signature="e#14068#14069#0" expanded="false" />
+            <element signature="e#14135#14136#0" expanded="false" />
+            <element signature="e#14183#14184#0" expanded="false" />
+            <element signature="e#14249#14250#0" expanded="false" />
+            <element signature="e#14299#14300#0" expanded="false" />
+            <element signature="e#14367#14368#0" expanded="false" />
+            <element signature="e#14422#14423#0" expanded="false" />
+            <element signature="e#14499#14500#0" expanded="false" />
+            <element signature="e#14555#14556#0" expanded="false" />
+            <element signature="e#14633#14634#0" expanded="false" />
+            <element signature="e#14687#14688#0" expanded="false" />
+            <element signature="e#14760#14761#0" expanded="false" />
+            <element signature="e#14962#14963#0" expanded="false" />
+            <element signature="e#15026#15027#0" expanded="false" />
+            <element signature="e#15309#15310#0" expanded="false" />
+            <element signature="e#15375#15376#0" expanded="false" />
+            <element signature="e#15432#15433#0" expanded="false" />
+            <element signature="e#15497#15498#0" expanded="false" />
+            <element signature="e#15553#15554#0" expanded="false" />
+            <element signature="e#15617#15618#0" expanded="false" />
+            <element signature="e#15663#15664#0" expanded="false" />
+            <element signature="e#15733#15734#0" expanded="false" />
+            <element signature="e#15796#15797#0" expanded="false" />
+            <element signature="e#15865#15866#0" expanded="false" />
+            <element signature="e#15923#15924#0" expanded="false" />
+            <element signature="e#15986#15987#0" expanded="false" />
+            <element signature="e#16030#16031#0" expanded="false" />
+            <element signature="e#16092#16093#0" expanded="false" />
+            <element signature="e#16137#16138#0" expanded="false" />
+            <element signature="e#16200#16201#0" expanded="false" />
+            <element signature="e#16243#16244#0" expanded="false" />
+            <element signature="e#16304#16305#0" expanded="false" />
+            <element signature="e#17284#17285#0" expanded="false" />
+            <element signature="e#17358#17359#0" expanded="false" />
+            <element signature="e#17818#17819#0" expanded="false" />
+            <element signature="e#17913#17914#0" expanded="false" />
+            <element signature="e#24733#24734#0" expanded="false" />
+            <element signature="e#24813#24814#0" expanded="false" />
+            <element signature="e#24860#24861#0" expanded="false" />
+            <element signature="e#24939#24940#0" expanded="false" />
+            <element signature="e#24980#24981#0" expanded="false" />
+            <element signature="e#25024#25025#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/sourceforge/simcpux/wxapi/Util.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2625">
+          <caret line="205" column="4" selection-start-line="205" selection-start-column="4" selection-end-line="205" selection-end-column="4" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+            <element signature="e#4293#4294#0" expanded="false" />
+            <element signature="e#4355#4356#0" expanded="false" />
+            <element signature="e#9056#9057#0" expanded="false" />
+            <element signature="e#9102#9103#0" expanded="false" />
+            <element signature="e#9150#9151#0" expanded="false" />
+            <element signature="e#9182#9183#0" expanded="false" />
+            <element signature="e#9416#9417#0" expanded="false" />
+            <element signature="e#9464#9465#0" expanded="false" />
+            <element signature="e#9516#9517#0" expanded="false" />
+            <element signature="e#9555#9556#0" expanded="false" />
+            <element signature="e#10499#10500#0" expanded="false" />
+            <element signature="e#10549#10550#0" expanded="false" />
+            <element signature="e#10602#10603#0" expanded="false" />
+            <element signature="e#10654#10655#0" expanded="false" />
+            <element signature="e#10703#10704#0" expanded="false" />
+            <element signature="e#10759#10760#0" expanded="false" />
+            <element signature="e#10807#10808#0" expanded="false" />
+            <element signature="e#10841#10842#0" expanded="false" />
+            <element signature="e#10893#10894#0" expanded="false" />
+            <element signature="e#10944#10945#0" expanded="false" />
+            <element signature="e#11635#11636#0" expanded="false" />
+            <element signature="e#11703#11704#0" expanded="false" />
+            <element signature="e#11753#11754#0" expanded="false" />
+            <element signature="e#11817#11818#0" expanded="false" />
+            <element signature="e#13951#13952#0" expanded="false" />
+            <element signature="e#14019#14020#0" expanded="false" />
+            <element signature="e#14068#14069#0" expanded="false" />
+            <element signature="e#14135#14136#0" expanded="false" />
+            <element signature="e#14183#14184#0" expanded="false" />
+            <element signature="e#14249#14250#0" expanded="false" />
+            <element signature="e#14299#14300#0" expanded="false" />
+            <element signature="e#14367#14368#0" expanded="false" />
+            <element signature="e#14422#14423#0" expanded="false" />
+            <element signature="e#14499#14500#0" expanded="false" />
+            <element signature="e#14555#14556#0" expanded="false" />
+            <element signature="e#14633#14634#0" expanded="false" />
+            <element signature="e#14687#14688#0" expanded="false" />
+            <element signature="e#14760#14761#0" expanded="false" />
+            <element signature="e#14962#14963#0" expanded="false" />
+            <element signature="e#15026#15027#0" expanded="false" />
+            <element signature="e#15309#15310#0" expanded="false" />
+            <element signature="e#15375#15376#0" expanded="false" />
+            <element signature="e#15432#15433#0" expanded="false" />
+            <element signature="e#15497#15498#0" expanded="false" />
+            <element signature="e#15553#15554#0" expanded="false" />
+            <element signature="e#15617#15618#0" expanded="false" />
+            <element signature="e#15663#15664#0" expanded="false" />
+            <element signature="e#15733#15734#0" expanded="false" />
+            <element signature="e#15796#15797#0" expanded="false" />
+            <element signature="e#15865#15866#0" expanded="false" />
+            <element signature="e#15923#15924#0" expanded="false" />
+            <element signature="e#15986#15987#0" expanded="false" />
+            <element signature="e#16030#16031#0" expanded="false" />
+            <element signature="e#16092#16093#0" expanded="false" />
+            <element signature="e#16137#16138#0" expanded="false" />
+            <element signature="e#16200#16201#0" expanded="false" />
+            <element signature="e#16243#16244#0" expanded="false" />
+            <element signature="e#16304#16305#0" expanded="false" />
+            <element signature="e#17284#17285#0" expanded="false" />
+            <element signature="e#17358#17359#0" expanded="false" />
+            <element signature="e#17818#17819#0" expanded="false" />
+            <element signature="e#17913#17914#0" expanded="false" />
+            <element signature="e#24733#24734#0" expanded="false" />
+            <element signature="e#24813#24814#0" expanded="false" />
+            <element signature="e#24860#24861#0" expanded="false" />
+            <element signature="e#24939#24940#0" expanded="false" />
+            <element signature="e#24980#24981#0" expanded="false" />
+            <element signature="e#25024#25025#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="53" column="22" selection-start-line="53" selection-start-column="22" selection-end-line="53" selection-end-column="22" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#3140#3141#0" expanded="false" />
+            <element signature="e#3178#3179#0" expanded="false" />
+            <element signature="e#3627#3628#0" expanded="false" />
+            <element signature="e#3674#3675#0" expanded="false" />
+            <element signature="e#9554#9555#0" expanded="false" />
+            <element signature="e#9585#9586#0" expanded="false" />
+            <element signature="e#9768#9769#0" expanded="false" />
+            <element signature="e#9840#9841#0" expanded="false" />
+            <element signature="e#12726#12727#0" expanded="false" />
+            <element signature="e#12759#12760#0" expanded="false" />
+            <element signature="e#13134#13135#0" expanded="false" />
+            <element signature="e#13191#13192#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/cocos2dx/javascript/WXAPIManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/java/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/libs/wechat-sdk-android-with-mta-1.1.7.jar!/com/tencent/mm/opensdk/constants/ConstantsAPI.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="14" column="8" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/sourceforge/simcpux/wxapi/SendToWXActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/cocos2dx/javascript/SDKWrapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="12" column="21" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="147" column="52" selection-start-line="147" selection-start-column="52" selection-end-line="147" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/sourceforge/simcpux/wxapi/GetFromWXActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="55">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../../../../../../Library/android22-sdk/platforms/android-10/android.jar!/android/app/Activity.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="63" column="18" selection-start-line="63" selection-start-column="18" selection-end-line="63" selection-end-column="18" />
+          <folding>
+            <element signature="e#2294#2295#0" expanded="true" />
+            <element signature="e#2345#2346#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/cocos2dx/javascript/AppActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="56" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/sourceforge/simcpux/wxapi/WXEntryActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="37" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+          <folding>
+            <element signature="e#688#706#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1110,7 +1769,8 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.33103448" />
+                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>
@@ -1130,7 +1790,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>wechat-sdk-android-with-mta-1.1.7</last-edited>
+          <last-edited>libPluginProtocol</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

@@ -1,0 +1,6 @@
+# view AndroidManifest.xml #generated:29
+-keep class net.sourceforge.simcpux.wxapi.WXEntryActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:17
+-keep class org.cocos2dx.javascript.AppActivity { <init>(...); }
+

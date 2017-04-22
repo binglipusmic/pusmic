@@ -275,7 +275,7 @@ cc.Class({
             //check openid if in the client
             var authLoginTime = cc.sys.localStorage.getItem("authLoginTime");
             var reLoginFlag = false;
-         
+
             cc.log("reLoginFlag:" + reLoginFlag);
 
 
@@ -307,6 +307,10 @@ cc.Class({
         if (cc.sys.os == cc.sys.OS_IOS) {
             isinstall = jsb.reflection.callStaticMethod('WXApiManager', 'isWXInstalled');
         }
+        if (cc.sys.os == cc.sys.OS_ANDROID) {
+            isinstall=jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "isWXInstalled","()Z");
+
+        }
         cc.log("isinstall:" + isinstall);
         if (isinstall) {
             //check openid if in the client
@@ -328,6 +332,9 @@ cc.Class({
                 if (cc.sys.os == cc.sys.OS_IOS) {
                     jsb.reflection.callStaticMethod('WXApiManager', 'sendAuthRequestWX');
                 }
+                if (cc.sys.os == cc.sys.OS_ANDROID) {
+                    jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "sendReq","()V");
+                }
             } else {
                 //refresh auth token again.
                 var openid = cc.sys.localStorage.getItem('userOpenId');
@@ -340,7 +347,7 @@ cc.Class({
             }
         }
         else {
-            specialModule._loginfun = null;
+           // specialModule._loginfun = null;
             messageScript.text = "未安装微信!";
             messageScript.setTextOfPanel();
             cc.log('未安装微信!');

@@ -1,0 +1,21 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "3w",
+    "texture": "31c22367-57ec-409f-ac49-2b7a7b7973ff",
+    "rect": [
+      0,
+      0,
+      41,
+      60
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      41,
+      60
+    ]
+  }
+}
