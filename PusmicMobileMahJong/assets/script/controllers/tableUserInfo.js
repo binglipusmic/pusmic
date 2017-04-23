@@ -296,7 +296,7 @@ cc.Class({
         //inital the test data
         //**********Test */
         if (initalType != "inital") {
-            //this.testInitalUserList(initalType);
+            this.testInitalUserList(initalType);
         }
 
         //iniIndexScript.sendUserCode();
@@ -385,7 +385,7 @@ cc.Class({
         Global.userList = userList;
         if (type != "joinExist") {
             //show huanPaiScript
-            huanPaiScript.showHuanPaiNode();
+            //huanPaiScript.showHuanPaiNode();
         }
 
 

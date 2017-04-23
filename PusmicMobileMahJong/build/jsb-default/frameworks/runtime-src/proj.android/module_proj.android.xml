@@ -6,7 +6,7 @@
   <property name="module.jdk.bin.proj.android" value="${jdk.bin.android_api_10_platform}"/>
   <property name="module.jdk.classpath.proj.android" value="jdk.classpath.android_api_10_platform"/>
   
-  <property name="compiler.args.proj.android" value="-encoding UTF-8 -source 1.7 -target 1.7 ${compiler.args}"/>
+  <property name="compiler.args.proj.android" value="-encoding ISO-8859-1 -source 1.7 -target 1.7 ${compiler.args}"/>
   
   <property name="proj.android.output.dir" value="${module.proj.android.basedir}/out/production/proj.android"/>
   <property name="proj.android.testoutput.dir" value="${module.proj.android.basedir}/out/test/proj.android"/>
@@ -19,12 +19,14 @@
     <path refid="${module.jdk.classpath.proj.android}"/>
     <pathelement location="${java.output.dir}"/>
     <path refid="library.wechat-sdk-android-with-mta-1.1.7.classpath"/>
+    <path refid="library.libpluginprotocol.classpath"/>
   </path>
   
   <path id="proj.android.runtime.production.module.classpath">
     <pathelement location="${proj.android.output.dir}"/>
     <path refid="java.runtime.production.module.classpath"/>
     <path refid="library.wechat-sdk-android-with-mta-1.1.7.classpath"/>
+    <path refid="library.libpluginprotocol.classpath"/>
   </path>
   
   <path id="proj.android.module.classpath">
@@ -33,6 +35,7 @@
     <pathelement location="${java.testoutput.dir}"/>
     <pathelement location="${java.output.dir}"/>
     <path refid="library.wechat-sdk-android-with-mta-1.1.7.classpath"/>
+    <path refid="library.libpluginprotocol.classpath"/>
   </path>
   
   <path id="proj.android.runtime.module.classpath">
@@ -40,6 +43,7 @@
     <pathelement location="${proj.android.output.dir}"/>
     <path refid="java.runtime.module.classpath"/>
     <path refid="library.wechat-sdk-android-with-mta-1.1.7.classpath"/>
+    <path refid="library.libpluginprotocol.classpath"/>
   </path>
   
   

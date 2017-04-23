@@ -80,6 +80,10 @@
     <pathelement location="${basedir}/../../cocos2d-x/cocos/platform/android/java/libs/httpclient-4.4.1.1.jar"/>
   </path>
   
+  <path id="library.libpluginprotocol.classpath">
+    <pathelement location="${basedir}/libs/libPluginProtocol.jar"/>
+  </path>
+  
   <path id="library.wechat-sdk-android-with-mta-1.1.7.classpath">
     <pathelement location="${basedir}/libs/wechat-sdk-android-with-mta-1.1.7.jar"/>
   </path>
