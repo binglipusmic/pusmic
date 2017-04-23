@@ -41,6 +41,7 @@ cc.Class({
             // cc.audioEngine.pauseMusic();
             // cc.audioEngine.pauseAllEffects();
             // cc.eventManager.removeCustomListeners(cc.game.EVENT_HIDE);
+            cc.audioEngine.pauseAll();
             cc.game.pause();
         });
         cc.game.on(cc.game.EVENT_SHOW, function () {
@@ -49,6 +50,7 @@ cc.Class({
 
 
             cc.game.resume();
+            cc.audioEngine.resumeAll();
         });
         messageScript = this.messageNode.getComponent("alertMessagePanle");
         //window.iniIndex = require("iniIndex");
