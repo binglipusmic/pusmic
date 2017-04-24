@@ -3,5 +3,5 @@
   "has_native": true,
   "project_type": "js",
   "projectName": "PusmicMobileMahJong",
-  "packageName": "org.cocos2dx.javascript"
+  "packageName": "com.pusmicgame.mahjong"
 }

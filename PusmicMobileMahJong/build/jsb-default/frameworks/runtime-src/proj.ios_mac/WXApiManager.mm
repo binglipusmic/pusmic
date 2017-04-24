@@ -142,7 +142,7 @@ AVAudioRecorder *_audioRecorder;
     
     WXAppExtendObject *ext = [WXAppExtendObject object];
     ext.extInfo = str;
-    ext.url = @"http://www.baidu.com";
+    ext.url = @"www.pusmic.com";
     ext.fileData = data;
     NSString *title=@"四川乐乐麻将";
     NSString *description=@"在线棋牌游戏专家";

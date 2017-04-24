@@ -11,10 +11,13 @@
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/gen" isTestSource="false" generated="true" />
     </content>
-    <orderEntry type="jdk" jdkName="Android API 10 Platform" jdkType="Android SDK" />
+    <orderEntry type="jdk" jdkName="Android API 20 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="java" />
     <orderEntry type="library" name="wechat-sdk-android-with-mta-1.1.7" level="project" />
     <orderEntry type="library" name="libPluginProtocol" level="project" />
+    <orderEntry type="module" module-name="ControllerManualAdapter" />
+    <orderEntry type="module" module-name="buildConfig1" />
+    <orderEntry type="module" module-name="android" />
   </component>
 </module>

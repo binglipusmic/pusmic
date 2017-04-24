@@ -57,7 +57,7 @@
       </dict>
     </dict>
     <key>CFBundleIdentifier</key>
-    <string>org.cocos2dx.javascript</string>
+    <string>com.pusmicgame.mahjong</string>
     <key>CFBundleInfoDictionaryVersion</key>
     <string>6.0</string>
     <key>CFBundleName</key>
