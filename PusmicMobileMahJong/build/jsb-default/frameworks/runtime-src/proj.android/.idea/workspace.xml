@@ -10,636 +10,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7763de97-1a28-476f-b489-76594beb3354" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/main.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/script/ccui/jsb_ccui_create_apis.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/script/ccui/jsb_ccui_deprecated.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/script/ccui/jsb_ccui_property_apis.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/script/ccui/jsb_ccui_property_impls.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/script/ccui/jsb_cocos2d_ui.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/script/chipmunk/jsb_chipmunk.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/script/chipmunk/jsb_chipmunk_constants.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/script/debugger/DevToolsUtils.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/script/debugger/actors/common.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/script/debugger/actors/object.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/script/debugger/actors/root.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/script/debugger/actors/script.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/script/debugger/actors/utils/ScriptStore.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/script/debugger/actors/utils/TabSources.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/script/debugger/actors/webconsole.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/script/debugger/core/promise.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/script/debugger/event-emitter.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/script/debugger/main.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/script/debugger/transport.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/script/debugger/webconsole/utils.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/script/extension/jsb_cocos2d_extension.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/script/jsb.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/script/jsb_audioengine.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/script/jsb_boot.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/script/jsb_cocos2d.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/script/jsb_common.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/script/jsb_create_apis.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/script/jsb_debugger.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/script/jsb_dragonbones.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/script/jsb_opengl.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/script/jsb_opengl_constants.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/script/jsb_prepare.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/script/jsb_property_apis.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/script/jsb_property_impls.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/script/jsb_spine.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/src/assets/script/lib/pubnub.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/src/assets/script/lib/stockJS.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/src/assets/script/lib/stockWebJS.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/src/assets/script/lib/stomp.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/src/jsb_polyfill.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/src/project.dev.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/src/settings.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/bin/PusmicMobileMahJong-debug-unaligned.apk" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/bin/PusmicMobileMahJong-debug-unaligned.apk.d" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/bin/PusmicMobileMahJong-debug.apk" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/bin/classes/com/pusmicgame/mahjongGame/BuildConfig.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/bin/classes/com/pusmicgame/mahjongGame/R$attr.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/bin/classes/com/pusmicgame/mahjongGame/R$drawable.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/bin/classes/com/pusmicgame/mahjongGame/R$string.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/bin/classes/com/pusmicgame/mahjongGame/R.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/bin/classes/net/sourceforge/simcpux/wxapi/WXEntryActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/bin/dexedLibs/annotations-2b15219c29b8f86218eb86582049178f.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/gen/com/pusmicgame/mahjongGame/BuildConfig.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/gen/com/pusmicgame/mahjongGame/Manifest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/gen/com/pusmicgame/mahjongGame/R.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/libs/arm64-v8a/gdb.setup" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/libs/arm64-v8a/gdbserver" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/libs/armeabi-v7a/gdb.setup" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/libs/armeabi-v7a/gdbserver" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/libs/armeabi/gdb.setup" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/libs/armeabi/gdbserver" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/libs/armeabi/libcocos2djs.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi/libaudioengine.a" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi/libcocos2d.a" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi/libcocos2dandroid.a" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi/libcocos2djs.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi/libcocos2dxinternal.a" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi/libcocosbuilder.a" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi/libcocosdenshion.a" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi/libcocostudio.a" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi/libcpufeatures.a" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi/libcreator.a" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi/libdragonbones.a" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi/libextension.a" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi/libjscocos2d.a" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi/libnetwork.a" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi/libpvmp3dec.a" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi/libspine.a" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi/libui.a" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi/libvorbisidec.a" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/BuildConfig.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxAccelerometer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxActivity$Cocos2dxEGLConfigChooser$ConfigValue.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxActivity$Cocos2dxEGLConfigChooser.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxBitmap.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxDownloader$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxDownloader$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxDownloader$3$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxDownloader$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxDownloader$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxDownloader.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxEditBox.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxEditBoxHelper$1$1$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxEditBoxHelper$1$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxEditBoxHelper$1$2$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxEditBoxHelper$1$2$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxEditBoxHelper$1$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxEditBoxHelper$1$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxEditBoxHelper$1$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxEditBoxHelper$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxEditBoxHelper$10.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxEditBoxHelper$11.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxEditBoxHelper$12.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxEditBoxHelper$13.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxEditBoxHelper$14.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxEditBoxHelper$15.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxEditBoxHelper$16.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxEditBoxHelper$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxEditBoxHelper$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxEditBoxHelper$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxEditBoxHelper$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxEditBoxHelper$6.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxEditBoxHelper$7.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxEditBoxHelper$8.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxEditBoxHelper$9.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxEditBoxHelper.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxGLSurfaceView$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxGLSurfaceView$10.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxGLSurfaceView$11.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxGLSurfaceView$12.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxGLSurfaceView$13.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxGLSurfaceView$14.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxGLSurfaceView$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxGLSurfaceView$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxGLSurfaceView$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxGLSurfaceView$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxGLSurfaceView$6.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxGLSurfaceView$7.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxGLSurfaceView$8.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxGLSurfaceView$9.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxGLSurfaceView.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxHandler$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxHandler$DialogMessage.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxHandler.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxHelper$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxHelper$Cocos2dxHelperListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxHelper.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxHttpURLConnection.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxJavascriptJavaBridge.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxLocalStorage$DBOpenHelper.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxLocalStorage.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxMusic.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxReflectionHelper.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxRenderer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxSound$OnLoadCompletedListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxSound$SoundInfoForLoadedCompleted.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxSound.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxTextInputWrapper.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxTypefaces.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxVideoHelper$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxVideoHelper$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxVideoHelper$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxVideoHelper$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxVideoHelper$VideoEventRunnable.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxVideoHelper$VideoHandler.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxVideoHelper.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxVideoView$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxVideoView$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxVideoView$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxVideoView$4$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxVideoView$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxVideoView$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxVideoView$6.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxVideoView$OnVideoEventListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxVideoView.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxWebView$Cocos2dxWebViewClient$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxWebView$Cocos2dxWebViewClient$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxWebView$Cocos2dxWebViewClient$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxWebView$Cocos2dxWebViewClient.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxWebView.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxWebViewHelper$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxWebViewHelper$10.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxWebViewHelper$11.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxWebViewHelper$12.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxWebViewHelper$13.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxWebViewHelper$14.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxWebViewHelper$15.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxWebViewHelper$16.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxWebViewHelper$17.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxWebViewHelper$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxWebViewHelper$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxWebViewHelper$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxWebViewHelper$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxWebViewHelper$6.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxWebViewHelper$7.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxWebViewHelper$8.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxWebViewHelper$9.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/Cocos2dxWebViewHelper.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/DataTaskHandler.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/DownloadTask.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/FileTaskHandler.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/GameControllerAdapter$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/GameControllerAdapter$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/GameControllerAdapter$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/GameControllerAdapter$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/GameControllerAdapter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/GameControllerDelegate$ControllerEventListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/GameControllerDelegate.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/GameControllerUtils.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/HeadTaskHandler.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/ResizeLayout$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/ResizeLayout.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/android/org/cocos2dx/lib/ShouldStartLoadingWorker.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/proj.android/com/pusmicgame/mahjongGame/BuildConfig.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/proj.android/com/pusmicgame/mahjongGame/R$attr.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/proj.android/com/pusmicgame/mahjongGame/R$drawable.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/proj.android/com/pusmicgame/mahjongGame/R$string.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/proj.android/com/pusmicgame/mahjongGame/R.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/proj.android/net/sourceforge/simcpux/wxapi/Util.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/proj.android/net/sourceforge/simcpux/wxapi/WXEntryActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/proj.android/org/cocos2dx/javascript/AppActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/proj.android/org/cocos2dx/javascript/SDKWrapper.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/proj.android/org/cocos2dx/javascript/WXAPIManager.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/proj.android/org/cocos2dx/lib/BuildConfig.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/proj.android/org/cocos2dx/lib/R$attr.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/proj.android/org/cocos2dx/lib/R$drawable.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/proj.android/org/cocos2dx/lib/R$string.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/proj.android/org/cocos2dx/lib/R.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../../proj.android/src/net/sourceforge/simcpux/wxapi/WXEntryActivity.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../proj.ios_mac/PusmicMobileMahJong.xcodeproj/project.xcworkspace/xcuserdata/prominic2.xcuserdatad/UserInterfaceState.xcuserstate" afterPath="$PROJECT_DIR$/../proj.ios_mac/PusmicMobileMahJong.xcodeproj/project.xcworkspace/xcuserdata/prominic2.xcuserdatad/UserInterfaceState.xcuserstate" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/bin/PusmicMobileMahJong.ap_" afterPath="$PROJECT_DIR$/../../../../../../proj.android/bin/PusmicMobileMahJong.ap_" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/bin/classes.dex" afterPath="$PROJECT_DIR$/../../../../../../proj.android/bin/classes.dex" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/bin/classes/org/cocos2dx/javascript/AppActivity.class" afterPath="$PROJECT_DIR$/../../../../../../proj.android/bin/classes/org/cocos2dx/javascript/AppActivity.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/bin/classes/org/cocos2dx/javascript/SDKWrapper.class" afterPath="$PROJECT_DIR$/../../../../../../proj.android/bin/classes/org/cocos2dx/javascript/SDKWrapper.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/bin/dexedLibs/android-async-http-1.4.9-93e3d21fd9caa396b0f63ae840c72ceb.jar" afterPath="$PROJECT_DIR$/../../../../../../proj.android/bin/dexedLibs/android-async-http-1.4.9-93e3d21fd9caa396b0f63ae840c72ceb.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/bin/dexedLibs/classes-4a88cf3cca471ec3d1979afd289eea03.jar" afterPath="$PROJECT_DIR$/../../../../../../proj.android/bin/dexedLibs/classes-4a88cf3cca471ec3d1979afd289eea03.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/bin/dexedLibs/com.android.vending.expansion.zipfile-368c3c1d38e6ddd679172e034500fffe.jar" afterPath="$PROJECT_DIR$/../../../../../../proj.android/bin/dexedLibs/com.android.vending.expansion.zipfile-368c3c1d38e6ddd679172e034500fffe.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/bin/dexedLibs/httpclient-4.4.1.1-982e0bc469a6f02236f8bfd0d26c1c43.jar" afterPath="$PROJECT_DIR$/../../../../../../proj.android/bin/dexedLibs/httpclient-4.4.1.1-982e0bc469a6f02236f8bfd0d26c1c43.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/bin/dexedLibs/wechat-sdk-android-with-mta-1.1.7-0633a6ddfab17888114e520fc4c474dd.jar" afterPath="$PROJECT_DIR$/../../../../../../proj.android/bin/dexedLibs/wechat-sdk-android-with-mta-1.1.7-0633a6ddfab17888114e520fc4c474dd.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/libs/arm64-v8a/libcocos2djs.so" afterPath="$PROJECT_DIR$/../../../../../../proj.android/libs/arm64-v8a/libcocos2djs.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/libs/armeabi-v7a/libcocos2djs.so" afterPath="$PROJECT_DIR$/../../../../../../proj.android/libs/armeabi-v7a/libcocos2djs.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/libaudioengine.a" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/libaudioengine.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/libcocos2dandroid.a" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/libcocos2dandroid.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/libcocos2djs.so" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/libcocos2djs.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/libcocos2dxinternal.a" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/libcocos2dxinternal.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/libcocosbuilder.a" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/libcocosbuilder.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/libcocosdenshion.a" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/libcocosdenshion.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/libcocostudio.a" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/libcocostudio.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/libcpufeatures.a" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/libcpufeatures.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/libcreator.a" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/libcreator.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/libdragonbones.a" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/libdragonbones.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/libextension.a" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/libextension.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/libjscocos2d.a" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/libjscocos2d.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/libnetwork.a" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/libnetwork.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/libpvmp3dec.a" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/libpvmp3dec.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/libspine.a" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/libspine.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/libui.a" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/libui.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/libvorbisidec.a" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/libvorbisidec.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/objs-debug/cocos2djs_shared/__/__/Classes/AppDelegate.o" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/objs-debug/cocos2djs_shared/__/__/Classes/AppDelegate.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/objs-debug/cocos2djs_shared/hellojavascript/main.o" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/objs-debug/cocos2djs_shared/hellojavascript/main.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/libaudioengine.a" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/libaudioengine.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/libcocos2dandroid.a" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/libcocos2dandroid.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/libcocos2djs.so" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/libcocos2djs.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/libcocos2dxinternal.a" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/libcocos2dxinternal.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/libcocosbuilder.a" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/libcocosbuilder.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/libcocosdenshion.a" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/libcocosdenshion.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/libcocostudio.a" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/libcocostudio.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/libcpufeatures.a" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/libcpufeatures.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/libcreator.a" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/libcreator.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/libdragonbones.a" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/libdragonbones.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/libextension.a" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/libextension.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/libjscocos2d.a" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/libjscocos2d.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/libnetwork.a" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/libnetwork.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/libpvmp3dec.a" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/libpvmp3dec.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/libspine.a" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/libspine.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/libui.a" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/libui.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/libvorbisidec.a" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/libvorbisidec.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/objs-debug/cocos2djs_shared/__/__/Classes/AppDelegate.o" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/objs-debug/cocos2djs_shared/__/__/Classes/AppDelegate.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/objs-debug/cocos2djs_shared/hellojavascript/main.o" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/objs-debug/cocos2djs_shared/hellojavascript/main.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi/objs-debug/cocos2djs_shared/__/__/Classes/AppDelegate.o" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi/objs-debug/cocos2djs_shared/__/__/Classes/AppDelegate.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi/objs-debug/cocos2djs_shared/hellojavascript/main.o" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi/objs-debug/cocos2djs_shared/hellojavascript/main.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/proj.android/proj.android.apk" afterPath="$PROJECT_DIR$/../../../../../../proj.android/out/production/proj.android/proj.android.apk" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/out/production/proj.android/proj.android.unaligned.apk" afterPath="$PROJECT_DIR$/../../../../../../proj.android/out/production/proj.android/proj.android.unaligned.apk" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.ios_mac/PusmicMobileMahJong.xcodeproj/project.xcworkspace/xcuserdata/prominic2.xcuserdatad/UserInterfaceState.xcuserstate" afterPath="$PROJECT_DIR$/../../../../../../proj.ios_mac/PusmicMobileMahJong.xcodeproj/project.xcworkspace/xcuserdata/prominic2.xcuserdatad/UserInterfaceState.xcuserstate" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../PusmicMahJong/grails-app/services/com/pusmicgame/game/UserService.groovy" afterPath="$PROJECT_DIR$/../../../../../../PusmicMahJong/grails-app/services/com/pusmicgame/game/UserService.groovy" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../assets/script/audio/AudioMessage.js" afterPath="$PROJECT_DIR$/../../../../../assets/script/audio/AudioMessage.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../assets/script/service/GameTableNetWork.js" afterPath="$PROJECT_DIR$/../../../../../assets/script/service/GameTableNetWork.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../assets/script/service/iniIndex.js" afterPath="$PROJECT_DIR$/../../../../../assets/script/service/iniIndex.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../proj.ios_mac/PusmicMobileMahJong.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/../proj.ios_mac/PusmicMobileMahJong.xcodeproj/project.pbxproj" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../proj.ios_mac/WXApiManager.mm" afterPath="$PROJECT_DIR$/../proj.ios_mac/WXApiManager.mm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../proj.ios_mac/ios/Info.plist" afterPath="$PROJECT_DIR$/../proj.ios_mac/ios/Info.plist" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/AndroidManifest.xml" afterPath="$PROJECT_DIR$/../../../../../../proj.android/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/project.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/project.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/00/00a59b5b-dae1-4b08-b1de-904cd4e85376.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/00/00a59b5b-dae1-4b08-b1de-904cd4e85376.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/01/014c26a7-1ef9-46bb-b3d4-94378e4f7b1b.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/01/014c26a7-1ef9-46bb-b3d4-94378e4f7b1b.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/03/03447fe1-2b35-46bf-97a8-b478f516a831.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/03/03447fe1-2b35-46bf-97a8-b478f516a831.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/03/0387b984-b71c-4976-b6d1-f9ec88d88d71.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/03/0387b984-b71c-4976-b6d1-f9ec88d88d71.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/03/03e424a2-23db-4c6b-9eed-ba1b0c9a73dd.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/03/03e424a2-23db-4c6b-9eed-ba1b0c9a73dd.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/04/04e730d7-8155-4c3d-a70c-1f2620643332.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/04/04e730d7-8155-4c3d-a70c-1f2620643332.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/07/079697f9-35cc-4833-9118-a563a5bb9667.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/07/079697f9-35cc-4833-9118-a563a5bb9667.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/07/07c37824-c63d-4684-b95c-5370880e6332.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/07/07c37824-c63d-4684-b95c-5370880e6332.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/07/07f6d7b1-1f50-41af-8e64-76254022a6b1.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/07/07f6d7b1-1f50-41af-8e64-76254022a6b1.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/08/0826d5fc-a638-454e-96fe-6a6b99e77bca.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/08/0826d5fc-a638-454e-96fe-6a6b99e77bca.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/08/08d586e4-8f2b-4c29-9e00-9807864c3544.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/08/08d586e4-8f2b-4c29-9e00-9807864c3544.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/09/098f5236-6282-4e05-9316-5bb541d692b8.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/09/098f5236-6282-4e05-9316-5bb541d692b8.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/0c/0c69b9dd-4468-4e1b-b2f9-379387b5161b.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/0c/0c69b9dd-4468-4e1b-b2f9-379387b5161b.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/0e/0e07ef8b-923f-4374-89e0-21e1e1b6121b.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/0e/0e07ef8b-923f-4374-89e0-21e1e1b6121b.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/0f/0f0a06c4-e987-4943-be4d-5c9ad503aa3b.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/0f/0f0a06c4-e987-4943-be4d-5c9ad503aa3b.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/0f/0f464ed4-07b6-4151-8d18-891c71552994.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/0f/0f464ed4-07b6-4151-8d18-891c71552994.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/0f/0f6d33a9-2b3e-44d0-81aa-7bd0a4c811cb.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/0f/0f6d33a9-2b3e-44d0-81aa-7bd0a4c811cb.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/10/10108688-57e3-478c-927d-27c24d77ddc1.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/10/10108688-57e3-478c-927d-27c24d77ddc1.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/10/10621803-9b5a-4d12-af85-8aec57ed6db3.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/10/10621803-9b5a-4d12-af85-8aec57ed6db3.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/11/113ccb36-9c90-4d41-9f49-6f7092dcd4fd.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/11/113ccb36-9c90-4d41-9f49-6f7092dcd4fd.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/11/116f843c-3482-4c71-85bf-a5972946c2d7.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/11/116f843c-3482-4c71-85bf-a5972946c2d7.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/11/11747d30-aea2-48ea-83ff-f00644f6b274.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/11/11747d30-aea2-48ea-83ff-f00644f6b274.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/11/11aa22c3-b741-4024-b4c0-98351ddc0cdf.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/11/11aa22c3-b741-4024-b4c0-98351ddc0cdf.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/11/11ce3c98-b42f-4c39-9549-8c52243aaa28.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/11/11ce3c98-b42f-4c39-9549-8c52243aaa28.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/11/11fcf830-c735-4875-bad4-851ba07f685b.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/11/11fcf830-c735-4875-bad4-851ba07f685b.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/14/146b12b6-b49a-4963-a004-8c9bd3622e31.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/14/146b12b6-b49a-4963-a004-8c9bd3622e31.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/14/1475fb5b-63c0-441b-96a0-3efbb41bd5ca.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/14/1475fb5b-63c0-441b-96a0-3efbb41bd5ca.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/14/14bf94f9-a000-4bf5-98fb-9f144517590f.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/14/14bf94f9-a000-4bf5-98fb-9f144517590f.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/15/151f3d5c-c478-4d06-ac41-20ec62831e91.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/15/151f3d5c-c478-4d06-ac41-20ec62831e91.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/15/158f7695-4a3d-4156-b323-f0addc33de4d.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/15/158f7695-4a3d-4156-b323-f0addc33de4d.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/18/18c2a060-510f-4ed9-a666-9f5db30f6501.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/18/18c2a060-510f-4ed9-a666-9f5db30f6501.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/1a/1a32fc76-f0bd-4f66-980f-56929c0ca0b3.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/1a/1a32fc76-f0bd-4f66-980f-56929c0ca0b3.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/1a/1a857fd2-4d86-4a4f-b8ec-00c2cbd7bffc.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/1a/1a857fd2-4d86-4a4f-b8ec-00c2cbd7bffc.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/1d/1dad3dc5-e167-4173-8364-0fc599b4ff30.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/1d/1dad3dc5-e167-4173-8364-0fc599b4ff30.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/1d/1db4d582-702e-424e-8f14-3fc063cfb484.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/1d/1db4d582-702e-424e-8f14-3fc063cfb484.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/1e/1e177856-4623-4d5f-bbe6-e3d07bf4a510.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/1e/1e177856-4623-4d5f-bbe6-e3d07bf4a510.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/1e/1e95d2f8-8198-41dc-b4ac-920953efd3b2.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/1e/1e95d2f8-8198-41dc-b4ac-920953efd3b2.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/20/200be8ba-7f6b-47dd-a9b3-a8714ac75ca8.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/20/200be8ba-7f6b-47dd-a9b3-a8714ac75ca8.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/20/20ff4d90-caf8-4e9a-bc66-8cac3ad332d0.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/20/20ff4d90-caf8-4e9a-bc66-8cac3ad332d0.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/21/21694dc6-4c37-4500-ba78-c61672808454.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/21/21694dc6-4c37-4500-ba78-c61672808454.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/21/21b0cc6d-fa84-4c35-9c4e-21780186c56e.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/21/21b0cc6d-fa84-4c35-9c4e-21780186c56e.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/22/226f60a8-a1c4-40ca-95de-bcd30f7de7b6.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/22/226f60a8-a1c4-40ca-95de-bcd30f7de7b6.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/23/230e2735-a708-4de6-bb1d-1137596e899e.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/23/230e2735-a708-4de6-bb1d-1137596e899e.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/25/2560ebab-4080-4e95-8343-bc4f582615f6.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/25/2560ebab-4080-4e95-8343-bc4f582615f6.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/25/257bd48d-cc2e-481d-8da2-296c377069f9.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/25/257bd48d-cc2e-481d-8da2-296c377069f9.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/26/2602776c-8023-4bc6-bde9-3afd3b5810c8.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/26/2602776c-8023-4bc6-bde9-3afd3b5810c8.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/26/2691594b-4feb-4bdf-aaeb-24cb59f4acc8.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/26/2691594b-4feb-4bdf-aaeb-24cb59f4acc8.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/26/26916cb2-5bef-414c-ae57-10d05a54e8a0.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/26/26916cb2-5bef-414c-ae57-10d05a54e8a0.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/28/28278a2c-ca70-4468-95fe-e2d2fe2ed43b.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/28/28278a2c-ca70-4468-95fe-e2d2fe2ed43b.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/29/29158224-f8dd-4661-a796-1ffab537140e.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/29/29158224-f8dd-4661-a796-1ffab537140e.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/2a/2a25c31c-7e44-4e59-ad97-9823d841652d.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/2a/2a25c31c-7e44-4e59-ad97-9823d841652d.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/2a/2a6a84f0-e783-43d0-b207-fba084a2d05c.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/2a/2a6a84f0-e783-43d0-b207-fba084a2d05c.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/2c/2cbd9a86-daf1-4e4a-9a31-e37ca79fa246.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/2c/2cbd9a86-daf1-4e4a-9a31-e37ca79fa246.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/2d/2da33e1f-a32d-4a45-b105-a5485de96d76.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/2d/2da33e1f-a32d-4a45-b105-a5485de96d76.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/2e/2efae07a-64ee-4d3e-a00c-95967837e9f0.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/2e/2efae07a-64ee-4d3e-a00c-95967837e9f0.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/2f/2f2ea683-bc66-417e-9740-638f758598a5.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/2f/2f2ea683-bc66-417e-9740-638f758598a5.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/2f/2f33cbcd-0766-4a52-b0f0-dfe7e68fcb97.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/2f/2f33cbcd-0766-4a52-b0f0-dfe7e68fcb97.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/31/31266a83-7c9f-4167-9c22-a374d08806a0.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/31/31266a83-7c9f-4167-9c22-a374d08806a0.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/33/33f79301-995b-44ee-a034-7bfc8373ad66.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/33/33f79301-995b-44ee-a034-7bfc8373ad66.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/36/36972a8f-6832-4a4a-9fcc-e15f78902ec3.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/36/36972a8f-6832-4a4a-9fcc-e15f78902ec3.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/37/37f4d458-7cf8-4722-8744-17becb2b09b8.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/37/37f4d458-7cf8-4722-8744-17becb2b09b8.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/38/3815ce4f-e2c5-47ad-87dd-0e2a32b5e1e4.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/38/3815ce4f-e2c5-47ad-87dd-0e2a32b5e1e4.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/38/386c0ad8-a8e3-4bd8-8165-b91512b84267.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/38/386c0ad8-a8e3-4bd8-8165-b91512b84267.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/38/38734dfb-1fe3-49af-a54f-19efc14b9fda.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/38/38734dfb-1fe3-49af-a54f-19efc14b9fda.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/38/389dfdb5-cd34-40a4-b5be-d06355632d1f.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/38/389dfdb5-cd34-40a4-b5be-d06355632d1f.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/39/392b6835-bc62-4da5-867b-b6126ecb926a.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/39/392b6835-bc62-4da5-867b-b6126ecb926a.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/39/39ff0a44-1c42-49ca-90b4-f45a02ceb7e2.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/39/39ff0a44-1c42-49ca-90b4-f45a02ceb7e2.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/3e/3e34ce01-acfb-42df-9e2d-e6fbfcd131fc.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/3e/3e34ce01-acfb-42df-9e2d-e6fbfcd131fc.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/3f/3f30eb73-8bff-45be-aaa5-f181f0f8f7b8.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/3f/3f30eb73-8bff-45be-aaa5-f181f0f8f7b8.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/3f/3f5ff01d-8e95-420d-a456-8869647b6f47.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/3f/3f5ff01d-8e95-420d-a456-8869647b6f47.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/40/40ea5efb-baa5-439a-9f38-cd4a6d5f861f.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/40/40ea5efb-baa5-439a-9f38-cd4a6d5f861f.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/41/4141515c-49be-4f0e-97dd-daa3539a9e1d.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/41/4141515c-49be-4f0e-97dd-daa3539a9e1d.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/42/42bc5d16-f4b5-4a22-b11b-92b7defc115e.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/42/42bc5d16-f4b5-4a22-b11b-92b7defc115e.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/42/42c7f4bd-c82e-49de-a9a5-c4dee4361cce.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/42/42c7f4bd-c82e-49de-a9a5-c4dee4361cce.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/43/43055d7e-e9d5-4f85-99bd-967df7cce0b9.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/43/43055d7e-e9d5-4f85-99bd-967df7cce0b9.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/43/43f317c2-f3c6-4cb2-99bd-4e0de0507b7c.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/43/43f317c2-f3c6-4cb2-99bd-4e0de0507b7c.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/45/4550f62e-2285-499b-a82a-9c9186eec550.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/45/4550f62e-2285-499b-a82a-9c9186eec550.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/45/45e799cb-8fb2-4b6b-b1c4-4be45be1ad5e.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/45/45e799cb-8fb2-4b6b-b1c4-4be45be1ad5e.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/46/468b509d-90d5-4801-8b76-291e31c81e9e.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/46/468b509d-90d5-4801-8b76-291e31c81e9e.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/47/4780bfca-13c1-4e1b-8143-7dfbc6850d69.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/47/4780bfca-13c1-4e1b-8143-7dfbc6850d69.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/48/486ca096-e966-41d9-a62e-d9a6c0e6df7c.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/48/486ca096-e966-41d9-a62e-d9a6c0e6df7c.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/4a/4a0c8268-7dff-4d5f-8757-4c66e7e4b975.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/4a/4a0c8268-7dff-4d5f-8757-4c66e7e4b975.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/4a/4a468d6f-0284-4283-849b-7331a1c9034b.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/4a/4a468d6f-0284-4283-849b-7331a1c9034b.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/4a/4a523399-dc25-455f-be69-bac97d9fc665.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/4a/4a523399-dc25-455f-be69-bac97d9fc665.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/4a/4a53b398-8b87-4148-9f71-4c1c7de7385b.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/4a/4a53b398-8b87-4148-9f71-4c1c7de7385b.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/4c/4c70acdc-273b-40b7-ab85-193c59f2cf97.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/4c/4c70acdc-273b-40b7-ab85-193c59f2cf97.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/4c/4ca38a2b-3e74-4806-a185-7c7e4337677b.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/4c/4ca38a2b-3e74-4806-a185-7c7e4337677b.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/4c/4cd62a29-6bdf-4b15-8429-9c6349c0c07c.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/4c/4cd62a29-6bdf-4b15-8429-9c6349c0c07c.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/4c/4ceb693a-2cbf-4e30-a878-87034042cedb.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/4c/4ceb693a-2cbf-4e30-a878-87034042cedb.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/4d/4da97d3a-c478-4996-9cd5-5f3977364f8f.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/4d/4da97d3a-c478-4996-9cd5-5f3977364f8f.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/4d/4db0c536-f8de-49fe-b0f4-44fe62b282cf.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/4d/4db0c536-f8de-49fe-b0f4-44fe62b282cf.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/4e/4e03c5a6-c3d6-45ca-993f-885af5fb7659.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/4e/4e03c5a6-c3d6-45ca-993f-885af5fb7659.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/4f/4fd1ce83-956e-48c5-a298-f491e1ea4ab2.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/4f/4fd1ce83-956e-48c5-a298-f491e1ea4ab2.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/51/51b9b9c4-e710-4430-95a9-0786fa635c61.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/51/51b9b9c4-e710-4430-95a9-0786fa635c61.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/51/51c76e63-ee7e-4b38-8959-5a8980c2ecbb.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/51/51c76e63-ee7e-4b38-8959-5a8980c2ecbb.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/52/523e982c-be69-4eb3-b7b9-9eb7c222fe63.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/52/523e982c-be69-4eb3-b7b9-9eb7c222fe63.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/54/547e37c9-9efc-4812-ae63-d587c7ed9f35.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/54/547e37c9-9efc-4812-ae63-d587c7ed9f35.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/54/54b6aad8-6951-4393-a14a-872ffd92a0e9.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/54/54b6aad8-6951-4393-a14a-872ffd92a0e9.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/55/552205e6-df22-4146-8437-1a753842553e.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/55/552205e6-df22-4146-8437-1a753842553e.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/55/55bbb517-72b3-4f22-996f-0414692d005b.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/55/55bbb517-72b3-4f22-996f-0414692d005b.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/57/5713f5fa-bc6d-477f-91f3-23f2cf161abe.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/57/5713f5fa-bc6d-477f-91f3-23f2cf161abe.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/57/57a17e41-c599-45a9-9f78-295ccf6687e1.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/57/57a17e41-c599-45a9-9f78-295ccf6687e1.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/58/586fa0d4-aad4-4e9d-8a08-c1742c4eb2fd.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/58/586fa0d4-aad4-4e9d-8a08-c1742c4eb2fd.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/59/5957ed07-af8e-4fea-afa1-aab239826855.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/59/5957ed07-af8e-4fea-afa1-aab239826855.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/5a/5a548cf7-0052-419f-99ab-9b1c06ec80ce.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/5a/5a548cf7-0052-419f-99ab-9b1c06ec80ce.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/5a/5aef95a7-3940-4d38-b37a-0ab13f4ea968.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/5a/5aef95a7-3940-4d38-b37a-0ab13f4ea968.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/5b/5b08edda-bf0f-4f9f-bce7-8579acd2d676.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/5b/5b08edda-bf0f-4f9f-bce7-8579acd2d676.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/5c/5c0b9118-80df-4e99-a9df-c51f9cad9d95.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/5c/5c0b9118-80df-4e99-a9df-c51f9cad9d95.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/5c/5c3bb932-6c3c-468f-88a9-c8c61d458641.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/5c/5c3bb932-6c3c-468f-88a9-c8c61d458641.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/5c/5c72122a-2b90-4e9d-b20e-be4024ae822f.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/5c/5c72122a-2b90-4e9d-b20e-be4024ae822f.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/5d/5d6cb0f6-a08d-4e8f-9915-427a6f857a48.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/5d/5d6cb0f6-a08d-4e8f-9915-427a6f857a48.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/5e/5e4a1ee4-a33f-42c7-a6a0-88e211a759d5.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/5e/5e4a1ee4-a33f-42c7-a6a0-88e211a759d5.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/5e/5ecf4ced-56a2-4751-b12e-c2e30714164c.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/5e/5ecf4ced-56a2-4751-b12e-c2e30714164c.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/5f/5fa42de3-bf46-4ceb-8b49-1c64e5eb2d80.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/5f/5fa42de3-bf46-4ceb-8b49-1c64e5eb2d80.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/5f/5fe5dcaa-b513-4dc5-a166-573627b3a159.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/5f/5fe5dcaa-b513-4dc5-a166-573627b3a159.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/61/610cbbf8-efeb-4a43-8e90-481b147cdcfe.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/61/610cbbf8-efeb-4a43-8e90-481b147cdcfe.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/61/618cde31-04f1-41b0-95e7-50cd07c97783.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/61/618cde31-04f1-41b0-95e7-50cd07c97783.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/63/635de956-893b-460c-8f97-321bdb8d75ab.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/63/635de956-893b-460c-8f97-321bdb8d75ab.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/63/6385f39f-5385-4e46-a367-f0d145fb766c.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/63/6385f39f-5385-4e46-a367-f0d145fb766c.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/63/63b5f847-cb86-4302-bd97-15545255148f.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/63/63b5f847-cb86-4302-bd97-15545255148f.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/63/63d9c1a3-e66b-44c8-921d-605f800d1199.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/63/63d9c1a3-e66b-44c8-921d-605f800d1199.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/66/660b9f66-a41d-4c37-81f5-4a9350b0158d.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/66/660b9f66-a41d-4c37-81f5-4a9350b0158d.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/67/67049bee-0853-4e27-82ad-ddd051ff117b.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/67/67049bee-0853-4e27-82ad-ddd051ff117b.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/67/674fa67c-eb70-47ef-badf-90c93779c7e6.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/67/674fa67c-eb70-47ef-badf-90c93779c7e6.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/67/67884ac8-06fb-49ee-ac9b-938f3dc99bef.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/67/67884ac8-06fb-49ee-ac9b-938f3dc99bef.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/67/67d72a8a-461d-493a-ae31-aedfabc79ba0.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/67/67d72a8a-461d-493a-ae31-aedfabc79ba0.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/67/67ec7ba8-63cd-462c-ab5a-7177cbceb944.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/67/67ec7ba8-63cd-462c-ab5a-7177cbceb944.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/6b/6b919913-4d68-4367-9da2-1d3ff542427f.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/6b/6b919913-4d68-4367-9da2-1d3ff542427f.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/6c/6c57367f-8a65-4e75-8a6a-7f14a6125611.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/6c/6c57367f-8a65-4e75-8a6a-7f14a6125611.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/6c/6ce2c40c-9bf0-49cf-911a-afd209084205.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/6c/6ce2c40c-9bf0-49cf-911a-afd209084205.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/6d/6d2e9c4d-f662-4f71-bdd7-1853c7474e5a.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/6d/6d2e9c4d-f662-4f71-bdd7-1853c7474e5a.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/6d/6d6acee1-0c62-4e23-bfbd-dadfa002165b.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/6d/6d6acee1-0c62-4e23-bfbd-dadfa002165b.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/6f/6fa9460f-77f1-4151-9141-b45a11fa4294.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/6f/6fa9460f-77f1-4151-9141-b45a11fa4294.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/6f/6fe47958-8ff2-4067-86ab-5502dccc945a.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/6f/6fe47958-8ff2-4067-86ab-5502dccc945a.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/6f/6ffb16ad-d550-4977-86b1-6cb6b09ebe8a.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/6f/6ffb16ad-d550-4977-86b1-6cb6b09ebe8a.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/70/70a6632f-201a-4cd4-a754-4a29e45561f7.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/70/70a6632f-201a-4cd4-a754-4a29e45561f7.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/71/7104201e-3c8a-4610-9ccb-bea9354d4ff0.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/71/7104201e-3c8a-4610-9ccb-bea9354d4ff0.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/72/729d90ac-ae7c-4bbc-8a3b-2e9c8ed1e022.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/72/729d90ac-ae7c-4bbc-8a3b-2e9c8ed1e022.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/72/72c024bb-7def-4e51-885d-7b83fda0e5ac.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/72/72c024bb-7def-4e51-885d-7b83fda0e5ac.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/73/730c533f-bd0b-4d0b-9dec-0eda0b943adc.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/73/730c533f-bd0b-4d0b-9dec-0eda0b943adc.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/73/73d5dc14-1988-41e7-ab8d-b7fb282356b0.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/73/73d5dc14-1988-41e7-ab8d-b7fb282356b0.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/74/74636332-01b1-487f-87ed-1ef9a049121e.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/74/74636332-01b1-487f-87ed-1ef9a049121e.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/75/75230a87-11ca-4a09-a183-06b88a84ac89.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/75/75230a87-11ca-4a09-a183-06b88a84ac89.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/75/759f6eda-dc63-440e-be82-837f9dfefe49.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/75/759f6eda-dc63-440e-be82-837f9dfefe49.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/75/75d70b29-6066-486b-bb9a-51bbbe30d150.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/75/75d70b29-6066-486b-bb9a-51bbbe30d150.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/75/75ef1be7-211e-4157-9650-3a11ee5c70d6.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/75/75ef1be7-211e-4157-9650-3a11ee5c70d6.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/76/766ed35d-9e70-4935-868e-9567f27fe305.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/76/766ed35d-9e70-4935-868e-9567f27fe305.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/77/77f8c035-c1e6-4b05-8aca-83059d73c756.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/77/77f8c035-c1e6-4b05-8aca-83059d73c756.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/78/78a8d2b1-f6d7-4dbc-9690-e6cfeaf2599a.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/78/78a8d2b1-f6d7-4dbc-9690-e6cfeaf2599a.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/79/792bf642-c894-470f-897a-0f5daef03e0f.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/79/792bf642-c894-470f-897a-0f5daef03e0f.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/7b/7b6f35c2-e913-4a7d-a8c2-20b8b346fb61.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/7b/7b6f35c2-e913-4a7d-a8c2-20b8b346fb61.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/7b/7b8e4ecc-2992-43bd-8c64-a367dd0b305c.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/7b/7b8e4ecc-2992-43bd-8c64-a367dd0b305c.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/7d/7d9be2bd-d6af-4d0f-9a28-077a2571a3ea.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/7d/7d9be2bd-d6af-4d0f-9a28-077a2571a3ea.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/7e/7e37da33-2ef5-43b5-89ef-a2552c556cc4.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/7e/7e37da33-2ef5-43b5-89ef-a2552c556cc4.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/7e/7e4e472e-9af6-4b75-af81-4056eaab384c.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/7e/7e4e472e-9af6-4b75-af81-4056eaab384c.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/7f/7f41c767-d264-47af-b1b6-2e924d4ce968.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/7f/7f41c767-d264-47af-b1b6-2e924d4ce968.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/82/82b01ec0-7c59-49ed-b3ef-a02fec05ed29.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/82/82b01ec0-7c59-49ed-b3ef-a02fec05ed29.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/83/8335c5eb-d49f-4aa1-b6af-41e749613f42.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/83/8335c5eb-d49f-4aa1-b6af-41e749613f42.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/83/83d458dc-a19e-436e-8a13-1b41fa926434.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/83/83d458dc-a19e-436e-8a13-1b41fa926434.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/85/85636bc4-934b-48f7-8b8d-429f390bf2db.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/85/85636bc4-934b-48f7-8b8d-429f390bf2db.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/86/8663d95c-da0b-4db6-a954-3c717164c11e.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/86/8663d95c-da0b-4db6-a954-3c717164c11e.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/87/879ea27b-9216-4d70-a50f-1fdf18637586.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/87/879ea27b-9216-4d70-a50f-1fdf18637586.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/89/8990ffab-bb6a-4081-bb68-d87105368a77.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/89/8990ffab-bb6a-4081-bb68-d87105368a77.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/89/89db8fd6-0033-49e3-930d-7f4446bbabfc.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/89/89db8fd6-0033-49e3-930d-7f4446bbabfc.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/89/89fba3da-520b-49c8-ad51-232246caf514.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/89/89fba3da-520b-49c8-ad51-232246caf514.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/8a/8a7ef60f-3588-420f-8791-2d120162629e.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/8a/8a7ef60f-3588-420f-8791-2d120162629e.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/8b/8b18d8b3-c49a-4556-b9dc-9d9a19a32618.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/8b/8b18d8b3-c49a-4556-b9dc-9d9a19a32618.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/8c/8c080ad3-2269-4dcb-b45b-ae4b0762ec94.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/8c/8c080ad3-2269-4dcb-b45b-ae4b0762ec94.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/8c/8c267d09-0040-4bac-9cf0-98a2455ef828.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/8c/8c267d09-0040-4bac-9cf0-98a2455ef828.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/8d/8d4f451c-f867-48bd-b063-0a7efa111d4a.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/8d/8d4f451c-f867-48bd-b063-0a7efa111d4a.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/8d/8d6aec31-40fe-4e7e-9f20-ac1f565d72d7.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/8d/8d6aec31-40fe-4e7e-9f20-ac1f565d72d7.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/8e/8e9453f9-c145-4270-94e5-f09bc493e63c.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/8e/8e9453f9-c145-4270-94e5-f09bc493e63c.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/8e/8e9837df-5188-4a9a-bb19-c918e355d804.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/8e/8e9837df-5188-4a9a-bb19-c918e355d804.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/8e/8ee52790-9908-4a82-bb16-dacf7cb497e7.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/8e/8ee52790-9908-4a82-bb16-dacf7cb497e7.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/8f/8f01ad4f-1efc-40e9-b73a-10ab8b8ae738.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/8f/8f01ad4f-1efc-40e9-b73a-10ab8b8ae738.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/8f/8f135955-f997-476d-af1f-26419119767b.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/8f/8f135955-f997-476d-af1f-26419119767b.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/8f/8f66111e-d629-4915-9d87-c20a145397cb.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/8f/8f66111e-d629-4915-9d87-c20a145397cb.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/91/9128fb71-4ec1-48f3-a5ab-2e4171f301c7.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/91/9128fb71-4ec1-48f3-a5ab-2e4171f301c7.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/92/9293236c-8afc-4e9d-8abc-90ffe53c7a84.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/92/9293236c-8afc-4e9d-8abc-90ffe53c7a84.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/92/92a192e0-120c-4b50-b787-cdf7fea3527a.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/92/92a192e0-120c-4b50-b787-cdf7fea3527a.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/93/931393d9-61d6-43a7-b4cb-b2b58f12769a.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/93/931393d9-61d6-43a7-b4cb-b2b58f12769a.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/93/9375fad8-ad34-4c60-ab3b-363e039f7519.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/93/9375fad8-ad34-4c60-ab3b-363e039f7519.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/94/94ad1dca-c448-42ea-b565-6ea1ca5bc706.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/94/94ad1dca-c448-42ea-b565-6ea1ca5bc706.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/9a/9a99a0a8-ae0e-4f9f-9253-aa8ac47af351.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/9a/9a99a0a8-ae0e-4f9f-9253-aa8ac47af351.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/9c/9c31af55-3261-4ef3-a96b-9f985d17c919.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/9c/9c31af55-3261-4ef3-a96b-9f985d17c919.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/9c/9c5677ad-31c8-461c-8dec-2c1209b9d3f8.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/9c/9c5677ad-31c8-461c-8dec-2c1209b9d3f8.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/9c/9ce851f1-5ea2-47f3-84a9-6042e03246b5.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/9c/9ce851f1-5ea2-47f3-84a9-6042e03246b5.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/9c/9cfed9dd-1143-480c-aa93-1150c84f4ed8.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/9c/9cfed9dd-1143-480c-aa93-1150c84f4ed8.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/9d/9d6001a9-67ef-4197-b4d1-18da0d7a7836.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/9d/9d6001a9-67ef-4197-b4d1-18da0d7a7836.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/9e/9ef30a4a-344d-4c7b-a35c-d2467e9301d2.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/9e/9ef30a4a-344d-4c7b-a35c-d2467e9301d2.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/9f/9f6d7a2e-e130-4d85-8568-986025dbf2e8.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/9f/9f6d7a2e-e130-4d85-8568-986025dbf2e8.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/a0/a0131a9e-08bf-403e-9383-d6165273b06e.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/a0/a0131a9e-08bf-403e-9383-d6165273b06e.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/a0/a0ecc1e8-6fa6-421b-961b-70ec102e98db.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/a0/a0ecc1e8-6fa6-421b-961b-70ec102e98db.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/a1/a13caa27-5681-4e70-b5b0-36e2f13749e1.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/a1/a13caa27-5681-4e70-b5b0-36e2f13749e1.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/a1/a1634292-818a-4b4c-9ea4-c9b1797d52f3.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/a1/a1634292-818a-4b4c-9ea4-c9b1797d52f3.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/a1/a1709ce5-47b8-488d-bd19-3f5f8b4c601c.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/a1/a1709ce5-47b8-488d-bd19-3f5f8b4c601c.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/a2/a21e2188-98ca-444b-9574-fd186e3607b1.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/a2/a21e2188-98ca-444b-9574-fd186e3607b1.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/a2/a24367f1-0438-47c8-b542-1c440dc974ed.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/a2/a24367f1-0438-47c8-b542-1c440dc974ed.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/a2/a258d5d5-7a8f-4cbd-b03d-e9c57bc15542.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/a2/a258d5d5-7a8f-4cbd-b03d-e9c57bc15542.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/a2/a2acfc4f-5eb5-4f65-9108-8a9284552396.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/a2/a2acfc4f-5eb5-4f65-9108-8a9284552396.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/a3/a31a764b-85a9-4ee8-b687-f52d0a4598c6.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/a3/a31a764b-85a9-4ee8-b687-f52d0a4598c6.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/a4/a49087d0-ea6d-4c73-b6ab-a3adad3192d0.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/a4/a49087d0-ea6d-4c73-b6ab-a3adad3192d0.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/a4/a4cd049f-f233-40a9-ad0f-32a8bd89d5f6.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/a4/a4cd049f-f233-40a9-ad0f-32a8bd89d5f6.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/a4/a4f94131-ddb2-4211-9f08-b21a8ec36247.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/a4/a4f94131-ddb2-4211-9f08-b21a8ec36247.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/a5/a59eee9c-6e38-4ab1-9bf0-5e417adab64d.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/a5/a59eee9c-6e38-4ab1-9bf0-5e417adab64d.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/a6/a6696c1b-4803-4d47-b3b3-90925444022f.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/a6/a6696c1b-4803-4d47-b3b3-90925444022f.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/a7/a7402d9b-51a8-4a6b-8ef4-056a4e36f201.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/a7/a7402d9b-51a8-4a6b-8ef4-056a4e36f201.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/a7/a7427b99-bdc9-4da8-ba88-f79b5799fe98.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/a7/a7427b99-bdc9-4da8-ba88-f79b5799fe98.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/aa/aa14f030-aec6-4046-a2f1-429f6639b1b2.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/aa/aa14f030-aec6-4046-a2f1-429f6639b1b2.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/aa/aab7f57b-f70c-4470-8fa3-8b1bb7be7fc9.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/aa/aab7f57b-f70c-4470-8fa3-8b1bb7be7fc9.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/ab/ab2ec7ef-bfe2-4808-bad4-d70316dd3c9f.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/ab/ab2ec7ef-bfe2-4808-bad4-d70316dd3c9f.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/ab/ab355481-bcf0-472b-82c7-ffae88fb4178.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/ab/ab355481-bcf0-472b-82c7-ffae88fb4178.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/ab/ab800952-7e64-4727-8885-ef4d9e03e00e.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/ab/ab800952-7e64-4727-8885-ef4d9e03e00e.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/ac/acbe12e0-b73e-43ec-a908-0341b066fa4f.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/ac/acbe12e0-b73e-43ec-a908-0341b066fa4f.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/ad/ad29659d-ad8c-4aad-8572-9127db5c4ae8.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/ad/ad29659d-ad8c-4aad-8572-9127db5c4ae8.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/ad/ade3c6a8-c88c-435a-9673-a6bee5defcfe.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/ad/ade3c6a8-c88c-435a-9673-a6bee5defcfe.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/ae/ae74e824-7ee2-4550-aedb-6f812743a725.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/ae/ae74e824-7ee2-4550-aedb-6f812743a725.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/ae/aea23fe5-13f0-4a6b-bd16-3ed8e77e213f.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/ae/aea23fe5-13f0-4a6b-bd16-3ed8e77e213f.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/af/af347603-32be-4fca-8bb3-db4231134e90.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/af/af347603-32be-4fca-8bb3-db4231134e90.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/af/af458818-111a-40cd-8019-6e64d0ad6ac9.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/af/af458818-111a-40cd-8019-6e64d0ad6ac9.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/af/af8f5e91-a5d9-43fd-9342-37fa178e5ac1.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/af/af8f5e91-a5d9-43fd-9342-37fa178e5ac1.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/b1/b138d979-6c61-466a-a531-79c0f20ff382.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/b1/b138d979-6c61-466a-a531-79c0f20ff382.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/b1/b150ac2f-ab02-4996-a339-45a2ef2771d5.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/b1/b150ac2f-ab02-4996-a339-45a2ef2771d5.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/b1/b18e33f7-0f59-4806-aeef-d25fd6be7559.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/b1/b18e33f7-0f59-4806-aeef-d25fd6be7559.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/b2/b201db8c-5dc3-4fc7-96ab-de3c85b38f5e.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/b2/b201db8c-5dc3-4fc7-96ab-de3c85b38f5e.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/b3/b314ce21-b3a2-4b8f-adf3-c8f390cd47df.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/b3/b314ce21-b3a2-4b8f-adf3-c8f390cd47df.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/b4/b49dcec4-e8b7-44dc-9f39-929d0c5ddc97.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/b4/b49dcec4-e8b7-44dc-9f39-929d0c5ddc97.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/b4/b4f1a48f-63ba-4a0b-a03b-ebafa57ddaa4.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/b4/b4f1a48f-63ba-4a0b-a03b-ebafa57ddaa4.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/b5/b52d2d22-516d-4f76-ba6c-1e20375953dd.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/b5/b52d2d22-516d-4f76-ba6c-1e20375953dd.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/b5/b5a51d35-6c53-4c31-b144-1c78ae0f0cc8.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/b5/b5a51d35-6c53-4c31-b144-1c78ae0f0cc8.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/b6/b65031e8-8136-4988-91b0-1e10a2b35341.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/b6/b65031e8-8136-4988-91b0-1e10a2b35341.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/b6/b6ca4072-f4cc-44dd-8b66-9dea00e6b5af.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/b6/b6ca4072-f4cc-44dd-8b66-9dea00e6b5af.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/b8/b83e8afe-5936-46f5-9214-2131e778cdac.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/b8/b83e8afe-5936-46f5-9214-2131e778cdac.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/b9/b973b6a0-20f6-4951-ad39-005ebc66df7b.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/b9/b973b6a0-20f6-4951-ad39-005ebc66df7b.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/b9/b9ed40b2-b0d3-4270-b9c1-a1bf5380ed2f.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/b9/b9ed40b2-b0d3-4270-b9c1-a1bf5380ed2f.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/ba/ba3ee2f0-579f-4ae1-83d3-ed5b6378490b.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/ba/ba3ee2f0-579f-4ae1-83d3-ed5b6378490b.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/bb/bbf815f6-d022-44e9-8884-b6c7ba75bd79.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/bb/bbf815f6-d022-44e9-8884-b6c7ba75bd79.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/bc/bc26596e-ad55-4f39-878e-38f2b46f3ae1.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/bc/bc26596e-ad55-4f39-878e-38f2b46f3ae1.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/bd/bd121e19-a744-4eef-8820-a330feefc2f4.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/bd/bd121e19-a744-4eef-8820-a330feefc2f4.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/c0/c01e43c4-1a83-4200-adcd-628786f23c03.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/c0/c01e43c4-1a83-4200-adcd-628786f23c03.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/c0/c025d6f9-28af-4699-81c6-135e92cdad61.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/c0/c025d6f9-28af-4699-81c6-135e92cdad61.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/c0/c0ed7d74-9a1d-44af-9bf9-4c57e7aea2cc.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/c0/c0ed7d74-9a1d-44af-9bf9-4c57e7aea2cc.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/c1/c14086fb-461a-489d-8af4-d20377a674d4.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/c1/c14086fb-461a-489d-8af4-d20377a674d4.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/c1/c1d55ab0-99bc-4c03-b062-db2c50c72e01.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/c1/c1d55ab0-99bc-4c03-b062-db2c50c72e01.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/c1/c1f2c897-ffca-4e30-9f23-e7d5dbe7720c.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/c1/c1f2c897-ffca-4e30-9f23-e7d5dbe7720c.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/c4/c447fa3d-1d17-4a9c-b96f-dbd9bbefb339.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/c4/c447fa3d-1d17-4a9c-b96f-dbd9bbefb339.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/c4/c450434f-a3be-4989-946f-3a5d7147fbda.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/c4/c450434f-a3be-4989-946f-3a5d7147fbda.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/c5/c5d4a145-b4b7-46b5-a01c-3a4f619cf6a9.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/c5/c5d4a145-b4b7-46b5-a01c-3a4f619cf6a9.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/c6/c6fc9da2-6b05-4deb-91eb-a5586304b329.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/c6/c6fc9da2-6b05-4deb-91eb-a5586304b329.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/c7/c770d4a0-d397-4957-a5b5-86978a8918b4.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/c7/c770d4a0-d397-4957-a5b5-86978a8918b4.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/c7/c7980425-2ae2-499f-a6b0-543bf966608b.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/c7/c7980425-2ae2-499f-a6b0-543bf966608b.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/c7/c7caba80-c7c4-49eb-b51c-6ce27d89a5ff.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/c7/c7caba80-c7c4-49eb-b51c-6ce27d89a5ff.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/c8/c8861c36-40e0-489a-b4de-88a9e4b959cd.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/c8/c8861c36-40e0-489a-b4de-88a9e4b959cd.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/ca/ca7ac3da-2c20-454a-af91-a321428e7f16.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/ca/ca7ac3da-2c20-454a-af91-a321428e7f16.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/cb/cb1cb18b-a7f6-4430-ac1e-9fc0cd901a63.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/cb/cb1cb18b-a7f6-4430-ac1e-9fc0cd901a63.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/cb/cbdf0281-f3c3-4667-a23f-72d892ec600c.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/cb/cbdf0281-f3c3-4667-a23f-72d892ec600c.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/cb/cbee756d-3f44-47f3-a376-ba809e617887.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/cb/cbee756d-3f44-47f3-a376-ba809e617887.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/cc/cc291fe7-be1c-4e6b-ba55-8af3cc851a75.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/cc/cc291fe7-be1c-4e6b-ba55-8af3cc851a75.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/cd/cd04bb37-f524-487a-9aca-0b4e42c8f129.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/cd/cd04bb37-f524-487a-9aca-0b4e42c8f129.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/cd/cd5fbeef-a139-4cda-8a95-0a7c04068c2e.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/cd/cd5fbeef-a139-4cda-8a95-0a7c04068c2e.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/cd/cdf98dc8-aaa9-4ab5-b53d-880da25d023d.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/cd/cdf98dc8-aaa9-4ab5-b53d-880da25d023d.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/d0/d0679c47-5909-48c1-afd8-9f71d7edb423.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/d0/d0679c47-5909-48c1-afd8-9f71d7edb423.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/d0/d08cddf8-2a3e-4ff7-a92d-2c95fb173ec0.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/d0/d08cddf8-2a3e-4ff7-a92d-2c95fb173ec0.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/d2/d2fcaa40-cc1d-4986-b6a4-4a70bd07bd07.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/d2/d2fcaa40-cc1d-4986-b6a4-4a70bd07bd07.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/d3/d36516e5-fcf7-4c3a-80b8-662c77deabfc.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/d3/d36516e5-fcf7-4c3a-80b8-662c77deabfc.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/d3/d385c21b-6c31-4dbb-96f6-8dc0c8d15741.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/d3/d385c21b-6c31-4dbb-96f6-8dc0c8d15741.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/d5/d5ab33a1-b0e1-4ea6-ad7c-7c7978faa6a5.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/d5/d5ab33a1-b0e1-4ea6-ad7c-7c7978faa6a5.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/d6/d6370c58-1825-495b-ba6b-c8137cb8cdee.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/d6/d6370c58-1825-495b-ba6b-c8137cb8cdee.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/d6/d64c6bff-f7c0-4efc-b356-80ba89fc3111.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/d6/d64c6bff-f7c0-4efc-b356-80ba89fc3111.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/d6/d677b2fc-0e15-4b96-bc48-9245daea670c.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/d6/d677b2fc-0e15-4b96-bc48-9245daea670c.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/d9/d950b2d0-3d8b-4749-a3d6-3172397e29ba.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/d9/d950b2d0-3d8b-4749-a3d6-3172397e29ba.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/d9/d96c817f-d565-4876-88d6-56f79b51183a.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/d9/d96c817f-d565-4876-88d6-56f79b51183a.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/db/db817211-84a2-4484-a8c9-4d2869dd93e3.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/db/db817211-84a2-4484-a8c9-4d2869dd93e3.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/db/db843ee6-ad4a-4157-835f-4d789d6d482b.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/db/db843ee6-ad4a-4157-835f-4d789d6d482b.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/dc/dc2a1463-0935-4629-ad00-1f272e6a7d9b.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/dc/dc2a1463-0935-4629-ad00-1f272e6a7d9b.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/dc/dc8a9636-06e6-48c2-954d-94ea34255cd6.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/dc/dc8a9636-06e6-48c2-954d-94ea34255cd6.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/dc/dce368bb-4809-46bf-bdb8-968ad87c4142.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/dc/dce368bb-4809-46bf-bdb8-968ad87c4142.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/dd/ddd00fef-8b9d-4b64-a993-a8af671f9e4a.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/dd/ddd00fef-8b9d-4b64-a993-a8af671f9e4a.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/de/dee1f92c-b3ad-4cff-9cb6-303f84dde162.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/de/dee1f92c-b3ad-4cff-9cb6-303f84dde162.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/e0/e001350e-4dc9-4fd3-960c-346497d83f0d.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/e0/e001350e-4dc9-4fd3-960c-346497d83f0d.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/e0/e0148196-1c51-4469-8012-6527c6791686.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/e0/e0148196-1c51-4469-8012-6527c6791686.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/e0/e08accbe-3363-4f56-8e07-83f286268960.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/e0/e08accbe-3363-4f56-8e07-83f286268960.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/e1/e11351f8-b9a7-48ba-a3fa-62ebb1e61d9b.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/e1/e11351f8-b9a7-48ba-a3fa-62ebb1e61d9b.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/e2/e2ac2390-d6ab-4f5a-b062-9ec7b09da085.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/e2/e2ac2390-d6ab-4f5a-b062-9ec7b09da085.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/e3/e3de6e33-3e4e-473f-a941-fc40452a28a7.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/e3/e3de6e33-3e4e-473f-a941-fc40452a28a7.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/e4/e4ff189a-e4a7-46f0-b92f-81c9914a2820.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/e4/e4ff189a-e4a7-46f0-b92f-81c9914a2820.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/e5/e53f0287-cb02-4abe-8474-02cf16b736b3.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/e5/e53f0287-cb02-4abe-8474-02cf16b736b3.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/e5/e5cf62a9-94c6-48b2-b419-72d144ccfe16.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/e5/e5cf62a9-94c6-48b2-b419-72d144ccfe16.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/e6/e62bbc1f-0e66-40e0-b9b2-d96b72592a9d.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/e6/e62bbc1f-0e66-40e0-b9b2-d96b72592a9d.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/e6/e664e4cf-a64f-4684-80fc-cac474e8c38c.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/e6/e664e4cf-a64f-4684-80fc-cac474e8c38c.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/e6/e6a39ab1-8e16-4394-a0fa-350c90b4fac8.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/e6/e6a39ab1-8e16-4394-a0fa-350c90b4fac8.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/e7/e7aba14b-f956-4480-b254-8d57832e273f.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/e7/e7aba14b-f956-4480-b254-8d57832e273f.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/e9/e9ec654c-97a2-4787-9325-e6a10375219a.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/e9/e9ec654c-97a2-4787-9325-e6a10375219a.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/ea/ea62424f-b5c7-49a8-9e2b-551d0a78cc4b.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/ea/ea62424f-b5c7-49a8-9e2b-551d0a78cc4b.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/eb/eb5f4966-d939-4a12-bb40-3b982c37b610.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/eb/eb5f4966-d939-4a12-bb40-3b982c37b610.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/ed/ede3c5f2-291e-4035-aab7-05c75b1c9e7e.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/ed/ede3c5f2-291e-4035-aab7-05c75b1c9e7e.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/f0/f0048c10-f03e-4c97-b9d3-3506e1d58952.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/f0/f0048c10-f03e-4c97-b9d3-3506e1d58952.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/f1/f11c1588-f368-450b-8055-a2ceb4f56ef1.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/f1/f11c1588-f368-450b-8055-a2ceb4f56ef1.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/f1/f133d99f-65a4-42ac-b018-0e9abfe3d182.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/f1/f133d99f-65a4-42ac-b018-0e9abfe3d182.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/f1/f13ec428-82af-4427-bb60-e53598e0671b.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/f1/f13ec428-82af-4427-bb60-e53598e0671b.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/f1/f1672dc5-d105-4a77-b2b5-897fa7736183.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/f1/f1672dc5-d105-4a77-b2b5-897fa7736183.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/f2/f2824255-36cc-42d8-9dc5-c068c71abbaf.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/f2/f2824255-36cc-42d8-9dc5-c068c71abbaf.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/f3/f3c5ed08-09da-4a97-9be4-25521a45c188.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/f3/f3c5ed08-09da-4a97-9be4-25521a45c188.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/f4/f4676b25-0b11-4334-83d2-d76923147f83.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/f4/f4676b25-0b11-4334-83d2-d76923147f83.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/f4/f492e289-be02-46bd-9add-ba897ae0c66f.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/f4/f492e289-be02-46bd-9add-ba897ae0c66f.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/f4/f4df3d5f-15bf-4ded-8ce7-0a26487c7005.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/f4/f4df3d5f-15bf-4ded-8ce7-0a26487c7005.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/f5/f52091d1-1242-4b99-ae0c-6e7b4f105ed6.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/f5/f52091d1-1242-4b99-ae0c-6e7b4f105ed6.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/f5/f5e4c9ab-550f-4ff5-bf21-e461dbb7b410.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/f5/f5e4c9ab-550f-4ff5-bf21-e461dbb7b410.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/f6/f609a7f4-98d4-4be2-94e1-92ee3e8d4401.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/f6/f609a7f4-98d4-4be2-94e1-92ee3e8d4401.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/f6/f6425e01-b983-4a32-b8d8-784cb3ad7272.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/f6/f6425e01-b983-4a32-b8d8-784cb3ad7272.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/f6/f6bf71f0-4a68-47dc-a649-794ff3554252.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/f6/f6bf71f0-4a68-47dc-a649-794ff3554252.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/f7/f7b6a4e1-c7ac-472b-902c-38bf4b43ef45.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/f7/f7b6a4e1-c7ac-472b-902c-38bf4b43ef45.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/f8/f8163f3e-f4fd-483b-ab4d-1e00181e69be.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/f8/f8163f3e-f4fd-483b-ab4d-1e00181e69be.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/f8/f8853955-b922-43d6-9ef9-3e589e80cb66.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/f8/f8853955-b922-43d6-9ef9-3e589e80cb66.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/f9/f98da456-1537-4e57-ab62-897aadd9d4b8.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/f9/f98da456-1537-4e57-ab62-897aadd9d4b8.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/fc/fc3fa43e-147e-49ff-ba78-b5f00c899449.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/fc/fc3fa43e-147e-49ff-ba78-b5f00c899449.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/fc/fc6084fc-ec98-4ee4-8405-f08885a6cb04.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/fc/fc6084fc-ec98-4ee4-8405-f08885a6cb04.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/fe/fe21ecc9-7f0a-49d7-b41c-3dcc9c526b6a.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/fe/fe21ecc9-7f0a-49d7-b41c-3dcc9c526b6a.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/fe/fe5c078e-46b4-4d31-afe6-9f9cd773ecef.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/fe/fe5c078e-46b4-4d31-afe6-9f9cd773ecef.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/fe/fea2724f-ea75-4e8e-92a3-f23181d00a60.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/fe/fea2724f-ea75-4e8e-92a3-f23181d00a60.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/ff/ffcd48f2-12b7-4dd5-8d66-e25b89134b72.json" afterPath="$PROJECT_DIR$/../../../../../../proj.android/assets/res/import/ff/ffcd48f2-12b7-4dd5-8d66-e25b89134b72.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/bin/AndroidManifest.xml" afterPath="$PROJECT_DIR$/../../../../../../proj.android/bin/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/bin/PusmicMobileMahJong.ap_.d" afterPath="$PROJECT_DIR$/../../../../../../proj.android/bin/PusmicMobileMahJong.ap_.d" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/bin/R.txt" afterPath="$PROJECT_DIR$/../../../../../../proj.android/bin/R.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/bin/build.prop" afterPath="$PROJECT_DIR$/../../../../../../proj.android/bin/build.prop" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/bin/classes.dex.d" afterPath="$PROJECT_DIR$/../../../../../../proj.android/bin/classes.dex.d" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/bin/proguard.txt" afterPath="$PROJECT_DIR$/../../../../../../proj.android/bin/proguard.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/gen/R.java.d" afterPath="$PROJECT_DIR$/../../../../../../proj.android/gen/R.java.d" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/jni/Android.mk" afterPath="$PROJECT_DIR$/../../../../../../proj.android/jni/Android.mk" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/jni/Application.mk" afterPath="$PROJECT_DIR$/../../../../../../proj.android/jni/Application.mk" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/objs-debug/cocos2djs_shared/__/__/Classes/AppDelegate.o.d" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/objs-debug/cocos2djs_shared/__/__/Classes/AppDelegate.o.d" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/objs-debug/cocos2djs_shared/hellojavascript/main.o.d" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/arm64-v8a/objs-debug/cocos2djs_shared/hellojavascript/main.o.d" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/objs-debug/cocos2djs_shared/__/__/Classes/AppDelegate.o.d" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/objs-debug/cocos2djs_shared/__/__/Classes/AppDelegate.o.d" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/objs-debug/cocos2djs_shared/hellojavascript/main.o.d" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi-v7a/objs-debug/cocos2djs_shared/hellojavascript/main.o.d" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi/objs-debug/cocos2djs_shared/__/__/Classes/AppDelegate.o.d" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi/objs-debug/cocos2djs_shared/__/__/Classes/AppDelegate.o.d" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi/objs-debug/cocos2djs_shared/hellojavascript/main.o.d" afterPath="$PROJECT_DIR$/../../../../../../proj.android/obj/local/armeabi/objs-debug/cocos2djs_shared/hellojavascript/main.o.d" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/project.properties" afterPath="$PROJECT_DIR$/../../../../../../proj.android/project.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/res/values/strings.xml" afterPath="$PROJECT_DIR$/../../../../../../proj.android/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.android/src/org/cocos2dx/javascript/AppActivity.java" afterPath="$PROJECT_DIR$/../../../../../../proj.android/src/org/cocos2dx/javascript/AppActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.ios_mac/PusmicMobileMahJong.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/../../../../../../proj.ios_mac/PusmicMobileMahJong.xcodeproj/project.pbxproj" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.ios_mac/WXApiManager.mm" afterPath="$PROJECT_DIR$/../../../../../../proj.ios_mac/WXApiManager.mm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.ios_mac/ios/Info.plist" afterPath="$PROJECT_DIR$/../../../../../../proj.ios_mac/ios/Info.plist" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../proj.ios_mac/mac/Info.plist" afterPath="$PROJECT_DIR$/../../../../../../proj.ios_mac/mac/Info.plist" />
     </list>
     <ignored path="proj.android.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -664,13 +40,25 @@
       <file leaf-file-name="AppActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/org/cocos2dx/javascript/AppActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-230">
-              <caret line="315" column="36" selection-start-line="315" selection-start-column="36" selection-end-line="315" selection-end-column="36" />
+            <state relative-caret-position="295">
+              <caret line="497" column="33" selection-start-line="497" selection-start-column="33" selection-end-line="497" selection-end-column="33" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#12287#12378#0" expanded="true" />
-                <element signature="e#12377#12378#0" expanded="true" />
+                <element signature="e#12531#12622#0" expanded="true" />
+                <element signature="e#12621#12622#0" expanded="true" />
+                <element signature="e#17045#17046#0" expanded="true" />
+                <element signature="e#17091#17092#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MediaPlayer.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$PROJECT_DIR$/../../../../../../../Library/android22-sdk/platforms/android-20/android.jar!/android/media/MediaPlayer.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="307">
+              <caret line="143" column="72" selection-start-line="143" selection-start-column="72" selection-end-line="143" selection-end-column="72" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -704,8 +92,8 @@
       <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1215">
-              <caret line="81" column="3" selection-start-line="81" selection-start-column="3" selection-end-line="81" selection-end-column="3" />
+            <state relative-caret-position="750">
+              <caret line="82" column="78" selection-start-line="82" selection-start-column="78" selection-end-line="82" selection-end-column="78" />
               <folding />
             </state>
           </provider>
@@ -716,16 +104,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="75">
               <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="com_czt_mp3recorder_util_LameUtil.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/jni/com_czt_mp3recorder_util_LameUtil.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="10" selection-start-line="14" selection-start-column="10" selection-end-line="14" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -804,11 +182,11 @@
         <option value="$PROJECT_DIR$/src/org/cocos2dx/javascript/audio/DataEncodeThread.java" />
         <option value="$PROJECT_DIR$/src/org/cocos2dx/javascript/MP3Recorder.java" />
         <option value="$PROJECT_DIR$/src/org/cocos2dx/javascript/AudioMessage.java" />
-        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/src/org/cocos2dx/javascript/utils/LameUtil.java" />
         <option value="$PROJECT_DIR$/src/com/czt/mp3recorder/util/LameUtil.java" />
         <option value="$PROJECT_DIR$/jni/Android.mk" />
         <option value="$PROJECT_DIR$/src/org/cocos2dx/javascript/audio/MP3Recorder.java" />
+        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/src/org/cocos2dx/javascript/AppActivity.java" />
       </list>
     </option>
@@ -820,8 +198,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="2035" />
-    <option name="y" value="30" />
+    <option name="x" value="39" />
+    <option name="y" value="47" />
     <option name="width" value="1920" />
     <option name="height" value="979" />
   </component>
@@ -859,15 +237,13 @@
               <option name="myItemId" value="proj.android" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="proj.android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="proj.android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemId" value="&lt; Android API 20 Platform &gt;" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -876,37 +252,15 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="proj.android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemId" value="&lt; Android API 20 Platform &gt;" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="javascript" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="proj.android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="proj.android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="javascript" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="audio" />
+              <option name="myItemId" value="android.jar" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -916,26 +270,14 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="proj.android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="proj.android" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="proj.android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jni" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -947,7 +289,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../../../pusmic_new.keystore" />
     <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.33103448" />
     <property name="aspect.path.notification.shown" value="true" />
@@ -1463,15 +805,15 @@
       <workItem from="1492878559967" duration="56567000" />
       <workItem from="1493016359190" duration="615000" />
       <workItem from="1493018422320" duration="17376000" />
-      <workItem from="1493098101401" duration="15056000" />
+      <workItem from="1493098101401" duration="32884000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="93794000" />
+    <option name="totallyTimeSpent" value="111622000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="2035" y="30" width="1920" height="979" extended-state="0" />
+    <frame x="39" y="47" width="1920" height="979" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1525,177 +867,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2625">
-          <caret line="205" column="4" selection-start-line="205" selection-start-column="4" selection-end-line="205" selection-end-column="4" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-            <element signature="e#4293#4294#0" expanded="false" />
-            <element signature="e#4355#4356#0" expanded="false" />
-            <element signature="e#9056#9057#0" expanded="false" />
-            <element signature="e#9102#9103#0" expanded="false" />
-            <element signature="e#9150#9151#0" expanded="false" />
-            <element signature="e#9182#9183#0" expanded="false" />
-            <element signature="e#9416#9417#0" expanded="false" />
-            <element signature="e#9464#9465#0" expanded="false" />
-            <element signature="e#9516#9517#0" expanded="false" />
-            <element signature="e#9555#9556#0" expanded="false" />
-            <element signature="e#10499#10500#0" expanded="false" />
-            <element signature="e#10549#10550#0" expanded="false" />
-            <element signature="e#10602#10603#0" expanded="false" />
-            <element signature="e#10654#10655#0" expanded="false" />
-            <element signature="e#10703#10704#0" expanded="false" />
-            <element signature="e#10759#10760#0" expanded="false" />
-            <element signature="e#10807#10808#0" expanded="false" />
-            <element signature="e#10841#10842#0" expanded="false" />
-            <element signature="e#10893#10894#0" expanded="false" />
-            <element signature="e#10944#10945#0" expanded="false" />
-            <element signature="e#11635#11636#0" expanded="false" />
-            <element signature="e#11703#11704#0" expanded="false" />
-            <element signature="e#11753#11754#0" expanded="false" />
-            <element signature="e#11817#11818#0" expanded="false" />
-            <element signature="e#13951#13952#0" expanded="false" />
-            <element signature="e#14019#14020#0" expanded="false" />
-            <element signature="e#14068#14069#0" expanded="false" />
-            <element signature="e#14135#14136#0" expanded="false" />
-            <element signature="e#14183#14184#0" expanded="false" />
-            <element signature="e#14249#14250#0" expanded="false" />
-            <element signature="e#14299#14300#0" expanded="false" />
-            <element signature="e#14367#14368#0" expanded="false" />
-            <element signature="e#14422#14423#0" expanded="false" />
-            <element signature="e#14499#14500#0" expanded="false" />
-            <element signature="e#14555#14556#0" expanded="false" />
-            <element signature="e#14633#14634#0" expanded="false" />
-            <element signature="e#14687#14688#0" expanded="false" />
-            <element signature="e#14760#14761#0" expanded="false" />
-            <element signature="e#14962#14963#0" expanded="false" />
-            <element signature="e#15026#15027#0" expanded="false" />
-            <element signature="e#15309#15310#0" expanded="false" />
-            <element signature="e#15375#15376#0" expanded="false" />
-            <element signature="e#15432#15433#0" expanded="false" />
-            <element signature="e#15497#15498#0" expanded="false" />
-            <element signature="e#15553#15554#0" expanded="false" />
-            <element signature="e#15617#15618#0" expanded="false" />
-            <element signature="e#15663#15664#0" expanded="false" />
-            <element signature="e#15733#15734#0" expanded="false" />
-            <element signature="e#15796#15797#0" expanded="false" />
-            <element signature="e#15865#15866#0" expanded="false" />
-            <element signature="e#15923#15924#0" expanded="false" />
-            <element signature="e#15986#15987#0" expanded="false" />
-            <element signature="e#16030#16031#0" expanded="false" />
-            <element signature="e#16092#16093#0" expanded="false" />
-            <element signature="e#16137#16138#0" expanded="false" />
-            <element signature="e#16200#16201#0" expanded="false" />
-            <element signature="e#16243#16244#0" expanded="false" />
-            <element signature="e#16304#16305#0" expanded="false" />
-            <element signature="e#17284#17285#0" expanded="false" />
-            <element signature="e#17358#17359#0" expanded="false" />
-            <element signature="e#17818#17819#0" expanded="false" />
-            <element signature="e#17913#17914#0" expanded="false" />
-            <element signature="e#24733#24734#0" expanded="false" />
-            <element signature="e#24813#24814#0" expanded="false" />
-            <element signature="e#24860#24861#0" expanded="false" />
-            <element signature="e#24939#24940#0" expanded="false" />
-            <element signature="e#24980#24981#0" expanded="false" />
-            <element signature="e#25024#25025#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2625">
-          <caret line="205" column="4" selection-start-line="205" selection-start-column="4" selection-end-line="205" selection-end-column="4" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-            <element signature="e#4293#4294#0" expanded="false" />
-            <element signature="e#4355#4356#0" expanded="false" />
-            <element signature="e#9056#9057#0" expanded="false" />
-            <element signature="e#9102#9103#0" expanded="false" />
-            <element signature="e#9150#9151#0" expanded="false" />
-            <element signature="e#9182#9183#0" expanded="false" />
-            <element signature="e#9416#9417#0" expanded="false" />
-            <element signature="e#9464#9465#0" expanded="false" />
-            <element signature="e#9516#9517#0" expanded="false" />
-            <element signature="e#9555#9556#0" expanded="false" />
-            <element signature="e#10499#10500#0" expanded="false" />
-            <element signature="e#10549#10550#0" expanded="false" />
-            <element signature="e#10602#10603#0" expanded="false" />
-            <element signature="e#10654#10655#0" expanded="false" />
-            <element signature="e#10703#10704#0" expanded="false" />
-            <element signature="e#10759#10760#0" expanded="false" />
-            <element signature="e#10807#10808#0" expanded="false" />
-            <element signature="e#10841#10842#0" expanded="false" />
-            <element signature="e#10893#10894#0" expanded="false" />
-            <element signature="e#10944#10945#0" expanded="false" />
-            <element signature="e#11635#11636#0" expanded="false" />
-            <element signature="e#11703#11704#0" expanded="false" />
-            <element signature="e#11753#11754#0" expanded="false" />
-            <element signature="e#11817#11818#0" expanded="false" />
-            <element signature="e#13951#13952#0" expanded="false" />
-            <element signature="e#14019#14020#0" expanded="false" />
-            <element signature="e#14068#14069#0" expanded="false" />
-            <element signature="e#14135#14136#0" expanded="false" />
-            <element signature="e#14183#14184#0" expanded="false" />
-            <element signature="e#14249#14250#0" expanded="false" />
-            <element signature="e#14299#14300#0" expanded="false" />
-            <element signature="e#14367#14368#0" expanded="false" />
-            <element signature="e#14422#14423#0" expanded="false" />
-            <element signature="e#14499#14500#0" expanded="false" />
-            <element signature="e#14555#14556#0" expanded="false" />
-            <element signature="e#14633#14634#0" expanded="false" />
-            <element signature="e#14687#14688#0" expanded="false" />
-            <element signature="e#14760#14761#0" expanded="false" />
-            <element signature="e#14962#14963#0" expanded="false" />
-            <element signature="e#15026#15027#0" expanded="false" />
-            <element signature="e#15309#15310#0" expanded="false" />
-            <element signature="e#15375#15376#0" expanded="false" />
-            <element signature="e#15432#15433#0" expanded="false" />
-            <element signature="e#15497#15498#0" expanded="false" />
-            <element signature="e#15553#15554#0" expanded="false" />
-            <element signature="e#15617#15618#0" expanded="false" />
-            <element signature="e#15663#15664#0" expanded="false" />
-            <element signature="e#15733#15734#0" expanded="false" />
-            <element signature="e#15796#15797#0" expanded="false" />
-            <element signature="e#15865#15866#0" expanded="false" />
-            <element signature="e#15923#15924#0" expanded="false" />
-            <element signature="e#15986#15987#0" expanded="false" />
-            <element signature="e#16030#16031#0" expanded="false" />
-            <element signature="e#16092#16093#0" expanded="false" />
-            <element signature="e#16137#16138#0" expanded="false" />
-            <element signature="e#16200#16201#0" expanded="false" />
-            <element signature="e#16243#16244#0" expanded="false" />
-            <element signature="e#16304#16305#0" expanded="false" />
-            <element signature="e#17284#17285#0" expanded="false" />
-            <element signature="e#17358#17359#0" expanded="false" />
-            <element signature="e#17818#17819#0" expanded="false" />
-            <element signature="e#17913#17914#0" expanded="false" />
-            <element signature="e#24733#24734#0" expanded="false" />
-            <element signature="e#24813#24814#0" expanded="false" />
-            <element signature="e#24860#24861#0" expanded="false" />
-            <element signature="e#24939#24940#0" expanded="false" />
-            <element signature="e#24980#24981#0" expanded="false" />
-            <element signature="e#25024#25025#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/java/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/libs/wechat-sdk-android-with-mta-1.1.7.jar!/com/tencent/mm/opensdk/constants/ConstantsAPI.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="14" column="8" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/net/sourceforge/simcpux/wxapi/SendToWXActivity.java" />
     <entry file="file://$PROJECT_DIR$/src/net/sourceforge/simcpux/wxapi/GetFromWXActivity.java" />
     <entry file="jar://$PROJECT_DIR$/../../../../../../../Library/android22-sdk/platforms/android-10/android.jar!/android/app/Activity.class">
@@ -1830,6 +1001,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-720">
           <caret line="119" column="25" selection-start-line="119" selection-start-column="25" selection-end-line="119" selection-end-column="25" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1942,14 +1114,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1215">
-          <caret line="81" column="3" selection-start-line="81" selection-start-column="3" selection-end-line="81" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/jni/com_czt_mp3recorder_util_LameUtil.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
@@ -2009,17 +1173,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$PROJECT_DIR$/../../../../../../../Library/android22-sdk/platforms/android-20/android.jar!/android/util/Base64.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="19" column="25" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="25" />
-          <folding>
-            <element signature="e#523#524#0" expanded="true" />
-            <element signature="e#574#575#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/cocos2dx/javascript/audio/MP3Recorder.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="260">
@@ -2031,14 +1184,67 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://$PROJECT_DIR$/../../../../../../../Library/android22-sdk/platforms/android-20/android.jar!/android/util/Log.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="690">
+          <caret line="81" column="29" selection-start-line="81" selection-start-column="22" selection-end-line="81" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../../../../../../Library/android22-sdk/platforms/android-20/android.jar!/android/util/Base64.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="10" column="35" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="35" />
+          <folding>
+            <element signature="e#885#886#0" expanded="true" />
+            <element signature="e#936#937#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../../../../../../Library/android22-sdk/platforms/android-20/android.jar!/android/content/Context.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="177" column="37" selection-start-line="177" selection-start-column="37" selection-end-line="177" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../../../../../../Library/android22-sdk/platforms/android-20/android.jar!/android/media/MediaPlayer.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="307">
+          <caret line="143" column="72" selection-start-line="143" selection-start-column="72" selection-end-line="143" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="750">
+          <caret line="82" column="78" selection-start-line="82" selection-start-column="78" selection-end-line="82" selection-end-column="78" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../../../../../../Library/android22-sdk/platforms/android-20/android.jar!/android/location/LocationManager.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-894">
+          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/cocos2dx/javascript/AppActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-230">
-          <caret line="315" column="36" selection-start-line="315" selection-start-column="36" selection-end-line="315" selection-end-column="36" />
+        <state relative-caret-position="295">
+          <caret line="497" column="33" selection-start-line="497" selection-start-column="33" selection-end-line="497" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#12287#12378#0" expanded="true" />
-            <element signature="e#12377#12378#0" expanded="true" />
+            <element signature="e#12531#12622#0" expanded="true" />
+            <element signature="e#12621#12622#0" expanded="true" />
+            <element signature="e#17045#17046#0" expanded="true" />
+            <element signature="e#17091#17092#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2095,7 +1301,7 @@
       </state>
       <state key="JdkListConfigurable.UI">
         <settings>
-          <last-edited>1.7</last-edited>
+          <last-edited>Android API 10 Platform</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

@@ -515,6 +515,10 @@ class UserService {
     }
 
     def updateUserLocation(MessageDomain messageDomain){
+
+
+        println "updateUserLocation:"+messageDomain.messageBody
+
         def obj = JSON.parse(messageDomain.messageBody)
         def openid = obj.openid
         def longitude=Double.parseDouble(obj.longitude)

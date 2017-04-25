@@ -47,8 +47,12 @@ cc.Class({
 
         updateValueForAndroid = function () {
             if (cc.sys.os == cc.sys.OS_ANDROID) {
-                cc.log("call record in android start");
-                var val=jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "getValue", "()V");
+                console.log("call record in android start");
+                var val = jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "getValue", "()F");
+                if (val != null && val != undefined) {
+                    this.setProcessBar(val);
+                }
+
             }
 
         };
@@ -73,8 +77,10 @@ cc.Class({
             }
 
             if (cc.sys.os == cc.sys.OS_ANDROID) {
-                cc.log("call record in android start");
+                console.log("call record in android start");
                 jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "startRecord", "()V");
+                let self = this;
+                self.schedule(updateValueForAndroid, 0.1);
 
             }
         }
@@ -95,7 +101,9 @@ cc.Class({
 
             if (cc.sys.os == cc.sys.OS_ANDROID) {
                 jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "stopRecord", "()V");
-                cc.log("call record in android end ");
+                let self = this;
+                self.unschedule(updateValueForAndroid);
+                console.log("call record in android end ");
             }
         }
     }

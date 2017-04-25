@@ -36,6 +36,13 @@ cc.Class({
 
         }
 
+        cc.log("ini index onload ");
+        console.log("ini index onload:");
+        if (cc.sys.os == cc.sys.OS_ANDROID) {
+            console.log("OS_ANDROID platam GPS:");
+            jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "getLocation", "()V");
+        }
+
         //-----------------------
         cc.game.on(cc.game.EVENT_HIDE, function () {
             // cc.audioEngine.pauseMusic();
@@ -310,7 +317,7 @@ cc.Class({
             isinstall = jsb.reflection.callStaticMethod('WXApiManager', 'isWXInstalled');
         }
         if (cc.sys.os == cc.sys.OS_ANDROID) {
-            isinstall=jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "isWXInstalled","()Z");
+            isinstall = jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "isWXInstalled", "()Z");
 
         }
         cc.log("isinstall:" + isinstall);
@@ -335,7 +342,7 @@ cc.Class({
                     jsb.reflection.callStaticMethod('WXApiManager', 'sendAuthRequestWX');
                 }
                 if (cc.sys.os == cc.sys.OS_ANDROID) {
-                    jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "sendReq","()V");
+                    jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "sendReq", "()V");
                 }
             } else {
                 //refresh auth token again.
@@ -349,7 +356,7 @@ cc.Class({
             }
         }
         else {
-           // specialModule._loginfun = null;
+            // specialModule._loginfun = null;
             messageScript.text = "未安装微信!";
             messageScript.setTextOfPanel();
             cc.log('未安装微信!');

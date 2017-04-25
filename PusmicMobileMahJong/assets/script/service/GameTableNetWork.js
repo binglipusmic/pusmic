@@ -401,7 +401,7 @@ cc.Class({
                         var isinstall = jsb.reflection.callStaticMethod('AudioFunc', 'saveEncodeBase64toMp3:title:', mp3MessageBase64Encode, "");
                     }
                     if (cc.sys.os == cc.sys.OS_ANDROID) {
-                        jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "decodeBase64File", "(Ljava/lang/String;)V",mp3MessageBase64Encode);
+                        jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "decodeBase64File", "(Ljava/lang/String;)V", mp3MessageBase64Encode);
                     }
                 }
                 if (messageDomain.messageAction == "endGameRoundLun") {
@@ -919,10 +919,12 @@ cc.Class({
         var userInfo = Global.userInfo;
         var o = new Object();
         o.openid = userInfo.openid;
-        o.longitude = userInfo.longitude;
-        o.latitude = userInfo.latitude;
-        var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "updateLocation");
-        this.sendMessageToServer(messageObj);
+        if (userInfo.longitude != null && userInfo.longitude != undefined) {
+            o.longitude = userInfo.longitude;
+            o.latitude = userInfo.latitude;
+            var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "updateLocation");
+            this.sendMessageToServer(messageObj);
+        }
     },
 
     sendRoundScoreToServer: function (user) {
@@ -1326,14 +1328,20 @@ cc.Class({
     },
     //-------------------send Audio message -----------------------------------------------
     sendAudioMessage: function (mp3Base64EncodeString) {
-        var joinRoomNumber = Global.joinRoomNumber;
-        userInfo = Global.userInfo;
-        var userCode = userInfo.userCode;
-        var o = new Object();
-        o.audioMessage = mp3Base64EncodeString;
-        o.userCode = userCode;
-        var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "sendMp3Message");
-        this.sendMessageToServer(messageObj);
+        if (mp3Base64EncodeString.length > 0) {
+            mp3Base64EncodeString = mp3Base64EncodeString.replace(/\r/g, "");
+            mp3Base64EncodeString = mp3Base64EncodeString.replace(/\n/g, "");
+            console.log("mp3Base64EncodeString:"+mp3Base64EncodeString);
+            var joinRoomNumber = Global.joinRoomNumber;
+            userInfo = Global.userInfo;
+            var userCode = userInfo.userCode;
+            var o = new Object();
+            o.audioMessage = mp3Base64EncodeString;
+            o.userCode = userCode;
+            var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "sendMp3Message");
+            this.sendMessageToServer(messageObj);
+        }
+
     },
     //-------------------send huan sanzhang -----------------------------------------------
     //Global.huanSanZhangPaiList
