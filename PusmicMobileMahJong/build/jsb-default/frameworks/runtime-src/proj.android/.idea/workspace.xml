@@ -10,12 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7763de97-1a28-476f-b489-76594beb3354" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../PusmicMahJong/grails-app/services/com/pusmicgame/game/UserService.groovy" afterPath="$PROJECT_DIR$/../../../../../../PusmicMahJong/grails-app/services/com/pusmicgame/game/UserService.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../assets/script/audio/AudioMessage.js" afterPath="$PROJECT_DIR$/../../../../../assets/script/audio/AudioMessage.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../assets/script/service/GameTableNetWork.js" afterPath="$PROJECT_DIR$/../../../../../assets/script/service/GameTableNetWork.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../assets/script/service/iniIndex.js" afterPath="$PROJECT_DIR$/../../../../../assets/script/service/iniIndex.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
     </list>
     <ignored path="proj.android.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,14 +35,12 @@
       <file leaf-file-name="AppActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/org/cocos2dx/javascript/AppActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="295">
-              <caret line="497" column="33" selection-start-line="497" selection-start-column="33" selection-end-line="497" selection-end-column="33" />
+            <state relative-caret-position="465">
+              <caret line="564" column="43" selection-start-line="564" selection-start-column="43" selection-end-line="564" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#12531#12622#0" expanded="true" />
                 <element signature="e#12621#12622#0" expanded="true" />
-                <element signature="e#17045#17046#0" expanded="true" />
-                <element signature="e#17091#17092#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -805,12 +798,12 @@
       <workItem from="1492878559967" duration="56567000" />
       <workItem from="1493016359190" duration="615000" />
       <workItem from="1493018422320" duration="17376000" />
-      <workItem from="1493098101401" duration="32884000" />
+      <workItem from="1493098101401" duration="33671000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="111622000" />
+    <option name="totallyTimeSpent" value="112409000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="39" y="47" width="1920" height="979" extended-state="0" />
@@ -1237,14 +1230,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/cocos2dx/javascript/AppActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="497" column="33" selection-start-line="497" selection-start-column="33" selection-end-line="497" selection-end-column="33" />
+        <state relative-caret-position="465">
+          <caret line="564" column="43" selection-start-line="564" selection-start-column="43" selection-end-line="564" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#12531#12622#0" expanded="true" />
             <element signature="e#12621#12622#0" expanded="true" />
-            <element signature="e#17045#17046#0" expanded="true" />
-            <element signature="e#17091#17092#0" expanded="true" />
           </folding>
         </state>
       </provider>
