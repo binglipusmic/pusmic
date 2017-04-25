@@ -315,7 +315,25 @@ obj/local/arm64-v8a/objs-debug/cocos2djs_shared/hellojavascript/main.o: \
  /Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/cocos/renderer/CCPrimitiveCommand.h \
  /Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/cocos/2d/CCFastTMXTiledMap.h \
  /Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/cocos/2d/CCComponent.h \
- /Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/cocos/2d/CCComponentContainer.h
+ /Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/cocos/2d/CCComponentContainer.h \
+ /Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/external/android/arm64-v8a/include/anysdk/PluginJniHelper.h \
+ jni/../../Classes/SDKManager.h \
+ /Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/external/android/arm64-v8a/include/anysdk/AgentManager.h \
+ /Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/external/android/arm64-v8a/include/anysdk/PluginManager.h \
+ /Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/external/android/arm64-v8a/include/anysdk/PluginProtocol.h \
+ /Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/external/android/arm64-v8a/include/anysdk/PluginParam.h \
+ /Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/external/android/arm64-v8a/include/anysdk/PluginFactory.h \
+ /Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/external/android/arm64-v8a/include/anysdk/ProtocolIAP.h \
+ /Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/external/android/arm64-v8a/include/anysdk/ProtocolAnalytics.h \
+ /Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/external/android/arm64-v8a/include/anysdk/ProtocolShare.h \
+ /Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/external/android/arm64-v8a/include/anysdk/ProtocolAds.h \
+ /Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/external/android/arm64-v8a/include/anysdk/ProtocolSocial.h \
+ /Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/external/android/arm64-v8a/include/anysdk/ProtocolUser.h \
+ /Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/external/android/arm64-v8a/include/anysdk/ProtocolPush.h \
+ /Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/external/android/arm64-v8a/include/anysdk/ProtocolCrash.h \
+ /Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/external/android/arm64-v8a/include/anysdk/ProtocolREC.h \
+ /Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/external/android/arm64-v8a/include/anysdk/ProtocolCustom.h \
+ /Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/external/android/arm64-v8a/include/anysdk/ProtocolAdTracking.h
 
 jni/../../Classes/AppDelegate.h:
 
@@ -950,3 +968,39 @@ jni/../../Classes/AppDelegate.h:
 /Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/cocos/2d/CCComponent.h:
 
 /Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/cocos/2d/CCComponentContainer.h:
+
+/Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/external/android/arm64-v8a/include/anysdk/PluginJniHelper.h:
+
+jni/../../Classes/SDKManager.h:
+
+/Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/external/android/arm64-v8a/include/anysdk/AgentManager.h:
+
+/Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/external/android/arm64-v8a/include/anysdk/PluginManager.h:
+
+/Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/external/android/arm64-v8a/include/anysdk/PluginProtocol.h:
+
+/Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/external/android/arm64-v8a/include/anysdk/PluginParam.h:
+
+/Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/external/android/arm64-v8a/include/anysdk/PluginFactory.h:
+
+/Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/external/android/arm64-v8a/include/anysdk/ProtocolIAP.h:
+
+/Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/external/android/arm64-v8a/include/anysdk/ProtocolAnalytics.h:
+
+/Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/external/android/arm64-v8a/include/anysdk/ProtocolShare.h:
+
+/Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/external/android/arm64-v8a/include/anysdk/ProtocolAds.h:
+
+/Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/external/android/arm64-v8a/include/anysdk/ProtocolSocial.h:
+
+/Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/external/android/arm64-v8a/include/anysdk/ProtocolUser.h:
+
+/Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/external/android/arm64-v8a/include/anysdk/ProtocolPush.h:
+
+/Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/external/android/arm64-v8a/include/anysdk/ProtocolCrash.h:
+
+/Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/external/android/arm64-v8a/include/anysdk/ProtocolREC.h:
+
+/Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/external/android/arm64-v8a/include/anysdk/ProtocolCustom.h:
+
+/Users/prominic2/work/pusmic_game/PusmicMobileMahJong/build/jsb-default/frameworks/cocos2d-x/external/android/arm64-v8a/include/anysdk/ProtocolAdTracking.h:

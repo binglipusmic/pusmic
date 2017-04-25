@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.pusmicgame.mahjongGame"
+      package="org.cocos2dx.javascript"
       android:versionCode="1"
       android:versionName="1.0"
       android:installLocation="auto">
@@ -18,17 +18,38 @@
                   android:label="@string/app_name"
                   android:screenOrientation="sensorLandscape"
                   android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-                  android:configChanges="orientation">
+                  android:configChanges="orientation|keyboardHidden"
+                android:launchMode="singleTask">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="pusmicgame" android:host="data"/>
+
+            </intent-filter>
+
         </activity>
 
-        <activity android:name="net.sourceforge.simcpux.wxapi.WXEntryActivity"
-                  android:label="PusmicMobileGame"
-                  android:exported="true" />
+        <activity android:exported="true"
+                  android:name="org.cocos2dx.javascript.wxapi.WXEntryActivity"
+                  android:theme="@android:style/Theme.NoDisplay"
+                  android:launchMode="singleTop"
+                   >
+
+        </activity>
+
+        <receiver
+                android:name="org.cocos2dx.javascript.AppRegister"
+                android:permission="com.tencent.mm.plugin.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP" />
+            </intent-filter>
+        </receiver>
     </application>
 
     <supports-screens android:anyDensity="true"

@@ -400,6 +400,9 @@ cc.Class({
                     if (cc.sys.os == cc.sys.OS_IOS) {
                         var isinstall = jsb.reflection.callStaticMethod('AudioFunc', 'saveEncodeBase64toMp3:title:', mp3MessageBase64Encode, "");
                     }
+                    if (cc.sys.os == cc.sys.OS_ANDROID) {
+                        jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "decodeBase64File", "(Ljava/lang/String;)V",mp3MessageBase64Encode);
+                    }
                 }
                 if (messageDomain.messageAction == "endGameRoundLun") {
                     this.countUserRoundScore();
@@ -408,7 +411,7 @@ cc.Class({
                     var currentUser = this.getCurreentUserByOpenId(userInfo.openid);
                     this.sendRoundScoreToServer(currentUser);
                     roundScoreScript.initalRoundScore();
-                    roundScoreScript.endLunFlag="1";
+                    roundScoreScript.endLunFlag = "1";
                 }
                 if (messageDomain.messageAction == "endGameRoundAndStartNewRound") {
                     //messageScript
@@ -418,7 +421,7 @@ cc.Class({
                     var currentUser = this.getCurreentUserByOpenId(userInfo.openid);
                     this.sendRoundScoreToServer(currentUser);
                     roundScoreScript.initalRoundScore();
-                     roundScoreScript.endLunFlag="0";
+                    roundScoreScript.endLunFlag = "0";
                 }
                 //--------------------------------------Game Action  -----------------------------------------------
                 if (messageDomain.messageAction == "gameAction") {
@@ -881,7 +884,7 @@ cc.Class({
             this.subscribeToPrivateChanelNoConnetAgain(thisRooNumber);
             //after reconect ,send the location infomation
             this.sendLocationInfoToServer();
-            
+
         }.bind(this), function () {
             cc.log("websocket connect  Error:234");
             //client.disconnect();

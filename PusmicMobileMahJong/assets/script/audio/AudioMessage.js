@@ -1,4 +1,5 @@
 var tableNetWorkScript;
+var updateValueForAndroid;
 cc.Class({
     extends: cc.Component,
 
@@ -17,7 +18,7 @@ cc.Class({
         micPicNode: cc.Node,
         micProcessNode: cc.Node,
 
-        tableNetWorkNode:cc.Node,
+        tableNetWorkNode: cc.Node,
     },
 
     // use this for initialization
@@ -44,6 +45,14 @@ cc.Class({
             }
         }
 
+        updateValueForAndroid = function () {
+            if (cc.sys.os == cc.sys.OS_ANDROID) {
+                cc.log("call record in android start");
+                var val=jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "getValue", "()V");
+            }
+
+        };
+
     },
 
     setProcessBar: function (number) {
@@ -55,12 +64,21 @@ cc.Class({
         this.micPicNode.active = true;
         cc.audioEngine.pauseAll();
         //cc.audioEngine.pauseAllEffects();
+
+        //this only work on native ,if it is web version we should add other logic in here 
         if (cc.sys.isNative) {
             if (cc.sys.os == cc.sys.OS_IOS) {
 
                 jsb.reflection.callStaticMethod('AudioFunc', 'startOrResumeRecord');
             }
+
+            if (cc.sys.os == cc.sys.OS_ANDROID) {
+                cc.log("call record in android start");
+                jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "startRecord", "()V");
+
+            }
         }
+
 
     },
 
@@ -72,7 +90,12 @@ cc.Class({
 
         if (cc.sys.isNative) {
             if (cc.sys.os == cc.sys.OS_IOS) {
-                var isinstall = jsb.reflection.callStaticMethod('AudioFunc', 'stopRecord');
+                jsb.reflection.callStaticMethod('AudioFunc', 'stopRecord');
+            }
+
+            if (cc.sys.os == cc.sys.OS_ANDROID) {
+                jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "stopRecord", "()V");
+                cc.log("call record in android end ");
             }
         }
     }

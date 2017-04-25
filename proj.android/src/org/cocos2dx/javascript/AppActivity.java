@@ -26,41 +26,56 @@ THE SOFTWARE.
 ****************************************************************************/
 package org.cocos2dx.javascript;
 
-import com.tencent.mm.opensdk.modelmsg.SendAuth;
-import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
-import com.tencent.mm.opensdk.modelmsg.WXAppExtendObject;
-import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Environment;
+import android.util.Log;
+import com.tencent.mm.opensdk.modelmsg.*;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+
+import com.tencent.mm.opensdk.openapi.IWXAPI;
 import net.sourceforge.simcpux.wxapi.Util;
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 
 import android.os.Bundle;
-import org.cocos2dx.javascript.SDKWrapper;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import org.cocos2dx.javascript.wxapi.WXEntryActivity;
 
-import com.tencent.mm.opensdk.openapi.IWXAPI;
+import android.content.Context;
+import android.content.ContextWrapper;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 
-public class AppActivity extends Cocos2dxActivity {
+import java.io.File;
+
+public class AppActivity extends Cocos2dxActivity  {
 
     private static final String APP_ID="wxc759dfd81a4af8da";
-    private int mTargetScene = SendMessageToWX.Req.WXSceneSession;
-    private IWXAPI api;
+    static int mTargetScene = SendMessageToWX.Req.WXSceneSession;
+    private static IWXAPI api;
+    private static final String SDCARD_ROOT = Environment.getExternalStorageDirectory().getAbsolutePath();
+
+
+    private static AppActivity instance;
+
+    public AppActivity() {
+        super();
+        instance = this;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SDKWrapper.getInstance().init(this);
-        //PluginWrapper.init(this);
-        //PluginWrapper.loadAllPlugins();
 
-        //reg webchat
 
         api= WXAPIFactory.createWXAPI(this,APP_ID,true);
         api.registerApp(APP_ID);
+       // WXEntryActivity.api
     }
 	
     @Override
@@ -102,6 +117,9 @@ public class AppActivity extends Cocos2dxActivity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         SDKWrapper.getInstance().onNewIntent(intent);
+
+        api= WXAPIFactory.createWXAPI(this,APP_ID,true);
+        api.registerApp(APP_ID);
     }
 
     @Override
@@ -147,43 +165,119 @@ public class AppActivity extends Cocos2dxActivity {
     }
 
 
-    //----------------WebChat---------------------------
-    public  void sendReq(){
-        final SendAuth.Req req = new SendAuth.Req();
-        req.scope = "snsapi_userinfo";
-        req.state = "pusmicGameMajhong";
-        api.sendReq(req);
-        finish();
-    }
 
-    public boolean isWXInstalled(){
+
+//----------------WebChat---------------------------
+
+    private static final int THUMB_SIZE = 150;
+    public static boolean isWXInstalled(){
         return api.isWXAppInstalled();
     }
 
-    public void sendApplicatoinMessage(String roomNumber){
-        final WXAppExtendObject appdata = new WXAppExtendObject();
-        final String path =  "icon_min.png";
-        appdata.fileData = Util.readFromFile(path, 0, -1);
-        appdata.extInfo = "this is ext info";
+    public static void sendApplicatoinMessage(String roomNumber){
 
-        final WXMediaMessage msg = new WXMediaMessage();
-        msg.setThumbImage(Util.extractThumbNail(path, 150, 150, true));
-        msg.title = "this is title";
-        msg.description = "this is description sjgksgj sklgjl sjgsgskl gslgj sklgj sjglsjgs kl gjksss ssssssss sjskgs kgjsj jskgjs kjgk sgjsk Very Long Very Long Very Long Very Longgj skjgks kgsk lgskg jslgj";
-        msg.mediaObject = appdata;
+
+
+        //Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.send_img);
+        //Uri path = Uri.parse("android.resource://com.segf4ult.test/" + R.drawable.icon);
+        //Uri otherPath = Uri.parse("android.resource://org.cocos2dx.javascript/drawable/");
+        File minfile = new File("icon_min.png");
+        String minfilePath = minfile.getAbsolutePath();
+
+        File maxfile = new File("icon_max.png");
+        String maxfilePath = maxfile.getAbsolutePath();
+        //String folderpath = path.toString();
+        //String folderpath = otherPath .toString();
+        //this.getResources().openRawResource(R.drawable.icon_max);
+
+        WXTextObject textObj = new WXTextObject();
+        textObj.text = "test11";
+        final WXAppExtendObject appdata = new WXAppExtendObject();
+        final String pathmin =  minfilePath;
+        final String pathmax =  maxfilePath;
+        //appdata.fileData = Util.readFromFile(pathmax, 0, -1);
+        appdata.extInfo = "this is ext info";
+        appdata.filePath="org.cocos2dx.javascript";
+
+        //webpage object
+
+        WXWebpageObject webpage = new WXWebpageObject();
+        webpage.webpageUrl = "pusmicgame://data/"+roomNumber;
+        WXMediaMessage msg = new WXMediaMessage(webpage);
+        msg.title = "WebPage Title WebPage Title WebPage Title WebPage Title WebPage Title WebPage Title WebPage Title WebPage Title WebPage Title Very Long Very Long Very Long Very Long Very Long Very Long Very Long Very Long Very Long Very Long";
+        msg.description = "WebPage Description WebPage Description WebPage Description WebPage Description WebPage Description WebPage Description WebPage Description WebPage Description WebPage Description Very Long Very Long Very Long Very Long Very Long Very Long Very Long";
+        Bitmap bmp = BitmapFactory.decodeResource(getInstance().getResources(), R.drawable.icon_min);
+        Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, THUMB_SIZE, THUMB_SIZE, true);
+        //allgetInstance().getResources().get
+        msg.thumbData = Util.bmpToByteArray(thumbBmp, true);
+
+
+        //final WXMediaMessage msg = new WXMediaMessage();
+        //msg.setThumbImage(Util.extractThumbNail(pathmin, 150, 150, true));
+        //msg.title = "this is title";
+       // msg.description = "this is description sjgksgj sklgjl sjgsgskl gslgj sklgj sjglsjgs kl gjksss ssssssss sjskgs kgjsj jskgjs kjgk sgjsk Very Long Very Long Very Long Very Longgj skjgks kgsk lgskg jslgj";
+        //msg.mediaObject = appdata;
 
         SendMessageToWX.Req req = new SendMessageToWX.Req();
         req.transaction = buildTransaction("appdata");
         req.message = msg;
         req.scene = mTargetScene;
         api.sendReq(req);
-
-        finish();
+        bmp.recycle();
+        //finish();
 
     }
 
-    private String buildTransaction(final String type) {
+    private static String buildTransaction(final String type) {
         return (type == null) ? String.valueOf(System.currentTimeMillis()) : type + System.currentTimeMillis();
     }
+
+
+
+    public static AppActivity getInstance() {
+        return instance;
+    }
+
+
+    private void goToGetMsg() {
+        //Intent intent = new Intent(this, GetFromWXActivity.class);
+        // intent.putExtras(getIntent());
+        //startActivity(intent);
+        // finish();
+    }
+
+    public   static void sendReq(){
+        final SendAuth.Req req = new SendAuth.Req();
+        req.scope = "snsapi_userinfo";
+        req.state = "pusmicGameMajhong";
+        // req.transaction =String.valueOf(System.currentTimeMillis());
+        api.sendReq(req);
+        //finish();
+        Log.w("sendReq","send req already success");
+        //api.handleIntent(getIntent(), this);
+    }
+
+    private void goToShowMsg(ShowMessageFromWX.Req showReq) {
+        WXMediaMessage wxMsg = showReq.message;
+        WXAppExtendObject obj = (WXAppExtendObject) wxMsg.mediaObject;
+
+        StringBuffer msg = new StringBuffer(); // ��֯һ������ʾ����Ϣ����
+        msg.append("description: ");
+        msg.append(wxMsg.description);
+        msg.append("\n");
+        msg.append("extInfo: ");
+        msg.append(obj.extInfo);
+        msg.append("\n");
+        msg.append("filePath: ");
+        msg.append(obj.filePath);
+
+//        Intent intent = new Intent(this, ShowFromWXActivity.class);
+//        intent.putExtra(SyncStateContract.Constants.ShowMsgActivity.STitle, wxMsg.title);
+//        intent.putExtra(Constants.ShowMsgActivity.SMessage, msg.toString());
+//        intent.putExtra(Constants.ShowMsgActivity.BAThumbData, wxMsg.thumbData);
+//        startActivity(intent);
+//        finish();
+    }
+
 
 }

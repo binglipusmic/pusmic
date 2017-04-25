@@ -25,13 +25,7 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="pusmicgame" android:host="data"/>
 
-            </intent-filter>
 
         </activity>
 
@@ -40,6 +34,13 @@
                   android:theme="@android:style/Theme.NoDisplay"
                   android:launchMode="singleTop"
                    >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="pusmicgame" android:host="data"/>
+
+            </intent-filter>
 
         </activity>
 
@@ -77,4 +78,6 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+   
 </manifest> 
