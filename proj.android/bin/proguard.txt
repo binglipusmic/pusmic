@@ -1,9 +1,0 @@
-# view AndroidManifest.xml #generated:17
--keep class org.cocos2dx.javascript.AppActivity { <init>(...); }
-
-# view AndroidManifest.xml #generated:46
--keep class org.cocos2dx.javascript.AppRegister { <init>(...); }
-
-# view AndroidManifest.xml #generated:38
--keep class org.cocos2dx.javascript.wxapi.WXEntryActivity { <init>(...); }
-
