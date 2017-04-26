@@ -521,13 +521,15 @@ class UserService {
 
         def obj = JSON.parse(messageDomain.messageBody)
         def openid = obj.openid
-        def longitude=Double.parseDouble(obj.longitude)
-        def latitude=Double.parseDouble(obj.latitude)
+
         if (openid) {
-            def
-            SpringUser user = SpringUser.findByOpenid(openid)
+            def  SpringUser user = SpringUser.findByOpenid(openid)
             if (user) {
-                def loginInfo=user.loginUserInfo.last()
+
+
+                def longitude=Double.parseDouble(obj.longitude)
+                def latitude=Double.parseDouble(obj.latitude)
+                def loginInfo=LoingUserInfo.findAllByUserOpeid(user.openid,[sort:'loginTime']).last()
                 if(loginInfo){
                     loginInfo.longitude=longitude
                     loginInfo.latitude=latitude

@@ -1,4 +1,5 @@
 window.Global = {
+    userLocation:null,
     userInfo: null,
     gameConfig: null,
     gameConfigSetting:null,

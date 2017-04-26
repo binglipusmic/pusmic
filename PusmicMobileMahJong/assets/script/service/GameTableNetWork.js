@@ -901,11 +901,13 @@ cc.Class({
     },
     //-------------------------------save location to user info -----------------
     saveLocationInfoToGobalInfo: function (longitude, latitude) {
-        var userInfo = Global.userInfo;
-
-        userInfo.longitude = longitude;
-        userInfo.latitude = latitude;
-        Global.userInfo = userInfo;
+        var userLocation = Global.userLocation;
+        if (userLocation == null || userLocation == undefined) {
+            userLocation = new object();
+        }
+        userLocation.longitude = longitude;
+        userLocation.latitude = latitude;
+        Global.userLocation = userLocation;
 
     },
     //-------------------------------chu pai action---------------------------------------------
@@ -917,11 +919,12 @@ cc.Class({
 
         var joinRoomNumber = Global.joinRoomNumber;
         var userInfo = Global.userInfo;
+        var userLocation = Global.userLocation;
         var o = new Object();
         o.openid = userInfo.openid;
         if (userInfo.longitude != null && userInfo.longitude != undefined) {
-            o.longitude = userInfo.longitude;
-            o.latitude = userInfo.latitude;
+            o.longitude = userLocation.longitude;
+            o.latitude = userLocation.latitude;
             var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "updateLocation");
             this.sendMessageToServer(messageObj);
         }
@@ -1331,7 +1334,7 @@ cc.Class({
         if (mp3Base64EncodeString.length > 0) {
             mp3Base64EncodeString = mp3Base64EncodeString.replace(/\r/g, "");
             mp3Base64EncodeString = mp3Base64EncodeString.replace(/\n/g, "");
-            console.log("mp3Base64EncodeString:"+mp3Base64EncodeString);
+            console.log("mp3Base64EncodeString:" + mp3Base64EncodeString);
             var joinRoomNumber = Global.joinRoomNumber;
             userInfo = Global.userInfo;
             var userCode = userInfo.userCode;

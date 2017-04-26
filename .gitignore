@@ -9,3 +9,9 @@ build/
 .project
 .settings
 .classpath
+proj.android/obj/local/
+PusmicMobileMahJong/build/jsb-default/frameworks/runtime-src/proj.android-studio/app/obj/local/
+
+*.a
+*.so
+*.dmg

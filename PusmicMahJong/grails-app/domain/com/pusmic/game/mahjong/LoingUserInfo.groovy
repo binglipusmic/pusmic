@@ -4,6 +4,7 @@ class LoingUserInfo {
     Date loginTime
     Date offlineTiem
     String ipAddress
+    String userOpeid
     double longitude
     double latitude
 
