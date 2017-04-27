@@ -48,7 +48,7 @@ cc.Class({
         updateValueForAndroid = function () {
             if (cc.sys.os == cc.sys.OS_ANDROID) {
                 console.log("call record in android start");
-                var val = jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "getValue", "()F");
+                var val = jsb.reflection.callStaticMethod("com/pusmicgame/mahjong/AppActivity", "getValue", "()F");
                 if (val != null && val != undefined) {
                     this.setProcessBar(val);
                 }
@@ -78,7 +78,7 @@ cc.Class({
 
             if (cc.sys.os == cc.sys.OS_ANDROID) {
                 console.log("call record in android start");
-                jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "startRecord", "()V");
+                jsb.reflection.callStaticMethod("com/pusmicgame/mahjong/AppActivity", "startRecord", "()V");
                 let self = this;
                 self.schedule(updateValueForAndroid, 0.1);
 
@@ -100,7 +100,7 @@ cc.Class({
             }
 
             if (cc.sys.os == cc.sys.OS_ANDROID) {
-                jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "stopRecord", "()V");
+                jsb.reflection.callStaticMethod("com/pusmicgame/mahjong/AppActivity", "stopRecord", "()V");
                 let self = this;
                 self.unschedule(updateValueForAndroid);
                 console.log("call record in android end ");

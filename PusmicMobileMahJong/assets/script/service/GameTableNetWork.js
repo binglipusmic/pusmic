@@ -401,7 +401,7 @@ cc.Class({
                         var isinstall = jsb.reflection.callStaticMethod('AudioFunc', 'saveEncodeBase64toMp3:title:', mp3MessageBase64Encode, "");
                     }
                     if (cc.sys.os == cc.sys.OS_ANDROID) {
-                        jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "decodeBase64File", "(Ljava/lang/String;)V", mp3MessageBase64Encode);
+                        jsb.reflection.callStaticMethod("com/pusmicgame/mahjong/AppActivity", "decodeBase64File", "(Ljava/lang/String;)V", mp3MessageBase64Encode);
                     }
                 }
                 if (messageDomain.messageAction == "endGameRoundLun") {
@@ -903,7 +903,7 @@ cc.Class({
     saveLocationInfoToGobalInfo: function (longitude, latitude) {
         var userLocation = Global.userLocation;
         if (userLocation == null || userLocation == undefined) {
-            userLocation = new object();
+            userLocation = new Object();
         }
         userLocation.longitude = longitude;
         userLocation.latitude = latitude;
@@ -922,7 +922,7 @@ cc.Class({
         var userLocation = Global.userLocation;
         var o = new Object();
         o.openid = userInfo.openid;
-        if (userInfo.longitude != null && userInfo.longitude != undefined) {
+        if (userLocation.longitude != null && userLocation.longitude != undefined) {
             o.longitude = userLocation.longitude;
             o.latitude = userLocation.latitude;
             var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "updateLocation");

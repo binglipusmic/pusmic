@@ -11,9 +11,14 @@
   <component name="ChangeListManager">
     <list default="true" id="7763de97-1a28-476f-b489-76594beb3354" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../PusmicMahJong/grails-app/services/com/pusmicgame/game/GameRoundService.groovy" afterPath="$PROJECT_DIR$/../../../../../../PusmicMahJong/grails-app/services/com/pusmicgame/game/GameRoundService.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../../PusmicMahJong/grails-app/services/com/pusmicgame/game/UserService.groovy" afterPath="$PROJECT_DIR$/../../../../../../PusmicMahJong/grails-app/services/com/pusmicgame/game/UserService.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../assets/script/service/iniIndex.js" afterPath="$PROJECT_DIR$/../../../../../assets/script/service/iniIndex.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../.vscode/settings.json" afterPath="$PROJECT_DIR$/../../../../../.vscode/settings.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../assets/script/audio/AudioMessage.js" afterPath="$PROJECT_DIR$/../../../../../assets/script/audio/AudioMessage.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../../assets/script/service/GameTableNetWork.js" afterPath="$PROJECT_DIR$/../../../../../assets/script/service/GameTableNetWork.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../.cocos-package.json" afterPath="$PROJECT_DIR$/../../../.cocos-package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../cocos2d-x/extensions/anysdk/.cocos-package.json" afterPath="$PROJECT_DIR$/../../cocos2d-x/extensions/anysdk/.cocos-package.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jni/hellojavascript/main.cpp" afterPath="$PROJECT_DIR$/jni/hellojavascript/main.cpp" />
     </list>
     <ignored path="proj.android.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -36,10 +41,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="AppActivity.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/org/cocos2dx/javascript/AppActivity.java">
+        <entry file="file://$PROJECT_DIR$/src/com/pusmicgame/mahjong/AppActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-5866">
-              <caret line="63" column="13" selection-start-line="63" selection-start-column="13" selection-end-line="63" selection-end-column="13" />
+            <state relative-caret-position="15">
+              <caret line="26" column="26" selection-start-line="26" selection-start-column="8" selection-end-line="26" selection-end-column="30" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -47,62 +52,52 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GPSTracker.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/cocos2dx/javascript/GPSTracker.java">
+      <file leaf-file-name="SDKWrapper.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/pusmicgame/mahjong/SDKWrapper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="284">
-              <caret line="298" column="47" selection-start-line="298" selection-start-column="47" selection-end-line="298" selection-end-column="47" />
+            <state relative-caret-position="290">
+              <caret line="35" column="23" selection-start-line="35" selection-start-column="23" selection-end-line="35" selection-end-column="23" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MediaPlayer.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$PROJECT_DIR$/../../../../../../../Library/android22-sdk/platforms/android-20/android.jar!/android/media/MediaPlayer.class">
+      <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/jni/hellojavascript/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1650">
-              <caret line="143" column="72" selection-start-line="143" selection-start-column="72" selection-end-line="143" selection-end-column="72" />
+            <state relative-caret-position="300">
+              <caret line="20" column="33" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Cocos2dxActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxActivity.java">
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/java/bin/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2640">
-              <caret line="229" column="26" selection-start-line="229" selection-start-column="26" selection-end-line="229" selection-end-column="26" />
-              <folding>
-                <element signature="n#!!doc" expanded="false" />
-                <element signature="imports" expanded="false" />
-                <element signature="e#3140#3141#0" expanded="false" />
-                <element signature="e#3178#3179#0" expanded="false" />
-                <element signature="e#3627#3628#0" expanded="false" />
-                <element signature="e#3674#3675#0" expanded="false" />
-                <element signature="e#9768#9769#0" expanded="false" />
-                <element signature="e#9840#9841#0" expanded="false" />
-                <element signature="e#12726#12727#0" expanded="false" />
-                <element signature="e#12759#12760#0" expanded="false" />
-                <element signature="e#13134#13135#0" expanded="false" />
-                <element signature="e#13191#13192#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="30">
+              <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MP3Recorder.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/cocos2dx/javascript/audio/MP3Recorder.java">
+      <file leaf-file-name="bitstream.c" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/jni/lame_3.99.5_libmp3lame/bitstream.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2310">
-              <caret line="167" column="16" selection-start-line="167" selection-start-column="16" selection-end-line="167" selection-end-column="16" />
-              <folding>
-                <element signature="e#4781#4782#0" expanded="false" />
-                <element signature="e#4811#4812#0" expanded="false" />
-                <element signature="e#5157#5158#0" expanded="false" />
-                <element signature="e#5190#5191#0" expanded="false" />
-                <element signature="e#5417#5418#0" expanded="false" />
-                <element signature="e#5452#5453#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="183">
+              <caret line="1025" column="23" selection-start-line="1025" selection-start-column="23" selection-end-line="1025" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="psymodel.c" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/jni/lame_3.99.5_libmp3lame/psymodel.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="393">
+              <caret line="1477" column="7" selection-start-line="1477" selection-start-column="7" selection-end-line="1477" selection-end-column="7" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -110,48 +105,8 @@
       <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1230">
-              <caret line="82" column="78" selection-start-line="82" selection-start-column="78" selection-end-line="82" selection-end-column="78" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LameUtil.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/czt/mp3recorder/util/LameUtil.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Application.mk" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/jni/Application.mk">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Android.mk" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/jni/Android.mk">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="lame_util.c" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/jni/lame_util.c">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="22" column="36" selection-start-line="22" selection-start-column="36" selection-end-line="22" selection-end-column="36" />
+            <state relative-caret-position="405">
+              <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -187,25 +142,26 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/org/cocos2dx/javascript/SDKWrapper.java" />
+        <option value="$PROJECT_DIR$/src/com/pusmicgame/mahjong/SDKWrapper.java" />
         <option value="$PROJECT_DIR$/src/net/sourceforge/simcpux/wxapi/GetFromWXActivity.java" />
         <option value="$PROJECT_DIR$/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/src/net/sourceforge/simcpux/wxapi/WXEntryActivity.java" />
-        <option value="$PROJECT_DIR$/src/org/cocos2dx/javascript/WXAPIManager.java" />
-        <option value="$PROJECT_DIR$/src/org/cocos2dx/javascript/AppRegister.java" />
-        <option value="$PROJECT_DIR$/src/org/cocos2dx/javascript/wxapi/WXEntryActivity.java" />
+        <option value="$PROJECT_DIR$/src/com/pusmicgame/mahjong/WXAPIManager.java" />
+        <option value="$PROJECT_DIR$/src/com/pusmicgame/mahjong/AppRegister.java" />
+        <option value="$PROJECT_DIR$/src/com/pusmicgame/mahjong/wxapi/WXEntryActivity.java" />
         <option value="$PROJECT_DIR$/src/com/pusmicgame/mahjong/WXAPIManager.java" />
         <option value="$PROJECT_DIR$/bin/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/src/org/cocos2dx/javascript/audio/PCMFormat.java" />
-        <option value="$PROJECT_DIR$/src/org/cocos2dx/javascript/audio/DataEncodeThread.java" />
-        <option value="$PROJECT_DIR$/src/org/cocos2dx/javascript/MP3Recorder.java" />
-        <option value="$PROJECT_DIR$/src/org/cocos2dx/javascript/AudioMessage.java" />
-        <option value="$PROJECT_DIR$/src/org/cocos2dx/javascript/utils/LameUtil.java" />
+        <option value="$PROJECT_DIR$/src/com/pusmicgame/mahjong/audio/PCMFormat.java" />
+        <option value="$PROJECT_DIR$/src/com/pusmicgame/mahjong/audio/DataEncodeThread.java" />
+        <option value="$PROJECT_DIR$/src/com/pusmicgame/mahjong/MP3Recorder.java" />
+        <option value="$PROJECT_DIR$/src/com/pusmicgame/mahjong/AudioMessage.java" />
+        <option value="$PROJECT_DIR$/src/com/pusmicgame/mahjong/utils/LameUtil.java" />
         <option value="$PROJECT_DIR$/src/com/czt/mp3recorder/util/LameUtil.java" />
         <option value="$PROJECT_DIR$/jni/Android.mk" />
-        <option value="$PROJECT_DIR$/src/org/cocos2dx/javascript/audio/MP3Recorder.java" />
+        <option value="$PROJECT_DIR$/src/com/pusmicgame/mahjong/audio/MP3Recorder.java" />
+        <option value="$PROJECT_DIR$/src/com/pusmicgame/mahjong/AppActivity.java" />
+        <option value="$PROJECT_DIR$/jni/hellojavascript/main.cpp" />
         <option value="$PROJECT_DIR$/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/src/org/cocos2dx/javascript/AppActivity.java" />
       </list>
     </option>
   </component>
@@ -216,7 +172,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="32" />
+    <option name="x" value="-9" />
+    <option name="y" value="23" />
     <option name="width" value="1920" />
     <option name="height" value="979" />
   </component>
@@ -318,10 +275,6 @@
               <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="javascript" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -337,7 +290,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="wxapi" />
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mahjong" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -369,15 +326,61 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
+              <option name="myItemId" value="out" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
+              <option name="myItemId" value="production" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="proj.android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="proj.android" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="util" />
+              <option name="myItemId" value="obj" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="local" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="proj.android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="proj.android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jni" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="proj.android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="proj.android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jni" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hellojavascript" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -413,16 +416,16 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="com.pusmicgame.mahjong" />
+      <recent name="com.pusmicgame.mahjong />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="org.cocos2dx.javascript" />
+      <recent name="com.pusmicgame.mahjong" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/jni" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src/net/sourceforge/simcpux/wxapi" />
-      <recent name="$PROJECT_DIR$/src/org/cocos2dx/javascript" />
+      <recent name="$PROJECT_DIR$/src/com/pusmicgame/mahjong" />
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
@@ -884,7 +887,7 @@
         <option name="GAPID_DISABLE_PCS" value="false" />
       </Profilers>
       <option name="DEEP_LINK" value="" />
-      <option name="ACTIVITY_CLASS" value="org.cocos2dx.javascript.AppActivity" />
+      <option name="ACTIVITY_CLASS" value="com.pusmicgame.mahjong.AppActivity" />
       <method>
         <option name="Make" enabled="true" />
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
@@ -913,19 +916,28 @@
       <workItem from="1493016359190" duration="615000" />
       <workItem from="1493018422320" duration="17376000" />
       <workItem from="1493098101401" duration="33671000" />
-      <workItem from="1493225260110" duration="1207000" />
+      <workItem from="1493225260110" duration="8335000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="113616000" />
+    <option name="totallyTimeSpent" value="120744000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="32" width="1920" height="979" extended-state="6" />
+    <frame x="-9" y="23" width="1920" height="979" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329849" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -940,6 +952,7 @@
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27795526" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329849" sideWeight="0.49361023" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
@@ -952,8 +965,10 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.329849" sideWeight="0.48083067" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329849" sideWeight="0.49361023" order="1" side_tool="false" content_ui="tabs" />
     </layout>
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.d" />
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -975,50 +990,7 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/net/sourceforge/simcpux/wxapi/GetFromWXActivity.java" />
-    <entry file="jar://$PROJECT_DIR$/../../../../../../../Library/android22-sdk/platforms/android-10/android.jar!/android/app/Activity.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
-          <caret line="63" column="18" selection-start-line="63" selection-start-column="18" selection-end-line="63" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/values/plugin_string.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/plugin_ads.xml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/plugin_login.xml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gen/R.java.d">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gen/org/cocos2dx/javascript/Manifest.java" />
-    <entry file="file://$PROJECT_DIR$/gen/org/cocos2dx/javascript/BuildConfig.java" />
+    <entry file="file://$PROJECT_DIR$/gen/com/pusmicgame/mahjong/BuildConfig.java" />
     <entry file="file://$PROJECT_DIR$/res/values-en/plugin_string.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1033,7 +1005,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gen/org/cocos2dx/javascript/R.java" />
+    <entry file="file://$PROJECT_DIR$/gen/com/pusmicgame/mahjong/R.java" />
     <entry file="jar://$PROJECT_DIR$/../../../../../../../Library/android22-sdk/platforms/android-10/android.jar!/android/widget/TextView.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="183">
@@ -1077,20 +1049,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/cocos2dx/javascript/AppRegister.java">
+    <entry file="file://$PROJECT_DIR$/src/com/pusmicgame/mahjong/AppRegister.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/cocos2dx/javascript/SDKWrapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="false" />
           </folding>
@@ -1108,11 +1070,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-720">
           <caret line="119" column="25" selection-start-line="119" selection-start-column="25" selection-end-line="119" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/cocos2dx/javascript/WXAPIManager.java">
+    <entry file="file://$PROJECT_DIR$/src/com/pusmicgame/mahjong/WXAPIManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
@@ -1138,7 +1099,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
           <caret line="28" column="32" selection-start-line="28" selection-start-column="32" selection-end-line="28" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1150,31 +1110,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/cocos2dx/javascript/wxapi/WXEntryActivity.java">
+    <entry file="file://$PROJECT_DIR$/src/com/pusmicgame/mahjong/wxapi/WXEntryActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="810">
           <caret line="65" column="24" selection-start-line="65" selection-start-column="24" selection-end-line="65" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/cocos2dx/javascript/audio/PCMFormat.java">
+    <entry file="file://$PROJECT_DIR$/src/com/pusmicgame/mahjong/audio/PCMFormat.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
           <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jni/hellojavascript/main.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="34" selection-start-line="15" selection-start-column="34" selection-end-line="15" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/cocos2dx/javascript/AudioMessage.java">
+    <entry file="file://$PROJECT_DIR$/src/com/pusmicgame/mahjong/AudioMessage.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
           <caret line="29" column="26" selection-start-line="29" selection-start-column="26" selection-end-line="29" selection-end-column="26" />
@@ -1191,7 +1141,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/cocos2dx/javascript/audio/DataEncodeThread.java">
+    <entry file="file://$PROJECT_DIR$/src/com/pusmicgame/mahjong/audio/DataEncodeThread.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-496">
           <caret line="75" column="26" selection-start-line="75" selection-start-column="26" selection-end-line="75" selection-end-column="26" />
@@ -1217,7 +1167,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1225,7 +1174,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1233,7 +1181,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="22" column="36" selection-start-line="22" selection-start-column="36" selection-end-line="22" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1241,7 +1188,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
           <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1256,35 +1202,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2640">
           <caret line="229" column="26" selection-start-line="229" selection-start-column="26" selection-end-line="229" selection-end-column="26" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-            <element signature="imports" expanded="false" />
-            <element signature="e#3140#3141#0" expanded="false" />
-            <element signature="e#3178#3179#0" expanded="false" />
-            <element signature="e#3627#3628#0" expanded="false" />
-            <element signature="e#3674#3675#0" expanded="false" />
-            <element signature="e#9768#9769#0" expanded="false" />
-            <element signature="e#9840#9841#0" expanded="false" />
-            <element signature="e#12726#12727#0" expanded="false" />
-            <element signature="e#12759#12760#0" expanded="false" />
-            <element signature="e#13134#13135#0" expanded="false" />
-            <element signature="e#13191#13192#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/cocos2dx/javascript/audio/MP3Recorder.java">
+    <entry file="file://$PROJECT_DIR$/src/com/pusmicgame/mahjong/audio/MP3Recorder.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2310">
           <caret line="167" column="16" selection-start-line="167" selection-start-column="16" selection-end-line="167" selection-end-column="16" />
-          <folding>
-            <element signature="e#4781#4782#0" expanded="false" />
-            <element signature="e#4811#4812#0" expanded="false" />
-            <element signature="e#5157#5158#0" expanded="false" />
-            <element signature="e#5190#5191#0" expanded="false" />
-            <element signature="e#5417#5418#0" expanded="false" />
-            <element signature="e#5452#5453#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1313,15 +1237,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1650">
           <caret line="143" column="72" selection-start-line="143" selection-start-column="72" selection-end-line="143" selection-end-column="72" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1230">
-          <caret line="82" column="78" selection-start-line="82" selection-start-column="78" selection-end-line="82" selection-end-column="78" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1332,7 +1247,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/cocos2dx/javascript/GPSTracker.java">
+    <entry file="file://$PROJECT_DIR$/src/com/pusmicgame/mahjong/GPSTracker.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="284">
           <caret line="298" column="47" selection-start-line="298" selection-start-column="47" selection-end-line="298" selection-end-column="47" />
@@ -1340,10 +1255,80 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/cocos2dx/javascript/AppActivity.java">
+    <entry file="file://$PROJECT_DIR$/obj/local/arm64-v8a/objs-debug/dragonbones_static/__/cocos2dx/CCSlot.o.d" />
+    <entry file="file://$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/java/bin/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5866">
-          <caret line="63" column="13" selection-start-line="63" selection-start-column="13" selection-end-line="63" selection-end-column="13" />
+        <state relative-caret-position="30">
+          <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jni/lame_3.99.5_libmp3lame/bitstream.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="1025" column="23" selection-start-line="1025" selection-start-column="23" selection-end-line="1025" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jni/lame_3.99.5_libmp3lame/psymodel.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="393">
+          <caret line="1477" column="7" selection-start-line="1477" selection-start-column="7" selection-end-line="1477" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gen/com/pusmicgame/mahjong/BuildConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gen/com/pusmicgame/mahjong/R.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gen/R.java.d">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="89" selection-start-line="19" selection-start-column="89" selection-end-line="19" selection-end-column="89" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/pusmicgame/mahjong/SDKWrapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="35" column="23" selection-start-line="35" selection-start-column="23" selection-end-line="35" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jni/hellojavascript/main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="33" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/pusmicgame/mahjong/AppActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="26" column="26" selection-start-line="26" selection-start-column="8" selection-end-line="26" selection-end-column="30" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

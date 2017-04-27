@@ -21,13 +21,14 @@ import org.springframework.web.socket.config.annotation.AbstractWebSocketMessage
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry
 import org.springframework.messaging.support.ChannelInterceptorAdapter
+import org.springframework.web.socket.config.annotation.WebSocketTransportRegistration
 import org.springframework.web.socket.server.standard.ServletServerContainerFactoryBean
 
 import javax.websocket.OnOpen
 
 @Configuration
 @EnableWebSocketMessageBroker
-class WebSokecConfig extends AbstractSessionWebSocketMessageBrokerConfigurer<ExpiringSession> {
+class WebSokecConfig extends AbstractSessionWebSocketMessageBrokerConfigurer<ExpiringSession>  {
    def SESSION_ATTR="session"
 	def PUBLICIP_ATTR="remoteIpAddress"
 	@OnOpen
@@ -41,10 +42,20 @@ class WebSokecConfig extends AbstractSessionWebSocketMessageBrokerConfigurer<Exp
 		messageBrokerRegistry.setApplicationDestinationPrefixes "/app"
 	}
 
+//    @Override
+//    public void configureWebSocketTransport(WebSocketTransportRegistration registration) {
+//        registration.setSendTimeLimit(15 * 1000).setSendBufferSizeLimit(512 * 1024).setMessageSizeLimit(128*1024);
+//    }
+
 	@Override
 	void configureStompEndpoints(StompEndpointRegistry stompEndpointRegistry) {
 		stompEndpointRegistry.addEndpoint("/stomp").setAllowedOrigins("*").withSockJS()
-				.setInterceptors(new HttpSessionIdHandshakeInterceptor());
+				.setInterceptors(new HttpSessionIdHandshakeInterceptor())
+                .setStreamBytesLimit(512 * 1024)
+                .setHttpMessageCacheSize(1000)
+                .setDisconnectDelay(30 * 1000)
+
+
 	}
 
 	@Bean

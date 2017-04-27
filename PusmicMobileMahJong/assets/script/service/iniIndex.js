@@ -40,7 +40,7 @@ cc.Class({
         console.log("ini index onload:");
         if (cc.sys.os == cc.sys.OS_ANDROID) {
             console.log("OS_ANDROID platam GPS:");
-            jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "getLocation", "()V");
+            jsb.reflection.callStaticMethod("com/pusmicgame/mahjong/AppActivity", "getLocation", "()V");
         }
 
         //-----------------------
@@ -282,7 +282,7 @@ cc.Class({
         }
 
         if (cc.sys.os == cc.sys.OS_ANDROID) {
-            isinstall = jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "isWXInstalled", "()Z");
+            isinstall = jsb.reflection.callStaticMethod("com/pusmicgame/mahjong/AppActivity", "isWXInstalled", "()Z");
 
         }
 
@@ -300,7 +300,7 @@ cc.Class({
             }
 
             if (cc.sys.os == cc.sys.OS_ANDROID) {
-                jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "sendReq", "()V");
+                jsb.reflection.callStaticMethod("com/pusmicgame/mahjong/AppActivity", "sendReq", "()V");
             }
 
         }
@@ -327,7 +327,7 @@ cc.Class({
             isinstall = jsb.reflection.callStaticMethod('WXApiManager', 'isWXInstalled');
         }
         if (cc.sys.os == cc.sys.OS_ANDROID) {
-            isinstall = jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "isWXInstalled", "()Z");
+            isinstall = jsb.reflection.callStaticMethod("com/pusmicgame/mahjong/AppActivity", "isWXInstalled", "()Z");
 
         }
         cc.log("isinstall:" + isinstall);
@@ -352,7 +352,7 @@ cc.Class({
                     jsb.reflection.callStaticMethod('WXApiManager', 'sendAuthRequestWX');
                 }
                 if (cc.sys.os == cc.sys.OS_ANDROID) {
-                    jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "sendReq", "()V");
+                    jsb.reflection.callStaticMethod("com/pusmicgame/mahjong/AppActivity", "sendReq", "()V");
                 }
             } else {
                 //refresh auth token again.

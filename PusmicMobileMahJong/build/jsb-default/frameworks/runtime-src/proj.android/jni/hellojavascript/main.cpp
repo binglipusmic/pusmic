@@ -28,7 +28,7 @@ void cocos_android_app_init (JNIEnv* env) {
 
 extern "C"
 {
-	void Java_org_cocos2dx_javascript_SDKWrapper_nativeLoadAllPlugins(JNIEnv*  env, jobject thiz)
+	void Java_com_pusmicgame_mahjong_SDKWrapper_nativeLoadAllPlugins(JNIEnv*  env, jobject thiz)
 	{
 #if PACKAGE_AS
     	SDKManager::getInstance()->loadAllPlugins();

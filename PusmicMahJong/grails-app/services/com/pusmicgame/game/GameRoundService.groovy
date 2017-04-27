@@ -1,5 +1,6 @@
 package com.pusmicgame.game
 
+import com.pusmic.game.mahjong.LoingUserInfo
 import com.pusmic.game.mahjong.SpringUser
 import com.pusmicgame.domain.MessageDomain
 import grails.transaction.Transactional
@@ -29,12 +30,16 @@ class GameRoundService {
             return flag
         }
 
+        //check gps
+
+        flag=checkGpsLimit(messageJsonObj)
+
         return flag
     }
 
 
     def checkGpsLimit(MessageDomain messageJsonObj){
-        def flag=false;
+        def flag=true;
 
         def roomNumber = messageJsonObj.messageBelongsToPrivateChanleNumber;
         GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
@@ -45,23 +50,50 @@ class GameRoundService {
 
         if(gameRound) {
             def openid = messageJsonObj.messageBody;
-            def gameLun=gameRound.gameRoundLun
-            def gameMode=gameLun.gameMode
-            if(gameMode) {
-                def gpsLimitMeter = gameMode.gpsLimit
+            def readyJoinUser=SpringUser.findByOpenid(openid)
+            if(readyJoinUser) {
+                def readyUserInfo = LoingUserInfo.findAllByUserOpeid(readyJoinUser.openid, [sort: 'loginTime']).last()
+                def readyUserLong1=readyUserInfo.longitude
+                def readyUserLat1 =readyUserInfo.latitude
+                if(readyUserLong1) {
+                    def gameLun = gameRound.gameRoundLun
+                    def gameMode = gameLun.gameMode
+                    if (gameMode) {
+                        def gpsLimitMeter = gameMode.gpsLimit
 
-                if (gpsLimitMeter) {
-                    def springUser=SpringUser.findByOpenid(openid)
-                    if(springUser){
-                        gameRound.gameUser.each { gu ->
-                            def joinSpringUser=gu.springUser
+                        if (gpsLimitMeter) {
+                            gpsLimitMeter=gpsLimitMeter.toInteger()
+                            def springUser = SpringUser.findByOpenid(openid)
+                            if (springUser) {
+                                gameRound.gameUser.each { gu ->
+                                    def joinSpringUser = gu.springUser
+                                    if (joinSpringUser) {
+                                        def lastLoginInfo = LoingUserInfo.findAllByUserOpeid(user.openid, [sort: 'loginTime']).last()
+                                        if (lastLoginInfo) {
+                                            double long1 = lastLoginInfo.longitude
+                                            double lat1 = lastLoginInfo.latitude
+                                            if (long1) {
+                                                if (lat1) {
+
+                                                    def distance=distance(readyUserLat1,readyUserLong1,long1,lat1,0.0,0.0)
+                                                    print "distance:"+distance
+
+                                                }
+                                            }
+
+                                        }
+                                    }
+
+                                }
+
+                            }
+
                         }
-
                     }
-
                 }
             }
         }
+        return flag
 
     }
 

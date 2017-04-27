@@ -27,7 +27,7 @@ cc.Class({
 
         }
         if (cc.sys.os == cc.sys.OS_ANDROID) {
-             jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "sendApplicatoinMessage","(Ljava/lang/String;)V","roomnumber");
+             jsb.reflection.callStaticMethod("com/pusmicgame/mahjong/AppActivity", "sendApplicatoinMessage","(Ljava/lang/String;)V","roomnumber");
       }
 
     },
