@@ -42,10 +42,10 @@ class WebSokecConfig extends AbstractSessionWebSocketMessageBrokerConfigurer<Exp
 		messageBrokerRegistry.setApplicationDestinationPrefixes "/app"
 	}
 
-//    @Override
-//    public void configureWebSocketTransport(WebSocketTransportRegistration registration) {
-//        registration.setSendTimeLimit(15 * 1000).setSendBufferSizeLimit(512 * 1024).setMessageSizeLimit(128*1024);
-//    }
+    @Override
+    public void configureWebSocketTransport(WebSocketTransportRegistration registration) {
+        registration.setSendTimeLimit(15 * 1000).setSendBufferSizeLimit(512 * 1024).setMessageSizeLimit(128*1024);
+    }
 
 	@Override
 	void configureStompEndpoints(StompEndpointRegistry stompEndpointRegistry) {

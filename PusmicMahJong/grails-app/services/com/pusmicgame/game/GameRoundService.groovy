@@ -68,7 +68,7 @@ class GameRoundService {
                                 gameRound.gameUser.each { gu ->
                                     def joinSpringUser = gu.springUser
                                     if (joinSpringUser) {
-                                        def lastLoginInfo = LoingUserInfo.findAllByUserOpeid(user.openid, [sort: 'loginTime']).last()
+                                        def lastLoginInfo = LoingUserInfo.findAllByUserOpeid(joinSpringUser.openid, [sort: 'loginTime']).last()
                                         if (lastLoginInfo) {
                                             double long1 = lastLoginInfo.longitude
                                             double lat1 = lastLoginInfo.latitude
@@ -76,7 +76,7 @@ class GameRoundService {
                                                 if (lat1) {
 
                                                     def distance=distance(readyUserLat1,readyUserLong1,long1,lat1,0.0,0.0)
-                                                    print "distance:"+distance
+                                                    println "distance:"+distance
 
                                                 }
                                             }
