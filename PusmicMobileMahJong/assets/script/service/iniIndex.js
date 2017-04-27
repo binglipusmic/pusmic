@@ -94,6 +94,7 @@ cc.Class({
                 var bodyStr = message.body;
                 cc.log("######################");
                 cc.log(bodyStr);
+
                 if (bodyStr.length == 0) {
                     this.reforceLogin();
                 } else {
@@ -280,6 +281,11 @@ cc.Class({
             isinstall = jsb.reflection.callStaticMethod('WXApiManager', 'isWXInstalled');
         }
 
+        if (cc.sys.os == cc.sys.OS_ANDROID) {
+            isinstall = jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "isWXInstalled", "()Z");
+
+        }
+
         if (isinstall) {
             //check openid if in the client
             var authLoginTime = cc.sys.localStorage.getItem("authLoginTime");
@@ -291,6 +297,10 @@ cc.Class({
             //open webchat to auth user
             if (cc.sys.os == cc.sys.OS_IOS) {
                 jsb.reflection.callStaticMethod('WXApiManager', 'sendAuthRequestWX');
+            }
+
+            if (cc.sys.os == cc.sys.OS_ANDROID) {
+                jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "sendReq", "()V");
             }
 
         }

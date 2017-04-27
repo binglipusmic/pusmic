@@ -1,5 +1,6 @@
 package com.pusmicgame.game
 
+import com.pusmic.game.mahjong.SpringUser
 import com.pusmicgame.domain.MessageDomain
 import grails.transaction.Transactional
 
@@ -29,6 +30,39 @@ class GameRoundService {
         }
 
         return flag
+    }
+
+
+    def checkGpsLimit(MessageDomain messageJsonObj){
+        def flag=false;
+
+        def roomNumber = messageJsonObj.messageBelongsToPrivateChanleNumber;
+        GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
+        GameRound gameRound
+        if(onlineRoomNumber){
+            gameRound = onlineRoomNumber.gameRound
+        }
+
+        if(gameRound) {
+            def openid = messageJsonObj.messageBody;
+            def gameLun=gameRound.gameRoundLun
+            def gameMode=gameLun.gameMode
+            if(gameMode) {
+                def gpsLimitMeter = gameMode.gpsLimit
+
+                if (gpsLimitMeter) {
+                    def springUser=SpringUser.findByOpenid(openid)
+                    if(springUser){
+                        gameRound.gameUser.each { gu ->
+                            def joinSpringUser=gu.springUser
+                        }
+
+                    }
+
+                }
+            }
+        }
+
     }
 
 

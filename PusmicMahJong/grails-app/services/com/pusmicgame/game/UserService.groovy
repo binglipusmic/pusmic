@@ -671,6 +671,7 @@ class UserService {
         if (headImageName) {
             springUser.headImageFileName = headImageName
         }
+        userLoginInfo.userOpeid=userOpenid
         springUser.addToLoginUserInfo(userLoginInfo)
         springUser.save(flush: true, failOnError: true)
 
@@ -754,6 +755,8 @@ class UserService {
 
             def url = "http://wx.qlogo.cn/mmopen/Po9mkm3Z42tolYpxUVpY6mvCmqalibOpcJ2jG3Qza5qgtibO1NLFNUF7icwCibxPicbGmkoiciaqKEIdvvveIBfEQqal8vkiavHIeqFT/96"
             userOpenid = noOnlineUser.openid
+
+            userLoginInfo.userOpeid=userOpenid
             //if (!noOnlineUser.headImageFileName) {
             def headImageName = getHeadImage(url, userOpenid)
             if (headImageName) {
