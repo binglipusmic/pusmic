@@ -40,6 +40,8 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     [pattern: '/user/**', access: ['IS_AUTHENTICATED_REMEMBERED']],
 	[pattern: '/faPai/**', access: ['IS_AUTHENTICATED_REMEMBERED']],
     [pattern: '/admin/**', access: ['IS_AUTHENTICATED_REMEMBERED']],
+	[pattern: '/publicMessage/**', access: ['IS_AUTHENTICATED_REMEMBERED']],
+		//PublicMessage
 	[pattern: '/stomp/**', access: ['permitAll']],
 	[pattern: '/webchatImage/**', access: ['permitAll']],
     [pattern: '/public/webchatImage/**', access: ['permitAll']]

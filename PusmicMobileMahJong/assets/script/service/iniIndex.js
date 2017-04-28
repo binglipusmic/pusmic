@@ -25,6 +25,7 @@ cc.Class({
         checkOnlineUser: cc.Node,
         messageNode: cc.Node,
         loadingNode: cc.Node,
+        logBtnNode: cc.Node,
 
 
     },
@@ -32,6 +33,8 @@ cc.Class({
     // use this for initialization
     onLoad: function () {
         //------------
+        var loginBtn = this.logBtnNode.getComponent(cc.Button);
+
         if (cc.sys.os == cc.sys.OS_IOS) {
             console.log("ios platam:");
             jsb.reflection.callStaticMethod('LocationFunc', 'initalLocation');
@@ -137,6 +140,7 @@ cc.Class({
                                 gameActionListGet.showUserNickNameAndCode();
                                 gameActionListGet.closeLoadingIcon();
 
+                                loginBtn.interactable = false;
                                 //get location 
 
                                 if (cc.sys.os == cc.sys.OS_IOS) {
@@ -370,9 +374,9 @@ cc.Class({
                 if (roomNumber == null || roomNumber == undefined) {
                     roomNumber = cc.sys.localStorage.getItem("loginRoomNumber");
                 }
-                var o=new Object();
-                o.openid=openid;
-                o.roomNumber=roomNumber;
+                var o = new Object();
+                o.openid = openid;
+                o.roomNumber = roomNumber;
                 var messageObj = this.buildSendMessage(JSON.stringify(o), "", "refreshToken");
                 if (client == null || client == undefined) {
                     this.reinstalClient();

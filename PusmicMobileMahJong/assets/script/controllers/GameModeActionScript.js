@@ -33,6 +33,7 @@ cc.Class({
         roundCount4: cc.Node,
         roundCount8: cc.Node,
         gamePeopleNumber: cc.Node,
+        gameModeUINode: cc.Node,
     },
 
     // use this for initialization
@@ -46,6 +47,15 @@ cc.Class({
         }
         gameMode.gamePeopleNumber = 4;
         this.initalGameModeUIByModeData();
+
+         this.gameModeUINode.on('touchstart', function (event) {
+            event.stopPropagation();
+        });
+        this.gameModeUINode.on('touchend', function (event) {
+            event.stopPropagation();
+        });
+        //touchstart
+
 
 
     },
