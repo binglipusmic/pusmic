@@ -121,8 +121,8 @@ cc.Class({
                 o.userMoPai = "37";
                 userInfo.openid = "testUser" + 3;
                 userInfo.nickName = "testUser" + 3;
-                if(i==3){
-                    o.zhuang="1";
+                if (i == 3) {
+                    o.zhuang = "1";
                 }
             } else if (initalType == "test2") {
                 userInfo.openid = "testUser" + 2;
@@ -132,14 +132,14 @@ cc.Class({
                 } else {
                     o.pointIndex = 1
                 }
-                 if(i==2){
-                    o.zhuang="1";
+                if (i == 2) {
+                    o.zhuang = "1";
                 }
             } else if (initalType == "test1") {
                 userInfo.nickName = "testUser" + 1;
                 userInfo.openid = "testUser" + 1;
-                 if(i==4){
-                    o.zhuang="1";
+                if (i == 4) {
+                    o.zhuang = "1";
                 }
                 if (i < 3) {
                     o.pointIndex = i + 2;
@@ -151,8 +151,8 @@ cc.Class({
             } else if (initalType == "test4") {
                 userInfo.nickName = "testUser" + 4;
                 userInfo.openid = "testUser" + 4;
-                 if(i==4){
-                    o.zhuang="1";
+                if (i == 4) {
+                    o.zhuang = "1";
                 }
                 if (i == 1) {
                     o.pointIndex = 4;
@@ -166,9 +166,9 @@ cc.Class({
             o.headImageFileName = "1";
 
             if (i == 0) {
-               // o.zhuang = "1";
+                // o.zhuang = "1";
             } else {
-               // o.zhuang = "0";
+                // o.zhuang = "0";
                 if (i == 2) {
                     o.userMoPai = "22";
                 }
@@ -335,23 +335,23 @@ cc.Class({
                 if (user.pointIndex != "3") {
                     eval("this.userInfo" + user.pointIndex + ".active = true");
                     this.fixUserPointByIndex(user.pointIndex);
-                    var userNodeName="user"+user.pointIndex+"Node";
-                    var userNode=cc.find(userNodeName,this.tableNode);
-                     var userInfoNode=cc.find("userInfoNode",userNode);
-                     var userZhuangSpriteNode=cc.find("userZhuangSprite",userInfoNode);
-                    if(user.zhuang=="1"){
-                        userZhuangSpriteNode.active=true;
-                    }else{
-                        userZhuangSpriteNode.active=false;
+                    var userNodeName = "user" + user.pointIndex + "Node";
+                    var userNode = cc.find(userNodeName, this.tableNode);
+                    var userInfoNode = cc.find("userInfoNode", userNode);
+                    var userZhuangSpriteNode = cc.find("userZhuangSprite", userInfoNode);
+                    if (user.zhuang == "1") {
+                        userZhuangSpriteNode.active = true;
+                    } else {
+                        userZhuangSpriteNode.active = false;
                     }
 
                 } else {
                     eval("this.userInfo" + user.pointIndex + ".active = false");
-                    var  userSlefZhuangImageNode=cc.find("userselfZhuangSprite",this.tableNode);
-                    if(user.zhuang=="1"){
-                        userSlefZhuangImageNode.active=true;
-                    }else{
-                        userSlefZhuangImageNode.active=false;
+                    var userSlefZhuangImageNode = cc.find("userselfZhuangSprite", this.tableNode);
+                    if (user.zhuang == "1") {
+                        userSlefZhuangImageNode.active = true;
+                    } else {
+                        userSlefZhuangImageNode.active = false;
                     }
                 }
 
@@ -1177,23 +1177,21 @@ cc.Class({
             //start fill the user info from index 
             cc.log("numberOrder:" + numberOrder.toString());
             for (var i = 0; i < userList.length; i++) {
+                //update user index 
                 var user = userList[i];
                 user.pointIndex = numberOrder[i];
                 userList[i] = user;
                 var userNodeName = "user" + numberOrder[i] + "Node";
                 //var testHeaImageurl = "http://wx.qlogo.cn/mmopen/Po9mkm3Z42tolYpxUVpY6mvCmqalibOpcJ2jG3Qza5qgtibO1NLFNUF7icwCibxPicbGmkoiciaqKEIdvvveIBfEQqal8vkiavHIeqFT/0";
                 var serverUrl = Global.hostHttpProtocol + "://" + Global.hostServerIp + ":" + Global.hostServerPort;
-                cc.log("headImageFileName:" + user.headImageFileName);
-                var testHeaImageurl = serverUrl + "/webchatImage/" + userInfo.headImageFileName;
-                cc.log("testHeaImageurl:" + testHeaImageurl);
+                console.log("headImageFileName:" + user.headImageFileName);
+                var testHeaImageurl = serverUrl + "/webchatImage/" +  user.headImageFileName;
+                console.log("testHeaImageurl:" + testHeaImageurl);
                 var userNode = cc.find(userNodeName, this.tableNode);
                 var userInfoNode = cc.find("userInfoNode", userNode);
                 var userNickNameNode = cc.find("userNickNameBg", userInfoNode);
                 var userNickNameLableNode = cc.find("userNickName", userNickNameNode);
-                cc.loader.load(testHeaImageurl, function (err, texture) {
-                    var frame = new cc.SpriteFrame(texture);
-                    userInfoNode.getComponent(cc.Sprite).spriteFrame = frame;
-                });
+                this.initalUserImage(testHeaImageurl, userNodeName);
 
                 var userNickNameLable = userNickNameLableNode.getComponent(cc.Label);
                 userNickNameLable.string = user.nickName;
@@ -1203,7 +1201,20 @@ cc.Class({
             this.intalUserInfoReadyIcon();
 
         }
-    }
+    },
+    initalUserImage: function (testImageUrl,userName ) {
+        cc.loader.load(testImageUrl, function (err, texture) {
+            console.log("testHeaImageurl:" + testImageUrl);
+            console.log("userName[i]:" + userName);
+            var frame = new cc.SpriteFrame(texture);
+            var tableNode = cc.find("Canvas/tableNode");
+            var userNode = cc.find(userName, tableNode);
+            console.log("userNode:" + "1211");
+            var userInfoNode = cc.find("userInfoNode", userNode);
+            userInfoNode.getComponent(cc.Sprite).spriteFrame = frame;
+              console.log("userNode:" + "1214");
+        });
+    },
 
     // called every frame, uncomment this function to activate update callback
     // update: function (dt) {

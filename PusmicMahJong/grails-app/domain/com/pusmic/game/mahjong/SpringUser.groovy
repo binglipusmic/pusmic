@@ -47,9 +47,10 @@ class SpringUser implements Serializable {
 
 
 	//-----user game info--------
-	int  diamondsNumber
+	int  diamondsNumber=30
 	int  gameCount
 	int winCount
+	int gameScroe=1000
 	String userCode
 	String userType
 	String headImageFileName

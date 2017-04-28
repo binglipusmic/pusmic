@@ -6,6 +6,7 @@ var socket;
 var gameActionListGet;
 var onlineCheckUser;
 var messageScript;
+var roomNumber
 cc.Class({
     extends: cc.Component,
 
@@ -23,6 +24,7 @@ cc.Class({
         gameActionList: cc.Node,
         checkOnlineUser: cc.Node,
         messageNode: cc.Node,
+        loadingNode: cc.Node,
 
 
     },
@@ -69,10 +71,8 @@ cc.Class({
             console.log("xhr readyState:" + xhr.readyState);
             if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
                 var response = xhr.responseText;
-
                 console.log("xhr:" + response);
                 console.log("xhr responseType:" + xhr.responseType);
-
             }
         };
         xhr.open("GET", url, true);
@@ -90,7 +90,9 @@ cc.Class({
         var headers = {};
         // headers["user-agent"] = "test";
         client.connect(headers, function () {
-            client.subscribe("/queue/pusmicGamePushLoginUserInfoChanle", function (message) {
+            roomNumber = this.getRandom();
+            cc.sys.localStorage.setItem("loginRoomNumber", roomNumber);
+            client.subscribe("/queue/pusmicGamePushLoginUserInfoChanle" + roomNumber, function (message) {
                 var bodyStr = message.body;
                 cc.log("######################");
                 cc.log(bodyStr);
@@ -215,6 +217,14 @@ cc.Class({
         //colse the websokect
         client.disconnect();
         cc.log("onDestroy");
+    },
+
+
+    getRandom: function () {
+        var n = 1000000
+        var m = 9999999
+        var c = m - n + 1;
+        return Math.floor(Math.random() * c + n);
     },
     //----------------------inital private chanle----------------------------------
     // initalPrivateChanleForUser: function (roomNumber) {
@@ -357,7 +367,13 @@ cc.Class({
             } else {
                 //refresh auth token again.
                 var openid = cc.sys.localStorage.getItem('userOpenId');
-                var messageObj = this.buildSendMessage(openid, "", "refreshToken");
+                if (roomNumber == null || roomNumber == undefined) {
+                    roomNumber = cc.sys.localStorage.getItem("loginRoomNumber");
+                }
+                var o=new Object();
+                o.openid=openid;
+                o.roomNumber=roomNumber;
+                var messageObj = this.buildSendMessage(JSON.stringify(o), "", "refreshToken");
                 if (client == null || client == undefined) {
                     this.reinstalClient();
                 }
@@ -372,40 +388,6 @@ cc.Class({
             cc.log('未安装微信!');
         }
 
-    },
-    refreshToken: function (refresh_token) {
-        var appid = "";
-        var appSecrect = "";
-        var xhr = new XMLHttpRequest();
-        //https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=APPID&grant_type=refresh_token&refresh_token=REFRESH_TOKEN
-
-        var url = "https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=" + appid + "&grant_type=refresh_token&refresh_token=" + refresh_token;
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
-                var response = xhr.responseText;
-                console.log(response);
-                if (response.length > 0) {
-                    if (response.indexOf("errcode") >= 0) {
-                        messageScript.text = response;
-                        messageScript.setTextOfPanel();
-                    } else {
-                        var userObj = JSON.parse(response);
-                        var access_token = userObj.access_token;
-                        var openid = userObj.openid;
-                        var refresh_token_new = userObj.refresh_token;
-                        if (refresh_token_new != refresh_token) {
-                            cc.sys.localStorage.setItem('refresh_token', refresh_token_new);
-                            this.sendUserAuthTokenAndRefreshTokenToServer(access_token, refresh_token, openid);
-                        }
-                        //store the token into server
-                    }
-
-
-                }
-            }
-        }.bind(this);
-        xhr.open("GET", url, true);
-        xhr.send();
     },
     //refresh token
     //https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=APPID&grant_type=refresh_token&refresh_token=REFRESH_TOKEN
@@ -423,7 +405,16 @@ cc.Class({
         //if (errorCode + "" == "0") {
         cc.sys.localStorage.setItem('authLoginTime', nowDate);
         cc.sys.localStorage.setItem('webChatCode', code);
-        var messageObj = this.buildSendMessage(code, "", "getTokenByCode");
+
+        var o = new Object();
+        if (roomNumber == null || roomNumber == undefined) {
+            roomNumber = cc.sys.localStorage.getItem("loginRoomNumber");
+        }
+
+        o.roomNumber = roomNumber;
+        o.code = code;
+
+        var messageObj = this.buildSendMessage(JSON.stringify(o), "", "getTokenByCode");
         if (client == null || client == undefined) {
             this.reinstalClient();
         }
@@ -438,36 +429,6 @@ cc.Class({
 
     },
 
-    getUserInfoAndStoreIntoServer: function (access_token, openid) {
-
-        var xhr = new XMLHttpRequest();
-        var url = "https://api.weixin.qq.com/sns/userinfo?access_token=" + access_token + "&openid=" + openid;
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
-                var response = xhr.responseText;
-                console.log(response);
-                if (response.length > 0) {
-                    if (response.indexOf("errcode") >= 0) {
-                        messageScript.text = response;
-                        messageScript.setTextOfPanel();
-                    } else {
-                        var userObj = JSON.parse(response);
-                        cc.sys.localStorage.setItem('authUserObject', JSON.stringify(userObj));
-                        //userObj.action = "saveUserInfo";
-                        //store the token into server
-                        var messageObj = this.buildSendMessage(JSON.stringify(o), "", "saveUserInfo");
-                        client.send("/app/usercode_resive_message", {}, JSON.stringify(messageObj));
-                        // client.send("/app/usercode_resive_message", {}, JSON.stringify(userObj));
-                    }
-
-
-                }
-            }
-        };
-        xhr.open("GET", url, true);
-        xhr.send();
-
-    },
 
     //https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID
 

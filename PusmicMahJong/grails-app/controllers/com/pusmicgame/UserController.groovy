@@ -18,13 +18,14 @@ class UserController {
     //def session
     def userService
     def paiService
+    def websokectService
 
     def index() {
         session.getAttribute()
     }
 
     @MessageMapping("/usercode_resive_message")
-    @SendTo("/queue/pusmicGamePushLoginUserInfoChanle")
+ //   @SendTo("/queue/pusmicGamePushLoginUserInfoChanle")
     protected String usercode_resive_message(String messageString, @Headers Map<String, Object> headers) {
         println "usercode_resive_message headers::" + headers.toString()
         Map<String, Object> sessionHeaders = SimpMessageHeaderAccessor.getSessionAttributes(headers);
@@ -40,8 +41,12 @@ class UserController {
             MessageDomain messageJsonObj = JSON.parse(messageString);
             if (messageJsonObj) {
                 // def s=userService.createNewSpringUserOrUpdate(code,publicIp)
+                def obj=JSON.parse(messageJsonObj.messageBody);
+                def roomNumber
                 if (messageJsonObj.messageAction.equals("getTokenByCode")) {
-                    def code=messageJsonObj.messageBody;
+                    roomNumber=obj.roomNumber
+                    def code=obj.code
+
                     //UserAuthObject userAuthObj = JSON.parse(messageJsonObj.messageBody);
                     //userService.createNewSpringUserOrUpdate(userAuthObj)
                     s=userService.loginUserByCode(code,publicIp);
@@ -49,17 +54,22 @@ class UserController {
 
                 if (messageJsonObj.messageAction.equals("refreshToken")) {
                     //UserInfo userInfo = JSON.parse(messageJsonObj.messageBody);
-                    def openid=messageJsonObj.messageBody;
+                    roomNumber=obj.roomNumber
+                    def openid=obj.openid
                     s=userService.refreshTokenByOpenid(openid,publicIp);
                 }
 
+
+                println "roomNumber:"+roomNumber
+
+                websokectService.pusmicGameUserLoginPrivate(roomNumber,s)
                 //UserInfo
             }
         }
 
 
         println "user info::" + s
-        return s
+        //return s
     }
 
 

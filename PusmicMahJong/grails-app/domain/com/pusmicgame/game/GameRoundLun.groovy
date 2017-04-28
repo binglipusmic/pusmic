@@ -7,7 +7,7 @@ class GameRoundLun {
     Date  endTime
     GameMode gameMode
     SpringUser user
-    int  currentRoundCount
+    int  currentRoundCount=0
   //  String roomNumber
     static belongsTo = SpringUser
     static hasMany = [gameRound:GameRound,users:SpringUser]

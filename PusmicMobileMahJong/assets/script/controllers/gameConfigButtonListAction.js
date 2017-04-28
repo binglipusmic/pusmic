@@ -52,6 +52,9 @@ cc.Class({
         gameConfigSettingScript: cc.Node,
         tableUserInfoScript: cc.Node,
 
+        userScoreNode:cc.Node,
+        userDemonNode:cc.Node
+
     },
 
     // use this for initialization
@@ -81,15 +84,27 @@ cc.Class({
         boyBtn.enabled = true;
         grilBtn.enabled = true;
     },
+    updateScoreAndDemand:function(){
+           var userInfo = Global.userInfo;
+            if (userInfo != null && userInfo != undefined) {
+                var userScore = this.userScoreNode.getComponent(cc.Label);
+                userScore.string=userInfo.gameScroe;
+                var demonNum=this.userDemonNode.getComponent(cc.Label);
+                demonNum.string=userInfo.diamondsNumber;
+            }
+
+    },
     showUserNickNameAndCode: function () {
         var userInfo = Global.userInfo;
         if (userInfo != null && userInfo != undefined) {
             var userNickname = this.userNickNameNode.getComponent(cc.Label);
             var userCode = this.userCodeNode.getComponent(cc.Label);
+          
 
             userNickname.string = userInfo.nickName;
             userCode.string = userInfo.userCode;
-
+            this.updateScoreAndDemand();
+            
         }
         var serverUrl = Global.hostHttpProtocol + "://" + Global.hostServerIp + ":" + Global.hostServerPort;
 

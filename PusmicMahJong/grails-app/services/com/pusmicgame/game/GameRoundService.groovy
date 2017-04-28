@@ -32,14 +32,25 @@ class GameRoundService {
 
         //check gps
 
-        flag=checkGpsLimit(messageJsonObj)
+        //flag=checkGpsLimit(messageJsonObj)
 
         return flag
     }
 
 
     def checkGpsLimit(MessageDomain messageJsonObj){
-        def flag=true;
+        //
+        //0, no gps open for join user
+        //1, no gps open for room ownser
+        //2, gps open,  no gps limit
+        //3, gps open,gps limit not pass
+        //4, gps open ,gps limit pass
+        //5, have gps limit
+
+        //6.no gps open for join user ,but gps require
+        //7.no gps open for room ownser,but gps require
+        //8.no gps limit.
+        def gpsStatus=-1;
 
         def roomNumber = messageJsonObj.messageBelongsToPrivateChanleNumber;
         GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
@@ -49,20 +60,39 @@ class GameRoundService {
         }
 
         if(gameRound) {
-            def openid = messageJsonObj.messageBody;
-            def readyJoinUser=SpringUser.findByOpenid(openid)
-            if(readyJoinUser) {
-                def readyUserInfo = LoingUserInfo.findAllByUserOpeid(readyJoinUser.openid, [sort: 'loginTime']).last()
-                def readyUserLong1=readyUserInfo.longitude
-                def readyUserLat1 =readyUserInfo.latitude
-                if(readyUserLong1) {
-                    def gameLun = gameRound.gameRoundLun
-                    def gameMode = gameLun.gameMode
-                    if (gameMode) {
-                        def gpsLimitMeter = gameMode.gpsLimit
 
+            def gameLun = gameRound.gameRoundLun
+            def gameMode = gameLun.gameMode
+            def gpsLimitMeter
+            if (gameMode) {
+                gpsLimitMeter= gameMode.gpsLimit
+                if (gpsLimitMeter) {
+                    if(gpsLimitMeter.toInteger()>0){
+                        gpsStatus=5
+                    }else{
+                        gpsStatus=8
+                    }
+
+                }else{
+                    gpsStatus=8
+                }
+            }else{
+                gpsStatus=8
+            }
+
+            if(gpsStatus==5) {
+                def openid = messageJsonObj.messageBody;
+                def readyJoinUser = SpringUser.findByOpenid(openid)
+                if (readyJoinUser) {
+                    def readyUserInfo = LoingUserInfo.findAllByUserOpeid(readyJoinUser.openid, [sort: 'loginTime']).last()
+                    def readyUserLong1 = readyUserInfo.longitude
+                    def readyUserLat1 = readyUserInfo.latitude
+                    if (readyUserLong1) {
                         if (gpsLimitMeter) {
-                            gpsLimitMeter=gpsLimitMeter.toInteger()
+
+                            gpsLimitMeter = gpsLimitMeter.toInteger()
+                            gpsLimitMeter=gpsLimitMeter*1000
+
                             def springUser = SpringUser.findByOpenid(openid)
                             if (springUser) {
                                 gameRound.gameUser.each { gu ->
@@ -75,10 +105,19 @@ class GameRoundService {
                                             if (long1) {
                                                 if (lat1) {
 
-                                                    def distance=distance(readyUserLat1,readyUserLong1,long1,lat1,0.0,0.0)
-                                                    println "distance:"+distance
+                                                    def distance = distance(readyUserLat1, lat1, readyUserLong1, long1, 0.0, 0.0).toInteger()
+                                                    println "distance:" + distance
+                                                    if (distance >= gpsLimitMeter) {
+                                                        gpsStatus = 4
+                                                    } else {
+                                                        gpsStatus = 3
+                                                    }
 
+                                                } else {
+                                                    gpsStatus = 7
                                                 }
+                                            } else {
+                                                gpsStatus = 7
                                             }
 
                                         }
@@ -88,12 +127,17 @@ class GameRoundService {
 
                             }
 
+                        } else {
+                            gpsStatus = 2
                         }
+                    } else {
+                        gpsStatus = 6
                     }
+
                 }
             }
         }
-        return flag
+        return gpsStatus
 
     }
 
@@ -211,11 +255,17 @@ class GameRoundService {
                             if(user.roundScoreCount) {
 
                                 if(user.roundScoreCount>0) {
-                                    var springUser = user.springUser
+                                    def springUser = user.springUser
                                     if (springUser.winCount) {
                                         springUser.winCount = springUser.winCount + 1
                                     } else {
                                         springUser.winCount = 1
+                                    }
+
+                                    if(springUser.gameScroe){
+                                        springUser.gameScroe=springUser.gameScroe+user.roundScoreCount.toInteger()
+                                    }else{
+                                        springUser.gameScroe=user.roundScoreCount.toInteger()
                                     }
                                     springUser.save(flush: true, failOnError: true)
                                 }

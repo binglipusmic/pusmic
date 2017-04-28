@@ -26,45 +26,55 @@ class WebSokectController {
         // println "userResiveMessage:"+messageJsonObj.messageAction
         //closeGameRoundLun
         if (messageJsonObj.messageAction.equals("joinRoom")) {
-            def flag = gameRoundService.checkGameRoomExist(messageJsonObj)
-            if (flag) {
-                //join already exist room
-                def paiStr = userService.joinExitRoom(messageJsonObj)
-                println("paiStr:" + paiStr)
-                MessageDomain newMessageObj = new MessageDomain()
-                newMessageObj.messageBelongsToPrivateChanleNumber = messageJsonObj.messageBelongsToPrivateChanleNumber
-                newMessageObj.messageAction = "joinExistRoom"
-                newMessageObj.messageBody = paiStr
-                newMessageObj.messageType = "gameAction"
-                def s2 = new JsonBuilder(newMessageObj).toPrettyString()
-                websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)
+            //check the gps limit
 
-            } else {
+            def gpsStatus=gameRoundService.checkGpsLimit(messageJsonObj)
+            if(gpsStatus ==8 || gpsStatus==4) {
+                def flag = gameRoundService.checkGameRoomExist(messageJsonObj)
+                if (flag) {
+                    //join already exist room
+                    def paiStr = userService.joinExitRoom(messageJsonObj)
+                    println("paiStr:" + paiStr)
+                    MessageDomain newMessageObj = new MessageDomain()
+                    newMessageObj.messageBelongsToPrivateChanleNumber = messageJsonObj.messageBelongsToPrivateChanleNumber
+                    newMessageObj.messageAction = "joinExistRoom"
+                    newMessageObj.messageBody = paiStr
+                    newMessageObj.messageType = "gameAction"
+                    def s2 = new JsonBuilder(newMessageObj).toPrettyString()
+                    websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)
 
-                // println gameRoundService.getPopeleCountForJoinRoom(messageJsonObj)
-                if (gameRoundService.getPopeleCountForJoinRoom(messageJsonObj).equals("!")) {
-
-                    messageJsonObj = userService.joinNoExistRoom(messageJsonObj)
-                    /*    def s2 = JsonOutput.toJson(messageJsonObj)
-                websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)*/
                 } else {
 
+                    // println gameRoundService.getPopeleCountForJoinRoom(messageJsonObj)
+                    if (gameRoundService.getPopeleCountForJoinRoom(messageJsonObj).equals("!")) {
 
-                    if (gameRoundService.getPopeleCountForJoinRoom(messageJsonObj).equals("<")) {
-                        messageJsonObj = userService.joinRoom(messageJsonObj)
-                        /* def s = JsonOutput.toJson(messageJsonObj)
-                    websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)*/
-                    } else if (gameRoundService.getPopeleCountForJoinRoom(messageJsonObj).equals("=")) {
-                        //start fapai
-                        messageJsonObj = userService.joinRoom(messageJsonObj)
+                        messageJsonObj = userService.joinNoExistRoom(messageJsonObj)
+                        /*    def s2 = JsonOutput.toJson(messageJsonObj)
+                websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)*/
                     } else {
-                        //>
 
-                        messageJsonObj = userService.joinFullRoom(messageJsonObj)
 
+                        if (gameRoundService.getPopeleCountForJoinRoom(messageJsonObj).equals("<")) {
+                            messageJsonObj = userService.joinRoom(messageJsonObj)
+                            /* def s = JsonOutput.toJson(messageJsonObj)
+                    websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)*/
+                        } else if (gameRoundService.getPopeleCountForJoinRoom(messageJsonObj).equals("=")) {
+                            //start fapai
+                            messageJsonObj = userService.joinRoom(messageJsonObj)
+                        } else {
+                            //>
+
+                            messageJsonObj = userService.joinFullRoom(messageJsonObj)
+
+                        }
                     }
-                }
 
+                    def s2 = JsonOutput.toJson(messageJsonObj)
+                    websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)
+                }
+            }else{
+
+                messageJsonObj =userService.joinGPSLimitRoom(messageJsonObj,gpsStatus)
                 def s2 = JsonOutput.toJson(messageJsonObj)
                 websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)
             }
@@ -95,10 +105,23 @@ class WebSokectController {
 
         }
         if (messageJsonObj.messageAction.equals("buildNewRoundLun")) {
+            if(gameRoundLunService.checkIfCanBuildNewRoundLun(messageJsonObj)){
+                MessageDomain newMessageObj = new MessageDomain()
+                newMessageObj.messageBelongsToPrivateChanleNumber = messageJsonObj.messageBelongsToPrivateChanleNumber
+                newMessageObj.messageAction = "buildRoundFail"
+                newMessageObj.messageBody = "NoEnoughDemond"
+                newMessageObj.messageType = "alertFailMessage"
 
-            messageJsonObj = gameRoundLunService.createNewGameRoundLun(messageJsonObj)
-            def s = new JsonBuilder(messageJsonObj).toPrettyString()
-            websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)
+                def s2 = new JsonBuilder(newMessageObj).toPrettyString()
+                websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)
+
+            }else{
+                messageJsonObj = gameRoundLunService.createNewGameRoundLun(messageJsonObj)
+                def s = new JsonBuilder(messageJsonObj).toPrettyString()
+                websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)
+            }
+
+
         }
 
         if (messageJsonObj.messageAction.equals("buildNewRound")) {
@@ -188,14 +211,6 @@ class WebSokectController {
             def userCode=obj.userCode
             audioMessage.replaceAll("\r", "")
             audioMessage.replaceAll("\n", "")
-        //    byte[] decoded = audioMessage.decodeBase64()
-       //     def date=new Date().getTime().toString()
-       //     def fileName=userCode+date+".mp3"
-      //      fileName="out/AudioMessage/"+fileName
-
-//            new File(fileName).withOutputStream {
-//                it.write(decoded);
-//            }
 
 
 

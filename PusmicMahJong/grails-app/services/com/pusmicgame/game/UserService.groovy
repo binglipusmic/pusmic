@@ -35,58 +35,56 @@ class UserService {
 
     //---change spring user to plat object and get it json strnig
 
-    def getSpringUserJsonStringspringUser(gameU){
+    def getSpringUserJsonStringspringUser(gameU) {
 
 
-            GameUserPlatObj outputUser = new GameUserPlatObj()
-            outputUser.id = gameU.id
-            outputUser.nickName = gameU.springUser.nickname
-            outputUser.openid = gameU.springUser.openid
-            outputUser.headimgurl = gameU.springUser.headimgurl
-            outputUser.unionid = gameU.springUser.unionid
-            outputUser.userCode = gameU.springUser.userCode
-            def onlineUser2 = OnlineUser.findBySpringUser(gameU.springUser)
-            if (onlineUser2) {
-                outputUser.publicIp = onlineUser2.publicIPAddress
-            } else {
-                outputUser.publicIp = "no found"
-            }
+        GameUserPlatObj outputUser = new GameUserPlatObj()
+        outputUser.id = gameU.id
+        outputUser.nickName = gameU.springUser.nickname
+        outputUser.openid = gameU.springUser.openid
+        outputUser.headimgurl = gameU.springUser.headimgurl
+        outputUser.unionid = gameU.springUser.unionid
+        outputUser.userCode = gameU.springUser.userCode
+        def onlineUser2 = OnlineUser.findBySpringUser(gameU.springUser)
+        if (onlineUser2) {
+            outputUser.publicIp = onlineUser2.publicIPAddress
+        } else {
+            outputUser.publicIp = "no found"
+        }
 
-            outputUser.paiList = ""
-            outputUser.gameRoundScore = gameU.gameRoundScore
-            outputUser.gameScoreCount = gameU.gameScoreCount
-            outputUser.gameReadyStatu = gameU.gameReadyStatu
-            outputUser.headImageFileName = gameU.headImageFileName
-
+        outputUser.paiList = ""
+        outputUser.gameRoundScore = gameU.gameRoundScore
+        outputUser.gameScoreCount = gameU.gameScoreCount
+        outputUser.gameReadyStatu = gameU.gameReadyStatu
+        outputUser.headImageFileName = gameU.headImageFileName
 
 
     }
 
     //------------login user by code----------------------------
 
-    def loginUserByCode(code,pulicIp) {
+    def loginUserByCode(code, pulicIp) {
         grant_type = "authorization_code";
         def url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + appid + "&secret=" + appSecrect + "&code=" + code + "&grant_type=" + grant_type;
         def springUser
         def jsonString = new URL(url).getText()
-        if(jsonString){
-            if(jsonString.contains("errcode")){
-                println "Web chat login error:"+jsonString;
-            }else{
-                println "jsonString:"+jsonString
-                WebChatTokenObj userAuthObj=JSON.parse(jsonString);
-                springUser=createNewSpringUserOrUpdate(userAuthObj,code)
-                springUser=createNewSpringUserOrUpdateUserInfo(springUser.openid)
+        if (jsonString) {
+            if (jsonString.contains("errcode")) {
+                println "Web chat login error:" + jsonString;
+            } else {
+                println "jsonString:" + jsonString
+                WebChatTokenObj userAuthObj = JSON.parse(jsonString);
+                springUser = createNewSpringUserOrUpdate(userAuthObj, code)
+                springUser = createNewSpringUserOrUpdateUserInfo(springUser.openid)
             }
 
 
-
-        }else{
+        } else {
 
         }
-        def s=""
-        if(springUser){
-            s=getUserInfoFromSpringUserBySpringUser(springUser,pulicIp)
+        def s = ""
+        if (springUser) {
+            s = getUserInfoFromSpringUserBySpringUser(springUser, pulicIp)
         }
 
 
@@ -95,29 +93,29 @@ class UserService {
 
     }
     //---------spring user create or update --------------------
-    def createNewSpringUserOrUpdate(WebChatTokenObj userAuthObject,String code) {
+    def createNewSpringUserOrUpdate(WebChatTokenObj userAuthObject, String code) {
         def openid = userAuthObject.openid
         def springUser
         if (openid) {
-            springUser= SpringUser.findByOpenid(openid)
+            springUser = SpringUser.findByOpenid(openid)
             if (!springUser) {
                 springUser = new SpringUser(username: "", password: 'password%^', city: "", country: "CN", language: "chinese",
                         nickname: "", openid: openid, province: "", headimgurl: "", unionid: "", access_token: "",
                         refresh_token: "", userCode: "")
             }
 
-            springUser.userCode=getUserCode()
-            springUser.webChatUserCode=code
-            springUser.username=openid
-            springUser.userType=""
-            springUser.headImageFileName=""
-            springUser.headimgurl=""
-            springUser.unionid=""
-            springUser.city=""
-            springUser.password="password%^"
-            springUser.province=""
-            springUser.nickname=""
-            springUser.country=""
+            springUser.userCode = getUserCode()
+            springUser.webChatUserCode = code
+            springUser.username = openid
+            springUser.userType = ""
+            springUser.headImageFileName = ""
+            springUser.headimgurl = ""
+            springUser.unionid = ""
+            springUser.city = ""
+            springUser.password = "password%^"
+            springUser.province = ""
+            springUser.nickname = ""
+            springUser.country = ""
             springUser.refresh_token = userAuthObject.refresh_token;
             springUser.access_token = userAuthObject.access_token
             springUser.save(flush: true, failOnError: true)
@@ -128,56 +126,56 @@ class UserService {
     def createNewSpringUserOrUpdateUserInfo(openid) {
 
         def springUser
-            if (openid) {
+        if (openid) {
 
-                springUser = SpringUser.findByOpenid(openid)
-                if(springUser){
-                    def url = "https://api.weixin.qq.com/sns/userinfo?access_token="+springUser.access_token+"&openid="+springUser.openid
+            springUser = SpringUser.findByOpenid(openid)
+            if (springUser) {
+                def url = "https://api.weixin.qq.com/sns/userinfo?access_token=" + springUser.access_token + "&openid=" + springUser.openid
 
-                    def jsonString = new URL(url).getText()
-                    if(jsonString) {
+                def jsonString = new URL(url).getText()
+                if (jsonString) {
 
-                        WXUserInfo userInfo=JSON.parse(jsonString);
-                        springUser.nickname = userInfo.nickname
-                        springUser.sex = userInfo.sex
-                        springUser.province = userInfo.province
-                        springUser.city = userInfo.city
-                        springUser.country = userInfo.country
-                        springUser.headimgurl = userInfo.headimgurl
-                        springUser.save(flush: true, failOnError: true)
-                    }
+                    WXUserInfo userInfo = JSON.parse(jsonString);
+                    springUser.nickname = userInfo.nickname
+                    springUser.sex = userInfo.sex
+                    springUser.province = userInfo.province
+                    springUser.city = userInfo.city
+                    springUser.country = userInfo.country
+                    springUser.headimgurl = userInfo.headimgurl
+                    springUser.save(flush: true, failOnError: true)
                 }
-
             }
+
+        }
 
         return springUser
 
     }
 
 
-    def refreshTokenByOpenid(openid,publicIp){
+    def refreshTokenByOpenid(openid, publicIp) {
         def springUser
         if (openid) {
 
             springUser = SpringUser.findByOpenid(openid)
             if (springUser) {
-                def url = "https://api.weixin.qq.com/sns/oauth2/refresh_token?appid="+appid+"&grant_type=refresh_token&refresh_token="+springUser.refresh_token
-                println "refreshTokenByOpenid url:"+url
+                def url = "https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=" + appid + "&grant_type=refresh_token&refresh_token=" + springUser.refresh_token
+                println "refreshTokenByOpenid url:" + url
                 def jsonString = new URL(url).getText()
-                if(jsonString) {
-                    WebChatTokenObj userAuthObj=JSON.parse(jsonString);
+                if (jsonString) {
+                    WebChatTokenObj userAuthObj = JSON.parse(jsonString);
                     //TODO check if change ,no change ,no store
-                    springUser.access_token=userAuthObj.access_token
-                    springUser.refresh_token=userAuthObj.refresh_token
+                    springUser.access_token = userAuthObj.access_token
+                    springUser.refresh_token = userAuthObj.refresh_token
                     //TODO referesh user info from webchat server in here
                     springUser.save(flush: true, failOnError: true)
                 }
             }
         }
 
-        def s=""
-        if(springUser){
-            s=getUserInfoFromSpringUserBySpringUser(springUser,publicIp)
+        def s = ""
+        if (springUser) {
+            s = getUserInfoFromSpringUserBySpringUser(springUser, publicIp)
         }
 
 
@@ -314,6 +312,9 @@ class UserService {
                             gu.save(flush: true, failOnError: true)
                             gameRound.addToGameUser(gu)
                             gameRound.save(flush: true, failOnError: true)
+                        } else {
+                            // gu.headImageFileName= user.headImageFileName
+                            // gu.save(flush: true, failOnError: true)
                         }
 
                         gameUserList = gameRound.gameUser
@@ -338,7 +339,8 @@ class UserService {
                             outputUser.gameRoundScore = gameU.gameRoundScore
                             outputUser.gameScoreCount = gameU.gameScoreCount
                             outputUser.gameReadyStatu = gameU.gameReadyStatu
-                            outputUser.headImageFileName = gameU.headImageFileName
+                            outputUser.headImageFileName = gameU.springUser.headImageFileName
+                            outputUser.zhuang = gameU.zhuang
                             gameUserListArray.add(outputUser)
 
                         }
@@ -404,6 +406,45 @@ class UserService {
 
         return messageDomain
     }
+
+    def joinGPSLimitRoom(MessageDomain messageDomain, gpsStatus) {
+        def roomNumber = messageJsonObj.messageBelongsToPrivateChanleNumber;
+        GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
+        GameRound gameRound
+        def distanceLimit
+        if (onlineRoomNumber) {
+            gameRound = onlineRoomNumber.gameRound
+            def gameMode = gameRound.gameRoundLun.gameMode
+            distanceLimit = gameMode.gpsLimit
+        }
+        ActionMessageDomain actionMessageDomain = new ActionMessageDomain()
+        actionMessageDomain.messageExecuteFlag = "fail"
+        //0, no gps open for join user
+        //1, no gps open for room ownser
+        //2, gps open,  no gps limit
+        //3, gps open,gps limit not pass
+        //4, gps open ,gps limit pass
+        //5, have gps limit
+
+        //6.no gps open for join user ,but gps require
+        //7.no gps open for room ownser,but gps require
+        //8.no gps limit.
+        def failMessage = "";
+        if (gpsStatus == 6) {
+            failMessage = "此房间已开启地理位置限制,但是你没有打开GPS,请打开本机上的GPS设置,并对该游戏允许GPS权限。"
+        }
+        if (gpsStatus == 7) {
+            failMessage = "此房间已开启地理位置限制,但是房主没有打开GPS,不能获取到其地理位置信息,请告诉房主关闭GPS限制,或者开启GPS。"
+        }
+        if (gpsStatus == 3) {
+            failMessage = "此房间已开启地理位置限制,要求位置距离大于:" + distanceLimit + "Km 才能加入。"
+        }
+        actionMessageDomain.messageExecuteResult = failMessage
+        def s2 = JsonOutput.toJson(actionMessageDomain)
+        messageDomain.messageBody = s2
+
+        return messageDomain
+    }
     /**
      * Check the all user if already start
      * @param messageDomain
@@ -415,8 +456,9 @@ class UserService {
         def roomNumber = messageDomain.messageBelongsToPrivateChanleNumber;
         GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
         GameRound gameRound = onlineRoomNumber.gameRound
+        def gameRoundLun
         if (gameRound) {
-            def gameRoundLun = gameRound.gameRoundLun
+            gameRoundLun= gameRound.gameRoundLun
             if (gameRoundLun) {
                 def gameMode = gameRoundLun.gameMode
                 if (gameMode) {
@@ -440,6 +482,48 @@ class UserService {
         }
 
         if (flag == true && readFlag == true) {
+
+            //check if need - domend number
+
+            if (curentCount == 0) {
+                def curentCount = gameRoundLun.currentRoundCount
+                def gameMode =gameRoundLun.gameMode
+                def needRecuse =0
+                if(gameMode.roundCount4=="1"){
+                    needRecuse=2
+                }
+                if(gameMode.roundCount8=="1"){
+                    needRecuse=3
+                }
+
+                gameRound.gameUser.each{gu->
+
+                    if(gu.zhuang=="1"){
+                        SpringUser spUser=gu.springUser
+                        spUser.diamondsNumber=spUser.diamondsNumber-needRecuse
+                        spUser.save(flush: true, failOnError: true)
+
+                        def useropenid=spUser.openid
+
+                        //push to client updaet to UI
+                        UserInfo userInfo = new UserInfo()
+                        userInfo.openid=useropenid
+                        userInfo.diamondsNumber=spUser.diamondsNumber
+                        MessageDomain newMessageObj = new MessageDomain()
+                        newMessageObj.messageBelongsToPrivateChanleNumber = messageDomain.messageBelongsToPrivateChanleNumber
+                        newMessageObj.messageAction = "updateDiamond"
+                        newMessageObj.messageBody =new JsonBuilder(userInfo).toPrettyString()
+                        newMessageObj.messageType = "gameAction"
+
+
+                    }
+
+                }
+
+
+            }
+
+
             return true
         } else {
             return false
@@ -514,25 +598,25 @@ class UserService {
 
     }
 
-    def updateUserLocation(MessageDomain messageDomain){
+    def updateUserLocation(MessageDomain messageDomain) {
 
 
-        println "updateUserLocation:"+messageDomain.messageBody
+        println "updateUserLocation:" + messageDomain.messageBody
 
         def obj = JSON.parse(messageDomain.messageBody)
         def openid = obj.openid
 
         if (openid) {
-            def  SpringUser user = SpringUser.findByOpenid(openid)
+            def SpringUser user = SpringUser.findByOpenid(openid)
             if (user) {
 
 
-                def longitude=Double.parseDouble(obj.longitude)
-                def latitude=Double.parseDouble(obj.latitude)
-                def loginInfo=LoingUserInfo.findAllByUserOpeid(user.openid,[sort:'loginTime']).last()
-                if(loginInfo){
-                    loginInfo.longitude=longitude
-                    loginInfo.latitude=latitude
+                def longitude = Double.parseDouble(obj.longitude)
+                def latitude = Double.parseDouble(obj.latitude)
+                def loginInfo = LoingUserInfo.findAllByUserOpeid(user.openid, [sort: 'loginTime']).last()
+                if (loginInfo) {
+                    loginInfo.longitude = longitude
+                    loginInfo.latitude = latitude
                     loginInfo.save(flush: true, failOnError: true)
                 }
 
@@ -647,7 +731,7 @@ class UserService {
     }
 
     def getUserInfoFromSpringUserBySpringUser(SpringUser springUser, def publicIp) {
-       def  onlineUser = OnlineUser.findBySpringUser(springUser)
+        def onlineUser = OnlineUser.findBySpringUser(springUser)
         if (!onlineUser) {
             onlineUser = new OnlineUser()
         }
@@ -665,13 +749,13 @@ class UserService {
 
 
         def userOpenid = springUser.openid
-        def url=springUser.headimgurl
+        def url = springUser.headimgurl
         //if (!noOnlineUser.headImageFileName) {
         def headImageName = getHeadImage(url, userOpenid)
         if (headImageName) {
             springUser.headImageFileName = headImageName
         }
-        userLoginInfo.userOpeid=userOpenid
+        userLoginInfo.userOpeid = userOpenid
         springUser.addToLoginUserInfo(userLoginInfo)
         springUser.save(flush: true, failOnError: true)
 
@@ -696,7 +780,7 @@ class UserService {
         userInfo.userCode = onlineUser.springUser.userCode
         userInfo.userType = onlineUser.springUser.userType
         userInfo.roomNumber = onlineUser.roomNumber
-        userInfo.webChatUserCode=onlineUser.springUser.webChatUserCode;
+        userInfo.webChatUserCode = onlineUser.springUser.webChatUserCode;
         if (springUser.headImageFileName) {
             userInfo.headImageFileName = springUser.headImageFileName
         } else {
@@ -756,7 +840,7 @@ class UserService {
             def url = "http://wx.qlogo.cn/mmopen/Po9mkm3Z42tolYpxUVpY6mvCmqalibOpcJ2jG3Qza5qgtibO1NLFNUF7icwCibxPicbGmkoiciaqKEIdvvveIBfEQqal8vkiavHIeqFT/96"
             userOpenid = noOnlineUser.openid
 
-            userLoginInfo.userOpeid=userOpenid
+            userLoginInfo.userOpeid = userOpenid
             //if (!noOnlineUser.headImageFileName) {
             def headImageName = getHeadImage(url, userOpenid)
             if (headImageName) {

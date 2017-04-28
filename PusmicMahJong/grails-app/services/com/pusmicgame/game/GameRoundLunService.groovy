@@ -139,6 +139,32 @@ class GameRoundLunService {
 
     }
 
+    def checkIfCanBuildNewRoundLun(MessageDomain messageDomain){
+        def obj = JSON.parse(messageDomain.messageBody)
+
+        def userOpenid = obj.userOpenId
+        def gameModeJsonObj = obj.gameMode
+        def roomNumber = messageDomain.messageBelongsToPrivateChanleNumber
+        def needDemon=0;
+        if(gameModeJsonObj.roundCount4=="1"){
+            needDemon=2
+        }
+
+        if(gameModeJsonObj.roundCount4=="1"){
+            needDemon=3
+        }
+
+
+        SpringUser user = SpringUser.findByOpenid(userOpenid)
+
+        if(user.diamondsNumber>=needDemon){
+            return true
+        }else{
+            return false
+        }
+
+    }
+
     /**
      *  o.userOpenId=userInfo.openid;
      o.gameMode=messageObj
@@ -200,6 +226,7 @@ class GameRoundLunService {
             gu.gameScoreCount=1000
             gu.publicIp=onlineUser.publicIPAddress
             gu.joinRoundTime=new Date()
+            gu.headImageFileName=user.headImageFileName
             gu.zhuang="1"
             gu.save(flush: true, failOnError: true)
             //println "line 133:"
@@ -229,6 +256,7 @@ class GameRoundLunService {
             outputUser.gameRoundScore=gu.gameRoundScore
             outputUser.gameScoreCount=gu.gameScoreCount
             outputUser.gameReadyStatu=gu.gameReadyStatu
+            outputUser.headImageFileName=gu.headImageFileName
             //outputUser.headImageFileName=user.headImageFileName
 
             //add game count
@@ -342,6 +370,8 @@ class GameRoundLunService {
 
                            gRoomNumber.gameRound = gameRound2
                            gRoomNumber.save(flush: true, failOnError: true)
+
+                           //
                        }
                    }
                 }

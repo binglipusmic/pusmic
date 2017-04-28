@@ -105,6 +105,28 @@ cc.Class({
                     messageDomain[p] = obj[p]
                 }
                 actionUIScriptNode.closeLoadingIcon();
+
+                //-----------------------------------------------------------------------------------------
+
+                if (messageDomain.messageAction == "buildRoundFail") {
+
+                    alertMessageUI.text = "你所有的钻石不足以开启一局，请联系联系购买钻石，或者直接关注微信公众号:乐乐四川麻将购买";
+                    alertMessageUI.setTextOfPanel();
+
+                }
+
+                //updateDiamond
+                if (messageDomain.messageAction == "updateDiamond") {
+                    var userObj = JSON.parse(messageDomain.messageBody);
+                    var gobalUser = Global.userInfo;
+                    if (userObj.openid == gobalUser.openid) {
+                        gobalUser.diamondsNumber = userObj.diamondsNumber;
+                        Global.userInfo = gobalUser;
+                        actionUIScriptNode.updateScoreAndDemand();
+                    }
+
+                }
+                //-------------------------------------------------------------------------------------------
                 // actionUIScriptNode.showGameTalbe();
                 if (messageDomain.messageAction == "buildNewRoundLun") {
                     cc.log(messageDomain.messageBody);
