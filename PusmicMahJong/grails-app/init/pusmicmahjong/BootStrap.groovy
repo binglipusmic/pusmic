@@ -53,13 +53,28 @@ class BootStrap {
 //                }
 //            }
 //
-//            def adminRole = Role.findOrSaveByAuthority('ROLE_ADMIN')
-//            def adminUser=SpringUser.findByUsername("testUser2")
-//            if(adminUser) {
+//
+//
+//
+//        } catch (ex) {
+//          print ex.toString()
+//        }
+
+        //oCG9Xwo2BF--ukJXk9uCTLqhz8f8
+
+//
+//        try {
+//           // def adminRole = new Role(authority: 'ROLE_ADMIN').save()
+//            //def userRole = new Role(authority: 'ROLE_USER').save()
+//           def  adminRole = Role.findOrSaveByAuthority('ROLE_ADMIN')
+//            def adminUser = SpringUser.findByOpenid("oCG9Xwo2BF--ukJXk9uCTLqhz8f8")
+//            if (adminUser) {
+//                // SpringUserRole.create adminUser, userRole
 //                println "authorities:" + adminUser.authorities
 //                if (!adminUser.authorities.contains(adminRole)) {
 //
 //                    SpringUserRole.create adminUser, adminRole
+//
 //                    SpringUserRole.withSession {
 //                        it.flush()
 //                        it.clear()
@@ -71,12 +86,10 @@ class BootStrap {
 //
 //                }
 //            }
-//
-//
-//
 //        } catch (ex) {
-//          print ex.toString()
+//            print ex.toString()
 //        }
+
 
     }
     def destroy = {

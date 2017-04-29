@@ -105,7 +105,7 @@ class WebSokectController {
 
         }
         if (messageJsonObj.messageAction.equals("buildNewRoundLun")) {
-            if(gameRoundLunService.checkIfCanBuildNewRoundLun(messageJsonObj)){
+            if(!gameRoundLunService.checkIfCanBuildNewRoundLun(messageJsonObj)){
                 MessageDomain newMessageObj = new MessageDomain()
                 newMessageObj.messageBelongsToPrivateChanleNumber = messageJsonObj.messageBelongsToPrivateChanleNumber
                 newMessageObj.messageAction = "buildRoundFail"

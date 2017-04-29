@@ -146,16 +146,19 @@ class GameRoundLunService {
         def gameModeJsonObj = obj.gameMode
         def roomNumber = messageDomain.messageBelongsToPrivateChanleNumber
         def needDemon=0;
-        if(gameModeJsonObj.roundCount4=="1"){
+        if(gameModeJsonObj.roundCount4+""=="1"){
             needDemon=2
         }
 
-        if(gameModeJsonObj.roundCount4=="1"){
+        if(gameModeJsonObj.roundCount8+""=="1"){
             needDemon=3
         }
 
 
         SpringUser user = SpringUser.findByOpenid(userOpenid)
+        println "gameModeJsonObj:"+obj.gameMode.toString()
+        println "user.diamondsNumber:"+user.diamondsNumber
+        println "user.needDemon:"+needDemon
 
         if(user.diamondsNumber>=needDemon){
             return true
