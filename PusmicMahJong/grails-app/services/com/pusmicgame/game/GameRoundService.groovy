@@ -3,10 +3,14 @@ package com.pusmicgame.game
 import com.pusmic.game.mahjong.LoingUserInfo
 import com.pusmic.game.mahjong.SpringUser
 import com.pusmicgame.domain.MessageDomain
+import com.pusmicgame.domain.UserInfo
 import grails.transaction.Transactional
+import groovy.json.JsonBuilder
 
 @Transactional
 class GameRoundService {
+
+    def websokectService
 
     def checkGameRoomExist(MessageDomain messageJsonObj){
         def flag=false;
@@ -256,18 +260,8 @@ class GameRoundService {
 
                                 if(user.roundScoreCount>0) {
                                     def springUser = user.springUser
-                                    if (springUser.winCount) {
-                                        springUser.winCount = springUser.winCount + 1
-                                    } else {
-                                        springUser.winCount = 1
-                                    }
+                                    updateScoreAndWinCountAndPushToClient(springUser,roomNumber,user)
 
-                                    if(springUser.gameScroe){
-                                        springUser.gameScroe=springUser.gameScroe+user.roundScoreCount.toInteger()
-                                    }else{
-                                        springUser.gameScroe=user.roundScoreCount.toInteger()
-                                    }
-                                    springUser.save(flush: true, failOnError: true)
                                 }
                             }
 
@@ -280,6 +274,40 @@ class GameRoundService {
 
             }
         }
+
+    }
+
+
+    def updateScoreAndWinCountAndPushToClient(SpringUser springUser,def roomNumber,def user){
+        if (springUser.winCount) {
+            springUser.winCount = springUser.winCount + 1
+        } else {
+            springUser.winCount = 1
+        }
+
+        if(springUser.gameScroe){
+            //user.roundScoreCount.toInteger()
+            springUser.gameScroe=springUser.gameScroe+user.roundScoreCount.toInteger()
+        }else{
+            springUser.gameScroe=user.roundScoreCount.toInteger()
+        }
+        springUser.save(flush: true, failOnError: true)
+
+        UserInfo userInfo = new UserInfo()
+        userInfo.openid=springUser.openid
+        userInfo.gameScroe=springUser.gameScroe
+        userInfo.winCount=springUser.winCount
+
+        def s = new JsonBuilder(userInfo).toPrettyString()
+
+        MessageDomain newMessageObj = new MessageDomain()
+        newMessageObj.messageBelongsToPrivateChanleNumber = roomNumber
+        newMessageObj.messageAction = "updateScoreAndWindCount"
+        newMessageObj.messageBody = s
+        newMessageObj.messageType = "gameAction"
+        def s2 = new JsonBuilder(newMessageObj).toPrettyString()
+
+        websokectService.privateUserChanelByRoomNumber(roomNumber, s2)
 
     }
 }

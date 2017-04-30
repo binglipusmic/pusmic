@@ -31,6 +31,8 @@ class UserService {
     def grant_type = ""
     def grailsApplication
 
+    def websokectService
+
     def myUtil = new Utils()
 
     //---change spring user to plat object and get it json strnig
@@ -484,41 +486,10 @@ class UserService {
         if (flag == true && readFlag == true) {
 
             //check if need - domend number
-
+            def curentCount = gameRoundLun.currentRoundCount
             if (curentCount == 0) {
-                def curentCount = gameRoundLun.currentRoundCount
-                def gameMode =gameRoundLun.gameMode
-                def needRecuse =0
-                if(gameMode.roundCount4=="1"){
-                    needRecuse=2
-                }
-                if(gameMode.roundCount8=="1"){
-                    needRecuse=3
-                }
-
-                gameRound.gameUser.each{gu->
-
-                    if(gu.zhuang=="1"){
-                        SpringUser spUser=gu.springUser
-                        spUser.diamondsNumber=spUser.diamondsNumber-needRecuse
-                        spUser.save(flush: true, failOnError: true)
-
-                        def useropenid=spUser.openid
-
-                        //push to client updaet to UI
-                        UserInfo userInfo = new UserInfo()
-                        userInfo.openid=useropenid
-                        userInfo.diamondsNumber=spUser.diamondsNumber
-                        MessageDomain newMessageObj = new MessageDomain()
-                        newMessageObj.messageBelongsToPrivateChanleNumber = messageDomain.messageBelongsToPrivateChanleNumber
-                        newMessageObj.messageAction = "updateDiamond"
-                        newMessageObj.messageBody =new JsonBuilder(userInfo).toPrettyString()
-                        newMessageObj.messageType = "gameAction"
-
-
-                    }
-
-                }
+                def gameMode=gameRoundLun.gameMode
+                userService.ruseduDemond(gameMode,gameRound,messageDomain)
 
 
             }
@@ -528,6 +499,46 @@ class UserService {
         } else {
             return false
         }
+    }
+
+
+    def ruseduDemond(GameMode gameMode,GameRound gameRound,MessageDomain messageDomain){
+
+
+        def needRecuse =0
+        if(gameMode.roundCount4+""=="1"){
+            needRecuse=2
+        }
+        if(gameMode.roundCount8+""=="1"){
+            needRecuse=3
+        }
+        println  "ruseduDemond  ruseduDemond:"+needRecuse
+
+        gameRound.gameUser.each{gu->
+
+            if(gu.zhuang=="1"){
+                SpringUser spUser=gu.springUser
+                spUser.diamondsNumber=spUser.diamondsNumber-needRecuse
+                spUser.save(flush: true, failOnError: true)
+
+                def useropenid=spUser.openid
+
+                //push to client updaet to UI
+                UserInfo userInfo = new UserInfo()
+                userInfo.openid=useropenid
+                userInfo.diamondsNumber=spUser.diamondsNumber
+                MessageDomain newMessageObj = new MessageDomain()
+                newMessageObj.messageBelongsToPrivateChanleNumber = messageDomain.messageBelongsToPrivateChanleNumber
+                newMessageObj.messageAction = "updateDiamond"
+                newMessageObj.messageBody =new JsonBuilder(userInfo).toPrettyString()
+                newMessageObj.messageType = "gameAction"
+                def s2 = JsonOutput.toJson(newMessageObj)
+                websokectService.privateUserChanelByRoomNumber(messageDomain.messageBelongsToPrivateChanleNumber, s2)
+
+            }
+
+        }
+
     }
     /**
      * Execute huan san zhang
@@ -781,6 +792,7 @@ class UserService {
         userInfo.userType = onlineUser.springUser.userType
         userInfo.roomNumber = onlineUser.roomNumber
         userInfo.webChatUserCode = onlineUser.springUser.webChatUserCode;
+        userInfo.gameScroe=onlineUser.springUser.gameScroe
         if (springUser.headImageFileName) {
             userInfo.headImageFileName = springUser.headImageFileName
         } else {

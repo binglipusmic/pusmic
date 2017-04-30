@@ -13,7 +13,8 @@ import org.grails.web.json.JSONObject
 @Transactional
 class GameRoundLunService {
     def myUtils = new Utils()
-
+    def userService
+    def gameRoundService
     def closeGameRoundLun(MessageDomain messageDomain) {
         def roomNumber = messageDomain.messageBody
         if (roomNumber) {
@@ -60,16 +61,21 @@ class GameRoundLunService {
 
                         if (userList) {
                             userList.each { springUser ->
-                                // println "line 61 springuser:"+springUser.id
+                                 println "line 61 springuser:"+springUser.id
                                 springUser.removeFromGameRoundLun(gu)
-                                if (springUser.gameRoundLun) {
-                                    springUser.gameRoundLun.each { u ->
-                                        def gameRoundL = GameRoundLun.get(u.id)
-                                        if (gameRoundL) {
-                                            springUser.removeFromGameRoundLun(gameRoundL)
-                                        }
-                                    }
-                                }
+//                                if (springUser.gameRoundLun) {
+//                                    if(springUser.gameRoundLun.size()>0) {
+//                                        springUser.gameRoundLun.each { u ->
+//                                            if (u) {
+//                                                println "gameLun:"+u.id
+//                                                def gameRoundL = GameRoundLun.get(u.id)
+//                                                if (gameRoundL) {
+//                                                    springUser.removeFromGameRoundLun(gameRoundL)
+//                                                }
+//                                            }
+//                                        }
+//                                    }
+//                                }
                                 springUser.save(flush: true, failOnError: true)
                                 // println "line 64: "+springUser.gameRoundLun.size()
                                 gu.removeFromUsers(springUser)
@@ -186,11 +192,12 @@ class GameRoundLunService {
         SpringUser user = SpringUser.findByOpenid(userOpenid)
         GameUserPlatObj outputUser =new GameUserPlatObj()
         OnlineUser onlineUser
+        GameMode gameMode
         if (user) {
             onlineUser=OnlineUser.findBySpringUser(user)
 
             //create a new GameMode
-            GameMode gameMode = new GameMode()
+            gameMode= new GameMode()
             //JSONObject.getProperties()
 
 
@@ -269,7 +276,13 @@ class GameRoundLunService {
 //                user.gameCount=1
 //            }
 //            user.save(flush: true, failOnError: true)
+
+            //test reduce domonad------
+            //gameRoundService.updateScoreAndWinCountAndPushToClient(user,messageDomain.messageBelongsToPrivateChanleNumber)
+            //test-----end -----
         }
+
+
 
         messageDomain.messageBody= new JsonBuilder(outputUser).toPrettyString()
         return messageDomain

@@ -133,14 +133,19 @@ cc.Class({
             //}
         }
 
+        //cc.log(gameMode.toString());
+
         Global.gameMode = gameMode;
 
     },
     optionSelectFunction: function (event) {
         var node = event.target;
+         var partentNode = node.parent;
+        node= node.parent.parent;
         cc.log(node.name);
-        var partentNode = node.parent;
-        var tog = partentNode.getComponent(cc.Toggle);
+       
+        cc.log(partentNode.name);
+        var tog = node.getComponent(cc.Toggle);
         if (tog != null) {
             cc.log("partentNode:" + partentNode.name + "-" + tog.isChecked);
             if (partentNode.name == "ziMoJiadiToggle") {
