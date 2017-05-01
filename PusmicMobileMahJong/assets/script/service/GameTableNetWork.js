@@ -132,7 +132,7 @@ cc.Class({
                     var gobalUser = Global.userInfo;
                     if (userObj.openid == gobalUser.openid) {
                         gobalUser.gameScroe = userObj.gameScroe;
-                        gobalUser.winCount=userObj.winCount;
+                        gobalUser.winCount = userObj.winCount;
                         Global.userInfo = gobalUser;
                         actionUIScriptNode.updateScoreAndDemand();
                     }
@@ -262,6 +262,7 @@ cc.Class({
                     } else {
                         alertMessageUI.text = Obj.messageExecuteResult;
                         alertMessageUI.setTextOfPanel();
+                        this.forceInitaClient();
                     }
                 }
 
@@ -933,6 +934,18 @@ cc.Class({
         }
 
     },
+    forceInitaClient: function () {
+        if (client == null || client == undefined) {
+            this.connectByPrivateChanel();
+        }
+        var userInfo = Global.userInfo;
+        var joinRoomNumber = userInfo.roomNumber;
+        client.unsubscribe("sub-" + Global.subid);
+        this.subscribeToPrivateChanelNoConnetAgain(joinRoomNumber);
+        Global.subid = Global.subid + 1;
+
+        this.subscribeToPrivateChanel(joinRoomNumber);
+    },
     //-------------------------------save location to user info -----------------
     saveLocationInfoToGobalInfo: function (longitude, latitude) {
         var userLocation = Global.userLocation;
@@ -1278,6 +1291,8 @@ cc.Class({
         //var messageObj = this.buildSendMessage(openId, joinRoomNumber, "joinRoom");
         //this.sendMessageToServer(messageObj);
     },
+
+
 
 
     joinRoom: function (joinRoomNumber) {

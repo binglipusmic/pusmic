@@ -118,6 +118,7 @@ class WebSokectController {
             }else{
                 messageJsonObj = gameRoundLunService.createNewGameRoundLun(messageJsonObj)
                 def s = new JsonBuilder(messageJsonObj).toPrettyString()
+                println "----121:"+s
                 websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)
             }
 

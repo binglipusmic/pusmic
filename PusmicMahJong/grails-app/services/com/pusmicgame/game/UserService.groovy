@@ -411,7 +411,7 @@ class UserService {
     }
 
     def joinGPSLimitRoom(MessageDomain messageDomain, gpsStatus) {
-        def roomNumber = messageJsonObj.messageBelongsToPrivateChanleNumber;
+        def roomNumber = messageDomain.messageBelongsToPrivateChanleNumber;
         GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
         GameRound gameRound
         def distanceLimit

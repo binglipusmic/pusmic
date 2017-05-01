@@ -193,93 +193,99 @@ class GameRoundLunService {
         GameUserPlatObj outputUser =new GameUserPlatObj()
         OnlineUser onlineUser
         GameMode gameMode
-        if (user) {
-            onlineUser=OnlineUser.findBySpringUser(user)
+        try {
+            if (user) {
+                onlineUser=OnlineUser.findBySpringUser(user)
 
-            //create a new GameMode
-            gameMode= new GameMode()
-            //JSONObject.getProperties()
-
-
-            println "gameModeJsonObj:${gameModeJsonObj.getProperties()}--" + gameModeJsonObj.ziMoJiaDi
-
-            myUtils.copyProperties(gameModeJsonObj, gameMode)
-
-            gameMode.save(flush: true, failOnError: true)
-
-            //println "roomNumber:"+roomNumber
-
-            GameRoomNumber gRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
-
-            def gameRoundLun = new GameRoundLun()
-            gameRoundLun.startTime = new Date()
-            gameRoundLun.addToUsers(user)
-            //gameRoundLun.user=user
-            gameRoundLun.gameMode = gameMode
-            gameRoundLun.currentRoundCount=1;
-            gameRoundLun.save(flush: true, failOnError: true)
-            println "line 120:"
-            user.addToGameRoundLun(gameRoundLun)
-            //gameRoundLun.gameRound=gRoomNumber
-            //create a new Game Round
-            GameRound gameRound = new GameRound()
-            gameRound.startTime = new Date()
-            gameRound.gameMode = gameMode
-            gameRound.gameRoundLun = gameRoundLun
-            gameRound.roomNumber = gRoomNumber
-
-            GameUser gu = new GameUser()
-            gu.springUser = user
-            //gu.gameRound=gameRound
-            gu.gameReadyStatu="0"
-            gu.gameRoundScore=0
-            gu.gameScoreCount=1000
-            gu.publicIp=onlineUser.publicIPAddress
-            gu.joinRoundTime=new Date()
-            gu.headImageFileName=user.headImageFileName
-            gu.zhuang="1"
-            gu.save(flush: true, failOnError: true)
-            //println "line 133:"
-            gameRound.addToGameUser(gu)
-            gameRound.save(flush: true, failOnError: true)
-            gu.gameRound=gameRound
-            gu.save(flush: true, failOnError: true)
-            //println "line 136:"
-            //save the gameround lun
-            gameRoundLun.addTo("gameRound", gameRound)
-            gameRoundLun.save(flush: true, failOnError: true)
-
-            //update the room number
+                //create a new GameMode
+                gameMode= new GameMode()
+                //JSONObject.getProperties()
 
 
-            gRoomNumber.gameRound = gameRound
-            gRoomNumber.save(flush: true, failOnError: true)
+                println "gameModeJsonObj:${gameModeJsonObj.getProperties()}--" + gameModeJsonObj.ziMoJiaDi
 
-            outputUser.id=user.id
-            outputUser.nickName=user.nickname
-            outputUser.openid=user.openid
-            outputUser.headimgurl=user.headimgurl
-            outputUser.unionid=user.unionid
-            outputUser.userCode=user.userCode
-            outputUser.publicIp=onlineUser.publicIPAddress
-            outputUser.paiList=gu.paiList.toString()
-            outputUser.gameRoundScore=gu.gameRoundScore
-            outputUser.gameScoreCount=gu.gameScoreCount
-            outputUser.gameReadyStatu=gu.gameReadyStatu
-            outputUser.headImageFileName=gu.headImageFileName
-            //outputUser.headImageFileName=user.headImageFileName
+                myUtils.copyProperties(gameModeJsonObj, gameMode)
 
-            //add game count
-//            if(user.gameCount){
-//                user.gameCount=user.gameCount+1
-//            }else{
-//                user.gameCount=1
-//            }
-//            user.save(flush: true, failOnError: true)
+                gameMode.save(flush: true, failOnError: true)
 
-            //test reduce domonad------
-            //gameRoundService.updateScoreAndWinCountAndPushToClient(user,messageDomain.messageBelongsToPrivateChanleNumber)
-            //test-----end -----
+                //println "roomNumber:"+roomNumber
+
+                GameRoomNumber gRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
+
+                def gameRoundLun = new GameRoundLun()
+                gameRoundLun.startTime = new Date()
+                gameRoundLun.addToUsers(user)
+                //gameRoundLun.user=user
+                gameRoundLun.gameMode = gameMode
+                gameRoundLun.currentRoundCount=1;
+                gameRoundLun.save(flush: true, failOnError: true)
+                println "line 222:"
+                user.addToGameRoundLun(gameRoundLun)
+                //gameRoundLun.gameRound=gRoomNumber
+                //create a new Game Round
+                GameRound gameRound = new GameRound()
+                gameRound.startTime = new Date()
+                gameRound.gameMode = gameMode
+                gameRound.gameRoundLun = gameRoundLun
+                gameRound.roomNumber = gRoomNumber
+
+                GameUser gu = new GameUser()
+                gu.springUser = user
+                //gu.gameRound=gameRound
+                gu.gameReadyStatu="0"
+                gu.gameRoundScore=0
+                gu.gameScoreCount=1000
+                gu.publicIp=onlineUser.publicIPAddress
+                gu.joinRoundTime=new Date()
+                gu.headImageFileName=user.headImageFileName
+                gu.zhuang="1"
+                gu.save(flush: true, failOnError: true)
+                println "line 243:"
+                //println "line 133:"
+                gameRound.addToGameUser(gu)
+                gameRound.save(flush: true, failOnError: true)
+                gu.gameRound=gameRound
+                gu.save(flush: true, failOnError: true)
+                //println "line 136:"
+                //save the gameround lun
+                gameRoundLun.addTo("gameRound", gameRound)
+                gameRoundLun.save(flush: true, failOnError: true)
+
+                //update the room number
+
+
+                gRoomNumber.gameRound = gameRound
+                gRoomNumber.save(flush: true, failOnError: true)
+                println "line 259:"
+                outputUser.id=user.id
+                outputUser.nickName=user.nickname
+                outputUser.openid=user.openid
+                outputUser.headimgurl=user.headimgurl
+                outputUser.unionid=user.unionid
+                outputUser.userCode=user.userCode
+                outputUser.publicIp=onlineUser.publicIPAddress
+                outputUser.paiList=gu.paiList.toString()
+                outputUser.gameRoundScore=gu.gameRoundScore
+                outputUser.gameScoreCount=gu.gameScoreCount
+                outputUser.gameReadyStatu=gu.gameReadyStatu
+                outputUser.headImageFileName=gu.headImageFileName
+                //outputUser.headImageFileName=user.headImageFileName
+                println "line 273:"
+                //add game count
+    //            if(user.gameCount){
+    //                user.gameCount=user.gameCount+1
+    //            }else{
+    //                user.gameCount=1
+    //            }
+    //            user.save(flush: true, failOnError: true)
+
+                //test reduce domonad------
+                //gameRoundService.updateScoreAndWinCountAndPushToClient(user,messageDomain.messageBelongsToPrivateChanleNumber)
+                //test-----end -----
+            }
+        } catch (ex) {
+            println ex.message
+            println ex.printStackTrace()
         }
 
 
