@@ -40,10 +40,12 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     [pattern: '/user/**', access: ['IS_AUTHENTICATED_REMEMBERED']],
 	[pattern: '/faPai/**', access: ['IS_AUTHENTICATED_REMEMBERED']],
     [pattern: '/admin/**', access: ['IS_AUTHENTICATED_REMEMBERED']],
-	[pattern: '/publicMessage/**', access: ['IS_AUTHENTICATED_REMEMBERED']],
+	[pattern: '/publicMessage/**', access: ['ROLE_MESSAGE']],
 		//PublicMessage
 	[pattern: '/stomp/**', access: ['permitAll']],
 	[pattern: '/webchatImage/**', access: ['permitAll']],
+	[pattern: '/remote-assets/**', access: ['permitAll']],
+    [pattern: '/public/remote-assets/**', access: ['permitAll']],
     [pattern: '/public/webchatImage/**', access: ['permitAll']]
 		//webchatImage
 	//[pattern: '/faPai/**', access: 'ROLE_ADMIN']
@@ -56,6 +58,7 @@ grails.plugin.springsecurity.filterChain.chainMap = [
 	[pattern: '/**/css/**',      filters: 'none'],
 	[pattern: '/**/images/**',   filters: 'none'],
     [pattern: '/**/webchatImage/**',   filters: 'none'],
+	[pattern: '/**/remote-assets/**',   filters: 'none'],
 	[pattern: '/**/favicon.ico', filters: 'none'],
 	[pattern: '/**',             filters: 'JOINED_FILTERS']
 ]

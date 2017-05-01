@@ -139,7 +139,8 @@ cc.Class({
                                 gameActionListGet.enterMainEntry("1");
                                 gameActionListGet.showUserNickNameAndCode();
                                 gameActionListGet.closeLoadingIcon();
-
+                                gameActionListGet.updatePuclicMessage();
+                                console.log("hotupdate test updatePuclicMessage:");
                                 loginBtn.interactable = false;
                                 //get location 
 

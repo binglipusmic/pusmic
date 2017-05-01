@@ -66,7 +66,7 @@ class BootStrap {
 //        try {
 //           // def adminRole = new Role(authority: 'ROLE_ADMIN').save()
 //            //def userRole = new Role(authority: 'ROLE_USER').save()
-//           def  adminRole = Role.findOrSaveByAuthority('ROLE_ADMIN')
+//           def  adminRole = Role.findOrSaveByAuthority('ROLE_MESSAGE')
 //            def adminUser = SpringUser.findByOpenid("oCG9Xwo2BF--ukJXk9uCTLqhz8f8")
 //            if (adminUser) {
 //                // SpringUserRole.create adminUser, userRole
@@ -79,10 +79,10 @@ class BootStrap {
 //                        it.flush()
 //                        it.clear()
 //                    }
-//                    println "NOT Found admin on bootstrap on user:testUser2"
+//                    println "NOT Found message on bootstrap on user:testUser2"
 //                } else {
 //
-//                    println "Found admin on bootstrap on user:testUser2"
+//                    println "Found message on bootstrap on user:testUser2"
 //
 //                }
 //            }

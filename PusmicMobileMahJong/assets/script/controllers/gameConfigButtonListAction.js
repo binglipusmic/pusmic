@@ -53,7 +53,8 @@ cc.Class({
         tableUserInfoScript: cc.Node,
 
         userScoreNode:cc.Node,
-        userDemonNode:cc.Node
+        userDemonNode:cc.Node,
+        publicMessageNode:cc.Node,
 
     },
 
@@ -93,6 +94,15 @@ cc.Class({
                 demonNum.string=userInfo.diamondsNumber;
             }
 
+    },
+    //update public message
+    updatePuclicMessage:function(){
+       var userInfo = Global.userInfo;
+       console.log("updatePuclicMessage start");
+       if(userInfo.publicMessage!=null&&userInfo.publicMessage!=undefined){
+           var messageLable=this.publicMessageNode.getComponent(cc.Label);
+           messageLable.string=userInfo.publicMessage;
+       }
     },
     showUserNickNameAndCode: function () {
         var userInfo = Global.userInfo;

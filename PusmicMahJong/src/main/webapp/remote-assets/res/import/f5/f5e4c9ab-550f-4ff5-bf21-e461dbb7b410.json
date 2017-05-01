@@ -1,0 +1,1 @@
+[{"__type__":"cc.Prefab","_name":"chuPai","data":{"__id__":1}},{"__type__":"cc.Node","_name":"chuPai","_position":{"__type__":"cc.Vec2","x":667,"y":375},"_components":[{"__type__":"cc.Sprite","node":{"__id__":1}}],"_prefab":{"__type__":"cc.PrefabInfo","root":{"__id__":1},"fileId":"29f37OggQVBP7yMo8pzVMyS"}}]

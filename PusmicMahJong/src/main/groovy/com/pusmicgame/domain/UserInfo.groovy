@@ -27,4 +27,5 @@ class UserInfo {
     String headImageFileName
     String webChatUserCode
     String gameScroe
+    String publicMessage
 }

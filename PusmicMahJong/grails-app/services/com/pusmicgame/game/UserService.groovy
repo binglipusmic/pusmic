@@ -2,6 +2,7 @@ package com.pusmicgame.game
 
 import com.pusmic.game.mahjong.LoingUserInfo
 import com.pusmic.game.mahjong.OnlineUser
+import com.pusmic.game.mahjong.PublicMessage
 import com.pusmic.game.mahjong.SpringUser
 import com.pusmicgame.domain.ActionMessageDomain
 import com.pusmicgame.domain.GameModeJson
@@ -797,6 +798,12 @@ class UserService {
             userInfo.headImageFileName = springUser.headImageFileName
         } else {
             userInfo.headImageFileName = ""
+        }
+        def lastMessage=PublicMessage.list().last()
+        if(lastMessage){
+            userInfo.publicMessage=lastMessage.message
+        }else{
+            userInfo.publicMessage=""
         }
 
 
