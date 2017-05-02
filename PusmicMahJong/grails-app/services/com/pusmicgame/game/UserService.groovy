@@ -799,11 +799,16 @@ class UserService {
         } else {
             userInfo.headImageFileName = ""
         }
-        def lastMessage=PublicMessage.list().last()
-        if(lastMessage){
-            userInfo.publicMessage=lastMessage.message
+        def lastMessageList=PublicMessage.list()
+        if(lastMessageList) {
+            def lastMessage = lastMessageList.last()
+            if (lastMessage) {
+                userInfo.publicMessage = lastMessage.message
+            } else {
+                userInfo.publicMessage = "欢迎加入乐乐四川麻将"
+            }
         }else{
-            userInfo.publicMessage=""
+            userInfo.publicMessage = "欢迎加入乐乐四川麻将"
         }
 
 

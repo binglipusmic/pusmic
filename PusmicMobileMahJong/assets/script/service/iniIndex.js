@@ -6,7 +6,8 @@ var socket;
 var gameActionListGet;
 var onlineCheckUser;
 var messageScript;
-var roomNumber
+var roomNumber;
+var base64 = require('base64');
 cc.Class({
     extends: cc.Component,
 
@@ -43,6 +44,8 @@ cc.Class({
 
         cc.log("ini index onload ");
         console.log("ini index onload:");
+        cc.log("ini index onload ");
+        
         if (cc.sys.os == cc.sys.OS_ANDROID) {
             console.log("OS_ANDROID platam GPS:");
             jsb.reflection.callStaticMethod("com/pusmicgame/mahjong/AppActivity", "getLocation", "()V");
@@ -103,8 +106,9 @@ cc.Class({
                 if (bodyStr.length == 0) {
                     this.reforceLogin();
                 } else {
-
-
+                    bodyStr = base64.decode(bodyStr);
+                    // bodyStr = this.b64DecodeUnicode(bodyStr)
+                    console.log("decode:" + bodyStr);
                     var obj = JSON.parse(bodyStr);
                     if (obj != undefined && obj != null) {
                         for (var p in obj) {
@@ -190,6 +194,16 @@ cc.Class({
         cc.log("nowTime:" + cha);
 
 
+    },
+    b64EncodeUnicode: function (str) {
+        return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function (match, p1) {
+            return String.fromCharCode('0x' + p1);
+        }));
+    },
+    b64DecodeUnicode: function (str) {
+        return decodeURIComponent(atob(str).split('').map(function (c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
     },
 
     dateFormat: function (date) {

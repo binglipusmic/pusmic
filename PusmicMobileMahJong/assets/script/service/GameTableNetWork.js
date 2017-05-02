@@ -18,6 +18,7 @@ var tableUserInfoScript;
 var huPaiScript;
 var messageScript;
 var roundScoreScript;
+var base64 = require('base64');
 cc.Class({
     extends: cc.Component,
 
@@ -98,7 +99,12 @@ cc.Class({
         client.subscribe("/queue/privateUserChanel" + thisRooNumber, function (message) {
             var bodyStr = message.body;
             cc.log("######################");
-            cc.log(bodyStr);
+            if (bodyStr.length > 0) {
+                bodyStr = base64.decode(bodyStr);
+            }
+
+            //bodyStr = this.b64DecodeUnicode(bodyStr);
+            console.log("decode:" + bodyStr);
             var obj = JSON.parse(bodyStr);
             if (obj != undefined && obj != null) {
                 for (var p in obj) {
@@ -1451,10 +1457,22 @@ cc.Class({
     },
 
     //--------------------------------------------------------------------------------------------------------
-
+    b64EncodeUnicode: function (str) {
+        return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function (match, p1) {
+            return String.fromCharCode('0x' + p1);
+        }));
+    },
+    b64DecodeUnicode: function (str) {
+        return decodeURIComponent(atob(str).split('').map(function (c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+    },
     sendMessageToServer: function (messageObj) {
+        //base 64 
+        var s = JSON.stringify(messageObj);
+        var encodeStr = base64.encode(s);
 
-        client.send("/app/user_private_message", {}, JSON.stringify(messageObj));
+        client.send("/app/user_private_message", {}, encodeStr);
 
     },
 

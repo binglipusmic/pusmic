@@ -21,13 +21,13 @@ cc.Class({
 
 
     sendMessageToWebChat: function () {
-
+        var roomnumber=Global.joinRoomNumber;
         if (cc.sys.os == cc.sys.OS_IOS) {
-            var isinstall = jsb.reflection.callStaticMethod('WXApiManager', 'sendMessageToFriend:title:', "这是一个测试", "");
+            var isinstall = jsb.reflection.callStaticMethod('WXApiManager', 'sendMessageToFriend:title:', roomnumber, "");
 
         }
         if (cc.sys.os == cc.sys.OS_ANDROID) {
-             jsb.reflection.callStaticMethod("com/pusmicgame/mahjong/AppActivity", "sendApplicatoinMessage","(Ljava/lang/String;)V","roomnumber");
+             jsb.reflection.callStaticMethod("com/pusmicgame/mahjong/AppActivity", "sendApplicatoinMessage","(Ljava/lang/String;)V",roomnumber);
       }
 
     },

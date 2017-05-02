@@ -105,22 +105,22 @@ dataSource:
     pooled: true
     jmxExport: true
     driverClassName: org.postgresql.Driver
-    username: grails4notes_user
+    username: psumicgame_user
     password: d2g1c404
 
 environments:
     development:
         dataSource:
             dbCreate: update
-            url: jdbc:postgresql://localhost/pusmic_game
+            url: jdbc:postgresql://pusmicgame.c7t1h14qzzt8.rds.cn-north-1.amazonaws.com.cn/pusmic_game
     test:
         dataSource:
             dbCreate: update
-            url: jdbc:postgresql://localhost/pusmic_game
+            url: jdbc:postgresql://pusmicgame.c7t1h14qzzt8.rds.cn-north-1.amazonaws.com.cn/pusmic_game
     production:
         dataSource:
             dbCreate: none
-            url: jdbc:postgresql://localhost/pusmic_game
+            url: jdbc:postgresql://pusmicgame.c7t1h14qzzt8.rds.cn-north-1.amazonaws.com.cn/pusmic_game
             properties:
                 jmxEnabled: true
                 initialSize: 5

@@ -145,7 +145,7 @@ AVAudioRecorder *_audioRecorder;
     ext.url = @"www.pusmic.com";
     ext.fileData = data;
     NSString *title=@"四川乐乐麻将";
-     NSString *strMsgRoom =[NSString stringWithFormat:@"在线棋牌游戏专家:%@",str];
+     NSString *strMsgRoom =[NSString stringWithFormat:@"我已在四川乐乐麻将中建好房间【%@】,快来加入吧！ ",str];
     NSString *description=strMsgRoom;
     NSString *kAppMessageExt = @"这是第三方带的测试字段";
     NSString *kAppMessageAction = @"<action>join room</action>";

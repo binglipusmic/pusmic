@@ -21,8 +21,14 @@ class WebSokectController {
 
     @MessageMapping("/user_private_message")
     protected String user_private_message(String message, @Headers Map<String, Object> headers) {
-        //println "userResiveMessage:@@@@@@@@@@@@@@@@@@@@@@@@:${message}"
-        MessageDomain messageJsonObj = JSON.parse(message);
+        println "userResiveMessage:@@@@@@@@@@@@@@@@@@@@@@@@:${message}"
+       // if(message) {
+
+           def  messageByte = message.decodeBase64()
+            message = new String(messageByte)
+            println "userResiveMessage:@@@@@@@@@@@@@@@@@@@@@@@@ decode1:${message}"
+            MessageDomain messageJsonObj = JSON.parse(message);
+
         // println "userResiveMessage:"+messageJsonObj.messageAction
         //closeGameRoundLun
         if (messageJsonObj.messageAction.equals("joinRoom")) {
@@ -118,7 +124,7 @@ class WebSokectController {
             }else{
                 messageJsonObj = gameRoundLunService.createNewGameRoundLun(messageJsonObj)
                 def s = new JsonBuilder(messageJsonObj).toPrettyString()
-                println "----121:"+s
+                //println "----121:"+s
                 websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)
             }
 
