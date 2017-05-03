@@ -49,6 +49,7 @@ class GameRoundLunService {
 
                                 if (gm.gameUser) {
                                     gm.gameUser.each { gUser ->
+                                        if(gUser)
                                         gm.removeFromGameUser(gUser)
                                         //gameRoundLun.removeFromUsers(gUser)
                                         //gUser.delete(flush: true, failOnError: true)
