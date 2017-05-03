@@ -488,7 +488,7 @@ class UserService {
 
             //check if need - domend number
             def curentCount = gameRoundLun.currentRoundCount
-            if (curentCount == 0) {
+            if (curentCount == 0 ||curentCount == 1) {
                 def gameMode=gameRoundLun.gameMode
                 userService.ruseduDemond(gameMode,gameRound,messageDomain)
 

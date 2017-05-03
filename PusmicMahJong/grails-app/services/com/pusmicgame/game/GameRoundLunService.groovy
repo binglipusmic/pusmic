@@ -59,7 +59,7 @@ class GameRoundLunService {
                                                         //gUser.delete(flush: true, failOnError: true)
                                                     }
                                                 }
-                                            
+
                                             }
                                         }
                                         //gRound.delete(flush: true, failOnError: true)

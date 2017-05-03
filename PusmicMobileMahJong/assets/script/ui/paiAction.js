@@ -503,26 +503,26 @@ cc.Class({
     },
     testHuPai: function () {
 
-        this.fromUserOpenId = "testUser2";
-        this.paiNumber = "29";
+        this.fromUserOpenId = "testUser1";
+        this.paiNumber = "12";
         this.chuPaiUserOpenId = "testUser4";
         // this.pengAction();
         var user = tablePaiActionScript.getCorrectUserByOpenId("testUser2");
         cc.log("testHuPai:" + user.paiListArray.toString());
-        this.gangAction();
+        //this.gangAction();
         cc.log("testHuPai1:" + user.paiListArray.toString());
         //Global.huPreStep = "";
         //  this.preStep="";
-        this.testMoPaiAction();
-        this.fromUserOpenId = "testUser1";
-        this.chuPaiUserOpenId = "testUser2";
-        this.paiNumber = "15";
+        //this.testMoPaiAction();
+        //this.fromUserOpenId = "testUser1";
+        //this.chuPaiUserOpenId = "testUser2";
+        //this.paiNumber = "15";
         //this.gangAction();
         this.huAction();
         // cc.log("476");
-        tableNetWorkScript.countUserRoundScore();
+        //tableNetWorkScript.countUserRoundScore();
         // cc.log("477");
-        tableNetWorkScript.testScoreOutput();
+        //tableNetWorkScript.testScoreOutput();
 
         //  roundScoreUIScript.initalRoundScore();
         //  roundScoreUIScript.initalAllRoundScore();
@@ -908,6 +908,9 @@ cc.Class({
                     }
                 }
             }
+
+            tableCenterScript.showCenterPoint();
+            tableNetWorkScript.sendCenterIndex(user.openid);
         }
 
     },

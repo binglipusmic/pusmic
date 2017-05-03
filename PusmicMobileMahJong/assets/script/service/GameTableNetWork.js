@@ -886,12 +886,12 @@ cc.Class({
                         }
                         cc.log("endGameFlag:" + endGameFlag);
                         if (Global.restPaiCount == 0) {
-                            // endGameFlag = true;
+                             endGameFlag = true;
                         }
 
                         if (endGameFlag == false) {
                             if (moPaiUserId == userInfo.openid) {
-                                //  this.sendMoPaiAction();
+                                  this.sendMoPaiAction();
                             }
                         } else {
                             cc.log("**sendCheckRoundEnd**");

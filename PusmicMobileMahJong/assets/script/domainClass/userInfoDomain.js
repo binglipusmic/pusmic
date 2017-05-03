@@ -9,7 +9,7 @@ const userInfoDomain =
       nickName:"",
       openid:"",
       province:"",
-      sex:1,
+      sex:49,
       unionid:"",
       userCode:"",
       userType:"",

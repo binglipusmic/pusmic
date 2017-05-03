@@ -134,7 +134,7 @@ cc.Class({
             var userInfo = Global.userInfo;
             var soundPai;
             var soundList = [];
-            if (userInfo.sex + "" == "1") {
+            if (userInfo.sex + "" == "49") {
                 soundPai = this.paiAudiolistMan;
             } else {
                 soundPai = this.paiAudiolistWomen;
@@ -181,7 +181,7 @@ cc.Class({
             var userInfo = Global.userInfo;
             var soundPai;
             var soundList = [];
-            if (userInfo.sex + "" == "1") {
+            if (userInfo.sex + "" == "49") {
                 soundPai = this.paiAudiolistManAction;
             } else {
                 soundPai = this.paiAudiolistWomenAction;
