@@ -38,26 +38,30 @@ class GameRoundLunService {
                     if (gameRoundLun) {
                         def id = gameRoundLun.id
                         GameRoundLun gu = GameRoundLun.get(id)
-                        def gameRoundList = gameRoundLun.gameRound
+                        def gameRoundList = gameRoundLun?.gameRound
                         if (gameRoundList) {
-                            gameRoundList.each { gm ->
-                                if (gm) {
-                                    gameRoundLun.removeFromGameRound(gameRound)
+                            if (gameRoundList?.size() > 0) {
+                                gameRoundList.each { gm ->
+                                    if (gm) {
+                                        gameRoundLun.removeFromGameRound(gameRound)
 
-                                    def gmId = gm.id
-                                    def gRound = GameRound.get(gmId)
-                                    //static hasMany = [gameScore:GameScore, gameStep:GameStep, gameUser:GameUser]
+                                        def gmId = gm.id
+                                        def gRound = GameRound.get(gmId)
+                                        //static hasMany = [gameScore:GameScore, gameStep:GameStep, gameUser:GameUser]
 
-                                    if (gm.gameUser) {
-                                        gm.gameUser.each { gUser ->
-                                            if (gUser)
-                                                gm.removeFromGameUser(gUser)
-                                            //gameRoundLun.removeFromUsers(gUser)
-                                            //gUser.delete(flush: true, failOnError: true)
+                                        if (gm?.gameUser) {
+                                            if(gm?.gameUser.size()>0) {
+                                                gm.gameUser.each { gUser ->
+                                                    if (gUser)
+                                                        gm.removeFromGameUser(gUser)
+                                                    //gameRoundLun.removeFromUsers(gUser)
+                                                    //gUser.delete(flush: true, failOnError: true)
+                                                }
+                                            }
                                         }
-                                    }
-                                    //gRound.delete(flush: true, failOnError: true)
+                                        //gRound.delete(flush: true, failOnError: true)
 
+                                    }
                                 }
                             }
                         }
