@@ -1,18 +1,13 @@
 (function () {
-    if (cc.sys.isNative) {
-        var hotUpdateSearchPaths = cc.sys.localStorage.getItem('HotUpdateSearchPaths');
-        if (hotUpdateSearchPaths) {
-            jsb.fileUtils.setSearchPaths(JSON.parse(hotUpdateSearchPaths));
-        }
-    }
+
     'use strict';
 
-    function boot() {
+    function boot () {
 
         var settings = window._CCSettings;
         window._CCSettings = undefined;
 
-        if (!settings.debug) {
+        if ( !settings.debug ) {
             // retrieve minified raw assets
             var rawAssets = settings.rawAssets;
             var assetTypes = settings.assetTypes;
@@ -35,7 +30,7 @@
             canvas = document.getElementById('GameCanvas');
         }
 
-        function setLoadingDisplay() {
+        function setLoadingDisplay () {
             // Loading splash scene
             var splash = document.getElementById('splash');
             var progressBar = splash.querySelector('.progress-bar span');
