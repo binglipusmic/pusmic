@@ -51,12 +51,15 @@ class GameRoundLunService {
 
                                         if (gm?.gameUser) {
                                             if(gm?.gameUser.size()>0) {
-                                                gm.gameUser.each { gUser ->
-                                                    if (gUser)
+                                                for(int i=0;i<gm?.gameUser.size();i++){
+                                                    def gUser=gm?.gameUser.getAt(i)
+                                                    if(gUser){
                                                         gm.removeFromGameUser(gUser)
-                                                    //gameRoundLun.removeFromUsers(gUser)
-                                                    //gUser.delete(flush: true, failOnError: true)
+                                                        //gameRoundLun.removeFromUsers(gUser)
+                                                        //gUser.delete(flush: true, failOnError: true)
+                                                    }
                                                 }
+                                            
                                             }
                                         }
                                         //gRound.delete(flush: true, failOnError: true)
