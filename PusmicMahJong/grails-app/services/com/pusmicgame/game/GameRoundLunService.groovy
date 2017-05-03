@@ -41,22 +41,24 @@ class GameRoundLunService {
                         def gameRoundList = gameRoundLun.gameRound
                         if (gameRoundList) {
                             gameRoundList.each { gm ->
-                                gameRoundLun.removeFromGameRound(gameRound)
+                                if (gm) {
+                                    gameRoundLun.removeFromGameRound(gameRound)
 
-                                def gmId = gm.id
-                                def gRound = GameRound.get(gmId)
-                                //static hasMany = [gameScore:GameScore, gameStep:GameStep, gameUser:GameUser]
+                                    def gmId = gm.id
+                                    def gRound = GameRound.get(gmId)
+                                    //static hasMany = [gameScore:GameScore, gameStep:GameStep, gameUser:GameUser]
 
-                                if (gm.gameUser) {
-                                    gm.gameUser.each { gUser ->
-                                        if(gUser)
-                                        gm.removeFromGameUser(gUser)
-                                        //gameRoundLun.removeFromUsers(gUser)
-                                        //gUser.delete(flush: true, failOnError: true)
+                                    if (gm.gameUser) {
+                                        gm.gameUser.each { gUser ->
+                                            if (gUser)
+                                                gm.removeFromGameUser(gUser)
+                                            //gameRoundLun.removeFromUsers(gUser)
+                                            //gUser.delete(flush: true, failOnError: true)
+                                        }
                                     }
-                                }
-                                //gRound.delete(flush: true, failOnError: true)
+                                    //gRound.delete(flush: true, failOnError: true)
 
+                                }
                             }
                         }
 
