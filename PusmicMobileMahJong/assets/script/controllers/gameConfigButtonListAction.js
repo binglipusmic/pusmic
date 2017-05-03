@@ -52,9 +52,9 @@ cc.Class({
         gameConfigSettingScript: cc.Node,
         tableUserInfoScript: cc.Node,
 
-        userScoreNode:cc.Node,
-        userDemonNode:cc.Node,
-        publicMessageNode:cc.Node,
+        userScoreNode: cc.Node,
+        userDemonNode: cc.Node,
+        publicMessageNode: cc.Node,
 
     },
 
@@ -85,36 +85,36 @@ cc.Class({
         boyBtn.enabled = true;
         grilBtn.enabled = true;
     },
-    updateScoreAndDemand:function(){
-           var userInfo = Global.userInfo;
-            if (userInfo != null && userInfo != undefined) {
-                var userScore = this.userScoreNode.getComponent(cc.Label);
-                userScore.string=userInfo.gameScroe;
-                var demonNum=this.userDemonNode.getComponent(cc.Label);
-                demonNum.string=userInfo.diamondsNumber;
-            }
+    updateScoreAndDemand: function () {
+        var userInfo = Global.userInfo;
+        if (userInfo != null && userInfo != undefined) {
+            var userScore = this.userScoreNode.getComponent(cc.Label);
+            userScore.string = userInfo.gameScroe;
+            var demonNum = this.userDemonNode.getComponent(cc.Label);
+            demonNum.string = userInfo.diamondsNumber;
+        }
 
     },
     //update public message
-    updatePuclicMessage:function(){
-       var userInfo = Global.userInfo;
-       console.log("updatePuclicMessage start");
-       if(userInfo.publicMessage!=null&&userInfo.publicMessage!=undefined){
-           var messageLable=this.publicMessageNode.getComponent(cc.Label);
-           messageLable.string=userInfo.publicMessage;
-       }
+    updatePuclicMessage: function () {
+        var userInfo = Global.userInfo;
+        console.log("updatePuclicMessage start");
+        if (userInfo.publicMessage != null && userInfo.publicMessage != undefined) {
+            var messageLable = this.publicMessageNode.getComponent(cc.Label);
+            messageLable.string = userInfo.publicMessage;
+        }
     },
     showUserNickNameAndCode: function () {
         var userInfo = Global.userInfo;
         if (userInfo != null && userInfo != undefined) {
             var userNickname = this.userNickNameNode.getComponent(cc.Label);
             var userCode = this.userCodeNode.getComponent(cc.Label);
-          
+
 
             userNickname.string = userInfo.nickName;
             userCode.string = userInfo.userCode;
             this.updateScoreAndDemand();
-            
+
         }
         var serverUrl = Global.hostHttpProtocol + "://" + Global.hostServerIp + ":" + Global.hostServerPort;
 
@@ -217,12 +217,18 @@ cc.Class({
         tableUserInfo.initalUserInfoFromGobalList();
     },
     closeGameTable: function () {
-        this.gameTable.active = false;
+        //this.gameTable.active = false;
         //this.mainMenuNode.active = true;
         tableNetWork.closeGameRoundLun();
+       // Global.joinRoomNumber = "";
+       // this.enterMainEntry("1");
+
+    },
+    onlyCloseGameTable: function () {
+        this.gameTable.active = false;
         Global.joinRoomNumber = "";
         this.enterMainEntry("1");
-
+        tableNetWork.forceInitaClient();
     },
 
     endGameRoundLun: function () {

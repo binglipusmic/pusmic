@@ -51,22 +51,7 @@ cc.Class({
             jsb.reflection.callStaticMethod("com/pusmicgame/mahjong/AppActivity", "getLocation", "()V");
         }
 
-        //-----------------------
-        cc.game.on(cc.game.EVENT_HIDE, function () {
-            // cc.audioEngine.pauseMusic();
-            // cc.audioEngine.pauseAllEffects();
-            // cc.eventManager.removeCustomListeners(cc.game.EVENT_HIDE);
-            //cc.audioEngine.pauseAll();
-            cc.game.pause();
-        });
-        cc.game.on(cc.game.EVENT_SHOW, function () {
-            // cc.audioEngine.pauseMusic();
-            // cc.audioEngine.pauseAllEffects();
-
-
-            cc.game.resume();
-            //cc.audioEngine.resumeAll();
-        });
+      
         messageScript = this.messageNode.getComponent("alertMessagePanle");
         //window.iniIndex = require("iniIndex");
         //webchat head img test-------------------------------

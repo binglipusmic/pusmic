@@ -56,7 +56,7 @@ cc.Class({
                 break;
             case jsb.EventAssetsManager.UPDATE_PROGRESSION:
                 this.panel.byteProgress.progress = event.getPercent() / 100;
-                this.panel.byteProNumber.string = event.getPercent() + "%";
+                this.panel.byteProNumber.string = Math.floor(event.getPercent()) + "%";
                 // this.panel.fileProgress.progress = event.getPercentByFile() / 100;
 
                 var msg = event.getMessage();

@@ -5,7 +5,6 @@
             jsb.fileUtils.setSearchPaths(JSON.parse(hotUpdateSearchPaths));
         }
     }
-
     'use strict';
 
     function boot() {

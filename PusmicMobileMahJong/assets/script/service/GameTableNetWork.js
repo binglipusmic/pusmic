@@ -80,9 +80,28 @@ cc.Class({
         huPaiScript = self.huPaiNode.getComponent("HuPaiAction");
         messageScript = self.messageNode.getComponent("messageUI");
         roundScoreScript = self.roundScoreNode.getComponent("roundScoreUI");
+
+
+        //-----------------------
+        cc.game.on(cc.game.EVENT_HIDE, function () {
+            // cc.audioEngine.pauseMusic();
+            // cc.audioEngine.pauseAllEffects();
+            // cc.eventManager.removeCustomListeners(cc.game.EVENT_HIDE);
+            //cc.audioEngine.pauseAll();
+            cc.game.pause();
+        });
+        cc.game.on(cc.game.EVENT_SHOW, function () {
+            // cc.audioEngine.pauseMusic();
+            // cc.audioEngine.pauseAllEffects();
+
+
+            cc.game.resume();
+            this.initalClientAgain();
+            //cc.audioEngine.resumeAll();
+        });
     },
     connectByPrivateChanel: function () {
-        if (client == null || client == undefined) {
+        if (client == null || client == undefined || client.connected == false) {
             userInfo = require("userInfoDomain").userInfoDomain;
             userInfo = Global.userInfo;
             roomNumber = userInfo.roomNumber;
@@ -144,6 +163,12 @@ cc.Class({
                     }
 
                 }
+                //-------------------------------------------------------------------------------------------
+                // actionUIScriptNode.showGameTalbe();
+                if (messageDomain.messageAction == "closeGameRoundLun") {
+                    actionUIScriptNode.onlyCloseGameTable();
+                }
+                //closeGameRoundLun
                 //-------------------------------------------------------------------------------------------
                 // actionUIScriptNode.showGameTalbe();
                 if (messageDomain.messageAction == "buildNewRoundLun") {
@@ -932,8 +957,17 @@ cc.Class({
         });
 
     },
+    initalClientAgain: function () {
+        if (client == null || client == undefined || client.connected == false) {
+            var roomNumber = Global.joinRoomNumber;
+            this.connectByPrivateChanel();
+            this.subscribeToPrivateChanel(roomNumber);
+
+        }
+
+    },
     initalClient: function () {
-        if (client == null || client == undefined) {
+        if (client == null || client == undefined || client.connected == false) {
             this.connectByPrivateChanel();
             this.subscribeToPrivateChanel(roomNumber);
 
@@ -941,7 +975,7 @@ cc.Class({
 
     },
     forceInitaClient: function () {
-        if (client == null || client == undefined) {
+        if (client == null || client == undefined || client.connected == false) {
             this.connectByPrivateChanel();
         }
         var userInfo = Global.userInfo;

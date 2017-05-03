@@ -108,6 +108,8 @@ class WebSokectController {
         }
         if (messageJsonObj.messageAction.equals("closeGameRoundLun")) {
             gameRoundLunService.closeGameRoundLun(messageJsonObj)
+            def s2 = new JsonBuilder(messageJsonObj).toPrettyString()
+            websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)
 
         }
         if (messageJsonObj.messageAction.equals("buildNewRoundLun")) {
