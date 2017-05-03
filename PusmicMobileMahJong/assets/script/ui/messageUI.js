@@ -118,8 +118,8 @@ cc.Class({
 
         message = userInfo.nickName + ":" + message;
 
-        //tableNetWorkScript.sendMessageToUser(message);
-        this.showMessage(message);
+        tableNetWorkScript.sendMessageToUser(message);
+        //this.showMessage(message);
         // if (this.messageRichTextBodyNode.height > 360) {
         //     var t = (this.messageRichTextBodyNode.height - 360) / 40;
         //     t = Math.ceil(t);
@@ -127,6 +127,7 @@ cc.Class({
         // }
         //this.messageRichTextBodyNode.x = 5;
         //this.messageRichTextBodyNode.y = -337.5;
+        myEditBox.string="";
 
 
 
