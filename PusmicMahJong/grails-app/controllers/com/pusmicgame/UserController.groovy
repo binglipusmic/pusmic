@@ -100,4 +100,13 @@ class UserController {
         println "userPai:" + rList[1].toString()
         paiList = rList[0]
     }
+
+    def testGetGameRound(){
+
+        MessageDomain messageJsonObj=new MessageDomain()
+        messageJsonObj.messageBody="oCG9Xwo2BF--ukJXk9uCTLqhz8f8"
+        def s=userService.getAllGameRoundByUser(messageJsonObj)
+        render s
+
+    }
 }

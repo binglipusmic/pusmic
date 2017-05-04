@@ -6,6 +6,7 @@ import com.pusmic.game.mahjong.PublicMessage
 import com.pusmic.game.mahjong.SpringUser
 import com.pusmicgame.domain.ActionMessageDomain
 import com.pusmicgame.domain.GameModeJson
+import com.pusmicgame.domain.GameRoundPlatObj
 import com.pusmicgame.domain.GameUserPlatObj
 import com.pusmicgame.domain.JoinRoom
 import com.pusmicgame.domain.MessageDomain
@@ -447,6 +448,53 @@ class UserService {
         messageDomain.messageBody = s2
 
         return messageDomain
+    }
+
+
+
+    def getAllGameRoundByUser(MessageDomain messageDomain){
+
+        ArrayList roundList=new ArrayList()
+
+        def openid=messageDomain.messageBody
+        if(openid){
+            SpringUser springUser=SpringUser.findByOpenid(openid)
+            def GameRoundLunList=springUser.gameRoundLun
+            if(GameRoundLunList){
+                println ":"+GameRoundLunList.size()
+                GameRoundLunList.each{gameLun->
+                    println "gameLun:"+gameLun.id
+                    def gameRoundList=gameLun.gameRound
+                    if(gameRoundList){
+                        println "gameRoundList.size:"+gameRoundList.size()
+                        gameRoundList.each{gameRound->
+                            println "gameRound.gameStep:"+gameRound.gameStep.size()
+                            println "gameRound.gameRound:"+gameRound.id
+                            if(gameRound.gameStep){
+
+                                GameRoundPlatObj  gameRoundPlatObj=new GameRoundPlatObj()
+                                gameRoundPlatObj.startTime=gameRound.startTime.format("yyyy-MM-dd HH:mm:ss")
+                                gameRoundPlatObj.roomNumber=gameRound.roomNumber.roomNumber
+
+                                roundList.add(gameRoundPlatObj)
+
+                            }
+
+                        }
+
+                    }
+
+                }
+            }
+        }
+
+        if(roundList.size()>0){
+            def s=new JsonBuilder(roundList).toPrettyString()
+            return s
+        }else{
+            return ""
+        }
+
     }
     /**
      * Check the all user if already start
