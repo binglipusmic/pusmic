@@ -19490,7 +19490,7 @@
     "_tag": -1,
     "_opacityModifyRGB": false,
     "_id": "8720eyY6TdOa7AO41F9TQFZ",
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 1197
@@ -20362,7 +20362,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 110.89,
-      "height": 27.5
+      "height": 40
     },
     "_children": [],
     "_rotationX": 0,
@@ -58169,7 +58169,7 @@
     "_tag": -1,
     "_opacityModifyRGB": false,
     "_id": "804fdv11ERHOYaiATXAJGiD",
-    "_active": false,
+    "_active": true,
     "_components": [],
     "_prefab": null,
     "groupIndex": 0

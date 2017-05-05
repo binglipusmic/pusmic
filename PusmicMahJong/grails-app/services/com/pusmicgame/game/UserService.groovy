@@ -451,11 +451,11 @@ class UserService {
         def failMessage = "";
         if (gpsStatus == 6) {
             failMessage = "此房间已开启地理位置限制,但是你没有打开GPS,请打开本机上的GPS设置,并对该游戏允许GPS权限。"
-        }
-        if (gpsStatus == 7) {
+        }else if (gpsStatus == 7) {
             failMessage = "此房间已开启地理位置限制,但是房主没有打开GPS,不能获取到其地理位置信息,请告诉房主关闭GPS限制,或者开启GPS。"
-        }
-        if (gpsStatus == 3) {
+        }else if (gpsStatus == 3) {
+            failMessage = "此房间已开启地理位置限制,要求位置距离大于:" + distanceLimit + "Km 才能加入。"
+        }else{
             failMessage = "此房间已开启地理位置限制,要求位置距离大于:" + distanceLimit + "Km 才能加入。"
         }
         actionMessageDomain.messageExecuteResult = failMessage

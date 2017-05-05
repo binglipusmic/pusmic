@@ -21,69 +21,72 @@ class WebSokectController {
 
     @MessageMapping("/user_private_message")
     protected String user_private_message(String message, @Headers Map<String, Object> headers) {
-       // println "userResiveMessage:@@@@@@@@@@@@@@@@@@@@@@@@:${message}"
-       // if(message) {
+        // println "userResiveMessage:@@@@@@@@@@@@@@@@@@@@@@@@:${message}"
+        // if(message) {
 
-           def  messageByte = message.decodeBase64()
-            message = new String(messageByte)
-            println "userResiveMessage:@@@@@@@@@@@@@@@@@@@@@@@@ decode1:${message}"
-            MessageDomain messageJsonObj = JSON.parse(message);
+        def messageByte = message.decodeBase64()
+        message = new String(messageByte)
+        println "userResiveMessage:@@@@@@@@@@@@@@@@@@@@@@@@ decode1:${message}"
+        MessageDomain messageJsonObj = JSON.parse(message);
 
         // println "userResiveMessage:"+messageJsonObj.messageAction
         //closeGameRoundLun
         if (messageJsonObj.messageAction.equals("joinRoom")) {
-            //check the gps limit
 
-            def gpsStatus=gameRoundService.checkGpsLimit(messageJsonObj)
-            if(gpsStatus ==8 || gpsStatus==4) {
-                def flag = gameRoundService.checkGameRoomExist(messageJsonObj)
-                if (flag) {
-                    //join already exist room
-                    def paiStr = userService.joinExitRoom(messageJsonObj)
-                    println("paiStr:" + paiStr)
-                    MessageDomain newMessageObj = new MessageDomain()
-                    newMessageObj.messageBelongsToPrivateChanleNumber = messageJsonObj.messageBelongsToPrivateChanleNumber
-                    newMessageObj.messageAction = "joinExistRoom"
-                    newMessageObj.messageBody = paiStr
-                    newMessageObj.messageType = "gameAction"
-                    def s2 = new JsonBuilder(newMessageObj).toPrettyString()
-                    websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)
 
+
+            def flag = gameRoundService.checkGameRoomExist(messageJsonObj)
+            if (flag) {
+                //join already exist room
+                def paiStr = userService.joinExitRoom(messageJsonObj)
+                println("paiStr:" + paiStr)
+                MessageDomain newMessageObj = new MessageDomain()
+                newMessageObj.messageBelongsToPrivateChanleNumber = messageJsonObj.messageBelongsToPrivateChanleNumber
+                newMessageObj.messageAction = "joinExistRoom"
+                newMessageObj.messageBody = paiStr
+                newMessageObj.messageType = "gameAction"
+                def s2 = new JsonBuilder(newMessageObj).toPrettyString()
+                websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)
+
+            } else {
+
+                // println gameRoundService.getPopeleCountForJoinRoom(messageJsonObj)
+                if (gameRoundService.getPopeleCountForJoinRoom(messageJsonObj).equals("!")) {
+
+                    messageJsonObj = userService.joinNoExistRoom(messageJsonObj)
+                    /*    def s2 = JsonOutput.toJson(messageJsonObj)
+            websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)*/
                 } else {
 
-                    // println gameRoundService.getPopeleCountForJoinRoom(messageJsonObj)
-                    if (gameRoundService.getPopeleCountForJoinRoom(messageJsonObj).equals("!")) {
 
-                        messageJsonObj = userService.joinNoExistRoom(messageJsonObj)
-                        /*    def s2 = JsonOutput.toJson(messageJsonObj)
-                websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)*/
-                    } else {
-
-
-                        if (gameRoundService.getPopeleCountForJoinRoom(messageJsonObj).equals("<")) {
-                            messageJsonObj = userService.joinRoom(messageJsonObj)
-                            /* def s = JsonOutput.toJson(messageJsonObj)
-                    websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)*/
-                        } else if (gameRoundService.getPopeleCountForJoinRoom(messageJsonObj).equals("=")) {
-                            //start fapai
+                    if (gameRoundService.getPopeleCountForJoinRoom(messageJsonObj).equals("<")) {
+                        messageJsonObj = userService.joinRoom(messageJsonObj)
+                        /* def s = JsonOutput.toJson(messageJsonObj)
+                websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)*/
+                    } else if (gameRoundService.getPopeleCountForJoinRoom(messageJsonObj).equals("=")) {
+                        //start fapai
+                        //check the gps limit
+                        def gpsStatus = gameRoundService.checkGpsLimit(messageJsonObj)
+                        if (gpsStatus == 8 || gpsStatus == 4) {
                             messageJsonObj = userService.joinRoom(messageJsonObj)
                         } else {
-                            //>
 
-                            messageJsonObj = userService.joinFullRoom(messageJsonObj)
-
+                            messageJsonObj = userService.joinGPSLimitRoom(messageJsonObj, gpsStatus)
+                            def s2 = JsonOutput.toJson(messageJsonObj)
+                            websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)
                         }
+                    } else {
+                        //>
+
+                        messageJsonObj = userService.joinFullRoom(messageJsonObj)
+
                     }
-
-                    def s2 = JsonOutput.toJson(messageJsonObj)
-                    websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)
                 }
-            }else{
 
-                messageJsonObj =userService.joinGPSLimitRoom(messageJsonObj,gpsStatus)
                 def s2 = JsonOutput.toJson(messageJsonObj)
                 websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)
             }
+
         }
         if (messageJsonObj.messageAction.equals("userReadyStatuChange")) {
 
@@ -103,7 +106,7 @@ class WebSokectController {
                 newMessageObj.messageType = "gameAction"
                 def s2 = new JsonBuilder(newMessageObj).toPrettyString()
                 websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)
-               // println("s2:" + s2)
+                // println("s2:" + s2)
             }
         }
         if (messageJsonObj.messageAction.equals("closeGameRoundLun")) {
@@ -113,7 +116,7 @@ class WebSokectController {
 
         }
         if (messageJsonObj.messageAction.equals("buildNewRoundLun")) {
-            if(!gameRoundLunService.checkIfCanBuildNewRoundLun(messageJsonObj)){
+            if (!gameRoundLunService.checkIfCanBuildNewRoundLun(messageJsonObj)) {
                 MessageDomain newMessageObj = new MessageDomain()
                 newMessageObj.messageBelongsToPrivateChanleNumber = messageJsonObj.messageBelongsToPrivateChanleNumber
                 newMessageObj.messageAction = "buildRoundFail"
@@ -123,7 +126,7 @@ class WebSokectController {
                 def s2 = new JsonBuilder(newMessageObj).toPrettyString()
                 websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)
 
-            }else{
+            } else {
                 messageJsonObj = gameRoundLunService.createNewGameRoundLun(messageJsonObj)
                 def s = new JsonBuilder(messageJsonObj).toPrettyString()
                 //println "----121:"+s
@@ -216,8 +219,8 @@ class WebSokectController {
         //sendMp3Message
         if (messageJsonObj.messageAction.equals("sendMp3Message")) {
             def obj = JSON.parse(messageJsonObj.messageBody);
-            def audioMessage =obj.audioMessage
-            def userCode=obj.userCode
+            def audioMessage = obj.audioMessage
+            def userCode = obj.userCode
             audioMessage.replaceAll("\r", "")
             audioMessage.replaceAll("\n", "")
 
