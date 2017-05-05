@@ -174,14 +174,14 @@ cc.Class({
                 // actionUIScriptNode.showGameTalbe();
                 if (messageDomain.messageAction == "buildNewRoundLun") {
                     cc.log(messageDomain.messageBody);
-                    // var userObj = JSON.parse(messageDomain.messageBody);
-                    //var userList = [];
-                    // userObj.pointIndex = "3";
-                    // userObj.zhuang = "1";
-                    //userList.push(userObj);
-                    //Global.userList = userList;
+                    var userObj = JSON.parse(messageDomain.messageBody);
+                    var userList = [];
+                    userObj.pointIndex = "3";
+                    userObj.zhuang = "1";
+                    userList.push(userObj);
+                    Global.userList = userList;
                     actionUIScriptNode.showGameTalbe("1");
-                    this.ruzhuoButton.active=true;
+                   // this.ruzhuoButton.active=true;
                     /*
                    if (userInfo.openid==userObj.openid) {
                        //inital the gobal user list by self user             
