@@ -18,7 +18,17 @@ class GameStepService {
         def obj = JSON.parse(messageDomain.messageBody)
         gameStep.fromUserOpenid=obj.fromUserOpenid
         gameStep.actionName=obj.actionName
-        gameStep.paiNumber=obj.paiNumber
+        if(obj.paiNumber){
+            if(obj.paiNumber!=""){
+                gameStep.paiNumber=obj.paiNumber
+            }else{
+                gameStep.paiNumber="0"
+            }
+
+        }else{
+            gameStep.paiNumber="0"
+        }
+
         gameStep.joinRoomNumber=roomNumber
         gameStep.toUserOpenid=obj.toUserOpenid
         gameStep.executeTime=new Date();
