@@ -18,4 +18,11 @@ class GameRoundLun {
         user nullable: true
         users nullable: true
     }
+
+    static mapping = {
+        //gameRoundLun lazy: false
+        //gameUser sort: 'joinRoundTime', order: 'asc'
+
+        //gameRound sort: 'id', order: 'desc'
+    }
 }

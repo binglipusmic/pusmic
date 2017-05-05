@@ -104,7 +104,9 @@ class UserController {
     def testGetGameRound(){
 
         MessageDomain messageJsonObj=new MessageDomain()
-        messageJsonObj.messageBody="oCG9Xwo2BF--ukJXk9uCTLqhz8f8"
+        //messageJsonObj.messageBody="oCG9Xwo2BF--ukJXk9uCTLqhz8f8"
+        //﻿oCG9Xwqb01c-ixC4XkGf1cTaWVD4
+        messageJsonObj.messageBody="oCG9Xwqb01c-ixC4XkGf1cTaWVD4"
         def s=userService.getAllGameRoundByUser(messageJsonObj)
         render s
 

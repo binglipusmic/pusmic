@@ -113,6 +113,7 @@ environments:
         dataSource:
             dbCreate: update
             url: jdbc:postgresql://pusmicgame.c7t1h14qzzt8.rds.cn-north-1.amazonaws.com.cn/pusmic_game
+            //url: jdbc:postgresql://localhost:5432/pusmic_game
     test:
         dataSource:
             dbCreate: update

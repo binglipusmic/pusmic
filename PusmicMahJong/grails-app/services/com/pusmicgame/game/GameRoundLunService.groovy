@@ -239,23 +239,25 @@ class GameRoundLunService {
                 gameRound.gameRoundLun = gameRoundLun
                 gameRound.roomNumber = gRoomNumber
 
-                GameUser gu = new GameUser()
-                gu.springUser = user
-                //gu.gameRound=gameRound
-                gu.gameReadyStatu="0"
-                gu.gameRoundScore=0
-                gu.gameScoreCount=1000
-                gu.publicIp=onlineUser.publicIPAddress
-                gu.joinRoundTime=new Date()
-                gu.headImageFileName=user.headImageFileName
-                gu.zhuang="1"
-                gu.save(flush: true, failOnError: true)
-                println "line 243:"
-                //println "line 133:"
-                gameRound.addToGameUser(gu)
-                gameRound.save(flush: true, failOnError: true)
-                gu.gameRound=gameRound
-                gu.save(flush: true, failOnError: true)
+//                GameUser gu = new GameUser()
+//                gu.springUser = user
+//                //gu.gameRound=gameRound
+//                gu.gameReadyStatu="0"
+//                gu.gameRoundScore=0
+//                gu.gameScoreCount=1000
+//                gu.publicIp=onlineUser.publicIPAddress
+//                gu.joinRoundTime=new Date()
+//                gu.headImageFileName=user.headImageFileName
+//                gu.zhuang="1"
+//                gu.save(flush: true, failOnError: true)
+//                println "line 243:"
+//                //println "line 133:"
+//                gameRound.addToGameUser(gu)
+//                gameRound.save(flush: true, failOnError: true)
+//                gu.gameRound=gameRound
+//                gu.save(flush: true, failOnError: true)
+
+
                 //println "line 136:"
                 //save the gameround lun
                 gameRoundLun.addTo("gameRound", gameRound)
@@ -300,7 +302,8 @@ class GameRoundLunService {
 
 
 
-        messageDomain.messageBody= new JsonBuilder(outputUser).toPrettyString()
+       // messageDomain.messageBody= new JsonBuilder(outputUser).toPrettyString()
+        messageDomain.messageBody=""
         return messageDomain
 
     }

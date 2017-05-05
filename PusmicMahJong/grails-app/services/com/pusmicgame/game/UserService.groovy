@@ -5,7 +5,9 @@ import com.pusmic.game.mahjong.OnlineUser
 import com.pusmic.game.mahjong.PublicMessage
 import com.pusmic.game.mahjong.SpringUser
 import com.pusmicgame.domain.ActionMessageDomain
+import com.pusmicgame.domain.ClientGaneRoundParameterObj
 import com.pusmicgame.domain.GameModeJson
+import com.pusmicgame.domain.GameRoundListPage
 import com.pusmicgame.domain.GameRoundPlatObj
 import com.pusmicgame.domain.GameUserPlatObj
 import com.pusmicgame.domain.JoinRoom
@@ -286,9 +288,15 @@ class UserService {
                 if (onlineRoomNumber) {
                     GameRound gameRound = onlineRoomNumber.gameRound
                     if (gameRound) {
+                        def gameRoundLun=gameRound.gameRoundLun
+                        if(gameRoundLun){
+                            user.addToGameRoundLun(gameRoundLun)
+                            user.save(flush: true, failOnError: true)
+                        }
                         def gameMode = gameRound.gameMode
                         def gameUserList = gameRound.gameUser
                         def exist = false
+                        def firstUserFlag=false
                         GameUser gu = null
                         if (gameUserList) {
 
@@ -301,6 +309,8 @@ class UserService {
                                 }
 
                             }
+                        }else{
+                            firstUserFlag=true
                         }
 
                         if (!exist) {
@@ -319,6 +329,11 @@ class UserService {
                         } else {
                             // gu.headImageFileName= user.headImageFileName
                             // gu.save(flush: true, failOnError: true)
+                        }
+
+                        if(firstUserFlag){
+                            gu.zhuang="1"
+                            gu.save(flush: true, failOnError: true)
                         }
 
                         gameUserList = gameRound.gameUser
@@ -455,8 +470,9 @@ class UserService {
     def getAllGameRoundByUser(MessageDomain messageDomain){
 
         ArrayList roundList=new ArrayList()
-
-        def openid=messageDomain.messageBody
+        //open id ,current index
+        ClientGaneRoundParameterObj gameRoundClient = JSON.parse(messageDomain.messageBody);
+        def openid=gameRoundClient.openid
         if(openid){
             SpringUser springUser=SpringUser.findByOpenid(openid)
             def GameRoundLunList=springUser.gameRoundLun
@@ -490,6 +506,8 @@ class UserService {
 
         if(roundList.size()>0){
             def s=new JsonBuilder(roundList).toPrettyString()
+            GameRoundListPage gameRoundListPage=new GameRoundListPage()
+
             return s
         }else{
             return ""

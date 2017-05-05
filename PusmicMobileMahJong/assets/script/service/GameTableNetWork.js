@@ -53,6 +53,7 @@ cc.Class({
         huPaiNode: cc.Node,
         messageNode: cc.Node,
         roundScoreNode: cc.Node,
+        ruzhuoButton:cc.Node,
 
 
     },
@@ -173,13 +174,14 @@ cc.Class({
                 // actionUIScriptNode.showGameTalbe();
                 if (messageDomain.messageAction == "buildNewRoundLun") {
                     cc.log(messageDomain.messageBody);
-                    var userObj = JSON.parse(messageDomain.messageBody);
-                    var userList = [];
-                    userObj.pointIndex = "3";
-                    userObj.zhuang = "1";
-                    userList.push(userObj);
-                    Global.userList = userList;
+                    // var userObj = JSON.parse(messageDomain.messageBody);
+                    //var userList = [];
+                    // userObj.pointIndex = "3";
+                    // userObj.zhuang = "1";
+                    //userList.push(userObj);
+                    //Global.userList = userList;
                     actionUIScriptNode.showGameTalbe("1");
+                    this.ruzhuoButton.active=true;
                     /*
                    if (userInfo.openid==userObj.openid) {
                        //inital the gobal user list by self user             
@@ -273,6 +275,9 @@ cc.Class({
 
                         cc.log("%%%%%%Obj:" + Obj.messageExecuteResult);
                         cc.log("%%%%%%gameUserList:" + gameUserList.length);
+                        if(gameUserList.length==1){
+                          //  gameUserList[0].zhuang="1";
+                        }
                         // cc.log("%%%%%%gameUser:"+gameUser.toString());
                         var userList = [];
                         for (var j = 0; j < gameUserList.length; j++) {
@@ -886,12 +891,12 @@ cc.Class({
                         }
                         cc.log("endGameFlag:" + endGameFlag);
                         if (Global.restPaiCount == 0) {
-                             endGameFlag = true;
+                            endGameFlag = true;
                         }
 
                         if (endGameFlag == false) {
                             if (moPaiUserId == userInfo.openid) {
-                                  this.sendMoPaiAction();
+                                this.sendMoPaiAction();
                             }
                         } else {
                             cc.log("**sendCheckRoundEnd**");
@@ -1332,7 +1337,11 @@ cc.Class({
         //this.sendMessageToServer(messageObj);
     },
 
-
+    roomOwnerJoinRoom: function () {
+        var joinRoomNumber = Global.joinRoomNumber;
+        this.joinRoom(joinRoomNumber);
+        this.ruzhuoButton.active=false;
+    },
 
 
     joinRoom: function (joinRoomNumber) {
