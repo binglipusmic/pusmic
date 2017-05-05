@@ -259,6 +259,7 @@ class PaiService {
                 gameRound.save(flush: true, failOnError: true)
                 Collections.sort(gameUserListArray, new CustomComparatorForGameUserPlatObj());
                 paiStr = JsonOutput.toJson(gameUserListArray);
+
             }
 
 

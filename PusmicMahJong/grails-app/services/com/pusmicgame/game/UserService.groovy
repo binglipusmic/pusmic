@@ -523,6 +523,7 @@ class UserService {
         def readFlag = true;
         def peopleGameModeNumber = 0;
         def roomNumber = messageDomain.messageBelongsToPrivateChanleNumber;
+        def  zhuangUser
         GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
         GameRound gameRound = onlineRoomNumber.gameRound
         def gameRoundLun
@@ -546,6 +547,10 @@ class UserService {
                         readFlag = false
                     }
 
+                    if(gu.zhuang=="1"){
+                        zhuangUser=gu
+                    }
+
                 }
             }
         }
@@ -556,7 +561,10 @@ class UserService {
             def curentCount = gameRoundLun.currentRoundCount
             if (curentCount == 0 ||curentCount == 1) {
                 def gameMode=gameRoundLun.gameMode
-                userService.ruseduDemond(gameMode,gameRound,messageDomain)
+                if(zhuangUser){
+                    userService.ruseduDemond(gameMode,zhuangUser,messageDomain)
+                }
+
 
 
             }
@@ -569,7 +577,7 @@ class UserService {
     }
 
 
-    def ruseduDemond(GameMode gameMode,GameRound gameRound,MessageDomain messageDomain){
+    def ruseduDemond(GameMode gameMode,GameUser gu,MessageDomain messageDomain){
 
 
         def needRecuse =0
@@ -581,7 +589,7 @@ class UserService {
         }
         println  "ruseduDemond  ruseduDemond:"+needRecuse
 
-        gameRound.gameUser.each{gu->
+       // gameRound.gameUser.each{gu->
 
             if(gu.zhuang=="1"){
                 SpringUser spUser=gu.springUser
@@ -602,7 +610,7 @@ class UserService {
                 def s2 = JsonOutput.toJson(newMessageObj)
                 websokectService.privateUserChanelByRoomNumber(messageDomain.messageBelongsToPrivateChanleNumber, s2)
 
-            }
+           // }
 
         }
 
