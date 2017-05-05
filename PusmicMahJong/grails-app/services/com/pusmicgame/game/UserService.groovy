@@ -562,7 +562,7 @@ class UserService {
             if (curentCount == 0 ||curentCount == 1) {
                 def gameMode=gameRoundLun.gameMode
                 if(zhuangUser){
-                    userService.ruseduDemond(gameMode,zhuangUser,messageDomain)
+                    ruseduDemond(gameMode,zhuangUser,messageDomain)
                 }
 
 
