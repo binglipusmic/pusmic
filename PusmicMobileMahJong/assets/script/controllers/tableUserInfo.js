@@ -385,7 +385,7 @@ cc.Class({
         Global.userList = userList;
         if (type != "joinExist") {
             //show huanPaiScript
-            //huanPaiScript.showHuanPaiNode();
+            huanPaiScript.showHuanPaiNode();
         }
 
 

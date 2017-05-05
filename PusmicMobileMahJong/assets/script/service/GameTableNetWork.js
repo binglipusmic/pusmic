@@ -53,7 +53,7 @@ cc.Class({
         huPaiNode: cc.Node,
         messageNode: cc.Node,
         roundScoreNode: cc.Node,
-        ruzhuoButton:cc.Node,
+        ruzhuoButton: cc.Node,
 
 
     },
@@ -99,7 +99,8 @@ cc.Class({
             cc.game.resume();
             this.initalClientAgain();
             //cc.audioEngine.resumeAll();
-        });
+           
+        }.bind(this));
     },
     connectByPrivateChanel: function () {
         if (client == null || client == undefined || client.connected == false) {
@@ -181,7 +182,7 @@ cc.Class({
                     userList.push(userObj);
                     Global.userList = userList;
                     actionUIScriptNode.showGameTalbe("1");
-                   // this.ruzhuoButton.active=true;
+                    // this.ruzhuoButton.active=true;
                     /*
                    if (userInfo.openid==userObj.openid) {
                        //inital the gobal user list by self user             
@@ -275,8 +276,8 @@ cc.Class({
 
                         cc.log("%%%%%%Obj:" + Obj.messageExecuteResult);
                         cc.log("%%%%%%gameUserList:" + gameUserList.length);
-                        if(gameUserList.length==1){
-                          //  gameUserList[0].zhuang="1";
+                        if (gameUserList.length == 1) {
+                            //  gameUserList[0].zhuang="1";
                         }
                         // cc.log("%%%%%%gameUser:"+gameUser.toString());
                         var userList = [];
@@ -1340,7 +1341,7 @@ cc.Class({
     roomOwnerJoinRoom: function () {
         var joinRoomNumber = Global.joinRoomNumber;
         this.joinRoom(joinRoomNumber);
-        this.ruzhuoButton.active=false;
+        this.ruzhuoButton.active = false;
     },
 
 

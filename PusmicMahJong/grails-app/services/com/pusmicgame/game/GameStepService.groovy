@@ -16,34 +16,44 @@ class GameStepService {
         def roomNumber = messageDomain.messageBelongsToPrivateChanleNumber;
         GameStep gameStep=new GameStep()
         def obj = JSON.parse(messageDomain.messageBody)
-        gameStep.fromUserOpenid=obj.fromUserOpenid
-        gameStep.actionName=obj.actionName
-        if(obj.paiNumber){
-            if(obj.paiNumber!=""){
-                gameStep.paiNumber=obj.paiNumber
-            }else{
-                gameStep.paiNumber="0"
+        if(!obj.actionName.toString().equals("showActionBar")) {
+            gameStep.fromUserOpenid = obj.fromUserOpenid
+            gameStep.actionName = obj.actionName
+            if (obj.paiNumber) {
+                if (obj.paiNumber != "") {
+                    gameStep.paiNumber = obj.paiNumber
+                } else {
+                    gameStep.paiNumber = "0"
+                }
+
+            } else {
+                gameStep.paiNumber = "0"
             }
 
-        }else{
-            gameStep.paiNumber="0"
-        }
+            gameStep.joinRoomNumber = roomNumber
+            gameStep.toUserOpenid = obj.toUserOpenid
+            gameStep.executeTime = new Date();
+            gameStep.save(flush: true, failOnError: true)
 
-        gameStep.joinRoomNumber=roomNumber
-        gameStep.toUserOpenid=obj.toUserOpenid
-        gameStep.executeTime=new Date();
-        gameStep.save(flush: true, failOnError: true)
+            def gameStepId=gameStep.id
 
-        //add gameStep to game round
+            //add gameStep to game round
 
-        GameRoomNumber gameRoomNumber=GameRoomNumber.findByRoomNumber(roomNumber)
-        if(gameRoomNumber){
-            GameRound  gameRound=gameRoomNumber.gameRound
-            if(gameRound){
-                gameRound.addToGameStep(gameStep)
-                gameRound.save(flush: true, failOnError: true)
+            GameRoomNumber gameRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
+            if (gameRoomNumber) {
+                GameRound gameRound = gameRoomNumber.gameRound
+                if (gameRound) {
+                    if(gameStepId){
+                        gameStep=GameStep.findById(gameStepId)
+                        if(gameStep){
+                            gameRound.addToGameStep(gameStep)
+                            gameRound.save(flush: true, failOnError: true)
+                        }
+                    }
+
+                }
+
             }
-
         }
 
 
