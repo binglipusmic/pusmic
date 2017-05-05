@@ -339,6 +339,8 @@ class WebSokectController {
                 }
 
             } else {
+
+                println "send no recongnize action"
                 gameStepService.gameStep(messageJsonObj)
                 def s = new JsonBuilder(messageJsonObj).toPrettyString()
                 websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)

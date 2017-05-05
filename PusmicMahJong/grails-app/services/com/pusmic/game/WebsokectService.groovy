@@ -21,6 +21,8 @@ class WebsokectService {
 
     void privateUserChanelByRoomNumber(def roomNumber,String message){
         //encode by base 64
+
+        println  "privateUserChanelByRoomNumber:"+roomNumber
         message=message.encodeAsBase64()
         brokerMessagingTemplate.convertAndSend "/queue/privateUserChanel"+roomNumber, message
     }
