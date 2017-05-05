@@ -302,8 +302,8 @@ class GameRoundLunService {
 
 
 
-       // messageDomain.messageBody= new JsonBuilder(outputUser).toPrettyString()
-        messageDomain.messageBody=""
+       messageDomain.messageBody= new JsonBuilder(outputUser).toPrettyString()
+        //messageDomain.messageBody=""
         return messageDomain
 
     }
