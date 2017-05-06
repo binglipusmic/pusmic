@@ -134,6 +134,7 @@ cc.Class({
     },
 
     showMessage: function (message) {
+        console.log("showMessage:"+message);
         var rit = this.messageRichTextBodyNode.getComponent(cc.RichText);
 
         rit.string = rit.string + message + "\n"

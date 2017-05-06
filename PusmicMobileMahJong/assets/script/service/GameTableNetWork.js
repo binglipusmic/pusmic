@@ -510,6 +510,14 @@ cc.Class({
                     roundScoreScript.initalRoundScore();
                     roundScoreScript.endLunFlag = "0";
                 }
+
+                if (messageDomain.messageAction == "sendMessage") {
+                    var obj = JSON.parse(messageDomain.messageBody);
+                    var sendUserOpendId = obj.openid;
+                    var messageBody = obj.messageString;
+                    console.log("messageBody:" + messageBody);
+                    messageScript.showMessage(messageBody);
+                }
                 //--------------------------------------Game Action  -----------------------------------------------
                 if (messageDomain.messageAction == "gameAction") {
                     var userList = Global.userList;
@@ -743,6 +751,7 @@ cc.Class({
                     if (obj.actionName == "sendMessage") {
                         var sendUserOpendId = obj.openid;
                         var messageBody = obj.messageString;
+                        console.log("messageBody:" + messageBody);
                         messageScript.showMessage(messageBody);
                     }
 
@@ -856,13 +865,13 @@ cc.Class({
                     //----------------cancleAction-----------------------------------------------
 
                     if (obj.actionName == "cancleAction") {
-                        var executeNextStepFlag= obj.executeNextStepFlag;
+                        var executeNextStepFlag = obj.executeNextStepFlag;
                         var userInfo = Global.userInfo;
                         var moPaiUserId = this.getNextUserFromCurentIndex();
                         fromUserOpenId = obj.fromUserOpenid;
                         cc.log("moPaiUserId:" + moPaiUserId);
-                        if(executeNextStepFlag+""=="true"){
-                             this.sendMoPaiAction();
+                        if (executeNextStepFlag + "" == "true") {
+                            this.sendMoPaiAction();
                         }
                         // if (moPaiUserId == userInfo.openid) {
 
@@ -1153,14 +1162,14 @@ cc.Class({
         var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
         this.sendMessageToServer(messageObj);
     },
-    sendCacleToMoPaiAction: function (userOpenid,otherUserActionString) {
+    sendCacleToMoPaiAction: function (userOpenid, otherUserActionString) {
         var moPaiUserOpenId = this.getNextUserFromCurentIndex();
         var joinRoomNumber = Global.joinRoomNumber;
         var o = new Object();
         o.fromUserOpenid = userOpenid;
         o.actionName = "cancleAction";
         o.toUserOpenid = userOpenid;
-        o.needWaitOhterUser=otherUserActionString;
+        o.needWaitOhterUser = otherUserActionString;
         var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
         this.sendMessageToServer(messageObj);
 
