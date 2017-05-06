@@ -8,6 +8,7 @@ class GameRound {
     Integer[] gameingRestPaiList
     GameMode gameMode
     GameRoomNumber roomNumber
+    //Integer huPaiPeopleNumberCount
 
     static hasMany = [gameScore:GameScore, gameStep:GameStep, gameUser:GameUser]
     static belongsTo = [gameRoundLun:GameRoundLun]

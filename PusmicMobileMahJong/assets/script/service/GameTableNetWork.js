@@ -99,8 +99,23 @@ cc.Class({
             cc.game.resume();
             this.initalClientAgain();
             //cc.audioEngine.resumeAll();
-           
+
         }.bind(this));
+
+        // this.testJonsString();
+    },
+    testJonsString: function () {
+        var huActionListCache = [];
+        for (var i = 0; i < 3; i++) {
+            var o = new Object();
+            o.userOpenId = "test" + i;
+            o.actionArray = "cancle,peng,gang";
+            o.paiNumber = "11";
+            huActionListCache.push(o);
+
+        }
+        var json = JSON.stringify(huActionListCache)
+        cc.log("huActionListCache:" + json.toString());
     },
     connectByPrivateChanel: function () {
         if (client == null || client == undefined || client.connected == false) {
@@ -580,6 +595,47 @@ cc.Class({
                                 }
                             }
 
+                            //First check the acttion count
+                            var count = huActionListCache.length + noHuActionListCache.length;
+
+                            if (count == 0) {
+                                this.sendMoPaiAction();
+                            } else if (count == 1) {
+                                var userObject = null;
+                                if (huActionListCache.length == 1) {
+                                    userObject = huActionListCache[0];
+                                } else {
+                                    userObject = noHuActionListCache[0];
+                                }
+                                if (userObject != null) {
+                                    this.sendShowActionBarOnOtherUser(userObject.userOpenId, userObject.actionArray.toString(), userObject.paiNumber, "");
+                                } else {
+                                    console.log("EROOR:It should have a action object ,but it is null");
+                                }
+
+
+                            } else {
+                                //send all action bar to server ,let server decide the order.
+                                //hu 2,nohu 1
+                                //hu 1,nohu 1
+                                //hu 2,nohu 0
+                                //hu 3,nohu 0
+                                var huActionString = "";
+                                var noHuActionString = "";
+
+
+                                if (huActionListCache.length > 0) {
+                                    huActionString = JSON.stringify(huActionListCache);
+                                }
+
+                                if (noHuActionListCache.length > 0) {
+                                    noHuActionString = JSON.stringify(noHuActionListCache);
+                                }
+                                this.sendAllShowActionBarOnOtherUser(huActionString, noHuActionString);
+
+
+                            }
+
                             if (huActionListCache.length > 0) {
 
                                 /**
@@ -591,24 +647,22 @@ cc.Class({
 
                                 //TODO we still need send the noHuActionListCache after the huActoin close the action bar.
                                 var othreActionString = "";
-                                if (noHuActionListCache.length > 0) {
-                                    othreActionString = JSON.stringify(noHuActionListCache[0])
-                                }
+                                // if (noHuActionListCache.length > 0) {
+                                //     othreActionString = JSON.stringify(noHuActionListCache[0])
+                                // }
                                 for (var j = 0; j < huActionListCache.length; j++) {
                                     var obj = huActionListCache[j];
-                                    this.sendShowActionBarOnOtherUser(obj.userOpenId, obj.actionArray.toString(), obj.paiNumber, othreActionString);
+                                    // this.sendShowActionBarOnOtherUser(obj.userOpenId, obj.actionArray.toString(), obj.paiNumber, "");
                                 }
-
-
-
-
                             } else {
-                                if (noHuActionListCache.length > 0) {
-                                    for (var j = 0; j < noHuActionListCache.length; j++) {
-                                        var obj = noHuActionListCache[j];
-                                        this.sendShowActionBarOnOtherUser(obj.userOpenId, obj.actionArray.toString(), obj.paiNumber, "");
 
-                                    }
+                            }
+
+                            if (noHuActionListCache.length > 0) {
+                                for (var j = 0; j < noHuActionListCache.length; j++) {
+                                    var obj = noHuActionListCache[j];
+                                    // this.sendShowActionBarOnOtherUser(obj.userOpenId, obj.actionArray.toString(), obj.paiNumber, "");
+
                                 }
                             }
 
@@ -616,20 +670,20 @@ cc.Class({
 
 
                             //check if already have action in the other user 
-                            var alreadyExistFlag = false;
-                            for (var i = 0; i < userList.length; i++) {
-                                if (userList[i].actionBarFlag == "1") {
-                                    //show 
-                                    alreadyExistFlag = true;
+                            // var alreadyExistFlag = false;
+                            // for (var i = 0; i < userList.length; i++) {
+                            //     if (userList[i].actionBarFlag == "1") {
+                            //         //show 
+                            //         alreadyExistFlag = true;
 
-                                }
-                            }
-                            cc.log("alreadyExistFlag:" + alreadyExistFlag);
+                            //     }
+                            // }
+                            // cc.log("alreadyExistFlag:" + alreadyExistFlag);
 
-                            if (alreadyExistFlag == false) {
-                                //mopai
-                                this.sendMoPaiAction();
-                            }
+                            // if (alreadyExistFlag == false) {
+                            //     //mopai
+                            //     this.sendMoPaiAction();
+                            // }
                             //update user list to gobal 
                             Global.userList = userList;
                         }
@@ -786,14 +840,14 @@ cc.Class({
                         cc.log("showActionBar action resive ")
                         var fromUserOpenId = obj.fromUserOpenid;
                         var arrayString = obj.actionArrayStr;
-                        var otherUserActionString = obj.otherActionStr;
+                        // var otherUserActionString = obj.otherActionStr;
                         paiNumber = obj.paiNumber;
                         var userInfo = Global.userInfo;
                         if (userInfo.openid == fromUserOpenId) {
                             var actionArray = arrayString.split(",");
                             paiActionScript.fromUserOpenId = fromUserOpenId;
                             paiActionScript.paiNumber = paiNumber;
-                            paiActionScript.otherUserActionString = otherUserActionString;
+                            //paiActionScript.otherUserActionString = otherUserActionString;
                             paiActionScript.showAction(actionArray);
                         }
 
@@ -802,38 +856,42 @@ cc.Class({
                     //----------------cancleAction-----------------------------------------------
 
                     if (obj.actionName == "cancleAction") {
+                        var executeNextStepFlag= obj.executeNextStepFlag;
                         var userInfo = Global.userInfo;
                         var moPaiUserId = this.getNextUserFromCurentIndex();
                         fromUserOpenId = obj.fromUserOpenid;
                         cc.log("moPaiUserId:" + moPaiUserId);
-                        if (moPaiUserId == userInfo.openid) {
-
-                            var userList = Global.userList;
-                            for (var i = 0; i < userList.length; i++) {
-                                if (userList[i].openid == fromUserOpenId) {
-                                    userList[i].actionBarFlag = "0";
-                                    cc.log("moPaiUserId actionBarFlag:" + userList[i].openid);
-                                }
-                            }
-
-                            var alreadyExistFlag = false;
-                            for (var i = 0; i < userList.length; i++) {
-                                if (userList[i].actionBarFlag == "1") {
-                                    //show 
-                                    alreadyExistFlag = true;
-                                    //this.sendShowActionBarOnOtherUser(userList[i].openid, paiNumber);
-                                }
-                            }
-                            cc.log("moPaiUserId alreadyExistFlag:" + alreadyExistFlag);
-                            if (alreadyExistFlag == false) {
-                                //mopai
-                                if (userInfo.openid != fromUserOpenId) {
-                                    this.sendMoPaiAction();
-                                }
-
-                            }
-
+                        if(executeNextStepFlag+""=="true"){
+                             this.sendMoPaiAction();
                         }
+                        // if (moPaiUserId == userInfo.openid) {
+
+                        //     var userList = Global.userList;
+                        //     for (var i = 0; i < userList.length; i++) {
+                        //         if (userList[i].openid == fromUserOpenId) {
+                        //             userList[i].actionBarFlag = "0";
+                        //             cc.log("moPaiUserId actionBarFlag:" + userList[i].openid);
+                        //         }
+                        //     }
+
+                        //     var alreadyExistFlag = false;
+                        //     for (var i = 0; i < userList.length; i++) {
+                        //         if (userList[i].actionBarFlag == "1") {
+                        //             //show 
+                        //             alreadyExistFlag = true;
+                        //             //this.sendShowActionBarOnOtherUser(userList[i].openid, paiNumber);
+                        //         }
+                        //     }
+                        //     cc.log("moPaiUserId alreadyExistFlag:" + alreadyExistFlag);
+                        //     if (alreadyExistFlag == false) {
+                        //         //mopai
+                        //         if (userInfo.openid != fromUserOpenId) {
+                        //             this.sendMoPaiAction();
+                        //         }
+
+                        //     }
+
+                        // }
                     }
 
 
@@ -848,6 +906,7 @@ cc.Class({
                         var preStep = obj.preStep;
                         var existUserString = obj.existUserString;
                         var gangFromUserOpenId = obj.gangFromUserOpenId;
+                        var executeNextStepFlag = obj.executeNextStepFlag;
                         //Global.huGangShangHuaChuPaiUserOpenId = gangFromUserOpenId;
                         //---set hu pai user center point 
                         var huuser = this.getCurreentUserByOpenId(fromUserOpenId)
@@ -873,62 +932,47 @@ cc.Class({
                             paiActionScript.preStep = huChuPaiType;
                             paiActionScript.huAction();
                         }
-                        var moPaiUserId = this.getNextUserFromCurentIndex();
-                        //check if game round end
-                        userList = Global.userList;
-                        var huPeople = 0;
-                        var endGameFlag = false;
-                        for (var i = 0; i < userList.length; i++) {
 
-                            if (userList[i].huPai != null && userList[i] != undefined && userList[i] != "") {
-                                huPeople++
+                        if (executeNextStepFlag + "" == "true") {
+
+                            var moPaiUserId = this.getNextUserFromCurentIndex();
+                            //check if game round end
+                            userList = Global.userList;
+                            var huPeople = 0;
+                            var endGameFlag = false;
+                            for (var i = 0; i < userList.length; i++) {
+
+                                if (userList[i].huPai != null && userList[i] != undefined && userList[i] != "") {
+                                    huPeople++
+                                }
+
+                            }
+                            cc.log("huPeople:" + huPeople);
+                            cc.log("userList.length:" + userList.length);
+                            if (huPeople == userList.length - 1) {
+                                endGameFlag = true;
+                            }
+                            cc.log("endGameFlag:" + endGameFlag);
+                            if (Global.restPaiCount == 0) {
+                                endGameFlag = true;
                             }
 
-                        }
-                        cc.log("huPeople:" + huPeople);
-                        cc.log("userList.length:" + userList.length);
-                        if (huPeople == userList.length - 1) {
-                            endGameFlag = true;
-                        }
-                        cc.log("endGameFlag:" + endGameFlag);
-                        if (Global.restPaiCount == 0) {
-                            endGameFlag = true;
-                        }
+                            if (endGameFlag == false) {
+                                if (userInfo.openid == fromUserOpenId) {
+                                    this.sendMoPaiAction();
+                                }
+                            } else {
+                                cc.log("**sendCheckRoundEnd**");
+                                this.sendCheckRoundEnd();
+                                //send to server to check if it already end the round and round lun 
 
-                        if (endGameFlag == false) {
-                            if (moPaiUserId == userInfo.openid) {
-                                this.sendMoPaiAction();
                             }
-                        } else {
-                            cc.log("**sendCheckRoundEnd**");
-                            this.sendCheckRoundEnd();
-                            //check the round end 
-                            // var gameMode = Global.gameMode;
-                            // var gameRoundCount = 0;
-                            // if (gameMode.roundCount4 + "" == "1") {
-                            //     gameRoundCount = 4
-                            // }
-                            // if (gameMode.roundCount8 + "" == "1") {
-                            //     gameRoundCount = 8
-                            // }
-                            // if (Global.gameRoundCount == gameRoundCount) {
-                            //     //show all round end interface
-                            //     this.allGameRoundEndNode.active = true;
 
-                            // } else {
-                            //     //show round end interface 
-                            //     this.gameRoundEndNode.active = true;
-
-                            // }
-                            //send to server to check if it already end the round and round lun 
 
                         }
 
 
                     }
-
-
-
                 }
 
 
@@ -1068,6 +1112,17 @@ cc.Class({
         var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
         this.sendMessageToServer(messageObj);
     },
+    sendAllShowActionBarOnOtherUser: function (huPaiActionString, noHuPaiActionString) {
+        var joinRoomNumber = Global.joinRoomNumber;
+        var o = new Object();
+        // o.fromUserOpenid = showUserOpenid;
+        o.actionName = "allShowActionBar";
+        //o.actionArrayStr = arrayString;
+        o.huPaiActionString = huPaiActionString;
+        o.noHuPaiActionString = noHuPaiActionString;
+        var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
+        this.sendMessageToServer(messageObj);
+    },
 
     sendShowActionBarOnOtherUser: function (showUserOpenid, arrayString, paiNumber, otherActionString) {
         var joinRoomNumber = Global.joinRoomNumber;
@@ -1098,13 +1153,14 @@ cc.Class({
         var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
         this.sendMessageToServer(messageObj);
     },
-    sendCacleToMoPaiAction: function (userOpenid) {
+    sendCacleToMoPaiAction: function (userOpenid,otherUserActionString) {
         var moPaiUserOpenId = this.getNextUserFromCurentIndex();
         var joinRoomNumber = Global.joinRoomNumber;
         var o = new Object();
         o.fromUserOpenid = userOpenid;
         o.actionName = "cancleAction";
         o.toUserOpenid = userOpenid;
+        o.needWaitOhterUser=otherUserActionString;
         var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
         this.sendMessageToServer(messageObj);
 
@@ -1112,7 +1168,7 @@ cc.Class({
     sendCacleHuPaiAction: function () {
 
     },
-    sendHuPaiAction: function (fromUserOpenId, chuPaiUserOpenId, paiNumber, huChuPaiType, preStep, existUserString, gangFromUserOpenId) {
+    sendHuPaiAction: function (fromUserOpenId, chuPaiUserOpenId, paiNumber, huChuPaiType, preStep, existUserString, gangFromUserOpenId, needWaitOhterUser) {
         var joinRoomNumber = Global.joinRoomNumber;
         var o = new Object();
         //var gameStep = require("gameStep").gameStep;
@@ -1125,6 +1181,11 @@ cc.Class({
         o.preStep = preStep;
         o.existUserString = existUserString;
         o.gangFromUserOpenId = gangFromUserOpenId;
+        o.executeNextStepFlag = "";
+        if (needWaitOhterUser == null || needWaitOhterUser == undefined) {
+            needWaitOhterUser = "";
+        }
+        o.needWaitOhterUser = needWaitOhterUser;
 
         //o.chuPaiType = Global.chuPaiActionType;
         var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");

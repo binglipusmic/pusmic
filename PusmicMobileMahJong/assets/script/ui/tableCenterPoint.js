@@ -143,6 +143,9 @@ cc.Class({
         self.unschedule(pointUpdate);
         self.hideAllPoint();
     },
+    showCenterTimer:function(){
+
+    },
 
     showCenterPoint: function () {
         let self = this;

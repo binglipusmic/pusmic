@@ -41,6 +41,57 @@ class GameRoundService {
         return flag
     }
 
+    def saveHuPaiNumberIntoGameRound(MessageDomain messageJsonObj){
+        def huPaiCount=0
+        def roomNumber = messageJsonObj.messageBelongsToPrivateChanleNumber;
+        GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
+        GameRound gameRound
+        if(onlineRoomNumber){
+            gameRound = onlineRoomNumber.gameRound
+        }
+
+        if(gameRound) {
+            if( gameRound.huPaiPeopleNumberCount){
+                gameRound.huPaiPeopleNumberCount= gameRound.huPaiPeopleNumberCount+1
+            }else{
+                gameRound.huPaiPeopleNumberCount=1
+            }
+            gameRound.save(flush: true, failOnError: true)
+            huPaiCount=gameRound.huPaiPeopleNumberCount
+        }
+
+        return huPaiCount
+
+    }
+
+    def checkGameRoundEnd(MessageDomain messageJsonObj,huPaiCount){
+        def endGameFlag=false;
+        def roomNumber = messageJsonObj.messageBelongsToPrivateChanleNumber;
+        GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
+        GameRound gameRound
+        if(onlineRoomNumber){
+            gameRound = onlineRoomNumber.gameRound
+        }
+
+        if(gameRound) {
+            GameMode gameMode=gameRound.gameMode
+            def peopeleCount=0
+            if(gameMode){
+                peopeleCount=gameMode.gamePeopleNumber.toInteger()
+                if(peopeleCount-1==huPaiCount){
+                    endGameFlag=true
+                }
+            }
+
+            if(gameRound.restPaiList.size()==0){
+                endGameFlag=true
+            }
+
+        }
+
+        return endGameFlag
+
+    }
 
     def checkGpsLimit(MessageDomain messageJsonObj){
         //

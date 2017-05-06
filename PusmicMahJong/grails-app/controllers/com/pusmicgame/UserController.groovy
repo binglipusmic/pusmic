@@ -19,6 +19,7 @@ class UserController {
     def userService
     def paiService
     def websokectService
+    def showActionBarService
 
     def index() {
         session.getAttribute()
@@ -106,9 +107,13 @@ class UserController {
         MessageDomain messageJsonObj=new MessageDomain()
         //messageJsonObj.messageBody="oCG9Xwo2BF--ukJXk9uCTLqhz8f8"
         //﻿oCG9Xwqb01c-ixC4XkGf1cTaWVD4
-        messageJsonObj.messageBody="oCG9Xwqb01c-ixC4XkGf1cTaWVD4"
-        def s=userService.getAllGameRoundByUser(messageJsonObj)
-        render s
+        //messageJsonObj.messageBody="oCG9Xwqb01c-ixC4XkGf1cTaWVD4"
+        //def s=userService.getAllGameRoundByUser(messageJsonObj)
+        def huString='''
+[{"userOpenId":"test0","actionArray":"cancle,peng,gang","paiNumber":"11"},{"userOpenId":"test1","actionArray":"cancle,peng,gang","paiNumber":"11"},{"userOpenId":"test2","actionArray":"cancle,peng,gang","paiNumber":"11"}]
+      '''
+        showActionBarService.handelShowAllActionBar(huString,"")
+        render "test"
 
     }
 }

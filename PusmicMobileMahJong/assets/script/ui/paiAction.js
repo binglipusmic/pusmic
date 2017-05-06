@@ -38,6 +38,7 @@ cc.Class({
         fromUserOpenId: String,
         chuPaiUserOpenId: String,
         preStep: String,
+        //needWaitOther
         otherUserActionString: String,
         tableNetWorkNode: cc.Node,
         tableCenterNode: cc.Node,
@@ -893,7 +894,7 @@ cc.Class({
         //self user send the hupai to other user
 
         if (userOpenId == userInfo.openid) {
-            tableNetWorkScript.sendHuPaiAction(userOpenId, chupaiOpenId, this.paiNumber, Global.chuPaiActionType, this.preStep, existUserString, Global.gangFromUserOpenId);
+            tableNetWorkScript.sendHuPaiAction(userOpenId, chupaiOpenId, this.paiNumber, Global.chuPaiActionType, this.preStep, existUserString, Global.gangFromUserOpenId,otherUserActionString);
             this.actionNode.active = false;
             tablePaiActionScript.disableAllSlefPai();
             //remove mopai 
@@ -908,6 +909,9 @@ cc.Class({
                     }
                 }
             }
+            //otherUserActionString
+            //if here no other action ,check if the round end ,if it should move to next user
+            //if here exist other action ,it should send the action to server and wait other action
 
             tableCenterScript.showCenterPoint();
             tableNetWorkScript.sendCenterIndex(user.openid);
@@ -1212,12 +1216,12 @@ cc.Class({
         } else {
             if (this.otherUserActionString != null && this.otherUserActionString != "") {
                 //show other user pai 
-                var obj = JSON.parse(this.otherUserActionString);
-                tableNetWorkScript.sendShowActionBarOnOtherUser(obj.userOpenId, obj.actionArray.toString(), obj.paiNumber, "");
+                // var obj = JSON.parse(this.otherUserActionString);
+                //tableNetWorkScript.sendShowActionBarOnOtherUser(obj.userOpenId, obj.actionArray.toString(), obj.paiNumber, "");
             } else {
-                tableNetWorkScript.sendCacleToMoPaiAction(userInfo.openid);
-            }
 
+            }
+            tableNetWorkScript.sendCacleToMoPaiAction(userInfo.openid,otherUserActionString);
             tablePaiActionScript.disableAllSlefPai();
         }
 

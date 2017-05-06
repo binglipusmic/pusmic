@@ -18,6 +18,7 @@ class WebSokectController {
     def gameRoundService
     def gameStepService
     def paiService
+    def showActionBarService
 
     @MessageMapping("/user_private_message")
     protected String user_private_message(String message, @Headers Map<String, Object> headers) {
@@ -32,7 +33,6 @@ class WebSokectController {
         // println "userResiveMessage:"+messageJsonObj.messageAction
         //closeGameRoundLun
         if (messageJsonObj.messageAction.equals("joinRoom")) {
-
 
 
             def flag = gameRoundService.checkGameRoomExist(messageJsonObj)
@@ -235,6 +235,13 @@ class WebSokectController {
             websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)
         }
 
+        //------send MESSAGE------------------------------------
+        //sendMessageToUser
+        if (messageJsonObj.messageAction.equals("sendMessageToUser")) {
+            def s = new JsonBuilder(messageJsonObj).toPrettyString()
+            websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)
+        }
+
         //--------------------Game Action-----------------------
         if (messageJsonObj.messageAction.equals("gameAction")) {
 
@@ -284,10 +291,48 @@ class WebSokectController {
                 }
 //huPai
             } else if (obj.actionName == "huPai") {
+                def executeNextStepFlag=false;
+                //if it is have other action
+                if(obj.needWaitOhterUser=="needWaitOther"){
+                    //removet this action from showActionBar SQL db.
+                    def allActionDoneFlag=showActionBarService.handelHuAcion(obj)
+                    if(allActionDoneFlag){
+                        executeNextStepFlag=true
+                    }else{
+                        executeNextStepFlag=false;
+                    }
+
+                }else{
+                    executeNextStepFlag=true
+                }
+
+                obj.executeNextStepFlag=executeNextStepFlag
                 //check if end this round
+                //show hu pai for other user
+                messageJsonObj.messageBody=new JsonBuilder(obj).toPrettyString()
                 gameStepService.gameStep(messageJsonObj)
                 def s = new JsonBuilder(messageJsonObj).toPrettyString()
                 websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)
+
+
+
+                //save hupai number into Count of round
+             //   def huPaiCount=gameRoundService.saveHuPaiNumberIntoGameRound(messageJsonObj)
+
+                //check if it round end
+               // if(gameRoundService.checkGameRoundEnd(messageJsonObj,huPaiCount)){
+                    //send game round end
+
+               // }else{
+                    //send mo pai on nextUser
+
+   //             }
+//
+
+
+
+
+
 //checkRoundEnd
             } else if (obj.actionName == "checkRoundEnd") {
                 //this should check the lun round if end
@@ -337,6 +382,44 @@ class WebSokectController {
                 } else {
 
                 }
+//showActionBar
+            } else if (obj.actionName == "showActionBar") {
+
+                def s = new JsonBuilder(messageJsonObj).toPrettyString()
+                websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)
+
+            } else if (obj.actionName == "cancleAction") {
+
+                //check if it already have other action in the SQL table
+                // No exist other ,send mopai
+                //Exist other ,send other showActionBar .
+
+                def executeNextStepFlag=false;
+                //if it is have other action
+                if(obj.needWaitOhterUser=="needWaitOther"){
+                    //removet this action from showActionBar SQL db.
+                    def allActionDoneFlag=showActionBarService.handelHuAcion(obj)
+                    if(allActionDoneFlag){
+                        executeNextStepFlag=true
+                    }else{
+                        executeNextStepFlag=false;
+                    }
+
+                }else{
+                    executeNextStepFlag=true
+                }
+
+                obj.executeNextStepFlag=executeNextStepFlag
+                //check if end this round
+                //show hu pai for other user
+                messageJsonObj.messageBody=new JsonBuilder(obj).toPrettyString()
+                //gameStepService.gameStep(messageJsonObj)
+
+                def s = new JsonBuilder(messageJsonObj).toPrettyString()
+                websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)
+//allShowActionBar
+            }else if (obj.actionName == "allShowActionBar") {
+                //store all show Action into
 
             } else {
 
