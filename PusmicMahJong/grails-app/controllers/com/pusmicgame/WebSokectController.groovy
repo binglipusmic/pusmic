@@ -241,7 +241,10 @@ class WebSokectController {
             def s = new JsonBuilder(messageJsonObj).toPrettyString()
             websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)
         }
-
+        if (messageJsonObj.messageAction.equals("sendMessage")) {
+            def s = new JsonBuilder(messageJsonObj).toPrettyString()
+            websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)
+        }
         //--------------------Game Action-----------------------
         if (messageJsonObj.messageAction.equals("gameAction")) {
 
