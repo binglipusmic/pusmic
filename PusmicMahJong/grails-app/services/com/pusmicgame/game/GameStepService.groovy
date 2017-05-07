@@ -38,7 +38,7 @@ class GameStepService {
             gameStep.joinRoomNumber = roomNumber
             gameStep.toUserOpenid = obj.toUserOpenid
             gameStep.executeTime = new Date();
-            gameStep.save(flush: true, failOnError: true)
+            //gameStep.save(flush: true, failOnError: true)
 
             def gameStepId=gameStep.id
 
@@ -48,21 +48,21 @@ class GameStepService {
             if (gameRoomNumber) {
                 GameRound gameRound = gameRoomNumber.gameRound
                 if (gameRound) {
-                    if(gameStepId){
-                        gameStep=GameStep.findById(gameStepId)
-                        if(gameStep){
+
+//                        gameStep=GameStep.findById(gameStepId)
+//                        if(gameStep){
                             println "gameStep:"+gameStep.id
                             println "gameStep joinRoomNumber:"+gameStep.joinRoomNumber
                             println "gameStep paiNumber:"+gameStep.paiNumber
                             println "gameStep roomNumber:"+roomNumber
-                            gameRound.addToGameStep(gameStep)
-                            gameRound.save(flush: true, failOnError: true)
-                        }else{
-                            println "Error:No found sgame step"
-                        }
+                            gameRound.addToGameStep(gameStep).save(flush: true, failOnError: true)
+                           // gameRound
+//                        }else{
+//                            println "Error:No found sgame step"
+//                        }
                     }
 
-                }
+
 
             }
         }
