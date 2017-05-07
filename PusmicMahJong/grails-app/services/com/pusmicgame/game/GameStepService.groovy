@@ -38,7 +38,7 @@ class GameStepService {
             gameStep.joinRoomNumber = roomNumber
             gameStep.toUserOpenid = obj.toUserOpenid
             gameStep.executeTime = new Date();
-
+            gameStep.roundId="0"
             gameStep.save(flush: true, failOnError: true)
 
             def gameStepId=gameStep.id
@@ -49,7 +49,7 @@ class GameStepService {
             if (gameRoomNumber) {
                 GameRound gameRound = gameRoomNumber.gameRound
                 if (gameRound) {
-                    gameStep.roundId=gameRound.id
+                    gameStep.roundId=gameRound.id+""
                     gameStep.save(flush: true, failOnError: true)
                         gameStep=GameStep.findById(gameStepId)
                         if(gameStep){
