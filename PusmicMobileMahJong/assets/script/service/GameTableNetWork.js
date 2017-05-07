@@ -870,8 +870,11 @@ cc.Class({
                         var moPaiUserId = this.getNextUserFromCurentIndex();
                         fromUserOpenId = obj.fromUserOpenid;
                         cc.log("moPaiUserId:" + moPaiUserId);
+
                         if (executeNextStepFlag + "" == "true") {
-                            this.sendMoPaiAction();
+                            if (moPaiUserId == userInfo.openid) {
+                                this.sendMoPaiAction();
+                            }
                         }
                         // if (moPaiUserId == userInfo.openid) {
 

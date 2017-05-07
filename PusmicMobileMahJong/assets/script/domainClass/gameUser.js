@@ -54,6 +54,8 @@ const gameUser =
       longitude:0.0,
       latitude:0.0,
 
+      online:"1"
+
       //gameingStatu:"",
     }
 module.exports = {

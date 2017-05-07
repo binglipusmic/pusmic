@@ -326,6 +326,7 @@ cc.Class({
         //cc.log("userList.length:"+userList.length);
         for (var i = 0; i < userList.length; i++) {
             var user = userList[i];
+            user.online="1";
             cc.log("inital user zhuang:" + user.zhuang);
             cc.log("inital user openid:" + user.openid);
             //show current user node

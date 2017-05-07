@@ -1221,7 +1221,7 @@ cc.Class({
             } else {
 
             }
-            tableNetWorkScript.sendCacleToMoPaiAction(userInfo.openid,otherUserActionString);
+            tableNetWorkScript.sendCacleToMoPaiAction(userInfo.openid,this.otherUserActionString);
             tablePaiActionScript.disableAllSlefPai();
             console.log("disableAllSlefPai :closeActionBar");
         }
