@@ -46,6 +46,7 @@ class GameStepService {
                     if(gameStepId){
                         gameStep=GameStep.findById(gameStepId)
                         if(gameStep){
+                            println "gameStep:"+gameStep.id
                             gameRound.addToGameStep(gameStep)
                             gameRound.save(flush: true, failOnError: true)
                         }
