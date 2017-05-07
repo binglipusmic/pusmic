@@ -47,8 +47,13 @@ class GameStepService {
                         gameStep=GameStep.findById(gameStepId)
                         if(gameStep){
                             println "gameStep:"+gameStep.id
+                            println "gameStep joinRoomNumber:"+gameStep.joinRoomNumber
+                            println "gameStep paiNumber:"+gameStep.paiNumber
+                            println "gameStep roomNumber:"+roomNumber
                             gameRound.addToGameStep(gameStep)
                             gameRound.save(flush: true, failOnError: true)
+                        }else{
+                            println "Error:No found sgame step"
                         }
                     }
 

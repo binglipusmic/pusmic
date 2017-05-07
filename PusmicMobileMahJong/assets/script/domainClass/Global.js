@@ -5,6 +5,7 @@ window.Global = {
     gameConfigSetting:null,
     gameMode:null,
     hostServerIp:"54.223.138.159",
+    //hostServerIp:"127.0.0.1",
     hostServerPort:"9001",
     hostHttpProtocol:"http",
     privateClientChanle:null,
