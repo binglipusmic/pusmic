@@ -11,6 +11,7 @@ class GameStep {
     String pengPaiListStr
     String paiList
     String chuPaiType
+    String roundId
     Date   executeTime
     static constraints = {
         toUserOpenid   nullable: true
