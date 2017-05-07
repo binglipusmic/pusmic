@@ -19,7 +19,7 @@ class GameStepService {
         if(!obj.actionName.toString().equals("showActionBar")) {
             gameStep.fromUserOpenid = obj.fromUserOpenid
             gameStep.actionName = obj.actionName
-            if (obj.paiNumber) {
+           if (obj?.paiNumber) {
                 if (obj.paiNumber != "") {
                     gameStep.paiNumber = obj.paiNumber
                 } else {
@@ -27,6 +27,11 @@ class GameStepService {
                 }
 
             } else {
+                gameStep.paiNumber = "0"
+            }
+
+
+            if(obj.actionName.toString().equals("setCenterIndex")) {
                 gameStep.paiNumber = "0"
             }
 
