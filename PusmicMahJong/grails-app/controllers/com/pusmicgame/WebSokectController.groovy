@@ -7,6 +7,7 @@ import groovy.json.JsonBuilder
 import groovy.json.JsonOutput
 import org.springframework.messaging.handler.annotation.Headers
 import org.springframework.messaging.handler.annotation.MessageMapping
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor
 
 class WebSokectController {
 
@@ -24,7 +25,7 @@ class WebSokectController {
     protected String user_private_message(String message, @Headers Map<String, Object> headers) {
         // println "userResiveMessage:@@@@@@@@@@@@@@@@@@@@@@@@:${message}"
         // if(message) {
-
+        Map<String, Object> sessionHeaders = SimpMessageHeaderAccessor.getSessionAttributes(headers);
         def messageByte = message.decodeBase64()
         message = new String(messageByte)
         println "userResiveMessage:@@@@@@@@@@@@@@@@@@@@@@@@ decode1:${message}"
@@ -33,6 +34,10 @@ class WebSokectController {
         // println "userResiveMessage:"+messageJsonObj.messageAction
         //closeGameRoundLun
         if (messageJsonObj.messageAction.equals("joinRoom")) {
+            //sotre the user info and room info into head of http
+            //we still need add a flag ,to decide it is gameing or not gameing
+            sessionHeaders.put("openid",messageJsonObj.messageBody);
+            sessionHeaders.put("roomNUmber",messageJsonObj.messageBelongsToPrivateChanleNumber);
 
 
             def flag = gameRoundService.checkGameRoomExist(messageJsonObj)
@@ -116,6 +121,11 @@ class WebSokectController {
 
         }
         if (messageJsonObj.messageAction.equals("buildNewRoundLun")) {
+            def useropendid=gameRoundLunService.getOpenIdFromBuildNewGameRoundLun(messageJsonObj)
+            sessionHeaders.put("openid",useropendid);
+
+            sessionHeaders.put("roomNUmber",messageJsonObj.messageBelongsToPrivateChanleNumber);
+
             if (!gameRoundLunService.checkIfCanBuildNewRoundLun(messageJsonObj)) {
                 MessageDomain newMessageObj = new MessageDomain()
                 newMessageObj.messageBelongsToPrivateChanleNumber = messageJsonObj.messageBelongsToPrivateChanleNumber

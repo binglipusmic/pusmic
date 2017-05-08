@@ -190,6 +190,13 @@ class GameRoundLunService {
      * @param messageDomain
      */
 
+    def getOpenIdFromBuildNewGameRoundLun(MessageDomain messageDomain){
+        def obj = JSON.parse(messageDomain.messageBody)
+
+        def userOpenid = obj.userOpenId
+        return userOpenid
+    }
+
     def createNewGameRoundLun(MessageDomain messageDomain) {
         //1. parse the game mode
         def obj = JSON.parse(messageDomain.messageBody)

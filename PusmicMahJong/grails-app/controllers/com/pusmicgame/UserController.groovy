@@ -4,6 +4,7 @@ import com.pusmicgame.domain.MessageDomain
 import com.pusmicgame.domain.UserAuthObject
 import com.pusmicgame.domain.UserInfo
 import grails.converters.JSON
+import grails.web.context.ServletContextHolder
 import org.grails.web.json.JSONElement
 import org.grails.web.util.WebUtils
 import org.springframework.messaging.handler.annotation.Header
@@ -12,6 +13,11 @@ import org.springframework.messaging.handler.annotation.MessageMapping
 import org.springframework.messaging.handler.annotation.SendTo
 import org.springframework.messaging.Message
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor
+import org.springframework.web.context.request.RequestContextHolder
+import org.springframework.web.context.support.WebApplicationContextUtils
+
+import javax.servlet.http.HttpSession
+import javax.websocket.EndpointConfig
 
 class UserController {
     def PUBLICIP_ATTR = "remoteIpAddress"
@@ -30,8 +36,11 @@ class UserController {
     protected String usercode_resive_message(String messageString, @Headers Map<String, Object> headers) {
         println "usercode_resive_message headers::" + headers.toString()
         Map<String, Object> sessionHeaders = SimpMessageHeaderAccessor.getSessionAttributes(headers);
+        //SimpMessageHeaderAccessor.getSessionAttributes()
+
         String publicIp = (String) sessionHeaders.get(PUBLICIP_ATTR);
         println "usercode_resive_message ip::" + publicIp
+
         def s
 //        if(code){
 //            s=userService.loginUserByCode(code);
@@ -62,6 +71,7 @@ class UserController {
 
 
                 println "roomNumber:"+roomNumber
+                //def session = headerAccessor.sessionAttributes
 
                 websokectService.pusmicGameUserLoginPrivate(roomNumber,s)
                 //UserInfo

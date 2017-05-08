@@ -25,6 +25,7 @@ import groovy.json.JsonOutput
 
 
 import com.pusmicgame.utils.CustomComparatorForGameUserPlatObj
+import org.springframework.web.context.request.RequestContextHolder
 
 import javax.swing.Spring
 
@@ -884,6 +885,12 @@ class UserService {
         }else{
             userInfo.publicMessage = "欢迎加入乐乐四川麻将"
         }
+
+        //set the ssesion
+//        def session = RequestContextHolder.currentRequestAttributes().getSession()
+//        session.useropnid=userInfo.openid
+//
+//        println "serer user openid:"+session.useropnid
 
 
 
