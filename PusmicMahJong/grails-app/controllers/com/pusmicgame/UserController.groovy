@@ -36,7 +36,7 @@ class UserController {
     protected String usercode_resive_message(String messageString, @Headers Map<String, Object> headers) {
         println "usercode_resive_message headers::" + headers.toString()
         Map<String, Object> sessionHeaders = SimpMessageHeaderAccessor.getSessionAttributes(headers);
-        //SimpMessageHeaderAccessor.getSessionAttributes()
+
 
         String publicIp = (String) sessionHeaders.get(PUBLICIP_ATTR);
         println "usercode_resive_message ip::" + publicIp
@@ -68,13 +68,13 @@ class UserController {
                     def openid=obj.openid
                     s=userService.refreshTokenByOpenid(openid,publicIp);
                 }
-
+                // sessionHeaders.put("openid",messageJsonObj.messageBody);
 
                 println "roomNumber:"+roomNumber
-                //def session = headerAccessor.sessionAttributes
+
 
                 websokectService.pusmicGameUserLoginPrivate(roomNumber,s)
-                //UserInfo
+
             }
         }
 

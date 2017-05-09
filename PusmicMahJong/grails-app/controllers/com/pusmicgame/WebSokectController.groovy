@@ -37,7 +37,7 @@ class WebSokectController {
             //sotre the user info and room info into head of http
             //we still need add a flag ,to decide it is gameing or not gameing
             sessionHeaders.put("openid",messageJsonObj.messageBody);
-            sessionHeaders.put("roomNUmber",messageJsonObj.messageBelongsToPrivateChanleNumber);
+            sessionHeaders.put("roomNumber",messageJsonObj.messageBelongsToPrivateChanleNumber);
 
 
             def flag = gameRoundService.checkGameRoomExist(messageJsonObj)

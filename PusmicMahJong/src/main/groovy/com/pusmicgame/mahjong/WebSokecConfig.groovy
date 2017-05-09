@@ -25,12 +25,15 @@ import org.springframework.web.socket.config.annotation.WebSocketTransportRegist
 import org.springframework.web.socket.server.standard.ServletServerContainerFactoryBean
 
 import javax.websocket.OnOpen
+import grails.util.Holders
 
 @Configuration
 @EnableWebSocketMessageBroker
 class WebSokecConfig extends AbstractSessionWebSocketMessageBrokerConfigurer<ExpiringSession>  {
-   def SESSION_ATTR="session"
+    def SESSION_ATTR="session"
 	def PUBLICIP_ATTR="remoteIpAddress"
+
+
 	@OnOpen
 	public void onWebSocketConnect(Session session) {
 		if(session)
@@ -94,6 +97,29 @@ class WebSokecConfig extends AbstractSessionWebSocketMessageBrokerConfigurer<Exp
                 String publicIp = (String) sessionHeaders.get(PUBLICIP_ATTR);
                 //message.headers.put(PUBLICIP_ATTR,publicIp);
                 println "ChannelInterceptorAdapter message getHeaders:"+message.getHeaders()
+
+
+
+                //if(sessionHeaders.get("session"))
+                def websokectService = Holders.grailsApplication.mainContext.getBean 'websokectService'
+				if(websokectService){
+                    def stompCommand=message.getHeaders().get("stompCommand")
+                    //stompCommand
+					println "found websokectService:"+stompCommand
+                    if(stompCommand.toString().toUpperCase().equals("DISCONNECT")){
+                        def simpSessionAttributes=message.getHeaders().get("simpSessionAttributes")
+                        def roomNumber=simpSessionAttributes.get("roomNUmber")
+                        if(roomNumber){
+
+                        }
+
+
+                    }
+                    //websokectService.privateUserChanelByRoomNumber("232323","232311")
+				}
+				//websokectService.privateUserChanelByRoomNumber("232323","232311")
+
+
 				if (sessionId != null) {
 					/*Session session = sessionRepository.getSession(sessionId);
 					if (session != null) {
