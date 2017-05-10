@@ -33,6 +33,12 @@ class WebSokectController {
 
         // println "userResiveMessage:"+messageJsonObj.messageAction
         //closeGameRoundLun
+        //gameinistal
+        if (messageJsonObj.messageAction.equals("gameinistal")) {
+            //sessionHeaders.put("openid",messageJsonObj.messageBody);
+            sessionHeaders.put("roomNumber",messageJsonObj.messageBelongsToPrivateChanleNumber);
+        }
+
         if (messageJsonObj.messageAction.equals("joinRoom")) {
             //sotre the user info and room info into head of http
             //we still need add a flag ,to decide it is gameing or not gameing
@@ -195,6 +201,7 @@ class WebSokectController {
 
         if (messageJsonObj.messageAction.equals("updateLocation")) {
             def flag = userService.updateUserLocation(messageJsonObj)
+            sessionHeaders.put("roomNumber",messageJsonObj.messageBelongsToPrivateChanleNumber);
 
 
         }

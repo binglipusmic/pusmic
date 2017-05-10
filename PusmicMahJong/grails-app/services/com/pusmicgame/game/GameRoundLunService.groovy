@@ -213,7 +213,11 @@ class GameRoundLunService {
         try {
             if (user) {
                 onlineUser=OnlineUser.findBySpringUser(user)
-
+                if(onlineUser){
+                    println "217:found online"
+                    onlineUser.onlineStau=1;
+                    onlineUser.save(flush: true, failOnError: true)
+                }
                 //create a new GameMode
                 gameMode= new GameMode()
                 //JSONObject.getProperties()
@@ -263,6 +267,11 @@ class GameRoundLunService {
                 gameRound.save(flush: true, failOnError: true)
                 gu.gameRound=gameRound
                 gu.save(flush: true, failOnError: true)
+
+                //update the online user
+
+                //OnlineUser  onlineUser1=OnlineUser.findBySpringUser(user)
+
 
 
                 //println "line 136:"

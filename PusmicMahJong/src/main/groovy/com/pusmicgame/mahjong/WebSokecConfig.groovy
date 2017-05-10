@@ -34,6 +34,7 @@ class WebSokecConfig extends AbstractSessionWebSocketMessageBrokerConfigurer<Exp
 	def PUBLICIP_ATTR="remoteIpAddress"
 
 
+
 	@OnOpen
 	public void onWebSocketConnect(Session session) {
 		if(session)
@@ -102,6 +103,7 @@ class WebSokecConfig extends AbstractSessionWebSocketMessageBrokerConfigurer<Exp
 
                 //if(sessionHeaders.get("session"))
                 def websokectService = Holders.grailsApplication.mainContext.getBean 'websokectService'
+                def onlineUserService= Holders.grailsApplication.mainContext.getBean 'onlineUserService'
 				if(websokectService){
                     def stompCommand=message.getHeaders().get("stompCommand")
                     //stompCommand
@@ -110,7 +112,7 @@ class WebSokecConfig extends AbstractSessionWebSocketMessageBrokerConfigurer<Exp
                         def simpSessionAttributes=message.getHeaders().get("simpSessionAttributes")
                         def roomNumber=simpSessionAttributes.get("roomNUmber")
                         if(roomNumber){
-
+                            onlineUserService.offlineUser(roomNumber)
                         }
 
 

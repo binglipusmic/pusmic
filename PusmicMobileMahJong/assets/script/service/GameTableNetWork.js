@@ -19,6 +19,7 @@ var huPaiScript;
 var messageScript;
 var roundScoreScript;
 var base64 = require('base64');
+var offlineScript;
 cc.Class({
     extends: cc.Component,
 
@@ -54,6 +55,7 @@ cc.Class({
         messageNode: cc.Node,
         roundScoreNode: cc.Node,
         ruzhuoButton: cc.Node,
+        offlineScriptNode: cc.Node,
 
 
     },
@@ -65,6 +67,7 @@ cc.Class({
         alertMessageUI = self.alertMessageNodeScirpt.getComponent("alertMessagePanle");
         userInfoScript = self.userInfoScriptNode.getComponent("tableUserInfo");
         moPaiScript = self.moPaiActionNode.getComponent("tableMoPaiAction");
+        offlineScript = self.offlineScriptNode.getComponent("userOffline");
         messageDomain = require("messageDomain").messageDomain;
         Global.subid = 0;
         connect_callback = function (error) {
@@ -149,7 +152,35 @@ cc.Class({
                 actionUIScriptNode.closeLoadingIcon();
 
                 //-----------------------------------------------------------------------------------------
+                //user offline
+                if (messageDomain.messageAction == "userOffline") {
+                    var offLineUserObj = JSON.parse(messageDomain.messageBody);
+                    if (offLineUserObj.onlineStau + "" == "1") {
+                        //remove user form gobale user list
+                        var userList = Global.userList;
+                        for (var j = 0; j < userList.length; j++) {
+                            var gameUser = userList[j];
+                            if(gameUser.openid==offLineUserObj.springUserOpenId){
+                                userList[j]=null;
+                            }
+                        }
 
+                        Global.userList=userList;
+                        //update the GUI
+                        userInfoScript.initalUserInfoFromGobalList();
+
+
+
+                    }
+
+                    if (offLineUserObj.onlineStau + "" == "2") {
+                        offlineScript.showOfflinePanel(offLineUserObj.springUserNickName);
+                    }
+                }
+
+
+
+                //build less deomond 
                 if (messageDomain.messageAction == "buildRoundFail") {
 
                     alertMessageUI.text = "你所有的钻石不足以开启一局，请联系代理购买钻石，或者直接关注微信公众号:乐乐四川麻将购买";
@@ -1034,6 +1065,7 @@ cc.Class({
             this.subscribeToPrivateChanel(roomNumber);
 
         }
+        //this.sendInitalMessage();
 
     },
     forceInitaClient: function () {
@@ -1067,7 +1099,11 @@ cc.Class({
     sendLocationInfoToServer: function () {
 
         var joinRoomNumber = Global.joinRoomNumber;
+
         var userInfo = Global.userInfo;
+        if (joinRoomNumber == null || joinRoomNumber == undefined) {
+            joinRoomNumber = userInfo.roomNumber;
+        }
         var userLocation = Global.userLocation;
         var o = new Object();
         o.openid = userInfo.openid;
@@ -1292,6 +1328,12 @@ cc.Class({
         var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
         this.sendMessageToServer(messageObj);
         //tableCenterScript.endTimer();
+    },
+    sendInitalMessage: function () {
+        var userInfo = Global.userInfo;
+        var joinRoomNumber = userInfo.roomNumber;
+        var messageObj = this.buildSendMessage("test", joinRoomNumber, "gameinistal");
+        this.sendMessageToServer(messageObj);
     },
 
     /**

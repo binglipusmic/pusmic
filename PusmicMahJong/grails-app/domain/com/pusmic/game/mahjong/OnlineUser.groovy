@@ -7,7 +7,8 @@ class OnlineUser {
     String  roomNumber
     SpringUser springUser
     String publicIPAddress
-    //0, offline ,1 online, 2 broken offline
+    //0, online ,1 offline ,game not start, 2  offline,game start
+    //0 -index, 1- offline game room but not start,2-offline and game starting
     int onlineStau=0
     //LoingUserInfo logUserInfo
     static constraints = {

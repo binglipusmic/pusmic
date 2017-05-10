@@ -1,5 +1,6 @@
 package com.pusmicgame.game
 
+import com.pusmic.game.mahjong.OnlineUser
 import com.pusmicgame.domain.GameUserPlatObj
 import com.pusmicgame.domain.MessageDomain
 import com.pusmicgame.utils.CustomComparatorForGameUserPlatObj
@@ -251,6 +252,14 @@ class PaiService {
                     gameU.save(flush: true, failOnError: true)
                     gameUserListArray.add(outputUser)
                     index++
+
+                    //update online user for each user
+                    OnlineUser onlineUser=OnlineUser.findBySpringUser(gameU.springUser)
+                    if(onlineUser){
+                        onlineUser.onlineStau=2
+                        onlineUser.save(flush: true, failOnError: true)
+                    }
+
 
                 }
                 //save the rest pai to game round

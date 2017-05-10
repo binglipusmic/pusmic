@@ -20,8 +20,9 @@ cc.Class({
         waitTimLableNode: cc.Node,
         continueWaitBtn: cc.Node,
         deleteRoomBtn: cc.Node,
-        offlineLable:cc.Node,
-        userSelectLableNode:cc.Node
+        offlineLable: cc.Node,
+        userSelectLableNode: cc.Node,
+        offlinePanel: cc.Node,
     },
 
     // use this for initialization
@@ -43,9 +44,25 @@ cc.Class({
 
         };
 
-           self.waitTimLableNode.active = false;
+        self.waitTimLableNode.active = false;
     },
-    setUserSelectLabe:function(){
+    setUserSelectLabe: function () {
+
+    },
+    showOfflinePanel: function (nikeName) {
+        this.offlinePanel.active = true;
+        var userOfflineLabble = this.offlineLable.getComponent(cc.RichText);
+        userOfflineLabble.string = userOfflineLabble.string + " " + nikeName + " 已离线！请选择等待或解散房间。\n";
+    },
+
+    hideOfflinePanel: function () {
+        this.offlinePanel.active = false;
+        var userOfflineLabble = this.offlineLable.getComponent(cc.RichText);
+        userOfflineLabble.string = "";
+        //userSelectLableNode
+
+         var userSelectLable = this.userSelectLableNode.getComponent(cc.RichText);
+         userSelectLable.string="";
 
     },
 
@@ -83,16 +100,16 @@ cc.Class({
         alertMessageUI.setTextOfPanel();
 
     },
-    testDele:function(){
+    testDele: function () {
         this.deleteRoom("user 1 选择了解散房间");
     },
 
-    deleteRoom:function(message){
+    deleteRoom: function (message) {
         let self = this;
         self.continueWaitBtn.active = false;
         self.deleteRoomBtn.active = false;
-        var richText=self.userSelectLableNode.getComponent(cc.RichText);
-        richText.string=richText.string+message+"\n";
+        var richText = self.userSelectLableNode.getComponent(cc.RichText);
+        richText.string = richText.string + message + "\n";
 
 
 
