@@ -166,13 +166,13 @@ cc.Class({
                                 userList.splice(j, 1);
                             }
                         }
-                        console.log("offLineUserObj 168-11:" + offLineUserObj.onlineStau);
+                       // console.log("offLineUserObj 168-11:" + offLineUserObj.onlineStau);
                         Global.userList = userList;
                         //update the GUI
-                        console.log("offLineUserObj 168-22:" + offLineUserObj.onlineStau);
+                        //console.log("offLineUserObj 168-22:" + offLineUserObj.onlineStau);
                         tableUserInfoScript.cleanUserNode();
                         tableUserInfoScript.initalUserInfoFromGobalList();
-                        console.log("offLineUserObj 168-33:" + offLineUserObj.onlineStau);
+                        //console.log("offLineUserObj 168-33:" + offLineUserObj.onlineStau);
 
 
                     }
