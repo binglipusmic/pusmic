@@ -1,6 +1,7 @@
 package com.pusmicgame.game
 
 import com.pusmic.game.mahjong.OnlineUser
+import com.pusmic.game.mahjong.SpringUser
 import com.pusmicgame.domain.MessageDomain
 import com.pusmicgame.domain.OnlinUserPlatObj
 import grails.transaction.Transactional
@@ -15,17 +16,42 @@ class OnlineUserService {
     }
 
 
-    def offlineUser(roomNUmber){
+    def removeGameUserFromGameRound(roomNumber,userOpendId){
+        GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
+        GameRound gameRound
+        if(onlineRoomNumber){
+            gameRound = onlineRoomNumber.gameRound
+        }
 
-        OnlineUser onlineUser=OnlineUser.findByRoomNumber(roomNUmber)
-        if(onlineUser){
-            OnlinUserPlatObj onlinUserPlatObj=new OnlinUserPlatObj()
-            onlinUserPlatObj.roomNumber=roomNUmber
-            onlinUserPlatObj.onlineStau=onlineUser.onlineStau
-            onlinUserPlatObj.springUserNickName=onlineUser.springUser.nickname
-            onlinUserPlatObj.springUserOpenId=onlineUser.springUser.openid
+        if(gameRound) {
+            def gu = gameRound.gameUser.find { it.springUser.openid == userOpendId }
+            if(gu){
+                gameRound.removeFromGameUser(gu)
+                gameRound.save(flush: true, failOnError: true);
+                println "gu:"+gu.springUser.openid+"----"+gu.springUser.nickname
+            }
+
+
+        }
+
+    }
+
+
+    def offlineUser(roomNUmber,openid){
+        SpringUser springUser=SpringUser.findByOpenid(openid)
+        if(springUser){
+        OnlineUser onlineUser=OnlineUser.findBySpringUser(springUser)
+        if(onlineUser) {
+            println "found websokectService onlineUser:" + roomNUmber
+            OnlinUserPlatObj onlinUserPlatObj = new OnlinUserPlatObj()
+            onlinUserPlatObj.roomNumber = roomNUmber
+            onlinUserPlatObj.onlineStau = onlineUser.onlineStau
+            onlinUserPlatObj.springUserNickName = onlineUser.springUser.nickname
+            onlinUserPlatObj.springUserOpenId = onlineUser.springUser.openid
             def s = new JsonBuilder(onlinUserPlatObj).toPrettyString()
-            if(onlineUser.onlineStau==1){
+
+            println "onlineUser.onlineStau:" + onlineUser.onlineStau
+            if (onlineUser.onlineStau == 1) {
                 //push message to client
 
                 MessageDomain newMessageObj = new MessageDomain()
@@ -37,9 +63,10 @@ class OnlineUserService {
                 websokectService.privateUserChanelByRoomNumber(roomNUmber, s2)
 
                 onlineUser.delete(flush: true, failOnError: true)
+                println " onlineUser.springUser.openid:"+ onlineUser.springUser.openid
+                removeGameUserFromGameRound(roomNUmber, onlineUser.springUser.openid)
 
-
-            }else if(onlineUser.onlineStau==2){
+            } else if (onlineUser.onlineStau == 2) {
                 MessageDomain newMessageObj = new MessageDomain()
                 newMessageObj.messageBelongsToPrivateChanleNumber = roomNUmber
                 newMessageObj.messageAction = "userOffline"
@@ -48,11 +75,15 @@ class OnlineUserService {
                 def s2 = new JsonBuilder(newMessageObj).toPrettyString()
                 websokectService.privateUserChanelByRoomNumber(roomNUmber, s2)
 
-            }else if(onlineUser.onlineStau==0){
+            } else if (onlineUser.onlineStau == 0) {
 
                 onlineUser.delete(flush: true, failOnError: true)
 
+
             }
+        }
+
+
 
             //if the online statu is 0 just remove this ,other status still need remove it
 

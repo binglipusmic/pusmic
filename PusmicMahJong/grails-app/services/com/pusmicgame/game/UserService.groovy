@@ -845,6 +845,7 @@ class UserService {
             springUser.headImageFileName = headImageName
         }
         userLoginInfo.userOpeid = userOpenid
+        userLoginInfo.save(flush: true, failOnError: true)
         springUser.addToLoginUserInfo(userLoginInfo)
         springUser.save(flush: true, failOnError: true)
 

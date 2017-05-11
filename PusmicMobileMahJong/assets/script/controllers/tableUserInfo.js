@@ -291,6 +291,13 @@ cc.Class({
         this.initalUserPai("test4", "");
         Global.chuPaiActionType = "normalChuPai"
     },
+    cleanUserNode: function () {
+        this.userInfo1.active = false;
+        this.userInfo2.active = false;
+        this.userInfo3.active = false;
+        this.userInfo4.active = false;
+
+    },
     //type:inital 
     initalUserPai: function (initalType, type) {
         //inital the test data
@@ -326,7 +333,7 @@ cc.Class({
         //cc.log("userList.length:"+userList.length);
         for (var i = 0; i < userList.length; i++) {
             var user = userList[i];
-            user.online="1";
+            user.online = "1";
             cc.log("inital user zhuang:" + user.zhuang);
             cc.log("inital user openid:" + user.openid);
             //show current user node
@@ -1077,6 +1084,7 @@ cc.Class({
             var user = userList[i];
             var userNodeName = "user" + user.pointIndex + "Node";
             cc.log("userNodeName:" + userNodeName);
+            console.log("userNodeName:" + userNodeName);
             var userNode = cc.find(userNodeName, this.tableNode);
             var userInfoNode = cc.find("userInfoNode", userNode);
             //var userNickNameNode = cc.find("userNickNameBg", userInfoNode);
@@ -1084,6 +1092,7 @@ cc.Class({
             var userReadyBtnNode = cc.find("readyButton", userReadyiconNode);
             var s = userReadyBtnNode.getComponent(cc.Sprite);
             cc.log("user.gameReadyStatu:" + user.gameReadyStatu);
+            console.log("user.gameReadyStatu:" + user.gameReadyStatu);
             if (user.gameReadyStatu == "1") {
                 s.spriteFrame = this.userReadyIconOk;
             } else {
@@ -1107,12 +1116,16 @@ cc.Class({
         //hide  table  pai starting 
         this.quepaiNode.active = false;
         this.tableCenterPoint.active = false;
-
+        console.log("initalUserInfoFromGobalList start:");
         var numberOrder = [3, 4, 1, 2]
         var userList = Global.userList;
         var userInfo = Global.userInfo;
         var gameMode = Global.gameMode;
-        var gamePeople = gameMode.gamePeopleNumber;
+        var gamePeople = 0;
+        if (gameMode != null && gameMode != undefined) {
+            gamePeople = gameMode.gamePeopleNumber;
+        }
+
         var index = -1;
         if (userList != null && userList != undefined) {
             var tempList = [];
@@ -1130,6 +1143,7 @@ cc.Class({
 
             }
             cc.log("index:" + index);
+            console.log("index:" + index);
             if (index == 0) {
                 if (gamePeople == "3") {
                     numberOrder = [3, 4, 2]
@@ -1176,17 +1190,19 @@ cc.Class({
             // }
 
             //start fill the user info from index 
-            cc.log("numberOrder:" + numberOrder.toString());
+            console.log("numberOrder:" + numberOrder.toString());
+            console.log("userList len:" + userList.length);
             for (var i = 0; i < userList.length; i++) {
                 //update user index 
                 var user = userList[i];
+                console.log("user nickname:" + user.nickName);
                 user.pointIndex = numberOrder[i];
                 userList[i] = user;
                 var userNodeName = "user" + numberOrder[i] + "Node";
                 //var testHeaImageurl = "http://wx.qlogo.cn/mmopen/Po9mkm3Z42tolYpxUVpY6mvCmqalibOpcJ2jG3Qza5qgtibO1NLFNUF7icwCibxPicbGmkoiciaqKEIdvvveIBfEQqal8vkiavHIeqFT/0";
                 var serverUrl = Global.hostHttpProtocol + "://" + Global.hostServerIp + ":" + Global.hostServerPort;
                 console.log("headImageFileName:" + user.headImageFileName);
-                var testHeaImageurl = serverUrl + "/webchatImage/" +  user.headImageFileName;
+                var testHeaImageurl = serverUrl + "/webchatImage/" + user.headImageFileName;
                 console.log("testHeaImageurl:" + testHeaImageurl);
                 var userNode = cc.find(userNodeName, this.tableNode);
                 var userInfoNode = cc.find("userInfoNode", userNode);
@@ -1199,11 +1215,12 @@ cc.Class({
                 userNode.active = true;
             }
             Global.userList = userList;
+            console.log("numberOrder 1203:");
             this.intalUserInfoReadyIcon();
 
         }
     },
-    initalUserImage: function (testImageUrl,userName ) {
+    initalUserImage: function (testImageUrl, userName) {
         cc.loader.load(testImageUrl, function (err, texture) {
             console.log("testHeaImageurl:" + testImageUrl);
             console.log("userName[i]:" + userName);
@@ -1213,7 +1230,7 @@ cc.Class({
             console.log("userNode:" + "1211");
             var userInfoNode = cc.find("userInfoNode", userNode);
             userInfoNode.getComponent(cc.Sprite).spriteFrame = frame;
-              console.log("userNode:" + "1214");
+            console.log("userNode:" + "1214");
         });
     },
 

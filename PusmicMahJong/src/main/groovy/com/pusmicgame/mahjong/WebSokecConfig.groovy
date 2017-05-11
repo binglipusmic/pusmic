@@ -107,12 +107,17 @@ class WebSokecConfig extends AbstractSessionWebSocketMessageBrokerConfigurer<Exp
 				if(websokectService){
                     def stompCommand=message.getHeaders().get("stompCommand")
                     //stompCommand
-					println "found websokectService:"+stompCommand
+					println "found websokectService:"+stompCommand.toString().toUpperCase()
+                    def simpSessionAttributes=message.getHeaders().get("simpSessionAttributes")
+                    def roomNumber=simpSessionAttributes.get("roomNumber")
+                    def openid=simpSessionAttributes.get("openid")
+                    println "found websokectService roomNUmber:"+roomNumber
                     if(stompCommand.toString().toUpperCase().equals("DISCONNECT")){
-                        def simpSessionAttributes=message.getHeaders().get("simpSessionAttributes")
-                        def roomNumber=simpSessionAttributes.get("roomNUmber")
+
                         if(roomNumber){
-                            onlineUserService.offlineUser(roomNumber)
+                            println "found websokectService roomNumber:"+roomNumber
+                            onlineUserService.offlineUser(roomNumber,openid)
+                            //websokectService.privateUserChanelByRoomNumber(roomNumber, "123")
                         }
 
 

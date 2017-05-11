@@ -20,12 +20,13 @@ class GameRoundService {
         if(onlineRoomNumber){
             gameRound = onlineRoomNumber.gameRound
         }
-
+        println "checkGameRoomExist roomnuber 1:"+roomNumber
+        println "checkGameRoomExist gameRound 1:"+gameRound.id
         if(gameRound) {
             def openid = messageJsonObj.messageBody;
-            println "checkGameRoomExist openid:"+openid
+            println "checkGameRoomExist openid 1:"+openid
             gameRound.gameUser.each{gu->
-                println "gu.springUser.openid :"+gu.springUser.openid
+                println "gu.springUser.openid 1:"+gu.springUser.openid
                  if(gu.springUser.openid.equals(openid)){
                     flag=true;
                  }

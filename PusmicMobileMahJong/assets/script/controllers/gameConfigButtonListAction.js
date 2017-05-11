@@ -129,6 +129,7 @@ cc.Class({
 
     // action 1,build a  new room ,0, back to room
     enterMainEntry: function (action) {
+        console.log("enterMainEntry");
         tableNetWork.initalClient();
         this.indexNode.active = false;
         this.mainMenuNode.active = true;

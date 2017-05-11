@@ -85,7 +85,7 @@ cc.Class({
         messageScript = self.messageNode.getComponent("messageUI");
         roundScoreScript = self.roundScoreNode.getComponent("roundScoreUI");
 
-
+        //tableUserInfoScript.initalUserInfoFromGobalList();
         //-----------------------
         cc.game.on(cc.game.EVENT_HIDE, function () {
             // cc.audioEngine.pauseMusic();
@@ -155,27 +155,33 @@ cc.Class({
                 //user offline
                 if (messageDomain.messageAction == "userOffline") {
                     var offLineUserObj = JSON.parse(messageDomain.messageBody);
-                    if (offLineUserObj.onlineStau + "" == "1") {
+                    console.log("offLineUserObj:" + offLineUserObj.onlineStau);
+                    if (offLineUserObj.onlineStau == 1) {
                         //remove user form gobale user list
                         var userList = Global.userList;
                         for (var j = 0; j < userList.length; j++) {
                             var gameUser = userList[j];
-                            if(gameUser.openid==offLineUserObj.springUserOpenId){
-                                userList[j]=null;
+                            if (gameUser.openid == offLineUserObj.springUserOpenId) {
+                                //userList[j] = null;
+                                userList.splice(j, 1);
                             }
                         }
-
-                        Global.userList=userList;
+                        console.log("offLineUserObj 168-11:" + offLineUserObj.onlineStau);
+                        Global.userList = userList;
                         //update the GUI
-                        userInfoScript.initalUserInfoFromGobalList();
-
+                        console.log("offLineUserObj 168-22:" + offLineUserObj.onlineStau);
+                        tableUserInfoScript.cleanUserNode();
+                        tableUserInfoScript.initalUserInfoFromGobalList();
+                        console.log("offLineUserObj 168-33:" + offLineUserObj.onlineStau);
 
 
                     }
-
-                    if (offLineUserObj.onlineStau + "" == "2") {
+                    console.log("offLineUserObj 176:" + offLineUserObj.onlineStau);
+                    if (offLineUserObj.onlineStau == 2) {
                         offlineScript.showOfflinePanel(offLineUserObj.springUserNickName);
                     }
+                    console.log("offLineUserObj 180:" + offLineUserObj.onlineStau);
+
                 }
 
 
@@ -1042,6 +1048,7 @@ cc.Class({
         client.connect({}, function () {
             this.subscribeToPrivateChanelNoConnetAgain(thisRooNumber);
             //after reconect ,send the location infomation
+            console.log("subscribeToPrivateChanel");
             this.sendLocationInfoToServer();
 
         }.bind(this), function () {
@@ -1060,6 +1067,7 @@ cc.Class({
 
     },
     initalClient: function () {
+        console.log("initalClient staring");
         if (client == null || client == undefined || client.connected == false) {
             this.connectByPrivateChanel();
             this.subscribeToPrivateChanel(roomNumber);
@@ -1089,6 +1097,7 @@ cc.Class({
         userLocation.longitude = longitude;
         userLocation.latitude = latitude;
         Global.userLocation = userLocation;
+        console.log("saveLocationInfoToGobalInfo end**");
 
     },
     //-------------------------------chu pai action---------------------------------------------
@@ -1097,7 +1106,7 @@ cc.Class({
     },
 
     sendLocationInfoToServer: function () {
-
+        console.log("sendLocationInfoToServer staring");
         var joinRoomNumber = Global.joinRoomNumber;
 
         var userInfo = Global.userInfo;

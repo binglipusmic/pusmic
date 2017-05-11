@@ -19023,6 +19023,9 @@
     },
     "ruzhuoButton": {
       "__id__": 544
+    },
+    "offlineScriptNode": {
+      "__id__": 1212
     }
   },
   {
@@ -47105,6 +47108,9 @@
     },
     "userSelectLableNode": {
       "__id__": 1220
+    },
+    "offlinePanel": {
+      "__id__": 1197
     }
   },
   {

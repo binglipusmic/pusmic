@@ -47,6 +47,7 @@ class HttpSessionIdHandshakeInterceptor implements HandshakeInterceptor {
                 println "request:" + session.public_ip
             }
             println "session:" + session.getId()
+            println "session 50 stomp:" +session.stompCommand
             ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
             // HttpSession session = servletRequest.getServletRequest().getSession(false);
             if (session != null) {
