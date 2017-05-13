@@ -1,6 +1,12 @@
 var alertMessageUI;
 var timerUpate;
 var timeCount;
+var networkSprit;
+var offlineNumber = 0;
+var agreeDeleUserCount = 0;
+var offlineUserOpenId = "";
+var reJoinRoomScript;
+ 
 cc.Class({
     extends: cc.Component,
 
@@ -23,13 +29,20 @@ cc.Class({
         offlineLable: cc.Node,
         userSelectLableNode: cc.Node,
         offlinePanel: cc.Node,
+        netWorkScriptNode: cc.Node,
+        reJoinRoomNode: cc.Node,
     },
 
     // use this for initialization
     onLoad: function () {
+        reJoinRoomScript = this.reJoinRoomNode.getComponent("reJoinRoomUI");
+      
+        networkSprit = this.netWorkScriptNode.getComponent("GameTableNetWork");
         alertMessageUI = this.alertMessageNodeScirpt.getComponent("alertMessagePanle");
         timeCount = 30;
-
+        offlineNumber = 0;
+        agreeDeleUserCount = 0;
+        offlineUserOpenId = "";
         let self = this;
         timerUpate = function () {
 
@@ -49,10 +62,15 @@ cc.Class({
     setUserSelectLabe: function () {
 
     },
-    showOfflinePanel: function (nikeName) {
+    showOfflinePanel: function (nikeName, openid) {
         this.offlinePanel.active = true;
         var userOfflineLabble = this.offlineLable.getComponent(cc.RichText);
         userOfflineLabble.string = userOfflineLabble.string + " " + nikeName + " 已离线！请选择等待或解散房间。\n";
+        offlineNumber++;
+        //only record the first offfline user
+        if (offlineUserOpenId == "") {
+            offlineUserOpenId = openid;
+        }
     },
 
     hideOfflinePanel: function () {
@@ -61,8 +79,8 @@ cc.Class({
         userOfflineLabble.string = "";
         //userSelectLableNode
 
-         var userSelectLable = this.userSelectLableNode.getComponent(cc.RichText);
-         userSelectLable.string="";
+        var userSelectLable = this.userSelectLableNode.getComponent(cc.RichText);
+        userSelectLable.string = "";
 
     },
 
@@ -77,6 +95,22 @@ cc.Class({
         self.deleteRoomBtn.active = false;
         self.schedule(timerUpate, 1);
 
+        var userInfo = Global.userInfo;
+        var o = new Object();
+        o.openid = userInfo.openid;
+        o.message = userInfo.nikeName + " 已选择继续等待。";
+        networkSprit.sendUserOfflineSatauSelect(JSON.stringify(o));
+
+    },
+
+    showOptionIntoUserSlect: function (message) {
+        var o = JSON.parse(message);
+        var userSelctOption = this.userSelectLableNode.getComponent(cc.RichText);
+        userSelctOption.string = userSelctOption.string + o.message + "\n";
+        if (o.message.indexOf("解散") >= 0) {
+            agreeDeleUserCount++;
+        }
+
     },
     stopTimer: function () {
         let self = this;
@@ -84,6 +118,75 @@ cc.Class({
         self.waitTimLableNode.active = false;
         self.continueWaitBtn.active = true;
         self.deleteRoomBtn.active = true;
+    },
+
+    checkIfDeleteRoom: function () {
+
+        var roomNumber = Global.joinRoomNumber;
+
+        var gameMode = Global.gameMode;
+        if (gameMode == null) {
+            gameMode = require("gameMode").gameMode;
+        }
+        var gamePeopleNumber = gameMode.gamePeopleNumber;
+        var maxFan = 0;
+        if (gameMode.fan2 == 1) {
+            maxFan = 4;
+        }
+        if (gameMode.fan3 == 1) {
+            maxFan = 8;
+        }
+        if (gameMode.fan4 == 1) {
+            maxFan = 16;
+        }
+        if (gameMode.fan6 == 1) {
+            maxFan = 64;
+        }
+        if (gamePeopleNumber != null && gamePeopleNumber != undefined) {
+            if (agreeDeleUserCount == gamePeopleNumber - offlineNumber) {
+
+                var userSelctOption = this.userSelectLableNode.getComponent(cc.RichText);
+                userSelctOption.string = userSelctOption.string + "所有用户已同意解散房间" + "\n";
+
+                console.log("all user agree delete room");
+                //send the user to koufen
+                networkSprit.sendOffLineUserKouFen(offlineUserOpenId, maxFan);
+                networkSprit.closeGameRoundLunByRoomNumber(roomNumber);
+                //closeGameRoundLun
+            }
+        }
+    },
+
+    deleteRoomByUserSelf: function () {
+        var gameMode = Global.gameMode;
+        var roomNumber = Global.joinRoomNumber;
+        if (gameMode == null) {
+            gameMode = require("gameMode").gameMode;
+        }
+        var gamePeopleNumber = gameMode.gamePeopleNumber;
+        var maxFan = 0;
+        if (gameMode.fan2 == 1) {
+            maxFan = 4;
+        }
+        if (gameMode.fan3 == 1) {
+            maxFan = 8;
+        }
+        if (gameMode.fan4 == 1) {
+            maxFan = 16;
+        }
+        if (gameMode.fan6 == 1) {
+            maxFan = 64;
+        }
+        var userInfo = Global.userInfo;
+
+
+        networkSprit.sendOffLineUserKouFen(offlineUserOpenId, maxFan);
+        networkSprit.closeGameRoundLunByRoomNumber(roomNumber);
+
+        var userInfo = Global.userInfo;
+        Global.joinRoomNumber = userInfo.roomNumber;
+
+        reJoinRoomScript.hideReJoinGUI();
     },
 
     // called every frame, uncomment this function to activate update callback
@@ -108,11 +211,17 @@ cc.Class({
         let self = this;
         self.continueWaitBtn.active = false;
         self.deleteRoomBtn.active = false;
-        var richText = self.userSelectLableNode.getComponent(cc.RichText);
-        richText.string = richText.string + message + "\n";
 
 
+        var userInfo = Global.userInfo;
+        var o = new Object();
+        o.openid = userInfo.openid;
+        o.message = userInfo.nikeName + " 已选择解散房间。";
+        networkSprit.sendUserOfflineSatauSelect(JSON.stringify(o));
+        //networkSprit.sendUserOfflineSatauSelect(userInfo.nikeName + " 已选择解散房间。");
 
+        //      var richText = self.userSelectLableNode.getComponent(cc.RichText);
+        //      richText.string = richText.string + message + "\n";
     }
 
 });

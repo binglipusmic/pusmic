@@ -8,6 +8,7 @@ var onlineCheckUser;
 var messageScript;
 var roomNumber;
 var base64 = require('base64');
+var reJoinRoomScript;
 cc.Class({
     extends: cc.Component,
 
@@ -27,12 +28,14 @@ cc.Class({
         messageNode: cc.Node,
         loadingNode: cc.Node,
         logBtnNode: cc.Node,
+        reJoinRoomNode: cc.Node,
 
 
     },
 
     // use this for initialization
     onLoad: function () {
+        reJoinRoomScript = this.reJoinRoomNode.getComponent("reJoinRoomUI");
         //------------
         var loginBtn = this.logBtnNode.getComponent(cc.Button);
 
@@ -45,13 +48,13 @@ cc.Class({
         cc.log("ini index onload ");
         console.log("ini index onload:");
         cc.log("ini index onload ");
-        
+
         if (cc.sys.os == cc.sys.OS_ANDROID) {
             console.log("OS_ANDROID platam GPS:");
             jsb.reflection.callStaticMethod("com/pusmicgame/mahjong/AppActivity", "getLocation", "()V");
         }
 
-      
+
         messageScript = this.messageNode.getComponent("alertMessagePanle");
         //window.iniIndex = require("iniIndex");
         //webchat head img test-------------------------------
@@ -137,6 +140,11 @@ cc.Class({
                                     console.log("ios platam:");
                                     jsb.reflection.callStaticMethod('LocationFunc', 'getCurrentLocation');
 
+                                }
+                                console.log("obj.onlineStatus:" + obj.onlineStatus);
+                                if (obj.onlineStatus+"" == "3") {
+                                    reJoinRoomScript.showReJoinGUI();
+                                    Global.joinRoomNumber =obj.onlineRoomNumber;
                                 }
                             }
                         }

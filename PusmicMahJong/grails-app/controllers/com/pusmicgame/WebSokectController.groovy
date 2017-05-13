@@ -20,6 +20,7 @@ class WebSokectController {
     def gameStepService
     def paiService
     def showActionBarService
+    def onlineUserService
 
     @MessageMapping("/user_private_message")
     protected String user_private_message(String message, @Headers Map<String, Object> headers) {
@@ -34,6 +35,13 @@ class WebSokectController {
         // println "userResiveMessage:"+messageJsonObj.messageAction
         //closeGameRoundLun
         //gameinistal
+        if (messageJsonObj.messageAction.equals("offlineUserKouFen")) {
+            userService.kouFenByOpenId(messageJsonObj);
+            //sessionHeaders.put("openid",messageJsonObj.messageBody);
+            //sessionHeaders.put("roomNumber",messageJsonObj.messageBelongsToPrivateChanleNumber);
+        }
+
+        //**************************************************************************************
         if (messageJsonObj.messageAction.equals("gameinistal")) {
             //sessionHeaders.put("openid",messageJsonObj.messageBody);
             sessionHeaders.put("roomNumber",messageJsonObj.messageBelongsToPrivateChanleNumber);
@@ -54,10 +62,12 @@ class WebSokectController {
                 MessageDomain newMessageObj = new MessageDomain()
                 newMessageObj.messageBelongsToPrivateChanleNumber = messageJsonObj.messageBelongsToPrivateChanleNumber
                 newMessageObj.messageAction = "joinExistRoom"
-                newMessageObj.messageBody = paiStr
+                newMessageObj.messageBody = messageJsonObj.messageBody
                 newMessageObj.messageType = "gameAction"
                 def s2 = new JsonBuilder(newMessageObj).toPrettyString()
                 websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)
+                //Fix user online status
+                onlineUserService.reJoinRoomFixOnlineUser(messageJsonObj.messageBody)
 
             } else {
 

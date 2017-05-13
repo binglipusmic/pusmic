@@ -16,6 +16,8 @@ class GameUserPlatObj {
     String headImageFileName
     String quePai
     String action
+    String onlineStatus
+    String onlineRoomNumber
 
     int gameRoundScore
     int gameScoreCount

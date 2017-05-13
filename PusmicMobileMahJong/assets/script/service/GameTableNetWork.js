@@ -153,9 +153,16 @@ cc.Class({
 
                 //-----------------------------------------------------------------------------------------
                 //user offline
+
+                //userOffLineSelect
+                if (messageDomain.messageAction == "userOffLineSelect") {
+                    offlineScript.showOptionIntoUserSlect(messageDomain.messageBody);
+                }
                 if (messageDomain.messageAction == "userOffline") {
                     var offLineUserObj = JSON.parse(messageDomain.messageBody);
                     console.log("offLineUserObj:" + offLineUserObj.onlineStau);
+
+                    /*
                     if (offLineUserObj.onlineStau == 1) {
                         //remove user form gobale user list
                         var userList = Global.userList;
@@ -175,10 +182,11 @@ cc.Class({
                         //console.log("offLineUserObj 168-33:" + offLineUserObj.onlineStau);
 
 
-                    }
+                    }*/
                     console.log("offLineUserObj 176:" + offLineUserObj.onlineStau);
-                    if (offLineUserObj.onlineStau == 2) {
-                        offlineScript.showOfflinePanel(offLineUserObj.springUserNickName);
+                    //2,1 only for test 
+                    if (offLineUserObj.onlineStau == 1) {
+                        offlineScript.showOfflinePanel(offLineUserObj.springUserNickName, offLineUserObj.springUserOpenId);
                     }
                     console.log("offLineUserObj 180:" + offLineUserObj.onlineStau);
 
@@ -271,44 +279,45 @@ cc.Class({
                 };
                 //--------------------------------------------------
                 if (messageDomain.messageAction == "joinExistRoom") {
-                    var Obj = JSON.parse(messageDomain.messageBody);
-                    var gobalUser = Global.userInfo
-                    //Obj=JSON.parse(Obj.messageBody);
-                    cc.log("messageBody1:" + messageDomain.messageBody);
-                    //cc.log("messageBody2:"+obj.messageBody);
+                    var userOpenId=messageDomain.messageBody;
+                    // var Obj = JSON.parse(messageDomain.messageBody);
+                    // var gobalUser = Global.userInfo
+                    // //Obj=JSON.parse(Obj.messageBody);
+                    // cc.log("messageBody1:" + messageDomain.messageBody);
+                    // //cc.log("messageBody2:"+obj.messageBody);
 
-                    var joinRoomJson = JSON.parse(messageDomain.messageBody);
-                    var gameUserList = JSON.parse(joinRoomJson.userList);
-                    var joinMode = JSON.parse(joinRoomJson.gameMode);
+                    // var joinRoomJson = JSON.parse(messageDomain.messageBody);
+                    // var gameUserList = JSON.parse(joinRoomJson.userList);
+                    // var joinMode = JSON.parse(joinRoomJson.gameMode);
 
-                    if (joinMode != null && joinMode != undefined) {
-                        Global.gameMode = joinMode;
-                        cc.log("joinMode:" + Global.gameMode.toString());
-                    }
+                    // if (joinMode != null && joinMode != undefined) {
+                    //     Global.gameMode = joinMode;
+                    //     cc.log("joinMode:" + Global.gameMode.toString());
+                    // }
 
-                    var userList = [];
-                    for (var j = 0; j < gameUserList.length; j++) {
-                        var getUser = gameUserList[j]
-                        if (getUser.paiList != null && getUser.paiList != undefined) {
-                            getUser.paiListArray = getUser.paiList.split(",");
+                    // var userList = [];
+                    // for (var j = 0; j < gameUserList.length; j++) {
+                    //     var getUser = gameUserList[j]
+                    //     if (getUser.paiList != null && getUser.paiList != undefined) {
+                    //         getUser.paiListArray = getUser.paiList.split(",");
 
-                        }
-                        if (getUser.openid == gobalUser.openid) {
-                            getUser.pointIndex = "3";
-                        }
+                    //     }
+                    //     if (getUser.openid == gobalUser.openid) {
+                    //         getUser.pointIndex = "3";
+                    //     }
 
-                        // userObj.pointIndex = "3";
-                        userList.push(getUser);
-                    }
-                    Global.userList = userList;
+                    //     // userObj.pointIndex = "3";
+                    //     userList.push(getUser);
+                    // }
+                    // Global.userList = userList;
 
-                    var paiRestCount = 13 * gameUserList.length + 1;
-                    paiRestCount = 108 - paiRestCount;
-                    var paiListLable = this.paiRestNode.getComponent(cc.Label)
-                    paiListLable.string = paiRestCount + "";
-                    Global.restPaiCount = paiRestCount;
-                    actionUIScriptNode.showGameTalbe("0");
-                    userInfoScript.initalUserPai("inital", "joinExist");
+                    // var paiRestCount = 13 * gameUserList.length + 1;
+                    // paiRestCount = 108 - paiRestCount;
+                    // var paiListLable = this.paiRestNode.getComponent(cc.Label)
+                    // paiListLable.string = paiRestCount + "";
+                    // Global.restPaiCount = paiRestCount;
+                    // actionUIScriptNode.showGameTalbe("0");
+                    // userInfoScript.initalUserPai("inital", "joinExist");
 
                 }
                 //--------------------------------------------------
@@ -356,7 +365,9 @@ cc.Class({
                 }
 
                 if (messageDomain.messageAction == "faPai") {
-
+                    offlineScript.offlineNumber = 0;
+                    offlineScript.agreeDeleUserCount = 0;
+                    offlineScript.offlineUserOpenId = "";
                     var gameUserList = JSON.parse(messageDomain.messageBody);
                     var userList2 = Global.userList;
                     var userInfo = Global.userInfo;
@@ -1146,6 +1157,17 @@ cc.Class({
         var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
         this.sendMessageToServer(messageObj);
     },
+    sendOffLineUserKouFen: function (useropenid,maxFen) {
+
+        var joinRoomNumber = Global.joinRoomNumber;
+        var o = new Object();
+        //o.fromUserOpenid = userOpenId;
+        o.actionName = "offlineUserKouFen";
+        o.openid = useropenid;
+        o.maxFen=maxFen;
+        var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "offlineUserKouFen");
+        this.sendMessageToServer(messageObj);
+    },
 
     sendCheckRoundEnd: function () {
 
@@ -1155,6 +1177,12 @@ cc.Class({
         o.actionName = "checkRoundEnd";
         //o.toUserOpenid = userOpenId;
         var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
+        this.sendMessageToServer(messageObj);
+    },
+
+    sendUserOfflineSatauSelect: function (message) {
+        var joinRoomNumber = Global.joinRoomNumber;
+        var messageObj = this.buildSendMessage(message, joinRoomNumber, "userOffLineSelect");
         this.sendMessageToServer(messageObj);
     },
 
@@ -1527,6 +1555,14 @@ cc.Class({
             var messageObj = this.buildSendMessage(roomNumber, roomNumber, "closeGameRoundLun");
             this.sendMessageToServer(messageObj);
         }
+
+    },
+
+     closeGameRoundLunByRoomNumber: function (roomNumber) {
+   
+            var messageObj = this.buildSendMessage(roomNumber, roomNumber, "closeGameRoundLun");
+            this.sendMessageToServer(messageObj);
+
 
     },
     getFaPai: function () {

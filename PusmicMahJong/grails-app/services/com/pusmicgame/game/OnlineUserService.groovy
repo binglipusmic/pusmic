@@ -37,6 +37,18 @@ class OnlineUserService {
     }
 
 
+    def reJoinRoomFixOnlineUser(openid){
+        SpringUser springUser=SpringUser.findByOpenid(openid)
+        if(springUser) {
+            OnlineUser onlineUser = OnlineUser.findBySpringUser(springUser)
+            if (onlineUser) {
+                onlineUser.onlineStau=2
+                onlineUser.save(flush: true, failOnError: true);
+            }
+        }
+    }
+
+
     def offlineUser(roomNUmber,openid){
         SpringUser springUser=SpringUser.findByOpenid(openid)
         if(springUser){
@@ -74,6 +86,9 @@ class OnlineUserService {
                 newMessageObj.messageType = "userOffline"
                 def s2 = new JsonBuilder(newMessageObj).toPrettyString()
                 websokectService.privateUserChanelByRoomNumber(roomNUmber, s2)
+
+                onlineUser.onlineStau=3;
+                onlineUser.save(flush: true, failOnError: true);
 
             } else if (onlineUser.onlineStau == 0) {
 

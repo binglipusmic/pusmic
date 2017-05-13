@@ -28,4 +28,6 @@ class UserInfo {
     String webChatUserCode
     String gameScroe
     String publicMessage
+    String onlineStatus
+    String onlineRoomNumber
 }

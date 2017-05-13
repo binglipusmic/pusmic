@@ -5,6 +5,7 @@ var tableNetWork = null;
 var showGameMode = null;
 var gameConfigScript = null;
 var tableUserInfo = null;
+var reJoinRoomUI=null;
 cc.Class({
     extends: cc.Component,
 

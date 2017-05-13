@@ -714,6 +714,36 @@ class UserService {
         return true
     }
 
+
+    def kouFenByOpenId(MessageDomain messageDomain){
+
+        def obj = JSON.parse(messageDomain.messageBody)
+
+        def useropenid=obj.openid
+        def maxFen=obj.maxFen
+        if(useropenid){
+            SpringUser springUser=SpringUser.findByOpenid(useropenid)
+            if(springUser){
+                if(springUser.gameScroe){
+                    //user.roundScoreCount.toInteger()
+                    springUser.gameScroe=springUser.gameScroe-maxFen.toInteger()
+                }else{
+                    springUser.gameScroe=0-maxFen.toInteger()
+                }
+            }
+
+            //remove the online user
+
+            def onlineUseList=OnlineUser.findAllBySpringUser(springUser)
+            if(onlineUseList){
+                onlineUseList.each{
+                    it.delete(flush: true, failOnError: true)
+                }
+            }
+        }
+
+    }
+
     /**
      * Change the user status
      * @param messageDomain
@@ -888,6 +918,14 @@ class UserService {
         }else{
             userInfo.publicMessage = "欢迎加入乐乐四川麻将"
         }
+
+        //get if user already own join room
+        OnlineUser alreadyExistOnline=OnlineUser.findBySpringUserAndOnlineStau(onlineUser.springUser,3)
+        if(alreadyExistOnline){
+            userInfo.onlineRoomNumber=alreadyExistOnline.roomNumber
+            userInfo.onlineStatus=alreadyExistOnline.onlineStau
+        }
+
 
         //set the ssesion
 //        def session = RequestContextHolder.currentRequestAttributes().getSession()
