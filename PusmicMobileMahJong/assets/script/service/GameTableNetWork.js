@@ -162,7 +162,7 @@ cc.Class({
                     var offLineUserObj = JSON.parse(messageDomain.messageBody);
                     console.log("offLineUserObj:" + offLineUserObj.onlineStau);
 
-                    /*
+                    
                     if (offLineUserObj.onlineStau == 1) {
                         //remove user form gobale user list
                         var userList = Global.userList;
@@ -182,10 +182,10 @@ cc.Class({
                         //console.log("offLineUserObj 168-33:" + offLineUserObj.onlineStau);
 
 
-                    }*/
+                    }
                     console.log("offLineUserObj 176:" + offLineUserObj.onlineStau);
                     //2,1 only for test 
-                    if (offLineUserObj.onlineStau == 1) {
+                    if (offLineUserObj.onlineStau == 2) {
                         offlineScript.showOfflinePanel(offLineUserObj.springUserNickName, offLineUserObj.springUserOpenId);
                     }
                     console.log("offLineUserObj 180:" + offLineUserObj.onlineStau);
