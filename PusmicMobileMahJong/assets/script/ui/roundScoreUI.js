@@ -49,6 +49,22 @@ cc.Class({
             var userCountAllLable = userCountNode.getComponent(cc.Label);
             userCountAllLable.string = user.roundScoreCount
 
+            var serverUrl = Global.hostHttpProtocol + "://" + Global.hostServerIp + ":" + Global.hostServerPort;
+            console.log("headImageFileName:" + user.headImageFileName);
+            var headImageurl = serverUrl + "/webchatImage/" + user.headImageFileName;
+
+
+
+            // var spritFrame=headNode.getComponent(cc.Sprite);
+
+            cc.loader.load(headImageurl, function (err, nodeName) {
+                var frame = new cc.SpriteFrame(texture);
+                var userNode = cc.find(nodeName, this.userRoundScoreNode);
+                var bgNode = cc.find("bgSprite", userNode);
+                var headNode = cc.find("headNode", bgNode);
+                headNode.getComponent(cc.Sprite).spriteFrame = frame;
+                console.log("userNode:" + "1214");
+            });
 
 
         }
@@ -119,7 +135,7 @@ cc.Class({
             //3 send 
 
             tableNetWorkScript.sendStartNewRound();
-        }else{
+        } else {
             this.initalAllRoundScore();
         }
     }

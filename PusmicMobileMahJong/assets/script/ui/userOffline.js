@@ -98,7 +98,7 @@ cc.Class({
         var userInfo = Global.userInfo;
         var o = new Object();
         o.openid = userInfo.openid;
-        o.message = userInfo.nikeName + " 已选择继续等待。";
+        o.message = userInfo.nickName + " 已选择继续等待。";
         networkSprit.sendUserOfflineSatauSelect(JSON.stringify(o));
 
     },
@@ -203,6 +203,15 @@ cc.Class({
         alertMessageUI.setTextOfPanel();
 
     },
+    testShowMessage:function(){
+
+        var userSelctOption = this.userSelectLableNode.getComponent(cc.RichText);
+        userSelctOption.string = userSelctOption.string + "test ddddd" + "\n";
+        if (o.message.indexOf("解散") >= 0) {
+            agreeDeleUserCount++;
+        }
+
+    },
     testDele: function () {
         this.deleteRoom("user 1 选择了解散房间");
     },
@@ -216,7 +225,7 @@ cc.Class({
         var userInfo = Global.userInfo;
         var o = new Object();
         o.openid = userInfo.openid;
-        o.message = userInfo.nikeName + " 已选择解散房间。";
+        o.message = userInfo.nickName + " 已选择解散房间。";
         networkSprit.sendUserOfflineSatauSelect(JSON.stringify(o));
         //networkSprit.sendUserOfflineSatauSelect(userInfo.nikeName + " 已选择解散房间。");
 

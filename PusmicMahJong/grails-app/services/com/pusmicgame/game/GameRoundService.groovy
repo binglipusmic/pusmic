@@ -1,6 +1,7 @@
 package com.pusmicgame.game
 
 import com.pusmic.game.mahjong.LoingUserInfo
+import com.pusmic.game.mahjong.OnlineUser
 import com.pusmic.game.mahjong.SpringUser
 import com.pusmicgame.domain.MessageDomain
 import com.pusmicgame.domain.UserInfo
@@ -318,7 +319,13 @@ class GameRoundService {
                             }
 
                         }
+                      //round end chage user online sutat to 1
 
+                        OnlineUser onlineUser=OnlineUser.findBySpringUser(user.springUser)
+                        if(onlineUser){
+                            onlineUser.onlineStau=1
+                            onlineUser.save(flush: true, failOnError: true)
+                        }
 
                     }
                 }

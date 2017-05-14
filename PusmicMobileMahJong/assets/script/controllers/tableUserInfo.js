@@ -3,6 +3,7 @@ var tablePaiActionScript;
 var iniMainScript;
 var tableNetworkScript;
 var iniIndexScript;
+var quePaiScript;
 cc.Class({
     extends: cc.Component,
 
@@ -22,6 +23,7 @@ cc.Class({
         userInfo2: cc.Node,
         userInfo3: cc.Node,
         userInfo4: cc.Node,
+        quePaiScriptNode: cc.Node,
         tableActionNode: cc.Node,
         tableNode: cc.Node,
         userReadyIconOk: cc.SpriteFrame,
@@ -77,6 +79,8 @@ cc.Class({
         huanPaiScript = this.huanPaiScriptNode.getComponent("huanPaiUI");
         tableNetworkScript = this.tableNetworkNode.getComponent("GameTableNetWork");
         iniIndexScript = this.indexNode.getComponent("iniIndex");
+        quePaiScript = this.quePaiScriptNode.getComponent("quepaiScript");
+
         //tablePaiActionScript =this.tablePaiActionNode.getComponent("tablePaiAction");
 
     },
@@ -391,9 +395,17 @@ cc.Class({
         //put back the user list to gobal
 
         Global.userList = userList;
+        var gameMode = Global.gameMode;
         if (type != "joinExist") {
             //show huanPaiScript
-            huanPaiScript.showHuanPaiNode();
+            if (gameMode.huanSanZhang + "" == "1") {
+                huanPaiScript.showHuanPaiNode();
+            } else {
+                userInfoScript.disableAllPai();
+                Global.chuPaiActionType = "";
+                quePaiScript.showQuePaiNodeAll();
+            }
+
         }
 
 

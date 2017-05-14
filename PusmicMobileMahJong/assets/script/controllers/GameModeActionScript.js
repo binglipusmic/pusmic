@@ -34,6 +34,7 @@ cc.Class({
         roundCount8: cc.Node,
         gamePeopleNumber: cc.Node,
         gameModeUINode: cc.Node,
+        huanSanZhangNode: cc.Node,
     },
 
     // use this for initialization
@@ -48,7 +49,7 @@ cc.Class({
         gameMode.gamePeopleNumber = 4;
         this.initalGameModeUIByModeData();
 
-         this.gameModeUINode.on('touchstart', function (event) {
+        this.gameModeUINode.on('touchstart', function (event) {
             event.stopPropagation();
         });
         this.gameModeUINode.on('touchend', function (event) {
@@ -93,6 +94,7 @@ cc.Class({
                 if (porpertitesName == "ziMoJiaDi") {
                     eval("gameMode.ziMoJiaFan = '0'");
                 }
+              
                 if (porpertitesName == "ziMoJiaFan") {
                     eval("gameMode.ziMoJiaDi = '0'");
                 }
@@ -140,10 +142,10 @@ cc.Class({
     },
     optionSelectFunction: function (event) {
         var node = event.target;
-         var partentNode = node.parent;
-        node= node.parent.parent;
+        var partentNode = node.parent;
+        node = node.parent.parent;
         cc.log(node.name);
-       
+
         cc.log(partentNode.name);
         var tog = node.getComponent(cc.Toggle);
         if (tog != null) {
@@ -172,6 +174,10 @@ cc.Class({
             }
             if (partentNode.name == "menQingToggle") {
                 this.setGameMode("mengQingZhongZhang", tog)
+
+            }
+            if (partentNode.name == "huanSanZhangToggle") {
+                this.setGameMode("huanSanZhang", tog)
 
             }
             if (partentNode.name == "tianDiHuToggle") {
@@ -268,7 +274,7 @@ cc.Class({
         } else {
             this.fan2.getComponent(cc.Toggle).isChecked = false
         }
-        cc.log("gameMode.fan3:" + gameMode.fan3);
+       
         if (gameMode.fan3 + "" == "1") {
             this.fan3.getComponent(cc.Toggle).isChecked = true
         } else {
@@ -289,6 +295,16 @@ cc.Class({
         } else {
             this.roundCount8.getComponent(cc.Toggle).isChecked = false
         }
+        if (gameMode.huanSanZhang + "" == "1") {
+            this.huanSanZhangNode.getComponent(cc.Toggle).isChecked = true
+        } else {
+            this.huanSanZhangNode.getComponent(cc.Toggle).isChecked = false
+        }
+
+         cc.log("gameMode.huanSanZhang:" + gameMode.huanSanZhang);
+        //huanSanZhangNode
+
+        //setGameMode
 
     },
     // setting all values into  gobal mode object and swtich to table sence.

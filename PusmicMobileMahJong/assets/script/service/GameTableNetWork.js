@@ -118,7 +118,7 @@ cc.Class({
 
         }
         var json = JSON.stringify(huActionListCache)
-        cc.log("huActionListCache:" + json.toString());
+        console.log("huActionListCache:" + json.toString());
     },
     connectByPrivateChanel: function () {
         if (client == null || client == undefined || client.connected == false) {
@@ -137,7 +137,7 @@ cc.Class({
         }
         client.subscribe("/queue/privateUserChanel" + thisRooNumber, function (message) {
             var bodyStr = message.body;
-            cc.log("######################");
+            console.log("######################");
             if (bodyStr.length > 0) {
                 bodyStr = base64.decode(bodyStr);
             }
@@ -162,7 +162,7 @@ cc.Class({
                     var offLineUserObj = JSON.parse(messageDomain.messageBody);
                     console.log("offLineUserObj:" + offLineUserObj.onlineStau);
 
-                    
+
                     if (offLineUserObj.onlineStau == 1) {
                         //remove user form gobale user list
                         var userList = Global.userList;
@@ -173,7 +173,7 @@ cc.Class({
                                 userList.splice(j, 1);
                             }
                         }
-                       // console.log("offLineUserObj 168-11:" + offLineUserObj.onlineStau);
+                        // console.log("offLineUserObj 168-11:" + offLineUserObj.onlineStau);
                         Global.userList = userList;
                         //update the GUI
                         //console.log("offLineUserObj 168-22:" + offLineUserObj.onlineStau);
@@ -234,7 +234,7 @@ cc.Class({
                 //-------------------------------------------------------------------------------------------
                 // actionUIScriptNode.showGameTalbe();
                 if (messageDomain.messageAction == "buildNewRoundLun") {
-                    cc.log(messageDomain.messageBody);
+                    console.log(messageDomain.messageBody);
                     var userObj = JSON.parse(messageDomain.messageBody);
                     var userList = [];
                     userObj.pointIndex = "3";
@@ -258,7 +258,7 @@ cc.Class({
                     if (Obj.messageExecuteFlag == "success") {
                         var userList = Global.userList;
                         var gameUserList = JSON.parse(Obj.messageExecuteResult);
-                        cc.log("%%%%%%Obj:" + Obj.messageExecuteResult);
+                        console.log("%%%%%%Obj:" + Obj.messageExecuteResult);
                         for (var j = 0; j < gameUserList.length; j++) {
                             var gameUser = gameUserList[j];
                             for (var i = 0; i < userList.length; i++) {
@@ -269,7 +269,7 @@ cc.Class({
                             }
                         }
                         Global.userList = userList;
-                        cc.log("Global.userList:" + Global.userList.toString())
+                        console.log("Global.userList:" + Global.userList.toString())
                         userInfoScript.intalUserInfoReadyIcon();
                     } else {
                         alertMessageUI.text = Obj.messageExecuteResult;
@@ -279,11 +279,11 @@ cc.Class({
                 };
                 //--------------------------------------------------
                 if (messageDomain.messageAction == "joinExistRoom") {
-                    var userOpenId=messageDomain.messageBody;
+                    var userOpenId = messageDomain.messageBody;
                     // var Obj = JSON.parse(messageDomain.messageBody);
                     // var gobalUser = Global.userInfo
                     // //Obj=JSON.parse(Obj.messageBody);
-                    // cc.log("messageBody1:" + messageDomain.messageBody);
+                    //console.log("messageBody1:" + messageDomain.messageBody);
                     // //cc.log("messageBody2:"+obj.messageBody);
 
                     // var joinRoomJson = JSON.parse(messageDomain.messageBody);
@@ -292,7 +292,7 @@ cc.Class({
 
                     // if (joinMode != null && joinMode != undefined) {
                     //     Global.gameMode = joinMode;
-                    //     cc.log("joinMode:" + Global.gameMode.toString());
+                    //    console.log("joinMode:" + Global.gameMode.toString());
                     // }
 
                     // var userList = [];
@@ -323,7 +323,7 @@ cc.Class({
                 //--------------------------------------------------
                 if (messageDomain.messageAction == "joinRoom") {
                     var Obj = JSON.parse(messageDomain.messageBody);
-                    cc.log("%%%%%%Obj.messageExecuteFlag:" + Obj.messageExecuteFlag);
+                    console.log("%%%%%%Obj.messageExecuteFlag:" + Obj.messageExecuteFlag);
                     if (Obj.messageExecuteFlag == "success") {
                         Global.joinRoomNumber = messageDomain.messageBelongsToPrivateChanleNumber;
                         var joinRoomJson = JSON.parse(Obj.messageExecuteResult);
@@ -331,24 +331,24 @@ cc.Class({
                         var joinMode = JSON.parse(joinRoomJson.gameMode);
                         if (joinMode != null && joinMode != undefined) {
                             Global.gameMode = joinMode;
-                            cc.log("joinMode:" + Global.gameMode.toString());
+                            console.log("joinMode:" + Global.gameMode.toString());
                         }
                         var existFlag = false;
 
-                        cc.log("%%%%%%Obj:" + Obj.messageExecuteResult);
-                        cc.log("%%%%%%gameUserList:" + gameUserList.length);
+                        console.log("%%%%%%Obj:" + Obj.messageExecuteResult);
+                        console.log("%%%%%%gameUserList:" + gameUserList.length);
                         if (gameUserList.length == 1) {
                             //  gameUserList[0].zhuang="1";
                         }
-                        // cc.log("%%%%%%gameUser:"+gameUser.toString());
+                        //console.log("%%%%%%gameUser:"+gameUser.toString());
                         var userList = [];
                         for (var j = 0; j < gameUserList.length; j++) {
                             var getUser = gameUserList[j]
-                            cc.log("%%%%%%gamegetUser:" + getUser.openid);
+                            console.log("%%%%%%gamegetUser:" + getUser.openid);
                             userList.push(getUser);
                         }
 
-                        cc.log("userList 1:" + userList.toString());
+                        console.log("userList 1:" + userList.toString());
                         Global.userList = userList;
                         //show game table
                         if (Global.joinRoomNumber == Global.userInfo.roomNumber) {
@@ -379,12 +379,12 @@ cc.Class({
                                 var paiListString = gameUser.paiList;
                                 user.zhuang = gameUser.zhuang;
                                 paiListString = this.changeJsonListStringToArrayString(paiListString)
-                                cc.log("gameUser.paiList:" + paiListString);
+                                console.log("gameUser.paiList:" + paiListString);
                                 user.paiList = paiListString;
                             }
 
                             //   if (user.openid == userInfo.openid) {
-                            //       cc.log("found 3:"+user.openid);
+                            //      console.log("found 3:"+user.openid);
                             //        user.pointIndex =3
                             //   }
                         }
@@ -415,12 +415,12 @@ cc.Class({
                                 var paiListString = gameUser.paiList;
 
                                 paiListString = this.changeJsonListStringToArrayString(paiListString)
-                                cc.log("gameUser.paiList:" + paiListString);
+                                console.log("gameUser.paiList:" + paiListString);
                                 user.paiList = paiListString;
                             }
 
                             //   if (user.openid == userInfo.openid) {
-                            //       cc.log("found 3:"+user.openid);
+                            //      console.log("found 3:"+user.openid);
                             //        user.pointIndex =3
                             //   }
                         }
@@ -446,7 +446,7 @@ cc.Class({
                     var currentRoundCount = messageDomain.messageBody
                     if (currentRoundCount != null && currentRoundCount != undefined) {
                         Global.gameRoundCount = parseInt(currentRoundCount);
-                        cc.log("set gameRoundCount:" + Global.gameRoundCount);
+                        console.log("set gameRoundCount:" + Global.gameRoundCount);
                     }
 
 
@@ -456,8 +456,8 @@ cc.Class({
                 //quepai sendQuePai
                 if (messageDomain.messageAction == "sendQuePai") {
                     var quePaiUser = JSON.parse(messageDomain.messageBody);
-                    cc.log("quePaiUser.quePai:" + quePaiUser.quePai);
-                    cc.log("quePaiUser.openid:" + quePaiUser.openid);
+                    console.log("quePaiUser.quePai:" + quePaiUser.quePai);
+                    console.log("quePaiUser.openid:" + quePaiUser.openid);
                     var userList2 = Global.userList;
                     var userInfo = Global.userInfo;
                     var quePaiCount = 0;
@@ -486,8 +486,8 @@ cc.Class({
                     var currentUser;
                     var zhuangInde;
                     for (var i = 0; i < userList2.length; i++) {
-                        // cc.log("userList2[i].zhuang:" + userList2[i].zhuang);
-                        // cc.log("userList2[i].pointIndex:" + userList2[i].pointIndex);
+                        //console.log("userList2[i].zhuang:" + userList2[i].zhuang);
+                        //console.log("userList2[i].pointIndex:" + userList2[i].pointIndex);
                         if (userList2[i].zhuang == "1") {
                             zhuangOpenId = userList2[i].openid;
                             zhuangInde = userList2[i].pointIndex;
@@ -497,31 +497,31 @@ cc.Class({
                             currentUser = userList2[i]
                         }
                     }
-
+                    console.log("zhuangOpenId:" + zhuangOpenId);
                     //close all wait Panle .
                     quePaiScript.closeWaitPanel();
                     //show center table
-                    cc.log("zhuangInde:" + zhuangInde);
+                    console.log("zhuangInde:" + zhuangInde);
                     tableCenterScript.index = zhuangInde;
                     tableCenterScript.showCenterPoint();
                     //enable self pai list 
                     if (currentUser.openid == zhuangOpenId) {
                         tablePaiActionScript.enabledAllPaiAfterQuePai();
                         var paiLast = currentUser.paiListArray[currentUser.paiListArray.length - 1]
-                        cc.log("First mopai:" + paiLast);
+                        console.log("First mopai:" + paiLast);
                         currentUser.userMoPai = paiLast;
                         tablePaiActionScript.updateUserListInGobal(currentUser);
 
                         var tableNode = cc.find("Canvas/tableNode");
                         var parentNode = cc.find("user3PaiList", tableNode);
                         var children = parentNode.children;
-                        cc.log("First Name:" + children[children.length - 1].name)
+                        console.log("First Name:" + children[children.length - 1].name)
                         children[children.length - 1].name = "mopai_" + paiLast
-                        cc.log("Last Name:" + children[children.length - 1].name)
+                        console.log("Last Name:" + children[children.length - 1].name)
 
                         //check if user have gang
                         var actionArray = paiActionScript.checkActionArrayInSelfPaiList(currentUser.openid)
-                        cc.log("actionArray:" + actionArray.length);
+                        console.log("actionArray:" + actionArray.length);
                         if (actionArray.length > 1) {
                             paiActionScript.showAction(actionArray);
                         }
@@ -626,9 +626,9 @@ cc.Class({
                                 if (fromUserOpenid != userList[i].openid) {
                                     if (userList[i].huPai == null || userList[i].huPai == undefined || userList[i].huPai == "") {
                                         var actionArray = paiActionScript.getActionBarArrayByOpenId(paiNumber, userList[i].openid, "")
-                                        cc.log("openid :" + userList[i].openid);
-                                        cc.log("paiList:" + userList[i].paiListArray.toString());
-                                        cc.log("actionArray:" + actionArray.length);
+                                        console.log("openid :" + userList[i].openid);
+                                        console.log("paiList:" + userList[i].paiListArray.toString());
+                                        console.log("actionArray:" + actionArray.length);
                                         if (actionArray.length > 1) {
                                             userList[i].actionBarFlag = "1";
                                             var o = new Object();
@@ -734,7 +734,7 @@ cc.Class({
 
                             //     }
                             // }
-                            // cc.log("alreadyExistFlag:" + alreadyExistFlag);
+                            //console.log("alreadyExistFlag:" + alreadyExistFlag);
 
                             // if (alreadyExistFlag == false) {
                             //     //mopai
@@ -894,7 +894,7 @@ cc.Class({
                     }
                     //showActionBar
                     if (obj.actionName == "showActionBar") {
-                        cc.log("showActionBar action resive ")
+                        console.log("showActionBar action resive ")
                         var fromUserOpenId = obj.fromUserOpenid;
                         var arrayString = obj.actionArrayStr;
                         // var otherUserActionString = obj.otherActionStr;
@@ -917,7 +917,7 @@ cc.Class({
                         var userInfo = Global.userInfo;
                         var moPaiUserId = this.getNextUserFromCurentIndex();
                         fromUserOpenId = obj.fromUserOpenid;
-                        cc.log("moPaiUserId:" + moPaiUserId);
+                        console.log("moPaiUserId:" + moPaiUserId);
 
                         if (executeNextStepFlag + "" == "true") {
                             if (moPaiUserId == userInfo.openid) {
@@ -930,7 +930,7 @@ cc.Class({
                         //     for (var i = 0; i < userList.length; i++) {
                         //         if (userList[i].openid == fromUserOpenId) {
                         //             userList[i].actionBarFlag = "0";
-                        //             cc.log("moPaiUserId actionBarFlag:" + userList[i].openid);
+                        //            console.log("moPaiUserId actionBarFlag:" + userList[i].openid);
                         //         }
                         //     }
 
@@ -942,7 +942,7 @@ cc.Class({
                         //             //this.sendShowActionBarOnOtherUser(userList[i].openid, paiNumber);
                         //         }
                         //     }
-                        //     cc.log("moPaiUserId alreadyExistFlag:" + alreadyExistFlag);
+                        //    console.log("moPaiUserId alreadyExistFlag:" + alreadyExistFlag);
                         //     if (alreadyExistFlag == false) {
                         //         //mopai
                         //         if (userInfo.openid != fromUserOpenId) {
@@ -1007,12 +1007,12 @@ cc.Class({
                                 }
 
                             }
-                            cc.log("huPeople:" + huPeople);
-                            cc.log("userList.length:" + userList.length);
+                            console.log("huPeople:" + huPeople);
+                            console.log("userList.length:" + userList.length);
                             if (huPeople == userList.length - 1) {
                                 endGameFlag = true;
                             }
-                            cc.log("endGameFlag:" + endGameFlag);
+                            console.log("endGameFlag:" + endGameFlag);
                             if (Global.restPaiCount == 0) {
                                 endGameFlag = true;
                             }
@@ -1022,7 +1022,7 @@ cc.Class({
                                     this.sendMoPaiAction();
                                 }
                             } else {
-                                cc.log("**sendCheckRoundEnd**");
+                                console.log("**sendCheckRoundEnd**");
                                 this.sendCheckRoundEnd();
                                 //send to server to check if it already end the round and round lun 
 
@@ -1051,7 +1051,7 @@ cc.Class({
             }
 
         }.bind(this), function () {
-            cc.log("websocket connect subscribe Error:233");
+            console.log("websocket connect subscribe Error:233");
             //client.disconnect();
         });
     },
@@ -1063,7 +1063,7 @@ cc.Class({
             this.sendLocationInfoToServer();
 
         }.bind(this), function () {
-            cc.log("websocket connect  Error:234");
+            console.log("websocket connect  Error:234");
             //client.disconnect();
         });
 
@@ -1157,14 +1157,14 @@ cc.Class({
         var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
         this.sendMessageToServer(messageObj);
     },
-    sendOffLineUserKouFen: function (useropenid,maxFen) {
+    sendOffLineUserKouFen: function (useropenid, maxFen) {
 
         var joinRoomNumber = Global.joinRoomNumber;
         var o = new Object();
         //o.fromUserOpenid = userOpenId;
         o.actionName = "offlineUserKouFen";
         o.openid = useropenid;
-        o.maxFen=maxFen;
+        o.maxFen = maxFen;
         var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "offlineUserKouFen");
         this.sendMessageToServer(messageObj);
     },
@@ -1278,7 +1278,7 @@ cc.Class({
         tableCenterScript.endTimer();
     },
     sendPengPaiAction: function (fromUserOpenId, paiNumber) {
-        cc.log("sendPengPaiAction");
+        console.log("sendPengPaiAction");
         var joinRoomNumber = Global.joinRoomNumber;
         var o = new Object();
         //var gameStep = require("gameStep").gameStep;
@@ -1353,7 +1353,7 @@ cc.Class({
     },
     //send mo pai will auto get current user 
     sendMoPaiAction: function () {
-        cc.log("sendMoPaiAction");
+        console.log("sendMoPaiAction");
         var joinRoomNumber = Global.joinRoomNumber;
         var nextUserOpenId = this.getNextUserFromCurentIndex();
         var o = new Object();
@@ -1391,13 +1391,13 @@ cc.Class({
         }
 
         currentIndex = this.getNextIndex(currentIndex);
-        cc.log("getNextUserByOpenId currentIndex:" + currentIndex);
+        console.log("getNextUserByOpenId currentIndex:" + currentIndex);
         var user = tablePaiActionScript.getCorrectUserByPoint(currentIndex);
-        // cc.log("1018 user.huPai:" + user.huPai);
+        //console.log("1018 user.huPai:" + user.huPai);
         if (user.huPai != null && user.huPai != undefined & user.huPai != "") {
             currentIndex = this.getNextIndex(currentIndex);
             user = tablePaiActionScript.getCorrectUserByPoint(currentIndex);
-            // cc.log("1022 user.huPai:" + user.huPai);
+            //console.log("1022 user.huPai:" + user.huPai);
             if (user.huPai != null && user.huPai != undefined & user.huPai != "") {
                 currentIndex = this.getNextIndex(currentIndex);
                 user = tablePaiActionScript.getCorrectUserByPoint(currentIndex);
@@ -1421,13 +1421,13 @@ cc.Class({
         //cc.log("1013 currentIndex:" + currentIndex);
         currentIndex = this.getNextIndex(currentIndex);
         //tableActionScript.getNextUserFromCurentIndex
-        cc.log("1096 currentIndex:" + currentIndex);
+        console.log("1096 currentIndex:" + currentIndex);
         var user = tablePaiActionScript.getCorrectUserByPoint(currentIndex);
-        // cc.log("1018 user.huPai:" + user.huPai);
+        //console.log("1018 user.huPai:" + user.huPai);
         if (user.huPai != null && user.huPai != undefined & user.huPai != "") {
             currentIndex = this.getNextIndex(currentIndex);
             user = tablePaiActionScript.getCorrectUserByPoint(currentIndex);
-            // cc.log("1022 user.huPai:" + user.huPai);
+            //console.log("1022 user.huPai:" + user.huPai);
             if (user.huPai != null && user.huPai != undefined & user.huPai != "") {
                 currentIndex = this.getNextIndex(currentIndex);
                 user = tablePaiActionScript.getCorrectUserByPoint(currentIndex);
@@ -1445,7 +1445,7 @@ cc.Class({
         //     }
         // }
         nextOpenId = user.openid;
-        cc.log("getNextUserFromCurentIndex:" + nextOpenId);
+        console.log("getNextUserFromCurentIndex:" + nextOpenId);
         return nextOpenId
 
     },
@@ -1455,10 +1455,10 @@ cc.Class({
         currentIndex = currentIndex + "";
         currentIndex = currentIndex.trim();
         currentIndex = parseInt(currentIndex);
-        // cc.log("currentIndex:" + currentIndex);
-        // cc.log("Global.userList.length:" + Global.userList.length);
+        //console.log("currentIndex:" + currentIndex);
+        //console.log("Global.userList.length:" + Global.userList.length);
         if (currentIndex == Global.userList.length) {
-            // cc.log("1050:" + currentIndex);
+            //console.log("1050:" + currentIndex);
             nextIndex = 1
         } else {
 
@@ -1483,7 +1483,7 @@ cc.Class({
         this.connectByPrivateChanel();
         this.subscribeToPrivateChanelNoConnetAgain(joinRoomNumber);
         Global.subid = Global.subid + 1;
-        cc.log("Global.subid:" + Global.subid);
+        console.log("Global.subid:" + Global.subid);
         userInfo = Global.userInfo;
         var openId = userInfo.openid;
         //var messageObj = this.buildSendMessage(openId, joinRoomNumber, "joinRoom");
@@ -1505,7 +1505,7 @@ cc.Class({
         //this.connectByPrivateChanel();
         this.subscribeToPrivateChanelNoConnetAgain(joinRoomNumber);
         Global.subid = Global.subid + 1;
-        cc.log("Global.subid:" + Global.subid);
+        console.log("Global.subid:" + Global.subid);
         userInfo = Global.userInfo;
         var openId = userInfo.openid;
         var messageObj = this.buildSendMessage(openId, joinRoomNumber, "joinRoom");
@@ -1517,7 +1517,7 @@ cc.Class({
     //--------------------------------------------------------------------------------------------------------
     buildNewGameRound: function () {
         // this.initalClient();
-        cc.log("buildNewGameRound-----------------------");
+        console.log("buildNewGameRound-----------------------");
         var gameMode = Global.gameMode;
         if (gameMode == null) {
             gameMode = require("gameMode").gameMode;
@@ -1537,11 +1537,11 @@ cc.Class({
                 gameMode.gpsLimit = "0"
             }
             o.gameMode = gameMode;
-            cc.log("buildNewGameRound2-----------------------");
+            console.log("buildNewGameRound2-----------------------");
             var messageObj = this.buildSendMessage(JSON.stringify(o), roomNumber, "buildNewRoundLun");
 
             this.sendMessageToServer(messageObj);
-            cc.log("buildNewGameRound3-----------------------");
+            console.log("buildNewGameRound3-----------------------");
         }
         Global.gameMode = gameMode;
 
@@ -1558,10 +1558,10 @@ cc.Class({
 
     },
 
-     closeGameRoundLunByRoomNumber: function (roomNumber) {
-   
-            var messageObj = this.buildSendMessage(roomNumber, roomNumber, "closeGameRoundLun");
-            this.sendMessageToServer(messageObj);
+    closeGameRoundLunByRoomNumber: function (roomNumber) {
+
+        var messageObj = this.buildSendMessage(roomNumber, roomNumber, "closeGameRoundLun");
+        this.sendMessageToServer(messageObj);
 
 
     },
@@ -1584,7 +1584,7 @@ cc.Class({
         o.peopleCount = peopleCount;
         var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "sendQuePai");
         this.sendMessageToServer(messageObj);
-        cc.log("sendQuePai");
+        console.log("sendQuePai");
 
 
     },
@@ -1619,7 +1619,7 @@ cc.Class({
         var o = new Object();
         o.huanSanZhangPaiList = paiList;
         o.openid = userOpenId;
-        cc.log("sendHuanSanZhang userOpenId:" + userOpenId);
+        console.log("sendHuanSanZhang userOpenId:" + userOpenId);
         var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "userHuanSanZhang");
         this.sendMessageToServer(messageObj);
 
@@ -1628,9 +1628,9 @@ cc.Class({
     sendUserReadyToServer: function (event) {
         var node = event.target;
         var readyStatu = "0";
-        cc.log("node:" + node.name);
+        console.log("node:" + node.name);
         var s = node.getComponent(cc.Sprite);
-        cc.log("s:" + s.spriteFrame.name);
+        console.log("s:" + s.spriteFrame.name);
         if (s.spriteFrame.name == "26") {
             readyStatu = "1";
         } else {
@@ -1698,7 +1698,7 @@ cc.Class({
     //----------------Count round socre--------------------
     checkUserIfTingPai: function (user) {
         var paiList = user.paiListArray;
-        cc.log("1276:" + paiList.toString());
+        console.log("1276:" + paiList.toString());
         var gangPaiList = user.gangPaiList;
         var pengList = user.pengList;
 
@@ -1712,14 +1712,14 @@ cc.Class({
         }
         var paiTypeList = ["1", "2", "3"];
         var temp = [];
-        cc.log("checkUserIfTingPai quePai:" + quePai);
+        console.log("checkUserIfTingPai quePai:" + quePai);
         for (var i = 0; i < paiTypeList.length; i++) {
             var pai = paiTypeList[i];
             if (quePai + "" != pai) {
                 temp.push(pai);
             }
         }
-        cc.log("checkUserIfTingPai temp:" + temp.toString());
+        console.log("checkUserIfTingPai temp:" + temp.toString());
         var testPaiList = [];
         for (var i = 0; i < temp.length; i++) {
             for (var j = 1; j <= 9; j++) {
@@ -1727,20 +1727,20 @@ cc.Class({
                 testPaiList.push(paiNumber);
             }
         }
-        cc.log("testPaiList:" + testPaiList.toString());
+        console.log("testPaiList:" + testPaiList.toString());
         var huFlag = false;
         if (user.maxFanShu == undefined || user.maxFanShu == null) {
             user.maxFanShu = 0;
         }
         for (var i = 0; i < testPaiList.length; i++) {
-            cc.log("1311:" + paiList.toString());
+            console.log("1311:" + paiList.toString());
             huFlag = huPaiScript.hupaiLogic(testPaiList[i], user.openid, tempPaiList, "");
-            cc.log("1312:" + tempPaiList.toString());
-            cc.log("1313 pai:" + paiList.toString());
+            console.log("1312:" + tempPaiList.toString());
+            console.log("1313 pai:" + paiList.toString());
             if (huFlag == true) {
                 user.tingJiao = true;
                 paiList.push(testPaiList[i]);
-                cc.log("1317:" + paiList.toString());
+                console.log("1317:" + paiList.toString());
                 paiList.sort(function (a, b) { return a - b });
                 var returnArray = this.countHuPaiFanshu(pengList, gangPaiList, paiList);
                 var fanshu = returnArray[0];
@@ -1754,13 +1754,13 @@ cc.Class({
                 //break;
             }
         }
-        cc.log("checkUserIfTingPai user:" + user.openid);
-        cc.log("checkUserIfTingPai:" + huFlag);
+        console.log("checkUserIfTingPai user:" + user.openid);
+        console.log("checkUserIfTingPai:" + huFlag);
         return huFlag
 
     },
     countUserRoundScore: function () {
-        cc.log("countUserRoundScore starting ");
+        console.log("countUserRoundScore starting ");
         var userList = Global.userList;
         var noHuList = [];
         var gameMode = Global.gameMode;
@@ -1777,7 +1777,7 @@ cc.Class({
         if (gameMode.fan6 + "" == "1") {
             maxFan = 6;
         }
-        cc.log("maxFan:" + maxFan);
+        console.log("maxFan:" + maxFan);
         var roundScore = 0;
         var fanshu = 0;
         var details = "";
@@ -1792,8 +1792,8 @@ cc.Class({
             } else {
                 this.checkUserIfTingPai(user);
 
-                cc.log("user.tingJiao:" + user.tingJiao);
-                cc.log("user.tingJiao user:" + user.openid);
+                console.log("user.tingJiao:" + user.tingJiao);
+                console.log("user.tingJiao user:" + user.openid);
             }
         }
 
@@ -1812,9 +1812,9 @@ cc.Class({
                 var existUserString = user.existUserString;
                 var gangTypeList = user.gangTypeList;
                 var gangExistUserCache = user.gangExistUserCache;
-                cc.log("user gangTypeList1306:" + gangTypeList);
-                cc.log("user :" + user.openid);
-                cc.log("user existUserString:" + existUserString);
+                console.log("user gangTypeList1306:" + gangTypeList);
+                console.log("user :" + user.openid);
+                console.log("user existUserString:" + existUserString);
                 if (gangPaiList != null && gangPaiList != undefined && gangPaiList.length > 0) {
                     for (var j = 0; j < gangPaiList.length; j++) {
 
@@ -1828,7 +1828,7 @@ cc.Class({
                             userGangList = userGangExistUser.split(";");
                         }
                         this.setExistUserRoundCount(userGangExistUser, gangTypeList[j], user);
-                        cc.log("gangTypeList[j]:" + gangTypeList[j]);
+                        console.log("gangTypeList[j]:" + gangTypeList[j]);
                         if (gangTypeList[j] + "" == "2") {
                             details = details + " 自杠 " + userGangList.length + "*2;";
                         } else {
@@ -1855,8 +1855,8 @@ cc.Class({
 
                 details = details + returnArray[1];
                 user.huPaiFanShu = user.huPaiFanShu + fanshu
-                cc.log(" user.huPaiFanShu:" + user.huPaiFanShu);
-                cc.log(" user.details:" + details);
+                console.log(" user.huPaiFanShu:" + user.huPaiFanShu);
+                console.log(" user.details:" + details);
                 if (user.huPaiFanShu > maxFan) {
                     user.huPaiFanShu = maxFan;
                 }
@@ -1879,7 +1879,7 @@ cc.Class({
                     }
                 }
 
-                cc.log(" user.huPaiFanShu 1355:" + user.huPaiFanShu);
+                console.log(" user.huPaiFanShu 1355:" + user.huPaiFanShu);
                 //-----------gang shang hua check --------------------
                 if (user.huchuPaiType == "gang") {
                     if (user.huPaiFanShu < maxFan) {
@@ -1910,8 +1910,8 @@ cc.Class({
                 } else {
                     //roundScore=fanshu*2;
                     var a = 1;
-                    cc.log("1384 user.huPaiFanShu:" + user.huPaiFanShu);
-                    cc.log("1384 user.roundScore:" + roundScore);
+                    console.log("1384 user.huPaiFanShu:" + user.huPaiFanShu);
+                    console.log("1384 user.roundScore:" + roundScore);
                     if (user.huPaiFanShu == undefined || user.huPaiFanShu == null || user.huPaiFanShu == 0 || user.huPaiFanShu == "") {
 
                     } else {
@@ -1923,18 +1923,18 @@ cc.Class({
 
 
                     roundScore = a;
-                    cc.log("1389 a:" + a);
+                    console.log("1389 a:" + a);
                 }
 
                 if (zimoJiaDiFalg) {
                     roundScore = roundScore + 1;
                 }
 
-                cc.log("roundScore:" + roundScore);
+                console.log("roundScore:" + roundScore);
                 //start count for each user 
 
                 if (user.huchuPaiType == "gang" && gameMode.dianGangHua_dianPao + "" == "1") {
-                    cc.log("1388:" + user.huGangShangHuaChuPaiUserOpenId);
+                    console.log("1388:" + user.huGangShangHuaChuPaiUserOpenId);
                     var tempUser = this.getCurreentUserByOpenId(user.huGangShangHuaChuPaiUserOpenId);
 
                     if (user.roundScoreCount == null || user.roundScoreCount == undefined) {
@@ -1959,19 +1959,19 @@ cc.Class({
 
                 } else {
                     var existUserList = existUserString.split(";");
-                    cc.log("user.roundScoreCount0:" + user.roundScoreCount);
+                    console.log("user.roundScoreCount0:" + user.roundScoreCount);
                     if (user.roundScoreCount == null || user.roundScoreCount == undefined) {
                         user.roundScoreCount = roundScore * existUserList.length;
                     } else {
                         user.roundScoreCount = user.roundScoreCount + roundScore * existUserList.length;
                     }
                     user.huPaiDetails = details + " 胡牌得分:" + roundScore * existUserList.length + ";";
-                    cc.log("user.roundScoreCount1:" + roundScore);
-                    cc.log("user.roundScoreCount2:" + roundScore * existUserList.length);
-                    cc.log("user.roundScoreCount3:" + user.roundScoreCount);
-                    cc.log("user.huPaiDetails:" + user.huPaiDetails);
+                    console.log("user.roundScoreCount1:" + roundScore);
+                    console.log("user.roundScoreCount2:" + roundScore * existUserList.length);
+                    console.log("user.roundScoreCount3:" + user.roundScoreCount);
+                    console.log("user.huPaiDetails:" + user.huPaiDetails);
                     for (var k = 0; k < existUserList.length; k++) {
-                        cc.log("existUserList[k]:" + existUserList[k]);
+                        console.log("existUserList[k]:" + existUserList[k]);
                         if (existUserList[k] != null && existUserList[k] != undefined && existUserList[k] != "") {
                             var tempUser = this.getCurreentUserByOpenId(existUserList[k]);
                             if (tempUser.roundScoreCount == null || tempUser.roundScoreCount == undefined) {
@@ -1984,7 +1984,7 @@ cc.Class({
                             }
 
                             tempUser.huPaiDetails = tempUser.huPaiDetails + " 胡牌失分:-" + roundScore + ";";
-                            cc.log("tempUser.roundScoreCount:" + tempUser.roundScoreCount);
+                            console.log("tempUser.roundScoreCount:" + tempUser.roundScoreCount);
                         }
 
                     }
@@ -1999,11 +1999,11 @@ cc.Class({
 
                         //only firstGangUser xia jiao 
                         var firstGangUserPaiList = firstGangUser.gangPaiList;
-                        cc.log("firstGangUserPaiList:" + firstGangUserPaiList);
+                        console.log("firstGangUserPaiList:" + firstGangUserPaiList);
                         var resultScoreceHuJiao = 0;
                         if (firstGangUserPaiList != null && firstGangUserPaiList != undefined && firstGangUserPaiList.length > 0) {
                             var firstUserGangExistUser = firstGangUser.gangExistUser;
-                            cc.log("firstUserGangExistUser:" + firstUserGangExistUser);
+                            console.log("firstUserGangExistUser:" + firstUserGangExistUser);
                             var firstGangTypeList = firstGangUser.gangTypeList;
                             var firstGangFromUserListOpenId = firstGangUser.gangFromUserListOpenId;
                             for (var v = 0; v < firstGangUserPaiList.length; v++) {
@@ -2154,8 +2154,8 @@ cc.Class({
         for (var i = 0; i < userList.length; i++) {
             var score = userList[i].roundScoreCount;
             var details = userList[i].huPaiDetails;
-            cc.log("user:" + userList[i].openid + "--" + score);
-            cc.log("user details:" + details);
+            console.log("user:" + userList[i].openid + "--" + score);
+            console.log("user details:" + details);
         }
 
     },
@@ -2226,7 +2226,7 @@ cc.Class({
             if (pai == "1" || pai == "9") {
                 zhongZhangFlag = false;
             }
-            // cc.log("paiArrayCache:" + paiArrayCache.toString());
+            //console.log("paiArrayCache:" + paiArrayCache.toString());
 
             caChepailist.push(paiArrayCache);
         }
@@ -2251,7 +2251,7 @@ cc.Class({
             qiaoQiDuiFlag = false;
             menqingFlag = false;
         }
-        cc.log("1554:" + fanShu);
+        console.log("1554:" + fanShu);
         if (pengList != null && pengList != undefined && pengList.length > 0) {
             for (var i = 0; i < pengList.length; i++) {
                 var pai = pengList[i] + "";
@@ -2310,7 +2310,7 @@ cc.Class({
             }
         }
 
-        cc.log("1612:" + fanShu);
+        console.log("1612:" + fanShu);
         //qiao qi dui 
         returnArray.push(fanShu);
         returnArray.push(details);
@@ -2319,7 +2319,7 @@ cc.Class({
     },
     /**Set the gang score for user and other exist  */
     setExistUserRoundCount: function (existUserStr, type, user) {
-        cc.log("existUserStr:" + existUserStr);
+        console.log("existUserStr:" + existUserStr);
         var score = 0;
         if (type == "1") {
             score = 1;
@@ -2329,7 +2329,7 @@ cc.Class({
         }
         var existUserList = existUserStr.split(";");
         for (var i = 0; i < existUserList.length; i++) {
-            cc.log("existUserList[i]:" + existUserList[i]);
+            console.log("existUserList[i]:" + existUserList[i]);
             var existUser = this.getCurreentUserByOpenId(existUserList[i]);
             if (existUser.roundScoreCount == null || existUser.roundScoreCount == undefined || existUser.roundScoreCount == "") {
                 existUser.roundScoreCount = 0 - score;
@@ -2340,8 +2340,8 @@ cc.Class({
                 existUser.huPaiDetails = "";
             }
             existUser.huPaiDetails = existUser.huPaiDetails + "被杠失分:-" + score + ";"
-            cc.log(" existUser.roundScoreCount:" + existUser.roundScoreCount);
-            cc.log(" existUser.huPaiDetails:" + existUser.huPaiDetails);
+            console.log(" existUser.roundScoreCount:" + existUser.roundScoreCount);
+            console.log(" existUser.huPaiDetails:" + existUser.huPaiDetails);
         }
 
         if (user.roundScoreCount == null || user.roundScoreCount == undefined || user.roundScoreCount == "") {
@@ -2354,8 +2354,8 @@ cc.Class({
         } else {
             user.huPaiDetails = user.huPaiDetails + "杠牌得分:" + score * existUserList.length + ";"
         }
-        cc.log(" user.roundScoreCount:" + user.roundScoreCount);
-        cc.log(" user.huPaiDetails:" + user.huPaiDetails);
+        console.log(" user.roundScoreCount:" + user.roundScoreCount);
+        console.log(" user.huPaiDetails:" + user.huPaiDetails);
 
 
     },

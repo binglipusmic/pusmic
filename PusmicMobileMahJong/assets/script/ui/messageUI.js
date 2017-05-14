@@ -44,6 +44,9 @@ cc.Class({
         }
 
     },
+    closeMessage: function () {
+        this.messageNode.active = false;
+    },
 
     openBiaoQingAll: function () {
         this.biaoQingAndChangYongNode.active = true;
@@ -127,19 +130,21 @@ cc.Class({
         // }
         //this.messageRichTextBodyNode.x = 5;
         //this.messageRichTextBodyNode.y = -337.5;
-        myEditBox.string="";
+        myEditBox.string = "";
 
 
 
     },
 
     showMessage: function (message) {
-        console.log("showMessage:"+message);
+        console.log("showMessage:" + message);
         var rit = this.messageRichTextBodyNode.getComponent(cc.RichText);
 
         rit.string = rit.string + message + "\n"
         var scroView = this.messageScrollView.getComponent(cc.ScrollView);
         scroView.scrollToBottom();
+        this.openMessage();
+
 
     },
 
