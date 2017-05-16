@@ -188,6 +188,10 @@ class PaiService {
                         gameUserList[orderList[i + 1]].paiList = targetPaiList
 
 
+
+                        gameUserList[orderList[i]].huanSanZhang=targetHuanPaiStr
+                        gameUserList[orderList[i + 1]].huanSanZhang=sourceHuanPaiStr
+
                     }
 
                 }
