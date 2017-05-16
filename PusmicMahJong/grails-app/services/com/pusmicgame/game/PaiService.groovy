@@ -67,6 +67,7 @@ class PaiService {
             paiList[randomIndex] = paiList[i];
             paiList[i] = itemAtIndex;
         }
+        println  "paiList:"+paiList.toString()
 
         return paiList
     }
@@ -100,6 +101,7 @@ class PaiService {
                 //Integer[] paiList=xiPai()
                 def index=1
                 def orderList
+                println "peopleGameModeNumber:"+peopleGameModeNumber
                 if(peopleGameModeNumber==4){
                     orderList=getHuanPaiOrder(4);
                 }
