@@ -57,7 +57,7 @@ class PaiService {
         if(userSize==4){
             paiList=[0,1,2,3]
         }else{
-            paiList=[1,2,3]
+            paiList=[0,1,2]
         }
 
         for(int i=paiList.size()-1;i>=0;i--){
@@ -151,7 +151,7 @@ class PaiService {
                     }
                 }
                 if(Integer.parseInt(peopleGameModeNumber)==3){
-                    for (int i = 1; i < 3; i = i + 1) {
+                    for (int i = 0; i < 2; i = i + 1) {
                         def sourceHuanPaiStr = gameUserList[orderList[i]].huanSanZhang
                         def sourcePaiList = gameUserList[orderList[i]].paiList
                         def sourHuanList = sourceHuanPaiStr.split(",")
