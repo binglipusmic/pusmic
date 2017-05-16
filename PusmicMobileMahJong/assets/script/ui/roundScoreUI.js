@@ -76,9 +76,7 @@ cc.Class({
             console.log("userNode ui :1214");
         });
     },
-    closeRoundScore: function () {
-
-    },
+   
 
     initalAllRoundScore: function () {
         var userList = Global.userList;

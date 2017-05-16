@@ -196,8 +196,8 @@ cc.Class({
 
                 //build less deomond 
                 if (messageDomain.messageAction == "buildRoundFail") {
-
-                    alertMessageUI.text = "你所有的钻石不足以开启一局，请联系代理购买钻石，或者直接关注微信公众号:乐乐四川麻将购买";
+                    //请联系代理，或者直接关注微信公众号:乐乐四川麻将
+                    alertMessageUI.text = "你所有的钻石不足以开启一局.";
                     alertMessageUI.setTextOfPanel();
 
                 }
