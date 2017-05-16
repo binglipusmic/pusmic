@@ -102,11 +102,11 @@ class PaiService {
                 def index=1
                 def orderList
                 println "peopleGameModeNumber:"+peopleGameModeNumber
-                if(peopleGameModeNumber==4){
+                if(Integer.parseInt(peopleGameModeNumber)==4){
                     orderList=getHuanPaiOrder(4);
                 }
 
-                if(peopleGameModeNumber==3){
+                if(Integer.parseInt(peopleGameModeNumber)==3){
                     orderList=getHuanPaiOrder(3);
                 }
                 println "orderList:"+orderList.toString()
