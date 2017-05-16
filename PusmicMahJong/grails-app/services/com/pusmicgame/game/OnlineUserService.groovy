@@ -107,6 +107,11 @@ class OnlineUserService {
                 onlineUser.delete(flush: true, failOnError: true)
 
 
+            }else if (onlineUser.onlineStau == 3) {
+
+                onlineUser.delete(flush: true, failOnError: true)
+
+
             }
         }
 
