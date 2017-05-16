@@ -320,9 +320,10 @@ class GameRoundService {
 
                         }
                       //round end chage user online sutat to 1
-
+                        //OnlineUser.refresh()
                         OnlineUser onlineUser=OnlineUser.findBySpringUser(user.springUser)
                         if(onlineUser){
+                            onlineUser.refresh()
                             onlineUser.onlineStau=1
                             onlineUser.save(flush: true, failOnError: true)
                         }

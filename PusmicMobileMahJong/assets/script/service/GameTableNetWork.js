@@ -284,7 +284,7 @@ cc.Class({
                     // var gobalUser = Global.userInfo
                     // //Obj=JSON.parse(Obj.messageBody);
                     //console.log("messageBody1:" + messageDomain.messageBody);
-                    // //cc.log("messageBody2:"+obj.messageBody);
+                    // //console.log("messageBody2:"+obj.messageBody);
 
                     // var joinRoomJson = JSON.parse(messageDomain.messageBody);
                     // var gameUserList = JSON.parse(joinRoomJson.userList);
@@ -590,6 +590,7 @@ cc.Class({
 
                         //get next user openid 
                         var nextUserOpenId = this.getNextUserByOpenId(fromUserOpenid);
+                        console.log("593:");
                         if (fromUserOpenid != userInfo.openid) {
                             //reset user action status for each user 
                             for (var i = 0; i < userList.length; i++) {
@@ -598,6 +599,7 @@ cc.Class({
                                 if (obj.fromUserOpenid == userList[i].openid) {
                                     //show the chu pai action on animation
                                     var index = userList[i].pointIndex;
+                                    console.log("602:" + index);
                                     tablePaiActionScript.playOtherChuPaiAction(paiNumber, index);
                                     //update the pai list on the chu pai user
                                     userList[i].paiList = paiList.join(",");
@@ -617,11 +619,13 @@ cc.Class({
                             //check peng and gang and hu in the chu pai
 
                         }
+                        console.log("620:");
                         //only work on the next user 
                         if (nextUserOpenId == userInfo.openid) {
                             userList = Global.userList;
                             var huActionListCache = [];
                             var noHuActionListCache = [];
+                            console.log("626:");
                             for (var i = 0; i < userList.length; i++) {
                                 if (fromUserOpenid != userList[i].openid) {
                                     if (userList[i].huPai == null || userList[i].huPai == undefined || userList[i].huPai == "") {
@@ -653,7 +657,7 @@ cc.Class({
 
                             //First check the acttion count
                             var count = huActionListCache.length + noHuActionListCache.length;
-
+                            console.log("658:");
                             if (count == 0) {
                                 this.sendMoPaiAction();
                             } else if (count == 1) {
@@ -1023,7 +1027,12 @@ cc.Class({
                                 }
                             } else {
                                 console.log("**sendCheckRoundEnd**");
-                                this.sendCheckRoundEnd();
+                                //hu pai action will send to all user
+                                //we only need send one time check round end.
+                                if (userInfo.openid == fromUserOpenId) {
+                                    this.sendCheckRoundEnd();
+                                }
+
                                 //send to server to check if it already end the round and round lun 
 
                             }
@@ -1391,7 +1400,7 @@ cc.Class({
         }
 
         currentIndex = this.getNextIndex(currentIndex);
-        console.log("getNextUserByOpenId currentIndex:" + currentIndex);
+        console.log("getNextUserByOpenId currentIndex 1398:" + currentIndex);
         var user = tablePaiActionScript.getCorrectUserByPoint(currentIndex);
         //console.log("1018 user.huPai:" + user.huPai);
         if (user.huPai != null && user.huPai != undefined & user.huPai != "") {
@@ -1401,13 +1410,14 @@ cc.Class({
             if (user.huPai != null && user.huPai != undefined & user.huPai != "") {
                 currentIndex = this.getNextIndex(currentIndex);
                 user = tablePaiActionScript.getCorrectUserByPoint(currentIndex);
-                //cc.log("1026 user.huPai:" + user.huPai);
+                //console.log("1026 user.huPai:" + user.huPai);
                 if (user.huPai != null && user.huPai != undefined & user.huPai != "") {
                     //show end round 
                 }
             }
         }
         nextOpenId = user.openid;
+        console.log("getNextUserByOpenId currentIndex nextOpenId:" + nextOpenId);
         return nextOpenId
 
     },
@@ -1418,7 +1428,7 @@ cc.Class({
         var nextIndex = 0;
         var nextOpenId = "";
 
-        //cc.log("1013 currentIndex:" + currentIndex);
+        //console.log("1013 currentIndex:" + currentIndex);
         currentIndex = this.getNextIndex(currentIndex);
         //tableActionScript.getNextUserFromCurentIndex
         console.log("1096 currentIndex:" + currentIndex);
@@ -1431,7 +1441,7 @@ cc.Class({
             if (user.huPai != null && user.huPai != undefined & user.huPai != "") {
                 currentIndex = this.getNextIndex(currentIndex);
                 user = tablePaiActionScript.getCorrectUserByPoint(currentIndex);
-                //cc.log("1026 user.huPai:" + user.huPai);
+                //console.log("1026 user.huPai:" + user.huPai);
                 if (user.huPai != null && user.huPai != undefined & user.huPai != "") {
                     //show end round 
                 }
@@ -1456,16 +1466,25 @@ cc.Class({
         currentIndex = currentIndex.trim();
         currentIndex = parseInt(currentIndex);
         //console.log("currentIndex:" + currentIndex);
-        //console.log("Global.userList.length:" + Global.userList.length);
-        if (currentIndex == Global.userList.length) {
-            //console.log("1050:" + currentIndex);
-            nextIndex = 1
-        } else {
+        console.log("Global.userList.length:" + Global.userList.length);
+        if (Global.userList.length == 4) {
+            if (currentIndex == Global.userList.length) {
+                //console.log("1050:" + currentIndex);
+                nextIndex = 1
+            } else {
 
-            nextIndex = currentIndex + 1
-            //cc.log("1053:" + nextIndex);
+                nextIndex = currentIndex + 1
+                //console.log("1053:" + nextIndex);
+            }
+        } else {
+            //san ren majiang 
+            if (currentIndex == 4) {
+                nextIndex = 2
+            } else {
+                nextIndex = currentIndex + 1
+            }
         }
-        //cc.log("1057:" + nextIndex);
+        console.log("1057:" + nextIndex);
         return nextIndex
     },
 
@@ -2066,8 +2085,8 @@ cc.Class({
             }
 
         }
-        //cc.log("xiaJiaoUserList:" + xiaJiaoUserList.toString());
-        //cc.log("noXiaJiaoUserList:" + noXiaJiaoUserList.toString());
+        //console.log("xiaJiaoUserList:" + xiaJiaoUserList.toString());
+        //console.log("noXiaJiaoUserList:" + noXiaJiaoUserList.toString());
         if (xiaJiaoUserList != undefined && xiaJiaoUserList.length > 0) {
             if (noXiaJiaoUserList != undefined && noXiaJiaoUserList.length > 0) {
                 for (var j = 0; j < noXiaJiaoUserList.length; j++) {

@@ -211,8 +211,9 @@ class WebSokectController {
 
         if (messageJsonObj.messageAction.equals("updateLocation")) {
             def flag = userService.updateUserLocation(messageJsonObj)
+            def obj = JSON.parse(messageJsonObj.messageBody)
             sessionHeaders.put("roomNumber",messageJsonObj.messageBelongsToPrivateChanleNumber);
-
+            sessionHeaders.put("openid",obj.openid);
 
         }
 

@@ -116,8 +116,18 @@ class WebSokecConfig extends AbstractSessionWebSocketMessageBrokerConfigurer<Exp
 
                         if(roomNumber){
                             println "found websokectService roomNumber:"+roomNumber
-                            onlineUserService.offlineUser(roomNumber,openid)
+                            if(openid){
+                                onlineUserService.offlineUser(roomNumber,openid)
+                            }else{
+
+                            }
+
                             //websokectService.privateUserChanelByRoomNumber(roomNumber, "123")
+                        }else{
+                            if(openid){
+                                onlineUserService.removeOfflineUser(openid)
+                            }
+
                         }
 
 

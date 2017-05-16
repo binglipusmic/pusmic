@@ -48,6 +48,18 @@ class OnlineUserService {
         }
     }
 
+    def removeOfflineUser(openid){
+        SpringUser springUser=SpringUser.findByOpenid(openid)
+        if(springUser) {
+            OnlineUser onlineUserList = OnlineUser.findAllBySpringUser(springUser)
+            if (onlineUserList) {
+
+                onlineUserList.each{onlineuser->
+                    onlineuser.delete(flush: true, failOnError: true)
+                }
+            }
+        }
+    }
 
     def offlineUser(roomNUmber,openid){
         SpringUser springUser=SpringUser.findByOpenid(openid)
