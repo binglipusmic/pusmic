@@ -110,44 +110,85 @@ class PaiService {
                     orderList=getHuanPaiOrder(3);
                 }
                 println "orderList:"+orderList.toString()
+                if(Integer.parseInt(peopleGameModeNumber)==4) {
+                    for (int i = 0; i < 4; i = i + 2) {
+                        def sourceHuanPaiStr = gameUserList[orderList[i]].huanSanZhang
+                        def sourcePaiList = gameUserList[orderList[i]].paiList
+                        def sourHuanList = sourceHuanPaiStr.split(",")
+                        sourHuanList.eachWithIndex { String entry, int j ->
+                            sourHuanList[j] = entry.toInteger()
+                        }
+                        def targetHuanPaiStr = gameUserList[orderList[i + 1]].huanSanZhang
+                        def targetPaiList = gameUserList[orderList[i + 1]].paiList
+                        def targetHuanList = targetHuanPaiStr.split(",")
+                        targetHuanList.eachWithIndex { String entry, int j ->
+                            targetHuanList[j] = entry.toInteger()
+                        }
+                        println "sourceHuanPaiStr:" + sourceHuanPaiStr.toString()
+                        println "sourcePaiList:" + sourcePaiList.toString()
+                        println "targetHuanPaiStr:" + targetHuanPaiStr.toString()
+                        println "targetPaiList:" + targetPaiList.toString()
+                        sourcePaiList = filterArray(sourcePaiList, sourHuanList)
+                        targetPaiList = filterArray(targetPaiList, targetHuanList)
+                        println "sourcePaiList1:" + sourcePaiList.toString()
+                        println "targetPaiList1:" + targetPaiList.toString()
 
-                for(int i=0;i<4;i=i+2){
-                    def sourceHuanPaiStr=gameUserList[orderList[i]].huanSanZhang
-                    def sourcePaiList=gameUserList[orderList[i]].paiList
-                    def sourHuanList =sourceHuanPaiStr.split(",")
-                    sourHuanList.eachWithIndex{ String entry, int j ->
-                        sourHuanList[j]=entry.toInteger()
-                    }
-                    def targetHuanPaiStr=gameUserList[orderList[i+1]].huanSanZhang
-                    def targetPaiList=gameUserList[orderList[i+1]].paiList
-                    def targetHuanList=targetHuanPaiStr.split(",")
-                    targetHuanList.eachWithIndex{ String entry, int j ->
-                        targetHuanList[j]=entry.toInteger()
-                    }
-                    println "sourceHuanPaiStr:"+sourceHuanPaiStr.toString()
-                    println "sourcePaiList:"+sourcePaiList.toString()
-                    println "targetHuanPaiStr:"+targetHuanPaiStr.toString()
-                    println "targetPaiList:"+targetPaiList.toString()
-                    sourcePaiList=filterArray(sourcePaiList,sourHuanList)
-                    targetPaiList=filterArray(targetPaiList,targetHuanList)
-                    println "sourcePaiList1:"+sourcePaiList.toString()
-                    println "targetPaiList1:"+targetPaiList.toString()
-
-                    targetHuanList.each{t->
-                        println "targetHuanList:"+t
-                        sourcePaiList.add(t.toInteger())
-                    }
-                    sourHuanList.each{s->
-                        targetPaiList.add(s.toInteger())
-                    }
-                    sourcePaiList.sort()
-                    targetPaiList.sort()
-                    println "sourcePaiList2:"+sourcePaiList.toString()
-                    println "targetPaiList2:"+targetPaiList.toString()
-                    gameUserList[orderList[i]].paiList=sourcePaiList
-                    gameUserList[orderList[i+1]].paiList=targetPaiList
+                        targetHuanList.each { t ->
+                            println "targetHuanList:" + t
+                            sourcePaiList.add(t.toInteger())
+                        }
+                        sourHuanList.each { s ->
+                            targetPaiList.add(s.toInteger())
+                        }
+                        sourcePaiList.sort()
+                        targetPaiList.sort()
+                        println "sourcePaiList2:" + sourcePaiList.toString()
+                        println "targetPaiList2:" + targetPaiList.toString()
+                        gameUserList[orderList[i]].paiList = sourcePaiList
+                        gameUserList[orderList[i + 1]].paiList = targetPaiList
 
 
+                    }
+                }
+                if(Integer.parseInt(peopleGameModeNumber)==3){
+                    for (int i = 1; i < 4; i = i + 1) {
+                        def sourceHuanPaiStr = gameUserList[orderList[i]].huanSanZhang
+                        def sourcePaiList = gameUserList[orderList[i]].paiList
+                        def sourHuanList = sourceHuanPaiStr.split(",")
+                        sourHuanList.eachWithIndex { String entry, int j ->
+                            sourHuanList[j] = entry.toInteger()
+                        }
+                        def targetHuanPaiStr = gameUserList[orderList[i + 1]].huanSanZhang
+                        def targetPaiList = gameUserList[orderList[i + 1]].paiList
+                        def targetHuanList = targetHuanPaiStr.split(",")
+                        targetHuanList.eachWithIndex { String entry, int j ->
+                            targetHuanList[j] = entry.toInteger()
+                        }
+                        println "sourceHuanPaiStr:" + sourceHuanPaiStr.toString()
+                        println "sourcePaiList:" + sourcePaiList.toString()
+                        println "targetHuanPaiStr:" + targetHuanPaiStr.toString()
+                        println "targetPaiList:" + targetPaiList.toString()
+                        sourcePaiList = filterArray(sourcePaiList, sourHuanList)
+                        targetPaiList = filterArray(targetPaiList, targetHuanList)
+                        println "sourcePaiList1:" + sourcePaiList.toString()
+                        println "targetPaiList1:" + targetPaiList.toString()
+
+                        targetHuanList.each { t ->
+                            println "targetHuanList:" + t
+                            sourcePaiList.add(t.toInteger())
+                        }
+                        sourHuanList.each { s ->
+                            targetPaiList.add(s.toInteger())
+                        }
+                        sourcePaiList.sort()
+                        targetPaiList.sort()
+                        println "sourcePaiList2:" + sourcePaiList.toString()
+                        println "targetPaiList2:" + targetPaiList.toString()
+                        gameUserList[orderList[i]].paiList = sourcePaiList
+                        gameUserList[orderList[i + 1]].paiList = targetPaiList
+
+
+                    }
 
                 }
 
