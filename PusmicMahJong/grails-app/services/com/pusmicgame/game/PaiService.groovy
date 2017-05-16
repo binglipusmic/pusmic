@@ -85,13 +85,28 @@ class PaiService {
         GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
         GameRound gameRound = onlineRoomNumber.gameRound
         if(gameRound) {
+
+
+            def gameRoundLun = gameRound.gameRoundLun
+            def gameMode = gameRoundLun.gameMode
+            def peopleGameModeNumber = 0;
+            if (gameMode) {
+                peopleGameModeNumber = gameMode.gamePeopleNumber
+            }
             def gameUserList=gameRound.gameUser
             if(gameUserList){
                 def gameUserListArray = []
                 //xipai
                 //Integer[] paiList=xiPai()
                 def index=1
-                def orderList=getHuanPaiOrder(4);
+                def orderList
+                if(peopleGameModeNumber==4){
+                    orderList=getHuanPaiOrder(4);
+                }
+
+                if(peopleGameModeNumber==3){
+                    orderList=getHuanPaiOrder(3);
+                }
                 println "orderList:"+orderList.toString()
 
                 for(int i=0;i<4;i=i+2){
