@@ -486,8 +486,8 @@ cc.Class({
                     var currentUser;
                     var zhuangInde;
                     for (var i = 0; i < userList2.length; i++) {
-                        //console.log("userList2[i].zhuang:" + userList2[i].zhuang);
-                        //console.log("userList2[i].pointIndex:" + userList2[i].pointIndex);
+                        console.log("userList2[i].zhuang:" + userList2[i].zhuang);
+                        console.log("userList2[i].pointIndex:" + userList2[i].pointIndex + "--" + userList2[i].nickName);
                         if (userList2[i].zhuang == "1") {
                             zhuangOpenId = userList2[i].openid;
                             zhuangInde = userList2[i].pointIndex;
@@ -547,6 +547,7 @@ cc.Class({
                     this.sendRoundScoreToServer(currentUser);
                     roundScoreScript.initalRoundScore();
                     roundScoreScript.endLunFlag = "1";
+                    tableCenterScript.endTimer();
                 }
                 if (messageDomain.messageAction == "endGameRoundAndStartNewRound") {
                     //messageScript
@@ -557,6 +558,7 @@ cc.Class({
                     this.sendRoundScoreToServer(currentUser);
                     roundScoreScript.initalRoundScore();
                     roundScoreScript.endLunFlag = "0";
+                    tableCenterScript.endTimer();
                 }
 
                 if (messageDomain.messageAction == "sendMessage") {
@@ -1719,7 +1721,7 @@ cc.Class({
         var paiList = user.paiListArray;
         console.log("1276:" + paiList.toString());
         var gangPaiList = user.gangPaiList;
-        var pengList = user.pengList;
+        var pengList = user.pengPaiList;
 
         var tempPaiList = [];
         for (var i = 0; i < paiList.length; i++) {
@@ -1833,8 +1835,10 @@ cc.Class({
                 var gangExistUserCache = user.gangExistUserCache;
                 console.log("user gangTypeList1306:" + gangTypeList);
                 console.log("user :" + user.openid);
-                console.log("user existUserString:" + existUserString);
+                console.log("user existUserString 1838:" + existUserString);
                 if (gangPaiList != null && gangPaiList != undefined && gangPaiList.length > 0) {
+                    console.log("user userGangExistUser:" + userGangExistUser.toString());
+
                     for (var j = 0; j < gangPaiList.length; j++) {
 
 
@@ -1846,6 +1850,7 @@ cc.Class({
                         if (userGangExistUser != undefined && userGangExistUser != null) {
                             userGangList = userGangExistUser.split(";");
                         }
+                        console.log("user userGangExistUser 1852:" + userGangExistUser);
                         this.setExistUserRoundCount(userGangExistUser, gangTypeList[j], user);
                         console.log("gangTypeList[j]:" + gangTypeList[j]);
                         if (gangTypeList[j] + "" == "2") {
@@ -1863,7 +1868,8 @@ cc.Class({
             if (user.huPai != null && user.huPai != undefined && user.huPai != "") {
                 //-----count gang -----------------------
                 var gangPaiList = user.gangPaiList;
-                var pengList = user.pengList;
+                var pengList = user.pengPaiList;
+
                 var paiList = user.paiListArray;
 
 
@@ -2271,6 +2277,8 @@ cc.Class({
             menqingFlag = false;
         }
         console.log("1554:" + fanShu);
+        console.log("2276:" + pengList);
+        console.log("2277:" + minPaiType);
         if (pengList != null && pengList != undefined && pengList.length > 0) {
             for (var i = 0; i < pengList.length; i++) {
                 var pai = pengList[i] + "";

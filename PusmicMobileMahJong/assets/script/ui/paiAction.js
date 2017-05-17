@@ -800,6 +800,7 @@ cc.Class({
 
 
     setZhuangOnFirstHU: function () {
+        console.log("setZhuangOnFirstHU: 803");
         var userList = Global.userList;
         var huPaiNumer = 0;
         for (var i = 0; i < userList.length; i++) {
@@ -814,6 +815,7 @@ cc.Class({
                 var user2 = userList[i];
                 if (user2.huPai != null && user2.huPai != undefined && user2.huPai != "") {
                     user2.zhuang = "1";
+                     console.log("setZhuangOnFirstHU: 818="+user2.openid+"--"+user2.nickName);
                 } else {
                     user2.zhuang = "";
                 }

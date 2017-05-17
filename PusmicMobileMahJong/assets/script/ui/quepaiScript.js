@@ -104,7 +104,7 @@ cc.Class({
             }
 
 
-            if (userList[i].quePai != null && userList[i].quePai != undefined) {
+            if (userList[i].quePai != null && userList[i].quePai != undefined&& userList[i].quePai != "") {
                 quePaiCount++
             }
         }

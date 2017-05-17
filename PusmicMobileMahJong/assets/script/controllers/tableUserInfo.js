@@ -215,7 +215,7 @@ cc.Class({
             user.gangPaiList = [];
             user.gangTypeList = [];
             user.pengGangPaiPoint = 0;
-            user.quePai = "";
+            user.quePai = null;
             user.chuPaiPointX = 0;
             user.chupaiListY = 0;
             user.chuPaiCount = 0;
@@ -1120,8 +1120,11 @@ cc.Class({
         this.user2ReadNode.active = true;
         this.user3ReadNode.active = true;
         this.user4ReadNode.active = true;
+        this.cleanUserList();
         this.resetUserPoint();
         this.intalUserInfoReadyIcon();
+        
+
     },
 
     initalUserInfoFromGobalList: function () {

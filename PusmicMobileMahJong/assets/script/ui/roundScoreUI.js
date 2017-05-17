@@ -1,6 +1,7 @@
 var userInfoScript;
 var gameConfigButtonScript;
 var tableNetWorkScript;
+var tableCenterScript;
 cc.Class({
     extends: cc.Component,
 
@@ -21,6 +22,7 @@ cc.Class({
         gameConfigButtonListNode: cc.Node,
         tableNetWorkNode: cc.Node,
         endLunFlag: "0",
+        tableCenterNode:cc.Node,
 
     },
 
@@ -29,7 +31,9 @@ cc.Class({
         userInfoScript = this.userInfoNode.getComponent("tableUserInfo");
         gameConfigButtonScript = this.gameConfigButtonListNode.getComponent("gameConfigButtonListAction");
         tableNetWorkScript = this.tableNetWorkNode.getComponent("GameTableNetWork");
-    },
+        tableCenterScript = this.tableCenterNode.getComponent("tableCenterPoint");
+         
+ },
 
     initalRoundScore: function () {
         var userList = Global.userList;
@@ -139,7 +143,9 @@ cc.Class({
 
             //3 send 
 
-            tableNetWorkScript.sendStartNewRound();
+            //tableNetWorkScript.sendStartNewRound();
+
+            //tableCenterScript.endTimer();
         } else {
             this.initalAllRoundScore();
         }
