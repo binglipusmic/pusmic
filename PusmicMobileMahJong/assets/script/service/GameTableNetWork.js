@@ -1763,7 +1763,7 @@ cc.Class({
                 paiList.push(testPaiList[i]);
                 console.log("1317:" + paiList.toString());
                 paiList.sort(function (a, b) { return a - b });
-                var returnArray = this.countHuPaiFanshu(pengList, gangPaiList, paiList);
+                var returnArray = this.countHuPaiFanshu(pengList, gangPaiList, paiList, user.huPai);
                 var fanshu = returnArray[0];
                 if (fanshu == undefined) {
                     fanshu = 0;
@@ -1875,7 +1875,7 @@ cc.Class({
 
 
                 //-----------hu pai  fanshu count -----------------------------------
-                var returnArray = this.countHuPaiFanshu(pengList, gangPaiList, paiList);
+                var returnArray = this.countHuPaiFanshu(pengList, gangPaiList, paiList, user.huPai);
                 fanshu = returnArray[0];
 
                 details = details + returnArray[1];
@@ -2185,7 +2185,7 @@ cc.Class({
 
     },
     //--------------count pai list---------------------------------------
-    countHuPaiFanshu: function (pengList, gangList, paiList) {
+    countHuPaiFanshu: function (pengList, gangList, paiList, huPai) {
         var fanShu = 0;
         var gameMode = Global.gameMode;
         var details = "";
@@ -2201,6 +2201,8 @@ cc.Class({
         var jiangDuiFlag = true;
         var menqingFlag = true;
         var zhongZhangFlag = true;
+
+        var huPaiDaiGang = false;
 
 
         var minPai = paiList[0];
@@ -2271,6 +2273,11 @@ cc.Class({
                 }
 
                 // fanShu = fanShu + 1;
+                //huPaiDaiGang
+
+                if (huPai + "" == pai) {
+                    huPaiDaiGang = true;
+                }
             }
 
             qiaoQiDuiFlag = false;
@@ -2290,6 +2297,10 @@ cc.Class({
                 if (pai != "1" && pai != "9") {
                     yaoJiuFlag = false;
                 }
+
+                if (huPai + "" == pai) {
+                    huPaiDaiGang = true;
+                }
             }
 
             qiaoQiDuiFlag = false;
@@ -2300,6 +2311,11 @@ cc.Class({
         if (daDuiZiFlag) {
             fanShu = fanShu + 1;
             details = details + " 大对子:1番;"
+        }
+
+        if(huPaiDaiGang){
+              details = details + " 胡牌带杠:1番;"
+              fanShu = fanShu + 1;
         }
 
 
