@@ -334,6 +334,21 @@ cc.Class({
         this.user3HuNode.active = false;
         this.user4HuNode.active = false;
 
+
+        //inital zhuang by gobal
+
+        if( Global.zhuangOpenId!=null &&  Global.zhuangOpenId !=undefined){
+             for (var i = 0; i < userList.length; i++) {
+                  var user = userList[i];
+                  if(user.openid==Global.zhuangOpenId){
+                      user.zhuang="1";
+                     // Global.zhuangOpenId=null;
+                  }
+             }
+
+              Global.userList=userList;
+        }
+
         //cc.log("userList.length:"+userList.length);
         for (var i = 0; i < userList.length; i++) {
             var user = userList[i];
