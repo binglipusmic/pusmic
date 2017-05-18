@@ -372,9 +372,23 @@ class WebSokectController {
                     def s2 = new JsonBuilder(messageJsonObj).toPrettyString()
                     websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)
                 } else {
+                    //start a new round
+                    def currentRoundCount = gameRoundLunService.createNewGameRound(messageJsonObj)
+                    if (currentRoundCount != -1) {
+                        MessageDomain newMessageObj = new MessageDomain()
+                        newMessageObj.messageBelongsToPrivateChanleNumber = messageJsonObj.messageBelongsToPrivateChanleNumber
+                        newMessageObj.messageAction = "setCurrentRoundCount"
+                        newMessageObj.messageBody = currentRoundCount
+                        newMessageObj.messageType = "gameAction"
+                        def s2 = new JsonBuilder(newMessageObj).toPrettyString()
+                        websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)
+                    }
+
+
                     messageJsonObj.messageAction = "endGameRoundAndStartNewRound"
                     def s3 = new JsonBuilder(messageJsonObj).toPrettyString()
                     websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s3)
+
                 }
 
                 //startNewRound

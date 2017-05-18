@@ -343,26 +343,26 @@ class GameRoundLunService {
                 println "gameRound:"+gameRound.id
                 if(gameRound){
                     //check if we need build a new round------------------------
-                    boolean checkFlag=false
-                    if(gameRound.restPaiList==null){
-                        //checkFlag=true;
-                    }else{
-                        if(gameRound.restPaiList.size()==0){
-                            checkFlag=true;
-                        }
-                    }
-                    int huPaiUserCount=0
-                    gameRound.gameUser.each { gu ->
-                        if(gu.roundScoreCount!=0 ||gu.huPaiDetails.length()>0){
-                            huPaiUserCount++
-                        }
-                    }
-
-                    if(huPaiUserCount>0){
-                        if(huPaiUserCount== gameRound.gameUser.size()-1){
-                            checkFlag=true;
-                        }
-                    }
+                    boolean checkFlag=true
+//                    if(gameRound.restPaiList==null){
+//                        //checkFlag=true;
+//                    }else{
+//                        if(gameRound.restPaiList.size()==0){
+//                            checkFlag=true;
+//                        }
+//                    }
+//                    int huPaiUserCount=0
+//                    gameRound.gameUser.each { gu ->
+//                        if(gu.roundScoreCount!=0 ||gu.huPaiDetails.length()>0){
+//                            huPaiUserCount++
+//                        }
+//                    }
+//
+//                    if(huPaiUserCount>0){
+//                        if(huPaiUserCount== gameRound.gameUser.size()-1){
+//                            checkFlag=true;
+//                        }
+//                    }
 
                     //----------end check -------------------------------------
 
@@ -375,7 +375,7 @@ class GameRoundLunService {
                            gameRound2.gameMode = gameRound.gameMode
                            gameRound2.gameRoundLun = gameRoundLun
                            gameRound2.roomNumber = gRoomNumber
-                           gameRound2.restPaiList=[13,15,34,23,35]
+                           gameRound2.restPaiList=[]
                            println "260:" + gameRound.id
                            println "260:" + gameRound.gameUser.size()
                            gameRound.gameUser.each { gu ->
