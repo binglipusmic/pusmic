@@ -329,7 +329,7 @@ class GameRoundLunService {
      * @param messageDomain
      */
 
-    def createNewGameRound(MessageDomain messageDomain) {
+    def createNewGameRound(MessageDomain messageDomain,String zhuangOpenId) {
         def roomNumber = messageDomain.messageBelongsToPrivateChanleNumber
         int currentRoundCount=-1;
         if(roomNumber){
@@ -395,6 +395,12 @@ class GameRoundLunService {
                                newgu.huPaiDetails = "";
                                newgu.springUser = gu.springUser;
                                newgu.publicIp = gu.publicIp;
+
+                               if(zhuangOpenId){
+                                   if( gu.springUser.openid.equals(zhuangOpenId)){
+                                       newgu.zhuang="1"
+                                   }
+                               }
 
                                newgu.save(flush: true, failOnError: true)
                                gameRound2.addToGameUser(newgu)

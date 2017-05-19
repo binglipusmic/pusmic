@@ -1186,6 +1186,7 @@ cc.Class({
         var o = new Object();
         //o.fromUserOpenid = userOpenId;
         o.actionName = "checkRoundEnd";
+        o.zhuangOpenId= Global.zhuangOpenId;
         //o.toUserOpenid = userOpenId;
         var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
         this.sendMessageToServer(messageObj);
