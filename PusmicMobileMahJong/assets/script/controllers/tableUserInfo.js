@@ -237,7 +237,7 @@ cc.Class({
         }
 
         Global.userList = userList;
-
+        Global.huPreStep = "";
         //Add the round count
 
         //Global.gameRoundCount = Global.gameRoundCount + 1;
@@ -337,16 +337,16 @@ cc.Class({
 
         //inital zhuang by gobal
 
-        if( Global.zhuangOpenId!=null &&  Global.zhuangOpenId !=undefined){
-             for (var i = 0; i < userList.length; i++) {
-                  var user = userList[i];
-                  if(user.openid==Global.zhuangOpenId){
-                      user.zhuang="1";
-                     // Global.zhuangOpenId=null;
-                  }
-             }
+        if (Global.zhuangOpenId != null && Global.zhuangOpenId != undefined) {
+            for (var i = 0; i < userList.length; i++) {
+                var user = userList[i];
+                if (user.openid == Global.zhuangOpenId) {
+                    user.zhuang = "1";
+                    // Global.zhuangOpenId=null;
+                }
+            }
 
-              Global.userList=userList;
+            Global.userList = userList;
         }
 
         //cc.log("userList.length:"+userList.length);
@@ -1138,7 +1138,7 @@ cc.Class({
         this.cleanUserList();
         this.resetUserPoint();
         this.intalUserInfoReadyIcon();
-        
+
 
     },
 

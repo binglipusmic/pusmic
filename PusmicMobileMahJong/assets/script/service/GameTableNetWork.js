@@ -1008,7 +1008,7 @@ cc.Class({
                             var endGameFlag = false;
                             for (var i = 0; i < userList.length; i++) {
 
-                                if (userList[i].huPai != null && userList[i] != undefined && userList[i] != "") {
+                                if (userList[i].huPai != null && userList[i].huPai != undefined && userList[i].huPai != "") {
                                     huPeople++
                                 }
 
@@ -1186,7 +1186,7 @@ cc.Class({
         var o = new Object();
         //o.fromUserOpenid = userOpenId;
         o.actionName = "checkRoundEnd";
-        o.zhuangOpenId= Global.zhuangOpenId;
+        o.zhuangOpenId = Global.zhuangOpenId;
         //o.toUserOpenid = userOpenId;
         var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
         this.sendMessageToServer(messageObj);
@@ -1906,11 +1906,14 @@ cc.Class({
                 }
 
                 console.log(" user.huPaiFanShu 1355:" + user.huPaiFanShu);
+                console.log("1909:"+user.huchuPaiType);
                 //-----------gang shang hua check --------------------
+
+                //-----------
                 if (user.huchuPaiType == "gang") {
                     if (user.huPaiFanShu < maxFan) {
                         user.huPaiFanShu = user.huPaiFanShu + 1;
-                        details = details + "点杠加1番;"
+                        details = details + "杠上花加1番;"
                         //var huGangPai = user.huGangPai;
                         var gangFromUserList = user.gangFromUserListOpenId;
                     }
@@ -2198,6 +2201,7 @@ cc.Class({
         var qiaoQiDuiFlag = true;
         var anGangFlag = false;
         var anGangCount = 0;
+        var mingGangCount = 0;
         var yaoJiuFlag = false;
         var jiangDuiFlag = true;
         var menqingFlag = true;
@@ -2279,6 +2283,13 @@ cc.Class({
                 if (huPai + "" == pai) {
                     huPaiDaiGang = true;
                 }
+
+                mingGangCount++
+            }
+
+            if (mingGangCount > 0) {
+                fanShu = fanShu + mingGangCount;
+                details = details + " 杠加:" + mingGangCount + "番;"
             }
 
             qiaoQiDuiFlag = false;
@@ -2314,9 +2325,9 @@ cc.Class({
             details = details + " 大对子:1番;"
         }
 
-        if(huPaiDaiGang){
-              details = details + " 胡牌带杠:1番;"
-              fanShu = fanShu + 1;
+        if (huPaiDaiGang) {
+            details = details + " 胡牌带杠:1番;"
+            fanShu = fanShu + 1;
         }
 
 

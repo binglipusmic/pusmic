@@ -702,7 +702,7 @@ cc.Class({
             this.preStep = "gang";
         }
         Global.gangHuPai = paiNumber;
-
+        console.log("gangAction  this.preStep:" + this.preStep);
         console.log("gangAction paiList:" + paiList);
         user.paiListArray = paiList;
 
@@ -815,8 +815,8 @@ cc.Class({
                 var user2 = userList[i];
                 if (user2.huPai != null && user2.huPai != undefined && user2.huPai != "") {
                     user2.zhuang = "1";
-                    Global.zhuangOpenId=user2.openid;
-                     console.log("setZhuangOnFirstHU: 818="+user2.openid+"--"+user2.nickName);
+                    Global.zhuangOpenId = user2.openid;
+                    console.log("setZhuangOnFirstHU: 818=" + user2.openid + "--" + user2.nickName);
                 } else {
                     user2.zhuang = "";
                 }
@@ -842,6 +842,7 @@ cc.Class({
         user.huPai = this.paiNumber;
         user.huPaiFromUser = this.chuPaiUserOpenId;
         user.huchuPaiType = this.preStep;
+        //Global.huPreStep
 
 
         var userList2 = Global.userList;
