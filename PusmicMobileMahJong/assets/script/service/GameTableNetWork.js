@@ -1846,13 +1846,14 @@ cc.Class({
                         if (user.huPaiFanShu <= maxFan) {
                             user.huPaiFanShu = user.huPaiFanShu + 1;
                         }
-                        var userGangExistUser = userGangExistUser[j];
+                        var userGangExistUserSign = userGangExistUser[j];
+                         console.log("user userGangExistUser 1850 j:" + j+"-----"+userGangExistUser[j]);
                         var userGangList = [];
-                        if (userGangExistUser != undefined && userGangExistUser != null) {
-                            userGangList = userGangExistUser.split(";");
+                        if (userGangExistUserSign != undefined && userGangExistUserSign != null) {
+                            userGangList = userGangExistUserSign.split(";");
                         }
                         console.log("user userGangExistUser 1852:" + userGangExistUser);
-                        this.setExistUserRoundCount(userGangExistUser, gangTypeList[j], user);
+                        this.setExistUserRoundCount(userGangExistUserSign, gangTypeList[j], user);
                         console.log("gangTypeList[j]:" + gangTypeList[j]);
                         if (gangTypeList[j] + "" == "2") {
                             details = details + " 自杠 " + userGangList.length + "*2;";
@@ -1930,6 +1931,7 @@ cc.Class({
 
                 //------------Round score count--------------------
                 //get fan shu 
+                 console.log("roundScore 1933:" + roundScore);
                 if (user.huPaiFanShu > maxFan) {
                     user.huPaiFanShu = maxFan;
                 }
@@ -1963,6 +1965,7 @@ cc.Class({
                 //start count for each user 
 
                 if (user.huchuPaiType == "gang" && gameMode.dianGangHua_dianPao + "" == "1") {
+                    //点杠 点炮-一家有
                     console.log("1388:" + user.huGangShangHuaChuPaiUserOpenId);
                     var tempUser = this.getCurreentUserByOpenId(user.huGangShangHuaChuPaiUserOpenId);
 
@@ -1975,7 +1978,7 @@ cc.Class({
                     if (user.huPaiDetails == undefined || user.huPaiDetails == null) {
                         user.huPaiDetails = "";
                     }
-                    user.huPaiDetails = user.huPaiDetails + " 胡牌得分:" + roundScore * 1 + ";";
+                    user.huPaiDetails = user.huPaiDetails + " 杠上炮(点炮)得分:" + roundScore * 1 + ";";
                     // user.huPaiDetails = details + " 杠上炮 " + roundScore * 1;
                     if (tempUser.roundScoreCount == undefined || tempUser.roundScoreCount == null) {
                         tempUser.roundScoreCount = 0;
@@ -1987,6 +1990,12 @@ cc.Class({
                     tempUser.huPaiDetails = tempUser.huPaiDetails + " 杠上炮-" + roundScore + ";";
 
                 } else {
+                    //点杠-自摸，家家有
+
+                    if (user.huchuPaiType == "gang" && gameMode.dianGangHua_ziMo + "" == "1") {
+                          user.huPaiFanShu = user.huPaiFanShu + 1;
+                          details = details + "杠上炮(自摸)加1番;"
+                    } 
                     var existUserList = existUserString.split(";");
                     console.log("user.roundScoreCount0:" + user.roundScoreCount);
                     if (user.roundScoreCount == null || user.roundScoreCount == undefined) {

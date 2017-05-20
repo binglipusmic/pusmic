@@ -841,7 +841,8 @@ cc.Class({
         var user = tablePaiActionScript.getCorrectUserByOpenId(userOpenId);
         user.huPai = this.paiNumber;
         user.huPaiFromUser = this.chuPaiUserOpenId;
-        user.huchuPaiType = this.preStep;
+        //user.huchuPaiType = this.preStep;
+        user.huchuPaiType = Global.huPreStep;
         //Global.huPreStep
 
 
