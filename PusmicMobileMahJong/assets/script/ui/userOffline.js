@@ -63,7 +63,7 @@ cc.Class({
 
     },
     showOfflinePanel: function (nikeName, openid) {
-        this.offlinePanel.active = true;
+       // this.offlinePanel.active = true;
         var userOfflineLabble = this.offlineLable.getComponent(cc.RichText);
         userOfflineLabble.string = userOfflineLabble.string + " " + nikeName + " 已离线！请选择等待或解散房间。\n";
         offlineNumber++;

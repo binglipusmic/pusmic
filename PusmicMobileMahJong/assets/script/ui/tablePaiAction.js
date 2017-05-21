@@ -889,7 +889,7 @@ cc.Class({
             } else {
                 //normal chupai 
                 //enable all pai after quepai clean 
-                if(chuPaiCountFlag=0){
+                //if(chuPaiCountFlag=0){
                 var selfPaiList = this.playSlefChuPaiAction(node, "3");
                 chuPaiCountFlag=1
                 //send chu pai action to server.
@@ -900,7 +900,7 @@ cc.Class({
                 Global.chuPaiActionType = "";
                 Global.gangFromUserOpenId = "";
                 Global.gangHuPai = "";
-                }
+               // }
 
             }
         }
