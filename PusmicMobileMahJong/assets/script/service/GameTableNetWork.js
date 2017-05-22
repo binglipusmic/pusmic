@@ -1782,7 +1782,7 @@ cc.Class({
 
     },
     countUserRoundScore: function () {
-        console.log("countUserRoundScore starting ");
+        console.log("******countUserRoundScore starting*******");
         var userList = Global.userList;
         var noHuList = [];
         var gameMode = Global.gameMode;
@@ -1815,7 +1815,7 @@ cc.Class({
                 this.checkUserIfTingPai(user);
 
                 console.log("user.tingJiao:" + user.tingJiao);
-                console.log("user.tingJiao user:" + user.openid);
+                console.log("user.tingJiao user:" + user.openid + "--" + user.nickName);
             }
         }
 
@@ -1823,7 +1823,10 @@ cc.Class({
             var user = userList[i];
             user.huPaiFanShu = 0;
             var zimoJiaDiFalg = false;
-
+            //for each we should reclean the scroce and details and fanshu
+            details = "";
+            fanshu = 0;
+            roundScore = 0;
             //First ----gang count ---only on hu pai and ting pai 
             if ((user.huPai != null && user.huPai != undefined && user.huPai != "") || user.tingJiao == true) {
 
@@ -1835,7 +1838,7 @@ cc.Class({
                 var gangTypeList = user.gangTypeList;
                 var gangExistUserCache = user.gangExistUserCache;
                 console.log("user gangTypeList1306:" + gangTypeList);
-                console.log("user :" + user.openid);
+                console.log("user :" + user.nickName);
                 console.log("user existUserString 1838:" + existUserString);
                 if (gangPaiList != null && gangPaiList != undefined && gangPaiList.length > 0) {
                     console.log("user userGangExistUser:" + userGangExistUser.toString());
@@ -1844,10 +1847,10 @@ cc.Class({
 
 
                         if (user.huPaiFanShu <= maxFan) {
-                            user.huPaiFanShu = user.huPaiFanShu + 1;
+                            //user.huPaiFanShu = user.huPaiFanShu + 1;
                         }
                         var userGangExistUserSign = userGangExistUser[j];
-                         console.log("user userGangExistUser 1850 j:" + j+"-----"+userGangExistUser[j]);
+                        console.log("user userGangExistUser 1850 j:" + j + "-----" + userGangExistUser[j]);
                         var userGangList = [];
                         if (userGangExistUserSign != undefined && userGangExistUserSign != null) {
                             userGangList = userGangExistUserSign.split(";");
@@ -1855,10 +1858,14 @@ cc.Class({
                         console.log("user userGangExistUser 1852:" + userGangExistUser);
                         this.setExistUserRoundCount(userGangExistUserSign, gangTypeList[j], user);
                         console.log("gangTypeList[j]:" + gangTypeList[j]);
+
+                        if (user.huPaiDetails == null || user.huPaiDetails == undefined) {
+                            user.huPaiDetails = "";
+                        }
                         if (gangTypeList[j] + "" == "2") {
-                            details = details + " 自杠 " + userGangList.length + "*2;";
+                            // user.huPaiDetails = user.huPaiDetails + " 自杠 " + userGangList.length + "*2;";
                         } else {
-                            details = details + " 巴杠 " + userGangList.length + "*1;";
+                            // user.huPaiDetails = user.huPaiDetails + " 巴杠 " + userGangList.length + "*1;";
                         }
 
                     }
@@ -1879,11 +1886,11 @@ cc.Class({
                 //-----------hu pai  fanshu count -----------------------------------
                 var returnArray = this.countHuPaiFanshu(pengList, gangPaiList, paiList, user.huPai);
                 fanshu = returnArray[0];
-
+                console.log(" *******return fanshu:" + fanshu);
                 details = details + returnArray[1];
                 user.huPaiFanShu = user.huPaiFanShu + fanshu
-                console.log(" user.huPaiFanShu:" + user.huPaiFanShu);
-                console.log(" user.details:" + details);
+                console.log(" *******user.huPaiFanShu:" + user.huPaiFanShu);
+                console.log(" *******user.details:" + details);
                 if (user.huPaiFanShu > maxFan) {
                     user.huPaiFanShu = maxFan;
                 }
@@ -1907,7 +1914,7 @@ cc.Class({
                 }
 
                 console.log(" user.huPaiFanShu 1355:" + user.huPaiFanShu);
-                console.log("1909:"+user.huchuPaiType);
+                console.log("1909:" + user.huchuPaiType);
                 //-----------gang shang hua check --------------------
 
                 //-----------
@@ -1917,6 +1924,7 @@ cc.Class({
                         details = details + "杠上花加1番;"
                         //var huGangPai = user.huGangPai;
                         var gangFromUserList = user.gangFromUserListOpenId;
+                        console.log(" *******杠上花加1番:" + user.huPaiFanShu);
                     }
                 }
 
@@ -1931,18 +1939,18 @@ cc.Class({
 
                 //------------Round score count--------------------
                 //get fan shu 
-                 console.log("roundScore 1933:" + roundScore);
+                console.log("roundScore 1933:" + roundScore);
                 if (user.huPaiFanShu > maxFan) {
                     user.huPaiFanShu = maxFan;
                 }
                 if (user.huPaiFanShu == 0) {
                     roundScore = 1;
-                    details = details + "平胡";
+                    details = details + "平胡 ";
                 } else {
                     //roundScore=fanshu*2;
                     var a = 1;
-                    console.log("1384 user.huPaiFanShu:" + user.huPaiFanShu);
-                    console.log("1384 user.roundScore:" + roundScore);
+                    console.log("1951 user.huPaiFanShu:" + user.huPaiFanShu);
+                    console.log("1952 user.roundScore:" + roundScore);
                     if (user.huPaiFanShu == undefined || user.huPaiFanShu == null || user.huPaiFanShu == 0 || user.huPaiFanShu == "") {
 
                     } else {
@@ -1954,7 +1962,7 @@ cc.Class({
 
 
                     roundScore = a;
-                    console.log("1389 a:" + a);
+                    console.log("1964 a:" + a);
                 }
 
                 if (zimoJiaDiFalg) {
@@ -1993,9 +2001,9 @@ cc.Class({
                     //点杠-自摸，家家有
 
                     if (user.huchuPaiType == "gang" && gameMode.dianGangHua_ziMo + "" == "1") {
-                          user.huPaiFanShu = user.huPaiFanShu + 1;
-                          details = details + "杠上炮(自摸)加1番;"
-                    } 
+                        user.huPaiFanShu = user.huPaiFanShu + 1;
+                        details = details + "杠上炮(自摸)加1番;"
+                    }
                     var existUserList = existUserString.split(";");
                     console.log("user.roundScoreCount0:" + user.roundScoreCount);
                     if (user.roundScoreCount == null || user.roundScoreCount == undefined) {
@@ -2404,6 +2412,7 @@ cc.Class({
                 existUser.huPaiDetails = "";
             }
             existUser.huPaiDetails = existUser.huPaiDetails + "被杠失分:-" + score + ";"
+            console.log(" 被杠失分:" + existUser.nickName + "----:" + existUser.roundScoreCount);
             console.log(" existUser.roundScoreCount:" + existUser.roundScoreCount);
             console.log(" existUser.huPaiDetails:" + existUser.huPaiDetails);
         }
@@ -2414,14 +2423,16 @@ cc.Class({
             user.roundScoreCount = user.roundScoreCount + score * existUserList.length;
         }
         if (score == 2) {
-            user.huPaiDetails = user.huPaiDetails + "自杠得分:" + score * existUserList.length + ";"
+            user.huPaiDetails = user.huPaiDetails + "自杠得分 " + score + "*" + existUserList.length + ":" + score * existUserList.length + ";"
         } else {
-            user.huPaiDetails = user.huPaiDetails + "杠牌得分:" + score * existUserList.length + ";"
+            user.huPaiDetails = user.huPaiDetails + "杠牌得分 " + score + "*" + existUserList.length + ":" + score * existUserList.length + ";"
         }
         console.log(" user.roundScoreCount:" + user.roundScoreCount);
         console.log(" user.huPaiDetails:" + user.huPaiDetails);
 
-
+        //console.log(user.nickName + " 自杠得分:" + score);
+        console.log(user.nickName + " 杠牌得分:" + score);
+        console.log(user.nickName + "  得分:" + user.roundScoreCount);
     },
     //----------------untils-------------------------------
     changeJsonListStringToArrayString: function (tempString) {

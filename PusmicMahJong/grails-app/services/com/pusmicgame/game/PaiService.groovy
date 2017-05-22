@@ -402,6 +402,7 @@ class PaiService {
         def userPaiList=[]
         def count=0
         if(index){
+            index=index+""
             if(index.toString().equals("1")){
                 count=14
             }else{
