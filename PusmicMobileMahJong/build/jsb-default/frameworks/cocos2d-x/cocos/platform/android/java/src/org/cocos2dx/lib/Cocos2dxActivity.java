@@ -303,6 +303,7 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
     @Override
     protected void onResume() {
     	Log.d(TAG, "onResume()");
+        openKeepScreenOn();
         super.onResume();
         this.hideVirtualButton();
        	resumeIfHasFocus();
@@ -328,11 +329,38 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
     @Override
     protected void onPause() {
         Log.d(TAG, "onPause()");
+        closeKeepScreenOn();
         super.onPause();
         Cocos2dxHelper.onPause();
         mGLSurfaceView.onPause();
     }
 
+
+    public boolean bFlagKeepScreen = true;
+    // 开启屏幕始终点亮
+    public void openKeepScreenOn()
+    {
+        closeKeepScreenOn();
+
+        if (bFlagKeepScreen)
+        {
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+            Log.i("FLAG_KEEP_SCREEN_ON", "open");
+        }
+    }
+
+    // 关闭屏幕始终点亮
+    public void closeKeepScreenOn()
+    {
+        if (bFlagKeepScreen)
+        {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+            Log.i("FLAG_KEEP_SCREEN_ON", "close");
+        }
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();

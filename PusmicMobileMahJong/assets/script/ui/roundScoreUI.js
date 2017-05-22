@@ -80,6 +80,18 @@ cc.Class({
             console.log("userNode ui :1214");
         });
     },
+     initalUserImageAll: function (testImageUrl, nodeName) {
+        cc.loader.load(testImageUrl, function (err, texture) {
+            var frame = new cc.SpriteFrame(texture);
+            var tableNode = cc.find("Canvas/tableNode");
+            var userRoundScoreNode1 = cc.find("userScorceNode", tableNode);
+            var userNode = cc.find(nodeName, userRoundScoreNode1);
+            var bgNode = cc.find("bgSprite", userNode);
+            var headNode = cc.find("headNode", bgNode);
+            headNode.getComponent(cc.Sprite).spriteFrame = frame;
+            console.log("userNode ui :1214");
+        });
+    },
    
 
     initalAllRoundScore: function () {
@@ -94,6 +106,13 @@ cc.Class({
             var userIdNode = cc.find("userIDNode", bgNode);
             var userNameNodeLable = userNameNode.getComponent(cc.Label);
             userNameNodeLable.string = user.nickName;
+
+           var serverUrl = Global.hostHttpProtocol + "://" + Global.hostServerIp + ":" + Global.hostServerPort;
+            console.log("headImageFileName round ui:" + user.headImageFileName);
+            var headImageurl = serverUrl + "/webchatImage/" + user.headImageFileName;
+            console.log(" round ui headImageurl:" + headImageurl);
+
+            this.initalUserImageAll(headImageurl, nodeName);
 
             var userIdTextLable = userIdNode.getComponent(cc.Label);
             userIdTextLable.string = user.userCode;
@@ -126,9 +145,10 @@ cc.Class({
 
         userInfoScript.cleanUserList();
         userInfoScript.cleanTable();
-        userInfoScript.initalUserOnRound();
+        //userInfoScript.initalUserOnRound();
 
-        gameConfigButtonScript.endGameRoundLun();
+        //gameConfigButtonScript.endGameRoundLun();
+        gameConfigButtonScript.enterMainEntry("1");
     },
     closeRoundScore: function () {
         this.userRoundScoreNode.active = false;

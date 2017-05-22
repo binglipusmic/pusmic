@@ -1,10 +1,4 @@
 (function () {
-if (cc.sys.isNative) {
-    var hotUpdateSearchPaths = cc.sys.localStorage.getItem('HotUpdateSearchPaths');
-    if (hotUpdateSearchPaths) {
-        jsb.fileUtils.setSearchPaths(JSON.parse(hotUpdateSearchPaths));
-    }
-}
 
     'use strict';
 

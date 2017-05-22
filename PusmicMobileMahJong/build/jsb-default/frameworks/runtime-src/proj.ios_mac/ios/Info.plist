@@ -61,7 +61,7 @@
     <key>CFBundleInfoDictionaryVersion</key>
     <string>6.0</string>
     <key>CFBundleName</key>
-    <string>${PRODUCT_NAME}</string>
+    <string>乐乐四川麻将</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleShortVersionString</key>
@@ -125,6 +125,7 @@
     <true/>
     <key>UISupportedInterfaceOrientations</key>
     <array>
+      <string>UIInterfaceOrientationLandscapeRight</string>
       <string>UIInterfaceOrientationLandscapeLeft</string>
     </array>
   </dict>

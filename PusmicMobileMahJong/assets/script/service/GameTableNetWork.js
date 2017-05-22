@@ -44,6 +44,7 @@ cc.Class({
         tableCenterNode: cc.Node,
         tablePaiNode: cc.Node,
         paiRestNode: cc.Node,
+        juShuNode: cc.Node,
         paiAactionNode: cc.Node,
         moPaiActionNode: cc.Node,
         tableActionNode: cc.Node,
@@ -398,7 +399,16 @@ cc.Class({
                     Global.restPaiCount = paiRestCount;
                     Global.userList = userList2;
                     //table user info
-
+                    var gameMode2 = Global.gameMode;
+                    var zongJuShu = 0;
+                    if (gameMode2.roundCount4 + "" == "1") {
+                        zongJuShu = 4
+                    };
+                    if (gameMode2.roundCount8 + "" == "1") {
+                        zongJuShu = 8
+                    }
+                    var jishuLable = this.juShuNode.getComponent(cc.Label);
+                    jishuLable.string = "局数:"+Global.gameRoundCount + "/" + zongJuShu;
                     userInfoScript.initalUserPai("inital", "");
                 }
 
@@ -1863,9 +1873,9 @@ cc.Class({
                             user.huPaiDetails = "";
                         }
                         if (gangTypeList[j] + "" == "2") {
-                            // user.huPaiDetails = user.huPaiDetails + " 自杠 " + userGangList.length + "*2;";
+                            user.huPaiDetails = user.huPaiDetails + " 自杠 " + userGangList.length + "*2;";
                         } else {
-                            // user.huPaiDetails = user.huPaiDetails + " 巴杠 " + userGangList.length + "*1;";
+                            user.huPaiDetails = user.huPaiDetails + " 巴杠 " + userGangList.length + "*1;";
                         }
 
                     }
@@ -2423,9 +2433,9 @@ cc.Class({
             user.roundScoreCount = user.roundScoreCount + score * existUserList.length;
         }
         if (score == 2) {
-            user.huPaiDetails = user.huPaiDetails + "自杠得分 " + score + "*" + existUserList.length + ":" + score * existUserList.length + ";"
+            user.huPaiDetails = user.huPaiDetails + "自杠得分 " + ":" + score * existUserList.length + ";"
         } else {
-            user.huPaiDetails = user.huPaiDetails + "杠牌得分 " + score + "*" + existUserList.length + ":" + score * existUserList.length + ";"
+            user.huPaiDetails = user.huPaiDetails + "杠牌得分 " + ":" + score * existUserList.length + ";"
         }
         console.log(" user.roundScoreCount:" + user.roundScoreCount);
         console.log(" user.huPaiDetails:" + user.huPaiDetails);
