@@ -461,7 +461,7 @@ class UserService {
         }else{
             failMessage = "此房间已开启地理位置限制,要求位置距离大于:" + distanceLimit + "Km 才能加入。"
         }
-        actionMessageDomain.messageExecuteResult = failMessage+":"+messageDomain.messageBody
+        actionMessageDomain.messageExecuteResult = failMessage+"###"+messageDomain.messageBody
         def s2 = JsonOutput.toJson(actionMessageDomain)
         messageDomain.messageBody = s2
 

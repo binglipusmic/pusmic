@@ -30,24 +30,26 @@ cc.Class({
     // },
 
     setTextOfPanel: function () {
+        console.log("setTextOfPanel start :" + this.text);
         var userInfo = Global.userInfo;
 
         var r = this.textNode.getComponent(cc.RichText);
-        if (this.text.indexOf(":") > 0) {
-            var temp = this.text.split(":");
+        if (this.text.indexOf("###") > 0) {
+            var temp = this.text.split("###");
+            console.log("setTextOfPanel temp :" + temp.length + "-");
             if (temp.length > 1) {
                 if (temp[1].length > 0) {
                     if (userInfo.openid == temp[1]) {
-                        r.string = this.text;
+                        r.string = temp[0];
                         this.alertPanelNode.active = true;
                     }
                 } else {
-                    r.string = this.text;
-                    this.alertPanelNode.active = true;
+                    //r.string = this.text;
+                    //this.alertPanelNode.active = true;
                 }
             } else {
-                r.string = this.text;
-                this.alertPanelNode.active = true;
+                //r.string = this.text;
+                //this.alertPanelNode.active = true;
             }
         } else {
             r.string = this.text;
