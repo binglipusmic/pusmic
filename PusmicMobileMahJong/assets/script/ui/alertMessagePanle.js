@@ -42,16 +42,20 @@ cc.Class({
                     if (userInfo.openid == temp[1]) {
                         r.string = temp[0];
                         this.alertPanelNode.active = true;
+                    } else {
+                        r.string = "";
+                        this.alertPanelNode.active = false;
                     }
                 } else {
-                    //r.string = this.text;
-                    //this.alertPanelNode.active = true;
+                    r.string = "";
+                    this.alertPanelNode.active = false;
                 }
             } else {
-                //r.string = this.text;
-                //this.alertPanelNode.active = true;
+                r.string = "";
+                this.alertPanelNode.active = false;
             }
         } else {
+             console.log("setTextOfPanel temp 58 :" + "-");
             r.string = this.text;
             this.alertPanelNode.active = true;
         }

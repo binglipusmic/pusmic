@@ -361,7 +361,19 @@ cc.Class({
                     } else {
                         alertMessageUI.text = Obj.messageExecuteResult;
                         alertMessageUI.setTextOfPanel();
-                        this.forceInitaClient();
+                        if (Obj.messageExecuteResult != null && Obj.messageExecuteResult != undefined) {
+                            if (Obj.messageExecuteResult.indexOf("###") > 0) {
+                                var temp = Obj.messageExecuteResult.split("###");
+                                if (temp.length > 1) {
+                                    if (temp[1].length > 0) {
+                                        if (Global.userInfo.openid == temp[1]) {
+                                            this.forceInitaClient();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        //this.forceInitaClient();
                     }
                 }
 
@@ -408,7 +420,7 @@ cc.Class({
                         zongJuShu = 8
                     }
                     var jishuLable = this.juShuNode.getComponent(cc.Label);
-                    jishuLable.string = "局数:"+Global.gameRoundCount + "/" + zongJuShu;
+                    jishuLable.string = "局数:" + Global.gameRoundCount + "/" + zongJuShu;
                     userInfoScript.initalUserPai("inital", "");
                 }
 
