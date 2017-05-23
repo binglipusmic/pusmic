@@ -70,7 +70,7 @@ class WebSokectController {
                 onlineUserService.reJoinRoomFixOnlineUser(messageJsonObj.messageBody)
 
             } else {
-
+                def gpsStatus = gameRoundService.checkGpsLimit(messageJsonObj)
                 // println gameRoundService.getPopeleCountForJoinRoom(messageJsonObj)
                 if (gameRoundService.getPopeleCountForJoinRoom(messageJsonObj).equals("!")) {
 
@@ -81,13 +81,19 @@ class WebSokectController {
 
 
                     if (gameRoundService.getPopeleCountForJoinRoom(messageJsonObj).equals("<")) {
-                        messageJsonObj = userService.joinRoom(messageJsonObj)
+                        if (gpsStatus == 8 || gpsStatus == 4) {
+                            messageJsonObj = userService.joinRoom(messageJsonObj)
+                        }else{
+                            messageJsonObj = userService.joinGPSLimitRoom(messageJsonObj, gpsStatus)
+                            def s2 = JsonOutput.toJson(messageJsonObj)
+                            websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)
+                        }
                         /* def s = JsonOutput.toJson(messageJsonObj)
                 websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)*/
                     } else if (gameRoundService.getPopeleCountForJoinRoom(messageJsonObj).equals("=")) {
                         //start fapai
                         //check the gps limit
-                        def gpsStatus = gameRoundService.checkGpsLimit(messageJsonObj)
+
                         if (gpsStatus == 8 || gpsStatus == 4) {
                             messageJsonObj = userService.joinRoom(messageJsonObj)
                         } else {
