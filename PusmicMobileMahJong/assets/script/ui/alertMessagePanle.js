@@ -15,7 +15,7 @@ cc.Class({
         text: String,
         alertPanelNode: cc.Node,
         textNode: cc.Node,
-        buttonNode:cc.Node
+        buttonNode: cc.Node
     },
 
     // use this for initialization
@@ -30,20 +30,41 @@ cc.Class({
     // },
 
     setTextOfPanel: function () {
-        this.alertPanelNode.active = true;
+        var userInfo = Global.userInfo;
+
         var r = this.textNode.getComponent(cc.RichText);
-        r.string = this.text;
+        if (this.text.indexOf(":") > 0) {
+            var temp = this.text.split(":");
+            if (temp.length > 1) {
+                if (temp[1].length > 0) {
+                    if (userInfo.openid == temp[1]) {
+                        r.string = this.text;
+                        this.alertPanelNode.active = true;
+                    }
+                } else {
+                    r.string = this.text;
+                    this.alertPanelNode.active = true;
+                }
+            } else {
+                r.string = this.text;
+                this.alertPanelNode.active = true;
+            }
+        } else {
+            r.string = this.text;
+            this.alertPanelNode.active = true;
+        }
+
     },
 
     closePanel: function () {
         this.alertPanelNode.active = false;
     },
 
-    closeButton:function(){
-        this.buttonNode.active=false;
+    closeButton: function () {
+        this.buttonNode.active = false;
     },
 
-    showButton:function(){
-        this.buttonNode.active=true;
+    showButton: function () {
+        this.buttonNode.active = true;
     }
 });
