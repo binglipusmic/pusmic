@@ -57,7 +57,7 @@ cc.Class({
     },
 
     stratTimer: function () {
-        //timeCount = 10;
+        timeCount = 14;
         let self = this;
         self.schedule(timerUpate, 1);
         //

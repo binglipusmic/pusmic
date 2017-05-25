@@ -9931,7 +9931,9 @@
     "paiRestNode": {
       "__id__": 345
     },
-    "juShuNode": null,
+    "juShuNode": {
+      "__id__": 343
+    },
     "paiAactionNode": {
       "__id__": 740
     },

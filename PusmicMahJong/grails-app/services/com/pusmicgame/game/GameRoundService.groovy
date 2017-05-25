@@ -166,16 +166,21 @@ class GameRoundService {
                                                     def time=new Date()
                                                     println time.toString()+"----distance:" + distance
                                                     if (distance >= gpsLimitMeter) {
+                                                        if(gpsStatus!=3 && gpsStatus !=7)
                                                         gpsStatus = 4
                                                     } else {
                                                         gpsStatus = 3
+                                                        gpsStatus =distance
+
                                                     }
 
                                                 } else {
                                                     gpsStatus = 7
+                                                   // gpsStatus =distance
                                                 }
                                             } else {
                                                 gpsStatus = 7
+                                               // gpsStatus =distance
                                             }
 
                                         }

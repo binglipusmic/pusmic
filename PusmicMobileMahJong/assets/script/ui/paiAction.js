@@ -850,9 +850,13 @@ cc.Class({
         var existUserString = "";
         console.log("hu gang:" + Global.chuPaiActionType);
         if (Global.huPreStep == "gang") {
-            user.huGangShangHuaChuPaiUserOpenId = this.chuPaiUserOpenId;
-            user.huGangPaiInOtherUserFromOpenId = Global.gangFromUserOpenId;
+            if (Global.userInfo.openid != userOpenId) {
+            } else {
+                user.huGangShangHuaChuPaiUserOpenId = this.chuPaiUserOpenId;
+                user.huGangPaiInOtherUserFromOpenId = Global.gangFromUserOpenId;
+            }
             console.log("hu huGangShangHuaChuPaiUserOpenId:" + user.huGangShangHuaChuPaiUserOpenId + "---" + user.openid)
+
         } else {
             // user.huGangShangHuaChuPaiUserOpenId = "";
         }
@@ -882,7 +886,13 @@ cc.Class({
         }
         console.log("existUserString 753:" + existUserString);
         console.log("existUserString 753 user:" + user.openid);
-        user.existUserString = existUserString;
+        console.log("existUserString 885 user:" + user.existUserString);
+        if (Global.userInfo.openid != userOpenId) {
+        } else {
+            //only setting this on the hu pai user 
+            user.existUserString = existUserString;
+
+        }
 
         var pointIndex = user.pointIndex;
         tablePaiActionScript.updateUserListInGobal(user);

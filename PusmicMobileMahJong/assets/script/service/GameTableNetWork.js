@@ -2033,7 +2033,7 @@ cc.Class({
                     } else {
                         user.roundScoreCount = user.roundScoreCount + roundScore * existUserList.length;
                     }
-                    user.huPaiDetails = details + " 胡牌得分:" + roundScore * existUserList.length + ";";
+                    user.huPaiDetails = user.huPaiDetails + details + " 胡牌得分:" + roundScore * existUserList.length + ";";
                     console.log("user.roundScoreCount1:" + roundScore);
                     console.log("user.roundScoreCount2:" + roundScore * existUserList.length);
                     console.log("user.roundScoreCount3:" + user.roundScoreCount);
@@ -2252,6 +2252,15 @@ cc.Class({
         var minPai = paiList[0];
         minPai = minPai + "";
         var minPaiType = minPai[0];
+
+
+        var huGangCount = this.countElementAccount(huPai, paiList);
+        if (huGangCount == 4) {
+            details = details + " 胡牌带杠:1番;"
+            fanShu = fanShu + 1;
+        }
+
+
         for (var i = 0; i < paiList.length; i++) {
             var paiArrayCache = []
             var pai = paiList[i] + "";
@@ -2405,6 +2414,7 @@ cc.Class({
         }
 
         console.log("1612:" + fanShu);
+        console.log("qiaoQiDuiFlag:" + qiaoQiDuiFlag);
         //qiao qi dui 
         returnArray.push(fanShu);
         returnArray.push(details);

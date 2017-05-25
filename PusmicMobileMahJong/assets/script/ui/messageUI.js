@@ -40,7 +40,7 @@ cc.Class({
             this.messageNode.active = true;
             this.messageNode.zIndex = 1000;
         } else {
-            this.messageNode.active = false;
+            //this.messageNode.active = false;
         }
 
     },
