@@ -38,6 +38,8 @@ class UserService {
 
     def websokectService
 
+    def gameRoundLunService
+
     def myUtil = new Utils()
 
     //---change spring user to plat object and get it json strnig

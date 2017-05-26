@@ -26,6 +26,7 @@ class UserController {
     def paiService
     def websokectService
     def showActionBarService
+    def gameRoundLunService
 
     def index() {
         session.getAttribute()
@@ -81,6 +82,12 @@ class UserController {
 
         println "user info::" + s
         //return s
+    }
+
+    def testScorce(){
+        def s =gameRoundLunService.getUserScoreCount("245144")
+        render s
+
     }
 
 

@@ -3,11 +3,13 @@ package com.pusmicgame.game
 import com.pusmic.game.mahjong.OnlineUser
 import com.pusmic.game.mahjong.SpringUser
 import com.pusmicgame.domain.GameUserPlatObj
+import com.pusmicgame.domain.UserCountObj
 import grails.converters.JSON
 import grails.transaction.Transactional
 import com.pusmicgame.domain.MessageDomain
 import com.pusmicgame.mahjong.Utils
 import groovy.json.JsonBuilder
+import groovy.json.JsonOutput
 import org.grails.web.json.JSONObject
 
 @Transactional
@@ -321,6 +323,72 @@ class GameRoundLunService {
        messageDomain.messageBody= new JsonBuilder(outputUser).toPrettyString()
         //messageDomain.messageBody=""
         return messageDomain
+
+    }
+
+
+
+    def getUserScoreCount(String roomNumber){
+
+        def s=""
+        GameRoomNumber gRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
+
+        if(gRoomNumber) {
+            println "gRoomNumber:" + gRoomNumber.id
+            //we must get the game round from GameRoomNumber domain class, because the many round maybe work no the one room number.
+            GameRound gameRound = gRoomNumber.gameRound
+            println "gameRound:" + gameRound.id
+            if (gameRound) {
+                 GameRoundLun gameRoundLun=gameRound.gameRoundLun
+                 if(gameRoundLun){
+
+                     def userList=[:]
+                     def sList=[]
+                     def roundCount =1
+
+                     gameRoundLun.gameRound.each{ gameRd->
+
+                         gameRd.gameUser.each{ gUser->
+
+                             GameUser gameUser=(GameUser)gUser
+                             if(!userList.containsKey(gameUser.springUser.openid)){
+                                 UserCountObj userCountObj=new UserCountObj()
+                                 userCountObj.openid=gameUser.springUser.openid
+                                 userList.put(gameUser.springUser.openid,userCountObj)
+                             }
+                             UserCountObj userCountObj1=userList.get(gameUser.springUser.openid)
+                             if(userCountObj1.roundScoreCount){
+                                 userCountObj1.roundScoreCount= Integer.getInteger(userCountObj1.roundScoreCount)+gUser.roundScoreCount
+                             }else{
+                                 userCountObj1.roundScoreCount= gUser.roundScoreCount
+                             }
+                             if(!userCountObj1.roundDetails){
+                                 userCountObj1.roundDetails=""
+                             }
+
+                             userCountObj1.roundDetails=userCountObj1.roundDetails+"第"+roundCount+"局:"+gUser.roundScoreCount+"\n"
+
+
+
+                         }
+
+                         roundCount++
+
+                     }
+
+                     userList.each{k,v->
+
+                         sList.add(v)
+
+                     }
+
+                     s = JsonOutput.toJson(sList);
+
+                 }
+            }
+        }
+
+        return s
 
     }
 
