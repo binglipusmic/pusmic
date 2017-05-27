@@ -152,6 +152,15 @@ cc.Class({
                 }
                 actionUIScriptNode.closeLoadingIcon();
 
+                //----------------------------------------------------------------------------------------
+                //getGameRoundlunScoreCount
+                if (messageDomain.messageAction == "getGameRoundlunScoreCount") {
+                     var userScoreCountObj = JSON.parse(messageDomain.messageBody);
+                     //initalAllRoundScore
+                     roundScoreScript.initalAllRoundScore(userScoreCountObj);
+
+                }
+
                 //-----------------------------------------------------------------------------------------
                 //user offline
 
@@ -1131,6 +1140,12 @@ cc.Class({
         Global.subid = Global.subid + 1;
 
         this.subscribeToPrivateChanel(joinRoomNumber);
+    },
+    //------------------------------get game round count-----------------------
+    sendGetGameRoundlunScoreCount: function () {
+        var joinRoomNumber = Global.joinRoomNumber;
+        var messageObj = this.buildSendMessage(joinRoomNumber, joinRoomNumber, "getGameRoundlunScoreCount");
+        this.sendMessageToServer(messageObj);
     },
     //-------------------------------save location to user info -----------------
     saveLocationInfoToGobalInfo: function (longitude, latitude) {

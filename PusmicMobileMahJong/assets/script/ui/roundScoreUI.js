@@ -22,7 +22,7 @@ cc.Class({
         gameConfigButtonListNode: cc.Node,
         tableNetWorkNode: cc.Node,
         endLunFlag: "0",
-        tableCenterNode:cc.Node,
+        tableCenterNode: cc.Node,
 
     },
 
@@ -32,8 +32,8 @@ cc.Class({
         gameConfigButtonScript = this.gameConfigButtonListNode.getComponent("gameConfigButtonListAction");
         tableNetWorkScript = this.tableNetWorkNode.getComponent("GameTableNetWork");
         tableCenterScript = this.tableCenterNode.getComponent("tableCenterPoint");
-         
- },
+
+    },
 
     initalRoundScore: function () {
         var userList = Global.userList;
@@ -80,7 +80,7 @@ cc.Class({
             console.log("userNode ui :1214");
         });
     },
-     initalUserImageAll: function (testImageUrl, nodeName) {
+    initalUserImageAll: function (testImageUrl, nodeName) {
         cc.loader.load(testImageUrl, function (err, texture) {
             var frame = new cc.SpriteFrame(texture);
             var tableNode = cc.find("Canvas/tableNode");
@@ -92,9 +92,14 @@ cc.Class({
             console.log("userNode ui :1214");
         });
     },
-   
 
-    initalAllRoundScore: function () {
+    /*
+    [{"openid":"oCG9Xwo2BF--ukJXk9uCTLqhz8f8","roundScoreCount":6,"roundDetails":"\u7b2c2\u5c40:6\n\u7b2c3\u5c40:0\n"},
+    {"openid":"oCG9XwmeaOXLFlJGvu3FEJ4Leq6g","roundScoreCount":4,"roundDetails":"\u7b2c2\u5c40:4\n\u7b2c3\u5c40:0\n"},
+    {"openid":"oCG9XwnO2XlKgsslrMjtf3rRTWmY","roundScoreCount":-10,"roundDetails":"\u7b2c2\u5c40:-10\n\u7b2c3\u5c40:0\n"}]
+    */
+
+    initalAllRoundScore: function (userObjList) {
         var userList = Global.userList;
         this.userAllRoundScireNode.active = true;
         for (var i = 0; i < userList.length; i++) {
@@ -107,21 +112,31 @@ cc.Class({
             var userNameNodeLable = userNameNode.getComponent(cc.Label);
             userNameNodeLable.string = user.nickName;
 
-           var serverUrl = Global.hostHttpProtocol + "://" + Global.hostServerIp + ":" + Global.hostServerPort;
+            var serverUrl = Global.hostHttpProtocol + "://" + Global.hostServerIp + ":" + Global.hostServerPort;
             console.log("headImageFileName round ui:" + user.headImageFileName);
             var headImageurl = serverUrl + "/webchatImage/" + user.headImageFileName;
             console.log(" round ui headImageurl:" + headImageurl);
 
             this.initalUserImageAll(headImageurl, nodeName);
+            var roundScoreCount = 0;
+            var roundDetails = "";
+
+            for (var j = 0; j < userObjList.length; j++) {
+                var userObj = userObjList[j];
+                if (userObj.openid == user.openid) {
+                    roundScoreCount = userObj.roundScoreCount;
+                    roundDetails = userObj.roundDetails;
+                }
+            }
 
             var userIdTextLable = userIdNode.getComponent(cc.Label);
             userIdTextLable.string = user.userCode;
             var userDetailsNode = cc.find("huPaiDetailsNode", bgNode);
             var detailsRichText = userDetailsNode.getComponent(cc.Label);
-            detailsRichText.string = "rrrrrrrrrr \n fdfdfdfdfd \n";
+            detailsRichText.string = roundDetails;
             var userCountNode = cc.find("totalCountNode", bgNode);
             var userCountAllLable = userCountNode.getComponent(cc.Label);
-            userCountAllLable.string = "总成绩：" + user.roundScoreCount
+            userCountAllLable.string = "总成绩：" + roundScoreCount
         }
     },
 
@@ -151,6 +166,7 @@ cc.Class({
         gameConfigButtonScript.enterMainEntry("1");
     },
     closeRoundScore: function () {
+        tableNetWorkScript.sendGetGameRoundlunScoreCount();
         this.userRoundScoreNode.active = false;
         //go to a new game ground
         //1.clean the data layer
@@ -169,6 +185,8 @@ cc.Class({
         } else {
             this.initalAllRoundScore();
         }
+
+        
     }
 
     // called every frame, uncomment this function to activate update callback

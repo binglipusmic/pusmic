@@ -358,7 +358,7 @@ class GameRoundLunService {
                              }
                              UserCountObj userCountObj1=userList.get(gameUser.springUser.openid)
                              if(userCountObj1.roundScoreCount){
-                                 userCountObj1.roundScoreCount= Integer.getInteger(userCountObj1.roundScoreCount)+gUser.roundScoreCount
+                                 userCountObj1.roundScoreCount= userCountObj1.roundScoreCount+gUser.roundScoreCount
                              }else{
                                  userCountObj1.roundScoreCount= gUser.roundScoreCount
                              }

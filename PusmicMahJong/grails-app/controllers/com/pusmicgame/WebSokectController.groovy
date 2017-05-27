@@ -35,6 +35,11 @@ class WebSokectController {
         // println "userResiveMessage:"+messageJsonObj.messageAction
         //closeGameRoundLun
         //gameinistal
+        //getGameRoundlunScoreCount
+        if (messageJsonObj.messageAction.equals("getGameRoundlunScoreCount")) {
+            def s = gameRoundLunService.getUserScoreCount(messageJsonObj.messageBelongsToPrivateChanleNumber)
+            websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)
+        }
         if (messageJsonObj.messageAction.equals("offlineUserKouFen")) {
             userService.kouFenByOpenId(messageJsonObj);
             //sessionHeaders.put("openid",messageJsonObj.messageBody);
