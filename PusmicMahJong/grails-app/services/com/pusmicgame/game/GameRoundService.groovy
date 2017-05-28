@@ -332,7 +332,7 @@ class GameRoundService {
                            // onlineUser.refresh()
                             println "onlineUser:"+onlineUser.id
                             onlineUser.onlineStau=1
-                            onlineUser.save(flush: true, failOnError: true)
+                            //onlineUser.save(flush: true, failOnError: true)
                         }
 
                     }
