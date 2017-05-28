@@ -128,6 +128,10 @@ class UserService {
             springUser.refresh_token = userAuthObject.refresh_token;
             springUser.access_token = userAuthObject.access_token
             springUser.save(flush: true, failOnError: true)
+
+            //update online user
+
+
         }
         return springUser
     }

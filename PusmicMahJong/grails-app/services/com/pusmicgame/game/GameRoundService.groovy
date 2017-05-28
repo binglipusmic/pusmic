@@ -330,6 +330,7 @@ class GameRoundService {
                         OnlineUser onlineUser=OnlineUser.findBySpringUser(user.springUser)
                         if(onlineUser){
                            // onlineUser.refresh()
+                            println "onlineUser:"+onlineUser.id
                             onlineUser.onlineStau=1
                             onlineUser.save(flush: true, failOnError: true)
                         }

@@ -155,9 +155,9 @@ cc.Class({
                 //----------------------------------------------------------------------------------------
                 //getGameRoundlunScoreCount
                 if (messageDomain.messageAction == "getGameRoundlunScoreCount") {
-                     var userScoreCountObj = JSON.parse(messageDomain.messageBody);
-                     //initalAllRoundScore
-                     roundScoreScript.initalAllRoundScore(userScoreCountObj);
+                    var userScoreCountObj = JSON.parse(messageDomain.messageBody);
+                    //initalAllRoundScore
+                    roundScoreScript.initalAllRoundScore(userScoreCountObj);
 
                 }
 
@@ -2324,6 +2324,18 @@ cc.Class({
             //console.log("paiArrayCache:" + paiArrayCache.toString());
 
             caChepailist.push(paiArrayCache);
+
+            //count peng pai dai gang 
+
+            if (pengList != null && pengList != undefined && pengList.length > 0) {
+                for (var j = 0; j < pengList.length; j++) {
+                    var pengpai = pengList[j] + "";
+                    if (pengpai == pai) {
+                        fanShu = fanShu + 1;
+                        details = details + "带杠:1番;"
+                    }
+                }
+            }
         }
 
         //qing yi se 

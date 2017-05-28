@@ -188,11 +188,11 @@ cc.Class({
         Global.userList = userList;
         Global.userInfo = userInfo;
         Global.chuPaiActionType = "normalChuPai";
-        cc.log(" Global.userInfo:" + userInfo.toString());
-        cc.log(" Global.userList:" + Global.userList.length);
+        console.log(" Global.userInfo:" + userInfo.toString());
+        console.log(" Global.userList:" + Global.userList.length);
         Global.joinRoomNumber = "585930";
         var roomNumber = Global.joinRoomNumber;
-        cc.log("roomNumber:" + roomNumber);
+        console.log("roomNumber:" + roomNumber);
         tableNetworkScript.connectByPrivateChanel();
         //tableNetworkScript.testJoinRoom(roomNumber);
 
@@ -312,7 +312,7 @@ cc.Class({
 
         //iniIndexScript.sendUserCode();
         //*********Test End */
-        //  cc.log("Global.chuPaiActionType initalUserPai:" + Global.chuPaiActionType);
+        //  console.log("Global.chuPaiActionType initalUserPai:" + Global.chuPaiActionType);
         //hide game mode
         this.tableGameMode.active = false;
         this.tableHead.active = true;
@@ -334,7 +334,7 @@ cc.Class({
         this.user3HuNode.active = false;
         this.user4HuNode.active = false;
 
-
+        var gameMode = Global.gameMode;
         //inital zhuang by gobal
 
         if (Global.zhuangOpenId != null && Global.zhuangOpenId != undefined) {
@@ -349,15 +349,15 @@ cc.Class({
             Global.userList = userList;
         }
 
-        //cc.log("userList.length:"+userList.length);
+        //console.log("userList.length:"+userList.length);
         for (var i = 0; i < userList.length; i++) {
             var user = userList[i];
             user.online = "1";
-            cc.log("inital user zhuang:" + user.zhuang);
-            cc.log("inital user openid:" + user.openid);
+            console.log("inital user zhuang:" + user.zhuang);
+            console.log("inital user openid:" + user.openid);
             //show current user node
             if (user.pointIndex != null && user.pointIndex != undefined) {
-                cc.log(user.pointIndex);
+                console.log(user.pointIndex);
                 //fix user point
                 if (user.pointIndex != "3") {
                     eval("this.userInfo" + user.pointIndex + ".active = true");
@@ -383,13 +383,15 @@ cc.Class({
                 }
 
                 var paiList = user.paiList;
-                cc.log(user.pointIndex + ":" + paiList.toString());
+                console.log(user.pointIndex + ":" + paiList.toString());
                 if (paiList != null && paiList != undefined) {
                     if ((user.pointIndex + "") == "3") {
                         //inital self pai
-                        cc.log("self user pai");
-                        Global.chuPaiActionType = "huanSanZhang";
-                        Global.huanSanZhangPaiList = [];
+                        console.log("self user pai");
+                        if (gameMode.huanSanZhang + "" == "1") {
+                            Global.chuPaiActionType = "huanSanZhang";
+                            Global.huanSanZhangPaiList = [];
+                        }
                         user.paiListArray = this.intalSelfPaiList(paiList);
                         user.chupaiListX = -210;
                         user.chupaiListY = -45;
@@ -410,13 +412,13 @@ cc.Class({
         //put back the user list to gobal
 
         Global.userList = userList;
-        var gameMode = Global.gameMode;
+
         if (type != "joinExist") {
             //show huanPaiScript
             if (gameMode.huanSanZhang + "" == "1") {
                 huanPaiScript.showHuanPaiNode();
             } else {
-                userInfoScript.disableAllPai();
+                this.disableAllPai();
                 Global.chuPaiActionType = "";
                 quePaiScript.showQuePaiNodeAll();
             }
@@ -452,7 +454,7 @@ cc.Class({
      * 
      */
     getMinLenPaiListFromPai: function (paiList) {
-        cc.log("getMinLenPaiListFromPai:" + paiList.toString());
+        console.log("getMinLenPaiListFromPai:" + paiList.toString());
         var v1 = [];
         var v2 = [];
         var v3 = [];
@@ -495,12 +497,12 @@ cc.Class({
         }
 
 
-        cc.log("getMinLenPaiListFromPai returnArray:" + returnArray.toString());
+        console.log("getMinLenPaiListFromPai returnArray:" + returnArray.toString());
 
 
         for (var i = 0; i < 3; i++) {
             //    var paiName = "pai" + (i) + "_" + returnArray[i].trim();
-            //     cc.log("getMinLenPaiListFromPai paiName:"+paiName);
+            //     console.log("getMinLenPaiListFromPai paiName:"+paiName);
             //    var paiNode=cc.find(paiName, this.user3PaiListNode);
             //    paiNode.y=20;
             Global.huanSanZhangPaiList.push(returnArray[i]);
@@ -704,7 +706,7 @@ cc.Class({
         var userChuPaiListNode = cc.find("user2PaiList", tableNode);
         // var chuPaiListNode = cc.find("user" + index + "ChuaPaiListNode",this.tableNode);
         var children = userChuPaiListNode.children;
-        cc.log("testAddOne:" + children.length);
+        console.log("testAddOne:" + children.length);
 
     },
     /**
@@ -714,18 +716,18 @@ cc.Class({
         // var paiArray = paiList.split(",");
         var startX = 0;
         var startY = 0;
-        cc.log("********initalOtherPaiListOnePai:" + paiArray.toString() + "----" + point);
+        console.log("********initalOtherPaiListOnePai:" + paiArray.toString() + "----" + point);
         var currentUser = this.getCorrectUserByPoint(point);
         var tableNode = cc.find("Canvas/tableNode");
         var userChuPaiListNode = cc.find("user" + point + "PaiList", tableNode);
 
         var chirenLen = userChuPaiListNode.children.length;
-        cc.log("********initalOtherPaiListOnePai 1:" + chirenLen + "----" + point);
+        console.log("********initalOtherPaiListOnePai 1:" + chirenLen + "----" + point);
 
 
         var firstNode = userChuPaiListNode.children[0];
         var lastNode = userChuPaiListNode.children[chirenLen - 1];
-        cc.log("firstNode x:" + firstNode.x + "-" + firstNode.y);
+        console.log("firstNode x:" + firstNode.x + "-" + firstNode.y);
         var pengList = currentUser.pengPaiList;
         var gangList = currentUser.gangPaiList;
         var pengLength = 0;
@@ -741,7 +743,7 @@ cc.Class({
             gangLength = gangLength.length;
         }
         var i = paiArray.length;
-        cc.log("i:" + i);
+        console.log("i:" + i);
         // for (var i = 0; i < paiArray.length; i++) {
         if (paiNumber != null && paiNumber != undefined) {
             if (paiNumber != "") {
@@ -793,13 +795,13 @@ cc.Class({
 
                 paiNode.name = "autoMoPai"
 
-                cc.log("add one:" + paiNode.active + "----" + paiNode.x + ":" + paiNode.y) + "---z:" + paiNode.zIndex;
+                console.log("add one:" + paiNode.active + "----" + paiNode.x + ":" + paiNode.y) + "---z:" + paiNode.zIndex;
 
             }
         }
         //}
         chirenLen = userChuPaiListNode.children.length;
-        cc.log("********initalOtherPaiListOnePai 2:" + chirenLen + "----" + point);
+        console.log("********initalOtherPaiListOnePai 2:" + chirenLen + "----" + point);
 
         return paiArray
 
@@ -808,7 +810,7 @@ cc.Class({
         var paiArray = paiList.split(",");
         var startX = 0;
         var startY = 0;
-        cc.log("********initalOtherPaiList:" + paiList + "----" + point);
+        console.log("********initalOtherPaiList:" + paiList + "----" + point);
         //eval("this.user" + point + "PaiListNode.removeAllChildren()");
         var currentUser = this.getCorrectUserByPoint(point);
         var pengList = currentUser.pengPaiList;
@@ -853,7 +855,7 @@ cc.Class({
 
                     eval("this.user" + point + "PaiListNode.addChild(paiNode)");
                     //fix the user 1
-                    cc.log("info endPoint:" + endPoint + ":" + point);
+                    console.log("info endPoint:" + endPoint + ":" + point);
                     if (point == "1") {
                         //startX = 380;
                         if (endPoint != null && endPoint != undefined && endPoint + "" != "") {
@@ -915,7 +917,7 @@ cc.Class({
                         paiNode.height = 85;
                     }
 
-                    cc.log(point + ":" + paiNode.x + "-" + paiNode.y);
+                    console.log(point + ":" + paiNode.x + "-" + paiNode.y);
 
                 }
             }
@@ -924,15 +926,15 @@ cc.Class({
         if (point == "4") {
             eval("this.user" + point + "PaiListNode.zIndex=140");
             eval("this.user" + point + "PaiListNode.setLocalZOrder(140)");
-            //  cc.log("4 inital zindex:" + paiNode.zIndex);
-            //  cc.log("4 inital setLocalZOrder:" + paiNode.getLocalZOrder());
+            //  console.log("4 inital zindex:" + paiNode.zIndex);
+            //  console.log("4 inital setLocalZOrder:" + paiNode.getLocalZOrder());
 
         }
         if (point == "2") {
             eval("this.user" + point + "PaiListNode.zIndex=120");
             eval("this.user" + point + "PaiListNode.setLocalZOrder(120)");
-            // cc.log("4 inital zindex:" + paiNode.zIndex);
-            // cc.log("4 inital setLocalZOrder:" + paiNode.getLocalZOrder());
+            // console.log("4 inital zindex:" + paiNode.zIndex);
+            // console.log("4 inital setLocalZOrder:" + paiNode.getLocalZOrder());
 
         }
 
@@ -956,7 +958,7 @@ cc.Class({
                 paiNode.name = "pai" + (i) + "_" + paiArray[i].trim();
                 //var imageUrl = "/img/9t";
                 //var imageUrl = this.getCorrectNameOnSelfPai(paiArray[i]);
-                //cc.log("img3:" + imageUrl);
+                //console.log("img3:" + imageUrl);
                 /*
                 cc.loader.load(imageUrl, function (err, texture) {
                     if (err) {
@@ -1019,7 +1021,7 @@ cc.Class({
 
     getCorrectNameOnSelfPai: function (pai) {
         pai = (pai + "").trim()
-        cc.log("img1:" + pai + "--" + pai.length);
+        console.log("img1:" + pai + "--" + pai.length);
         var type = (pai + "").substring(0, 1);
         var paiNum = (pai + "").substring(1);
         var prefix = ""
@@ -1039,7 +1041,7 @@ cc.Class({
         }
 
         var img = path + paiNum + prefix;
-        cc.log("img2:" + img);
+        console.log("img2:" + img);
         return img;
 
     },
@@ -1073,14 +1075,14 @@ cc.Class({
     fixUserPointByIndex: function (index) {
         index = index + "";
         if (index == "1") {
-            cc.log("this.userInfo1 x:" + this.userInfo1.x);
-            cc.log("this.userInfo1 y:" + this.userInfo1.y);
+            console.log("this.userInfo1 x:" + this.userInfo1.x);
+            console.log("this.userInfo1 y:" + this.userInfo1.y);
             var widget = this.userInfo1.getComponent(cc.Widget);
             widget.top = -40;
             // widget.isAlignRight = true;
             // widget.right = 210;
             //this.userInfo1.y=-20;
-            cc.log("fixUserPointByIndex 1:" + this.userInfo1.y)
+            console.log("fixUserPointByIndex 1:" + this.userInfo1.y)
             //this.userInfo1.y =410;
             this.userInfo1.x = -600;
             //this.userInfo1.y = 0;
@@ -1093,13 +1095,13 @@ cc.Class({
             this.userInfo2.x = -607;
             //  this.userInfo2.y = 0;
         }
-        cc.log("fixUserPointByIndex:" + index);
+        console.log("fixUserPointByIndex:" + index);
         if (index == "4") {
             var widget = this.userInfo4.getComponent(cc.Widget);
             widget.isAlignRight = true;
             widget.right = 60;
             //this.userInfo4.x = 607;
-            cc.log("fixUserPointByIndex:" + this.userInfo4.x);
+            console.log("fixUserPointByIndex:" + this.userInfo4.x);
         }
     },
 
@@ -1110,7 +1112,7 @@ cc.Class({
         for (var i = 0; i < userList.length; i++) {
             var user = userList[i];
             var userNodeName = "user" + user.pointIndex + "Node";
-            cc.log("userNodeName:" + userNodeName);
+            console.log("userNodeName:" + userNodeName);
             console.log("userNodeName:" + userNodeName);
             var userNode = cc.find(userNodeName, this.tableNode);
             var userInfoNode = cc.find("userInfoNode", userNode);
@@ -1118,7 +1120,7 @@ cc.Class({
             var userReadyiconNode = cc.find("userReadyNode", userInfoNode);
             var userReadyBtnNode = cc.find("readyButton", userReadyiconNode);
             var s = userReadyBtnNode.getComponent(cc.Sprite);
-            cc.log("user.gameReadyStatu:" + user.gameReadyStatu);
+            console.log("user.gameReadyStatu:" + user.gameReadyStatu);
             console.log("user.gameReadyStatu:" + user.gameReadyStatu);
             if (user.gameReadyStatu == "1") {
                 s.spriteFrame = this.userReadyIconOk;
@@ -1172,7 +1174,7 @@ cc.Class({
                 }
 
             }
-            cc.log("index:" + index);
+            console.log("index:" + index);
             console.log("index:" + index);
             if (index == 0) {
                 if (gamePeople == "3") {
