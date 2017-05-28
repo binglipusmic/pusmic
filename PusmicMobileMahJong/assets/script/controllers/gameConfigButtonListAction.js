@@ -30,6 +30,8 @@ cc.Class({
         gameConfigNode: cc.Node,
         alertMessageNode: cc.Node,
 
+        tableNode:cc.Node,
+
         gameTable: cc.Node,
         gameTableHead: cc.Node,
         gameTableModeBarNode: cc.Node,
@@ -134,6 +136,7 @@ cc.Class({
         tableNetWork.initalClient();
         this.indexNode.active = false;
         this.mainMenuNode.active = true;
+        this.tableNode.active=false;
         grilBtn.enabled = true;
         boyBtn.enabled = true;
         if (action == "1") {

@@ -1323,6 +1323,9 @@
     "alertMessageNode": {
       "__id__": 257
     },
+    "tableNode": {
+      "__id__": 274
+    },
     "gameTable": {
       "__id__": 274
     },

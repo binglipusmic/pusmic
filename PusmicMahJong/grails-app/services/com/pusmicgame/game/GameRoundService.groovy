@@ -300,7 +300,7 @@ class GameRoundService {
 
 
     def saveRoundScore(obj,roomNumber){
-
+        println "saveRoundScore "
         GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
         if (onlineRoomNumber) {
             GameRound gameRound = onlineRoomNumber.gameRound
@@ -311,34 +311,37 @@ class GameRoundService {
                 if(gameUsers){
                     gameUsers.each{user->
                         if(user.springUser.openid.equals(obj.fromUserOpenid)){
-                            user.roundScoreCount=obj.roundScoreCount
+
+                            println "saveRoundScore obj.fromUserOpenid:"+obj.fromUserOpenid
+                            println "saveRoundScore obj.roundScoreCount:"+obj.roundScoreCount
+                            user.roundScoreCount=obj.roundScoreCount.toInteger()
                             user.huPaiDetails=obj.huPaiDetails
                             user.save(flush: true, failOnError: true)
                             //update total in spring user
                             if(user.roundScoreCount) {
 
-                                if(user.roundScoreCount>0) {
+                              //  if(user.roundScoreCount>0) {
                                     def springUser = user.springUser
                                     updateScoreAndWinCountAndPushToClient(springUser,roomNumber,user)
 
-                                }
+                               // }
                             }
 
                         }
                       //round end chage user online sutat to 1
                         //OnlineUser.refresh()
-                        if(user){
-                            def springUser = user.springUser
-                            if(springUser) {
-                                OnlineUser onlineUser = OnlineUser.findBySpringUser(springUser)
-                                if (onlineUser) {
-                                    // onlineUser.refresh()
-                                    println "onlineUser:" + onlineUser.id
-                                    onlineUser.onlineStau = 1
-                                    //onlineUser.save(flush: true, failOnError: true)
-                                }
-                            }
-                        }
+//                        if(user){
+//                            def springUser = user.springUser
+//                            if(springUser) {
+//                                OnlineUser onlineUser = OnlineUser.findBySpringUser(springUser)
+//                                if (onlineUser) {
+//                                    // onlineUser.refresh()
+//                                    println "onlineUser:" + onlineUser.id
+//                                    onlineUser.onlineStau = 1
+//                                    //onlineUser.save(flush: true, failOnError: true)
+//                                }
+//                            }
+//                        }
 
 
                     }
