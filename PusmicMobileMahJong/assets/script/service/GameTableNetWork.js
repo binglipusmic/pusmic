@@ -155,9 +155,23 @@ cc.Class({
                 //----------------------------------------------------------------------------------------
                 //getGameRoundlunScoreCount
                 if (messageDomain.messageAction == "getGameRoundlunScoreCount") {
-                    var userScoreCountObj = JSON.parse(messageDomain.messageBody);
+                    var bodyStr = "";
+                    var openId = "";
+                    if (messageDomain.messageBody.indexOf("1splitCharaPusmicGame1") >= 0) {
+                        var tempArray = messageDomain.messageBody.split("1splitCharaPusmicGame1");
+                        bodyStr = tempArray[0];
+                        openId = tempArray[1];
+                    } else {
+                        bodyStr = messageDomain.messageBody;
+                    }
+                    userInfo = Global.userInfo;
+                    var userScoreCountObj = JSON.parse(bodyStr);
+                    if (userInfo.openid == openId) {
+                        roundScoreScript.initalAllRoundScore(userScoreCountObj);
+                    }
+
+
                     //initalAllRoundScore
-                    roundScoreScript.initalAllRoundScore(userScoreCountObj);
 
                 }
 
@@ -709,8 +723,8 @@ cc.Class({
 
                             } else if (huActionListCache.length == 2) {
                                 //一炮双响
-                                     this.sendShowActionBarOnOtherUser( huActionListCache[0].userOpenId,  huActionListCache[0].actionArray.toString(),  huActionListCache[0].paiNumber, "");
-                                     this.sendShowActionBarOnOtherUser( huActionListCache[1].userOpenId,  huActionListCache[1].actionArray.toString(),  huActionListCache[1].paiNumber, "");
+                                this.sendShowActionBarOnOtherUser(huActionListCache[0].userOpenId, huActionListCache[0].actionArray.toString(), huActionListCache[0].paiNumber, "");
+                                this.sendShowActionBarOnOtherUser(huActionListCache[1].userOpenId, huActionListCache[1].actionArray.toString(), huActionListCache[1].paiNumber, "");
                             } else {
                                 //send all action bar to server ,let server decide the order.
                                 //hu 2,nohu 1
@@ -1147,8 +1161,9 @@ cc.Class({
     },
     //------------------------------get game round count-----------------------
     sendGetGameRoundlunScoreCount: function () {
+        var userInfo = Global.userInfo;
         var joinRoomNumber = Global.joinRoomNumber;
-        var messageObj = this.buildSendMessage(joinRoomNumber, joinRoomNumber, "getGameRoundlunScoreCount");
+        var messageObj = this.buildSendMessage(userInfo.openid, joinRoomNumber, "getGameRoundlunScoreCount");
         this.sendMessageToServer(messageObj);
     },
     //-------------------------------save location to user info -----------------
@@ -2334,9 +2349,9 @@ cc.Class({
             if (pengList != null && pengList != undefined && pengList.length > 0) {
                 for (var j = 0; j < pengList.length; j++) {
                     var pengpai = pengList[j] + "";
-                    if(pengpai==pai){
-                         fanShu = fanShu + 1;
-                         details = details + " 带杠:1番;"
+                    if (pengpai == pai) {
+                        fanShu = fanShu + 1;
+                        details = details + " 带杠:1番;"
                     }
                 }
             }

@@ -43,7 +43,7 @@ class WebSokectController {
             MessageDomain newMessageObj = new MessageDomain()
             newMessageObj.messageBelongsToPrivateChanleNumber = messageJsonObj.messageBelongsToPrivateChanleNumber
             newMessageObj.messageAction = "getGameRoundlunScoreCount"
-            newMessageObj.messageBody = s
+            newMessageObj.messageBody = s+"1splitCharaPusmicGame1"+messageJsonObj.messageBody
             newMessageObj.messageType = "gameAction"
             def s2 = new JsonBuilder(newMessageObj).toPrettyString()
             websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)
