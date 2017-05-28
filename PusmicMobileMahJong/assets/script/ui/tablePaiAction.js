@@ -838,7 +838,8 @@ cc.Class({
         chuPaiIndex = temp[0].replace("pai");
 
         //Fix the game mode aollow huansanzhang 
-        gameMode.huanSanZhang = "1";
+        //gameMode.huanSanZhang = "1";
+         console.log("842 gameMode.huanSanZhang:"+gameMode.huanSanZhang);
         //************************************** */
         // var index = parseInt(name.substring(7));
         // console.log("index:" + index);

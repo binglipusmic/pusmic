@@ -184,7 +184,10 @@ cc.Class({
         var gameMode = require("gameMode").gameMode;
 
         gameMode.huanSanZhang = "1";
-        Global.gameMode = gameMode;
+        if (Global.gameMode == null || Global.gameMode == undefined) {
+            Global.gameMode = gameMode;
+        }
+
         Global.userList = userList;
         Global.userInfo = userInfo;
         Global.chuPaiActionType = "normalChuPai";
@@ -307,7 +310,7 @@ cc.Class({
         //inital the test data
         //**********Test */
         if (initalType != "inital") {
-            this.testInitalUserList(initalType);
+           //this.testInitalUserList(initalType);
         }
 
         //iniIndexScript.sendUserCode();
@@ -412,7 +415,8 @@ cc.Class({
         //put back the user list to gobal
 
         Global.userList = userList;
-
+        console.log("type:" + type);
+        console.log("gameMode.huanSanZhang:" + gameMode.huanSanZhang);
         if (type != "joinExist") {
             //show huanPaiScript
             if (gameMode.huanSanZhang + "" == "1") {

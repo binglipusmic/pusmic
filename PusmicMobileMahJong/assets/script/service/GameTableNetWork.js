@@ -707,6 +707,10 @@ cc.Class({
                                 }
 
 
+                            } else if (huActionListCache.length == 2) {
+                                //一炮双响
+                                     this.sendShowActionBarOnOtherUser( huActionListCache[0].userOpenId,  huActionListCache[0].actionArray.toString(),  huActionListCache[0].paiNumber, "");
+                                     this.sendShowActionBarOnOtherUser( huActionListCache[1].userOpenId,  huActionListCache[1].actionArray.toString(),  huActionListCache[1].paiNumber, "");
                             } else {
                                 //send all action bar to server ,let server decide the order.
                                 //hu 2,nohu 1
@@ -2330,9 +2334,9 @@ cc.Class({
             if (pengList != null && pengList != undefined && pengList.length > 0) {
                 for (var j = 0; j < pengList.length; j++) {
                     var pengpai = pengList[j] + "";
-                    if (pengpai == pai) {
-                        fanShu = fanShu + 1;
-                        details = details + "带杠:1番;"
+                    if(pengpai==pai){
+                         fanShu = fanShu + 1;
+                         details = details + " 带杠:1番;"
                     }
                 }
             }

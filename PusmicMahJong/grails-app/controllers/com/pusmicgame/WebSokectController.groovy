@@ -36,9 +36,17 @@ class WebSokectController {
         //closeGameRoundLun
         //gameinistal
         //getGameRoundlunScoreCount
-        if (messageJsonObj.messageAction.equals("getGameRoundlunScoreCount")) {
+
+         if (messageJsonObj.messageAction.equals("getGameRoundlunScoreCount")) {
+             println "getGameRoundlunScoreCount:41"
             def s = gameRoundLunService.getUserScoreCount(messageJsonObj.messageBelongsToPrivateChanleNumber)
-            websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)
+            MessageDomain newMessageObj = new MessageDomain()
+            newMessageObj.messageBelongsToPrivateChanleNumber = messageJsonObj.messageBelongsToPrivateChanleNumber
+            newMessageObj.messageAction = "getGameRoundlunScoreCount"
+            newMessageObj.messageBody = s
+            newMessageObj.messageType = "gameAction"
+            def s2 = new JsonBuilder(newMessageObj).toPrettyString()
+            websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)
         }
         if (messageJsonObj.messageAction.equals("offlineUserKouFen")) {
             userService.kouFenByOpenId(messageJsonObj);

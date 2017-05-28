@@ -100,6 +100,7 @@ cc.Class({
     */
 
     initalAllRoundScore: function (userObjList) {
+        console.log("initalAllRoundScore 103");
         var userList = Global.userList;
         this.userAllRoundScireNode.active = true;
         for (var i = 0; i < userList.length; i++) {
@@ -166,12 +167,16 @@ cc.Class({
         gameConfigButtonScript.enterMainEntry("1");
     },
     closeRoundScore: function () {
-        tableNetWorkScript.sendGetGameRoundlunScoreCount();
+        //tableNetWorkScript.sendGetGameRoundlunScoreCount();
         this.userRoundScoreNode.active = false;
         //go to a new game ground
         //1.clean the data layer
         userInfoScript.cleanUserList();
         userInfoScript.cleanTable();
+
+        //
+        var gameMode = Global.gameMode;
+        console.log("178 gameMode.huanSanZhang:" + gameMode.huanSanZhang);
         //2.GUI
         //gameConfigButtonScript.showGameTalbe("");
         if (this.endLunFlag == "0") {
@@ -183,10 +188,11 @@ cc.Class({
 
             //tableCenterScript.endTimer();
         } else {
-            this.initalAllRoundScore();
+            userInfoScript.initalUserOnRound();
+            tableNetWorkScript.sendGetGameRoundlunScoreCount();
         }
 
-        
+
     }
 
     // called every frame, uncomment this function to activate update callback
