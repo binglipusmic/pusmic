@@ -22,5 +22,7 @@ window.Global = {
     huGangShangHuaChuPaiUserOpenId:"",
     huPreStep:"",
     zhuangOpenId:"",
+    gangFromUserOpenIdCache:"",
+    gangChuPaiUserOpenIdCache:"",
     
 };

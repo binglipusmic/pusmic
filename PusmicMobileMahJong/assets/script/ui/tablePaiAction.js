@@ -6,7 +6,7 @@ var tableUserInfoScript;
 var tableNetWorkScript;
 var tableCenterTimmerScript;
 var audioScript;
-var chuPaiCountFlag=0;
+var chuPaiCountFlag = 0;
 cc.Class({
     extends: cc.Component,
 
@@ -224,7 +224,13 @@ cc.Class({
      */
     playOtherChuPaiAction: function (paiNumber, userPoint) {
 
-        Global.huPreStep="chupai";
+        if (Global.huPreStep == "gang") {
+            Global.huPreStep = "gangchupai";
+        } else {
+            Global.huPreStep = "chupai";
+        }
+
+        //Global.huPreStep = "chupai";
         //var user = this.getCorrectUserByPoint(userPoint);
         var paiPath = this.getChuPaiNameByNodeName(paiNumber, userPoint);
         // var x = user.chupaiListX;
@@ -387,11 +393,15 @@ cc.Class({
      * This method will execute the anication of chupai in self pai list
      */
     playSlefChuPaiAction: function (paiNode, userPoint) {
-        chuPaiCountFlag=0;
+        chuPaiCountFlag = 0;
         //clean hu pre step
+        if (Global.huPreStep == "gang") {
+            Global.huPreStep = "gangchupai";
+        } else {
+            Global.huPreStep = "chupai";
+        }
 
-        Global.huPreStep="chupai";
-        
+
         // var user = this.getCorrectUserByPoint(userPoint);
         var name = paiNode.name;
         var sourceName = paiNode.name;
@@ -839,7 +849,7 @@ cc.Class({
 
         //Fix the game mode aollow huansanzhang 
         //gameMode.huanSanZhang = "1";
-         console.log("842 gameMode.huanSanZhang:"+gameMode.huanSanZhang);
+        console.log("842 gameMode.huanSanZhang:" + gameMode.huanSanZhang);
         //************************************** */
         // var index = parseInt(name.substring(7));
         // console.log("index:" + index);
@@ -892,7 +902,7 @@ cc.Class({
                 //enable all pai after quepai clean 
                 //if(chuPaiCountFlag=0){
                 var selfPaiList = this.playSlefChuPaiAction(node, "3");
-                chuPaiCountFlag=1
+                chuPaiCountFlag = 1
                 //send chu pai action to server.
                 tableNetWorkScript.sendChuPaiAction(userInfo.openid, paiNumTxt, selfPaiList);
                 //close table center timer
@@ -901,7 +911,7 @@ cc.Class({
                 Global.chuPaiActionType = "";
                 Global.gangFromUserOpenId = "";
                 Global.gangHuPai = "";
-               // }
+                // }
 
             }
         }

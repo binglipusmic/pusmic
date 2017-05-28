@@ -633,6 +633,9 @@ cc.Class({
             gangFromUserList = [];
         }
         Global.gangFromUserOpenId = this.chuPaiUserOpenId;
+
+        Global.gangFromUserOpenIdCache = this.fromUserOpenId;
+        Global.gangChuPaiUserOpenIdCache = this.chuPaiUserOpenId;
         gangFromUserList.push(this.chuPaiUserOpenId);
         user.gangFromUserListOpenId = gangFromUserList;
         //zi gang or pa gang 
@@ -844,7 +847,7 @@ cc.Class({
         //user.huchuPaiType = this.preStep;
         user.huchuPaiType = Global.huPreStep;
         //Global.huPreStep
-
+        user.gangFromUserOpenIdCache =Global.gangFromUserOpenIdCache;
 
         var userList2 = Global.userList;
         var existUserString = "";

@@ -1991,6 +1991,9 @@ cc.Class({
                     }
                 }
 
+                if (user.huchuPaiType == "gangchupai") {
+                }
+
                 //existUserString
                 if (gameMode.dianGangHua_ziMo + "" == "1") {
 
@@ -2035,7 +2038,7 @@ cc.Class({
                 console.log("roundScore:" + roundScore);
                 //start count for each user 
 
-                if (user.huchuPaiType == "gang" && gameMode.dianGangHua_dianPao + "" == "1") {
+                if (user.huchuPaiType == "gangchupai" && gameMode.dianGangHua_dianPao + "" == "1") {
                     //点杠 点炮-一家有
                     console.log("1388:" + user.huGangShangHuaChuPaiUserOpenId);
                     var tempUser = this.getCurreentUserByOpenId(user.huGangShangHuaChuPaiUserOpenId);
