@@ -346,7 +346,7 @@ class GameRoundLunService {
                      def sList=[]
                      def roundCount =1
 
-                     gameRoundLun.gameRound.each{ gameRd->
+                     gameRoundLun.gameRound.sort('id').each{ gameRd->
 
                          gameRd.gameUser.each{ gUser->
 

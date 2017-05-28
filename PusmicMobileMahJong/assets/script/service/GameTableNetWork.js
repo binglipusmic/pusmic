@@ -1207,11 +1207,18 @@ cc.Class({
         var o = new Object();
         o.fromUserOpenid = user.openid;
         o.actionName = "saveRoundScore";
-        o.roundScoreCount = user.roundScoreCount;
+        if (user.roundScoreCount != null && user.roundScoreCount != undefined) {
+            o.roundScoreCount = parseInt(user.roundScoreCount);
+
+        } else {
+            o.roundScoreCount = 0;
+        }
+
         o.huPaiDetails = user.huPaiDetails;
         //o.toUserOpenid = userOpenId;
         var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
         this.sendMessageToServer(messageObj);
+
     },
 
     sendStartNewRound: function () {
