@@ -2006,6 +2006,16 @@ cc.Class({
                 //------------Round score count--------------------
                 //get fan shu 
                 console.log("roundScore 1933:" + roundScore);
+
+                if (user.huchuPaiType == "gangchupai") {
+                    user.huPaiFanShu = user.huPaiFanShu + 1;
+                    details = details + "杠上炮(点炮)加1番;"
+                }
+
+                if (user.huchuPaiType == "gang" && gameMode.dianGangHua_ziMo + "" == "1") {
+                    user.huPaiFanShu = user.huPaiFanShu + 1;
+                    details = details + "杠上炮(自摸)加1番;"
+                }
                 if (user.huPaiFanShu > maxFan) {
                     user.huPaiFanShu = maxFan;
                 }
@@ -2041,6 +2051,10 @@ cc.Class({
                 if (user.huchuPaiType == "gangchupai" && gameMode.dianGangHua_dianPao + "" == "1") {
                     //点杠 点炮-一家有
                     console.log("1388:" + user.huGangShangHuaChuPaiUserOpenId);
+
+
+
+
                     var tempUser = this.getCurreentUserByOpenId(user.huGangShangHuaChuPaiUserOpenId);
 
                     if (user.roundScoreCount == null || user.roundScoreCount == undefined) {
@@ -2052,7 +2066,10 @@ cc.Class({
                     if (user.huPaiDetails == undefined || user.huPaiDetails == null) {
                         user.huPaiDetails = "";
                     }
-                    user.huPaiDetails = user.huPaiDetails + " 杠上炮(点炮)得分:" + roundScore * 1 + ";";
+
+
+
+                    //user.huPaiDetails = user.huPaiDetails + " 杠上炮(点炮)得分:" + roundScore * 1 + ";";
                     // user.huPaiDetails = details + " 杠上炮 " + roundScore * 1;
                     if (tempUser.roundScoreCount == undefined || tempUser.roundScoreCount == null) {
                         tempUser.roundScoreCount = 0;
@@ -2067,8 +2084,8 @@ cc.Class({
                     //点杠-自摸，家家有
 
                     if (user.huchuPaiType == "gang" && gameMode.dianGangHua_ziMo + "" == "1") {
-                        user.huPaiFanShu = user.huPaiFanShu + 1;
-                        details = details + "杠上炮(自摸)加1番;"
+                        //user.huPaiFanShu = user.huPaiFanShu + 1;
+                        //details = details + "杠上炮(自摸)加1番;"
                     }
                     var existUserList = existUserString.split(";");
                     console.log("user.roundScoreCount0:" + user.roundScoreCount);
@@ -2364,6 +2381,10 @@ cc.Class({
                         details = details + " 带杠:1番;"
                     }
                 }
+            }
+
+            if (huPai + "" == pai) {
+                huPaiDaiGang = true;
             }
         }
 

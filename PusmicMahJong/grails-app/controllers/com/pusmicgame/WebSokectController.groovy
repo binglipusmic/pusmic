@@ -484,7 +484,7 @@ class WebSokectController {
 //allShowActionBar
             }else if (obj.actionName == "allShowActionBar") {
                 //store all show Action into
-
+                showActionBarService.handelShowAllActionBar(obj.huPaiActionString,obj.noHuPaiActionString,messageJsonObj.messageBelongsToPrivateChanleNumber)
             } else {
 
                 println "send no recongnize action"
