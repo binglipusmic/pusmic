@@ -94,9 +94,10 @@ cc.Class({
                 if (bodyStr.length == 0) {
                     this.reforceLogin();
                 } else {
+                    console.log("decode1:" + bodyStr);
                     bodyStr = base64.decode(bodyStr);
                     // bodyStr = this.b64DecodeUnicode(bodyStr)
-                    console.log("decode:" + bodyStr);
+                    console.log("decode2:" + bodyStr);
                     var obj = JSON.parse(bodyStr);
                     if (obj != undefined && obj != null) {
                         for (var p in obj) {
@@ -142,9 +143,9 @@ cc.Class({
 
                                 }
                                 console.log("obj.onlineStatus:" + obj.onlineStatus);
-                                if (obj.onlineStatus+"" == "3") {
+                                if (obj.onlineStatus + "" == "3") {
                                     reJoinRoomScript.showReJoinGUI();
-                                    Global.joinRoomNumber =obj.onlineRoomNumber;
+                                    Global.joinRoomNumber = obj.onlineRoomNumber;
                                 }
                             }
                         }

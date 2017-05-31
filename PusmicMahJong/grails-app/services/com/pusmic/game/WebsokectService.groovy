@@ -16,6 +16,7 @@ class WebsokectService {
 
     void pusmicGameUserLoginPrivate(def roomNumber,def message) {
         message=message.encodeAsBase64()
+        println "pusmicGameUserLoginPrivate:"+message
         brokerMessagingTemplate.convertAndSend "/queue/pusmicGamePushLoginUserInfoChanle"+roomNumber, message
     }
 
