@@ -327,6 +327,7 @@ class PaiService {
                 //save the rest pai to game round
                 gameRound.restPaiList=paiList
                 gameRound.gameingRestPaiList=paiList
+                gameRound.gameSatatus =2
                 gameRound.save(flush: true, failOnError: true)
                 Collections.sort(gameUserListArray, new CustomComparatorForGameUserPlatObj());
                 paiStr = JsonOutput.toJson(gameUserListArray);

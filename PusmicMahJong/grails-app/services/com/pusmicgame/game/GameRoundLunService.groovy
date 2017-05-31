@@ -251,6 +251,7 @@ class GameRoundLunService {
                 gameRound.gameMode = gameMode
                 gameRound.gameRoundLun = gameRoundLun
                 gameRound.roomNumber = gRoomNumber
+                gameRound.gameSatatus = 1
 
                 GameUser gu = new GameUser()
                 gu.springUser = user

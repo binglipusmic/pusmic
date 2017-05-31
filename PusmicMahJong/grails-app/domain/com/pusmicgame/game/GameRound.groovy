@@ -8,6 +8,8 @@ class GameRound {
     Integer[] gameingRestPaiList
     GameMode gameMode
     GameRoomNumber roomNumber
+    //0-- null ,1-ready stating ,2-starting game ,3-already end
+    int gameSatatus=0
     //Integer huPaiPeopleNumberCount
 
     static hasMany = [gameScore:GameScore, gameStep:GameStep, gameUser:GameUser]

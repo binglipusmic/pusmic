@@ -13,26 +13,30 @@ class GameRoundService {
 
     def websokectService
 
-    def checkGameRoomExist(MessageDomain messageJsonObj){
-        def flag=false;
+    def checkGameRoomExist(MessageDomain messageJsonObj) {
+        def flag = false;
         def roomNumber = messageJsonObj.messageBelongsToPrivateChanleNumber;
         GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
         GameRound gameRound
-        if(onlineRoomNumber){
+        if (onlineRoomNumber) {
             gameRound = onlineRoomNumber.gameRound
         }
-        println "checkGameRoomExist roomnuber 1:"+roomNumber
-       // println "checkGameRoomExist gameRound 1:"+gameRound.id
-        if(gameRound) {
-            def openid = messageJsonObj.messageBody;
-            println "checkGameRoomExist openid 1-29:"+openid
-            gameRound.gameUser.each{gu->
-                println "gu.springUser.openid 1-30:"+gu.springUser.openid
-                 if(gu.springUser.openid.equals(openid)){
-                    flag=true;
-                 }
+        println "checkGameRoomExist roomnuber 1:" + roomNumber
+        // println "checkGameRoomExist gameRound 1:"+gameRound.id
+        if (gameRound) {
+            if (gameRound.gameSatatus == 1) {
+                return flag
+            } else {
+                def openid = messageJsonObj.messageBody;
+                println "checkGameRoomExist openid 1-29:" + openid
+                gameRound.gameUser.each { gu ->
+                    println "gu.springUser.openid 1-30:" + gu.springUser.openid
+                    if (gu.springUser.openid.equals(openid)) {
+                        flag = true;
+                    }
+                }
             }
-        }else{
+        } else {
             return flag
         }
 
@@ -40,55 +44,56 @@ class GameRoundService {
 
         //flag=checkGpsLimit(messageJsonObj)
 
-        println "checkGameRoomExist :"+flag
+        println "checkGameRoomExist :" + flag
 
         return flag
     }
 
-    def saveHuPaiNumberIntoGameRound(MessageDomain messageJsonObj){
-        def huPaiCount=0
+    def saveHuPaiNumberIntoGameRound(MessageDomain messageJsonObj) {
+        def huPaiCount = 0
         def roomNumber = messageJsonObj.messageBelongsToPrivateChanleNumber;
         GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
         GameRound gameRound
-        if(onlineRoomNumber){
+        if (onlineRoomNumber) {
             gameRound = onlineRoomNumber.gameRound
         }
 
-        if(gameRound) {
-            if( gameRound.huPaiPeopleNumberCount){
-                gameRound.huPaiPeopleNumberCount= gameRound.huPaiPeopleNumberCount+1
-            }else{
-                gameRound.huPaiPeopleNumberCount=1
+        if (gameRound) {
+            if (gameRound.huPaiPeopleNumberCount) {
+                gameRound.huPaiPeopleNumberCount = gameRound.huPaiPeopleNumberCount + 1
+            } else {
+                gameRound.huPaiPeopleNumberCount = 1
             }
+            gameRound.gameSatatus=3
             gameRound.save(flush: true, failOnError: true)
-            huPaiCount=gameRound.huPaiPeopleNumberCount
+            huPaiCount = gameRound.huPaiPeopleNumberCount
         }
 
         return huPaiCount
 
     }
 
-    def checkGameRoundEnd(MessageDomain messageJsonObj,huPaiCount){
-        def endGameFlag=false;
+    def checkGameRoundEnd(MessageDomain messageJsonObj, huPaiCount) {
+        def endGameFlag = false;
         def roomNumber = messageJsonObj.messageBelongsToPrivateChanleNumber;
         GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
         GameRound gameRound
-        if(onlineRoomNumber){
+        if (onlineRoomNumber) {
             gameRound = onlineRoomNumber.gameRound
         }
 
-        if(gameRound) {
-            GameMode gameMode=gameRound.gameMode
-            def peopeleCount=0
-            if(gameMode){
-                peopeleCount=gameMode.gamePeopleNumber.toInteger()
-                if(peopeleCount-1==huPaiCount){
-                    endGameFlag=true
+        if (gameRound) {
+            GameMode gameMode = gameRound.gameMode
+            def peopeleCount = 0
+            if (gameMode) {
+                peopeleCount = gameMode.gamePeopleNumber.toInteger()
+                if (peopeleCount - 1 == huPaiCount) {
+                    endGameFlag = true
                 }
             }
 
-            if(gameRound.restPaiList.size()==0){
-                endGameFlag=true
+            if (gameRound.restPaiList.size() == 0) {
+                endGameFlag = true
             }
 
         }
@@ -97,7 +102,7 @@ class GameRoundService {
 
     }
 
-    def checkGpsLimit(MessageDomain messageJsonObj){
+    def checkGpsLimit(MessageDomain messageJsonObj) {
         //
         //0, no gps open for join user
         //1, no gps open for room ownser
@@ -109,37 +114,37 @@ class GameRoundService {
         //6.no gps open for join user ,but gps require
         //7.no gps open for room ownser,but gps require
         //8.no gps limit.
-        def gpsStatus=-1;
+        def gpsStatus = -1;
 
         def roomNumber = messageJsonObj.messageBelongsToPrivateChanleNumber;
         GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
         GameRound gameRound
-        if(onlineRoomNumber){
+        if (onlineRoomNumber) {
             gameRound = onlineRoomNumber.gameRound
         }
 
-        if(gameRound) {
+        if (gameRound) {
 
             def gameLun = gameRound.gameRoundLun
             def gameMode = gameLun.gameMode
             def gpsLimitMeter
             if (gameMode) {
-                gpsLimitMeter= gameMode.gpsLimit
+                gpsLimitMeter = gameMode.gpsLimit
                 if (gpsLimitMeter) {
-                    if(gpsLimitMeter.toInteger()>0){
-                        gpsStatus=5
-                    }else{
-                        gpsStatus=8
+                    if (gpsLimitMeter.toInteger() > 0) {
+                        gpsStatus = 5
+                    } else {
+                        gpsStatus = 8
                     }
 
-                }else{
-                    gpsStatus=8
+                } else {
+                    gpsStatus = 8
                 }
-            }else{
-                gpsStatus=8
+            } else {
+                gpsStatus = 8
             }
 
-            if(gpsStatus==5) {
+            if (gpsStatus == 5) {
                 def openid = messageJsonObj.messageBody;
                 def readyJoinUser = SpringUser.findByOpenid(openid)
                 if (readyJoinUser) {
@@ -150,7 +155,7 @@ class GameRoundService {
                         if (gpsLimitMeter) {
 
                             gpsLimitMeter = gpsLimitMeter.toInteger()
-                            gpsLimitMeter=gpsLimitMeter*1000
+                            gpsLimitMeter = gpsLimitMeter * 1000
 
                             def springUser = SpringUser.findByOpenid(openid)
                             if (springUser) {
@@ -165,24 +170,24 @@ class GameRoundService {
                                                 if (lat1) {
 
                                                     def distance = distance(readyUserLat1, lat1, readyUserLong1, long1, 0.0, 0.0).toInteger()
-                                                    def time=new Date()
-                                                    println time.toString()+"----distance:" + distance
+                                                    def time = new Date()
+                                                    println time.toString() + "----distance:" + distance
                                                     if (distance >= gpsLimitMeter) {
-                                                        if(gpsStatus!=3 && gpsStatus !=7)
-                                                        gpsStatus = 4
+                                                        if (gpsStatus != 3 && gpsStatus != 7)
+                                                            gpsStatus = 4
                                                     } else {
                                                         gpsStatus = 3
-                                                        gpsStatus =distance
+                                                        gpsStatus = distance
 
                                                     }
 
                                                 } else {
                                                     gpsStatus = 7
-                                                   // gpsStatus =distance
+                                                    // gpsStatus =distance
                                                 }
                                             } else {
                                                 gpsStatus = 7
-                                               // gpsStatus =distance
+                                                // gpsStatus =distance
                                             }
 
                                         }
@@ -205,7 +210,6 @@ class GameRoundService {
         return gpsStatus
 
     }
-
 
     /**
      * Calculate distance between two points in latitude and longitude taking
@@ -236,7 +240,7 @@ class GameRoundService {
 
     def getJoinPopeleCount(MessageDomain messageDomain) {
 
-        def peopeleCount=0
+        def peopeleCount = 0
         def roomNumber = messageDomain.messageBelongsToPrivateChanleNumber;
         GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
         if (onlineRoomNumber) {
@@ -244,49 +248,49 @@ class GameRoundService {
             if (gameRound) {
                 //check the user count if already full
 
-                GameMode gameMode=gameRound.gameMode
-                println "getJoinPopeleCount gameMode:"+gameMode.id
-                peopeleCount=gameMode.gamePeopleNumber.toInteger()
+                GameMode gameMode = gameRound.gameMode
+                println "getJoinPopeleCount gameMode:" + gameMode.id
+                peopeleCount = gameMode.gamePeopleNumber.toInteger()
             }
         }
         //println "getJoinPopeleCount gameRound:"+gameRound.id
         //println "getJoinPopeleCount:"+peopeleCount
-       return peopeleCount
+        return peopeleCount
     }
 
-    def currentGameRoundPeopeCount(MessageDomain messageDomain){
+    def currentGameRoundPeopeCount(MessageDomain messageDomain) {
 
-        def peopeleCount=0
+        def peopeleCount = 0
         def roomNumber = messageDomain.messageBelongsToPrivateChanleNumber;
         GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
         if (onlineRoomNumber) {
             GameRound gameRound = onlineRoomNumber.gameRound
             if (gameRound) {
-                def  userList=gameRound.gameUser
-                if(userList){
-                    peopeleCount=userList.size()
-                }else{
-                    peopeleCount=0
+                def userList = gameRound.gameUser
+                if (userList) {
+                    peopeleCount = userList.size()
+                } else {
+                    peopeleCount = 0
                 }
             }
         }
-        println "currentGameRoundPeopeCount:"+peopeleCount
+        println "currentGameRoundPeopeCount:" + peopeleCount
         return peopeleCount
     }
 
-    def getPopeleCountForJoinRoom(MessageDomain messageDomain){
+    def getPopeleCountForJoinRoom(MessageDomain messageDomain) {
 
-        def p1=getJoinPopeleCount(messageDomain)
-        def p2=currentGameRoundPeopeCount(messageDomain)
-        if(p1==0 && p2==0){
+        def p1 = getJoinPopeleCount(messageDomain)
+        def p2 = currentGameRoundPeopeCount(messageDomain)
+        if (p1 == 0 && p2 == 0) {
             return "!"
-        }else{
-            if(p2<p1){
+        } else {
+            if (p2 < p1) {
                 return "<"
-            }else{
-                if(p2==p1){
+            } else {
+                if (p2 == p1) {
                     return "="
-                }else{
+                } else {
                     return ">"
                 }
 
@@ -301,36 +305,36 @@ class GameRoundService {
     }
 
 
-    def saveRoundScore(obj,roomNumber){
+    def saveRoundScore(obj, roomNumber) {
         println "saveRoundScore "
         GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
         if (onlineRoomNumber) {
             GameRound gameRound = onlineRoomNumber.gameRound
             if (gameRound) {
                 //check the user count if already full
-                println "saveRoundScore gameRound:"+gameRound.roomNumber.roomNumber
-                def gameUsers=gameRound.gameUser;
-                if(gameUsers){
-                    gameUsers.each{user->
-                        if(user.springUser.openid.equals(obj.fromUserOpenid)){
-                            println "saveRoundScore ser.springUser:"+user.springUser.nickname
-                            println "saveRoundScore obj.fromUserOpenid:"+obj.fromUserOpenid
-                            println "saveRoundScore obj.roundScoreCount:"+obj.roundScoreCount
-                            user.roundScoreCount=obj.roundScoreCount.toInteger()
-                            user.huPaiDetails=obj.huPaiDetails
+                println "saveRoundScore gameRound:" + gameRound.roomNumber.roomNumber
+                def gameUsers = gameRound.gameUser;
+                if (gameUsers) {
+                    gameUsers.each { user ->
+                        if (user.springUser.openid.equals(obj.fromUserOpenid)) {
+                            println "saveRoundScore ser.springUser:" + user.springUser.nickname
+                            println "saveRoundScore obj.fromUserOpenid:" + obj.fromUserOpenid
+                            println "saveRoundScore obj.roundScoreCount:" + obj.roundScoreCount
+                            user.roundScoreCount = obj.roundScoreCount.toInteger()
+                            user.huPaiDetails = obj.huPaiDetails
                             user.save(flush: true, failOnError: true)
                             //update total in spring user
-                            if(user.roundScoreCount) {
+                            if (user.roundScoreCount) {
 
-                              //  if(user.roundScoreCount>0) {
-                                    def springUser = user.springUser
-                                    updateScoreAndWinCountAndPushToClient(springUser,roomNumber,user)
+                                //  if(user.roundScoreCount>0) {
+                                def springUser = user.springUser
+                                updateScoreAndWinCountAndPushToClient(springUser, roomNumber, user)
 
-                               // }
+                                // }
                             }
 
                         }
-                      //round end chage user online sutat to 1
+                        //round end chage user online sutat to 1
                         //OnlineUser.refresh()
 //                        if(user){
 //                            def springUser = user.springUser
@@ -356,25 +360,25 @@ class GameRoundService {
     }
 
 
-    def updateScoreAndWinCountAndPushToClient(SpringUser springUser,def roomNumber,def user){
+    def updateScoreAndWinCountAndPushToClient(SpringUser springUser, def roomNumber, def user) {
         if (springUser.winCount) {
             springUser.winCount = springUser.winCount + 1
         } else {
             springUser.winCount = 1
         }
 
-        if(springUser.gameScroe){
+        if (springUser.gameScroe) {
             //user.roundScoreCount.toInteger()
-            springUser.gameScroe=springUser.gameScroe+user.roundScoreCount.toInteger()
-        }else{
-            springUser.gameScroe=user.roundScoreCount.toInteger()
+            springUser.gameScroe = springUser.gameScroe + user.roundScoreCount.toInteger()
+        } else {
+            springUser.gameScroe = user.roundScoreCount.toInteger()
         }
         springUser.save(flush: true, failOnError: true)
 
         UserInfo userInfo = new UserInfo()
-        userInfo.openid=springUser.openid
-        userInfo.gameScroe=springUser.gameScroe
-        userInfo.winCount=springUser.winCount
+        userInfo.openid = springUser.openid
+        userInfo.gameScroe = springUser.gameScroe
+        userInfo.winCount = springUser.winCount
 
         def s = new JsonBuilder(userInfo).toPrettyString()
 
