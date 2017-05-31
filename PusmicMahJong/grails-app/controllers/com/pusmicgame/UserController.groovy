@@ -85,7 +85,7 @@ class UserController {
     }
 
     def testScorce(){
-        def s =gameRoundLunService.getUserScoreCount("245144")
+        def s =gameRoundLunService.getUserScoreCount("301083")
         render s
 
     }
