@@ -2288,6 +2288,18 @@ cc.Class({
         }
 
     },
+
+    containsElement: function (arr, obj) {
+
+        var i = arr.length;
+        while (i--) {
+            if (arr[i] === obj) {
+                return true;
+            }
+        }
+        return false;
+
+    },
     //--------------count pai list---------------------------------------
     countHuPaiFanshu: function (pengList, gangList, paiList, huPai) {
         var fanShu = 0;
@@ -2301,6 +2313,7 @@ cc.Class({
         var qiaoQiDuiFlag = true;
         var anGangFlag = false;
         var anGangCount = 0;
+        var anGangCountArray = [];
         var mingGangCount = 0;
         var yaoJiuFlag = false;
         var jiangDuiFlag = true;
@@ -2346,7 +2359,11 @@ cc.Class({
                 daDuiZiFlag = false;
                 anGangFlag = true;
                 jiangDuiFlag = false;
-                anGangCount++;
+                if (!this.containsElement(anGangCountArray, pai)) {
+                    anGangCountArray.push(pai);
+                    anGangCount++;
+                }
+
             }
             if (paiType != minPaiType) {
                 qingYiSeFlag = false;
@@ -2445,15 +2462,7 @@ cc.Class({
 
         }
 
-        if (daDuiZiFlag) {
-            fanShu = fanShu + 1;
-            details = details + " 大对子:1番;"
-        }
 
-        if (huPaiDaiGang) {
-            details = details + " 胡牌带杠:1番;"
-            fanShu = fanShu + 1;
-        }
 
 
         if (qingYiSeFlag) {
@@ -2464,21 +2473,46 @@ cc.Class({
 
         if (qiaoQiDuiFlag) {
             fanShu = fanShu + 2;
-            details = details + "巧七对:2番;"
-        }
+            if (anGangCount > 0) {
+                if (anGangCount == 1) {
+                    details = details + "龙七对:3番;"
+                }
+                if (anGangCount == 2) {
+                    details = details + "双龙七对:4番;"
+                }
+                if (anGangCount == 3) {
+                    details = details + "三龙七对:4番;"
+                }
+            } else {
+                details = details + "巧七对:2番;"
+            }
 
-        if (anGangFlag) {
-            fanShu = fanShu + anGangCount;
-            details = details + "自杠:" + anGangCount + "番;"
-        }
+        } else {
+
+            if (daDuiZiFlag) {
+                fanShu = fanShu + 1;
+                details = details + " 大对子:1番;"
+            }
+
+            if (huPaiDaiGang) {
+                details = details + " 胡牌带杠:1番;"
+                fanShu = fanShu + 1;
+            }
+            if (anGangFlag) {
+                fanShu = fanShu + anGangCount;
+                details = details + "自杠:" + anGangCount + "番;"
+            }
 
 
-        if (gameMode.dai19JiangDui + "" == "1") {
-            if (yaoJiuFlag) {
-                fanShu = fanShu + 2;
-                details = details + "带幺九:2番;"
+            if (gameMode.dai19JiangDui + "" == "1") {
+                if (yaoJiuFlag) {
+                    fanShu = fanShu + 2;
+                    details = details + "带幺九:2番;"
+                }
             }
         }
+
+
         if (gameMode.mengQingZhongZhang + "" == "1") {
             if (menqingFlag) {
                 fanShu = fanShu + 1;
