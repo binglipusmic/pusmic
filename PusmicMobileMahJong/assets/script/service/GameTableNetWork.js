@@ -253,6 +253,9 @@ cc.Class({
                 // actionUIScriptNode.showGameTalbe();
                 if (messageDomain.messageAction == "closeGameRoundLun") {
                     actionUIScriptNode.onlyCloseGameTable();
+                    //clear the userList
+                     Global.userList=null;
+
                 }
                 //closeGameRoundLun
                 //-------------------------------------------------------------------------------------------
