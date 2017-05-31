@@ -370,6 +370,18 @@ class GameRoundLunService {
 
                              userCountObj1.roundDetails=userCountObj1.roundDetails+"第"+roundCount+"局:"+gUser.roundScoreCount+"\n"
 
+                             OnlineUser onlineUser=OnlineUser.findBySpringUser(gUser.springUser)
+
+                             if(onlineUser){
+                                 if(onlineUser.onlineStau){
+                                     if(onlineUser.onlineStau!=-1){
+                                         onlineUser.onlineStau=1
+                                         onlineUser.save(flush: true, failOnError: true)
+                                     }
+                                 }
+
+                             }
+
 
 
                          }
