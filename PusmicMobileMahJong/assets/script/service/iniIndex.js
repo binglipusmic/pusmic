@@ -45,9 +45,9 @@ cc.Class({
 
         }
 
-        cc.log("ini index onload ");
+        console.log("ini index onload ");
         console.log("ini index onload:");
-        cc.log("ini index onload ");
+        console.log("ini index onload ");
 
         if (cc.sys.os == cc.sys.OS_ANDROID) {
             console.log("OS_ANDROID platam GPS:");
@@ -87,9 +87,10 @@ cc.Class({
             roomNumber = this.getRandom();
             cc.sys.localStorage.setItem("loginRoomNumber", roomNumber);
             client.subscribe("/queue/pusmicGamePushLoginUserInfoChanle" + roomNumber, function (message) {
+                console.log("######################");
+                console.log(bodyStr);
                 var bodyStr = message.body;
-                cc.log("######################");
-                cc.log(bodyStr);
+
 
                 if (bodyStr.length == 0) {
                     this.reforceLogin();
@@ -160,11 +161,11 @@ cc.Class({
 
                 //cc.director.loadScene('gameMain2');
             }.bind(this), function () {
-                cc.log("websocket connect subscribe Error:233");
+                console.log("websocket connect subscribe Error:233");
                 //client.disconnect();
             });
         }.bind(this), function () {
-            cc.log("websocket connect  Error:234");
+            console.log("websocket connect  Error:234");
             //client.disconnect();
         });
 
@@ -173,7 +174,7 @@ cc.Class({
         onlineCheckUser.checkonlineUser(client);
 
         cc.game.onStop = function () {
-            cc.log("stopApp$$$$$$$$$$$$$$$$$");
+            console.log("stopApp$$$$$$$$$$$$$$$$$");
             // client.disconnect();
 
         }
@@ -185,7 +186,7 @@ cc.Class({
         //nowTime=this.dateFormat(nowTime);
         var oldTiem = new Date("2017", "3", "12");
         var cha = (nowTime - oldTiem) / 3600 / 1000 / 24;
-        cc.log("nowTime:" + cha);
+        console.log("nowTime:" + cha);
 
 
     },
@@ -229,7 +230,7 @@ cc.Class({
     onDestroy: function () {
         //colse the websokect
         client.disconnect();
-        cc.log("onDestroy");
+        console.log("onDestroy");
     },
 
 
@@ -241,16 +242,16 @@ cc.Class({
     },
     //----------------------inital private chanle----------------------------------
     // initalPrivateChanleForUser: function (roomNumber) {
-    //     cc.log("roomNumber:"+roomNumber);
+    //     console.log("roomNumber:"+roomNumber);
     //     privateClient = Stomp.over(socket);
 
     //         privateClient.connect({}, function () {
     //             privateClient.subscribe("/queue/privateRoomChanle" + roomNumber, function (message) {
     //                 var bodyStr = message.body;
-    //                 cc.log("get meesge from private chanle:privateRoomChanle"+roomNumber);
+    //                 console.log("get meesge from private chanle:privateRoomChanle"+roomNumber);
     //             });
     //         },function(){
-    //              cc.log("connect private chanle error !");
+    //              console.log("connect private chanle error !");
     //         });
 
     // privateClientChanle
@@ -298,7 +299,7 @@ cc.Class({
 
     reforceLogin: function () {
         var nowTime = new Date();
-        cc.log("nowTime 218:" + nowTime);
+        console.log("nowTime 218:" + nowTime);
         var isinstall = false;
         if (cc.sys.os == cc.sys.OS_IOS) {
             isinstall = jsb.reflection.callStaticMethod('WXApiManager', 'isWXInstalled');
@@ -314,7 +315,7 @@ cc.Class({
             var authLoginTime = cc.sys.localStorage.getItem("authLoginTime");
             var reLoginFlag = false;
 
-            cc.log("reLoginFlag:" + reLoginFlag);
+            console.log("reLoginFlag:" + reLoginFlag);
 
 
             //open webchat to auth user
@@ -331,7 +332,7 @@ cc.Class({
             specialModule._loginfun = null;
             messageScript.text = "未安装微信!";
             messageScript.setTextOfPanel();
-            cc.log('未安装微信!');
+            console.log('未安装微信!');
         }
     },
 
@@ -344,7 +345,7 @@ cc.Class({
         //  cc.sys.localStorage.setItem('gameConfig', JSON.stringify(Global.gameConfigSetting));
 
         var nowTime = new Date();
-        cc.log("nowTime 218:" + nowTime);
+        console.log("nowTime 218:" + nowTime);
         var isinstall = false;
         if (cc.sys.os == cc.sys.OS_IOS) {
             isinstall = jsb.reflection.callStaticMethod('WXApiManager', 'isWXInstalled');
@@ -353,7 +354,7 @@ cc.Class({
             isinstall = jsb.reflection.callStaticMethod("com/pusmicgame/mahjong/AppActivity", "isWXInstalled", "()Z");
 
         }
-        cc.log("isinstall:" + isinstall);
+        console.log("isinstall:" + isinstall);
         if (isinstall) {
             //check openid if in the client
             var authLoginTime = cc.sys.localStorage.getItem("authLoginTime");
@@ -367,7 +368,7 @@ cc.Class({
                 }
 
             }
-            cc.log("reLoginFlag:" + reLoginFlag);
+            console.log("reLoginFlag:" + reLoginFlag);
 
             if (reLoginFlag) {
                 //open webchat to auth user
@@ -398,7 +399,7 @@ cc.Class({
             // specialModule._loginfun = null;
             messageScript.text = "未安装微信!";
             messageScript.setTextOfPanel();
-            cc.log('未安装微信!');
+            console.log('未安装微信!');
         }
 
     },
@@ -406,8 +407,8 @@ cc.Class({
     //https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=APPID&grant_type=refresh_token&refresh_token=REFRESH_TOKEN
     //get token by code from native call
     getRequstTokenByCode: function (code) {
-        cc.log("getRequstTokenByCode:" + code);
-        //cc.log("errorCode:" + errorCode);
+        console.log("getRequstTokenByCode:" + code);
+        //console.log("errorCode:" + errorCode);
         var appid = "";
         var appSecrect = "";
         var grant_type = "authorization_code";
