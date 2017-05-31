@@ -349,9 +349,9 @@ class GameRoundLunService {
                      def gameRoundList=gameRoundLun.gameRound.sort{it.startTime}
 
                      gameRoundList.each{ gameRd->
-
+                         println "gameRd:"+gameRd.startTime
                          gameRd.gameUser.each{ gUser->
-
+                             println "gUser:"+gUser.springUser.nickname+":"+gUser.roundScoreCount
                              GameUser gameUser=(GameUser)gUser
                              if(!userList.containsKey(gameUser.springUser.openid)){
                                  UserCountObj userCountObj=new UserCountObj()
