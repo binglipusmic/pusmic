@@ -22,7 +22,7 @@ class GameRoundService {
             gameRound = onlineRoomNumber.gameRound
         }
         println "checkGameRoomExist roomnuber 1:"+roomNumber
-        println "checkGameRoomExist gameRound 1:"+gameRound.id
+       // println "checkGameRoomExist gameRound 1:"+gameRound.id
         if(gameRound) {
             def openid = messageJsonObj.messageBody;
             println "checkGameRoomExist openid 1:"+openid
