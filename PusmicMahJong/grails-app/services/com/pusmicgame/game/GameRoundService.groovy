@@ -25,9 +25,9 @@ class GameRoundService {
        // println "checkGameRoomExist gameRound 1:"+gameRound.id
         if(gameRound) {
             def openid = messageJsonObj.messageBody;
-            println "checkGameRoomExist openid 1:"+openid
+            println "checkGameRoomExist openid 1-29:"+openid
             gameRound.gameUser.each{gu->
-                println "gu.springUser.openid 1:"+gu.springUser.openid
+                println "gu.springUser.openid 1-30:"+gu.springUser.openid
                  if(gu.springUser.openid.equals(openid)){
                     flag=true;
                  }
@@ -39,6 +39,8 @@ class GameRoundService {
         //check gps
 
         //flag=checkGpsLimit(messageJsonObj)
+
+        println "checkGameRoomExist :"+flag
 
         return flag
     }
