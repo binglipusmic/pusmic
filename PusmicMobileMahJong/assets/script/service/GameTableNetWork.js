@@ -254,7 +254,7 @@ cc.Class({
                 if (messageDomain.messageAction == "closeGameRoundLun") {
                     actionUIScriptNode.onlyCloseGameTable();
                     //clear the userList
-                     Global.userList=null;
+                    Global.userList = null;
 
                 }
                 //closeGameRoundLun
@@ -1598,6 +1598,8 @@ cc.Class({
         var openId = userInfo.openid;
         var messageObj = this.buildSendMessage(openId, joinRoomNumber, "joinRoom");
         this.sendMessageToServer(messageObj);
+        Global.userList = null;
+
     },
     checkRoomNumber: function () {
 
@@ -1634,6 +1636,8 @@ cc.Class({
         Global.gameMode = gameMode;
 
         actionUIScriptNode.showLoadingIcon();
+
+        Global.userList = null;
 
     },
     closeGameRoundLun: function () {
