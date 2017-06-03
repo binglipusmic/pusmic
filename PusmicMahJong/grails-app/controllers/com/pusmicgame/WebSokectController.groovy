@@ -257,8 +257,8 @@ class WebSokectController {
             // messageJsonObj.messageAction="zhuangJiaChuPai"
             // def s3 = new JsonBuilder(messageJsonObj).toPrettyString()
             // websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber,s3)
-            // messageJsonObj.messageAction="zhuangJiaChuPai"
-            println "zhuangJiaChuPai1:" + obj.peopleCount.toString()
+            // messageJsonObj.messageAction="zhuangJiaChuPai"message
+            println "zhuangJiaChuPai261:" + obj.peopleCount.toString()
 
 
         }
@@ -392,6 +392,7 @@ class WebSokectController {
                     websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)
                 } else {
                     //start a new round
+                    println "395: start a new round"
                     def currentRoundCount = gameRoundLunService.createNewGameRound(messageJsonObj,obj.zhuangOpenId)
                     if (currentRoundCount != -1) {
                         MessageDomain newMessageObj = new MessageDomain()

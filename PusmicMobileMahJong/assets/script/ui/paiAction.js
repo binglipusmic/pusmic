@@ -556,6 +556,17 @@ cc.Class({
     testGangAction: function () {
 
     },
+    countElementAccount: function (pai, paiList) {
+        var count = 0;
+        for (var i = 0; i < paiList.length + 1; i++) {
+            if (paiList[i] == pai) {
+                count++
+            }
+        }
+
+        return count
+
+    },
     //------------------------Peng,Gang,Hu Action---------------------------------------
 
     pengAction: function () {
@@ -621,11 +632,24 @@ cc.Class({
         var userInfo = Global.userInfo;
         var userOpenId = this.fromUserOpenId;
         var paiNumber = this.paiNumber;
+        var paiList = user.paiListArray;
+        //check if it already contain 4 zhang pai in the pai list
+
+        for (var i = 0; i < paiList.length; i++) {
+            //var paiArrayCache = []
+            var pai = paiList[i] + "";
+            pai = pai.trim();
+            var count = this.countElementAccount(pai, paiList);
+            if (count == 4) {
+                paiNumber = pai;
+            }
+        }
+
         var user = tablePaiActionScript.getCorrectUserByOpenId(userOpenId);
         var pointIndex = user.pointIndex;
         var isZiGangFlag = true;
         //data layer ------
-        var paiList = user.paiListArray;
+
         var pengList = user.pengPaiList;
         var gangList = user.gangPaiList;
         var gangFromUserList = user.gangFromUserListOpenId;
@@ -847,7 +871,7 @@ cc.Class({
         //user.huchuPaiType = this.preStep;
         user.huchuPaiType = Global.huPreStep;
         //Global.huPreStep
-        user.gangFromUserOpenIdCache =Global.gangFromUserOpenIdCache;
+        user.gangFromUserOpenIdCache = Global.gangFromUserOpenIdCache;
 
         var userList2 = Global.userList;
         var existUserString = "";

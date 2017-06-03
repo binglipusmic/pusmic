@@ -310,7 +310,7 @@ cc.Class({
         //inital the test data
         //**********Test */
         if (initalType != "inital") {
-           //this.testInitalUserList(initalType);
+            //this.testInitalUserList(initalType);
         }
 
         //iniIndexScript.sendUserCode();
@@ -1146,6 +1146,14 @@ cc.Class({
         this.intalUserInfoReadyIcon();
 
 
+    },
+
+    hideAllUserNode: function () {
+        for (var i = 1; i < 5; i++) {
+            var userNodeName = "user" + i + "Node";
+            var userNode = cc.find(userNodeName, this.tableNode);
+            userNode.active = false;
+        }
     },
 
     initalUserInfoFromGobalList: function () {

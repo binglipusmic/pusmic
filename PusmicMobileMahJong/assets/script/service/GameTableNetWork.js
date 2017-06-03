@@ -268,6 +268,7 @@ cc.Class({
                     userObj.zhuang = "1";
                     userList.push(userObj);
                     Global.userList = userList;
+                    console.log("271:" + Global.userList.length);
                     actionUIScriptNode.showGameTalbe("1");
                     // this.ruzhuoButton.active=true;
                     /*
@@ -1144,7 +1145,8 @@ cc.Class({
         console.log("initalClient staring");
         if (client == null || client == undefined || client.connected == false) {
             this.connectByPrivateChanel();
-            this.subscribeToPrivateChanel(roomNumber);
+            console.log("1148 Global.userInfo.roomNumber:"+Global.userInfo.roomNumber);
+            this.subscribeToPrivateChanel(Global.userInfo.roomNumber);
 
         }
         //this.sendInitalMessage();
@@ -2336,7 +2338,7 @@ cc.Class({
 
 
         var huGangCount = this.countElementAccount(huPai, paiList);
-        if (huGangCount == 4) {
+        if (huGangCount == 3) {
             details = details + " 胡牌带杠:1番;"
             fanShu = fanShu + 1;
         }
@@ -2404,14 +2406,16 @@ cc.Class({
                         fanShu = fanShu + 1;
                         details = details + " 带杠:1番;"
                     }
+
+                    if (huPai + "" == pengpai) {
+                        huPaiDaiGang = true;
+                    }
                 }
             }
 
-            if (huPai + "" == pai) {
-                huPaiDaiGang = true;
-            }
-        }
 
+        }
+        console.log("2415 qingYiSeFlag:" + qingYiSeFlag);
         //qing yi se 
         if (gangList != null && gangList != undefined && gangList.length > 0) {
             for (var i = 0; i < gangList.length; i++) {
@@ -2430,7 +2434,7 @@ cc.Class({
                 //huPaiDaiGang
 
                 if (huPai + "" == pai) {
-                    huPaiDaiGang = true;
+                  //  huPaiDaiGang = true;
                 }
 
                 mingGangCount++
@@ -2470,7 +2474,7 @@ cc.Class({
         }
 
 
-
+        console.log("2474 qingYiSeFlag:" + qingYiSeFlag);
 
         if (qingYiSeFlag) {
             fanShu = fanShu + 2;

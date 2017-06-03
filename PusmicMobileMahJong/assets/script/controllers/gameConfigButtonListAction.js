@@ -5,7 +5,7 @@ var tableNetWork = null;
 var showGameMode = null;
 var gameConfigScript = null;
 var tableUserInfo = null;
-var reJoinRoomUI=null;
+var reJoinRoomUI = null;
 cc.Class({
     extends: cc.Component,
 
@@ -30,7 +30,7 @@ cc.Class({
         gameConfigNode: cc.Node,
         alertMessageNode: cc.Node,
 
-        tableNode:cc.Node,
+        tableNode: cc.Node,
 
         gameTable: cc.Node,
         gameTableHead: cc.Node,
@@ -136,16 +136,19 @@ cc.Class({
         tableNetWork.initalClient();
         this.indexNode.active = false;
         this.mainMenuNode.active = true;
-        this.tableNode.active=false;
+        this.tableNode.active = false;
         grilBtn.enabled = true;
         boyBtn.enabled = true;
         if (action == "1") {
             this.backRoomBtn.active = false;
             this.newRoomBtn.active = true;
+            //hide all user node for table
+            tableUserInfo.hideAllUserNode();
         } else {
             this.backRoomBtn.active = true;
             this.newRoomBtn.active = false;
         }
+
     },
     showGameConfig: function () {
         this.gameConfigNode.active = true;
@@ -225,8 +228,8 @@ cc.Class({
         //this.gameTable.active = false;
         //this.mainMenuNode.active = true;
         tableNetWork.closeGameRoundLun();
-       // Global.joinRoomNumber = "";
-       // this.enterMainEntry("1");
+        // Global.joinRoomNumber = "";
+        // this.enterMainEntry("1");
 
     },
     onlyCloseGameTable: function () {

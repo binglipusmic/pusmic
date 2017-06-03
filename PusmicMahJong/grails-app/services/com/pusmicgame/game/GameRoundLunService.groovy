@@ -416,7 +416,7 @@ class GameRoundLunService {
         def roomNumber = messageDomain.messageBelongsToPrivateChanleNumber
         int currentRoundCount=-1;
         if(roomNumber){
-            println "roomNumber:"+roomNumber
+            println "roomNumber createNewGameRound:"+roomNumber
             GameRoomNumber gRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
 
             if(gRoomNumber){

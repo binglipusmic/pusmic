@@ -47,6 +47,11 @@ cc.Class({
     },
 
     initalUserInfoFromGobalList: function () {
+        this.user1Node.active = false;
+        this.user2Node.active = false;
+        this.user3Node.active = false;
+        this.user4Node.active = false;
+
         var numberOrder = [3, 4, 1, 2]
         var userList = Global.userList;
         var userInfo = Global.userInfo;
