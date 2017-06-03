@@ -312,6 +312,7 @@ class GameRoundService {
             GameRound gameRound = onlineRoomNumber.gameRound
             if (gameRound) {
                 //check the user count if already full
+                println "saveRoundScore gameRound:" + gameRound.id
                 println "saveRoundScore gameRound:" + gameRound.roomNumber.roomNumber
                 def gameUsers = gameRound.gameUser;
                 if (gameUsers) {
