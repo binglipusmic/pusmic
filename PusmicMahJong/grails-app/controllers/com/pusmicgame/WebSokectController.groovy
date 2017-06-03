@@ -246,7 +246,7 @@ class WebSokectController {
             websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)
             println "obj.quePaiCount.toString():" + obj.quePaiCount.toString()
             println "obj.peopleCount.toString():" + obj.peopleCount.toString()
-            def quePaiFlag=userService.checkQuePaiDone()
+            def quePaiFlag=userService.checkQuePaiDone(messageJsonObj)
             if (quePaiFlag) {
                 messageJsonObj.messageAction = "zhuangJiaChuPai"
                 println "zhuangJiaChuPai:" + obj.peopleCount.toString()

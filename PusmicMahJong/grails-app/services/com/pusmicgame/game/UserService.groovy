@@ -220,7 +220,7 @@ class UserService {
     }
 
 
-    def checkQuePaiDone(){
+    def checkQuePaiDone(MessageDomain messageDomain){
         boolean  checkque=true;
         def roomNumber = messageDomain.messageBelongsToPrivateChanleNumber;
 
