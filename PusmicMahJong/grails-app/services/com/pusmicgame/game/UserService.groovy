@@ -229,9 +229,7 @@ class UserService {
         if (gameRound) {
             gameRound.gameUser.each { gameU ->
                 if(gameU.quePai){
-                    if(!gameU.quePai.toString().equals("1")){
-                        checkque=false;
-                    }
+                   
                 }else{
                     checkque=false;
                 }
