@@ -558,7 +558,7 @@ cc.Class({
     },
     countElementAccount: function (pai, paiList) {
         var count = 0;
-        for (var i = 0; i < paiList.length + 1; i++) {
+        for (var i = 0; i < paiList.length ; i++) {
             if (paiList[i] == pai) {
                 count++
             }
@@ -632,6 +632,8 @@ cc.Class({
         var userInfo = Global.userInfo;
         var userOpenId = this.fromUserOpenId;
         var paiNumber = this.paiNumber;
+        var user = tablePaiActionScript.getCorrectUserByOpenId(userOpenId);
+       
         var paiList = user.paiListArray;
         //check if it already contain 4 zhang pai in the pai list
 
@@ -644,9 +646,8 @@ cc.Class({
                 paiNumber = pai;
             }
         }
-
-        var user = tablePaiActionScript.getCorrectUserByOpenId(userOpenId);
-        var pointIndex = user.pointIndex;
+        console.log("gang 647");
+         var pointIndex = user.pointIndex;
         var isZiGangFlag = true;
         //data layer ------
 

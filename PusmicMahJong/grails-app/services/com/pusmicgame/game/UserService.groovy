@@ -219,6 +219,30 @@ class UserService {
         }
     }
 
+
+    def checkQuePaiDone(){
+        boolean  checkque=true;
+        def roomNumber = messageDomain.messageBelongsToPrivateChanleNumber;
+
+        GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
+        GameRound gameRound = onlineRoomNumber.gameRound
+        if (gameRound) {
+            gameRound.gameUser.each { gameU ->
+                if(gameU.quePai){
+                    if(!gameU.quePai.toString().equals("1")){
+                        checkque=false;
+                    }
+                }else{
+                    checkque=false;
+                }
+
+            }
+
+        }
+
+        return checkque
+    }
+
     //----change user status--------------------------------
     //The user already exist in the Room
 

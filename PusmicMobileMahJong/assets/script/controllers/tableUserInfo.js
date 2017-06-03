@@ -205,7 +205,7 @@ cc.Class({
         var userList = Global.userList;
         for (var i = 0; i < userList.length; i++) {
             var user = userList[i];
-            user.gameReadyStatu = "";
+            user.gameReadyStatu = "0";
             user.gameRoundScore = "";
             user.gameScoreCount = "";
             user.paiList = "";
@@ -416,7 +416,7 @@ cc.Class({
 
         Global.userList = userList;
         console.log("type:" + type);
-        console.log("gameMode.huanSanZhang:" + gameMode.huanSanZhang);
+        //console.log("gameMode.huanSanZhang:" + gameMode.huanSanZhang);
         if (type != "joinExist") {
             //show huanPaiScript
             if (gameMode.huanSanZhang + "" == "1") {

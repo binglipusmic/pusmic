@@ -503,6 +503,7 @@ class GameRoundLunService {
 
                            // gameRound2.gameUser=gameRound.gameUser
                            gameRound2.save(flush: true, failOnError: true)
+                           println "506:" + gameRound.gameUser.size()
                            gameRoundLun.addTo("gameRound", gameRound2)
                            gameRoundLun.currentRoundCount=gameRoundLun.currentRoundCount+1;
                            currentRoundCount= gameRoundLun.currentRoundCount;
