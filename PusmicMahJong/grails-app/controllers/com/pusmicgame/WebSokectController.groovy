@@ -387,11 +387,22 @@ class WebSokectController {
 //checkRoundEnd
             } else if (obj.actionName == "checkRoundEnd") {
                 //this should check the lun round if end
+                def curerntGroundId=gameRoundLunService.getCurrentGameRoundId(messageJsonObj)
+                if(curerntGroundId){
+                    messageJsonObj.messageBody=curerntGroundId
+                }else{
+                    messageJsonObj.messageBody=""
+                }
+
                 if (gameRoundLunService.checkGameRounDone(messageJsonObj)) {
                     messageJsonObj.messageAction = "endGameRoundLun"
                     def s2 = new JsonBuilder(messageJsonObj).toPrettyString()
                     websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)
                 } else {
+                    messageJsonObj.messageAction = "endGameRoundAndStartNewRound"
+
+                    def s3 = new JsonBuilder(messageJsonObj).toPrettyString()
+                    websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s3)
                     //start a new round
                     println "395: start a new round"
                     def currentRoundCount = gameRoundLunService.createNewGameRound(messageJsonObj,obj.zhuangOpenId)
@@ -406,9 +417,7 @@ class WebSokectController {
                     }
 
 
-                    messageJsonObj.messageAction = "endGameRoundAndStartNewRound"
-                    def s3 = new JsonBuilder(messageJsonObj).toPrettyString()
-                    websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s3)
+
 
                 }
 

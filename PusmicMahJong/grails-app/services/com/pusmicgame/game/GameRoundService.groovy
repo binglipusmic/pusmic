@@ -308,8 +308,9 @@ class GameRoundService {
     def saveRoundScore(obj, roomNumber) {
         println "saveRoundScore "
         GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
-        if (onlineRoomNumber) {
-            GameRound gameRound = onlineRoomNumber.gameRound
+        if (obj.groundId) {
+            def groundId=Long.parseLong(obj.groundId)
+            GameRound gameRound = GameRound.findById(groundId)
             if (gameRound) {
                 //check the user count if already full
                 println "saveRoundScore gameRound:" + gameRound.id

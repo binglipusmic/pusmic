@@ -407,6 +407,29 @@ class GameRoundLunService {
 
     }
 
+    def getCurrentGameRoundId(MessageDomain messageDomain){
+        def roomNumber = messageDomain.messageBelongsToPrivateChanleNumber
+        int currentRoundCount=-1;
+        def gameRoundId=null
+        if(roomNumber) {
+            println "roomNumber getCurrentGameRoundId:" + roomNumber
+            GameRoomNumber gRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
+
+            if (gRoomNumber) {
+                println "gRoomNumber:" + gRoomNumber.id
+                //we must get the game round from GameRoomNumber domain class, because the many round maybe work no the one room number.
+                GameRound gameRound = gRoomNumber.gameRound
+                println "gameRound:" + gameRound.id
+                if (gameRound) {
+                    gameRoundId=gameRound.id
+                }
+            }
+        }
+
+        return gameRoundId
+
+    }
+
     /**
      * This method will create a new game round and add it to correct game round lun
      * @param messageDomain

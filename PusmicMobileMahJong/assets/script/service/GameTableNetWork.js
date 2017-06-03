@@ -593,7 +593,8 @@ cc.Class({
                     this.testScoreOutput();
                     var userInfo = Global.userInfo;
                     var currentUser = this.getCurreentUserByOpenId(userInfo.openid);
-                    this.sendRoundScoreToServer(currentUser);
+                    var groundId=messageDomain.messageBody;
+                    this.sendRoundScoreToServer(currentUser,groundId);
                     roundScoreScript.initalRoundScore();
                     roundScoreScript.endLunFlag = "1";
                     tableCenterScript.endTimer();
@@ -604,7 +605,8 @@ cc.Class({
                     this.testScoreOutput();
                     var userInfo = Global.userInfo;
                     var currentUser = this.getCurreentUserByOpenId(userInfo.openid);
-                    this.sendRoundScoreToServer(currentUser);
+                    var groundId=messageDomain.messageBody;
+                    this.sendRoundScoreToServer(currentUser,groundId);
                     roundScoreScript.initalRoundScore();
                     roundScoreScript.endLunFlag = "0";
                     tableCenterScript.endTimer();
@@ -1207,11 +1209,12 @@ cc.Class({
         }
     },
 
-    sendRoundScoreToServer: function (user) {
+    sendRoundScoreToServer: function (user,groundId) {
         var joinRoomNumber = Global.joinRoomNumber;
         var o = new Object();
         o.fromUserOpenid = user.openid;
         o.actionName = "saveRoundScore";
+        o.groundId=groundId;
         if (user.roundScoreCount != null && user.roundScoreCount != undefined) {
             o.roundScoreCount = parseInt(user.roundScoreCount);
 
