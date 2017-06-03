@@ -164,6 +164,7 @@ cc.Class({
         //userInfoScript.initalUserOnRound();
 
         //gameConfigButtonScript.endGameRoundLun();
+        tableNetWorkScript.initalClient();
         gameConfigButtonScript.enterMainEntry("1");
     },
     closeRoundScore: function () {

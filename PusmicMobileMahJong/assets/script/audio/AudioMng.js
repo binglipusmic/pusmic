@@ -36,7 +36,15 @@ cc.Class({
             url: cc.AudioClip
         },
 
-        bgm: {
+        bgm1: {
+            default: null,
+            url: cc.AudioClip
+        },
+        bgm2: {
+            default: null,
+            url: cc.AudioClip
+        },
+        bgm3: {
             default: null,
             url: cc.AudioClip
         },
@@ -87,7 +95,19 @@ cc.Class({
     playMusic: function () {
         gameConfigSetting = Global.gameConfigSetting;
         if (gameConfigSetting.music == "1") {
-            cc.audioEngine.playMusic(this.bgm, true);
+            var k = Math.ceil(Math.random() * 3);
+            cc.log("audio k:"+k);
+            console.log("audio k:"+k);
+            if (k == 1) {
+                cc.audioEngine.playMusic(this.bgm1, true);
+            }
+            if (k == 2) {
+                cc.audioEngine.playMusic(this.bgm2, true);
+            }
+            if (k == 3) {
+                cc.audioEngine.playMusic(this.bgm3, true);
+            }
+
         }
 
     },
