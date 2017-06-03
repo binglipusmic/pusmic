@@ -229,7 +229,7 @@ class UserService {
         if (gameRound) {
             gameRound.gameUser.each { gameU ->
                 if(gameU.quePai){
-                   
+
                 }else{
                     checkque=false;
                 }

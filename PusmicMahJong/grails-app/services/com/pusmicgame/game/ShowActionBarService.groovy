@@ -137,6 +137,7 @@ class ShowActionBarService {
                 showActionBarCache.actionArrayString=huObj.actionArray
                 showActionBarCache.paiNumber=huObj.paiNumber
                 showActionBarCache.addTime=new Date()
+                showActionBarCache.roomNumber=joinRoomNumber
                 showActionBarCache.save(flush: true, failOnError: true)
             }
 
