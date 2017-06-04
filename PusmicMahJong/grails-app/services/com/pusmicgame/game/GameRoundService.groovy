@@ -322,15 +322,16 @@ class GameRoundService {
                             println "saveRoundScore ser.springUser:" + user.springUser.nickname
                             println "saveRoundScore obj.fromUserOpenid:" + obj.fromUserOpenid
                             println "saveRoundScore obj.roundScoreCount:" + obj.roundScoreCount
-                            user.roundScoreCount = obj.roundScoreCount.toInteger()
-                            user.huPaiDetails = obj.huPaiDetails
-                            user.save(flush: true, failOnError: true)
+                            GameUser gameUser=GameUser.findById(user.id)
+                            gameUser.roundScoreCount = obj.roundScoreCount.toInteger()
+                            gameUser.huPaiDetails = obj.huPaiDetails
+                            gameUser.save(flush: true, failOnError: true)
                             //update total in spring user
-                            if (user.roundScoreCount) {
+                            if (gameUser.roundScoreCount) {
 
                                 //  if(user.roundScoreCount>0) {
                                 def springUser = user.springUser
-                                updateScoreAndWinCountAndPushToClient(user.springUser.openid, roomNumber,  user.roundScoreCount)
+                                updateScoreAndWinCountAndPushToClient(gameUser.springUser.openid, roomNumber,  gameUser.roundScoreCount)
 
                                 // }
                             }
