@@ -1145,6 +1145,8 @@ cc.Class({
     },
     forceInitalClient: function () {
         console.log("initalClient staring");
+        client.disconnect();
+        client = null;
         // if (client == null || client == undefined || client.connected == false) {
         this.connectByPrivateChanel();
         console.log("1148 Global.userInfo.roomNumber:" + Global.userInfo.roomNumber);
