@@ -167,6 +167,7 @@ cc.Class({
         //gameConfigButtonScript.endGameRoundLun();
         tableNetWorkScript.forceInitaClient();
         gameConfigButtonScript.enterMainEntry("1");
+        Global.zhuangOpenId=null;
     },
     closeRoundScore: function () {
         //tableNetWorkScript.sendGetGameRoundlunScoreCount();

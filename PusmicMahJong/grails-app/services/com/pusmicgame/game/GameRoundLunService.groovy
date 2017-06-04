@@ -300,6 +300,7 @@ class GameRoundLunService {
                 outputUser.gameScoreCount=gu.gameScoreCount
                 outputUser.gameReadyStatu=gu.gameReadyStatu
                 outputUser.headImageFileName=gu.headImageFileName
+                outputUser.zhuang="1"
                 //outputUser.headImageFileName=user.headImageFileName
                 println "line 273:"
                 //add game count
