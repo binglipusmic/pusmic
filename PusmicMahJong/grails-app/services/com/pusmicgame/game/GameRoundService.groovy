@@ -330,7 +330,7 @@ class GameRoundService {
 
                                 //  if(user.roundScoreCount>0) {
                                 def springUser = user.springUser
-                                updateScoreAndWinCountAndPushToClient(springUser, roomNumber,  user.roundScoreCount)
+                                updateScoreAndWinCountAndPushToClient(user.springUser.openid, roomNumber,  user.roundScoreCount)
 
                                 // }
                             }
@@ -362,36 +362,39 @@ class GameRoundService {
     }
 
 
-    def updateScoreAndWinCountAndPushToClient(SpringUser springUser, def roomNumber,def roundScoreCount) {
-        if (springUser.winCount) {
-            springUser.winCount = springUser.winCount + 1
-        } else {
-            springUser.winCount = 1
+    def updateScoreAndWinCountAndPushToClient(def  springOpenid, def roomNumber,def roundScoreCount) {
+        def springUser=SpringUser.findById(springOpenid)
+        if(springUser) {
+            if (springUser.winCount) {
+                springUser.winCount = springUser.winCount + 1
+            } else {
+                springUser.winCount = 1
+            }
+
+            if (springUser.gameScroe) {
+                //user.roundScoreCount.toInteger()
+                springUser.gameScroe = springUser.gameScroe + roundScoreCount
+            } else {
+                springUser.gameScroe = roundScoreCount
+            }
+            springUser.save(flush: true, failOnError: true)
+
+            UserInfo userInfo = new UserInfo()
+            userInfo.openid = springUser.openid
+            userInfo.gameScroe = springUser.gameScroe
+            userInfo.winCount = springUser.winCount
+
+            def s = new JsonBuilder(userInfo).toPrettyString()
+
+            MessageDomain newMessageObj = new MessageDomain()
+            newMessageObj.messageBelongsToPrivateChanleNumber = roomNumber
+            newMessageObj.messageAction = "updateScoreAndWindCount"
+            newMessageObj.messageBody = s
+            newMessageObj.messageType = "gameAction"
+            def s2 = new JsonBuilder(newMessageObj).toPrettyString()
+
+            websokectService.privateUserChanelByRoomNumber(roomNumber, s2)
         }
-
-        if (springUser.gameScroe) {
-            //user.roundScoreCount.toInteger()
-            springUser.gameScroe = springUser.gameScroe + roundScoreCount
-        } else {
-            springUser.gameScroe = roundScoreCount
-        }
-        springUser.save(flush: true, failOnError: true)
-
-        UserInfo userInfo = new UserInfo()
-        userInfo.openid = springUser.openid
-        userInfo.gameScroe = springUser.gameScroe
-        userInfo.winCount = springUser.winCount
-
-        def s = new JsonBuilder(userInfo).toPrettyString()
-
-        MessageDomain newMessageObj = new MessageDomain()
-        newMessageObj.messageBelongsToPrivateChanleNumber = roomNumber
-        newMessageObj.messageAction = "updateScoreAndWindCount"
-        newMessageObj.messageBody = s
-        newMessageObj.messageType = "gameAction"
-        def s2 = new JsonBuilder(newMessageObj).toPrettyString()
-
-        websokectService.privateUserChanelByRoomNumber(roomNumber, s2)
 
     }
 }
