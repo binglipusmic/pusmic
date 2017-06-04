@@ -101,6 +101,7 @@ cc.Class({
 
     initalAllRoundScore: function (userObjList) {
         console.log("initalAllRoundScore 103");
+        tableNetWorkScript.forceInitalClient();
         var userList = Global.userList;
         this.userAllRoundScireNode.active = true;
         for (var i = 0; i < userList.length; i++) {
@@ -164,7 +165,7 @@ cc.Class({
         //userInfoScript.initalUserOnRound();
 
         //gameConfigButtonScript.endGameRoundLun();
-        tableNetWorkScript.initalClient();
+
         gameConfigButtonScript.enterMainEntry("1");
     },
     closeRoundScore: function () {

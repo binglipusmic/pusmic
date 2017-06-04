@@ -593,8 +593,8 @@ cc.Class({
                     this.testScoreOutput();
                     var userInfo = Global.userInfo;
                     var currentUser = this.getCurreentUserByOpenId(userInfo.openid);
-                    var groundId=messageDomain.messageBody;
-                    this.sendRoundScoreToServer(currentUser,groundId);
+                    var groundId = messageDomain.messageBody;
+                    this.sendRoundScoreToServer(currentUser, groundId);
                     roundScoreScript.initalRoundScore();
                     roundScoreScript.endLunFlag = "1";
                     tableCenterScript.endTimer();
@@ -605,8 +605,8 @@ cc.Class({
                     this.testScoreOutput();
                     var userInfo = Global.userInfo;
                     var currentUser = this.getCurreentUserByOpenId(userInfo.openid);
-                    var groundId=messageDomain.messageBody;
-                    this.sendRoundScoreToServer(currentUser,groundId);
+                    var groundId = messageDomain.messageBody;
+                    this.sendRoundScoreToServer(currentUser, groundId);
                     roundScoreScript.initalRoundScore();
                     roundScoreScript.endLunFlag = "0";
                     tableCenterScript.endTimer();
@@ -1143,11 +1143,22 @@ cc.Class({
         }
 
     },
+    forceInitalClient: function () {
+        console.log("initalClient staring");
+        // if (client == null || client == undefined || client.connected == false) {
+        this.connectByPrivateChanel();
+        console.log("1148 Global.userInfo.roomNumber:" + Global.userInfo.roomNumber);
+        this.subscribeToPrivateChanel(Global.userInfo.roomNumber);
+
+        // }
+        //this.sendInitalMessage();
+
+    },
     initalClient: function () {
         console.log("initalClient staring");
         if (client == null || client == undefined || client.connected == false) {
             this.connectByPrivateChanel();
-            console.log("1148 Global.userInfo.roomNumber:"+Global.userInfo.roomNumber);
+            console.log("1148 Global.userInfo.roomNumber:" + Global.userInfo.roomNumber);
             this.subscribeToPrivateChanel(Global.userInfo.roomNumber);
 
         }
@@ -1209,12 +1220,12 @@ cc.Class({
         }
     },
 
-    sendRoundScoreToServer: function (user,groundId) {
+    sendRoundScoreToServer: function (user, groundId) {
         var joinRoomNumber = Global.joinRoomNumber;
         var o = new Object();
         o.fromUserOpenid = user.openid;
         o.actionName = "saveRoundScore";
-        o.groundId=groundId;
+        o.groundId = groundId;
         if (user.roundScoreCount != null && user.roundScoreCount != undefined) {
             o.roundScoreCount = parseInt(user.roundScoreCount);
 
@@ -2437,7 +2448,7 @@ cc.Class({
                 //huPaiDaiGang
 
                 if (huPai + "" == pai) {
-                  //  huPaiDaiGang = true;
+                    //  huPaiDaiGang = true;
                 }
 
                 mingGangCount++
