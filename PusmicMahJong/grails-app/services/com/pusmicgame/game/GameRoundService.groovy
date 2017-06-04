@@ -363,7 +363,7 @@ class GameRoundService {
 
 
     def updateScoreAndWinCountAndPushToClient(def  springOpenid, def roomNumber,def roundScoreCount) {
-        def springUser=SpringUser.findById(springOpenid)
+        def springUser=SpringUser.findByOpenid(springOpenid)
         if(springUser) {
             if (springUser.winCount) {
                 springUser.winCount = springUser.winCount + 1
