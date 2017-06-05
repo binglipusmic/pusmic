@@ -627,19 +627,24 @@ cc.Class({
         pNode.active = true;
 
         if (paiNode.name != "autoMoPai") {
-            var spriteFrame = paiNode.getComponent(cc.Sprite).spriteFrame;
-            var deps = cc.loader.getDependsRecursively(spriteFrame);
-            cc.loader.release(deps);
+            // var spriteFrame = paiNode.getComponent(cc.Sprite).spriteFrame;
+            // var deps = cc.loader.getDependsRecursively(spriteFrame);
+            // if (deps != null && deps != undefined) {
+            //     cc.loader.release(deps);
+            // }
+
             //we should remove on next step;
             paiNode.removeFromParent();
         }
 
         this.removeLastPaiOnPaiListByUserOpenId(userOpenId);
+        console.log("playSlefChuPaiAction_addChild parent child count2 638:" + parent.childrenCount);
 
         var user = this.getCorrectUserByOpenId(userOpenId);
         user.paiList = paiList;
         user.userMoPai = "";
         this.updateUserListInGobal(user);
+        console.log("playSlefChuPaiAction_addChild parent child count2 644:" + parent.childrenCount);
 
         audioScript.playChuPai(paiNumber);
     },

@@ -326,6 +326,7 @@ class GameRoundService {
                             gameUser.roundScoreCount = obj.roundScoreCount.toInteger()
                             gameUser.huPaiDetails = obj.huPaiDetails
                             gameUser.save(flush: true, failOnError: true)
+                            log.info("game user:"+gameUser.springUser.nickname+" save done")
                             //update total in spring user
                             if (gameUser.roundScoreCount) {
 
