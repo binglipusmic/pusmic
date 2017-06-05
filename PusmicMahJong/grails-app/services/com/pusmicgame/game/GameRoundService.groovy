@@ -326,7 +326,7 @@ class GameRoundService {
                             gameUser.roundScoreCount = obj.roundScoreCount.toInteger()
                             gameUser.huPaiDetails = obj.huPaiDetails
                             gameUser.save(flush: true, failOnError: true)
-                            log.info("game user:"+gameUser.springUser.nickname+" save done")
+                            println ("game user:"+gameUser.springUser.nickname+" save done")
                             //update total in spring user
                             if (gameUser.roundScoreCount) {
 
@@ -366,6 +366,7 @@ class GameRoundService {
 
     def updateScoreAndWinCountAndPushToClient(def  springOpenid, def roomNumber,def roundScoreCount) {
         def springUser=SpringUser.findByOpenid(springOpenid)
+
         if(springUser) {
             if (springUser.winCount) {
                 springUser.winCount = springUser.winCount + 1
