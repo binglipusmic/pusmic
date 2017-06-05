@@ -690,7 +690,7 @@ cc.Class({
                                             userList[i].actionBarFlag = "1";
                                             var o = new Object();
                                             o.userOpenId = userList[i].openid;
-                                            o.actionArray = actionArray;
+                                            o.actionArray = actionArray.toString();
                                             o.paiNumber = paiNumber;
                                             if (actionArray.toString().indexOf("hu") >= 0) {
                                                 huActionListCache.push(o);

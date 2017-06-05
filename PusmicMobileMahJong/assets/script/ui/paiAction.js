@@ -160,6 +160,9 @@ cc.Class({
                 if (actionArray.indexOf("gang") < 0) {
                     actionArray.push("gang");
                 }
+                this.fromUserOpenId = openid;
+                this.paiNumber = paiNumber;
+                this.chuPaiUserOpenId = openid;
             }
         }
 
@@ -223,6 +226,25 @@ cc.Class({
             console.log("huFlag1:" + huFlag);
         }
 
+        //checslef pai list
+        if (this.fromUserOpenId == this.chuPaiUserOpenId) {
+            for (var i = 0; i < tempList.length; i++) {
+                var pai = tempList[i] + "";
+                var count = this.countElementAccount(pai, tempList);
+                if (count == 4) {
+                    if (actionArray.indexOf("gang") < 0) {
+                        actionArray.push("gang");
+                        actionLevel = 2;
+
+                        this.paiNumber = paiNumber;
+
+                    }
+
+                }
+
+            }
+
+        }
 
 
         //we need clear the mopai from the paiList 
@@ -558,7 +580,7 @@ cc.Class({
     },
     countElementAccount: function (pai, paiList) {
         var count = 0;
-        for (var i = 0; i < paiList.length ; i++) {
+        for (var i = 0; i < paiList.length; i++) {
             if (paiList[i] == pai) {
                 count++
             }
@@ -633,7 +655,7 @@ cc.Class({
         var userOpenId = this.fromUserOpenId;
         var paiNumber = this.paiNumber;
         var user = tablePaiActionScript.getCorrectUserByOpenId(userOpenId);
-       
+
         var paiList = user.paiListArray;
         //check if it already contain 4 zhang pai in the pai list
 
@@ -645,9 +667,10 @@ cc.Class({
             if (count == 4) {
                 paiNumber = pai;
             }
+            this.preStep = "zigang";
         }
         console.log("gang 647");
-         var pointIndex = user.pointIndex;
+        var pointIndex = user.pointIndex;
         var isZiGangFlag = true;
         //data layer ------
 
