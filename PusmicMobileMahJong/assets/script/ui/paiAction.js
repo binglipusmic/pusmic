@@ -455,7 +455,7 @@ cc.Class({
         //disable user pai 
 
         tablePaiActionScript.disableAllSlefPai();
-
+        console.log("startX:" + startX);
 
 
 

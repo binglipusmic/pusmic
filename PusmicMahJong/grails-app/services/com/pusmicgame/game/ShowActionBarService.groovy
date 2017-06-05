@@ -65,7 +65,7 @@ class ShowActionBarService {
         ShowActionBarObj showActionBarObj = new ShowActionBarObj()
         showActionBarObj.fromUserOpenid = huObj.userOpenId
         showActionBarObj.actionName = "showActionBar"
-        showActionBarObj.actionArrayStr = huObj.actionArray
+        showActionBarObj.actionArrayStr = huObj.actionArray.toString()
         showActionBarObj.paiNumber = huObj.paiNumber
         if(needWait=="1"){
             showActionBarObj.otherActionStr = "needWaitOther";
