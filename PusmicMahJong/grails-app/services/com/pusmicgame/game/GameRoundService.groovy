@@ -322,11 +322,7 @@ class GameRoundService {
                             println "saveRoundScore ser.springUser:" + user.springUser.nickname
                             println "saveRoundScore obj.fromUserOpenid:" + obj.fromUserOpenid
                             println "saveRoundScore obj.roundScoreCount:" + obj.roundScoreCount
-                            GameUser gameUser=GameUser.findById(user.id)
-                            gameUser.roundScoreCount = obj.roundScoreCount.toInteger()
-                            gameUser.huPaiDetails = obj.huPaiDetails
-                            gameUser.save(flush: true, failOnError: true)
-                            println ("game user:"+gameUser.springUser.nickname+" save done")
+
                             //update total in spring user
                             if (gameUser.roundScoreCount) {
 
@@ -336,6 +332,14 @@ class GameRoundService {
 
                                 // }
                             }
+
+                            
+                            GameUser gameUser=GameUser.findById(user.id)
+                            gameUser.roundScoreCount = obj.roundScoreCount.toInteger()
+                            gameUser.huPaiDetails = obj.huPaiDetails
+                            gameUser.save(flush: true, failOnError: true)
+                            println ("game user:"+gameUser.springUser.nickname+" save done")
+
 
                         }
                         //round end chage user online sutat to 1
@@ -368,11 +372,14 @@ class GameRoundService {
         def springUser=SpringUser.findByOpenid(springOpenid)
 
         if(springUser) {
-            if (springUser.winCount) {
-                springUser.winCount = springUser.winCount + 1
-            } else {
-                springUser.winCount = 1
+            if(roundScoreCount>0){
+                if (springUser.winCount) {
+                    springUser.winCount = springUser.winCount + 1
+                } else {
+                    springUser.winCount = 1
+                }
             }
+
 
             if (springUser.gameScroe) {
                 //user.roundScoreCount.toInteger()
@@ -380,6 +387,7 @@ class GameRoundService {
             } else {
                 springUser.gameScroe = roundScoreCount
             }
+
             springUser.save(flush: true, failOnError: true)
 
             UserInfo userInfo = new UserInfo()
@@ -397,6 +405,9 @@ class GameRoundService {
             def s2 = new JsonBuilder(newMessageObj).toPrettyString()
 
             websokectService.privateUserChanelByRoomNumber(roomNumber, s2)
+
+
+
         }
 
     }
