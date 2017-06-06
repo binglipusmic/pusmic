@@ -887,7 +887,12 @@ cc.Class({
         var userOpenId = this.fromUserOpenId;
         var chupaiOpenId = this.chuPaiUserOpenId;
         console.log("huAction pai:" + this.paiNumber);
+        if (Global.chuPaiActionType == null || Global.chuPaiActionType == undefined) {
+            Global.chuPaiActionType = "";
+        }
         huPaiScript.huPaiAction(this.paiNumber, this.fromUserOpenId, Global.chuPaiActionType);
+        console.log("huAction pai 891:" + this.fromUserOpenId);
+        console.log("huAction pai 892:" + Global.chuPaiActionType);
         //cache the user hupai information
         var user = tablePaiActionScript.getCorrectUserByOpenId(userOpenId);
         user.huPai = this.paiNumber;

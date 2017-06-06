@@ -39,7 +39,7 @@ cc.Class({
             }
         }
 
-        this.schedule(this.callback, 1800);
+       // this.schedule(this.callback, 1800);
     },
 
     removeOnlineUser: function (client, roomNumber) {

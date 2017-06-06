@@ -196,6 +196,7 @@ cc.Class({
         Global.joinRoomNumber = "585930";
         var roomNumber = Global.joinRoomNumber;
         console.log("roomNumber:" + roomNumber);
+         console.log("roomNumber 199:" + roomNumber);
         tableNetworkScript.connectByPrivateChanel();
         //tableNetworkScript.testJoinRoom(roomNumber);
 

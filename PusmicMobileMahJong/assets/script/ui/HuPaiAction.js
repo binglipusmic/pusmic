@@ -57,21 +57,23 @@ cc.Class({
         var paiStr = "22,23,24,27,27,31,31,32,32,34,35,36,36,36";
         var paiList = paiStr.split(",");
         var huFlagDetails = this.startDecideHu(paiList);
-        cc.log("huFlagDetails:" + huFlagDetails);
+        console.log("huFlagDetails:" + huFlagDetails);
         //12,14,14,16,18,18,18,35,35,35,37,39,39
         paiStr = "12,14,14,16,18,18,18,35,35,35,37,39,39";
         paiList = paiStr.split(",");
         huFlagDetails = this.startDecideHu(paiList);
-        cc.log("huFlagDetails1:" + huFlagDetails);
+        console.log("huFlagDetails1:" + huFlagDetails);
         for (var i = 0; i < 18; i++) {
             paiStr = "22,22,22,26,26,26,27,28,33,33,33,36,36,36";
             paiList = paiStr.split(",");
             huFlagDetails = this.startDecideHu(paiList);
-            cc.log("huFlagDetails2:" + i + "--" + huFlagDetails);
+            console.log("huFlagDetails2:" + i + "--" + huFlagDetails);
         }
     },
 
     huPaiAction: function (paiNumber, userOpenId, preStep) {
+        console.log("huPaiAction starting :" + userOpenId);
+        console.log("huPaiAction paiNumber :" + paiNumber);
         var currentUser = tableActionScript.getCorrectUserByOpenId(userOpenId);
         var paiList = currentUser.paiListArray;
         var latstIndex = 0;
@@ -89,18 +91,18 @@ cc.Class({
         //paiNode.active = false;
         var sprite = paiNode.getComponent(cc.Sprite);
         cc.loader.loadRes(paiPath, cc.SpriteFrame, function (err, sp) {
-            cc.log("61:" + paiPath);
+            console.log("61:" + paiPath);
             if (err) {
-                cc.log("Error:" + err);
+                console.log("Error:" + err);
                 return;
             }
-            cc.log("65:");
+            console.log("65:");
             sprite.spriteFrame = sp;
             paiNode.active = true;
         });
         paiNode = this.getCureentPostionFromUserPointAndPaiList(paiList, userPoint, paiNode);
         var userNodeName = "user" + userPoint + "PengPaiListNode";
-        cc.log("userNodeName:" + userNodeName);
+        console.log("userNodeName:" + userNodeName);
         //var userNodePaiList = cc.find(userNodeName, this.tableNode);
         //userNodePaiList.addChild(paiNode);
         //---data layer-----------------
@@ -162,7 +164,7 @@ cc.Class({
             return true;
         } else {
             huFlagDetails = this.startDecideHu(paiList);
-            cc.log("huFlagDetails:" + huFlagDetails);
+            console.log("huFlagDetails:" + huFlagDetails);
             return huFlagDetails;
 
         }
@@ -182,14 +184,14 @@ cc.Class({
         //if pai from other user ,it need insert into pai list 
         //if it from self it noe need insert the pai again.
         if (type != "mopai") {
-            cc.log("No is mopai insert the paiNumber");
+            console.log("No is mopai insert the paiNumber");
             tempList = tableActionScript.insertPaiIntoPaiListByPaiAndPaiList(paiNumber, tempList);
         }
         if (this.checkQiaoQiDui(tempList)) {
             return true;
         } else {
             huFlagDetails = this.startDecideHu(tempList);
-            cc.log("huFlagDetails:" + huFlagDetails);
+            console.log("huFlagDetails:" + huFlagDetails);
             return huFlagDetails;
 
         }
@@ -205,26 +207,26 @@ cc.Class({
             var pai = paiList[i];
             //check pai is  san zhang 
             var count = this.countElementAccount(pai, paiList);
-            cc.log("pai:" + pai);
-            cc.log("paiList:" + paiList);
+            console.log("pai:" + pai);
+            console.log("paiList:" + paiList);
             if (count >= 3) {
                 var oldPaiList = [];
                 oldPaiList = this.deepCopyArray(paiList, oldPaiList);
                 oldPaiList = tableActionScript.removeElementByNumberByPaiListFromUser(oldPaiList, pai, 3)
-                //  cc.log("oldPaiList:" + oldPaiList.toString())
+                //  console.log("oldPaiList:" + oldPaiList.toString())
                 ahuflag = this.analyze(oldPaiList);
                 return ahuflag
             }
             //check pai is san lian zhang 
-            // cc.log("count:" + count);
+            // console.log("count:" + count);
             var oldPaiList2 = [];
             oldPaiList2 = this.deepCopyArray(paiList, oldPaiList2);
-            // cc.log("oldPaiList2-0:" + oldPaiList2.toString());
+            // console.log("oldPaiList2-0:" + oldPaiList2.toString());
             oldPaiList2 = this.checkLianSanZhan(pai, oldPaiList2);
-            // cc.log("oldPaiList2-1:" + oldPaiList2.toString());
-            //  cc.log("oldPaiList2-paiList:" + paiList.length);
+            // console.log("oldPaiList2-1:" + oldPaiList2.toString());
+            //  console.log("oldPaiList2-paiList:" + paiList.length);
             if (oldPaiList2.length != paiList.length) {
-                //    cc.log("oldPaiList2:" + oldPaiList2.toString())
+                //    console.log("oldPaiList2:" + oldPaiList2.toString())
                 ahuflag = this.analyze(oldPaiList2);
                 return ahuflag
             }
@@ -238,7 +240,7 @@ cc.Class({
 
     },
     startDecideHu: function (paiList) {
-        cc.log("106 paiList:" + paiList.toString());
+        console.log("106 paiList:" + paiList.toString());
         var caChepailist = [];
         for (var i = 0; i < paiList.length; i++) {
             var paiArrayCache = []
@@ -247,22 +249,22 @@ cc.Class({
             var count = this.countElementAccount(pai, paiList);
             paiArrayCache.push(pai)
             paiArrayCache.push(count)
-            // cc.log("paiArrayCache:" + paiArrayCache.toString());
+            // console.log("paiArrayCache:" + paiArrayCache.toString());
 
             caChepailist.push(paiArrayCache);
         }
         var noJiangpaiList = [];
         for (var i = 0; i < caChepailist.length; i++) {
             var arr = caChepailist[i];
-            //cc.log("arr:" + arr.toString());
-            //  cc.log("arr`:" + arr[1]);
+            //console.log("arr:" + arr.toString());
+            //  console.log("arr`:" + arr[1]);
             if (arr[1] >= 2) {
                 var oldPaiList = [];
                 oldPaiList = this.deepCopyArray(paiList, oldPaiList);
                 oldPaiList = tableActionScript.removeElementByNumberByPaiListFromUser(oldPaiList, arr[0], 2)
 
                 if (noJiangpaiList.indexOf(oldPaiList) < 0) {
-                    //  cc.log("oldPaiList:" + oldPaiList.toString());
+                    //  console.log("oldPaiList:" + oldPaiList.toString());
                     noJiangpaiList.push(oldPaiList);
                 }
 
@@ -274,9 +276,9 @@ cc.Class({
         } else {
             for (var i = 0; i < noJiangpaiList.length; i++) {
                 var p = noJiangpaiList[i];
-                // cc.log("no jiang p:" + p.toString())
+                // console.log("no jiang p:" + p.toString())
                 var phuflag = this.analyze(p);
-                //cc.log("no jiang phuflag:" + phuflag)
+                //console.log("no jiang phuflag:" + phuflag)
                 if (phuflag == true) {
                     return true;
                 }
@@ -312,7 +314,7 @@ cc.Class({
         } else {
             prePai = pai + 1;
             nextPai = pai + 2;
-            cc.log("prePai:" + prePai + "--" + "nextPai:" + nextPai);
+            console.log("prePai:" + prePai + "--" + "nextPai:" + nextPai);
             if (this.contains(paiList, prePai) && this.contains(paiList, nextPai)) {
                 executeFlag = true;
             } else {
@@ -328,13 +330,13 @@ cc.Class({
             }
 
         }
-        cc.log("executeFlag:" + executeFlag);
-        cc.log("prePai2:" + prePai + "--" + "nextPai:" + nextPai);
+        console.log("executeFlag:" + executeFlag);
+        console.log("prePai2:" + prePai + "--" + "nextPai:" + nextPai);
         if (executeFlag == true) {
             paiList = tableActionScript.removeElementByNumberByPaiListFromUser(paiList, prePai, 1)
-            cc.log("paiList0:" + paiList.toString());
+            console.log("paiList0:" + paiList.toString());
             paiList = tableActionScript.removeElementByNumberByPaiListFromUser(paiList, nextPai, 1)
-            cc.log("paiList1:" + paiList.toString());
+            console.log("paiList1:" + paiList.toString());
             paiList = tableActionScript.removeElementByNumberByPaiListFromUser(paiList, pai, 1)
         }
 
@@ -365,7 +367,7 @@ cc.Class({
 
     },
     checkQiaoQiDui: function (paiList) {
-        cc.log("checkQiaoQiDui pailist:" + paiList.toString());
+        console.log("checkQiaoQiDui pailist:" + paiList.toString());
         var tempList = [];
         var flag = false;
         if (paiList.length >= 13) {
@@ -373,7 +375,7 @@ cc.Class({
             for (var i = 0; i < tempList.length; i++) {
                 var sourceLen = tempList.length;
                 tempList = this.liangZhang(tempList[i], tempList);
-                cc.log("paiList:" + tempList);
+                console.log("paiList:" + tempList);
                 var oldLen = tempList.length;
                 if (sourceLen != oldLen) {
                     i = 0
@@ -387,9 +389,9 @@ cc.Class({
             }
         }
 
-        
 
-        cc.log("paiList:" + tempList.toString())
+
+        console.log("paiList:" + tempList.toString())
         return flag;
 
 
@@ -400,7 +402,7 @@ cc.Class({
         var paiList = [15, 15, 18, 18, 22, 22, 25, 25, 25, 25, 29, 29, 38, 38];
 
         var f = this.checkQiaoQiDui(paiList);
-        cc.log("check qiaoqidui:" + f);
+        console.log("check qiaoqidui:" + f);
 
 
     },
@@ -410,19 +412,19 @@ cc.Class({
         huFlag = false;
         jiangFlag = false;
 
-        cc.log("testHU 1:" + this.startDecideHu(paiList));
+        console.log("testHU 1:" + this.startDecideHu(paiList));
         huFlag = false;
         jiangFlag = false;
         paiList = [15, 16, 17, 19, 19, 19, 23, 23, 35, 36, 37];
-        cc.log("testHU 2:" + this.startDecideHu(paiList));
+        console.log("testHU 2:" + this.startDecideHu(paiList));
         huFlag = false;
         jiangFlag = false;
         paiList = [11, 11, 17, 17, 17, 18, 19, 20, 35, 36, 37];
-        cc.log("testHU 3:" + this.startDecideHu(paiList));
+        console.log("testHU 3:" + this.startDecideHu(paiList));
         huFlag = false;
         jiangFlag = false;
         paiList = [15, 16, 17, 17, 17, 18, 19, 20, 21, 36, 36];
-        cc.log("testHU 4:" + this.startDecideHu(paiList));
+        console.log("testHU 4:" + this.startDecideHu(paiList));
 
     },
     //------------------------------------Untils----------------------------------------------------
@@ -489,7 +491,7 @@ cc.Class({
             paiNode.width = 75;
             paiNode.height = 110;
         }
-        cc.log("paiNode position:" + paiNode.position)
+        console.log("paiNode position:" + paiNode.position)
         return paiNode;
     }
 });

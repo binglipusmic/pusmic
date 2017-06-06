@@ -171,7 +171,7 @@ cc.Class({
 
 
         //onlineCheckUser.client = client;
-        onlineCheckUser.checkonlineUser(client);
+       // onlineCheckUser.checkonlineUser(client);
 
         cc.game.onStop = function () {
             console.log("stopApp$$$$$$$$$$$$$$$$$");
