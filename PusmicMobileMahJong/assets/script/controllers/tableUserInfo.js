@@ -311,7 +311,7 @@ cc.Class({
         //inital the test data
         //**********Test */
         if (initalType != "inital") {
-            //this.testInitalUserList(initalType);
+          //  this.testInitalUserList(initalType);
         }
 
         //iniIndexScript.sendUserCode();
