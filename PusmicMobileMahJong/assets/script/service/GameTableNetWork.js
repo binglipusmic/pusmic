@@ -2089,7 +2089,9 @@ cc.Class({
                     }
 
                     if (user.huPaiDetails == undefined || user.huPaiDetails == null) {
-                        user.huPaiDetails = "";
+                        user.huPaiDetails = "杠上炮(点炮)加1番:"+ roundScore+";";
+                    }else{
+                         user.huPaiDetails =user.huPaiDetails+ " 杠上炮(点炮)加1番:"+ roundScore+";";
                     }
 
 

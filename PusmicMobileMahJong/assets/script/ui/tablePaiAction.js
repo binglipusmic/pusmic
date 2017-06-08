@@ -730,11 +730,16 @@ cc.Class({
      */
     getChuPaiNameByNodeName: function (paiName, userIndex) {
         console.log("getChuPaiNameByNodeName:" + paiName);
+        paiName = paiName + "";
         var returnName = "";
         var backPrefix = "";
         var folderName = "user" + userIndex;
         var type = paiName[0];
         var number = paiName[1];
+        type = type + "";
+        number = number + "";
+        console.log("getChuPaiNameByNodeName type:" + type);
+        console.log("getChuPaiNameByNodeName number:" + number);
         var firstPrefix = "";
         var backPrefix2 = "";
         if (userIndex == "1") {
@@ -903,6 +908,7 @@ cc.Class({
                     }
                 }
             } else {
+                  node.interactable=false;
                 //normal chupai 
                 //enable all pai after quepai clean 
                 //if(chuPaiCountFlag=0){
@@ -916,6 +922,7 @@ cc.Class({
                 Global.chuPaiActionType = "";
                 Global.gangFromUserOpenId = "";
                 Global.gangHuPai = "";
+              
                 // }
 
             }

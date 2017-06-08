@@ -90,7 +90,8 @@ cc.Class({
         paiNode.name = "hupai" + latstIndex + "_" + paiNumber;
         //paiNode.active = false;
         var sprite = paiNode.getComponent(cc.Sprite);
-         console.log("93:" + paiPath);
+        console.log("93:" + paiPath);
+        // paiNode.active = true;
         cc.loader.loadRes(paiPath, cc.SpriteFrame, function (err, sp) {
             console.log("61:" + paiPath);
             if (err) {
