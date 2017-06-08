@@ -2089,9 +2089,9 @@ cc.Class({
                     }
 
                     if (user.huPaiDetails == undefined || user.huPaiDetails == null) {
-                        user.huPaiDetails = "杠上炮(点炮)加1番:"+ roundScore+";";
-                    }else{
-                         user.huPaiDetails =user.huPaiDetails+ " 杠上炮(点炮)加1番:"+ roundScore+";";
+                        user.huPaiDetails = "杠上炮(点炮)加1番:" + roundScore + ";";
+                    } else {
+                        user.huPaiDetails = user.huPaiDetails + " 杠上炮(点炮)加1番:" + roundScore + ";";
                     }
 
 
@@ -2504,13 +2504,16 @@ cc.Class({
             fanShu = fanShu + 2;
             if (anGangCount > 0) {
                 if (anGangCount == 1) {
+                    fanShu = fanShu + 1;
                     details = details + "龙七对:3番;"
                 }
                 if (anGangCount == 2) {
+                    fanShu = fanShu + 2;
                     details = details + "双龙七对:4番;"
                 }
                 if (anGangCount == 3) {
-                    details = details + "三龙七对:4番;"
+                    fanShu = fanShu + 3;
+                    details = details + "三龙七对:5番;"
                 }
             } else {
                 details = details + "巧七对:2番;"

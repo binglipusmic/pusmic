@@ -335,7 +335,7 @@ class GameRoundService {
 
                                 //  if(user.roundScoreCount>0) {
                                 def springUser = user.springUser
-                                updateScoreAndWinCountAndPushToClient(gameUser.springUser.openid, roomNumber,  gameUser.roundScoreCount)
+                               // updateScoreAndWinCountAndPushToClient(gameUser.springUser.openid, roomNumber,  gameUser.roundScoreCount)
 
                                 // }
                             }

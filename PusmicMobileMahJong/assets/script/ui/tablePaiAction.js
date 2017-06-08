@@ -29,6 +29,7 @@ cc.Class({
         theMoveNode: cc.Node,
         tableNetWorkScriptNode: cc.Node,
         audioNode: cc.Node,
+         actionNode: cc.Node,
         //tableUserInfo:cc.Node,
         //paiListReOrderCount:cc.Integer,
     },
@@ -909,6 +910,9 @@ cc.Class({
                 }
             } else {
                   node.interactable=false;
+                  //hide action bar
+
+                   this.actionNode.active = true;
                 //normal chupai 
                 //enable all pai after quepai clean 
                 //if(chuPaiCountFlag=0){
