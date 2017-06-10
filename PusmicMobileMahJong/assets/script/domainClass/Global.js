@@ -24,5 +24,7 @@ window.Global = {
     zhuangOpenId:"",
     gangFromUserOpenIdCache:"",
     gangChuPaiUserOpenIdCache:"",
+    gameStepId:"",
+    nextUserOpenId:"",
     
 };

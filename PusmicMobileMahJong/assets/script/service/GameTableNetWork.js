@@ -154,6 +154,9 @@ cc.Class({
 
                 //----------------------------------------------------------------------------------------
                 //getGameRoundlunScoreCount
+                if (messageDomain.messageAction == "serverSendMoPaiAction") {
+                    this.serverSendMoPaiAction();
+                }
                 if (messageDomain.messageAction == "getGameRoundlunScoreCount") {
                     var bodyStr = "";
                     var openId = "";
@@ -631,6 +634,8 @@ cc.Class({
                     if (obj.actionName == "chuPai") {
                         paiActionScript.chuPaiUserOpenId = fromUserOpenid;
                         tableCenterScript.endTimer();
+                        Global.gameStepId=obj.gameStepId;
+                        console.log("chupai gamestepsid:"+Global.gameStepId);
                         var paiList = obj.paiList;
                         if (paiList.indexOf(",") > 0) {
                             paiList = paiList.split(",")
@@ -660,20 +665,42 @@ cc.Class({
                                     userList[i].actionBarFlag = "-2";
 
 
+                                    //check peng and gang and hu in the chu pai for each user.
+                                    if (userList[i].huPai == null || userList[i].huPai == undefined || userList[i].huPai == "") {
+                                        var actionArray = paiActionScript.getActionBarArrayByOpenId(paiNumber, userList[i].openid, "")
+                                        console.log("openid :" + userList[i].openid);
+                                        console.log("paiList:" + userList[i].paiListArray.toString());
+                                        console.log("actionArray:" + actionArray.length);
+                                        if (actionArray.length > 1) {
+                                            userList[i].actionBarFlag = "1";
+                                            this.sendUpdateShowActionBarOnOtherUser(userList[i].openid, actionArray.toString(), paiNumber);
+
+
+                                        } else {
+                                            //send no action for this user
+                                             this.sendUpdateShowActionBarOnOtherUser(userList[i].openid, "", paiNumber);
+
+                                        }
+                                    }
+
+
                                 } else {
                                     userList[i].actionBarFlag = "-1";
                                 }
+
 
 
                             }
                             //update pai and pai list to Gobal user list var 
                             Global.userList = userList;
 
-                            //check peng and gang and hu in the chu pai
+
+
 
                         }
                         console.log("620:");
-                        //only work on the next user 
+                        //only work on the next user
+                        Global.nextUserOpenId =nextUserOpenId;
                         if (nextUserOpenId == userInfo.openid) {
                             userList = Global.userList;
                             var huActionListCache = [];
@@ -1304,7 +1331,17 @@ cc.Class({
         var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
         this.sendMessageToServer(messageObj);
     },
-
+    sendUpdateShowActionBarOnOtherUser: function (showUserOpenid, arrayString, paiNumber) {
+        var joinRoomNumber = Global.joinRoomNumber;
+        var o = new Object();
+        o.fromUserOpenid = showUserOpenid;
+        o.actionName = "updateShowActionBar";
+        o.actionArrayStr = arrayString;
+        o.paiNumber = paiNumber;
+        o.gameStepId = Global.gameStepId;
+        var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
+        this.sendMessageToServer(messageObj);
+    },
     sendShowActionBarOnOtherUser: function (showUserOpenid, arrayString, paiNumber, otherActionString) {
         var joinRoomNumber = Global.joinRoomNumber;
         var o = new Object();
@@ -1313,6 +1350,7 @@ cc.Class({
         o.actionArrayStr = arrayString;
         o.paiNumber = paiNumber;
         o.otherActionStr = otherActionString;
+        //o.gameStepId=Global.gameStepId;
         var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
         this.sendMessageToServer(messageObj);
     },
@@ -1424,7 +1462,8 @@ cc.Class({
         o.paiList = paiList.join(",");
         o.chuPaiType = Global.chuPaiActionType;
         o.nextOpenid = this.getNextUserByOpenId(userOpenId);
-        o.nextMoPai = ""
+        o.nextMoPai = "";
+        o.gameStepId="";
 
 
 
@@ -1446,6 +1485,13 @@ cc.Class({
         var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "gameAction");
         this.sendMessageToServer(messageObj);
 
+    },
+    serverSendMoPaiAction: function () {
+        console.log("serverSendMoPaiAction");
+        var userInfo=Global.userInfo;
+        if(userInfo.openid==Global.nextUserOpenId){
+            this.sendMoPaiAction();
+        }
     },
     //send mo pai will auto get current user 
     sendMoPaiAction: function () {

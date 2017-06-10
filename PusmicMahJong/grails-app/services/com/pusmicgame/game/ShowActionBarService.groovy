@@ -67,12 +67,8 @@ class ShowActionBarService {
         showActionBarObj.actionName = "showActionBar"
         showActionBarObj.actionArrayStr = huObj.actionArray.toString()
         showActionBarObj.paiNumber = huObj.paiNumber
-        if(needWait=="1"){
-            showActionBarObj.otherActionStr = "needWaitOther";
-        }else{
-            showActionBarObj.otherActionStr = "";
-        }
 
+        showActionBarObj.otherActionStr = "";
         def s = new JsonBuilder(showActionBarObj).toPrettyString()
 
         MessageDomain newMessageObj = new MessageDomain()
@@ -83,6 +79,102 @@ class ShowActionBarService {
         def s2 = new JsonBuilder(newMessageObj).toPrettyString()
 
         websokectService.privateUserChanelByRoomNumber(newMessageObj.messageBelongsToPrivateChanleNumber, s2)
+
+    }
+    /**
+     * This function will create the all action return record for each user
+     * @param gameStepId
+     * @param joinRoomNumber
+     * @return
+     */
+
+    def createActionBarRecordForAllUser(def gameStepId,def joinRoomNumber){
+        GameRoomNumber gameRoomNumber = GameRoomNumber.findByRoomNumber(joinRoomNumber)
+        if (gameRoomNumber) {
+            GameRound gameRound = gameRoomNumber.gameRound
+            if (gameRound) {
+
+                gameRound.gameUser.each {
+                    ShowActionBarCache showActionBarCache=new ShowActionBarCache()
+                    showActionBarCache.showUserOpenId=it.springUser.openid
+                    showActionBarCache.actionArrayString=""
+                    showActionBarCache.paiNumber=""
+                    showActionBarCache.roomNumber=joinRoomNumber
+                    showActionBarCache.gameStepId=gameStepId
+                    showActionBarCache.addTime=new Date()
+                    showActionBarCache.gameActionSatau=""
+                    showActionBarCache.save(flush: true, failOnError: true)
+                }
+
+            }
+        }
+
+
+    }
+
+
+    def updateActionBarForUser(def obj,def roomNumber){
+
+        ShowActionBarCache showActionBarCache=ShowActionBarCache.findByGameStepIdAndShowUserOpenId(obj.gameStepId,obj.fromUserOpenid)
+        if(showActionBarCache){
+            //if(showActionBarCache.showUserOpenId.equals(obj.fromUserOpenid)){
+                showActionBarCache.actionArrayString=obj.actionArrayStr
+                if(obj.paiNumber){
+                    showActionBarCache.paiNumber=obj.paiNumber
+                }
+
+            if(obj.actionArrayStr){
+                if(obj.actionArrayStr.toString().contains("hu")){
+                    showActionBarCache.gameActionSatau="waithu"
+                }else{
+                    showActionBarCache.gameActionSatau="waitnohu"
+                }
+
+            }else{
+                showActionBarCache.gameActionSatau="done"
+            }
+                showActionBarCache.save(flush: true, failOnError: true)
+           // }
+        }
+
+        def actionBarList=ShowActionBarCache.findAllByGameStepId(obj.gameStepId)
+        def satauStr=""
+        if(actionBarList){
+            actionBarList.each{actionBar->
+                satauStr=satauStr+actionBar.gameActionSatau
+            }
+            if(satauStr) {
+                //1,no action
+                if (!satauStr.contains("cancle")){
+                    MessageDomain newMessageObj = new MessageDomain()
+                    newMessageObj.messageBelongsToPrivateChanleNumber = roomNumber
+                    newMessageObj.messageAction = "serverSendMoPaiAction"
+                    newMessageObj.messageBody = ""
+                    newMessageObj.messageType = "gameAction"
+                    def s2 = new JsonBuilder(newMessageObj).toPrettyString()
+
+                    websokectService.privateUserChanelByRoomNumber(newMessageObj.messageBelongsToPrivateChanleNumber, s2)
+
+                }else if(satauStr.contains("waitnohu")&&satauStr.contains("waithu")){
+                    actionBarList.each{actionBar->
+                       if(actionBar.gameActionSatau.equals("waithu")){
+                           sendActionBarToUser(actionBar,roomNumber);
+                       }
+                    }
+
+                }else if(satauStr.contains("waitnohu")){
+                    sendActionBarToUser(actionBar,roomNumber);
+
+                }else if(satauStr.contains("waithu")){
+                    sendActionBarToUser(actionBar,roomNumber);
+
+                }
+                //2,waitnohu
+                //3,waithu
+                //4,waitnohu and waithu
+            }
+
+        }
 
     }
    // Simulator: huActionListCache:[{"userOpenId":"test0","actionArray":"cancle,peng,gang","paiNumber":"11"},{"userOpenId":"test1","actionArray":"cancle,peng,gang","paiNumber":"11"},{"userOpenId":"test2","actionArray":"cancle,peng,gang","paiNumber":"11"}]

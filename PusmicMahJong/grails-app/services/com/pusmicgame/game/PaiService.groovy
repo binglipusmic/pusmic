@@ -375,7 +375,7 @@ class PaiService {
 
     }
 
-    def moPai(String userOpenId,roomNumber){
+    def moPai(roomNumber){
         GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
         GameRound gameRound = onlineRoomNumber.gameRound
         def lastPai

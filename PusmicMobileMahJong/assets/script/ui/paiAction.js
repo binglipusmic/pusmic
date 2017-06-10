@@ -593,10 +593,14 @@ cc.Class({
 
     pengAction: function () {
 
+
+
         this.preStep = "";
         var userInfo = Global.userInfo;
         var userOpenId = this.fromUserOpenId;
         var paiNumber = this.paiNumber;
+
+        //tableNetWorkScript.sendUpdateShowActionBarOnOtherUser(userOpenId,"","");
         console.log("pengAction paiNumber:" + paiNumber);
         var user = tablePaiActionScript.getCorrectUserByOpenId(userOpenId);
         var pointIndex = user.pointIndex;
@@ -655,6 +659,8 @@ cc.Class({
         var userOpenId = this.fromUserOpenId;
         var paiNumber = this.paiNumber;
         var user = tablePaiActionScript.getCorrectUserByOpenId(userOpenId);
+
+        
 
         var paiList = user.paiListArray;
         //check if it already contain 4 zhang pai in the pai list
@@ -823,6 +829,7 @@ cc.Class({
 
 
         Global.huPreStep = "gang";
+        Global.chuPaiActionType="gang";
         console.log("0 gang:" + Global.chuPaiActionType);
         //remove last pai from chu pai user
         console.log("userInfo.openid:" + this.chuPaiUserOpenId);
@@ -886,6 +893,8 @@ cc.Class({
         var userInfo = Global.userInfo;
         var userOpenId = this.fromUserOpenId;
         var chupaiOpenId = this.chuPaiUserOpenId;
+
+        tableNetWorkScript.sendUpdateShowActionBarOnOtherUser(userOpenId,"","");
         console.log("huAction pai:" + this.paiNumber);
         if (Global.chuPaiActionType == null || Global.chuPaiActionType == undefined) {
             Global.chuPaiActionType = "";
@@ -1283,6 +1292,8 @@ cc.Class({
         var userInfo = Global.userInfo;
 
         this.preStep = "";
+
+        tableNetWorkScript.sendUpdateShowActionBarOnOtherUser(this.fromUserOpenId,"","");
         if (this.chuPaiUserOpenId == this.fromUserOpenId) {
             tablePaiActionScript.enabledAllPaiAfterQuePai();
         } else {

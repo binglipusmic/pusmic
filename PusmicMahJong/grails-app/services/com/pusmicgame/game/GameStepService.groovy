@@ -15,6 +15,7 @@ class GameStepService {
     def gameStep(MessageDomain messageDomain){
         def roomNumber = messageDomain.messageBelongsToPrivateChanleNumber;
         GameStep gameStep=new GameStep()
+        def gameStepId=0
         def obj = JSON.parse(messageDomain.messageBody)
         if(!obj.actionName.toString().equals("showActionBar")) {
             gameStep.fromUserOpenid = obj.fromUserOpenid
@@ -41,7 +42,7 @@ class GameStepService {
             gameStep.roundId="0"
             gameStep.save(flush: true, failOnError: true)
 
-            def gameStepId=gameStep.id
+            gameStepId =gameStep.id
 
             //add gameStep to game round
 
@@ -69,6 +70,8 @@ class GameStepService {
 
             }
         }
+
+        return gameStepId
 
 
     }

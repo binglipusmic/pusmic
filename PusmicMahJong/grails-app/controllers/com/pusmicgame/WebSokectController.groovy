@@ -37,13 +37,13 @@ class WebSokectController {
         //gameinistal
         //getGameRoundlunScoreCount
 
-         if (messageJsonObj.messageAction.equals("getGameRoundlunScoreCount")) {
-             println "getGameRoundlunScoreCount:41"
+        if (messageJsonObj.messageAction.equals("getGameRoundlunScoreCount")) {
+            println "getGameRoundlunScoreCount:41"
             def s = gameRoundLunService.getUserScoreCount(messageJsonObj.messageBelongsToPrivateChanleNumber)
             MessageDomain newMessageObj = new MessageDomain()
             newMessageObj.messageBelongsToPrivateChanleNumber = messageJsonObj.messageBelongsToPrivateChanleNumber
             newMessageObj.messageAction = "getGameRoundlunScoreCount"
-            newMessageObj.messageBody = s+"1splitCharaPusmicGame1"+messageJsonObj.messageBody
+            newMessageObj.messageBody = s + "1splitCharaPusmicGame1" + messageJsonObj.messageBody
             newMessageObj.messageType = "gameAction"
             def s2 = new JsonBuilder(newMessageObj).toPrettyString()
             websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)
@@ -57,14 +57,14 @@ class WebSokectController {
         //**************************************************************************************
         if (messageJsonObj.messageAction.equals("gameinistal")) {
             //sessionHeaders.put("openid",messageJsonObj.messageBody);
-            sessionHeaders.put("roomNumber",messageJsonObj.messageBelongsToPrivateChanleNumber);
+            sessionHeaders.put("roomNumber", messageJsonObj.messageBelongsToPrivateChanleNumber);
         }
 
         if (messageJsonObj.messageAction.equals("joinRoom")) {
             //sotre the user info and room info into head of http
             //we still need add a flag ,to decide it is gameing or not gameing
-            sessionHeaders.put("openid",messageJsonObj.messageBody);
-            sessionHeaders.put("roomNumber",messageJsonObj.messageBelongsToPrivateChanleNumber);
+            sessionHeaders.put("openid", messageJsonObj.messageBody);
+            sessionHeaders.put("roomNumber", messageJsonObj.messageBelongsToPrivateChanleNumber);
 
 
             def flag = gameRoundService.checkGameRoomExist(messageJsonObj)
@@ -96,7 +96,7 @@ class WebSokectController {
                     if (gameRoundService.getPopeleCountForJoinRoom(messageJsonObj).equals("<")) {
                         if (gpsStatus == 8 || gpsStatus == 4) {
                             messageJsonObj = userService.joinRoom(messageJsonObj)
-                        }else{
+                        } else {
                             messageJsonObj = userService.joinGPSLimitRoom(messageJsonObj, gpsStatus)
                             def s2 = JsonOutput.toJson(messageJsonObj)
                             websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)
@@ -156,10 +156,10 @@ class WebSokectController {
 
         }
         if (messageJsonObj.messageAction.equals("buildNewRoundLun")) {
-            def useropendid=gameRoundLunService.getOpenIdFromBuildNewGameRoundLun(messageJsonObj)
-            sessionHeaders.put("openid",useropendid);
+            def useropendid = gameRoundLunService.getOpenIdFromBuildNewGameRoundLun(messageJsonObj)
+            sessionHeaders.put("openid", useropendid);
 
-            sessionHeaders.put("roomNUmber",messageJsonObj.messageBelongsToPrivateChanleNumber);
+            sessionHeaders.put("roomNUmber", messageJsonObj.messageBelongsToPrivateChanleNumber);
 
             if (!gameRoundLunService.checkIfCanBuildNewRoundLun(messageJsonObj)) {
                 MessageDomain newMessageObj = new MessageDomain()
@@ -174,7 +174,7 @@ class WebSokectController {
             } else {
                 messageJsonObj = gameRoundLunService.createNewGameRoundLun(messageJsonObj)
                 def s = new JsonBuilder(messageJsonObj).toPrettyString()
-                println "----121:"+s
+                println "----121:" + s
                 websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)
             }
 
@@ -231,8 +231,8 @@ class WebSokectController {
         if (messageJsonObj.messageAction.equals("updateLocation")) {
             def flag = userService.updateUserLocation(messageJsonObj)
             def obj = JSON.parse(messageJsonObj.messageBody)
-            sessionHeaders.put("roomNumber",messageJsonObj.messageBelongsToPrivateChanleNumber);
-            sessionHeaders.put("openid",obj.openid);
+            sessionHeaders.put("roomNumber", messageJsonObj.messageBelongsToPrivateChanleNumber);
+            sessionHeaders.put("openid", obj.openid);
 
         }
 
@@ -246,7 +246,7 @@ class WebSokectController {
             websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)
             println "obj.quePaiCount.toString():" + obj.quePaiCount.toString()
             println "obj.peopleCount.toString():" + obj.peopleCount.toString()
-            def quePaiFlag=userService.checkQuePaiDone(messageJsonObj)
+            def quePaiFlag = userService.checkQuePaiDone(messageJsonObj)
             if (quePaiFlag) {
                 messageJsonObj.messageAction = "zhuangJiaChuPai"
                 println "zhuangJiaChuPai:" + obj.peopleCount.toString()
@@ -299,7 +299,11 @@ class WebSokectController {
 
             def obj = JSON.parse(messageJsonObj.messageBody)
             if (obj.actionName == "chuPai") {
-                gameStepService.gameStep(messageJsonObj)
+                def gameStepId = gameStepService.gameStep(messageJsonObj)
+                obj.gameStepId = gameStepId
+
+                showActionBarService.createActionBarRecordForAllUser(gameStepId,messageJsonObj.messageBelongsToPrivateChanleNumber)
+                messageJsonObj.messageBody = new JsonBuilder(obj).toPrettyString()
                 def s = new JsonBuilder(messageJsonObj).toPrettyString()
                 websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)
                 println "chupai ********"
@@ -308,7 +312,7 @@ class WebSokectController {
             } else if (obj.actionName == "moPai") {
 
                 //mopai in next user
-                obj.paiNumber = paiService.moPai(obj.toUserOpenid, messageJsonObj.messageBelongsToPrivateChanleNumber)
+                obj.paiNumber = paiService.moPai(messageJsonObj.messageBelongsToPrivateChanleNumber)
                 println "195:" + obj.paiNumber
                 if (obj.paiNumber) {
                     obj.actionName = "moPai"
@@ -342,56 +346,50 @@ class WebSokectController {
                 }
 //huPai
             } else if (obj.actionName == "huPai") {
-                def executeNextStepFlag=false;
+                def executeNextStepFlag = false;
                 //if it is have other action
-                if(obj.needWaitOhterUser=="needWaitOther"){
+                if (obj.needWaitOhterUser == "needWaitOther") {
                     //removet this action from showActionBar SQL db.
-                    def allActionDoneFlag=showActionBarService.handelHuAcion(obj)
-                    if(allActionDoneFlag){
-                        executeNextStepFlag=true
-                    }else{
-                        executeNextStepFlag=false;
+                    def allActionDoneFlag = showActionBarService.handelHuAcion(obj)
+                    if (allActionDoneFlag) {
+                        executeNextStepFlag = true
+                    } else {
+                        executeNextStepFlag = false;
                     }
 
-                }else{
-                    executeNextStepFlag=true
+                } else {
+                    executeNextStepFlag = true
                 }
 
-                obj.executeNextStepFlag=executeNextStepFlag
+                obj.executeNextStepFlag = executeNextStepFlag
                 //check if end this round
                 //show hu pai for other user
-                messageJsonObj.messageBody=new JsonBuilder(obj).toPrettyString()
+                messageJsonObj.messageBody = new JsonBuilder(obj).toPrettyString()
                 gameStepService.gameStep(messageJsonObj)
                 def s = new JsonBuilder(messageJsonObj).toPrettyString()
                 websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)
 
-
-
                 //save hupai number into Count of round
-             //   def huPaiCount=gameRoundService.saveHuPaiNumberIntoGameRound(messageJsonObj)
+                //   def huPaiCount=gameRoundService.saveHuPaiNumberIntoGameRound(messageJsonObj)
 
                 //check if it round end
-               // if(gameRoundService.checkGameRoundEnd(messageJsonObj,huPaiCount)){
-                    //send game round end
+                // if(gameRoundService.checkGameRoundEnd(messageJsonObj,huPaiCount)){
+                //send game round end
 
-               // }else{
-                    //send mo pai on nextUser
+                // }else{
+                //send mo pai on nextUser
 
-   //             }
+                //             }
 //
-
-
-
-
 
 //checkRoundEnd
             } else if (obj.actionName == "checkRoundEnd") {
                 //this should check the lun round if end
-                def curerntGroundId=gameRoundLunService.getCurrentGameRoundId(messageJsonObj)
-                if(curerntGroundId){
-                    messageJsonObj.messageBody=curerntGroundId
-                }else{
-                    messageJsonObj.messageBody=""
+                def curerntGroundId = gameRoundLunService.getCurrentGameRoundId(messageJsonObj)
+                if (curerntGroundId) {
+                    messageJsonObj.messageBody = curerntGroundId
+                } else {
+                    messageJsonObj.messageBody = ""
                 }
 
                 if (gameRoundLunService.checkGameRounDone(messageJsonObj)) {
@@ -405,7 +403,7 @@ class WebSokectController {
                     websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s3)
                     //start a new round
                     println "395: start a new round"
-                    def currentRoundCount = gameRoundLunService.createNewGameRound(messageJsonObj,obj.zhuangOpenId)
+                    def currentRoundCount = gameRoundLunService.createNewGameRound(messageJsonObj, obj.zhuangOpenId)
                     if (currentRoundCount != -1) {
                         MessageDomain newMessageObj = new MessageDomain()
                         newMessageObj.messageBelongsToPrivateChanleNumber = messageJsonObj.messageBelongsToPrivateChanleNumber
@@ -415,8 +413,6 @@ class WebSokectController {
                         def s2 = new JsonBuilder(newMessageObj).toPrettyString()
                         websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)
                     }
-
-
 
 
                 }
@@ -463,39 +459,44 @@ class WebSokectController {
                 def s = new JsonBuilder(messageJsonObj).toPrettyString()
                 websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)
 
+            } else if (obj.actionName == "updateShowActionBar") {
+
+                def s = new JsonBuilder(messageJsonObj).toPrettyString()
+                websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)
+
             } else if (obj.actionName == "cancleAction") {
 
                 //check if it already have other action in the SQL table
                 // No exist other ,send mopai
                 //Exist other ,send other showActionBar .
 
-                def executeNextStepFlag=false;
+                def executeNextStepFlag = false;
                 //if it is have other action
-                if(obj.needWaitOhterUser=="needWaitOther"){
+                if (obj.needWaitOhterUser == "needWaitOther") {
                     //removet this action from showActionBar SQL db.
-                    def allActionDoneFlag=showActionBarService.handelHuAcion(obj)
-                    if(allActionDoneFlag){
-                        executeNextStepFlag=true
-                    }else{
-                        executeNextStepFlag=false;
+                    def allActionDoneFlag = showActionBarService.handelHuAcion(obj)
+                    if (allActionDoneFlag) {
+                        executeNextStepFlag = true
+                    } else {
+                        executeNextStepFlag = false;
                     }
 
-                }else{
-                    executeNextStepFlag=true
+                } else {
+                    executeNextStepFlag = true
                 }
 
-                obj.executeNextStepFlag=executeNextStepFlag
+                obj.executeNextStepFlag = executeNextStepFlag
                 //check if end this round
                 //show hu pai for other user
-                messageJsonObj.messageBody=new JsonBuilder(obj).toPrettyString()
+                messageJsonObj.messageBody = new JsonBuilder(obj).toPrettyString()
                 //gameStepService.gameStep(messageJsonObj)
 
                 def s = new JsonBuilder(messageJsonObj).toPrettyString()
                 websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)
 //allShowActionBar
-            }else if (obj.actionName == "allShowActionBar") {
+            } else if (obj.actionName == "allShowActionBar") {
                 //store all show Action into
-                showActionBarService.handelShowAllActionBar(obj.huPaiActionString,obj.noHuPaiActionString,messageJsonObj.messageBelongsToPrivateChanleNumber)
+                showActionBarService.handelShowAllActionBar(obj.huPaiActionString, obj.noHuPaiActionString, messageJsonObj.messageBelongsToPrivateChanleNumber)
             } else {
 
                 println "send no recongnize action"
