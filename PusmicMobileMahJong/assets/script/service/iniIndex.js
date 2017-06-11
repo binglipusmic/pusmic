@@ -88,11 +88,18 @@ cc.Class({
             cc.sys.localStorage.setItem("loginRoomNumber", roomNumber);
             client.subscribe("/queue/pusmicGamePushLoginUserInfoChanle" + roomNumber, function (message) {
                 console.log("######################");
+               
+                var bodyStr = "";
+                if (message == null || message == undefined) {
+                } else {
+                    if (message.body == null || message.body == undefined) {
+                    } else {
+                        bodyStr = message.body;
+                    }
+                }
                 console.log(bodyStr);
-                var bodyStr = message.body;
 
-
-                if (bodyStr.length == 0) {
+                if ( bodyStr.length == 0 ) {
                     this.reforceLogin();
                 } else {
                     console.log("decode1:" + bodyStr);

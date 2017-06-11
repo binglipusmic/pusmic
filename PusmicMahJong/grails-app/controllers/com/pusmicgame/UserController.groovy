@@ -61,6 +61,9 @@ class UserController {
                     //UserAuthObject userAuthObj = JSON.parse(messageJsonObj.messageBody);
                     //userService.createNewSpringUserOrUpdate(userAuthObj)
                     s=userService.loginUserByCode(code,publicIp);
+                    if(s){
+                        websokectService.pusmicGameUserLoginPrivate(roomNumber,s)
+                    }
                 }
 
                 if (messageJsonObj.messageAction.equals("refreshToken")) {
@@ -68,6 +71,7 @@ class UserController {
                     roomNumber=obj.roomNumber
                     def openid=obj.openid
                     s=userService.refreshTokenByOpenid(openid,publicIp);
+                    websokectService.pusmicGameUserLoginPrivate(roomNumber,s)
                 }
                 // sessionHeaders.put("openid",messageJsonObj.messageBody);
 
@@ -75,7 +79,7 @@ class UserController {
 
 
               //  if(s){
-                    websokectService.pusmicGameUserLoginPrivate(roomNumber,s)
+
               //  }
 
 
