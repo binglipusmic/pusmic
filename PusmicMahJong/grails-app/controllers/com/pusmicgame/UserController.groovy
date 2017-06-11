@@ -74,9 +74,9 @@ class UserController {
                 println "roomNumber:"+roomNumber
 
 
-                if(s){
+              //  if(s){
                     websokectService.pusmicGameUserLoginPrivate(roomNumber,s)
-                }
+              //  }
 
 
             }
