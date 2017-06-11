@@ -29,7 +29,7 @@ cc.Class({
         theMoveNode: cc.Node,
         tableNetWorkScriptNode: cc.Node,
         audioNode: cc.Node,
-         actionNode: cc.Node,
+        actionNode: cc.Node,
         //tableUserInfo:cc.Node,
         //paiListReOrderCount:cc.Integer,
     },
@@ -909,10 +909,15 @@ cc.Class({
                     }
                 }
             } else {
-                  node.interactable=false;
-                  //hide action bar
+                node.interactable = false;
+                //hide action bar
+                //this.actionNode
+                console.log("915");
+                if (this.actionNode != null && this.actionNode != undefined) {
+                    this.actionNode.active = false;
+                }
 
-                   this.actionNode.active = true;
+                console.log("917");
                 //normal chupai 
                 //enable all pai after quepai clean 
                 //if(chuPaiCountFlag=0){
@@ -926,7 +931,7 @@ cc.Class({
                 Global.chuPaiActionType = "";
                 Global.gangFromUserOpenId = "";
                 Global.gangHuPai = "";
-              
+
                 // }
 
             }

@@ -702,113 +702,113 @@ cc.Class({
                         //only work on the next user
                         Global.nextUserOpenId =nextUserOpenId;
                         if (nextUserOpenId == userInfo.openid) {
-                            userList = Global.userList;
-                            var huActionListCache = [];
-                            var noHuActionListCache = [];
+                            //userList = Global.userList;
+                            //var huActionListCache = [];
+                            //var noHuActionListCache = [];
                             console.log("626:");
-                            for (var i = 0; i < userList.length; i++) {
-                                if (fromUserOpenid != userList[i].openid) {
-                                    if (userList[i].huPai == null || userList[i].huPai == undefined || userList[i].huPai == "") {
-                                        var actionArray = paiActionScript.getActionBarArrayByOpenId(paiNumber, userList[i].openid, "")
-                                        console.log("openid :" + userList[i].openid);
-                                        console.log("paiList:" + userList[i].paiListArray.toString());
-                                        console.log("actionArray:" + actionArray.length);
-                                        if (actionArray.length > 1) {
-                                            userList[i].actionBarFlag = "1";
-                                            var o = new Object();
-                                            o.userOpenId = userList[i].openid;
-                                            o.actionArray = actionArray.toString();
-                                            o.paiNumber = paiNumber;
-                                            if (actionArray.toString().indexOf("hu") >= 0) {
-                                                huActionListCache.push(o);
-                                            } else {
-                                                noHuActionListCache.push(o);
-                                            }
+                            // for (var i = 0; i < userList.length; i++) {
+                            //     if (fromUserOpenid != userList[i].openid) {
+                            //         if (userList[i].huPai == null || userList[i].huPai == undefined || userList[i].huPai == "") {
+                            //             var actionArray = paiActionScript.getActionBarArrayByOpenId(paiNumber, userList[i].openid, "")
+                            //             console.log("openid :" + userList[i].openid);
+                            //             console.log("paiList:" + userList[i].paiListArray.toString());
+                            //             console.log("actionArray:" + actionArray.length);
+                            //             if (actionArray.length > 1) {
+                            //                 userList[i].actionBarFlag = "1";
+                            //                 var o = new Object();
+                            //                 o.userOpenId = userList[i].openid;
+                            //                 o.actionArray = actionArray.toString();
+                            //                 o.paiNumber = paiNumber;
+                            //                 if (actionArray.toString().indexOf("hu") >= 0) {
+                            //                     huActionListCache.push(o);
+                            //                 } else {
+                            //                     noHuActionListCache.push(o);
+                            //                 }
 
-                                            //this.sendShowActionBarOnOtherUser(userList[i].openid, actionArray.toString(), paiNumber);
-                                        } else {
-                                            userList[i].actionBarFlag = "0";
-                                        }
-                                    }
-                                } else {
-                                    userList[i].actionBarFlag = "0";
-                                }
-                            }
+                            //                 //this.sendShowActionBarOnOtherUser(userList[i].openid, actionArray.toString(), paiNumber);
+                            //             } else {
+                            //                 userList[i].actionBarFlag = "0";
+                            //             }
+                            //         }
+                            //     } else {
+                            //         userList[i].actionBarFlag = "0";
+                            //     }
+                            // }
 
                             //First check the acttion count
-                            var count = huActionListCache.length + noHuActionListCache.length;
-                            console.log("658:");
-                            if (count == 0) {
-                                this.sendMoPaiAction();
-                            } else if (count == 1) {
-                                var userObject = null;
-                                if (huActionListCache.length == 1) {
-                                    userObject = huActionListCache[0];
-                                } else {
-                                    userObject = noHuActionListCache[0];
-                                }
-                                if (userObject != null) {
-                                    this.sendShowActionBarOnOtherUser(userObject.userOpenId, userObject.actionArray.toString(), userObject.paiNumber, "");
-                                } else {
-                                    console.log("EROOR:It should have a action object ,but it is null");
-                                }
+                            // var count = huActionListCache.length + noHuActionListCache.length;
+                            // console.log("658:");
+                            // if (count == 0) {
+                            //     this.sendMoPaiAction();
+                            // } else if (count == 1) {
+                            //     var userObject = null;
+                            //     if (huActionListCache.length == 1) {
+                            //         userObject = huActionListCache[0];
+                            //     } else {
+                            //         userObject = noHuActionListCache[0];
+                            //     }
+                            //     if (userObject != null) {
+                            //         this.sendShowActionBarOnOtherUser(userObject.userOpenId, userObject.actionArray.toString(), userObject.paiNumber, "");
+                            //     } else {
+                            //         console.log("EROOR:It should have a action object ,but it is null");
+                            //     }
 
 
-                            } else if (huActionListCache.length == 2) {
-                                //一炮双响
-                                this.sendShowActionBarOnOtherUser(huActionListCache[0].userOpenId, huActionListCache[0].actionArray.toString(), huActionListCache[0].paiNumber, "");
-                                this.sendShowActionBarOnOtherUser(huActionListCache[1].userOpenId, huActionListCache[1].actionArray.toString(), huActionListCache[1].paiNumber, "");
-                            } else {
-                                //send all action bar to server ,let server decide the order.
-                                //hu 2,nohu 1
-                                //hu 1,nohu 1
-                                //hu 2,nohu 0
-                                //hu 3,nohu 0
-                                var huActionString = "";
-                                var noHuActionString = "";
+                            // } else if (huActionListCache.length == 2) {
+                            //     //一炮双响
+                            //     this.sendShowActionBarOnOtherUser(huActionListCache[0].userOpenId, huActionListCache[0].actionArray.toString(), huActionListCache[0].paiNumber, "");
+                            //     this.sendShowActionBarOnOtherUser(huActionListCache[1].userOpenId, huActionListCache[1].actionArray.toString(), huActionListCache[1].paiNumber, "");
+                            // } else {
+                            //     //send all action bar to server ,let server decide the order.
+                            //     //hu 2,nohu 1
+                            //     //hu 1,nohu 1
+                            //     //hu 2,nohu 0
+                            //     //hu 3,nohu 0
+                            //     var huActionString = "";
+                            //     var noHuActionString = "";
 
 
-                                if (huActionListCache.length > 0) {
-                                    huActionString = JSON.stringify(huActionListCache);
-                                }
+                            //     if (huActionListCache.length > 0) {
+                            //         huActionString = JSON.stringify(huActionListCache);
+                            //     }
 
-                                if (noHuActionListCache.length > 0) {
-                                    noHuActionString = JSON.stringify(noHuActionListCache);
-                                }
-                                this.sendAllShowActionBarOnOtherUser(huActionString, noHuActionString);
+                            //     if (noHuActionListCache.length > 0) {
+                            //         noHuActionString = JSON.stringify(noHuActionListCache);
+                            //     }
+                            //     this.sendAllShowActionBarOnOtherUser(huActionString, noHuActionString);
 
 
-                            }
+                            // }
 
-                            if (huActionListCache.length > 0) {
+                            // if (huActionListCache.length > 0) {
 
-                                /**
-                                 * Here have a bug ,if two user already to hu pai ,but the other user already to peng or gang 
-                                 * The correct way should need wait the two user to do decide.
-                                 * But now ,it only support one user to do decide.
-                                 * 
-                                 */
+                            //     /**
+                            //      * Here have a bug ,if two user already to hu pai ,but the other user already to peng or gang 
+                            //      * The correct way should need wait the two user to do decide.
+                            //      * But now ,it only support one user to do decide.
+                            //      * 
+                            //      */
 
-                                //TODO we still need send the noHuActionListCache after the huActoin close the action bar.
-                                var othreActionString = "";
-                                // if (noHuActionListCache.length > 0) {
-                                //     othreActionString = JSON.stringify(noHuActionListCache[0])
-                                // }
-                                for (var j = 0; j < huActionListCache.length; j++) {
-                                    var obj = huActionListCache[j];
-                                    // this.sendShowActionBarOnOtherUser(obj.userOpenId, obj.actionArray.toString(), obj.paiNumber, "");
-                                }
-                            } else {
+                            //     //TODO we still need send the noHuActionListCache after the huActoin close the action bar.
+                            //     var othreActionString = "";
+                            //     // if (noHuActionListCache.length > 0) {
+                            //     //     othreActionString = JSON.stringify(noHuActionListCache[0])
+                            //     // }
+                            //     for (var j = 0; j < huActionListCache.length; j++) {
+                            //         var obj = huActionListCache[j];
+                            //         // this.sendShowActionBarOnOtherUser(obj.userOpenId, obj.actionArray.toString(), obj.paiNumber, "");
+                            //     }
+                            // } else {
 
-                            }
+                            // }
 
-                            if (noHuActionListCache.length > 0) {
-                                for (var j = 0; j < noHuActionListCache.length; j++) {
-                                    var obj = noHuActionListCache[j];
-                                    // this.sendShowActionBarOnOtherUser(obj.userOpenId, obj.actionArray.toString(), obj.paiNumber, "");
+                            // if (noHuActionListCache.length > 0) {
+                            //     for (var j = 0; j < noHuActionListCache.length; j++) {
+                            //         var obj = noHuActionListCache[j];
+                            //         // this.sendShowActionBarOnOtherUser(obj.userOpenId, obj.actionArray.toString(), obj.paiNumber, "");
 
-                                }
-                            }
+                            //     }
+                            // }
 
 
 
@@ -829,7 +829,7 @@ cc.Class({
                             //     this.sendMoPaiAction();
                             // }
                             //update user list to gobal 
-                            Global.userList = userList;
+                            //Global.userList = userList;
                         }
 
 

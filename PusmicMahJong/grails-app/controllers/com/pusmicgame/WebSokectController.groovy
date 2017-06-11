@@ -460,9 +460,9 @@ class WebSokectController {
                 websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)
 
             } else if (obj.actionName == "updateShowActionBar") {
-
-                def s = new JsonBuilder(messageJsonObj).toPrettyString()
-                websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)
+                showActionBarService.updateActionBarForUser(obj,messageJsonObj.messageBelongsToPrivateChanleNumber)
+                //def s = new JsonBuilder(messageJsonObj).toPrettyString()
+                //websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)
 
             } else if (obj.actionName == "cancleAction") {
 
