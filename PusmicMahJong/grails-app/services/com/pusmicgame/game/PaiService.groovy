@@ -377,9 +377,10 @@ class PaiService {
 
     def moPai(roomNumber){
         GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
-        GameRound gameRound = onlineRoomNumber.gameRound
+        GameRound gameRound1 = onlineRoomNumber.gameRound
         def lastPai
-        if(gameRound) {
+        if(gameRound1) {
+            GameRound gameRound=GameRound.findById(gameRound1.id)
             def paiList=gameRound.restPaiList
             if(paiList){
                 lastPai =paiList.last()
