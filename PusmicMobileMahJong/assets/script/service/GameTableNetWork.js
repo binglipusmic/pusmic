@@ -634,8 +634,8 @@ cc.Class({
                     if (obj.actionName == "chuPai") {
                         paiActionScript.chuPaiUserOpenId = fromUserOpenid;
                         tableCenterScript.endTimer();
-                        Global.gameStepId=obj.gameStepId;
-                        console.log("chupai gamestepsid:"+Global.gameStepId);
+                        Global.gameStepId = obj.gameStepId;
+                        console.log("chupai gamestepsid:" + Global.gameStepId);
                         var paiList = obj.paiList;
                         if (paiList.indexOf(",") > 0) {
                             paiList = paiList.split(",")
@@ -678,7 +678,7 @@ cc.Class({
 
                                         } else {
                                             //send no action for this user
-                                             this.sendUpdateShowActionBarOnOtherUser(userList[i].openid, "", paiNumber);
+                                            this.sendUpdateShowActionBarOnOtherUser(userList[i].openid, "", paiNumber);
 
                                         }
                                     }
@@ -700,7 +700,12 @@ cc.Class({
                         }
                         console.log("620:");
                         //only work on the next user
-                        Global.nextUserOpenId =nextUserOpenId;
+                        if (nextUserOpenId == userInfo.openid) {
+                            Global.nextUserOpenId = nextUserOpenId;
+                        } else {
+                            Global.nextUserOpenId = "";
+                        }
+                        console.log("708:" + Global.nextUserOpenId);
                         if (nextUserOpenId == userInfo.openid) {
                             //userList = Global.userList;
                             //var huActionListCache = [];
@@ -1463,7 +1468,7 @@ cc.Class({
         o.chuPaiType = Global.chuPaiActionType;
         o.nextOpenid = this.getNextUserByOpenId(userOpenId);
         o.nextMoPai = "";
-        o.gameStepId="";
+        o.gameStepId = "";
 
 
 
@@ -1488,10 +1493,14 @@ cc.Class({
     },
     serverSendMoPaiAction: function () {
         console.log("serverSendMoPaiAction");
-        var userInfo=Global.userInfo;
-        if(userInfo.openid==Global.nextUserOpenId){
-            this.sendMoPaiAction();
+        var userInfo = Global.userInfo;
+        if (Global.nextUserOpenId != null && Global.nextUserOpenId != undefined) {
+            if (userInfo.openid == Global.nextUserOpenId) {
+                console.log("1499:"+Global.nextUserOpenId);
+                this.sendMoPaiAction();
+            }
         }
+
     },
     //send mo pai will auto get current user 
     sendMoPaiAction: function () {

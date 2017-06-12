@@ -15,7 +15,7 @@
     "landscapeLeft": true,
     "landscapeRight": true,
     "portrait": false,
-    "upsideDown": false
+    "upsideDown": true
   },
   "packageName": "com.pusmicgame.mahjong",
   "privateKey": "",

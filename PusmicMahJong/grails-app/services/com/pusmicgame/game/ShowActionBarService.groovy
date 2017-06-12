@@ -140,38 +140,46 @@ class ShowActionBarService {
         def actionBarList=ShowActionBarCache.findAllByGameStepId(obj.gameStepId)
         def satauStr=""
         if(actionBarList){
+            def actionCount=0
+            def alreadyCount=0
             actionBarList.each{actionBar->
                 satauStr=satauStr+actionBar.gameActionSatau
+                if(actionBar.gameActionSatau){
+                    alreadyCount++
+                }
+                actionCount++
             }
             if(satauStr) {
-                //1,no action
-                if (!satauStr.contains("cancle")){
-                    MessageDomain newMessageObj = new MessageDomain()
-                    newMessageObj.messageBelongsToPrivateChanleNumber = roomNumber
-                    newMessageObj.messageAction = "serverSendMoPaiAction"
-                    newMessageObj.messageBody = ""
-                    newMessageObj.messageType = "gameAction"
-                    def s2 = new JsonBuilder(newMessageObj).toPrettyString()
+                if(alreadyCount==actionCount-1) {
+                    //1,no action
+                    if (!satauStr.contains("cancle")) {
+                        MessageDomain newMessageObj = new MessageDomain()
+                        newMessageObj.messageBelongsToPrivateChanleNumber = roomNumber
+                        newMessageObj.messageAction = "serverSendMoPaiAction"
+                        newMessageObj.messageBody = ""
+                        newMessageObj.messageType = "gameAction"
+                        def s2 = new JsonBuilder(newMessageObj).toPrettyString()
 
-                    websokectService.privateUserChanelByRoomNumber(newMessageObj.messageBelongsToPrivateChanleNumber, s2)
+                        websokectService.privateUserChanelByRoomNumber(newMessageObj.messageBelongsToPrivateChanleNumber, s2)
 
-                }else if(satauStr.contains("waitnohu")&&satauStr.contains("waithu")){
-                    actionBarList.each{actionBar->
-                       if(actionBar.gameActionSatau.equals("waithu")){
-                           sendActionBarToUser(actionBar,roomNumber);
-                       }
+                    } else if (satauStr.contains("waitnohu") && satauStr.contains("waithu")) {
+                        actionBarList.each { actionBar ->
+                            if (actionBar.gameActionSatau.equals("waithu")) {
+                                sendActionBarToUser(actionBar, roomNumber);
+                            }
+                        }
+
+                    } else if (satauStr.contains("waitnohu")) {
+                        sendActionBarToUser(actionBar, roomNumber);
+
+                    } else if (satauStr.contains("waithu")) {
+                        sendActionBarToUser(actionBar, roomNumber);
+
                     }
-
-                }else if(satauStr.contains("waitnohu")){
-                    sendActionBarToUser(actionBar,roomNumber);
-
-                }else if(satauStr.contains("waithu")){
-                    sendActionBarToUser(actionBar,roomNumber);
-
+                    //2,waitnohu
+                    //3,waithu
+                    //4,waitnohu and waithu
                 }
-                //2,waitnohu
-                //3,waithu
-                //4,waitnohu and waithu
             }
 
         }
