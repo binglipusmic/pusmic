@@ -142,6 +142,10 @@ class ShowActionBarService {
             log.trace "0####:"+showActionBarCache.id+":"+showActionBarCache.gameActionSatau
         }
 
+    }
+
+
+    def checkUpdateStatus(def obj){
         def actionBarList=ShowActionBarCache.findAllByGameStepId(obj.gameStepId)
         def satauStr=""
         if(actionBarList){
