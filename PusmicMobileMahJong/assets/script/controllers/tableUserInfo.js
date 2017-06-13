@@ -242,6 +242,7 @@ cc.Class({
 
         Global.userList = userList;
         Global.huPreStep = "";
+         Global.nextUserOpenId="";
         //Add the round count
 
         //Global.gameRoundCount = Global.gameRoundCount + 1;

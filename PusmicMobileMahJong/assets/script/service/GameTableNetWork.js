@@ -648,6 +648,12 @@ cc.Class({
 
                         //get next user openid 
                         var nextUserOpenId = this.getNextUserByOpenId(fromUserOpenid);
+                          //only work on the next user
+                        if (nextUserOpenId == userInfo.openid) {
+                            Global.nextUserOpenId = nextUserOpenId;
+                        } else {
+                            Global.nextUserOpenId = "";
+                        }
                         console.log("593:");
                         if (fromUserOpenid != userInfo.openid) {
                             //reset user action status for each user 
@@ -701,12 +707,7 @@ cc.Class({
 
                         }
                         console.log("620:");
-                        //only work on the next user
-                        if (nextUserOpenId == userInfo.openid) {
-                            Global.nextUserOpenId = nextUserOpenId;
-                        } else {
-                            Global.nextUserOpenId = "";
-                        }
+                      
                         console.log("708:" + Global.nextUserOpenId);
                         if (nextUserOpenId == userInfo.openid) {
                             //userList = Global.userList;
@@ -1016,7 +1017,7 @@ cc.Class({
 
                         if (executeNextStepFlag + "" == "true") {
                             if (moPaiUserId == userInfo.openid) {
-                                this.sendMoPaiAction();
+                               // this.sendMoPaiAction();
                             }
                         }
                         // if (moPaiUserId == userInfo.openid) {
@@ -1114,7 +1115,7 @@ cc.Class({
 
                             if (endGameFlag == false) {
                                 if (userInfo.openid == fromUserOpenId) {
-                                    this.sendMoPaiAction();
+                                    //this.sendMoPaiAction();
                                 }
                             } else {
                                 console.log("**sendCheckRoundEnd**");
@@ -1502,6 +1503,7 @@ cc.Class({
                 this.sendMoPaiAction();
             }
         }
+         Global.nextUserOpenId="";
 
     },
     //send mo pai will auto get current user 
