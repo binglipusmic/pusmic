@@ -169,14 +169,14 @@ class ShowActionBarService {
                     if (satauStr.contains("waitnohu") && satauStr.contains("waithu")) {
                         actionBarList.each { actionBar ->
                             if (actionBar.gameActionSatau.equals("waithu")) {
-                                sendActionBarToUser(actionBar, roomNumber);
+                                sendActionBarToUser(actionBar, roomNumber,"");
                             }
                         }
 
                     } else if (satauStr.contains("waithu")) {
                         actionBarList.each { actionBar ->
                             if (actionBar.gameActionSatau.equals("waithu")) {
-                                sendActionBarToUser(actionBar, roomNumber);
+                                sendActionBarToUser(actionBar, roomNumber,"");
                             }
                         }
 
@@ -184,12 +184,12 @@ class ShowActionBarService {
                     } else if (satauStr.contains("waitnohu")) {
                         actionBarList.each { actionBar ->
                             if (actionBar.gameActionSatau.equals("waitnohu")) {
-                                sendActionBarToUser(actionBar, roomNumber);
+                                sendActionBarToUser(actionBar, roomNumber,"");
                             }
                         }
 
 
-                        
+
                     } else if (!satauStr.contains("cancle")) {
                         MessageDomain newMessageObj = new MessageDomain()
                         newMessageObj.messageBelongsToPrivateChanleNumber = roomNumber
