@@ -139,7 +139,7 @@ class ShowActionBarService {
                 showActionBarCache.save(flush: true, failOnError: true)
            // }
 
-            log.trace "0####:"+showActionBarCache.id+":"+showActionBarCache.gameActionSatau
+            log.info "0####:"+showActionBarCache.id+":"+showActionBarCache.gameActionSatau
         }
 
     }
@@ -156,12 +156,12 @@ class ShowActionBarService {
                 if(actionBar.gameActionSatau){
                     alreadyCount++
                 }
-                log.trace "1####:"+actionBar.id+":"+actionBar.gameActionSatau
+                log.info "1####:"+actionBar.id+":"+actionBar.gameActionSatau
                 actionCount++
-                log.trace "couunt####:"+actionCount+":"+alreadyCount
+                log.info "couunt####:"+actionCount+":"+alreadyCount
             }
-            log.trace "actionCount:${actionCount}"
-            log.trace "alreadyCount:${alreadyCount}"
+            log.info "actionCount:${actionCount}"
+            log.info "alreadyCount:${alreadyCount}"
             if(satauStr) {
                 if(alreadyCount>=actionCount-1) {
                     //1,no action
@@ -227,7 +227,7 @@ class ShowActionBarService {
                 showActionBarCache.roomNumber=joinRoomNumber
                 showActionBarCache.addTime=new Date()
                 showActionBarCache.save(flush: true, failOnError: true)
-                log.trace  "huObj:"+huObj.userOpenId
+                log.info  "huObj:"+huObj.userOpenId
 
                 //we need send all hu action to all user.
 
