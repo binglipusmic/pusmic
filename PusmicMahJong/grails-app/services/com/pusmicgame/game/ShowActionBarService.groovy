@@ -147,6 +147,7 @@ class ShowActionBarService {
                 if(actionBar.gameActionSatau){
                     alreadyCount++
                 }
+                println "####"+actionBar.id+":"+actionBar.gameActionSatau
                 actionCount++
             }
             println "actionCount:${actionCount}"
