@@ -135,6 +135,8 @@ class ShowActionBarService {
             }
                 showActionBarCache.save(flush: true, failOnError: true)
            // }
+
+            println "0####:"+showActionBarCache.id+":"+showActionBarCache.gameActionSatau
         }
 
         def actionBarList=ShowActionBarCache.findAllByGameStepId(obj.gameStepId)
@@ -147,8 +149,9 @@ class ShowActionBarService {
                 if(actionBar.gameActionSatau){
                     alreadyCount++
                 }
-                println "####"+actionBar.id+":"+actionBar.gameActionSatau
+                println "1####:"+actionBar.id+":"+actionBar.gameActionSatau
                 actionCount++
+                println "couunt####:"+actionCount+":"+alreadyCount
             }
             println "actionCount:${actionCount}"
             println "alreadyCount:${alreadyCount}"
