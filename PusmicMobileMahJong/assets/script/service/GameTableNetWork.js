@@ -664,8 +664,11 @@ cc.Class({
                                     userList[i].paiListArray = paiList;
                                     userList[i].actionBarFlag = "-2";
 
-
-                                    //check peng and gang and hu in the chu pai for each user.
+                                } else {
+                                    userList[i].actionBarFlag = "-1";
+                                }
+                                //check peng and gang and hu in the chu pai for each user.
+                                if (userList[i].openid == userInfo.openid) {
                                     if (userList[i].huPai == null || userList[i].huPai == undefined || userList[i].huPai == "") {
                                         var actionArray = paiActionScript.getActionBarArrayByOpenId(paiNumber, userList[i].openid, "")
                                         console.log("openid :" + userList[i].openid);
@@ -681,16 +684,15 @@ cc.Class({
                                             this.sendUpdateShowActionBarOnOtherUser(userList[i].openid, "", paiNumber);
 
                                         }
+                                    }else{
+                                          this.sendUpdateShowActionBarOnOtherUser(userList[i].openid, "", paiNumber);
+
                                     }
-
-
-                                } else {
-                                    userList[i].actionBarFlag = "-1";
                                 }
 
-
-
                             }
+
+                           
                             //update pai and pai list to Gobal user list var 
                             Global.userList = userList;
 
@@ -1496,7 +1498,7 @@ cc.Class({
         var userInfo = Global.userInfo;
         if (Global.nextUserOpenId != null && Global.nextUserOpenId != undefined) {
             if (userInfo.openid == Global.nextUserOpenId) {
-                console.log("1499:"+Global.nextUserOpenId);
+                console.log("1499:" + Global.nextUserOpenId);
                 this.sendMoPaiAction();
             }
         }

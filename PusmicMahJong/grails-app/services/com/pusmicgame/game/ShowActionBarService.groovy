@@ -149,8 +149,10 @@ class ShowActionBarService {
                 }
                 actionCount++
             }
+            println "actionCount:${actionCount}"
+            println "alreadyCount:${alreadyCount}"
             if(satauStr) {
-                if(alreadyCount==actionCount-1) {
+                if(alreadyCount>=actionCount-1) {
                     //1,no action
                     if (!satauStr.contains("cancle")) {
                         MessageDomain newMessageObj = new MessageDomain()
