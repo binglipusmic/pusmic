@@ -188,6 +188,8 @@ class ShowActionBarService {
                             }
                         }
 
+
+                        
                     } else if (!satauStr.contains("cancle")) {
                         MessageDomain newMessageObj = new MessageDomain()
                         newMessageObj.messageBelongsToPrivateChanleNumber = roomNumber
