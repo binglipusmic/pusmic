@@ -5,8 +5,11 @@ import com.pusmicgame.domain.ShowActionBarObj
 import grails.converters.JSON
 import grails.transaction.Transactional
 import groovy.json.JsonBuilder
+import org.apache.commons.logging.Log
+import groovy.util.logging.Log4j
 
 @Transactional
+@Log4j
 class ShowActionBarService {
     def websokectService
 
@@ -136,7 +139,7 @@ class ShowActionBarService {
                 showActionBarCache.save(flush: true, failOnError: true)
            // }
 
-            println "0####:"+showActionBarCache.id+":"+showActionBarCache.gameActionSatau
+            log.trace "0####:"+showActionBarCache.id+":"+showActionBarCache.gameActionSatau
         }
 
         def actionBarList=ShowActionBarCache.findAllByGameStepId(obj.gameStepId)
@@ -149,12 +152,12 @@ class ShowActionBarService {
                 if(actionBar.gameActionSatau){
                     alreadyCount++
                 }
-                println "1####:"+actionBar.id+":"+actionBar.gameActionSatau
+                log.trace "1####:"+actionBar.id+":"+actionBar.gameActionSatau
                 actionCount++
-                println "couunt####:"+actionCount+":"+alreadyCount
+                log.trace "couunt####:"+actionCount+":"+alreadyCount
             }
-            println "actionCount:${actionCount}"
-            println "alreadyCount:${alreadyCount}"
+            log.trace "actionCount:${actionCount}"
+            log.trace "alreadyCount:${alreadyCount}"
             if(satauStr) {
                 if(alreadyCount>=actionCount-1) {
                     //1,no action
@@ -220,7 +223,7 @@ class ShowActionBarService {
                 showActionBarCache.roomNumber=joinRoomNumber
                 showActionBarCache.addTime=new Date()
                 showActionBarCache.save(flush: true, failOnError: true)
-                println  "huObj:"+huObj.userOpenId
+                log.trace  "huObj:"+huObj.userOpenId
 
                 //we need send all hu action to all user.
 
