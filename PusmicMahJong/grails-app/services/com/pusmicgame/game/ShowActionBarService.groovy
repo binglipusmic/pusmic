@@ -139,13 +139,13 @@ class ShowActionBarService {
                 showActionBarCache.save(flush: true, failOnError: true)
            // }
 
-            log.info "0####:"+showActionBarCache.id+":"+showActionBarCache.gameActionSatau
+            println "0####:"+showActionBarCache.id+":"+showActionBarCache.gameActionSatau
         }
 
     }
 
 
-    def checkUpdateStatus(def obj){
+    def checkUpdateStatus(def obj,def roomNumber){
         def actionBarList=ShowActionBarCache.findAllByGameStepId(obj.gameStepId)
         def satauStr=""
         if(actionBarList){
@@ -156,12 +156,12 @@ class ShowActionBarService {
                 if(actionBar.gameActionSatau){
                     alreadyCount++
                 }
-                log.info "1####:"+actionBar.id+":"+actionBar.gameActionSatau
+                println "1####:"+actionBar.id+":"+actionBar.gameActionSatau
                 actionCount++
-                log.info "couunt####:"+actionCount+":"+alreadyCount
+                println "couunt####:"+actionCount+":"+alreadyCount
             }
-            log.info "actionCount:${actionCount}"
-            log.info "alreadyCount:${alreadyCount}"
+            println "actionCount:${actionCount}"
+            println "alreadyCount:${alreadyCount}"
             if(satauStr) {
                 if(alreadyCount>=actionCount-1) {
                     //1,no action
@@ -227,7 +227,7 @@ class ShowActionBarService {
                 showActionBarCache.roomNumber=joinRoomNumber
                 showActionBarCache.addTime=new Date()
                 showActionBarCache.save(flush: true, failOnError: true)
-                log.info  "huObj:"+huObj.userOpenId
+                println  "huObj:"+huObj.userOpenId
 
                 //we need send all hu action to all user.
 

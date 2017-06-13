@@ -461,7 +461,7 @@ class WebSokectController {
 
             } else if (obj.actionName == "updateShowActionBar") {
                 showActionBarService.updateActionBarForUser(obj,messageJsonObj.messageBelongsToPrivateChanleNumber)
-                showActionBarService.checkUpdateStatus(obj)
+                showActionBarService.checkUpdateStatus(obj,messageJsonObj.messageBelongsToPrivateChanleNumber)
                 //def s = new JsonBuilder(messageJsonObj).toPrettyString()
                 //websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)
 
