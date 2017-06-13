@@ -17,42 +17,43 @@ class ShowActionBarService {
 
     }
 
-    def sendActionBar(MessageDomain messageJsonObj){
+    def sendActionBar(MessageDomain messageJsonObj) {
         def obj = JSON.parse(messageJsonObj.messageBody);
         //First check the SQL db if already have other action bar ,if
     }
-    def handelCancleAcion(def obj,def roomNumber){
+
+    def handelCancleAcion(def obj, def roomNumber) {
 
     }
 
-    def handelHuAcion(def obj,def roomNumber){
-        def allActionDoneFlag=false;
+    def handelHuAcion(def obj, def roomNumber) {
+        def allActionDoneFlag = false;
 
-        def huUserOpenId=obj.fromUserOpenid
-        def reocrd=ShowActionBarCache.findByShowUserOpenIdAndRoomNumber(huUserOpenId,roomNumber)
-        if(reocrd){
+        def huUserOpenId = obj.fromUserOpenid
+        def reocrd = ShowActionBarCache.findByShowUserOpenIdAndRoomNumber(huUserOpenId, roomNumber)
+        if (reocrd) {
             reocrd.delete(flush: true, failOnError: true)
         }
 
-        def otherRecord=ShowActionBarCache.findAllByRoomNumber(roomNumber)
-        if(!otherRecord){
-            allActionDoneFlag=true
-        }else{
+        def otherRecord = ShowActionBarCache.findAllByRoomNumber(roomNumber)
+        if (!otherRecord) {
+            allActionDoneFlag = true
+        } else {
             //it stil exist other action ,check if it is noHU action
-            boolean  existHuFlag=false;
+            boolean existHuFlag = false;
             otherRecord.each {
-                if(it.actionArrayString.toString().contains("hu")){
+                if (it.actionArrayString.toString().contains("hu")) {
                     //
-                    existHuFlag=true;
+                    existHuFlag = true;
                 }
             }
             //it only contain other action user ,no hu action ,it need send no hu action  to  user
 
-            if(!existHuFlag){
-                def huObj=otherRecord.get(0)
-                if(huObj) {
+            if (!existHuFlag) {
+                def huObj = otherRecord.get(0)
+                if (huObj) {
                     //it must need to be remove from SQL
-                    sendActionBarToUser(huObj,roomNumber,"1");
+                    sendActionBarToUser(huObj, roomNumber, "1");
                 }
 
             }
@@ -64,7 +65,7 @@ class ShowActionBarService {
     }
 
     //-----------------------send show action bar object to user by roomnumber----------------------------------------------
-    def sendActionBarToUser(huObj,roomNumber,needWait){
+    def sendActionBarToUser(huObj, roomNumber, needWait) {
         ShowActionBarObj showActionBarObj = new ShowActionBarObj()
         showActionBarObj.fromUserOpenid = huObj.userOpenId
         showActionBarObj.actionName = "showActionBar"
@@ -91,21 +92,21 @@ class ShowActionBarService {
      * @return
      */
 
-    def createActionBarRecordForAllUser(def gameStepId,def joinRoomNumber){
+    def createActionBarRecordForAllUser(def gameStepId, def joinRoomNumber) {
         GameRoomNumber gameRoomNumber = GameRoomNumber.findByRoomNumber(joinRoomNumber)
         if (gameRoomNumber) {
             GameRound gameRound = gameRoomNumber.gameRound
             if (gameRound) {
 
                 gameRound.gameUser.each {
-                    ShowActionBarCache showActionBarCache=new ShowActionBarCache()
-                    showActionBarCache.showUserOpenId=it.springUser.openid
-                    showActionBarCache.actionArrayString=""
-                    showActionBarCache.paiNumber=""
-                    showActionBarCache.roomNumber=joinRoomNumber
-                    showActionBarCache.gameStepId=gameStepId
-                    showActionBarCache.addTime=new Date()
-                    showActionBarCache.gameActionSatau=""
+                    ShowActionBarCache showActionBarCache = new ShowActionBarCache()
+                    showActionBarCache.showUserOpenId = it.springUser.openid
+                    showActionBarCache.actionArrayString = ""
+                    showActionBarCache.paiNumber = ""
+                    showActionBarCache.roomNumber = joinRoomNumber
+                    showActionBarCache.gameStepId = gameStepId
+                    showActionBarCache.addTime = new Date()
+                    showActionBarCache.gameActionSatau = ""
                     showActionBarCache.save(flush: true, failOnError: true)
                 }
 
@@ -116,56 +117,78 @@ class ShowActionBarService {
     }
 
 
-    def updateActionBarForUser(def obj,def roomNumber){
+    def updateActionBarForUser(def obj, def roomNumber) {
 
-        ShowActionBarCache showActionBarCache=ShowActionBarCache.findByGameStepIdAndShowUserOpenId(obj.gameStepId,obj.fromUserOpenid)
-        if(showActionBarCache){
+        ShowActionBarCache showActionBarCache = ShowActionBarCache.findByGameStepIdAndShowUserOpenId(obj.gameStepId, obj.fromUserOpenid)
+        if (showActionBarCache) {
             //if(showActionBarCache.showUserOpenId.equals(obj.fromUserOpenid)){
-                showActionBarCache.actionArrayString=obj.actionArrayStr
-                if(obj.paiNumber){
-                    showActionBarCache.paiNumber=obj.paiNumber
-                }
-
-            if(obj.actionArrayStr){
-                if(obj.actionArrayStr.toString().contains("hu")){
-                    showActionBarCache.gameActionSatau="waithu"
-                }else{
-                    showActionBarCache.gameActionSatau="waitnohu"
-                }
-
-            }else{
-                showActionBarCache.gameActionSatau="done"
+            showActionBarCache.actionArrayString = obj.actionArrayStr
+            if (obj.paiNumber) {
+                showActionBarCache.paiNumber = obj.paiNumber
             }
-                showActionBarCache.save(flush: true, failOnError: true)
-           // }
 
-            println "0####:"+showActionBarCache.id+":"+showActionBarCache.gameActionSatau
+            if (obj.actionArrayStr) {
+                if (obj.actionArrayStr.toString().contains("hu")) {
+                    showActionBarCache.gameActionSatau = "waithu"
+                } else {
+                    showActionBarCache.gameActionSatau = "waitnohu"
+                }
+
+            } else {
+                showActionBarCache.gameActionSatau = "done"
+            }
+            showActionBarCache.save(flush: true, failOnError: true)
+            // }
+
+            println "0####:" + showActionBarCache.id + ":" + showActionBarCache.gameActionSatau
         }
 
     }
 
 
-    def checkUpdateStatus(def obj,def roomNumber){
-        def actionBarList=ShowActionBarCache.findAllByGameStepId(obj.gameStepId)
-        def satauStr=""
-        if(actionBarList){
-            def actionCount=0
-            def alreadyCount=0
-            actionBarList.each{actionBar->
-                satauStr=satauStr+actionBar.gameActionSatau
-                if(actionBar.gameActionSatau){
+    def checkUpdateStatus(def obj, def roomNumber) {
+        def actionBarList = ShowActionBarCache.findAllByGameStepId(obj.gameStepId)
+        def satauStr = ""
+        if (actionBarList) {
+            def actionCount = 0
+            def alreadyCount = 0
+            actionBarList.each { actionBar ->
+                satauStr = satauStr + actionBar.gameActionSatau
+                if (actionBar.gameActionSatau) {
                     alreadyCount++
                 }
-                println "1####:"+actionBar.id+":"+actionBar.gameActionSatau
+                println "1####:" + actionBar.id + ":" + actionBar.gameActionSatau
                 actionCount++
-                println "couunt####:"+actionCount+":"+alreadyCount
+                println "couunt####:" + actionCount + ":" + alreadyCount
             }
             println "actionCount:${actionCount}"
             println "alreadyCount:${alreadyCount}"
-            if(satauStr) {
-                if(alreadyCount>=actionCount-1) {
+            if (satauStr) {
+                if (alreadyCount >= actionCount - 1) {
                     //1,no action
-                    if (!satauStr.contains("cancle")) {
+                    if (satauStr.contains("waitnohu") && satauStr.contains("waithu")) {
+                        actionBarList.each { actionBar ->
+                            if (actionBar.gameActionSatau.equals("waithu")) {
+                                sendActionBarToUser(actionBar, roomNumber);
+                            }
+                        }
+
+                    } else if (satauStr.contains("waithu")) {
+                        actionBarList.each { actionBar ->
+                            if (actionBar.gameActionSatau.equals("waithu")) {
+                                sendActionBarToUser(actionBar, roomNumber);
+                            }
+                        }
+
+
+                    } else if (satauStr.contains("waitnohu")) {
+                        actionBarList.each { actionBar ->
+                            if (actionBar.gameActionSatau.equals("waitnohu")) {
+                                sendActionBarToUser(actionBar, roomNumber);
+                            }
+                        }
+
+                    } else if (!satauStr.contains("cancle")) {
                         MessageDomain newMessageObj = new MessageDomain()
                         newMessageObj.messageBelongsToPrivateChanleNumber = roomNumber
                         newMessageObj.messageAction = "serverSendMoPaiAction"
@@ -174,19 +197,6 @@ class ShowActionBarService {
                         def s2 = new JsonBuilder(newMessageObj).toPrettyString()
 
                         websokectService.privateUserChanelByRoomNumber(newMessageObj.messageBelongsToPrivateChanleNumber, s2)
-
-                    } else if (satauStr.contains("waitnohu") && satauStr.contains("waithu")) {
-                        actionBarList.each { actionBar ->
-                            if (actionBar.gameActionSatau.equals("waithu")) {
-                                sendActionBarToUser(actionBar, roomNumber);
-                            }
-                        }
-
-                    } else if (satauStr.contains("waitnohu")) {
-                        sendActionBarToUser(actionBar, roomNumber);
-
-                    } else if (satauStr.contains("waithu")) {
-                        sendActionBarToUser(actionBar, roomNumber);
 
                     }
                     //2,waitnohu
@@ -198,65 +208,60 @@ class ShowActionBarService {
         }
 
     }
-   // Simulator: huActionListCache:[{"userOpenId":"test0","actionArray":"cancle,peng,gang","paiNumber":"11"},{"userOpenId":"test1","actionArray":"cancle,peng,gang","paiNumber":"11"},{"userOpenId":"test2","actionArray":"cancle,peng,gang","paiNumber":"11"}]
+    // Simulator: huActionListCache:[{"userOpenId":"test0","actionArray":"cancle,peng,gang","paiNumber":"11"},{"userOpenId":"test1","actionArray":"cancle,peng,gang","paiNumber":"11"},{"userOpenId":"test2","actionArray":"cancle,peng,gang","paiNumber":"11"}]
     //allShowActionBar
-    def handelShowAllActionBar(String huPaiActionString,String noHuPaiActionString,def joinRoomNumber){
+    def handelShowAllActionBar(String huPaiActionString, String noHuPaiActionString, def joinRoomNumber) {
         def huActionList
         def noHuActionList
-        if(huPaiActionString){
-            if(huPaiActionString.length()>0){
-                huActionList =JSON.parse(huPaiActionString)
+        if (huPaiActionString) {
+            if (huPaiActionString.length() > 0) {
+                huActionList = JSON.parse(huPaiActionString)
             }
         }
 
-        if(noHuPaiActionString){
-            if(noHuPaiActionString.length()>0){
-                noHuActionList =JSON.parse(noHuPaiActionString)
+        if (noHuPaiActionString) {
+            if (noHuPaiActionString.length() > 0) {
+                noHuActionList = JSON.parse(noHuPaiActionString)
             }
         }
 
-        if(huActionList){
+        if (huActionList) {
 
-            for(int i=0;i<huActionList.size();i++){
-                def huObj=huActionList.get(i)
+            for (int i = 0; i < huActionList.size(); i++) {
+                def huObj = huActionList.get(i)
                 //save to SQL db
-                ShowActionBarCache showActionBarCache=new ShowActionBarCache()
-                showActionBarCache.showUserOpenId=huObj.userOpenId
-                showActionBarCache.actionArrayString=huObj.actionArray
-                showActionBarCache.paiNumber=huObj.paiNumber
-                showActionBarCache.roomNumber=joinRoomNumber
-                showActionBarCache.addTime=new Date()
+                ShowActionBarCache showActionBarCache = new ShowActionBarCache()
+                showActionBarCache.showUserOpenId = huObj.userOpenId
+                showActionBarCache.actionArrayString = huObj.actionArray
+                showActionBarCache.paiNumber = huObj.paiNumber
+                showActionBarCache.roomNumber = joinRoomNumber
+                showActionBarCache.addTime = new Date()
                 showActionBarCache.save(flush: true, failOnError: true)
-                println  "huObj:"+huObj.userOpenId
+                println "huObj:" + huObj.userOpenId
 
                 //we need send all hu action to all user.
 
-                sendActionBarToUser(huObj,joinRoomNumber,"1");
-
+                sendActionBarToUser(huObj, joinRoomNumber, "1");
 
 
             }
 
 
-
-
         }
 
-        if(noHuActionList){
-            for(int i=0;i<noHuActionList.size();i++) {
+        if (noHuActionList) {
+            for (int i = 0; i < noHuActionList.size(); i++) {
                 def huObj = noHuActionList.get(i)
-                ShowActionBarCache showActionBarCache=new ShowActionBarCache()
-                showActionBarCache.showUserOpenId=huObj.userOpenId
-                showActionBarCache.actionArrayString=huObj.actionArray
-                showActionBarCache.paiNumber=huObj.paiNumber
-                showActionBarCache.addTime=new Date()
-                showActionBarCache.roomNumber=joinRoomNumber
+                ShowActionBarCache showActionBarCache = new ShowActionBarCache()
+                showActionBarCache.showUserOpenId = huObj.userOpenId
+                showActionBarCache.actionArrayString = huObj.actionArray
+                showActionBarCache.paiNumber = huObj.paiNumber
+                showActionBarCache.addTime = new Date()
+                showActionBarCache.roomNumber = joinRoomNumber
                 showActionBarCache.save(flush: true, failOnError: true)
             }
 
         }
-
-
 
 
     }
