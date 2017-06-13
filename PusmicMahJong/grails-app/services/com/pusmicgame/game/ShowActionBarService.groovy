@@ -69,7 +69,12 @@ class ShowActionBarService {
         ShowActionBarObj showActionBarObj = new ShowActionBarObj()
         showActionBarObj.fromUserOpenid = huObj.showUserOpenId
         showActionBarObj.actionName = "showActionBar"
-        showActionBarObj.actionArrayStr = huObj.actionArray.toString()
+        if(huObj.actionArrayString){
+            showActionBarObj.actionArrayStr = huObj.actionArrayString
+        }else{
+            showActionBarObj.actionArrayStr = ""
+        }
+
         showActionBarObj.paiNumber = huObj.paiNumber
 
         showActionBarObj.otherActionStr = "";
