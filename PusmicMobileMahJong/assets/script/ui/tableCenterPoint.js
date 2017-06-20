@@ -143,6 +143,11 @@ cc.Class({
         self.unschedule(pointUpdate);
         self.hideAllPoint();
     },
+    cleanCenter:function(){
+        this.hideAllQuePai();
+        this.tenPoint.active=false;
+        this.numPoint.active=false;
+    },
     showCenterTimer:function(){
 
     },

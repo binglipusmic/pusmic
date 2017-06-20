@@ -601,6 +601,7 @@ cc.Class({
                     roundScoreScript.initalRoundScore();
                     roundScoreScript.endLunFlag = "1";
                     tableCenterScript.endTimer();
+                    tableCenterScript.cleanCenter();
                 }
                 if (messageDomain.messageAction == "endGameRoundAndStartNewRound") {
                     //messageScript
@@ -613,6 +614,7 @@ cc.Class({
                     roundScoreScript.initalRoundScore();
                     roundScoreScript.endLunFlag = "0";
                     tableCenterScript.endTimer();
+                    tableCenterScript.cleanCenter();
                 }
 
                 if (messageDomain.messageAction == "sendMessage") {
@@ -648,7 +650,7 @@ cc.Class({
 
                         //get next user openid 
                         var nextUserOpenId = this.getNextUserByOpenId(fromUserOpenid);
-                          //only work on the next user
+                        //only work on the next user
                         if (nextUserOpenId == userInfo.openid) {
                             Global.nextUserOpenId = nextUserOpenId;
                         } else {
@@ -690,15 +692,15 @@ cc.Class({
                                             this.sendUpdateShowActionBarOnOtherUser(userList[i].openid, "", paiNumber);
 
                                         }
-                                    }else{
-                                          this.sendUpdateShowActionBarOnOtherUser(userList[i].openid, "", paiNumber);
+                                    } else {
+                                        this.sendUpdateShowActionBarOnOtherUser(userList[i].openid, "", paiNumber);
 
                                     }
                                 }
 
                             }
 
-                           
+
                             //update pai and pai list to Gobal user list var 
                             Global.userList = userList;
 
@@ -707,7 +709,7 @@ cc.Class({
 
                         }
                         console.log("620:");
-                      
+
                         console.log("708:" + Global.nextUserOpenId);
                         if (nextUserOpenId == userInfo.openid) {
                             //userList = Global.userList;
@@ -1017,7 +1019,7 @@ cc.Class({
 
                         if (executeNextStepFlag + "" == "true") {
                             if (moPaiUserId == userInfo.openid) {
-                               // this.sendMoPaiAction();
+                                // this.sendMoPaiAction();
                             }
                         }
                         // if (moPaiUserId == userInfo.openid) {
@@ -1089,51 +1091,51 @@ cc.Class({
                             paiActionScript.huAction();
                         }
 
-                        if (executeNextStepFlag + "" == "true") {
+                        //if (executeNextStepFlag + "" == "true") {
 
-                            var moPaiUserId = this.getNextUserFromCurentIndex();
-                            //check if game round end
-                            userList = Global.userList;
-                            var huPeople = 0;
-                            var endGameFlag = false;
-                            for (var i = 0; i < userList.length; i++) {
+                        //var moPaiUserId = this.getNextUserFromCurentIndex();
+                        //check if game round end
+                        userList = Global.userList;
+                        var huPeople = 0;
+                        var endGameFlag = false;
+                        for (var i = 0; i < userList.length; i++) {
 
-                                if (userList[i].huPai != null && userList[i].huPai != undefined && userList[i].huPai != "") {
-                                    huPeople++
-                                }
-
-                            }
-                            console.log("huPeople:" + huPeople);
-                            console.log("userList.length:" + userList.length);
-                            if (huPeople == userList.length - 1) {
-                                endGameFlag = true;
-                            }
-                            console.log("endGameFlag:" + endGameFlag);
-                            if (Global.restPaiCount == 0) {
-                                endGameFlag = true;
+                            if (userList[i].huPai != null && userList[i].huPai != undefined && userList[i].huPai != "") {
+                                huPeople++
                             }
 
-                            if (endGameFlag == false) {
-                                if (userInfo.openid == fromUserOpenId) {
-                                    //this.sendMoPaiAction();
-                                }
-                            } else {
-                                console.log("**sendCheckRoundEnd**");
-                                //hu pai action will send to all user
-                                //we only need send one time check round end.
-                                if (userInfo.openid == fromUserOpenId) {
-                                    this.sendCheckRoundEnd();
-                                }
+                        }
+                        console.log("huPeople:" + huPeople);
+                        console.log("userList.length:" + userList.length);
+                        if (huPeople == userList.length - 1) {
+                            endGameFlag = true;
+                        }
+                        console.log("endGameFlag:" + endGameFlag);
+                        if (Global.restPaiCount == 0) {
+                            endGameFlag = true;
+                        }
 
-                                //send to server to check if it already end the round and round lun 
-
+                        if (endGameFlag == false) {
+                            if (userInfo.openid == fromUserOpenId) {
+                                //this.sendMoPaiAction();
+                            }
+                        } else {
+                            console.log("**sendCheckRoundEnd**");
+                            //hu pai action will send to all user
+                            //we only need send one time check round end.
+                            if (userInfo.openid == fromUserOpenId) {
+                                this.sendCheckRoundEnd();
                             }
 
+                            //send to server to check if it already end the round and round lun 
 
                         }
 
 
                     }
+
+
+                    //}
                 }
 
 
@@ -1503,7 +1505,7 @@ cc.Class({
                 this.sendMoPaiAction();
             }
         }
-         Global.nextUserOpenId="";
+        Global.nextUserOpenId = "";
 
     },
     //send mo pai will auto get current user 

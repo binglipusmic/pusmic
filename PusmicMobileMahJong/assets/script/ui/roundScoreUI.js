@@ -168,6 +168,7 @@ cc.Class({
         tableNetWorkScript.forceInitaClient();
         gameConfigButtonScript.enterMainEntry("1");
         Global.zhuangOpenId=null;
+        Global.userList=null;
     },
     closeRoundScore: function () {
         //tableNetWorkScript.sendGetGameRoundlunScoreCount();
