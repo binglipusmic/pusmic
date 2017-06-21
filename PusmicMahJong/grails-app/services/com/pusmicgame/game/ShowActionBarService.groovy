@@ -133,11 +133,28 @@ class ShowActionBarService {
             }
 
             if (obj.actionArrayStr) {
-                if (obj.actionArrayStr.toString().contains("hu")) {
-                    showActionBarCache.gameActionSatau = "waithu"
-                } else {
-                    showActionBarCache.gameActionSatau = "waitnohu"
+                if(obj.actionArrayStr.toString().contains("hudone")){
+                    showActionBarCache.gameActionSatau = "done"
+                    if(showActionBarCacheList){
+                        showActionBarCacheList.each{
+                            if(!it.gameActionSatau.equals("done")){
+                                if(!it.gameActionSatau.equals("waithu")) {
+                                    it.gameActionSatau = "done"
+                                    it.save(flush: true, failOnError: true)
+                                }
+                            }
+
+                        }
+                    }
+
+                }else{
+                    if (obj.actionArrayStr.toString().contains("hu")) {
+                        showActionBarCache.gameActionSatau = "waithu"
+                    } else {
+                        showActionBarCache.gameActionSatau = "waitnohu"
+                    }
                 }
+
 
             } else {
                 showActionBarCache.gameActionSatau = "done"

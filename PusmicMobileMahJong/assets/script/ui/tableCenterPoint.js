@@ -145,6 +145,7 @@ cc.Class({
     },
     cleanCenter:function(){
         this.hideAllQuePai();
+        
         this.tenPoint.active=false;
         this.numPoint.active=false;
     },

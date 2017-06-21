@@ -909,7 +909,7 @@ cc.Class({
         var userOpenId = this.fromUserOpenId;
         var chupaiOpenId = this.chuPaiUserOpenId;
 
-           var nextUserOpenId = tableNetWorkScript.getNextUserByOpenId(userOpenId);
+        var nextUserOpenId = tableNetWorkScript.getNextUserByOpenId(userOpenId);
         //only work on the next user
         if (nextUserOpenId == userInfo.openid) {
             Global.nextUserOpenId = nextUserOpenId;
@@ -917,7 +917,12 @@ cc.Class({
             Global.nextUserOpenId = "";
         }
 
-        tableNetWorkScript.sendUpdateShowActionBarOnOtherUser(userOpenId, "", "");
+        if (userInfo.openid == userOpenId) {
+            tableNetWorkScript.sendUpdateShowActionBarOnOtherUser(userOpenId, "", "");
+        }
+
+
+
         console.log("huAction pai:" + this.paiNumber);
         if (Global.chuPaiActionType == null || Global.chuPaiActionType == undefined) {
             Global.chuPaiActionType = "";
@@ -1316,7 +1321,7 @@ cc.Class({
 
         this.preStep = "";
 
-        tableNetWorkScript.sendUpdateShowActionBarOnOtherUser(this.fromUserOpenId, "", "");
+        tableNetWorkScript.sendUpdateShowActionBarOnOtherUser(this.fromUserOpenId, "hudone", "");
         if (this.chuPaiUserOpenId == this.fromUserOpenId) {
             tablePaiActionScript.enabledAllPaiAfterQuePai();
         } else {

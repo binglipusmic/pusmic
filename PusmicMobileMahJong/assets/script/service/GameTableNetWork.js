@@ -987,7 +987,7 @@ cc.Class({
 
                         if (sendMoPai == "0" && count == userList.length - 1) {
                             //no any action bar or it already send the mopai action 
-                            this.sendMoPaiAction();
+                            //this.sendMoPaiAction();
                         }
                     }
                     //showActionBar
