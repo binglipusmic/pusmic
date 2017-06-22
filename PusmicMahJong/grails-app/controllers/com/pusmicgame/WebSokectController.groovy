@@ -330,6 +330,15 @@ class WebSokectController {
                     //check if the round already comple the count for the game lun.
                     //No complet---start a new game round
                     //comple ----end this game lun
+
+
+                    def curerntGroundId = gameRoundLunService.getCurrentGameRoundId(messageJsonObj)
+                    if (curerntGroundId) {
+                        messageJsonObj.messageBody = curerntGroundId
+                    } else {
+                        messageJsonObj.messageBody = ""
+                    }
+
                     def s3
                     if (gameRoundLunService.checkGameRounDone(messageJsonObj)) {
                         messageJsonObj.messageAction = "endGameRoundLun"

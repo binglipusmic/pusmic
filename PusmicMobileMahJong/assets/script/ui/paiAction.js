@@ -215,11 +215,33 @@ cc.Class({
                         actionLevel = 2;
                     }
                 }
+
+                for (var i = 0; i < tempList.length; i++) {
+                    var pai = tempList[i] + "";
+                    if (pengPai == pai + "") {
+                        if (actionArray.indexOf("gang") < 0) {
+                            actionArray.push("gang");
+                            actionLevel = 2;
+                        }
+                    }
+
+                    var count = this.countElementAccount(pai, tempList);
+                    if (count == 4) {
+                        if (actionArray.indexOf("gang") < 0) {
+                            actionArray.push("gang");
+                            actionLevel = 2;
+                        }
+                    }
+                }
+
+
             }
+
+            //only mo pai check other pai if gang 
         }
+        tempList = this.clearQuePaiInPaiList(quePai, tempList);
 
         if (this.checkQueInList(quePai, tempList) == false) {
-            tempList = this.clearQuePaiInPaiList(quePai, tempList);
 
             console.log("huFlag0:" + huFlag);
             huFlag = huPaiScript.hupaiLogic(paiNumber, userInfo.openid, tempList, type);
@@ -600,7 +622,7 @@ cc.Class({
         var userOpenId = this.fromUserOpenId;
         var paiNumber = this.paiNumber;
 
-       
+
         var nextUserOpenId = tableNetWorkScript.getNextUserByOpenId(userOpenId);
         //only work on the next user
         if (nextUserOpenId == userInfo.openid) {
@@ -608,7 +630,7 @@ cc.Class({
         } else {
             Global.nextUserOpenId = "";
         }
-        
+
 
         //tableNetWorkScript.sendUpdateShowActionBarOnOtherUser(userOpenId,"","");
         console.log("pengAction paiNumber:" + paiNumber);
@@ -920,7 +942,7 @@ cc.Class({
 
         //var nextUserOpenId = this.getNextUserByOpenId(fromUserOpenid);
 
-        
+
 
 
 
@@ -1008,12 +1030,14 @@ cc.Class({
             this.actionNode.active = false;
             tablePaiActionScript.disableAllSlefPai();
             //remove mopai 
+               console.log("1033:"+chupaiOpenId);
             if (userOpenId == chupaiOpenId) {
                 var tableNode = cc.find("Canvas/tableNode");
                 var userPaiListNode = cc.find("user" + pointIndex + "PaiList", tableNode);
                 var children = userPaiListNode.children;
                 for (var i = 0; i < children.length; i++) {
                     var cNode = children[i];
+                    console.log("1039:"+cNode.name);
                     if (cNode.name.indexOf("mopai") >= 0) {
                         cNode.removeFromParent();
                     }

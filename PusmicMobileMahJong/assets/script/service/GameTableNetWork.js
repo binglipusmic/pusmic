@@ -2422,7 +2422,7 @@ cc.Class({
             fanShu = fanShu + 1;
         }
 
-
+        console.log("2425 paiList:"+paiList.toString());
         for (var i = 0; i < paiList.length; i++) {
             var paiArrayCache = []
             var pai = paiList[i] + "";
@@ -2441,7 +2441,7 @@ cc.Class({
             }
 
             if (count == 3) {
-                qiaoQiDuiFlag = false;
+                //qiaoQiDuiFlag = false;
             }
             if (count == 4) {
                 daDuiZiFlag = false;
