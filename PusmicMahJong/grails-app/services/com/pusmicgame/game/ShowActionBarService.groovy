@@ -135,6 +135,7 @@ class ShowActionBarService {
             if (obj.actionArrayStr) {
                 if(obj.actionArrayStr.toString().contains("hudone")){
                     showActionBarCache.gameActionSatau = "done"
+                   def  showActionBarCacheList=ShowActionBarCache.findAllByGameStepId(obj.gameStepId);
                     if(showActionBarCacheList){
                         showActionBarCacheList.each{
                             if(!it.gameActionSatau.equals("done")){

@@ -600,7 +600,7 @@ cc.Class({
         var userOpenId = this.fromUserOpenId;
         var paiNumber = this.paiNumber;
 
-
+       
         var nextUserOpenId = tableNetWorkScript.getNextUserByOpenId(userOpenId);
         //only work on the next user
         if (nextUserOpenId == userInfo.openid) {
@@ -608,6 +608,7 @@ cc.Class({
         } else {
             Global.nextUserOpenId = "";
         }
+        
 
         //tableNetWorkScript.sendUpdateShowActionBarOnOtherUser(userOpenId,"","");
         console.log("pengAction paiNumber:" + paiNumber);
@@ -917,9 +918,9 @@ cc.Class({
             Global.nextUserOpenId = "";
         }
 
-        if (userInfo.openid == userOpenId) {
-            tableNetWorkScript.sendUpdateShowActionBarOnOtherUser(userOpenId, "", "");
-        }
+        //var nextUserOpenId = this.getNextUserByOpenId(fromUserOpenid);
+
+        
 
 
 
@@ -1024,6 +1025,11 @@ cc.Class({
 
             tableCenterScript.showCenterPoint();
             tableNetWorkScript.sendCenterIndex(user.openid);
+        }
+
+
+        if (userInfo.openid == userOpenId) {
+            tableNetWorkScript.sendUpdateShowActionBarOnOtherUser(userOpenId, "hudone", "");
         }
 
     },
@@ -1321,7 +1327,7 @@ cc.Class({
 
         this.preStep = "";
 
-        tableNetWorkScript.sendUpdateShowActionBarOnOtherUser(this.fromUserOpenId, "hudone", "");
+        tableNetWorkScript.sendUpdateShowActionBarOnOtherUser(this.fromUserOpenId, "", "");
         if (this.chuPaiUserOpenId == this.fromUserOpenId) {
             tablePaiActionScript.enabledAllPaiAfterQuePai();
         } else {
