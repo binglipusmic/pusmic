@@ -383,11 +383,13 @@ class PaiService {
             GameRound gameRound=GameRound.findById(gameRound1.id)
             def paiList=gameRound.restPaiList
             if(paiList){
+                println "Rest pai leng:"+paiList.size()
                 lastPai =paiList.last()
                 paiList=(List)paiList
                 paiList.removeAt(paiList.size()-1)
                 //   paiList=list
                 gameRound.restPaiList=paiList
+                println "Rest pai leng2:"+paiList.size()
                 gameRound.save(flush: true, failOnError: true)
 
             }
