@@ -156,6 +156,7 @@ cc.Class({
                 //getGameRoundlunScoreCount
                 if (messageDomain.messageAction == "serverSendMoPaiAction") {
                     this.serverSendMoPaiAction();
+
                 }
                 if (messageDomain.messageAction == "getGameRoundlunScoreCount") {
                     var bodyStr = "";
@@ -434,11 +435,11 @@ cc.Class({
 
 
                     }
-                    var paiRestCount = 13 * gameUserList.length + 1;
-                    paiRestCount = 108 - paiRestCount;
+                    var paiRestCount1 = 13 * gameUserList.length + 1;
+                    paiRestCount1 = 108 - paiRestCount1;
                     var paiListLable = this.paiRestNode.getComponent(cc.Label)
-                    paiListLable.string = paiRestCount + "";
-                    Global.restPaiCount = paiRestCount;
+                    paiListLable.string = paiRestCount1 + "";
+                    Global.restPaiCount = paiRestCount1;
                     Global.userList = userList2;
                     //table user info
                     var gameMode2 = Global.gameMode;
@@ -917,6 +918,10 @@ cc.Class({
                         var paiRestCount = Global.restPaiCount;
                         if (paiRestCount != null && paiRestCount != undefined) {
                             paiRestCount = parseInt(paiRestCount) - 1;
+                            if (paiRestCount >= 0) {
+                            } else {
+                                paiRestCount = 0
+                            }
                             Global.restPaiCount = paiRestCount;
                             var paiListLable = this.paiRestNode.getComponent(cc.Label)
                             paiListLable.string = paiRestCount + "";
@@ -1505,6 +1510,7 @@ cc.Class({
                 this.sendMoPaiAction();
             }
         }
+
         Global.nextUserOpenId = "";
 
     },
