@@ -906,46 +906,51 @@ cc.Class({
 
 
                     if (obj.actionName == "moPai") {
+                        console.log("909:" + messageDomain.messageBody);
+                        console.log("910:" + messageDomain.messageBody);
                         var paiNumber = obj.paiNumber;
                         var pengFromUserOpenId = obj.fromUserOpenid;
                         var pengPaiNumber = obj.nextMoPai;
                         var toUserOpenid = obj.toUserOpenid;
-                        //0, open table center point
-                        var user = this.getCurreentUserByOpenId(toUserOpenid)
-                        tableCenterScript.index = user.pointIndex;
-                        tableCenterScript.showCenterPoint();
-                        //1, remove rest pai number in the table 
-                        var paiRestCount = Global.restPaiCount;
-                        if (paiRestCount != null && paiRestCount != undefined) {
-                            paiRestCount = parseInt(paiRestCount) - 1;
-                            if (paiRestCount >= 0) {
-                            } else {
-                                paiRestCount = 0
+                        if (paiNumber != undefined && paiNumber != null) {
+                            //0, open table center point
+                            var user = this.getCurreentUserByOpenId(toUserOpenid)
+                            tableCenterScript.index = user.pointIndex;
+                            tableCenterScript.showCenterPoint();
+                            //1, remove rest pai number in the table 
+                            var paiRestCount2 = Global.restPaiCount;
+                            if (paiRestCount2 != null && paiRestCount2 != undefined) {
+                                paiRestCount2 = parseInt(paiRestCount2) - 1;
+                                console.log("921:" + paiRestCount2);
+                                if (paiRestCount2 >= 0) {
+                                } else {
+                                    paiRestCount2 = 0
+                                }
+                                Global.restPaiCount = paiRestCount2;
+                                var paiListLable = this.paiRestNode.getComponent(cc.Label)
+                                paiListLable.string = paiRestCount2 + "";
                             }
-                            Global.restPaiCount = paiRestCount;
-                            var paiListLable = this.paiRestNode.getComponent(cc.Label)
-                            paiListLable.string = paiRestCount + "";
-                        }
-                        //moPai
-                        //user.paiListArray.push(paiNumber);
-                        // moPaiScript.moPaiOnDataLayer(paiNumber, toUserOpenid);
-                        // user = tablePaiActionScript.insertMoPaiIntoPaiList(user);
-                        // user = tablePaiActionScript.synchronizationPaiList(user);
-                        //GUI add a new pai
-                        // tableUserInfoScript.initalOtherPaiListOnePai(paiNumber, user.paiListArray, user.pointIndex, "");
+                            //moPai
+                            //user.paiListArray.push(paiNumber);
+                            // moPaiScript.moPaiOnDataLayer(paiNumber, toUserOpenid);
+                            // user = tablePaiActionScript.insertMoPaiIntoPaiList(user);
+                            // user = tablePaiActionScript.synchronizationPaiList(user);
+                            //GUI add a new pai
+                            // tableUserInfoScript.initalOtherPaiListOnePai(paiNumber, user.paiListArray, user.pointIndex, "");
 
-                        //2.enable all pai
-                        var userInfo = Global.userInfo;
-                        if (userInfo.openid == toUserOpenid) {
-                            moPaiScript.moPaiAction(paiNumber, toUserOpenid);
-                            tablePaiActionScript.enabledAllPaiAfterQuePai();
-                        } else {
-                            moPaiScript.moPaiOnDataLayer(paiNumber, toUserOpenid);
-                            //user = tablePaiActionScript.insertMoPaiIntoPaiList(user);
-                            //user = tablePaiActionScript.synchronizationPaiList(user);
-                            var paiListStr = user.paiList;
-                            tableUserInfoScript.initalOtherPaiListOnePai(paiNumber, user.paiListArray, user.pointIndex, "");
-                            //tablePaiActionScript.updateUserListInGobal(user);
+                            //2.enable all pai
+                            var userInfo = Global.userInfo;
+                            if (userInfo.openid == toUserOpenid) {
+                                moPaiScript.moPaiAction(paiNumber, toUserOpenid);
+                                tablePaiActionScript.enabledAllPaiAfterQuePai();
+                            } else {
+                                moPaiScript.moPaiOnDataLayer(paiNumber, toUserOpenid);
+                                //user = tablePaiActionScript.insertMoPaiIntoPaiList(user);
+                                //user = tablePaiActionScript.synchronizationPaiList(user);
+                                var paiListStr = user.paiList;
+                                tableUserInfoScript.initalOtherPaiListOnePai(paiNumber, user.paiListArray, user.pointIndex, "");
+                                //tablePaiActionScript.updateUserListInGobal(user);
+                            }
                         }
 
 
@@ -2184,9 +2189,9 @@ cc.Class({
                     var existUserList = existUserString.split(";");
                     console.log("user.roundScoreCount0:" + user.roundScoreCount);
                     if (user.roundScoreCount == null || user.roundScoreCount == undefined) {
-                        user.roundScoreCount = roundScore * existUserList.length;
+                        user.roundScoreCount = parseInt(roundScore * existUserList.length);
                     } else {
-                        user.roundScoreCount = user.roundScoreCount + roundScore * existUserList.length;
+                        user.roundScoreCount = parseInt(user.roundScoreCount) + parseInt(roundScore * existUserList.length);
                     }
                     user.huPaiDetails = user.huPaiDetails + details + " 胡牌得分:" + roundScore * existUserList.length + ";";
                     console.log("user.roundScoreCount1:" + roundScore);
@@ -2428,7 +2433,7 @@ cc.Class({
             fanShu = fanShu + 1;
         }
 
-        console.log("2425 paiList:"+paiList.toString());
+        console.log("2425 paiList:" + paiList.toString());
         for (var i = 0; i < paiList.length; i++) {
             var paiArrayCache = []
             var pai = paiList[i] + "";
