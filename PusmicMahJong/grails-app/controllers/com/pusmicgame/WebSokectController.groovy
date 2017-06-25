@@ -402,6 +402,7 @@ class WebSokectController {
                 }
 
                 if (gameRoundLunService.checkGameRounDone(messageJsonObj)) {
+                    println "405 start..."
                     messageJsonObj.messageAction = "endGameRoundLun"
                     def s2 = new JsonBuilder(messageJsonObj).toPrettyString()
                     websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s2)
