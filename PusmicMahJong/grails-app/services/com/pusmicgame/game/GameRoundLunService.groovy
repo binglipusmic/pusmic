@@ -144,7 +144,7 @@ class GameRoundLunService {
 
                         println "145 currentCountRound:"+currentCountRound
                         if(currentCountRound!=0)
-                        if(currentCountRound==modeCount){
+                        if(currentCountRound-1==modeCount){
                             flag=true;
                         }
                     }
