@@ -129,18 +129,20 @@ class GameRoundLunService {
 
                         if(gameMode.roundCount8){
                             if(gameMode.roundCount8.toString()=="1"){
-                                modeCount=8+1
+                                modeCount=8
                             }
                         }
                         if(gameMode.roundCount4){
                             if(gameMode.roundCount4.toString()=="1"){
-                                modeCount=4+1
+                                modeCount=4
                             }
                         }
                         def currentCountRound=gameRoundLun.currentRoundCount
                         if(!currentCountRound){
                             currentCountRound=0
                         }
+
+                        println "145 currentCountRound:"+currentCountRound
                         if(currentCountRound!=0)
                         if(currentCountRound==modeCount){
                             flag=true;
