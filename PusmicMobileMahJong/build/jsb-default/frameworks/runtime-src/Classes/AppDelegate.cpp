@@ -20,11 +20,8 @@
 
 #include "js_module_register.h"
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS) && PACKAGE_AS
-#include "SDKManager.h"
-#include "jsb_anysdk_protocols_auto.hpp"
-#include "manualanysdkbindings.hpp"
-using namespace anysdk::framework;
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+
 #endif
 
 USING_NS_CC;
@@ -36,8 +33,8 @@ AppDelegate::AppDelegate()
 AppDelegate::~AppDelegate()
 {
     ScriptEngineManager::destroyInstance();
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS) && PACKAGE_AS
-    SDKManager::getInstance()->purge();
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+   
 #endif
 }
 
@@ -50,8 +47,8 @@ void AppDelegate::initGLContextAttrs()
 
 bool AppDelegate::applicationDidFinishLaunching()
 {
-#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS && PACKAGE_AS
-    SDKManager::getInstance()->loadAllPlugins();
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+    //SDKManager::getInstance()->loadAllPlugins();
 #endif
     // initialize director
     auto director = Director::getInstance();
@@ -71,9 +68,9 @@ bool AppDelegate::applicationDidFinishLaunching()
     js_module_register();
     
     ScriptingCore* sc = ScriptingCore::getInstance();
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS) && PACKAGE_AS    
-    sc->addRegisterCallback(register_all_anysdk_framework);
-    sc->addRegisterCallback(register_all_anysdk_manual);
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+   // sc->addRegisterCallback(register_all_anysdk_framework);
+  //  sc->addRegisterCallback(register_all_anysdk_manual);
 #endif
     sc->start();
     sc->runScript("script/jsb_boot.js");

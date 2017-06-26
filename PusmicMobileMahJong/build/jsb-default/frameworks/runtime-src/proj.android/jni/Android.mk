@@ -11,11 +11,7 @@ LOCAL_ARM_MODE := arm
 endif
 
 LOCAL_SRC_FILES := hellojavascript/main.cpp \
-				   ../../Classes/AppDelegate.cpp \
-				   ../../Classes/SDKManager.cpp \
-				   ../../Classes/jsb_anysdk_basic_conversions.cpp \
-				   ../../Classes/manualanysdkbindings.cpp \
-				   ../../Classes/jsb_anysdk_protocols_auto.cpp
+				   ../../Classes/AppDelegate.cpp
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 
 LOCAL_STATIC_LIBRARIES := cocos2d_js_static
