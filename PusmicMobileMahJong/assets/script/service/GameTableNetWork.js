@@ -2154,10 +2154,10 @@ cc.Class({
 
                     var tempUser = this.getCurreentUserByOpenId(user.huGangShangHuaChuPaiUserOpenId);
 
-                    if (user.roundScoreCount == null || user.roundScoreCount == undefined) {
+                    if (user.roundScoreCount == null || user.roundScoreCount == undefined ||user.roundScoreCount=="") {
                         user.roundScoreCount = roundScore * 1;
                     } else {
-                        user.roundScoreCount = user.roundScoreCount + roundScore * 1;
+                        user.roundScoreCount = parseInt(user.roundScoreCount) + roundScore * 1;
                     }
 
                     if (user.huPaiDetails == undefined || user.huPaiDetails == null) {
@@ -2170,7 +2170,7 @@ cc.Class({
 
                     //user.huPaiDetails = user.huPaiDetails + " 杠上炮(点炮)得分:" + roundScore * 1 + ";";
                     // user.huPaiDetails = details + " 杠上炮 " + roundScore * 1;
-                    if (tempUser.roundScoreCount == undefined || tempUser.roundScoreCount == null) {
+                    if (tempUser.roundScoreCount == undefined || tempUser.roundScoreCount == null|| tempUser.roundScoreCount == "") {
                         tempUser.roundScoreCount = 0;
                     }
                     if (tempUser.huPaiDetails == undefined || tempUser.huPaiDetails == null) {
@@ -2188,7 +2188,7 @@ cc.Class({
                     }
                     var existUserList = existUserString.split(";");
                     console.log("user.roundScoreCount0:" + user.roundScoreCount);
-                    if (user.roundScoreCount == null || user.roundScoreCount == undefined) {
+                    if (user.roundScoreCount == null || user.roundScoreCount == undefined || user.roundScoreCount == "") {
                         user.roundScoreCount = parseInt(roundScore * existUserList.length);
                     } else {
                         user.roundScoreCount = parseInt(user.roundScoreCount) + parseInt(roundScore * existUserList.length);
@@ -2202,7 +2202,7 @@ cc.Class({
                         console.log("existUserList[k]:" + existUserList[k]);
                         if (existUserList[k] != null && existUserList[k] != undefined && existUserList[k] != "") {
                             var tempUser = this.getCurreentUserByOpenId(existUserList[k]);
-                            if (tempUser.roundScoreCount == null || tempUser.roundScoreCount == undefined) {
+                            if (tempUser.roundScoreCount == null || tempUser.roundScoreCount == undefined || tempUser.roundScoreCount == "") {
                                 tempUser.roundScoreCount = - roundScore;
                             } else {
                                 tempUser.roundScoreCount = tempUser.roundScoreCount - roundScore;
@@ -2263,7 +2263,7 @@ cc.Class({
                                 }
 
                             }
-                            if (user.roundScoreCount == undefined || user.roundScoreCount == null) {
+                            if (user.roundScoreCount == undefined || user.roundScoreCount == null|| user.roundScoreCount == "") {
                                 user.roundScoreCount = 0;
                             }
                             user.roundScoreCount = user.roundScoreCount + resultScoreceHuJiao;
@@ -2330,7 +2330,7 @@ cc.Class({
                             xiaJiaoUserList[k].huPaiDetails = "";
                         }
                         xiaJiaoUserList[k].huPaiDetails = xiaJiaoUserList[k].huPaiDetails + " 查叫得分:" + peiFuFenShu + ";";
-                        if (xiaJiaoUserList[k].roundScoreCount == undefined || xiaJiaoUserList[k].roundScoreCount == null) {
+                        if (xiaJiaoUserList[k].roundScoreCount == undefined || xiaJiaoUserList[k].roundScoreCount == null|| xiaJiaoUserList[k].roundScoreCount == "") {
                             xiaJiaoUserList[k].roundScoreCount = 0;
                         }
                         xiaJiaoUserList[k].roundScoreCount = xiaJiaoUserList[k].roundScoreCount + peiFuFenShu;
