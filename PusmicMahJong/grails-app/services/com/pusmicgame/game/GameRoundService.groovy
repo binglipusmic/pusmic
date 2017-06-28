@@ -275,6 +275,7 @@ class GameRoundService {
             }
         }
         println "currentGameRoundPeopeCount:" + peopeleCount
+        peopeleCount++
         return peopeleCount
     }
 
