@@ -66,6 +66,9 @@ class ShowActionBarService {
 
     //-----------------------send show action bar object to user by roomnumber----------------------------------------------
     def sendActionBarToUser(huObj, roomNumber, needWait) {
+        Date now=new Date();
+
+        println now.toString()+":start sendActionBarToUser..."
         ShowActionBarObj showActionBarObj = new ShowActionBarObj()
         showActionBarObj.fromUserOpenid = huObj.showUserOpenId
         showActionBarObj.actionName = "showActionBar"

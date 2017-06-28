@@ -134,6 +134,8 @@ cc.Class({
     stratTimer: function () {
         //timeCount = 10;
         let self = this;
+         this.tenPoint.active=true;
+        this.numPoint.active=true;
         self.schedule(timerUpate, 1);
         self.schedule(pointUpdate, 0.5);
     },

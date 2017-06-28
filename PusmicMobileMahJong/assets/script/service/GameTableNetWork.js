@@ -1508,11 +1508,33 @@ cc.Class({
     },
     serverSendMoPaiAction: function () {
         console.log("serverSendMoPaiAction");
-        var userInfo = Global.userInfo;
-        if (Global.nextUserOpenId != null && Global.nextUserOpenId != undefined) {
-            if (userInfo.openid == Global.nextUserOpenId) {
-                console.log("1499:" + Global.nextUserOpenId);
-                this.sendMoPaiAction();
+
+        var userList = Global.userList;
+        var huPeople = 0;
+        var endGameFlag = false;
+        for (var i = 0; i < userList.length; i++) {
+
+            if (userList[i].huPai != null && userList[i].huPai != undefined && userList[i].huPai != "") {
+                huPeople++
+            }
+
+        }
+        console.log("huPeople:" + huPeople);
+        console.log("userList.length:" + userList.length);
+        if (huPeople == userList.length - 1) {
+            endGameFlag = true;
+        }
+        console.log("endGameFlag:" + endGameFlag);
+        if (Global.restPaiCount == 0) {
+            endGameFlag = true;
+        }
+        if (!endGameFlag) {
+            var userInfo = Global.userInfo;
+            if (Global.nextUserOpenId != null && Global.nextUserOpenId != undefined) {
+                if (userInfo.openid == Global.nextUserOpenId) {
+                    console.log("1499:" + Global.nextUserOpenId);
+                    this.sendMoPaiAction();
+                }
             }
         }
 
@@ -2154,7 +2176,7 @@ cc.Class({
 
                     var tempUser = this.getCurreentUserByOpenId(user.huGangShangHuaChuPaiUserOpenId);
 
-                    if (user.roundScoreCount == null || user.roundScoreCount == undefined ||user.roundScoreCount=="") {
+                    if (user.roundScoreCount == null || user.roundScoreCount == undefined || user.roundScoreCount == "") {
                         user.roundScoreCount = roundScore * 1;
                     } else {
                         user.roundScoreCount = parseInt(user.roundScoreCount) + roundScore * 1;
@@ -2170,7 +2192,7 @@ cc.Class({
 
                     //user.huPaiDetails = user.huPaiDetails + " 杠上炮(点炮)得分:" + roundScore * 1 + ";";
                     // user.huPaiDetails = details + " 杠上炮 " + roundScore * 1;
-                    if (tempUser.roundScoreCount == undefined || tempUser.roundScoreCount == null|| tempUser.roundScoreCount == "") {
+                    if (tempUser.roundScoreCount == undefined || tempUser.roundScoreCount == null || tempUser.roundScoreCount == "") {
                         tempUser.roundScoreCount = 0;
                     }
                     if (tempUser.huPaiDetails == undefined || tempUser.huPaiDetails == null) {
@@ -2263,7 +2285,7 @@ cc.Class({
                                 }
 
                             }
-                            if (user.roundScoreCount == undefined || user.roundScoreCount == null|| user.roundScoreCount == "") {
+                            if (user.roundScoreCount == undefined || user.roundScoreCount == null || user.roundScoreCount == "") {
                                 user.roundScoreCount = 0;
                             }
                             user.roundScoreCount = user.roundScoreCount + resultScoreceHuJiao;
@@ -2330,7 +2352,7 @@ cc.Class({
                             xiaJiaoUserList[k].huPaiDetails = "";
                         }
                         xiaJiaoUserList[k].huPaiDetails = xiaJiaoUserList[k].huPaiDetails + " 查叫得分:" + peiFuFenShu + ";";
-                        if (xiaJiaoUserList[k].roundScoreCount == undefined || xiaJiaoUserList[k].roundScoreCount == null|| xiaJiaoUserList[k].roundScoreCount == "") {
+                        if (xiaJiaoUserList[k].roundScoreCount == undefined || xiaJiaoUserList[k].roundScoreCount == null || xiaJiaoUserList[k].roundScoreCount == "") {
                             xiaJiaoUserList[k].roundScoreCount = 0;
                         }
                         xiaJiaoUserList[k].roundScoreCount = xiaJiaoUserList[k].roundScoreCount + peiFuFenShu;
