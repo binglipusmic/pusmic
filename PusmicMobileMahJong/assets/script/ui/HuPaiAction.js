@@ -177,25 +177,36 @@ cc.Class({
         huFlag = false;
         sourcePaiCount = 0;
         var tempList = [];
-        for (var i = 0; i < paiList.length; i++) {
-            tempList.push(paiList[i]);
-        }
-        //var currentUser = tableActionScript.getCorrectUserByOpenId(userOpenId);
-        var huFlagDetails = false;
-        //var paiList = tableActionScript.insertPaiIntoPaiListByPaiAndOpenId(paiNumber, userOpenId)
-        //if pai from other user ,it need insert into pai list 
-        //if it from self it noe need insert the pai again.
-        if (type != "mopai") {
-            console.log("No is mopai insert the paiNumber");
-            tempList = tableActionScript.insertPaiIntoPaiListByPaiAndPaiList(paiNumber, tempList);
-        }
-        if (this.checkQiaoQiDui(tempList)) {
-            return true;
-        } else {
-            huFlagDetails = this.startDecideHu(tempList);
-            console.log("huFlagDetails:" + huFlagDetails);
-            return huFlagDetails;
 
+        if (paiList.length == 1) {
+            if(paiNumber+""==paiList[0]+""){
+                huFlag=true;
+            }
+            if(paiNumber+""==paiList.toString()+""){
+                huFlag=true;
+            }
+
+        } else {
+            for (var i = 0; i < paiList.length; i++) {
+                tempList.push(paiList[i]);
+            }
+            //var currentUser = tableActionScript.getCorrectUserByOpenId(userOpenId);
+            var huFlagDetails = false;
+            //var paiList = tableActionScript.insertPaiIntoPaiListByPaiAndOpenId(paiNumber, userOpenId)
+            //if pai from other user ,it need insert into pai list 
+            //if it from self it noe need insert the pai again.
+            if (type != "mopai") {
+                console.log("No is mopai insert the paiNumber");
+                tempList = tableActionScript.insertPaiIntoPaiListByPaiAndPaiList(paiNumber, tempList);
+            }
+            if (this.checkQiaoQiDui(tempList)) {
+                return true;
+            } else {
+                huFlagDetails = this.startDecideHu(tempList);
+                console.log("huFlagDetails:" + huFlagDetails);
+                return huFlagDetails;
+
+            }
         }
     },
 

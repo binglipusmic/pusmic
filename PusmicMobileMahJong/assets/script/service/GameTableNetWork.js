@@ -689,8 +689,14 @@ cc.Class({
 
 
                                         } else {
-                                            //send no action for this user
-                                            this.sendUpdateShowActionBarOnOtherUser(userList[i].openid, "", paiNumber);
+                                            //if no pai rest send the check round 
+                                            if (Global.restPaiCount == 0) {
+                                                this.sendCheckRoundEnd();
+                                            } else {
+                                                //send no action for this user
+                                                this.sendUpdateShowActionBarOnOtherUser(userList[i].openid, "", paiNumber);
+
+                                            }
 
                                         }
                                     } else {

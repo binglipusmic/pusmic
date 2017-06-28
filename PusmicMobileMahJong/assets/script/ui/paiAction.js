@@ -206,10 +206,12 @@ cc.Class({
         }
         //only mo pai check the peng list on gang 
         if (type == "mopai") {
+            console.log("209:"+pengList.toString());
             for (var i = 0; i < pengList.length; i++) {
+                console.log("pengList[i]:"+pengList[i]);
                 var pengPai = pengList[i] + "";
                 pengPai = pengPai.trim();
-                if (pengPai == paiNumber + "") {
+                if (pengPai+"" == paiNumber + "") {
                     if (actionArray.indexOf("gang") < 0) {
                         actionArray.push("gang");
                         actionLevel = 2;
