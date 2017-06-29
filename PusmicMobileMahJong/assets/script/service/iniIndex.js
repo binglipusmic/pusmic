@@ -151,6 +151,7 @@ cc.Class({
 
                                 }
                                 console.log("obj.onlineStatus:" + obj.onlineStatus);
+                               
                                 if (obj.onlineStatus + "" == "3") {
                                     reJoinRoomScript.showReJoinGUI();
                                     Global.joinRoomNumber = obj.onlineRoomNumber;
@@ -355,7 +356,16 @@ cc.Class({
         console.log("nowTime 218:" + nowTime);
         var isinstall = false;
         if (cc.sys.os == cc.sys.OS_IOS) {
+            console.log("This is ios");
             isinstall = jsb.reflection.callStaticMethod('WXApiManager', 'isWXInstalled');
+            //-----only for app store-------------------------------
+            isinstall=true;
+            var nowDate=new Date();
+            nowDate=this.dateFormat(nowDate);
+            cc.sys.localStorage.setItem('authLoginTime', nowDate);
+            cc.sys.localStorage.setItem('webChatCode', "081GRpGh1LGlhz0c9aDh1AnlGh1GRpGV");
+            cc.sys.localStorage.setItem('userOpenId', "oCG9Xwo2BF--ukJXk9uCTLqhz8f8");
+
         }
         if (cc.sys.os == cc.sys.OS_ANDROID) {
             isinstall = jsb.reflection.callStaticMethod("com/pusmicgame/mahjong/AppActivity", "isWXInstalled", "()Z");
@@ -366,12 +376,14 @@ cc.Class({
             //check openid if in the client
             var authLoginTime = cc.sys.localStorage.getItem("authLoginTime");
             var reLoginFlag = false;
+            console.log("authLoginTime:"+authLoginTime);
             if (authLoginTime == null || authLoginTime == undefined || authLoginTime == "") {
                 reLoginFlag = true;
             } else {
                 var cha = this.compareDayWithNow(authLoginTime);
                 if (cha >= 29) {
-                    reLoginFlag = true;
+                    //only for ios test,if test done ,we should remove this
+                    //reLoginFlag = true;
                 }
 
             }

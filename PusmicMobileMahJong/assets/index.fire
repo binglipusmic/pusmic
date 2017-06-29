@@ -58962,7 +58962,7 @@
     "_tag": -1,
     "_opacityModifyRGB": false,
     "_id": "13021KzjBxBEZPTWnHMzaGZ",
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 1546
@@ -59108,7 +59108,7 @@
     "node": {
       "__id__": 1541
     },
-    "_enabled": true,
+    "_enabled": false,
     "_spriteFrame": {
       "__uuid__": "151f3d5c-c478-4d06-ac41-20ec62831e91"
     },
@@ -59280,7 +59280,7 @@
         "__id__": 1547
       }
     ],
-    "_N$isChecked": true
+    "_N$isChecked": false
   },
   {
     "__type__": "cc.ClickEvent",
