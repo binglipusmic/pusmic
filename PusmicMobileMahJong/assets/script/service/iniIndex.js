@@ -359,12 +359,12 @@ cc.Class({
             console.log("This is ios");
             isinstall = jsb.reflection.callStaticMethod('WXApiManager', 'isWXInstalled');
             //-----only for app store-------------------------------
-            isinstall=true;
-            var nowDate=new Date();
-            nowDate=this.dateFormat(nowDate);
-            cc.sys.localStorage.setItem('authLoginTime', nowDate);
-            cc.sys.localStorage.setItem('webChatCode', "081GRpGh1LGlhz0c9aDh1AnlGh1GRpGV");
-            cc.sys.localStorage.setItem('userOpenId', "oCG9Xwo2BF--ukJXk9uCTLqhz8f8");
+            // isinstall=true;
+            // var nowDate=new Date();
+            // nowDate=this.dateFormat(nowDate);
+            // cc.sys.localStorage.setItem('authLoginTime', nowDate);
+            // cc.sys.localStorage.setItem('webChatCode', "081GRpGh1LGlhz0c9aDh1AnlGh1GRpGV");
+            // cc.sys.localStorage.setItem('userOpenId', "oCG9Xwo2BF--ukJXk9uCTLqhz8f8");
 
         }
         if (cc.sys.os == cc.sys.OS_ANDROID) {
@@ -383,7 +383,7 @@ cc.Class({
                 var cha = this.compareDayWithNow(authLoginTime);
                 if (cha >= 29) {
                     //only for ios test,if test done ,we should remove this
-                    //reLoginFlag = true;
+                    reLoginFlag = true;
                 }
 
             }
