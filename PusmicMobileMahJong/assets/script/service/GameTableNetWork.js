@@ -1554,7 +1554,7 @@ cc.Class({
             }
         }
         if (!endGameFlag) {
-           
+
             if (Global.nextUserOpenId != null && Global.nextUserOpenId != undefined) {
                 if (userInfo.openid == Global.nextUserOpenId) {
                     console.log("1499:" + Global.nextUserOpenId);
@@ -2088,7 +2088,7 @@ cc.Class({
 
                 var paiList = user.paiListArray;
 
-                 console.log("2091:"+paiList.toString());
+                console.log("2091:" + paiList.toString());
 
                 //-----------hu pai  fanshu count -----------------------------------
                 var returnArray = this.countHuPaiFanshu(pengList, gangPaiList, paiList, user.huPai);
@@ -2478,7 +2478,7 @@ cc.Class({
         console.log("2479 huPai:" + huPai);
         console.log("2479 huGangCount:" + huGangCount);
         if (huGangCount == 3) {
-          
+
             details = details + " 胡牌带杠:1番;"
             fanShu = fanShu + 1;
         }
@@ -2621,7 +2621,8 @@ cc.Class({
             details = details + "清一色:2番;"
         }
 
-
+        qiaoQiDuiFlag = checkQiaoQiDui(huPai, paiList);
+         console.log("2625 qiaoQiDuiFlag:" + qiaoQiDuiFlag);
         if (qiaoQiDuiFlag) {
             fanShu = fanShu + 2;
             if (anGangCount > 0) {
@@ -2685,6 +2686,27 @@ cc.Class({
         returnArray.push(details);
         return returnArray
 
+    },
+
+
+    checkQiaoQiDui: function (huPai, paiList) {
+        var tempPaiList = [];
+        var qiaoQiDuiFlag = true;
+        for (var i = 0; i < paiList.length; i++) {
+            tempPaiList.push(paiList[i])
+        }
+        tempPaiList.push(huPai);
+        for (var i = 0; i < tempPaiList.length; i++) {
+            var pai = paiList[i] + "";
+            pai = pai.trim();
+            var count = this.countElementAccount(pai, tempPaiList);
+            if (count != 2) {
+                qiaoQiDuiFlag = false;
+                break;
+            }
+        }
+
+        return qiaoQiDuiFlag;
     },
     /**Set the gang score for user and other exist  */
     setExistUserRoundCount: function (existUserStr, type, user) {
@@ -2768,7 +2790,7 @@ cc.Class({
     countElementAccount: function (pai, paiList) {
         var count = 0;
         for (var i = 0; i < paiList.length + 1; i++) {
-            if (paiList[i]+"" == pai+"") {
+            if (paiList[i] + "" == pai + "") {
                 count++
             }
         }
