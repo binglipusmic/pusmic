@@ -53,11 +53,12 @@ cc.Class({
     },
 
     submitDmondZuanYi: function () {
-        var userInfo = Global.userInfo;
-        var dmondNumber = parseInt(userInfo.diamondsNumber);
+       // var userInfo = Global.userInfo;
+       // var dmondNumber = parseInt(userInfo.diamondsNumber);
+       var dmondNumber=100;
         if (dmondNumber <= 0) {
-            alertMessageUI.text = "你的钻石数量不足。不能转移给其它用户。";
-            alertMessageUI.setTextOfPanel();
+            alertMessageScript.text = "你的钻石数量不足。不能转移给其它用户。";
+            alertMessageScript.setTextOfPanel();
             return false;
         }
         //1 check user code edit
@@ -67,31 +68,31 @@ cc.Class({
         var zuanShiNumEdit = this.zuanYiDemondNumberEdit.getComponent(cc.EditBox);
         var zuanShiNum = zuanShiNumEdit.string;
         if (zuanShiNum.length == 0) {
-            alertMessageUI.text = "你必须输入你要转移的钻石数量.";
-            alertMessageUI.setTextOfPanel();
+            alertMessageScript.text = "你必须输入你要转移的钻石数量.";
+            alertMessageScript.setTextOfPanel();
             return false;
         }
 
         if (isNaN(zuanShiNum)) {
-            alertMessageUI.text = "钻石数量你必须输入数字.";
-            alertMessageUI.setTextOfPanel();
+            alertMessageScript.text = "钻石数量你必须输入数字.";
+            alertMessageScript.setTextOfPanel();
             return false;
         }
 
         zuanShiNum=parseInt(zuanShiNum);
         if (userCode.length != 6) {
-            alertMessageUI.text = "你必须输入6位用户编号，请检查后重新输入！";
-            alertMessageUI.setTextOfPanel();
+            alertMessageScript.text = "你必须输入6位用户编号，请检查后重新输入！";
+            alertMessageScript.setTextOfPanel();
         } else if (isNaN(userCode)) {
-            alertMessageUI.text = "你必须输入6位数字用户编号，请不要输入其它字符，请检查后重新输入！";
-            alertMessageUI.setTextOfPanel();
+            alertMessageScript.text = "你必须输入6位数字用户编号，请不要输入其它字符，请检查后重新输入！";
+            alertMessageScript.setTextOfPanel();
 
         } else if (zuanShiNum.length == 0) {
-            alertMessageUI.text = "你必须输入你要转移的钻石数量.";
-            alertMessageUI.setTextOfPanel();
+            alertMessageScript.text = "你必须输入你要转移的钻石数量.";
+            alertMessageScript.setTextOfPanel();
         } else if (zuanShiNum>dmondNumber){
-            alertMessageUI.text = "你拥有的钻石数量小于你要转移的钻石数量，请检查后重新修护乳.";
-            alertMessageUI.setTextOfPanel();
+            alertMessageScript.text = "你拥有的钻石数量小于你要转移的钻石数量，请检查后重新输入.";
+            alertMessageScript.setTextOfPanel();
 
         } else{
             

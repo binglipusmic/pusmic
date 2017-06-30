@@ -1255,7 +1255,22 @@ cc.Class({
     sendUserAuthTokenAndRefreshTokenToServer: function (authToken, refreshToken, openid) {
 
     },
+    //-------------------------------dmeaond zhuanyi---------------------------------------------
+    sendDemondMove: function (fromUserCode, toUserCode, demondNumber) {
+        console.log("sendDemondMove staring");
+        var joinRoomNumber = Global.joinRoomNumber;
 
+        var userInfo = Global.userInfo;
+        if (joinRoomNumber == null || joinRoomNumber == undefined) {
+            joinRoomNumber = userInfo.roomNumber;
+        }
+        var o = new Object();
+        o.fromUserCode = fromUserCode;
+        o.toUserCode = toUserCode;
+        o.demondNumber = demondNumber;
+        var messageObj = this.buildSendMessage(JSON.stringify(o), joinRoomNumber, "demondMove");
+        this.sendMessageToServer(messageObj);
+    },
     sendLocationInfoToServer: function () {
         console.log("sendLocationInfoToServer staring");
         var joinRoomNumber = Global.joinRoomNumber;
@@ -1530,12 +1545,16 @@ cc.Class({
         if (huPeople == userList.length - 1) {
             endGameFlag = true;
         }
+        var userInfo = Global.userInfo;
         console.log("endGameFlag:" + endGameFlag);
         if (Global.restPaiCount == 0) {
             endGameFlag = true;
+            if (userInfo.openid == Global.nextUserOpenId) {
+                this.sendCheckRoundEnd();
+            }
         }
         if (!endGameFlag) {
-            var userInfo = Global.userInfo;
+           
             if (Global.nextUserOpenId != null && Global.nextUserOpenId != undefined) {
                 if (userInfo.openid == Global.nextUserOpenId) {
                     console.log("1499:" + Global.nextUserOpenId);
@@ -2069,7 +2088,7 @@ cc.Class({
 
                 var paiList = user.paiListArray;
 
-
+                 console.log("2091:"+paiList.toString());
 
                 //-----------hu pai  fanshu count -----------------------------------
                 var returnArray = this.countHuPaiFanshu(pengList, gangPaiList, paiList, user.huPai);
@@ -2456,7 +2475,10 @@ cc.Class({
 
 
         var huGangCount = this.countElementAccount(huPai, paiList);
+        console.log("2479 huPai:" + huPai);
+        console.log("2479 huGangCount:" + huGangCount);
         if (huGangCount == 3) {
+          
             details = details + " 胡牌带杠:1番;"
             fanShu = fanShu + 1;
         }
@@ -2746,7 +2768,7 @@ cc.Class({
     countElementAccount: function (pai, paiList) {
         var count = 0;
         for (var i = 0; i < paiList.length + 1; i++) {
-            if (paiList[i] == pai) {
+            if (paiList[i]+"" == pai+"") {
                 count++
             }
         }

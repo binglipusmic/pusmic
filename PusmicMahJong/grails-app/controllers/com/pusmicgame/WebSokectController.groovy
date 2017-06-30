@@ -2,12 +2,16 @@ package com.pusmicgame
 
 import com.pusmicgame.domain.ActionMessageDomain
 import com.pusmicgame.domain.MessageDomain
+import grails.async.Promise
 import grails.converters.JSON
 import groovy.json.JsonBuilder
 import groovy.json.JsonOutput
 import org.springframework.messaging.handler.annotation.Headers
 import org.springframework.messaging.handler.annotation.MessageMapping
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor
+
+import static java.util.concurrent.TimeUnit.*
+import static grails.async.Promises.*
 
 class WebSokectController {
 
@@ -470,8 +474,17 @@ class WebSokectController {
                 websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)
 
             } else if (obj.actionName == "updateShowActionBar") {
-                showActionBarService.updateActionBarForUser(obj,messageJsonObj.messageBelongsToPrivateChanleNumber)
-                showActionBarService.checkUpdateStatus(obj,messageJsonObj.messageBelongsToPrivateChanleNumber)
+                Promise p = task {
+                    showActionBarService.updateActionBarForUser(obj, messageJsonObj.messageBelongsToPrivateChanleNumber)
+                }
+                p.onError { Throwable err ->
+                    println "An error occured ${err.message}"
+                }
+
+                p.onComplete { result ->
+                    showActionBarService.checkUpdateStatus(obj,messageJsonObj.messageBelongsToPrivateChanleNumber)
+                }
+
                 //def s = new JsonBuilder(messageJsonObj).toPrettyString()
                 //websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)
 
