@@ -1991,6 +1991,7 @@ cc.Class({
     countUserRoundScore: function () {
         console.log("******countUserRoundScore starting*******");
         var userList = Global.userList;
+          console.log("1994 userList len:"+userList.length);
         var noHuList = [];
         var gameMode = Global.gameMode;
         var maxFan = 0;
@@ -2010,9 +2011,15 @@ cc.Class({
         var roundScore = 0;
         var fanshu = 0;
         var details = "";
+         for (var i = 0; i < userList.length; i++) {
+              var user = userList[i];
+               console.log("2015 1:"+i+"----"+user.nickName+":::"+user.huPai+":::"+user.paiListArray.toString())
+         }
         //First set the ting jiao 
         for (var i = 0; i < userList.length; i++) {
-            var user = userList[i];
+               var user = userList[i];
+               console.log("2020:"+user.nickName+":::"+user.huPai+":::"+user.paiListArray.toString())
+            
             if (user.huPaiDetails == undefined || user.huPaiDetails == null) {
                 user.huPaiDetails = "";
             }
@@ -2025,7 +2032,8 @@ cc.Class({
                 console.log("user.tingJiao user:" + user.openid + "--" + user.nickName);
             }
         }
-
+        userList = Global.userList;
+        console.log("userList len:"+userList.length);
         for (var i = 0; i < userList.length; i++) {
             var user = userList[i];
             user.huPaiFanShu = 0;
@@ -2034,6 +2042,7 @@ cc.Class({
             details = "";
             fanshu = 0;
             roundScore = 0;
+            console.log("2037:"+user.nickName+":::"+user.huPai+":::"+user.paiListArray.toString())
             //First ----gang count ---only on hu pai and ting pai 
             if ((user.huPai != null && user.huPai != undefined && user.huPai != "") || user.tingJiao == true) {
 
@@ -2477,7 +2486,7 @@ cc.Class({
         var huGangCount = this.countElementAccount(huPai, paiList);
         console.log("2479 huPai:" + huPai);
         console.log("2479 huGangCount:" + huGangCount);
-        if (huGangCount == 3) {
+        if (huGangCount == 4) {
 
             details = details + " 胡牌带杠:1番;"
             fanShu = fanShu + 1;
@@ -2621,7 +2630,7 @@ cc.Class({
             details = details + "清一色:2番;"
         }
 
-        qiaoQiDuiFlag = checkQiaoQiDui(huPai, paiList);
+        qiaoQiDuiFlag = this.checkQiaoQiDui(huPai, paiList);
          console.log("2625 qiaoQiDuiFlag:" + qiaoQiDuiFlag);
         if (qiaoQiDuiFlag) {
             fanShu = fanShu + 2;
@@ -2696,11 +2705,14 @@ cc.Class({
             tempPaiList.push(paiList[i])
         }
         tempPaiList.push(huPai);
+        console.log("2699:"+tempPaiList.toString());
         for (var i = 0; i < tempPaiList.length; i++) {
             var pai = paiList[i] + "";
             pai = pai.trim();
+             console.log("2703:"+pai);
             var count = this.countElementAccount(pai, tempPaiList);
-            if (count != 2) {
+              console.log("2705:"+count);
+            if (count != 2 &&count != 4) {
                 qiaoQiDuiFlag = false;
                 break;
             }
