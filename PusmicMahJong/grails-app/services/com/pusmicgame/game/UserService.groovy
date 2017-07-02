@@ -94,10 +94,10 @@ class UserService {
                 flag="fail"
             }else{
                 //start zhuanyi
-
-                SpringUser sourceUser=SpringUser.findByUserCode(obj.fromUserCode)
+                def userCode=obj.fromUserCode.toString()
+                SpringUser sourceUser=SpringUser.findByUserCode(userCode)
                 if(!sourceUser){
-                    returnMessage="没有发现源用户通过这个用户代码:。"+obj.fromUserCode
+                    returnMessage="没有发现源用户通过这个用户代码:"+obj.fromUserCode+"."
                     flag="fail"
                 }else {
                     SpringUser targetUser=SpringUser.findByUserCode(obj.toUserCode)
