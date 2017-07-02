@@ -12,6 +12,7 @@ import com.pusmicgame.domain.GameRoundPlatObj
 import com.pusmicgame.domain.GameUserPlatObj
 import com.pusmicgame.domain.JoinRoom
 import com.pusmicgame.domain.MessageDomain
+import com.pusmicgame.domain.MoveResultObject
 import com.pusmicgame.domain.UserInfo
 import com.pusmicgame.domain.UserAuthObject
 import com.pusmicgame.domain.WXUserInfo
@@ -67,6 +68,91 @@ class UserService {
         outputUser.gameReadyStatu = gameU.gameReadyStatu
         outputUser.headImageFileName = gameU.headImageFileName
 
+
+    }
+
+
+    //---------------------------------------------------------------------------------------
+
+    def moveDemondToOtherUser(MessageDomain messageDomain){
+        def returnMessage=""
+        def flag="success"
+        def domondNumberStr=""
+        MoveResultObject moveResultObject=new MoveResultObject()
+        moveResultObject.sourceUserOpenId=""
+        moveResultObject.targetUserOpenId=""
+        if(messageDomain.messageBody){
+            def obj=JSON.parse(messageDomain.messageBody)
+            if(!obj.fromUserCode){
+                returnMessage="转移钻石失败,没有发现转移源用户代码。"
+                flag="fail"
+            }else if(!obj.toUserCode){
+                returnMessage="转移钻石失败,没有发现转移目标用户代码。"
+                flag="fail"
+            }else if(!obj.demondNumber){
+                returnMessage="转移钻石失败,没有发现钻石数目。"
+                flag="fail"
+            }else{
+                //start zhuanyi
+
+                SpringUser sourceUser=SpringUser.findByUserCode(obj.fromUserCode)
+                if(!sourceUser){
+                    returnMessage="没有发现源用户通过这个用户代码:。"+obj.fromUserCode
+                    flag="fail"
+                }else {
+                    SpringUser targetUser=SpringUser.findByUserCode(obj.toUserCode)
+                    if(!targetUser){
+                        returnMessage="没有发现目标用户通过这个用户代码:。"+obj.toUserCode
+                        flag="fail"
+                    }else{
+
+                        def demondNumber=obj.demondNumber
+                        demondNumber=demondNumber.toInteger()
+                        def sourceUserDemondNUmber=sourceUser.diamondsNumber
+                        if(demondNumber>sourceUserDemondNUmber){
+                            returnMessage="你拥有的钻石数目小于转移的钻石数目,请检查后重新输入"
+                            flag="fail"
+                        }else{
+                            sourceUser.diamondsNumber=sourceUser.diamondsNumber-demondNumber
+                            sourceUser.save(flush: true, failOnError: true)
+                            targetUser.diamondsNumber=targetUser.diamondsNumber+demondNumber
+                            targetUser.save(flush: true, failOnError: true)
+                            flag="success"
+                            moveResultObject.sourceUserOpenId=sourceUser.openid
+                            moveResultObject.targetUserOpenId=targetUser.openid
+                            returnMessage="成功转移"+demondNumber+"个钻石,从"+sourceUser.nickname+"到"+targetUser.nickname+"。"
+
+
+
+
+                        }
+
+                        domondNumberStr=obj.demondNumber
+
+                    }
+                }
+            }
+
+        }else{
+            returnMessage="转移钻石失败,请检查发送消息。"
+            flag="fail"
+        }
+
+
+
+
+        moveResultObject.demondNumber=domondNumberStr
+        moveResultObject.flag=flag.toString()
+        moveResultObject.returnMessage=returnMessage
+
+
+        MessageDomain newMessageObj = new MessageDomain()
+        newMessageObj.messageBelongsToPrivateChanleNumber = messageDomain.messageBelongsToPrivateChanleNumber
+        newMessageObj.messageAction = "demondMoveResult"
+        newMessageObj.messageBody =new JsonBuilder(moveResultObject).toPrettyString()
+        newMessageObj.messageType = "gameAction"
+        def s2 = JsonOutput.toJson(newMessageObj)
+        websokectService.privateUserChanelByRoomNumber(messageDomain.messageBelongsToPrivateChanleNumber, s2)
 
     }
 

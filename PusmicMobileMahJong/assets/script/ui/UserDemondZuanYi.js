@@ -1,5 +1,6 @@
 var alertMessageScript;
 var demondNumber;
+var networkScript;
 cc.Class({
     extends: cc.Component,
 
@@ -22,12 +23,14 @@ cc.Class({
         userCodeEdit: cc.Node,
         zuanYiDemondNumberEdit: cc.Node,
         alertMessageNodeScirpt: cc.Node,
+        tableNetworkNode:cc.Node
 
     },
 
     // use this for initialization
     onLoad: function () {
         alertMessageScript = this.alertMessageNodeScirpt.getComponent("alertMessagePanle");
+         networkScript = this.tableNetworkNode.getComponent("GameTableNetWork");
 
     },
 
@@ -95,6 +98,13 @@ cc.Class({
             alertMessageScript.setTextOfPanel();
 
         } else{
+            //sendDemondMove
+            //fromUserCode, toUserCode, demondNumber
+              var userInfo = Global.userInfo;
+              var fromUserCode=userInfo.userCode;
+              var toUserCode=userCode;
+              var demondNumber=zuanShiNum;
+              networkScript.sendDemondMove(fromUserCode,toUserCode,demondNumber);
             
         }
 

@@ -59,6 +59,14 @@ class WebSokectController {
         }
 
         //**************************************************************************************
+
+        if (messageJsonObj.messageAction.equals("demondMove")) {
+            //sessionHeaders.put("openid",messageJsonObj.messageBody);
+            //sessionHeaders.put("roomNumber", messageJsonObj.messageBelongsToPrivateChanleNumber);
+            userService.moveDemondToOtherUser(messageJsonObj)
+
+        }
+        //**************************************************************************************
         if (messageJsonObj.messageAction.equals("gameinistal")) {
             //sessionHeaders.put("openid",messageJsonObj.messageBody);
             sessionHeaders.put("roomNumber", messageJsonObj.messageBelongsToPrivateChanleNumber);

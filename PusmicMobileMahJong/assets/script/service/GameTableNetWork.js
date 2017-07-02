@@ -152,6 +152,26 @@ cc.Class({
                 }
                 actionUIScriptNode.closeLoadingIcon();
 
+                //demondMoveResult
+                //----------------------------------------------------------------------------------------
+                if (messageDomain.messageAction == "demondMoveResult") {
+                      var moveResultObj = JSON.parse(messageDomain.messageBody);
+                      alertMessageUI.text = moveResultObj.returnMessage;
+                      alertMessageUI.setTextOfPanel();
+                      //updateDemand
+                      if(moveResultObj.flag=="success"){
+                             var userInfo1 = Global.userInfo;
+                             if(userInfo1.openid==moveResultObj.sourceUserOpenId){
+                                 userInfo1.demondNumber=parseInt(userInfo1.demondNumber)-parseInt(moveResultObj.demondNumber)
+                             }
+                             if(userInfo1.openid==moveResultObj.targetUserOpenId){
+                                  userInfo1.demondNumber=parseInt(userInfo1.demondNumber)+parseInt(moveResultObj.demondNumber)
+                          
+                             }
+                             Global.userInfo=userInfo1
+                             actionUIScriptNode.updateDemand();
+                      }
+                }
                 //----------------------------------------------------------------------------------------
                 //getGameRoundlunScoreCount
                 if (messageDomain.messageAction == "serverSendMoPaiAction") {
@@ -1920,16 +1940,35 @@ cc.Class({
 
 
     },
+     deepCopyArray: function (soureArray, descArray) {
+        if (soureArray != null && soureArray.length > 0) {
+            for (var i = 0; i < soureArray.length + 1; i++) {
+                if (soureArray[i] != null && soureArray[i] != undefined)
+                    //soureArray[i] = soureArray[i] + ""
+                    descArray.push(soureArray[i]);
+            }
+        }
+
+        return descArray;
+
+    },
     // called every frame, uncomment this function to activate update callback
     // update: function (dt) {
 
     // },
     //----------------Count round socre--------------------
     checkUserIfTingPai: function (user) {
-        var paiList = user.paiListArray;
+        var paiList =[];
+        paiList=this.deepCopyArray(user.paiListArray,paiList);
+        var cachePaiList=[];
+        cachePaiList=this.deepCopyArray(user.paiListArray,cachePaiList);
         console.log("1276:" + paiList.toString());
-        var gangPaiList = user.gangPaiList;
-        var pengList = user.pengPaiList;
+        var gangPaiList = [];
+        gangPaiList=this.deepCopyArray( user.gangPaiList,gangPaiList);
+       
+        var pengList = [];
+        pengList=this.deepCopyArray( user.pengPaiList,pengList);
+        
 
         var tempPaiList = [];
         for (var i = 0; i < paiList.length; i++) {
@@ -1962,16 +2001,19 @@ cc.Class({
             user.maxFanShu = 0;
         }
         for (var i = 0; i < testPaiList.length; i++) {
-            console.log("1311:" + paiList.toString());
+           // console.log("1311:" + paiList.toString());
             huFlag = huPaiScript.hupaiLogic(testPaiList[i], user.openid, tempPaiList, "");
-            console.log("1312:" + tempPaiList.toString());
-            console.log("1313 pai:" + paiList.toString());
+            console.log("1986:" + tempPaiList.toString());
+            console.log("1987 pai:" + testPaiList[i]);
             if (huFlag == true) {
+              
+                var checkPaiList=[];
+                checkPaiList=this.deepCopyArray(cachePaiList,checkPaiList);
                 user.tingJiao = true;
-                paiList.push(testPaiList[i]);
-                console.log("1317:" + paiList.toString());
-                paiList.sort(function (a, b) { return a - b });
-                var returnArray = this.countHuPaiFanshu(pengList, gangPaiList, paiList, user.huPai);
+                //checkPaiList.push(testPaiList[i]);
+                //console.log("1317:" + paiList.toString());
+                checkPaiList.sort(function (a, b) { return a - b });
+                var returnArray = this.countHuPaiFanshu(pengList, gangPaiList, checkPaiList,testPaiList[i]);
                 var fanshu = returnArray[0];
                 if (fanshu == undefined) {
                     fanshu = 0;
@@ -2707,7 +2749,7 @@ cc.Class({
         tempPaiList.push(huPai);
         console.log("2699:"+tempPaiList.toString());
         for (var i = 0; i < tempPaiList.length; i++) {
-            var pai = paiList[i] + "";
+            var pai = tempPaiList[i] + "";
             pai = pai.trim();
              console.log("2703:"+pai);
             var count = this.countElementAccount(pai, tempPaiList);
