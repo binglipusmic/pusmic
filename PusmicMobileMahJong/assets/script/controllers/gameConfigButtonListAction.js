@@ -101,6 +101,7 @@ cc.Class({
 
     updateDemand:function(){
         var userInfo = Global.userInfo;
+        console.log("updateDemand:"+userInfo.diamondsNumber);
         if (userInfo != null && userInfo != undefined) {
              var demonNum = this.userDemonNode.getComponent(cc.Label);
             demonNum.string = userInfo.diamondsNumber;

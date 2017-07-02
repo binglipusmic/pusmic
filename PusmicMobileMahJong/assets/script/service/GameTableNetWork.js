@@ -160,12 +160,16 @@ cc.Class({
                       alertMessageUI.setTextOfPanel();
                       //updateDemand
                       if(moveResultObj.flag=="success"){
+                             console.log("success move 163");
                              var userInfo1 = Global.userInfo;
                              if(userInfo1.openid==moveResultObj.sourceUserOpenId){
-                                 userInfo1.demondNumber=parseInt(userInfo1.demondNumber)-parseInt(moveResultObj.demondNumber)
-                             }
+                                 console.log("success move 166:"+userInfo1.diamondsNumber);
+                                 console.log("success move 167:"+moveResultObj.demondNumber);  
+                                 userInfo1.diamondsNumber=parseInt(userInfo1.diamondsNumber)-parseInt(moveResultObj.demondNumber)
+                                 console.log("success demondNumber:"+userInfo1.demondNumber);   
+                          }
                              if(userInfo1.openid==moveResultObj.targetUserOpenId){
-                                  userInfo1.demondNumber=parseInt(userInfo1.demondNumber)+parseInt(moveResultObj.demondNumber)
+                                  userInfo1.diamondsNumber=parseInt(userInfo1.diamondsNumber)+parseInt(moveResultObj.demondNumber)
                           
                              }
                              Global.userInfo=userInfo1
