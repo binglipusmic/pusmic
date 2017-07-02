@@ -96,6 +96,7 @@ class UserService {
                 //start zhuanyi
                 def userCode=obj.fromUserCode.toString()
                 SpringUser sourceUser=SpringUser.findByUserCode(userCode)
+                println "sourceUser:"+sourceUser.openid
                 if(!sourceUser){
                     returnMessage="没有发现源用户通过这个用户代码:"+obj.fromUserCode+"."
                     flag="fail"
