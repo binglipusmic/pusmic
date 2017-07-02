@@ -101,7 +101,7 @@ class UserService {
                     returnMessage="没有发现源用户通过这个用户代码:"+obj.fromUserCode+"."
                     flag="fail"
                 }else {
-                    SpringUser targetUser=SpringUser.findByUserCode(obj.toUserCode)
+                    SpringUser targetUser=SpringUser.findByUserCode(obj.toUserCode.toString())
                     if(!targetUser){
                         returnMessage="没有发现目标用户通过这个用户代码:。"+obj.toUserCode
                         flag="fail"

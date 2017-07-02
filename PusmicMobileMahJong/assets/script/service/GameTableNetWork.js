@@ -1281,9 +1281,10 @@ cc.Class({
         var joinRoomNumber = Global.joinRoomNumber;
 
         var userInfo = Global.userInfo;
-        if (joinRoomNumber == null || joinRoomNumber == undefined) {
+        if (joinRoomNumber == null || joinRoomNumber == undefined||joinRoomNumber == "") {
             joinRoomNumber = userInfo.roomNumber;
         }
+         console.log("sendDemondMove joinRoomNumber:"+joinRoomNumber);
         var o = new Object();
         o.fromUserCode = fromUserCode;
         o.toUserCode = toUserCode;
