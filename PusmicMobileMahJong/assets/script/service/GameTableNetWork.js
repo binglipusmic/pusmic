@@ -2751,7 +2751,7 @@ cc.Class({
         for (var i = 0; i < paiList.length; i++) {
             tempPaiList.push(paiList[i])
         }
-        tempPaiList.push(huPai);
+       // tempPaiList.push(huPai);
         console.log("2699:"+tempPaiList.toString());
         for (var i = 0; i < tempPaiList.length; i++) {
             var pai = tempPaiList[i] + "";
@@ -2763,6 +2763,15 @@ cc.Class({
                 qiaoQiDuiFlag = false;
                 break;
             }
+        }
+
+        if(qiaoQiDuiFlag){
+            if(tempPaiList.length==13 ||tempPaiList.length==14){
+
+            }else{
+                qiaoQiDuiFlag=false
+            }
+
         }
 
         return qiaoQiDuiFlag;
