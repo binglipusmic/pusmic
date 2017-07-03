@@ -1,6 +1,7 @@
 var alertMessageScript;
 var demondNumber;
 var networkScript;
+var confirmScript;
 cc.Class({
     extends: cc.Component,
 
@@ -23,7 +24,8 @@ cc.Class({
         userCodeEdit: cc.Node,
         zuanYiDemondNumberEdit: cc.Node,
         alertMessageNodeScirpt: cc.Node,
-        tableNetworkNode:cc.Node
+        tableNetworkNode:cc.Node,
+        confirmNode:cc.Node,
 
     },
 
@@ -31,6 +33,7 @@ cc.Class({
     onLoad: function () {
         alertMessageScript = this.alertMessageNodeScirpt.getComponent("alertMessagePanle");
          networkScript = this.tableNetworkNode.getComponent("GameTableNetWork");
+         confirmScript=this.confirmNode.getComponent("confimDemond");
 
     },
 
@@ -104,7 +107,14 @@ cc.Class({
               var fromUserCode=userInfo.userCode;
               var toUserCode=userCode;
               var demondNumber=zuanShiNum;
-              networkScript.sendDemondMove(fromUserCode,toUserCode,demondNumber);
+
+
+              confirmScript.fromUserCode=fromUserCode;
+              confirmScript.toUserCode=toUserCode;
+              confirmScript.demondNumber=demondNumber;
+              var txt="你确定需要转移"+demondNumber+"钻石到用户:"+toUserCode+"?(不可退回)";
+              confirmScript.showConfirmPanel(txt);
+             
             
         }
 
