@@ -155,26 +155,26 @@ cc.Class({
                 //demondMoveResult
                 //----------------------------------------------------------------------------------------
                 if (messageDomain.messageAction == "demondMoveResult") {
-                      var moveResultObj = JSON.parse(messageDomain.messageBody);
-                      alertMessageUI.text = moveResultObj.returnMessage;
-                      alertMessageUI.setTextOfPanel();
-                      //updateDemand
-                      if(moveResultObj.flag=="success"){
-                             console.log("success move 163");
-                             var userInfo1 = Global.userInfo;
-                             if(userInfo1.openid==moveResultObj.sourceUserOpenId){
-                                 console.log("success move 166:"+userInfo1.diamondsNumber);
-                                 console.log("success move 167:"+moveResultObj.demondNumber);  
-                                 userInfo1.diamondsNumber=parseInt(userInfo1.diamondsNumber)-parseInt(moveResultObj.demondNumber)
-                                 console.log("success demondNumber:"+userInfo1.demondNumber);   
-                          }
-                             if(userInfo1.openid==moveResultObj.targetUserOpenId){
-                                  userInfo1.diamondsNumber=parseInt(userInfo1.diamondsNumber)+parseInt(moveResultObj.demondNumber)
-                          
-                             }
-                             Global.userInfo=userInfo1
-                             actionUIScriptNode.updateDemand();
-                      }
+                    var moveResultObj = JSON.parse(messageDomain.messageBody);
+                    alertMessageUI.text = moveResultObj.returnMessage;
+                    alertMessageUI.setTextOfPanel();
+                    //updateDemand
+                    if (moveResultObj.flag == "success") {
+                        console.log("success move 163");
+                        var userInfo1 = Global.userInfo;
+                        if (userInfo1.openid == moveResultObj.sourceUserOpenId) {
+                            console.log("success move 166:" + userInfo1.diamondsNumber);
+                            console.log("success move 167:" + moveResultObj.demondNumber);
+                            userInfo1.diamondsNumber = parseInt(userInfo1.diamondsNumber) - parseInt(moveResultObj.demondNumber)
+                            console.log("success demondNumber:" + userInfo1.demondNumber);
+                        }
+                        if (userInfo1.openid == moveResultObj.targetUserOpenId) {
+                            userInfo1.diamondsNumber = parseInt(userInfo1.diamondsNumber) + parseInt(moveResultObj.demondNumber)
+
+                        }
+                        Global.userInfo = userInfo1
+                        actionUIScriptNode.updateDemand();
+                    }
                 }
                 //----------------------------------------------------------------------------------------
                 //getGameRoundlunScoreCount
@@ -1285,10 +1285,10 @@ cc.Class({
         var joinRoomNumber = Global.joinRoomNumber;
 
         var userInfo = Global.userInfo;
-        if (joinRoomNumber == null || joinRoomNumber == undefined||joinRoomNumber == "") {
+        if (joinRoomNumber == null || joinRoomNumber == undefined || joinRoomNumber == "") {
             joinRoomNumber = userInfo.roomNumber;
         }
-         console.log("sendDemondMove joinRoomNumber:"+joinRoomNumber);
+        console.log("sendDemondMove joinRoomNumber:" + joinRoomNumber);
         var o = new Object();
         o.fromUserCode = fromUserCode;
         o.toUserCode = toUserCode;
@@ -1945,7 +1945,7 @@ cc.Class({
 
 
     },
-     deepCopyArray: function (soureArray, descArray) {
+    deepCopyArray: function (soureArray, descArray) {
         if (soureArray != null && soureArray.length > 0) {
             for (var i = 0; i < soureArray.length + 1; i++) {
                 if (soureArray[i] != null && soureArray[i] != undefined)
@@ -1963,17 +1963,17 @@ cc.Class({
     // },
     //----------------Count round socre--------------------
     checkUserIfTingPai: function (user) {
-        var paiList =[];
-        paiList=this.deepCopyArray(user.paiListArray,paiList);
-        var cachePaiList=[];
-        cachePaiList=this.deepCopyArray(user.paiListArray,cachePaiList);
+        var paiList = [];
+        paiList = this.deepCopyArray(user.paiListArray, paiList);
+        var cachePaiList = [];
+        cachePaiList = this.deepCopyArray(user.paiListArray, cachePaiList);
         console.log("1276:" + paiList.toString());
         var gangPaiList = [];
-        gangPaiList=this.deepCopyArray( user.gangPaiList,gangPaiList);
-       
+        gangPaiList = this.deepCopyArray(user.gangPaiList, gangPaiList);
+
         var pengList = [];
-        pengList=this.deepCopyArray( user.pengPaiList,pengList);
-        
+        pengList = this.deepCopyArray(user.pengPaiList, pengList);
+
 
         var tempPaiList = [];
         for (var i = 0; i < paiList.length; i++) {
@@ -2006,19 +2006,19 @@ cc.Class({
             user.maxFanShu = 0;
         }
         for (var i = 0; i < testPaiList.length; i++) {
-           // console.log("1311:" + paiList.toString());
+            // console.log("1311:" + paiList.toString());
             huFlag = huPaiScript.hupaiLogic(testPaiList[i], user.openid, tempPaiList, "");
             console.log("1986:" + tempPaiList.toString());
             console.log("1987 pai:" + testPaiList[i]);
             if (huFlag == true) {
-              
-                var checkPaiList=[];
-                checkPaiList=this.deepCopyArray(cachePaiList,checkPaiList);
+
+                var checkPaiList = [];
+                checkPaiList = this.deepCopyArray(cachePaiList, checkPaiList);
                 user.tingJiao = true;
                 //checkPaiList.push(testPaiList[i]);
                 //console.log("1317:" + paiList.toString());
                 checkPaiList.sort(function (a, b) { return a - b });
-                var returnArray = this.countHuPaiFanshu(pengList, gangPaiList, checkPaiList,testPaiList[i]);
+                var returnArray = this.countHuPaiFanshu(pengList, gangPaiList, checkPaiList, testPaiList[i]);
                 var fanshu = returnArray[0];
                 if (fanshu == undefined) {
                     fanshu = 0;
@@ -2038,7 +2038,7 @@ cc.Class({
     countUserRoundScore: function () {
         console.log("******countUserRoundScore starting*******");
         var userList = Global.userList;
-          console.log("1994 userList len:"+userList.length);
+        console.log("1994 userList len:" + userList.length);
         var noHuList = [];
         var gameMode = Global.gameMode;
         var maxFan = 0;
@@ -2058,15 +2058,15 @@ cc.Class({
         var roundScore = 0;
         var fanshu = 0;
         var details = "";
-         for (var i = 0; i < userList.length; i++) {
-              var user = userList[i];
-               console.log("2015 1:"+i+"----"+user.nickName+":::"+user.huPai+":::"+user.paiListArray.toString())
-         }
+        for (var i = 0; i < userList.length; i++) {
+            var user = userList[i];
+            console.log("2015 1:" + i + "----" + user.nickName + ":::" + user.huPai + ":::" + user.paiListArray.toString())
+        }
         //First set the ting jiao 
         for (var i = 0; i < userList.length; i++) {
-               var user = userList[i];
-               console.log("2020:"+user.nickName+":::"+user.huPai+":::"+user.paiListArray.toString())
-            
+            var user = userList[i];
+            console.log("2020:" + user.nickName + ":::" + user.huPai + ":::" + user.paiListArray.toString())
+
             if (user.huPaiDetails == undefined || user.huPaiDetails == null) {
                 user.huPaiDetails = "";
             }
@@ -2080,7 +2080,7 @@ cc.Class({
             }
         }
         userList = Global.userList;
-        console.log("userList len:"+userList.length);
+        console.log("userList len:" + userList.length);
         for (var i = 0; i < userList.length; i++) {
             var user = userList[i];
             user.huPaiFanShu = 0;
@@ -2089,7 +2089,7 @@ cc.Class({
             details = "";
             fanshu = 0;
             roundScore = 0;
-            console.log("2037:"+user.nickName+":::"+user.huPai+":::"+user.paiListArray.toString())
+            console.log("2037:" + user.nickName + ":::" + user.huPai + ":::" + user.paiListArray.toString())
             //First ----gang count ---only on hu pai and ting pai 
             if ((user.huPai != null && user.huPai != undefined && user.huPai != "") || user.tingJiao == true) {
 
@@ -2677,8 +2677,15 @@ cc.Class({
             details = details + "清一色:2番;"
         }
 
+        if (daDuiZiFlag) {
+
+            if (paiList.length > 4) {
+                daDuiZiFlag = this.checkDaDuiZiMoreThan(paiList);
+            }
+        }
+
         qiaoQiDuiFlag = this.checkQiaoQiDui(huPai, paiList);
-         console.log("2625 qiaoQiDuiFlag:" + qiaoQiDuiFlag);
+        console.log("2625 qiaoQiDuiFlag:" + qiaoQiDuiFlag);
         if (qiaoQiDuiFlag) {
             fanShu = fanShu + 2;
             if (anGangCount > 0) {
@@ -2743,7 +2750,22 @@ cc.Class({
         return returnArray
 
     },
+    checkDaDuiZiMoreThan: function (paiList) {
+        var flag = false;
 
+        for (var i = 0; i < paiList.length; i++) {
+            var pai = paiList[i] + "";
+            pai = pai.trim();
+            //console.log("2759:" + pai);
+            var count = this.countElementAccount(pai, paiList);
+            if (count == 3) {
+                flag = true
+                break;
+            }
+        }
+
+        return flag;
+    },
 
     checkQiaoQiDui: function (huPai, paiList) {
         var tempPaiList = [];
@@ -2751,25 +2773,28 @@ cc.Class({
         for (var i = 0; i < paiList.length; i++) {
             tempPaiList.push(paiList[i])
         }
-       // tempPaiList.push(huPai);
-        console.log("2699:"+tempPaiList.toString());
+        if(paiList.length<14){
+           tempPaiList.push(huPai);
+        }
+       
+        console.log("2699:" + tempPaiList.toString());
         for (var i = 0; i < tempPaiList.length; i++) {
             var pai = tempPaiList[i] + "";
             pai = pai.trim();
-             console.log("2703:"+pai);
+            console.log("2703:" + pai);
             var count = this.countElementAccount(pai, tempPaiList);
-              console.log("2705:"+count);
-            if (count != 2 &&count != 4) {
+            console.log("2705:" + count);
+            if (count != 2 && count != 4) {
                 qiaoQiDuiFlag = false;
                 break;
             }
         }
 
-        if(qiaoQiDuiFlag){
-            if(tempPaiList.length==13 ||tempPaiList.length==14){
+        if (qiaoQiDuiFlag) {
+            if (tempPaiList.length == 13 || tempPaiList.length == 14) {
 
-            }else{
-                qiaoQiDuiFlag=false
+            } else {
+                qiaoQiDuiFlag = false
             }
 
         }
