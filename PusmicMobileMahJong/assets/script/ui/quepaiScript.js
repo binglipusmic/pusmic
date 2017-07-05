@@ -1,6 +1,6 @@
 var alerMessage;
 var gameTableNetWork;
-var timerUpate;
+var quePaitimerUpate;
 var timeCount;
 var tableUserInfoScript;
 cc.Class({
@@ -38,7 +38,7 @@ cc.Class({
         //alerMessage = this.alertMessageNode.getComponent("alertMessagePanle");
         gameTableNetWork = this.gameTableNetWorkNode.getComponent("GameTableNetWork")
         timeCount = 14;
-        timerUpate = function () {
+        quePaitimerUpate = function () {
 
             var showTimerStr = "(" + timeCount + ")";
             var lable = this.quePaiTimeLable.getComponent(cc.Label);
@@ -46,17 +46,18 @@ cc.Class({
             timeCount--;
 
             if (timeCount == -1) {
-                this.endTimer();
+                this.quePaiendTimer();
             }
 
         };
     },
 
 
-    endTimer: function () {
+    quePaiendTimer: function () {
+        console.log("quePaiendTimer");
         Global.chuPaiActionType = ""
         let self = this;
-        self.unschedule(timerUpate);
+        self.unschedule(quePaitimerUpate);
         // Global.chuPaiActionType = ""
         //auto select latest pai
         //tableUserInfo.forceFillHuanSanZhangList();
@@ -142,10 +143,11 @@ cc.Class({
 
 
     stratTimer: function () {
+        cc.log("stratTimer");
         //timeCount = 10;
         timeCount = 14;
         let self = this;
-        self.schedule(timerUpate, 1);
+        self.schedule(quePaitimerUpate, 1);
         //
 
     },

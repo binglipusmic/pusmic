@@ -1961,6 +1961,34 @@ cc.Class({
     // update: function (dt) {
 
     // },
+
+    getMaxFanShu: function (user) {
+        console.log("getMaxFanShu start....:"+user.nickName+"::"+user.paiListArray.toString());
+        var chaCheHuPaiList = user.chaCheHuPaiList;
+        if (chaCheHuPaiList != null && chaCheHuPaiList != undefined) {
+            if (chaCheHuPaiList.length > 0) {
+                var gangPaiList = [];
+                gangPaiList = this.deepCopyArray(user.gangPaiList, gangPaiList);
+
+                var pengList = [];
+                pengList = this.deepCopyArray(user.pengPaiList, pengList);
+
+                var paiList = [];
+                paiList = this.deepCopyArray(user.paiListArray, paiList);
+                var returnArray = this.countHuPaiFanshu(pengList, gangPaiList, paiList, chaCheHuPaiList[i]);
+                var fanshu = returnArray[0];
+                if (fanshu == undefined) {
+                    fanshu = 0;
+                }
+                fanshu = parseInt(fanshu);
+                if (fanshu > user.maxFanShu) {
+                    user.maxFanShu = fanshu;
+                }
+            }
+        }
+        console.log("getMaxFanShu max fan....:"+ user.maxFanShu);
+        return user;
+    },
     //----------------Count round socre--------------------
     checkUserIfTingPai: function (user) {
         var paiList = [];
@@ -2002,6 +2030,8 @@ cc.Class({
         }
         console.log("testPaiList:" + testPaiList.toString());
         var huFlag = false;
+
+        var chaCheHuPai = [];
         if (user.maxFanShu == undefined || user.maxFanShu == null) {
             user.maxFanShu = 0;
         }
@@ -2011,25 +2041,27 @@ cc.Class({
             console.log("1986:" + tempPaiList.toString());
             console.log("1987 pai:" + testPaiList[i]);
             if (huFlag == true) {
-
+                chaCheHuPai.push(testPaiList[i]);
                 var checkPaiList = [];
                 checkPaiList = this.deepCopyArray(cachePaiList, checkPaiList);
                 user.tingJiao = true;
                 //checkPaiList.push(testPaiList[i]);
                 //console.log("1317:" + paiList.toString());
-                checkPaiList.sort(function (a, b) { return a - b });
-                var returnArray = this.countHuPaiFanshu(pengList, gangPaiList, checkPaiList, testPaiList[i]);
-                var fanshu = returnArray[0];
-                if (fanshu == undefined) {
-                    fanshu = 0;
-                }
-                fanshu = parseInt(fanshu);
-                if (fanshu > user.maxFanShu) {
-                    user.maxFanShu = fanshu;
-                }
+                // checkPaiList.sort(function (a, b) { return a - b });
+                // var returnArray = this.countHuPaiFanshu(pengList, gangPaiList, checkPaiList, testPaiList[i]);
+                // var fanshu = returnArray[0];
+                // if (fanshu == undefined) {
+                //     fanshu = 0;
+                // }
+                // fanshu = parseInt(fanshu);
+                // if (fanshu > user.maxFanShu) {
+                //     user.maxFanShu = fanshu;
+                // }
                 //break;
             }
         }
+
+        user.chaCheHuPaiList = chaCheHuPai;
         console.log("checkUserIfTingPai user:" + user.openid);
         console.log("checkUserIfTingPai:" + huFlag);
         return huFlag
@@ -2397,8 +2429,8 @@ cc.Class({
             }
 
         }
-        //console.log("xiaJiaoUserList:" + xiaJiaoUserList.toString());
-        //console.log("noXiaJiaoUserList:" + noXiaJiaoUserList.toString());
+        console.log("xiaJiaoUserList:" + xiaJiaoUserList.toString());
+        console.log("noXiaJiaoUserList:" + noXiaJiaoUserList.toString());
         if (xiaJiaoUserList != undefined && xiaJiaoUserList.length > 0) {
             if (noXiaJiaoUserList != undefined && noXiaJiaoUserList.length > 0) {
                 for (var j = 0; j < noXiaJiaoUserList.length; j++) {
@@ -2415,6 +2447,7 @@ cc.Class({
                             chaFanShu = maxFan;
                             noXiaJiaoUserList[j].huPaiDetails = noXiaJiaoUserList[j].huPaiDetails + "查花猪 "
                         } else {
+                            xiaJiaoUserList[k]=this.getMaxFanShu(xiaJiaoUserList[k]);
                             chaFanShu = xiaJiaoUserList[k].maxFanShu;
                         }
 
@@ -2447,7 +2480,11 @@ cc.Class({
                     }
 
                     noXiaJiaoUserList[j].roundScoreCount = noXiaJiaoUserList[j].roundScoreCount - peiFuFenShu * xiaJiaoUserList.length;
-                }
+                     console.log(noXiaJiaoUserList[j].nickName+":"+noXiaJiaoUserList[j].huPaiDetails);   
+             }
+
+
+              
             }
         }
 
@@ -2773,10 +2810,10 @@ cc.Class({
         for (var i = 0; i < paiList.length; i++) {
             tempPaiList.push(paiList[i])
         }
-        if(paiList.length<14){
-           tempPaiList.push(huPai);
+        if (paiList.length < 14) {
+            tempPaiList.push(huPai);
         }
-       
+
         console.log("2699:" + tempPaiList.toString());
         for (var i = 0; i < tempPaiList.length; i++) {
             var pai = tempPaiList[i] + "";

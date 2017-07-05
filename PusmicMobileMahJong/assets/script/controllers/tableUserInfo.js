@@ -196,7 +196,7 @@ cc.Class({
         Global.joinRoomNumber = "585930";
         var roomNumber = Global.joinRoomNumber;
         console.log("roomNumber:" + roomNumber);
-         console.log("roomNumber 199:" + roomNumber);
+        console.log("roomNumber 199:" + roomNumber);
         tableNetworkScript.connectByPrivateChanel();
         //tableNetworkScript.testJoinRoom(roomNumber);
 
@@ -242,7 +242,8 @@ cc.Class({
 
         Global.userList = userList;
         Global.huPreStep = "";
-         Global.nextUserOpenId="";
+        Global.nextUserOpenId = "";
+        Global.huanSanZhangPaiList = [];
         //Add the round count
 
         //Global.gameRoundCount = Global.gameRoundCount + 1;
@@ -312,7 +313,7 @@ cc.Class({
         //inital the test data
         //**********Test */
         if (initalType != "inital") {
-          //  this.testInitalUserList(initalType);
+            //  this.testInitalUserList(initalType);
         }
 
         //iniIndexScript.sendUserCode();
@@ -464,7 +465,7 @@ cc.Class({
         var v1 = [];
         var v2 = [];
         var v3 = [];
-
+        Global.huanSanZhangPaiList = [];
         for (var i = 0; i < paiList.length; ++i) {
             var pai = paiList[i];
             var sType = pai + ""

@@ -1,5 +1,5 @@
 var timerUpate;
-var timeCount;
+var huanPaiTimeCount;
 var tableUserInfo;
 var alerMessage;
 var gameTableNetWork;
@@ -33,16 +33,17 @@ cc.Class({
         alerMessage = this.alertMessageNode.getComponent("alertMessagePanle");
         gameTableNetWork = this.gameTableNetWorkNode.getComponent("GameTableNetWork")
 
-        timeCount = 14;
+        huanPaiTimeCount = 14;
         timerUpate = function () {
 
-            var showTimerStr = "(" + timeCount + ")";
+            var showTimerStr = "(" + huanPaiTimeCount + ")";
             var lable = this.huanPaiTimeLable.getComponent(cc.Label);
             lable.string = showTimerStr;
-            timeCount--;
+            huanPaiTimeCount--;
 
-            if (timeCount == -1) {
+            if (huanPaiTimeCount == -1) {
                 this.endTimer();
+
             }
 
         };
@@ -57,27 +58,32 @@ cc.Class({
     },
 
     stratTimer: function () {
-        timeCount = 14;
+        console.log("huanpai startTimer.");
+        huanPaiTimeCount = 14;
         let self = this;
         self.schedule(timerUpate, 1);
         //
 
     },
     endTimer: function () {
+           console.log("endTimer 68");
         Global.chuPaiActionType = ""
         let self = this;
         self.unschedule(timerUpate);
         // Global.chuPaiActionType = ""
         //auto select latest pai
-        if (sendFlag == false) {
-            tableUserInfo.forceFillHuanSanZhangList();
-            this.sendHuanSanZhang();
+        if (huanPaiTimeCount == -1) {
+            if (Global.huanSanZhangPaiList == null || Global.huanSanZhangPaiList == undefined || Global.huanSanZhangPaiList.length < 3) {
+                tableUserInfo.forceFillHuanSanZhangList();
+                this.sendHuanSanZhang();
+            }
+            huanPaiTimeCount = 14;
         }
 
     },
 
     sendHuanSanZhang: function () {
-        sendFlag=false;
+        sendFlag = false;
         if (Global.huanSanZhangPaiList.length < 3) {
             alerMessage.text = "你必须选择三张牌！";
             alerMessage.setTextOfPanel();
@@ -102,6 +108,7 @@ cc.Class({
     },
     closeHuanSanZhang: function () {
         this.huanPaiNode.active = false;
+        this.unschedule(timerUpate);
     },
     // called every frame, uncomment this function to activate update callback
     // update: function (dt) {
