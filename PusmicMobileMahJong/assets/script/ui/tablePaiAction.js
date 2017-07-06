@@ -75,9 +75,13 @@ cc.Class({
     addPaiIntoPaiListNode: function (userChuPaiListNode, name, userPoint, paiNode, type) {
         var user = this.getCorrectUserByPoint(userPoint);
         var userPaiList = user.paiList;
+        user.currentChuPaiX = 0;
+        user.currentChuPaiY = 0;
         console.log("addPaiIntoPaiListNode userPaiList:" + userPaiList);
         var x = user.chupaiListX;
         var y = user.chupaiListY;
+        //-----------------Fix the point again-----------------
+
         var paiPath = this.getChuPaiNameByNodeName(name, userPoint);
         console.log("paiPath:" + paiPath);
         console.log("addPaiIntoPaiListNode user:" + user.openid);
@@ -104,6 +108,11 @@ cc.Class({
         pNode.name = "pai" + userPoint + "_" + name;
         pNode.active = false;
         pNode.position = cc.p(x, y);
+
+        //pNode=this.fixPointAgain(userChuPaiListNode,pNode,userPoint);
+
+        user.currentChuPaiX = x;
+        user.currentChuPaiY = y;
         //pNode.width = 42;
         //pNode.height = 61;
         var sprite = pNode.getComponent(cc.Sprite);
@@ -169,6 +178,32 @@ cc.Class({
 
         return user
 
+    },
+
+    fixPointAgain: function (userChuPaiListNode, pNode, index) {
+        var children = userChuPaiListNode.children;
+        var flag = false;
+        for (var i = 0; i < children.length; i++) {
+            if (children[i].x == pNode.x && children[i].y == pNode.y) {
+                flag = true;
+            }
+        }
+
+        if (flag) {
+            if (index == "1") {
+                pNode.x = pNode.x - 42;
+            } else if (index == "2") {
+                pNode.y = pNode.y - 35;
+
+            } else if (index == "3") {
+                pNode.x = pNode.x + 42;
+
+            } else if (index == "4") {
+                pNode.y = pNode.y + 35;
+            }
+        }
+
+        return pNode;
     },
     //-------------------game action-------------------------------
     slefChuPaiAction: function (paiNumber) {
@@ -362,7 +397,12 @@ cc.Class({
         var lastNode;
 
         for (var i = 0; i < children.length; i++) {
-            lastNode = children[i];
+            if (user.currentChuPaiX == children[i].x && user.currentChuPaiY == children[i].y) {
+                lastNode = children[i];
+                user.chupaiListX = user.currentChuPaiX;
+                user.chupaiListY = user.currentChuPaiY;
+            }
+
         }
         if (lastNode != null & lastNode != undefined) {
             lastNode.removeFromParent();
@@ -371,17 +411,17 @@ cc.Class({
         //Fix the user chupai list 
         children = userChuPaiListNode.children;
         user.chuPaiCount = parseInt(user.chuPaiCount - 1);
-        if (index == "1") {
-            user.chupaiListX = user.chupaiListX + 42;
-        } else if (index == "2") {
-            user.chupaiListY = user.chupaiListY + 35;
+        // if (index == "1") {
+        //     user.chupaiListX = user.chupaiListX + 42;
+        // } else if (index == "2") {
+        //     user.chupaiListY = user.chupaiListY + 35;
 
-        } else if (index == "3") {
-            user.chupaiListX = user.chupaiListX - 42;
+        // } else if (index == "3") {
+        //     user.chupaiListX = user.chupaiListX - 42;
 
-        } else if (index == "4") {
-            user.chupaiListY = user.chupaiListY - 35;
-        }
+        // } else if (index == "4") {
+        //     user.chupaiListY = user.chupaiListY - 35;
+        // }
 
 
         this.updateUserListInGobal(user);

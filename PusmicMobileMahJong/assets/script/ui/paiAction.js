@@ -207,9 +207,9 @@ cc.Class({
         //only mo pai check the peng list on gang 
         if (type == "mopai") {
             console.log("209:"+pengList.toString());
-            for (var i = 0; i < pengList.length; i++) {
-                console.log("pengList[i]:"+pengList[i]);
-                var pengPai = pengList[i] + "";
+            for (var h = 0; h < pengList.length; h++) {
+                console.log("pengList[i]:"+pengList[h]);
+                var pengPai = pengList[h] + "";
                 pengPai = pengPai.trim();
                 if (pengPai+"" == paiNumber + "") {
                     if (actionArray.indexOf("gang") < 0) {
@@ -224,6 +224,7 @@ cc.Class({
                         if (actionArray.indexOf("gang") < 0) {
                             actionArray.push("gang");
                             actionLevel = 2;
+                            paiNumber=pai;
                         }
                     }
 
@@ -232,6 +233,7 @@ cc.Class({
                         if (actionArray.indexOf("gang") < 0) {
                             actionArray.push("gang");
                             actionLevel = 2;
+                            paiNumber=pai;
                         }
                     }
                 }
@@ -314,7 +316,8 @@ cc.Class({
                 if (tempCount == 4) {
                     if (actionArray.indexOf("gang") < 0) {
                         actionArray.push("gang");
-                        actionLevel = 2
+                        actionLevel = 2;
+                         paiNumber=pai;
                     }
                 }
             }

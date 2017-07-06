@@ -185,6 +185,7 @@ cc.Class({
             if(paiNumber+""==paiList.toString()+""){
                 huFlag=true;
             }
+            return huFlag;
 
         } else {
             for (var i = 0; i < paiList.length; i++) {

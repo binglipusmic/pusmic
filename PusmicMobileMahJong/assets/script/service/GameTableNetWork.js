@@ -2721,6 +2721,10 @@ cc.Class({
             }
         }
 
+        if(paiList.length==1 ||paiList.length==2){
+            daDuiZiFlag=true;
+        }
+
         qiaoQiDuiFlag = this.checkQiaoQiDui(huPai, paiList);
         console.log("2625 qiaoQiDuiFlag:" + qiaoQiDuiFlag);
         if (qiaoQiDuiFlag) {
