@@ -23,6 +23,8 @@ cc.Class({
         tableNetWorkNode: cc.Node,
         endLunFlag: "0",
         tableCenterNode: cc.Node,
+        huanPaiNode: cc.Node,
+        pullNode:cc.Node,
 
     },
 
@@ -38,8 +40,12 @@ cc.Class({
     initalRoundScore: function () {
         var userList = Global.userList;
         this.userRoundScoreNode.active = true;
+        userInfoScript.cleanOtherLiPai();
         for (var i = 0; i < userList.length; i++) {
             var user = userList[i];
+
+            userInfoScript.initalOtherPaiListTangPai(user, user.pointIndex + "", "");
+
             var nodeName = "user" + (i + 1) + "ScoreNode";
             var userNode = cc.find(nodeName, this.userRoundScoreNode);
             var bgNode = cc.find("bgSprite", userNode);
@@ -66,6 +72,13 @@ cc.Class({
 
 
         }
+
+
+
+
+
+
+
     },
 
     initalUserImage: function (testImageUrl, nodeName) {
@@ -79,6 +92,23 @@ cc.Class({
             headNode.getComponent(cc.Sprite).spriteFrame = frame;
             console.log("userNode ui :1214");
         });
+    },
+    pullAndPushPanel: function () {
+        var action = null;
+        var buttonLableNode = cc.find("Label", this.pullNode);
+        var label=buttonLableNode.getComponent(cc.Label);
+        if (this.userRoundScoreNode.y == 0) {
+            action = cc.moveTo(1, cc.p(0, 680));
+            label.string="下  推";
+
+        } else {
+            action = cc.moveTo(1, cc.p(0, 0));
+             label.string="上  拉";
+        }
+
+
+         this.userRoundScoreNode.runAction(action);
+
     },
     initalUserImageAll: function (testImageUrl, nodeName) {
         cc.loader.load(testImageUrl, function (err, texture) {
@@ -101,7 +131,7 @@ cc.Class({
 
     initalAllRoundScore: function (userObjList) {
         console.log("initalAllRoundScore 103");
-      
+
         var userList = Global.userList;
         this.userAllRoundScireNode.active = true;
         for (var i = 0; i < userList.length; i++) {
@@ -155,21 +185,23 @@ cc.Class({
             var userCountNode = cc.find("totalCountNode", bgNode);
             var userCountAllLable = userCountNode.getComponent(cc.Label);
             userCountAllLable.string = "总成绩: 0";
+            user.zhuang = "";
         }
 
         this.userAllRoundScireNode.active = false;
+        this.huanPaiNode.active = false;
 
 
         userInfoScript.cleanUserList();
         userInfoScript.cleanTable();
-        //userInfoScript.initalUserOnRound();
+        userInfoScript.initalUserOnRound();
 
         //gameConfigButtonScript.endGameRoundLun();
         tableNetWorkScript.forceInitaClient();
         gameConfigButtonScript.enterMainEntry("1");
-        Global.zhuangOpenId=null;
-        Global.gameRoundCount=1;
-        Global.userList=null;
+        Global.zhuangOpenId = null;
+        Global.gameRoundCount = 1;
+        Global.userList = [];
     },
     closeRoundScore: function () {
         //tableNetWorkScript.sendGetGameRoundlunScoreCount();
@@ -178,7 +210,7 @@ cc.Class({
         //1.clean the data layer
         userInfoScript.cleanUserList();
         userInfoScript.cleanTable();
-
+        this.huanPaiNode.active = false;
         //
         var gameMode = Global.gameMode;
         console.log("178 gameMode.huanSanZhang:" + gameMode.huanSanZhang);

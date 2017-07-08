@@ -202,6 +202,11 @@ cc.Class({
 
 
     },
+
+    //user1 0,345
+    //user4 547,175
+    //user2 -607 175
+    //user3 0 -75
     cleanUserList: function () {
         var userList = Global.userList;
         for (var i = 0; i < userList.length; i++) {
@@ -251,6 +256,14 @@ cc.Class({
     /**
      * Clean the table all node 
      */
+    cleanOtherLiPai: function () {
+        for (var i = 0; i < 4; i++) {
+            if (i != 2) {
+                var paiNode = cc.find("user" + (i + 1) + "PaiList", this.tableNode);
+                paiNode.removeAllChildren();
+            }
+        }
+    },
     cleanTable: function () {
         //tablePaiActionScript.removeAllNodeFromSelfPaiList();
         //tablePaiActionScript.removeAllNodeFromOtherPaiList();
@@ -313,7 +326,8 @@ cc.Class({
         //inital the test data
         //**********Test */
         if (initalType != "inital") {
-            //  this.testInitalUserList(initalType);
+            //this.testInitalUserList(initalType);
+            //var gameMode = require("gameMode").gameMode;
         }
 
         //iniIndexScript.sendUserCode();
@@ -404,6 +418,8 @@ cc.Class({
                         user.chuPaiCount = 0;
                     } else {
                         user.paiListArray = this.initalOtherPaiList(paiList, user.pointIndex, initalType, "");
+                        //this.cleanOtherLiPai();
+                       
                         user = this.initalOtherUserChuPaiPoint(user, user.pointIndex + "");
                         //intal other user pai
                     }
@@ -813,6 +829,155 @@ cc.Class({
         return paiArray
 
     },
+    getChuPaiNameByNodeName: function (paiName, userIndex) {
+        console.log("getChuPaiNameByNodeName:" + paiName);
+        paiName = paiName + "";
+        var returnName = "";
+        var backPrefix = "";
+        var folderName = "user" + userIndex;
+        var type = paiName[0];
+        var number = paiName[1];
+        type = type + "";
+        number = number + "";
+        console.log("getChuPaiNameByNodeName type:" + type);
+        console.log("getChuPaiNameByNodeName number:" + number);
+        var firstPrefix = "";
+        var backPrefix2 = "";
+        if (userIndex == "1") {
+            backPrefix = "-u";
+        }
+        if (userIndex == "2") {
+            backPrefix = "-l";
+        }
+        if (userIndex == "3") {
+            backPrefix = "-d";
+        }
+        if (userIndex == "4") {
+            backPrefix = "-r";
+        }
+
+        if (type == "1") {
+            firstPrefix = "tong";
+            backPrefix2 = "b";
+        }
+        if (type == "2") {
+            firstPrefix = "tiao"
+            backPrefix2 = "t";
+        }
+        if (type == "3") {
+            firstPrefix = "wan"
+            backPrefix2 = "w";
+        }
+
+        returnName = folderName + "/" + firstPrefix + backPrefix + "/" + number + backPrefix2
+        return returnName;
+
+    },
+
+    initalOtherPaiListTangPai: function (user, point, endPoint) {
+        var paiArray = user.paiListArray;
+        var startX = 0;
+        var startY = 0;
+        for (var i = 0; i < paiArray.length; i++) {
+            if (paiArray[i] != null && paiArray[i] != undefined) {
+                if (paiArray[i] != "") {
+                    var paiPath = null;
+                    var name = paiArray[i] + "";
+                    name = name.trim();
+                    if (point == "1") {
+                        paiPath = this.getChuPaiNameByNodeName(name, "1");
+
+                    } else {
+
+                        if (point == "2") {
+                            paiPath = this.getChuPaiNameByNodeName(name, "2");
+                            //this.user2PaiListNode.addChild(paiNode);
+                        } else {
+                            paiPath = this.getChuPaiNameByNodeName(name, "4");
+                            // this.user4PaiListNode.addChild(paiNode);
+                        }
+
+                    }
+                    console.log("paiPath:" + paiPath);
+                    cc.loader.loadRes(paiPath, cc.SpriteFrame, function (err, sp) {
+                        if (err) {
+                            // console.log("----" + err.message || err);
+                            return;
+                        }
+                        var paiNode;
+                        var sprite;
+                        var childeCount = 0;
+                        var paiLisNodeChilren = cc.find("user" + point + "PaiList", this.tableNode);
+                        childeCount = paiLisNodeChilren.childrenCount;
+                        //childeCount=childeCount+"";
+                        console.log("childeCount:"+childeCount);
+                        paiNode = cc.instantiate(this.backNode);
+                        paiNode.name = "pai" + (childeCount) + "_" + name;
+                        sprite = paiNode.getComponent(cc.Sprite);
+                        sprite.spriteFrame = sp;
+                        eval("this.user" + point + "PaiListNode.addChild(paiNode)");
+                        //fix the user 1
+                        console.log("info endPoint:" + endPoint + ":" + point);
+                        if (point == "1") {
+                            //startX = 380;
+                            if (endPoint != null && endPoint != undefined && endPoint + "" != "") {
+                                startX = endPoint + paiArray.length * 42 - 30;
+                            } else {
+                                startX = 300;
+                            }
+                            paiNode.rotation = 180;
+                            paiNode.position = cc.p(startX - childeCount * 42, 0);
+                            //this.user1PaiListNode.addChild(paiNode);
+                        }
+
+                        if (point == "2") {
+                            startX = 0;
+
+                            if (endPoint != null && endPoint != undefined && endPoint + "" != "") {
+                                startY = endPoint + paiArray.length * 35 + 49;
+                            } else {
+                                startY = 210;
+                            }
+
+                            paiNode.position = cc.p(startX, startY - childeCount * 35);
+                            console.log("2:" + childeCount);
+                            //paiNode.zIndex = paiArray.length - i;
+                            paiNode.zIndex = paiArray.length + childeCount;
+                            //paiNode.width = 40;
+                            //paiNode.height = 85;
+                            //parentNode
+
+                        }
+
+                        if (point == "4") {
+                            startX = 0;
+                            // if (pengLength > 0 || gangLength > 0) {
+                            //     startY = -210;
+                            // } else {
+                            //     startY = -180;
+                            // }
+                            if (endPoint != null && endPoint != undefined && endPoint + "" != "") {
+                                startY = endPoint - paiArray.length * 35 + 35;
+                            } else {
+                                startY = -180;
+                            }
+
+                            paiNode.position = cc.p(startX, startY + childeCount * 35);
+                            paiNode.zIndex = paiArray.length - childeCount;
+                            //paiNode.width = 40;
+                            //paiNode.height = 85;
+                        }
+
+                    }.bind(this));
+
+
+
+                }
+            }
+        }
+
+    },
+
     initalOtherPaiList: function (paiList, point, iniType, endPoint) {
         var paiArray = paiList.split(",");
         var startX = 0;

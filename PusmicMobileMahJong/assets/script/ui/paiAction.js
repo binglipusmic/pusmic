@@ -1396,6 +1396,17 @@ cc.Class({
 
         return tempList
     },
+    //  removeElementByNumberFromUser: function (paiList, paiNumber, b) {
+    //      var tempList=[];
+    //       for (var i = 0; i < paiList.length; ++i) {
+    //             var temp = paiList[i] + "";
+    //             temp = temp.trim();
+    //             if (temp == paiNumber) {
+                   
+    //             }
+
+    //         }
+    //  },
 
     removeElementByNumberFromUser: function (paiList, paiNumber, b) {
         var c = 1;
@@ -1420,9 +1431,7 @@ cc.Class({
         //onely for test end
 
         console.log("peng pai list:" + paiList);
-        return paiList
-
-
+        return paiList;
 
     },
 

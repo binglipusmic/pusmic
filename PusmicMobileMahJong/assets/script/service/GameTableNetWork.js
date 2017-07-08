@@ -1963,7 +1963,7 @@ cc.Class({
     // },
 
     getMaxFanShu: function (user) {
-        console.log("getMaxFanShu start....:"+user.nickName+"::"+user.paiListArray.toString());
+        console.log("getMaxFanShu start....:" + user.nickName + "::" + user.paiListArray.toString());
         var chaCheHuPaiList = user.chaCheHuPaiList;
         if (chaCheHuPaiList != null && chaCheHuPaiList != undefined) {
             if (chaCheHuPaiList.length > 0) {
@@ -1986,7 +1986,7 @@ cc.Class({
                 }
             }
         }
-        console.log("getMaxFanShu max fan....:"+ user.maxFanShu);
+        console.log("getMaxFanShu max fan....:" + user.maxFanShu);
         return user;
     },
     //----------------Count round socre--------------------
@@ -2447,7 +2447,7 @@ cc.Class({
                             chaFanShu = maxFan;
                             noXiaJiaoUserList[j].huPaiDetails = noXiaJiaoUserList[j].huPaiDetails + "查花猪 "
                         } else {
-                            xiaJiaoUserList[k]=this.getMaxFanShu(xiaJiaoUserList[k]);
+                            xiaJiaoUserList[k] = this.getMaxFanShu(xiaJiaoUserList[k]);
                             chaFanShu = xiaJiaoUserList[k].maxFanShu;
                         }
 
@@ -2480,11 +2480,11 @@ cc.Class({
                     }
 
                     noXiaJiaoUserList[j].roundScoreCount = noXiaJiaoUserList[j].roundScoreCount - peiFuFenShu * xiaJiaoUserList.length;
-                     console.log(noXiaJiaoUserList[j].nickName+":"+noXiaJiaoUserList[j].huPaiDetails);   
-             }
+                    console.log(noXiaJiaoUserList[j].nickName + ":" + noXiaJiaoUserList[j].huPaiDetails);
+                }
 
 
-              
+
             }
         }
 
@@ -2570,11 +2570,20 @@ cc.Class({
         var huGangCount = this.countElementAccount(huPai, paiList);
         console.log("2479 huPai:" + huPai);
         console.log("2479 huGangCount:" + huGangCount);
-        if (huGangCount == 4) {
+        if (paiList.length == 14 ||paiList.length == 11 ||paiList.length == 8||paiList.length == 5) {
+            if (huGangCount >=4) {
 
-            details = details + " 胡牌带杠:1番;"
-            fanShu = fanShu + 1;
+                details = details + " 胡牌带杠:1番;"
+                fanShu = fanShu + 1;
+            }
+        }else{
+              if (huGangCount >=3) {
+
+                details = details + " 胡牌带杠:1番;"
+                fanShu = fanShu + 1;
+            }
         }
+ 
 
         console.log("2425 paiList:" + paiList.toString());
         for (var i = 0; i < paiList.length; i++) {
@@ -2721,8 +2730,8 @@ cc.Class({
             }
         }
 
-        if(paiList.length==1 ||paiList.length==2){
-            daDuiZiFlag=true;
+        if (paiList.length == 1 || paiList.length == 2) {
+            daDuiZiFlag = true;
         }
 
         qiaoQiDuiFlag = this.checkQiaoQiDui(huPai, paiList);
