@@ -259,7 +259,7 @@ class WebSokectController {
             newMessageObj.messageBody = s2
 
             def s3 = new JsonBuilder(newMessageObj).toPrettyString()
-            websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s3)
+           // websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s3)
         }
 
         //quepai only send

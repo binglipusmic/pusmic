@@ -23,6 +23,9 @@ class GameUserPlatObj {
 
     int gameRoundScore
     int gameScoreCount
+
+    double longitude
+    double latitude
     String gameReadyStatu
 
 }

@@ -489,6 +489,13 @@ class UserService {
                                 outputUser.winCount="0"
                             }
 
+
+                            def readyUserInfo = LoingUserInfo.findAllByUserOpeid(gameU.springUser.openid, [sort: 'loginTime']).last()
+                            if(readyUserInfo){
+                                outputUser.longitude=readyUserInfo.longitude
+                                outputUser.latitude=readyUserInfo.latitude
+                            }
+
                             gameUserListArray.add(outputUser)
 
                         }
