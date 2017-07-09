@@ -478,6 +478,17 @@ class UserService {
                             outputUser.gameReadyStatu = gameU.gameReadyStatu
                             outputUser.headImageFileName = gameU.springUser.headImageFileName
                             outputUser.zhuang = gameU.zhuang
+                            if(gameU.springUser.gameCount){
+                                outputUser.totalCount=gameU.springUser.gameCount.toString()
+                            }else{
+                                outputUser.totalCount="0"
+                            }
+                            if(gameU.springUser.winCount){
+                                outputUser.winCount=gameU.springUser.winCount.toString()
+                            }else{
+                                outputUser.winCount="0"
+                            }
+
                             gameUserListArray.add(outputUser)
 
                         }

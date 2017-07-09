@@ -2,6 +2,7 @@ package com.pusmicgame
 
 import com.pusmicgame.domain.ActionMessageDomain
 import com.pusmicgame.domain.MessageDomain
+import com.pusmicgame.domain.UserLocation
 import grails.async.Promise
 import grails.converters.JSON
 import groovy.json.JsonBuilder
@@ -245,7 +246,20 @@ class WebSokectController {
             def obj = JSON.parse(messageJsonObj.messageBody)
             sessionHeaders.put("roomNumber", messageJsonObj.messageBelongsToPrivateChanleNumber);
             sessionHeaders.put("openid", obj.openid);
+            MessageDomain newMessageObj = new MessageDomain()
+            newMessageObj.messageBelongsToPrivateChanleNumber = messageJsonObj.messageBelongsToPrivateChanleNumber
+            newMessageObj.messageAction = "setLocation"
 
+            UserLocation userLocation=new UserLocation()
+            userLocation.openid=obj.openid
+            userLocation.longitude=obj.longitude
+            userLocation.latitude=obj.latitude
+
+            def s2 = new JsonBuilder(userLocation).toPrettyString()
+            newMessageObj.messageBody = s2
+
+            def s3 = new JsonBuilder(newMessageObj).toPrettyString()
+            websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s3)
         }
 
         //quepai only send

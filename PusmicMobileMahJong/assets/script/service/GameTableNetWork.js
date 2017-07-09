@@ -605,7 +605,19 @@ cc.Class({
                     }
 
                 }
+                //-------------get gps location for all user------------------------------
+                if (messageDomain.messageAction == "setLocation") {
+                    var obj = JSON.parse(messageDomain.messageBody);
+                    var userList = Global.userList;
+                    for (var i = 0; i < userList.length; i++) {
+                        if(userList[i].openid==obj.openid){
+                            userList[i].longitude=obj.longitude;
+                            userList[i].latitude=obj.latitude;
+                            console.log("set location to user:"+ userList[i].nickName);
+                        }
+                    }
 
+                }
                 //-------------Play Audio message------------------------------
                 if (messageDomain.messageAction == "playMp3Message") {
                     var mp3MessageBase64Encode = messageDomain.messageBody;
@@ -2570,20 +2582,20 @@ cc.Class({
         var huGangCount = this.countElementAccount(huPai, paiList);
         console.log("2479 huPai:" + huPai);
         console.log("2479 huGangCount:" + huGangCount);
-        if (paiList.length == 14 ||paiList.length == 11 ||paiList.length == 8||paiList.length == 5) {
-            if (huGangCount >=4) {
+        if (paiList.length == 14 || paiList.length == 11 || paiList.length == 8 || paiList.length == 5) {
+            if (huGangCount >= 4) {
 
                 details = details + " 胡牌带杠:1番;"
                 fanShu = fanShu + 1;
             }
-        }else{
-              if (huGangCount >=3) {
+        } else {
+            if (huGangCount >= 3) {
 
                 details = details + " 胡牌带杠:1番;"
                 fanShu = fanShu + 1;
             }
         }
- 
+
 
         console.log("2425 paiList:" + paiList.toString());
         for (var i = 0; i < paiList.length; i++) {

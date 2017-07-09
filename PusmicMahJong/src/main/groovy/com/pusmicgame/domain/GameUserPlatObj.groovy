@@ -18,6 +18,8 @@ class GameUserPlatObj {
     String action
     String onlineStatus
     String onlineRoomNumber
+    String winCount
+    String totalCount
 
     int gameRoundScore
     int gameScoreCount

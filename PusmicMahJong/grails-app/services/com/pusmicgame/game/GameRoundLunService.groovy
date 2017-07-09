@@ -303,6 +303,16 @@ class GameRoundLunService {
                 outputUser.gameReadyStatu=gu.gameReadyStatu
                 outputUser.headImageFileName=gu.headImageFileName
                 outputUser.zhuang="1"
+                if(user.gameCount){
+                    outputUser.totalCount=user.gameCount.toString()
+                }else{
+                    outputUser.totalCount="0"
+                }
+                if(user.winCount){
+                    outputUser.winCount=user.winCount.toString()
+                }else{
+                    outputUser.winCount="0"
+                }
                 //outputUser.headImageFileName=user.headImageFileName
                 println "line 273:"
                 //add game count

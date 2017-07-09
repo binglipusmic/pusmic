@@ -334,11 +334,20 @@ class GameRoundService {
                             //update total in spring user
                             if (gameUser.roundScoreCount) {
 
-                                //  if(user.roundScoreCount>0) {
-                                def springUser = user.springUser
-                               // updateScoreAndWinCountAndPushToClient(gameUser.springUser.openid, roomNumber,  gameUser.roundScoreCount)
+                                  if(user.roundScoreCount>0) {
+                                    def springUser = user.springUser
+                                      springUser=SpringUser.get(springUser.id)
 
-                                // }
+                                          if (springUser.winCount) {
+                                              springUser.winCount = springUser.winCount + 1
+                                          } else {
+                                              springUser.winCount = 1
+                                          }
+                                      springUser.save(flush: true, failOnError: true)
+
+                                      // updateScoreAndWinCountAndPushToClient(gameUser.springUser.openid, roomNumber,  gameUser.roundScoreCount)
+
+                                 }
                             }
 
                             gameUser.save(flush: true, failOnError: true)
