@@ -18,7 +18,11 @@ cc.Class({
         gpsLable: cc.Node,
         totalFenLable: cc.Node,
         userImageNode: cc.Node,
-        nickNameNode: cc.Node
+        nickNameNode: cc.Node,
+
+        removeRoomButton:cc.Node,
+        getFriendBtn:cc.Node,
+        backRoom:cc.Node
     },
 
     // use this for initialization
@@ -44,6 +48,10 @@ cc.Class({
 
 
     initalPersonalPanel: function (index) {
+        this.removeRoomButton.interactable=false;
+        this.getFriendBtn.interactable=false;
+        this.backRoom.interactable=false;
+
         var userInfo1 = Global.userInfo;
         var userLocation = Global.userLocation;
         var userList = Global.userList;
@@ -58,13 +66,18 @@ cc.Class({
                 nickLable.string = user.nickName;
 
                 var totalLableNode = this.totalFenLable.getComponent(cc.Label);
-                totalLableNode.string = user.totalCount;
+                totalLableNode.string = user.totalCount+"局";
 
                 var winLableNode = this.winLableNode.getComponent(cc.Label);
                 winLableNode.string = user.winCount;
 
+                var countLableNode = this.countLableNode.getComponent(cc.Label);
+                countLableNode.string = user.roundTotalScore;
+
                 targetUserLongitude = user.longitude;
                 targetUserLatitude = user.latitude;
+
+                //roundTotalScore
 
                 var serverUrl = Global.hostHttpProtocol + "://" + Global.hostServerIp + ":" + Global.hostServerPort;
                 var testHeaImageurl = serverUrl + "/webchatImage/" + user.headImageFileName;
@@ -80,9 +93,9 @@ cc.Class({
 
         if (userLocation.longitude != null && userLocation.longitude != undefined) {
             if (targetUserLongitude != null && targetUserLongitude != undefined) {
-               var distance= this.GetDistance(userLocation.latitude,userLocation.longitude,targetUserLatitude,targetUserLongitude);
-               var gpsLableNode=this.gpsLable.getComponent(cc.Label);
-               gpsLableNode.string=distance+"公里";
+                var distance = this.GetDistance(userLocation.latitude, userLocation.longitude, targetUserLatitude, targetUserLongitude);
+                var gpsLableNode = this.gpsLable.getComponent(cc.Label);
+                gpsLableNode.string = distance + "公里";
 
             }
 
@@ -91,13 +104,16 @@ cc.Class({
         this.personalPanel.active = true;
 
     },
+    Rad: function (d) {
+        return d * Math.PI / 180.0;//经纬度转换成三角函数中度分表形式。
+    },
 
     GetDistance: function (lat1, lng1, lat2, lng2) {
 
-        var radLat1 = Rad(lat1);
-        var radLat2 = Rad(lat2);
+        var radLat1 = this.Rad(lat1);
+        var radLat2 = this.Rad(lat2);
         var a = radLat1 - radLat2;
-        var b = Rad(lng1) - Rad(lng2);
+        var b = this.Rad(lng1) - this.Rad(lng2);
         var s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) +
             Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
         s = s * 6378.137;// EARTH_RADIUS;
@@ -108,6 +124,10 @@ cc.Class({
 
     closePersonalPanel: function () {
         this.personalPanel.active = false;
+
+         this.removeRoomButton.interactable=true;
+        this.getFriendBtn.interactable=true;
+        this.backRoom.interactable=true;
     }
 
     // called every frame, uncomment this function to activate update callback

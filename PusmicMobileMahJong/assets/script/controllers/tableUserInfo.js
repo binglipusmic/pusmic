@@ -243,6 +243,7 @@ cc.Class({
             user.huGangPaiInOtherUserFromOpenId = "";
             user.tingJiao = "";
             user.maxFanShu = 0;
+            //user.roundTotalScore=0;
         }
 
         Global.userList = userList;

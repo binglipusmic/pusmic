@@ -610,10 +610,10 @@ cc.Class({
                     var obj = JSON.parse(messageDomain.messageBody);
                     var userList = Global.userList;
                     for (var i = 0; i < userList.length; i++) {
-                        if(userList[i].openid==obj.openid){
-                            userList[i].longitude=obj.longitude;
-                            userList[i].latitude=obj.latitude;
-                            console.log("set location to user:"+ userList[i].nickName);
+                        if (userList[i].openid == obj.openid) {
+                            userList[i].longitude = obj.longitude;
+                            userList[i].latitude = obj.latitude;
+                            console.log("set location to user:" + userList[i].nickName);
                         }
                     }
 
@@ -2500,7 +2500,13 @@ cc.Class({
             }
         }
 
-
+        for (var i = 0; i < userList.length; i++) {
+            var user = userList[i];
+            if(user.roundTotalScore==null||user.roundTotalScore==undefined || user.roundTotalScore==""){
+                user.roundTotalScore=0;
+            }
+            user.roundTotalScore=user.roundTotalScore+user.roundScoreCount
+        }
 
         Global.userList = userList;
 

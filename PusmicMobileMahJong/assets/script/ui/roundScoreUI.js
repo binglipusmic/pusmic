@@ -186,6 +186,7 @@ cc.Class({
             var userCountAllLable = userCountNode.getComponent(cc.Label);
             userCountAllLable.string = "总成绩: 0";
             user.zhuang = "";
+            user.roundTotalScore=0;
         }
 
         this.userAllRoundScireNode.active = false;
