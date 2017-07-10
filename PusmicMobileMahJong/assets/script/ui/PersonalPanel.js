@@ -20,9 +20,9 @@ cc.Class({
         userImageNode: cc.Node,
         nickNameNode: cc.Node,
 
-        removeRoomButton:cc.Node,
-        getFriendBtn:cc.Node,
-        backRoom:cc.Node
+        removeRoomButton: cc.Node,
+        getFriendBtn: cc.Node,
+        backRoom: cc.Node
     },
 
     // use this for initialization
@@ -48,9 +48,9 @@ cc.Class({
 
 
     initalPersonalPanel: function (index) {
-        this.removeRoomButton.interactable=false;
-        this.getFriendBtn.interactable=false;
-        this.backRoom.interactable=false;
+        this.removeRoomButton.interactable = false;
+        this.getFriendBtn.interactable = false;
+        this.backRoom.interactable = false;
 
         var userInfo1 = Global.userInfo;
         var userLocation = Global.userLocation;
@@ -66,13 +66,18 @@ cc.Class({
                 nickLable.string = user.nickName;
 
                 var totalLableNode = this.totalFenLable.getComponent(cc.Label);
-                totalLableNode.string = user.totalCount+"局";
+                totalLableNode.string = user.totalCount + "局";
 
                 var winLableNode = this.winLableNode.getComponent(cc.Label);
                 winLableNode.string = user.winCount;
 
                 var countLableNode = this.countLableNode.getComponent(cc.Label);
-                countLableNode.string = user.roundTotalScore;
+                if (user.roundTotalScore == null || user.roundTotalScore == undefined || user.roundTotalScore == "") {
+                    countLableNode.string = "0";
+                } else {
+                    countLableNode.string = user.roundTotalScore;
+                }
+
 
                 targetUserLongitude = user.longitude;
                 targetUserLatitude = user.latitude;
@@ -125,9 +130,9 @@ cc.Class({
     closePersonalPanel: function () {
         this.personalPanel.active = false;
 
-         this.removeRoomButton.interactable=true;
-        this.getFriendBtn.interactable=true;
-        this.backRoom.interactable=true;
+        this.removeRoomButton.interactable = true;
+        this.getFriendBtn.interactable = true;
+        this.backRoom.interactable = true;
     }
 
     // called every frame, uncomment this function to activate update callback

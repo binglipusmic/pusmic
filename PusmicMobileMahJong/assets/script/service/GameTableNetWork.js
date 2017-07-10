@@ -59,6 +59,9 @@ cc.Class({
         offlineScriptNode: cc.Node,
 
 
+        tableRoundFenCountNode:cc.Node,
+
+
     },
 
     // use this for initialization
@@ -449,6 +452,9 @@ cc.Class({
                                 paiListString = this.changeJsonListStringToArrayString(paiListString)
                                 console.log("gameUser.paiList:" + paiListString);
                                 user.paiList = paiListString;
+
+                                var roundFenCountLable=this.roundFenCountLable.getComponent(cc.Label);
+                                roundFenCountLable.string="得分:"+user.roundTotalScore;
                             }
 
                             //   if (user.openid == userInfo.openid) {
