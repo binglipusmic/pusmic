@@ -453,8 +453,11 @@ cc.Class({
                                 console.log("gameUser.paiList:" + paiListString);
                                 user.paiList = paiListString;
 
-                                var roundFenCountLable=this.roundFenCountLable.getComponent(cc.Label);
-                                roundFenCountLable.string="得分:"+user.roundTotalScore;
+                                if(user.roundTotalScore==undefined||user.roundTotalScore==null){
+                                    user.roundTotalScore=0;
+                                }
+
+                                
                             }
 
                             //   if (user.openid == userInfo.openid) {

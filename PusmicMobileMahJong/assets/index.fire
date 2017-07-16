@@ -31439,7 +31439,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 305
+      "y": 251
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -31548,7 +31548,7 @@
     "_alignFlags": 17,
     "_left": 0,
     "_right": 0,
-    "_top": 20,
+    "_top": 74,
     "_bottom": 0,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
@@ -31598,8 +31598,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -497,
-      "y": 0
+      "x": -432,
+      "y": -58
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -31706,11 +31706,11 @@
     "isAlignOnce": true,
     "_target": null,
     "_alignFlags": 10,
-    "_left": 120,
+    "_left": 185,
     "_right": 0,
     "_top": 0,
     "_bottom": 0,
-    "_verticalCenter": 0,
+    "_verticalCenter": -58,
     "_horizontalCenter": 0,
     "_isAbsLeft": true,
     "_isAbsRight": true,
@@ -31918,7 +31918,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 497,
+      "x": 450,
       "y": 0
     },
     "_skewX": 0,
@@ -32027,7 +32027,7 @@
     "_target": null,
     "_alignFlags": 34,
     "_left": 0,
-    "_right": 120,
+    "_right": 167,
     "_top": 0,
     "_bottom": 0,
     "_verticalCenter": 0,
@@ -32269,6 +32269,9 @@
     },
     "pullNode": {
       "__id__": 945
+    },
+    "tableRoundFenCountNode": {
+      "__id__": 347
     }
   },
   {

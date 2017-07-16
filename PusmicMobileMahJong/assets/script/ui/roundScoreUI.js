@@ -25,6 +25,7 @@ cc.Class({
         tableCenterNode: cc.Node,
         huanPaiNode: cc.Node,
         pullNode:cc.Node,
+        tableRoundFenCountNode:cc.Node
 
     },
 
@@ -39,6 +40,7 @@ cc.Class({
 
     initalRoundScore: function () {
         var userList = Global.userList;
+        var userInfo = Global.userInfo;
         this.userRoundScoreNode.active = true;
         userInfoScript.cleanOtherLiPai();
         for (var i = 0; i < userList.length; i++) {
@@ -69,7 +71,10 @@ cc.Class({
 
             this.initalUserImage(headImageurl, nodeName);
 
-
+            if(userInfo.openid==user.openid){
+            var roundFenCountLable=this.tableRoundFenCountNode.getComponent(cc.Label);
+            roundFenCountLable.string="得分:"+user.roundTotalScore;
+            }
 
         }
 

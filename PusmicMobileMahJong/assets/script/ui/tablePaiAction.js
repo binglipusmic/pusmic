@@ -109,7 +109,7 @@ cc.Class({
         pNode.active = false;
         pNode.position = cc.p(x, y);
 
-        //pNode=this.fixPointAgain(userChuPaiListNode,pNode,userPoint);
+        pNode=this.fixPointAgain2(userChuPaiListNode,pNode,userPoint);
 
         user.currentChuPaiX = x;
         user.currentChuPaiY = y;
@@ -179,6 +179,51 @@ cc.Class({
         return user
 
     },
+     fixPointAgain2: function (userChuPaiListNode, pNode, index) {
+        var children = userChuPaiListNode.children;
+        index=index+"";
+        var flag = false;
+        var x=pNode.x ;
+        var y=pNode.y ;
+        console.log("fixPointAgain2:188");
+          if (index == "1") {
+              if(x==210){
+                return pNode;
+              }
+
+                x = x + 42;
+               
+            } else if (index == "2") {
+                if(y==120){
+                    return pNode;
+                }
+                y = y + 35;
+
+            } else if (index == "3") {
+                 if(x==-210){
+                     return pNode;
+                 }
+                x = x - 42;
+
+            } else if (index == "4") {
+                  if(y==-120){
+                      return pNode;
+                  }
+                y = y - 35;
+            }
+        for (var i = 0; i < children.length; i++) {
+            if (children[i].x == x&& children[i].y == y) {
+                flag = true;
+            }
+        }
+        if(children.length>0)
+        if(flag==false){
+            pNode.x=x;
+            pNode.y=y;
+        }
+        return pNode;
+        console.log("fixPointAgain2:209");
+     },
 
     fixPointAgain: function (userChuPaiListNode, pNode, index) {
         var children = userChuPaiListNode.children;
