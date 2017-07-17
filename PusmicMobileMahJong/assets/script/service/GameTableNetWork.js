@@ -59,7 +59,7 @@ cc.Class({
         offlineScriptNode: cc.Node,
 
 
-        tableRoundFenCountNode:cc.Node,
+        tableRoundFenCountNode: cc.Node,
 
 
     },
@@ -453,11 +453,11 @@ cc.Class({
                                 console.log("gameUser.paiList:" + paiListString);
                                 user.paiList = paiListString;
 
-                                if(user.roundTotalScore==undefined||user.roundTotalScore==null){
-                                    user.roundTotalScore=0;
+                                if (user.roundTotalScore == undefined || user.roundTotalScore == null) {
+                                    user.roundTotalScore = 0;
                                 }
 
-                                
+
                             }
 
                             //   if (user.openid == userInfo.openid) {
@@ -2511,10 +2511,10 @@ cc.Class({
 
         for (var i = 0; i < userList.length; i++) {
             var user = userList[i];
-            if(user.roundTotalScore==null||user.roundTotalScore==undefined || user.roundTotalScore==""){
-                user.roundTotalScore=0;
+            if (user.roundTotalScore == null || user.roundTotalScore == undefined || user.roundTotalScore == "") {
+                user.roundTotalScore = 0;
             }
-            user.roundTotalScore=user.roundTotalScore+user.roundScoreCount
+            user.roundTotalScore = user.roundTotalScore + user.roundScoreCount
         }
 
         Global.userList = userList;
@@ -2593,7 +2593,7 @@ cc.Class({
         minPai = minPai + "";
         var minPaiType = minPai[0];
 
-
+        //mengQingZhongZhang
         var huGangCount = this.countElementAccount(huPai, paiList);
         console.log("2479 huPai:" + huPai);
         console.log("2479 huGangCount:" + huGangCount);
@@ -2676,6 +2676,10 @@ cc.Class({
                         details = details + " 带杠:1番;"
                     }
 
+                    if (pengpai == "1" || pengpai == "9") {
+                        zhongZhangFlag = false;
+                    }
+
                     if (huPai + "" == pengpai) {
                         huPaiDaiGang = true;
                     }
@@ -2690,6 +2694,9 @@ cc.Class({
             for (var i = 0; i < gangList.length; i++) {
                 var pai = gangList[i] + "";
                 pai = pai.trim();
+                if (pai == "1" || pai == "9") {
+                    zhongZhangFlag = false;
+                }
                 var paiType = pai[0] + "";
                 if (paiType != minPaiType) {
                     qingYiSeFlag = false;
