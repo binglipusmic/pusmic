@@ -400,8 +400,12 @@ class UserService {
             SpringUser user = SpringUser.findByOpenid(openid)
             if (user) {
                 OnlineUser onlineUser = OnlineUser.findBySpringUser(user)
-                onlineUser.onlineStau=1
-                onlineUser.save(flush: true, failOnError: true)
+                if(onlineUser) {
+                    onlineUser.onlineStau = 1
+                    onlineUser.save(flush: true, failOnError: true)
+                }else{
+                    println "Can't found online user"
+                }
                 GameRoomNumber onlineRoomNumber = GameRoomNumber.findByRoomNumber(roomNumber)
                 if (onlineRoomNumber) {
                     GameRound gameRound = onlineRoomNumber.gameRound
