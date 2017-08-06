@@ -97,6 +97,10 @@ class UserController {
 
     }
 
+    def testFiler(){
+        paiService.filterArray([15, 16, 19, 19, 19,25, 25, 31, 33, 34, 37, 37, 39],[19,19,19]);
+    }
+
 
     def testFaPai() {
         def paiList = paiService.xiPai()

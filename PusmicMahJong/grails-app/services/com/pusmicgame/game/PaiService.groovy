@@ -264,7 +264,7 @@ class PaiService {
                     if(sf.toString().equals(tf)){
                         println "sourcetArray found :"+temp[j]
                         temp.removeAt(j)
-                        continue;
+                        break;
                     }
             }
 
@@ -426,6 +426,13 @@ class PaiService {
         }
 
         userPaiList=userPaiList.sort()
+
+        //fix it if it <13
+
+        while(userPaiList.size()<count){
+            userPaiList.push(paiList.last())
+            paiList=removeLastElement(paiList)
+        }
 
         returnList.add(paiList)
         returnList.add(userPaiList)

@@ -8,6 +8,8 @@ import groovy.json.JsonBuilder
 import org.apache.commons.logging.Log
 import groovy.util.logging.Log4j
 
+import grails.util.Holders
+
 @Transactional
 @Log4j
 class ShowActionBarService {
@@ -101,6 +103,10 @@ class ShowActionBarService {
      */
 
     def createActionBarRecordForAllUser(def gameStepId, def joinRoomNumber) {
+        //def session = RequestContextHolder.currentRequestAttributes().getSession()
+        def  servletContext=Holders.getServletContext()
+        def keyword=joinRoomNumber+"_"+gameStepId
+        def showActionList=[];
         GameRoomNumber gameRoomNumber = GameRoomNumber.findByRoomNumber(joinRoomNumber)
         if (gameRoomNumber) {
             GameRound gameRound = gameRoomNumber.gameRound
@@ -115,11 +121,14 @@ class ShowActionBarService {
                     showActionBarCache.gameStepId = gameStepId
                     showActionBarCache.addTime = new Date()
                     showActionBarCache.gameActionSatau = ""
-                    showActionBarCache.save(flush: true, failOnError: true)
+                    showActionList.add(showActionBarCache)
+                    //showActionBarCache.save(flush: true, failOnError: true)
                 }
 
             }
         }
+
+        servletContext[keyword]=showActionList;
 
 
     }
@@ -127,53 +136,73 @@ class ShowActionBarService {
 
     def updateActionBarForUser(def obj, def roomNumber) {
 
-        ShowActionBarCache showActionBarCache = ShowActionBarCache.findByGameStepIdAndShowUserOpenId(obj.gameStepId, obj.fromUserOpenid)
-        if (showActionBarCache) {
-            //if(showActionBarCache.showUserOpenId.equals(obj.fromUserOpenid)){
-            showActionBarCache.actionArrayString = obj.actionArrayStr
-            if (obj.paiNumber) {
-                showActionBarCache.paiNumber = obj.paiNumber
-            }
+        def  servletContext=Holders.getServletContext()
+        def keyWord=roomNumber+"_"+obj.gameStepId
+        def showActionList=servletContext[keyWord]
 
-            if (obj.actionArrayStr) {
-                if(obj.actionArrayStr.toString().contains("hudone")){
-                    showActionBarCache.gameActionSatau = "done"
-                   def  showActionBarCacheList=ShowActionBarCache.findAllByGameStepId(obj.gameStepId);
-                    if(showActionBarCacheList){
-                        showActionBarCacheList.each{
-                            if(!it.gameActionSatau.equals("done")){
-                                if(!it.gameActionSatau.equals("waithu")) {
-                                    it.gameActionSatau = "done"
-                                    it.save(flush: true, failOnError: true)
+       // ShowActionBarCache showActionBarCache = ShowActionBarCache.findByGameStepIdAndShowUserOpenId(obj.gameStepId, obj.fromUserOpenid)
+        if(showActionList) {
+            //ShowActionBarCache showActionBarCache=null
+            showActionList.each{showActionBarCache ->
+                if(showActionBarCache.showUserOpenId.toString().equals(obj.fromUserOpenid)){
+                    if (showActionBarCache) {
+                        //if(showActionBarCache.showUserOpenId.equals(obj.fromUserOpenid)){
+                        showActionBarCache.actionArrayString = obj.actionArrayStr
+                        if (obj.paiNumber) {
+                            showActionBarCache.paiNumber = obj.paiNumber
+                        }
+
+                        if (obj.actionArrayStr) {
+                            if (obj.actionArrayStr.toString().contains("hudone")) {
+                                showActionBarCache.gameActionSatau = "done"
+                                def showActionBarCacheList = ShowActionBarCache.findAllByGameStepId(obj.gameStepId);
+                                if (showActionBarCacheList) {
+                                    showActionBarCacheList.each {
+                                        if (!it.gameActionSatau.equals("done")) {
+                                            if (!it.gameActionSatau.equals("waithu")) {
+                                                it.gameActionSatau = "done"
+                                                //it.save(flush: true, failOnError: true)
+                                            }
+                                        }
+
+                                    }
+                                }
+
+                            } else {
+                                if (obj.actionArrayStr.toString().contains("hu")) {
+                                    showActionBarCache.gameActionSatau = "waithu"
+                                } else {
+                                    showActionBarCache.gameActionSatau = "waitnohu"
                                 }
                             }
 
-                        }
-                    }
 
-                }else{
-                    if (obj.actionArrayStr.toString().contains("hu")) {
-                        showActionBarCache.gameActionSatau = "waithu"
-                    } else {
-                        showActionBarCache.gameActionSatau = "waitnohu"
+                        } else {
+                            showActionBarCache.gameActionSatau = "done"
+                        }
+                        // showActionBarCache.save(flush: true, failOnError: true)
+                        // }
+
+
+                        println "0####:" + showActionBarCache.id + ":" + showActionBarCache.gameActionSatau
                     }
                 }
-
-
-            } else {
-                showActionBarCache.gameActionSatau = "done"
             }
-            showActionBarCache.save(flush: true, failOnError: true)
-            // }
 
-            println "0####:" + showActionBarCache.id + ":" + showActionBarCache.gameActionSatau
+            servletContext[keyWord]=showActionList
+
         }
 
     }
 
 
     def checkUpdateStatus(def obj, def roomNumber) {
-        def actionBarList = ShowActionBarCache.findAllByGameStepId(obj.gameStepId)
+        //def actionBarList = ShowActionBarCache.findAllByGameStepId(obj.gameStepId)
+
+        def  servletContext=Holders.getServletContext()
+        def keyWord=roomNumber+"_"+obj.gameStepId
+        def actionBarList=servletContext[keyWord]
+
         def satauStr = ""
         if (actionBarList) {
             def actionCount = 0
@@ -225,7 +254,7 @@ class ShowActionBarService {
                         def s2 = new JsonBuilder(newMessageObj).toPrettyString()
 
                         websokectService.privateUserChanelByRoomNumber(newMessageObj.messageBelongsToPrivateChanleNumber, s2)
-
+                        servletContext.removeAttribute(keyWord);
                     }
                     //2,waitnohu
                     //3,waithu

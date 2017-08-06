@@ -47,7 +47,9 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	[pattern: '/remote-assets/**', access: ['permitAll']],
     [pattern: '/public/remote-assets/**', access: ['permitAll']],
     [pattern: '/public/webchatImage/**', access: ['permitAll']],
-	[pattern: '/downloadAPK/**', access: ['permitAll']]
+	[pattern: '/downloadAPK/**', access: ['permitAll']],
+        //only for test ,we must remove this when we deploy it into server
+	[pattern: '/gameUser/**', access: ['permitAll']]
 		//webchatImage
 	//[pattern: '/faPai/**', access: 'ROLE_ADMIN']
 		//ROLE_USER
