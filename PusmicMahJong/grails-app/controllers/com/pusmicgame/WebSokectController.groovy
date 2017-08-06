@@ -410,7 +410,7 @@ class WebSokectController {
                         if (obj.fromUserOpenid.toString().equals(obj.chuPaiUserOpenId.toString())) {
 
                             MessageDomain newMessageObj = new MessageDomain()
-                            newMessageObj.messageBelongsToPrivateChanleNumber = roomNumber
+                            newMessageObj.messageBelongsToPrivateChanleNumber = messageJsonObj.messageBelongsToPrivateChanleNumber
                             newMessageObj.messageAction = "serverSendMoPaiAction"
                             newMessageObj.messageBody = ""
                             newMessageObj.messageType = "gameAction"
