@@ -30,36 +30,45 @@ class ShowActionBarService {
 
     def handelHuAcion(def obj, def roomNumber) {
         def allActionDoneFlag = false;
-
+//gameStepId
         def huUserOpenId = obj.fromUserOpenid
-        def reocrd = ShowActionBarCache.findByShowUserOpenIdAndRoomNumber(huUserOpenId, roomNumber)
-        if (reocrd) {
-            reocrd.delete(flush: true, failOnError: true)
-        }
+        def paiFromOpenId = obj.chuPaiUserOpenId
+        def gameStepId=obj.gameStepId
+        if(huUserOpenId.toString().equals(paiFromOpenId.toString())){
+            allActionDoneFlag =true;
+        }else {
+            def  servletContext=Holders.getServletContext()
+            def keyword=joinRoomNumber+"_"+gameStepId
+            def otherRecord=servletContext[keyWord]
+           // def reocrd = ShowActionBarCache.findByShowUserOpenIdAndRoomNumber(huUserOpenId, roomNumber)
+//            if (reocrd) {
+//                reocrd.delete(flush: true, failOnError: true)
+//            }
 
-        def otherRecord = ShowActionBarCache.findAllByRoomNumber(roomNumber)
-        if (!otherRecord) {
-            allActionDoneFlag = true
-        } else {
-            //it stil exist other action ,check if it is noHU action
-            boolean existHuFlag = false;
-            otherRecord.each {
-                if (it.actionArrayString.toString().contains("hu")) {
-                    //
-                    existHuFlag = true;
+         //   def otherRecord = ShowActionBarCache.findAllByRoomNumber(roomNumber)
+            if (!otherRecord) {
+                allActionDoneFlag = true
+            } else {
+                //it stil exist other action ,check if it is noHU action
+                boolean existHuFlag = false;
+                otherRecord.each {
+                    if (it.actionArrayString.toString().contains("hu")) {
+                        //
+                        existHuFlag = true;
+                    }
                 }
-            }
-            //it only contain other action user ,no hu action ,it need send no hu action  to  user
+                //it only contain other action user ,no hu action ,it need send no hu action  to  user
 
-            if (!existHuFlag) {
-                def huObj = otherRecord.get(0)
-                if (huObj) {
-                    //it must need to be remove from SQL
-                    sendActionBarToUser(huObj, roomNumber, "1");
+                if (!existHuFlag) {
+                    def huObj = otherRecord.get(0)
+                    if (huObj) {
+                        //it must need to be remove from SQL
+                        sendActionBarToUser(huObj, roomNumber, "1");
+                    }
+
                 }
 
             }
-
         }
 
         return allActionDoneFlag

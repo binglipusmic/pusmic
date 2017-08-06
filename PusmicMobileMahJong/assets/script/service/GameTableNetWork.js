@@ -1487,6 +1487,7 @@ cc.Class({
         o.preStep = preStep;
         o.existUserString = existUserString;
         o.gangFromUserOpenId = gangFromUserOpenId;
+        o.gameStepId= Global.gameStepId;
         o.executeNextStepFlag = "";
         if (needWaitOhterUser == null || needWaitOhterUser == undefined) {
             needWaitOhterUser = "";
