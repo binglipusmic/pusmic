@@ -405,17 +405,20 @@ class WebSokectController {
                 websokectService.privateUserChanelByRoomNumber(messageJsonObj.messageBelongsToPrivateChanleNumber, s)
 
                 //zi mo auto mo pai
+                if (obj.fromUserOpenid) {
+                    if (obj.chuPaiUserOpenId) {
+                        if (obj.fromUserOpenid.toString().equals(obj.chuPaiUserOpenId.toString())) {
 
-                if(obj.fromUserOpenid.toString().equals(obj.chuPaiUserOpenId)) {
+                            MessageDomain newMessageObj = new MessageDomain()
+                            newMessageObj.messageBelongsToPrivateChanleNumber = roomNumber
+                            newMessageObj.messageAction = "serverSendMoPaiAction"
+                            newMessageObj.messageBody = ""
+                            newMessageObj.messageType = "gameAction"
+                            def s2 = new JsonBuilder(newMessageObj).toPrettyString()
 
-                    MessageDomain newMessageObj = new MessageDomain()
-                    newMessageObj.messageBelongsToPrivateChanleNumber = roomNumber
-                    newMessageObj.messageAction = "serverSendMoPaiAction"
-                    newMessageObj.messageBody = ""
-                    newMessageObj.messageType = "gameAction"
-                    def s2 = new JsonBuilder(newMessageObj).toPrettyString()
-
-                    websokectService.privateUserChanelByRoomNumber(newMessageObj.messageBelongsToPrivateChanleNumber, s2)
+                            websokectService.privateUserChanelByRoomNumber(newMessageObj.messageBelongsToPrivateChanleNumber, s2)
+                        }
+                    }
                 }
 
                 //save hupai number into Count of round
