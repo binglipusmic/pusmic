@@ -1179,7 +1179,13 @@ cc.Class({
                         if (endGameFlag == false) {
                             if (userInfo.openid == fromUserOpenId) {
                                 //this.sendMoPaiAction();
+                                //only zimo auto send next pai
+                                if (chuPaiUserOpenId == fromUserOpenId) {
+                                    this.serverSendMoPaiAction();
+                                }
                             }
+                            
+
                         } else {
                             console.log("**sendCheckRoundEnd**");
                             //hu pai action will send to all user
