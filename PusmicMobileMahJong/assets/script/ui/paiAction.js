@@ -206,12 +206,12 @@ cc.Class({
         }
         //only mo pai check the peng list on gang 
         if (type == "mopai") {
-            console.log("209:"+pengList.toString());
+            console.log("209:" + pengList.toString());
             for (var h = 0; h < pengList.length; h++) {
-                console.log("pengList[i]:"+pengList[h]);
+                console.log("pengList[i]:" + pengList[h]);
                 var pengPai = pengList[h] + "";
                 pengPai = pengPai.trim();
-                if (pengPai+"" == paiNumber + "") {
+                if (pengPai + "" == paiNumber + "") {
                     if (actionArray.indexOf("gang") < 0) {
                         actionArray.push("gang");
                         actionLevel = 2;
@@ -224,7 +224,7 @@ cc.Class({
                         if (actionArray.indexOf("gang") < 0) {
                             actionArray.push("gang");
                             actionLevel = 2;
-                            paiNumber=pai;
+                            paiNumber = pai;
                         }
                     }
 
@@ -233,7 +233,7 @@ cc.Class({
                         if (actionArray.indexOf("gang") < 0) {
                             actionArray.push("gang");
                             actionLevel = 2;
-                            paiNumber=pai;
+                            paiNumber = pai;
                         }
                     }
                 }
@@ -258,13 +258,16 @@ cc.Class({
                 var pai = tempList[i] + "";
                 var count = this.countElementAccount(pai, tempList);
                 if (count == 4) {
+                     if (type == "mopai") {
                     if (actionArray.indexOf("gang") < 0) {
                         actionArray.push("gang");
                         actionLevel = 2;
 
-                        this.paiNumber = paiNumber;
+                        this.paiNumber = pai;
+                        paiNumber = pai;
 
                     }
+                     }
 
                 }
 
@@ -317,7 +320,7 @@ cc.Class({
                     if (actionArray.indexOf("gang") < 0) {
                         actionArray.push("gang");
                         actionLevel = 2;
-                         paiNumber=pai;
+                        paiNumber = pai;
                     }
                 }
             }
@@ -706,7 +709,11 @@ cc.Class({
         }
 
         var paiList = user.paiListArray;
+        var pengPaiListInGang = user.pengPaiList;
         //check if it already contain 4 zhang pai in the pai list
+        //only mo pai should check the 4
+
+       
 
         for (var i = 0; i < paiList.length; i++) {
             //var paiArrayCache = []
@@ -715,9 +722,22 @@ cc.Class({
             var count = this.countElementAccount(pai, paiList);
             if (count == 4) {
                 paiNumber = pai;
+                this.preStep = "zigang";
             }
-            this.preStep = "zigang";
+ //we still should check the gang pai already other pai and it exist in the peng pai 
+            if (pengPaiListInGang != null && pengPaiListInGang != undefined) {
+                for (var v = 0; v < pengPaiListInGang.length; v++) {
+                    var pengpai = pengPaiListInGang[v] + "";
+                    pengpai = pengpai.trim();
+                    if(pengpai==pai){
+                        paiNumber=pai;
+                        this.preStep = "gang";
+                    }
+                }
+            }
+
         }
+        
         console.log("gang 647");
         var pointIndex = user.pointIndex;
         var isZiGangFlag = true;
@@ -753,7 +773,8 @@ cc.Class({
         var userList2 = Global.userList;
 
 
-        //check if pa gang only on self  
+        //check if pa gang only on self 
+       
         if (pengList == null || pengList == undefined) {
             pengList = [];
         }
@@ -937,6 +958,8 @@ cc.Class({
         var userOpenId = this.fromUserOpenId;
         var chupaiOpenId = this.chuPaiUserOpenId;
 
+
+        
         var nextUserOpenId = tableNetWorkScript.getNextUserByOpenId(userOpenId);
         //only work on the next user
         if (nextUserOpenId == userInfo.openid) {
@@ -952,6 +975,8 @@ cc.Class({
 
 
         console.log("huAction pai:" + this.paiNumber);
+        tablePaiActionScript.removeLastPaiOnChuPaiListByUserOpenId(this.chuPaiUserOpenId, this.paiNumber);
+
         if (Global.chuPaiActionType == null || Global.chuPaiActionType == undefined) {
             Global.chuPaiActionType = "";
         }
@@ -1035,14 +1060,14 @@ cc.Class({
             this.actionNode.active = false;
             tablePaiActionScript.disableAllSlefPai();
             //remove mopai 
-               console.log("1033:"+chupaiOpenId);
+            console.log("1033:" + chupaiOpenId);
             if (userOpenId == chupaiOpenId) {
                 var tableNode = cc.find("Canvas/tableNode");
                 var userPaiListNode = cc.find("user" + pointIndex + "PaiList", tableNode);
                 var children = userPaiListNode.children;
                 for (var i = 0; i < children.length; i++) {
                     var cNode = children[i];
-                    console.log("1039:"+cNode.name);
+                    console.log("1039:" + cNode.name);
                     if (cNode.name.indexOf("mopai") >= 0) {
                         cNode.removeFromParent();
                     }
@@ -1402,7 +1427,7 @@ cc.Class({
     //             var temp = paiList[i] + "";
     //             temp = temp.trim();
     //             if (temp == paiNumber) {
-                   
+
     //             }
 
     //         }

@@ -72,7 +72,7 @@ cc.Class({
                 winLableNode.string = user.winCount;
 
                 var countLableNode = this.countLableNode.getComponent(cc.Label);
-                if (user.roundTotalScore == null || user.roundTotalScore == undefined || user.roundTotalScore == "") {
+                if (user.roundTotalScore == null || user.roundTotalScore == undefined) {
                     countLableNode.string = "0";
                 } else {
                     countLableNode.string = user.roundTotalScore;

@@ -2518,10 +2518,10 @@ cc.Class({
 
         for (var i = 0; i < userList.length; i++) {
             var user = userList[i];
-            if (user.roundTotalScore == null || user.roundTotalScore == undefined || user.roundTotalScore == "") {
+            if (user.roundTotalScore == null || user.roundTotalScore == undefined ) {
                 user.roundTotalScore = 0;
             }
-            user.roundTotalScore = user.roundTotalScore + user.roundScoreCount
+            user.roundTotalScore = user.roundTotalScore + user.roundScoreCount;
         }
 
         Global.userList = userList;
