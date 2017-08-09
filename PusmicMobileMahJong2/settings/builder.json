@@ -1,0 +1,24 @@
+{
+  "appKey": "",
+  "appSecret": "",
+  "excludeScenes": [],
+  "includeAnySDK": false,
+  "includeSdk": [
+    "anysdk"
+  ],
+  "inlineSpriteFrames": true,
+  "mergeStartScene": false,
+  "oauthLoginServer": "",
+  "orientation": {
+    "landscapeLeft": true,
+    "landscapeRight": true,
+    "portrait": false,
+    "upsideDown": false
+  },
+  "packageName": "com.pusmicgame.mahjong",
+  "privateKey": "",
+  "renderMode": "0",
+  "startScene": "aad6d0f4-e943-4119-81d6-cffe4a757868",
+  "title": "PusmicMobileMahJong",
+  "webOrientation": "auto"
+}
