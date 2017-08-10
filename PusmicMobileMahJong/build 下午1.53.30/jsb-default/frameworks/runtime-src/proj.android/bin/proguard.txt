@@ -1,0 +1,9 @@
+# view AndroidManifest.xml #generated:17
+-keep class com.pusmicgame.mahjong.AppActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:47
+-keep class com.pusmicgame.mahjong.AppRegister { <init>(...); }
+
+# view AndroidManifest.xml #generated:32
+-keep class com.pusmicgame.mahjong.wxapi.WXEntryActivity { <init>(...); }
+
